@@ -1,12 +1,182 @@
 {
- "updated": "2026-10-24T16:28:38Z",
+ "updated": "2026-10-24T17:26:43Z",
  "week": 7,
  "leagues": {
   "Kosmonauts": {
    "name": "Kosmonauts",
    "platform": "yahoo",
-   "pending": true,
-   "message": "Waiting on Yahoo Fantasy API approval (Yahoo blocked unapproved apps in July 2026)."
+   "week": 7,
+   "league": null,
+   "opponent": null,
+   "opp_proj": null,
+   "roster_synced": "2026-10-24T17:25:12Z",
+   "proj": 96.2,
+   "starters": [
+    {
+     "slot": "QB",
+     "name": "Matthew Stafford",
+     "team": "LAR",
+     "pos": "QB",
+     "opp": "@LV",
+     "kickoff": "2026-10-25T20:25:00Z",
+     "started": false,
+     "proj": 20.7,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Chase Brown",
+     "team": "CIN",
+     "pos": "RB",
+     "opp": "@BAL",
+     "kickoff": "2026-10-25T17:00:00Z",
+     "started": false,
+     "proj": 13.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Kendre Miller",
+     "team": "NO",
+     "pos": "RB",
+     "opp": "vs PIT",
+     "kickoff": "2026-10-25T13:30:00Z",
+     "started": false,
+     "proj": 8.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Zay Flowers",
+     "team": "BAL",
+     "pos": "WR",
+     "opp": "vs CIN",
+     "kickoff": "2026-10-25T17:00:00Z",
+     "started": false,
+     "proj": 15.6,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Amon-Ra St. Brown",
+     "team": "DET",
+     "pos": "WR",
+     "opp": "vs GB",
+     "kickoff": "2026-10-25T20:25:00Z",
+     "started": false,
+     "proj": 16.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "TE",
+     "name": "Tyler Higbee",
+     "team": "LAR",
+     "pos": "TE",
+     "opp": "@LV",
+     "kickoff": "2026-10-25T20:25:00Z",
+     "started": false,
+     "proj": 7.8,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "K",
+     "name": "Spencer Shrader",
+     "team": "IND",
+     "pos": "K",
+     "opp": "@MIN",
+     "kickoff": "2026-10-25T17:00:00Z",
+     "started": false,
+     "proj": 9.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "DEF",
+     "name": "Chiefs",
+     "team": "KC",
+     "pos": "DEF",
+     "opp": "@SEA",
+     "kickoff": "2026-10-26T00:20:00Z",
+     "started": false,
+     "proj": 5.5,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Dameon Pierce",
+     "team": "PHI",
+     "pos": "RB",
+     "opp": "vs DAL",
+     "kickoff": "2026-10-27T00:15:00Z",
+     "started": false,
+     "proj": 6.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Tyler Warren",
+     "team": "IND",
+     "pos": "TE",
+     "opp": "@MIN",
+     "kickoff": "2026-10-25T17:00:00Z",
+     "started": false,
+     "proj": 0,
+     "status": "OUT",
+     "why": "Yahoo: Out",
+     "flags": [
+      "OUT"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Bhayshul Tuten",
+     "team": "JAX",
+     "pos": "RB",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Travis Etienne Jr.",
+     "team": "NO",
+     "pos": "RB",
+     "opp": "vs PIT",
+     "kickoff": "2026-10-25T13:30:00Z",
+     "started": false,
+     "proj": 0,
+     "status": "IR",
+     "why": "Yahoo: IR",
+     "flags": [
+      "IR"
+     ]
+    }
+   ]
   },
   "Domo Arigato": {
    "name": "Domo Arigato",
@@ -15,6 +185,7 @@
    "league": "Sunday\u2019s Best",
    "opponent": "Matty ice ice baby ",
    "opp_proj": 136.5,
+   "roster_synced": null,
    "proj": 108.6,
    "starters": [
     {
