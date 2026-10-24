@@ -41,7 +41,8 @@ function lineup(name) {
   if (!lg) return `<div class="card"><p class="note">No data yet.</p></div>`;
   if (lg.pending) return `<div class="card"><h2>${esc(name)}</h2><p class="note"><b>Yahoo access pending.</b><br>${esc(lg.message)}<br><br>This tab fills in automatically once Yahoo approves the app.</p></div>`;
   const stale = lg.stale ? `<p class="note"><b>Showing last good data</b> — latest refresh failed.</p>` : "";
-  const opp = lg.opponent ? `vs ${esc(lg.opponent)}` : "No opponent found";
+  const opp = lg.roster_synced ? `Roster synced ${esc(kick(lg.roster_synced))} (Yahoo API pending)`
+    : lg.opponent ? `vs ${esc(lg.opponent)}` : "No opponent found";
   const oppScore = lg.opp_proj != null ? ` <span class="opp">– ${lg.opp_proj.toFixed(1)}</span>` : "";
   return `<div class="card">${stale}
     <div class="summary"><div><div class="name">${esc(name)} · Wk ${lg.week}</div><div class="vs">${opp}</div></div>

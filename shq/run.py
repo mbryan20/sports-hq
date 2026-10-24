@@ -7,13 +7,17 @@ import sys
 import traceback
 
 from . import notify
-from .common import DATA, ct_label, iso, load_json, now_utc, parse_iso, save_json
+from .common import DATA, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
-from .leagues import Context, SleeperLeague, YahooLeague, view
+from .leagues import Context, SavedYahooLeague, SleeperLeague, YahooLeague, view
 from .notify import push, push_once
 from .status import OUTISH
 from .swap import plan_injury_swaps
 from .yahoo import YahooPending, YahooWriteDenied
+
+
+SAVED_ROSTER = STATE / "kosmonauts_roster.json"   # written by the laptop task (shq.save_roster)
+ROSTER_STALE = dt.timedelta(hours=30)
 
 
 def watch_active(ctx, now):
@@ -57,7 +61,12 @@ def injury_watch(league, now):
             actions.append(f"suggested {out['name']} -> {inn['name']}")
         else:
             fa = league.best_fa(out["positions"], now)
-            tip = f"Best FA: {fa['name']} ({fa['team']}, {fa['proj']} proj) — add/drop manually." if fa else "No playable FA found."
+            if fa:
+                tip = f"Best FA: {fa['name']} ({fa['team']}, {fa['proj']} proj) — add/drop manually."
+            elif getattr(league, "saved", False):
+                tip = "Check Yahoo free agents (FA list needs Yahoo API access)."
+            else:
+                tip = "No playable FA found."
             push_once(key + ":fa", f"{league.name}: no healthy bench {slot}",
                       f"{label(out)} is out and no healthy bench player fits {slot}. {tip} Locks {locks}.",
                       priority=4, tags=["rotating_light"])
@@ -85,7 +94,8 @@ def weekly_section(league):
             + (f" over {who['name']} ({who['status'] if who['status'] in OUTISH else who['proj']})" if who else "")
             for _, fa, who in fa_adds(roster, league.free_agents[:300])]
     if not adds:
-        adds = ["No free agent projects above your current depth."]
+        adds = (["FA adds need Yahoo API access (pending approval)."] if getattr(league, "saved", False)
+                else ["No free agent projects above your current depth."])
     return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
 
 
@@ -108,14 +118,26 @@ def main():
             lg = cls(ctx)
             leagues.append(lg)
             league_views[name] = view(lg)
-            if (prev_views.get(name) or {}).get("pending"):
+            prev = prev_views.get(name) or {}
+            if cls is YahooLeague and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
                           "Yahoo approved the app. The lineup tab and injury watch now cover this league.",
                           tags=["tada"])
         except YahooPending as e:
-            league_views[name] = {"name": name, "platform": "yahoo", "pending": True,
-                                  "message": "Waiting on Yahoo Fantasy API approval (Yahoo blocked unapproved apps in July 2026)."}
-            notes.append(f"{name}: Yahoo pending ({e})")
+            notes.append(f"{name}: Yahoo API pending ({e})")
+            saved = load_json(SAVED_ROSTER)
+            if saved:
+                lg = SavedYahooLeague(ctx, saved)
+                leagues.append(lg)
+                league_views[name] = view(lg)
+                if now - lg.captured > ROSTER_STALE:
+                    push_once(f"roster-stale:{saved['captured']}", f"{name}: roster sync is stale",
+                              f"Last read from Yahoo {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open? "
+                              "Alerts are using that roster.", tags=["warning"])
+                    notes.append(f"{name}: saved roster is stale")
+            else:
+                league_views[name] = {"name": name, "platform": "yahoo", "pending": True,
+                                      "message": "Waiting on Yahoo Fantasy API approval (Yahoo blocked unapproved apps in July 2026)."}
         except Exception as e:
             traceback.print_exc()
             errors.append(f"{name}: {type(e).__name__}: {e}")

@@ -1,8 +1,8 @@
 """Build a uniform view of each league and wire up its platform-specific actions."""
-import datetime as dt
+import re
 
 from . import espn, sleeper
-from .common import iso
+from .common import iso, parse_iso
 from .config import SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
 from .status import worst
 from .yahoo import Yahoo
@@ -25,9 +25,29 @@ class Context:
         self.players = sleeper.players()
         self.espn_inj = espn.injuries()
         self.yahoo_to_sleeper = {str(p["yahoo_id"]): pid for pid, p in self.players.items() if p.get("yahoo_id")}
+        self.by_name = {}
+        for pid, p in self.players.items():
+            if p.get("position") != "DEF":
+                self.by_name.setdefault(name_key(p.get("full_name")), []).append(pid)
+
+    def match(self, name, team, pos):
+        """Sleeper id for a player known only by name/team/position (many Yahoo ids aren't mapped)."""
+        cands = self.by_name.get(name_key(name), [])
+        for want_team in (True, False):
+            for pid in cands:
+                p = self.players[pid]
+                if pos in (p.get("fantasy_positions") or [p.get("position")]) and \
+                        (not want_team or espn.norm_team(p.get("team")) == espn.norm_team(team)):
+                    return pid
+        return None
 
     def kickoffs(self):
         return sorted({g["kickoff"] for g in self.games.values() if g["kickoff"]})
+
+
+def name_key(name):
+    words = re.sub(r"[^a-z ]", "", (name or "").lower().replace("-", " ")).split()
+    return " ".join(w for w in words if w not in ("jr", "sr", "ii", "iii", "iv", "v"))
 
 
 def score(stats, scoring):
@@ -125,6 +145,8 @@ class YahooLeague:
         pid = self.ctx.yahoo_to_sleeper.get(str(yp["yahoo_id"]))
         if yp["pos"] == "DEF":
             pid = espn.norm_team(yp["team"])
+        elif pid is None and hasattr(self.ctx, "match"):
+            pid = self.ctx.match(yp["name"], yp["team"], yp["pos"])
         positions = [p for p in yp["eligible"] if p not in ("BN", "IR", "W/R/T")] or [yp["pos"]]
         return make_player(self.ctx, self.scoring, pid, slot, name=yp["name"], team=yp["team"],
                            positions=positions, native=("Yahoo", yp["status"]), key=yp["key"])
@@ -162,6 +184,29 @@ class YahooLeague:
         return ok
 
 
+class SavedYahooLeague(YahooLeague):
+    """Kosmonauts from the roster the laptop's scheduled task reads off the Yahoo website
+    (state/kosmonauts_roster.json) — used only while Yahoo's API is still gated. Read-only and
+    without a free-agent list, so swaps and FA ideas come as pushes/notes for you to act on."""
+    can_write = False
+    saved = True
+
+    def __init__(self, ctx, saved):
+        self.ctx, self.name, self.week, self.scoring = ctx, YAHOO_LEAGUE_NAME, ctx.week, YAHOO_SCORING
+        self.key, self.captured = "yahoo:saved", parse_iso(saved["captured"])
+        self.opponent, self.opp_proj = saved.get("opponent"), None
+        roster = saved["players"]
+        self.starters = [self._player(p, p["slot"]) for p in roster if p["slot"] not in ("BN", "IR", "IR+")]
+        self.bench = [self._player(p, "BN") for p in roster if p["slot"] == "BN"]
+
+    @property
+    def free_agents(self):
+        return []
+
+    def best_fa(self, positions, now):
+        return None
+
+
 def view(league):
     """JSON for the Lineup tab. Player names and NFL info only — no IDs or tokens."""
     def row(p):
@@ -181,6 +226,7 @@ def view(league):
         "name": league.name, "platform": league.platform, "week": league.week,
         "league": getattr(league, "league_name", None),
         "opponent": league.opponent, "opp_proj": league.opp_proj,
+        "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
         "proj": round(sum(p["proj"] for p in league.starters), 1),
         "starters": [row(p) for p in league.starters], "bench": [row(p) for p in league.bench],
     }
