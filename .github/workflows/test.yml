@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  push:
+    paths: ["shq/**", "tests/**", "requirements.txt", ".github/workflows/test.yml"]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: Push alert on failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: curl -s -H "Title: Sports HQ tests failed" -H "Tags: x" -d "Swap tests failed on ${{ github.sha }}." "https://ntfy.sh/$NTFY_TOPIC"

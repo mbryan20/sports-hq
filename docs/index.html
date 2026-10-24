@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports HQ</title>
+<meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sports HQ">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>Sports HQ</h1>
+    <button id="refresh" class="pill" aria-label="Reload data">—</button>
+  </div>
+  <nav role="tablist">
+    <button role="tab" data-tab="Kosmonauts">Kosmonauts</button>
+    <button role="tab" data-tab="Domo Arigato">Domo Arigato</button>
+    <button role="tab" data-tab="weekly">Weekly</button>
+  </nav>
+</header>
+<main id="main"><p class="muted center">Loading…</p></main>
+<footer id="foot"></footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+name: Yahoo re-auth
+
+# Phone-friendly Yahoo re-authorization (see README): paste the one-time code Yahoo shows you.
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "One-time code from the Yahoo 'Use this code' page"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sports-hq-run
+  cancel-in-progress: false
+
+jobs:
+  reauth:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::add-mask::${{ inputs.code }}"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Exchange code
+        env:
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+          YAHOO_CLIENT_SECRET: ${{ secrets.YAHOO_CLIENT_SECRET }}
+          TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
+          CODE: ${{ inputs.code }}
+        run: python -m shq.yahoo_auth "$CODE"
+      - name: Commit encrypted token
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/yahoo_token.enc
+          git commit -q -m "Yahoo token refreshed"
+          git pull -q --rebase && git push -q
+      - name: Push alert on failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: curl -s -H "Title: Yahoo re-auth failed" -H "Tags: x" -d "Get a fresh code and run it again." "https://ntfy.sh/$NTFY_TOPIC"
