@@ -19,8 +19,8 @@ Sources: Sleeper (rosters, projections, injuries), ESPN (kickoffs, injuries), Ya
 Subscribe to the topic stored in the `NTFY_TOPIC` secret in the ntfy iPhone app (server `ntfy.sh`).
 
 - **Yahoo**: an OUT/IR/inactive starter with a healthy same-position bench player is swapped
-  automatically, read back, and you get "Swapped X → Y". If Yahoo refuses writes, you get the
-  exact swap to make instead.
+  automatically, read back, and you get "Swapped X → Y". Yahoo currently grants read-only access
+  ("write access is not currently available"), so until that changes you get the exact swap to make.
 - **Sleeper** (read-only API): you get the exact swap to make.
 - No healthy bench option → best free-agent suggestion. Nothing is ever added or dropped automatically.
 

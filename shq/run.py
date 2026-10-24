@@ -101,12 +101,17 @@ def main():
     upcoming = [k for k in ctx.kickoffs() if k > now]
     status["next_kickoff"] = iso(upcoming[0]) if upcoming else None
 
+    prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
     league_views = {}
     for name, cls in (("Kosmonauts", YahooLeague), ("Domo Arigato", SleeperLeague)):
         try:
             lg = cls(ctx)
             leagues.append(lg)
             league_views[name] = view(lg)
+            if (prev_views.get(name) or {}).get("pending"):
+                push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
+                          "Yahoo approved the app. The lineup tab and injury watch now cover this league.",
+                          tags=["tada"])
         except YahooPending as e:
             league_views[name] = {"name": name, "platform": "yahoo", "pending": True,
                                   "message": "Waiting on Yahoo Fantasy API approval (Yahoo blocked unapproved apps in July 2026)."}
@@ -114,8 +119,7 @@ def main():
         except Exception as e:
             traceback.print_exc()
             errors.append(f"{name}: {type(e).__name__}: {e}")
-            prev = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {}).get(name)
-            league_views[name] = {**(prev or {"name": name}), "stale": True}
+            league_views[name] = {**(prev_views.get(name) or {"name": name}), "stale": True}
 
     status["watch_active"] = watch_active(ctx, now)
     actions = []
