@@ -92,6 +92,8 @@ def weekly_section(league):
 def main():
     now = now_utc()
     errors, notes, leagues = [], [], []
+    if os.environ.get("TEST_PUSH") == "1":
+        push("Sports HQ test push", f"Alerts are working. Sent from GitHub Actions at {ct_label(now)} CT.", tags=["white_check_mark"])
     status = {"last_run": iso(now), "dry_run": os.environ.get("DRY_RUN") == "1"}
 
     ctx = Context(now)

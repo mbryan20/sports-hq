@@ -25,6 +25,10 @@ on:
         description: "Rebuild the Weekly tab now"
         type: boolean
         default: false
+      test_push:
+        description: "Send a test push"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -61,6 +65,7 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           FORCE_WEEKLY: ${{ inputs.force_weekly && '1' || '0' }}
+          TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
         run: python -m shq.run
       - name: Commit data
         if: always()
