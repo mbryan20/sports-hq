@@ -83,7 +83,8 @@ jobs:
             export FORCE_WEEKLY=0 TEST_PUSH=0
             python -m shq.run --keep-watching || break
             [ $((SECONDS + 660)) -ge $end ] && break
-            sleep $(( 600 - $(date +%s) % 600 + 15 ))
+            # wake at :07/:17/:27… so a pass lands 3 min before kickoffs on :00/:05/:30 marks
+            sleep $(( 600 - ($(date +%s) + 180) % 600 ))
           done
           exit $failed
       - name: Push alert on failure
