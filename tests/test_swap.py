@@ -153,6 +153,15 @@ class SwapDryRun(unittest.TestCase):
         self.assertTrue(run.weekly_due(tue_705, last))
         self.assertFalse(run.weekly_due(tue_705 + dt.timedelta(hours=1), tue_705))
 
+    def test_keep_watching(self):
+        st = {"upcoming_kickoffs": ["2026-10-25T17:00:00Z", "2026-10-26T00:20:00Z"]}
+        at = lambda h, m=0: dt.datetime(2026, 10, 25, h, m, tzinfo=dt.timezone.utc)
+        self.assertTrue(run.keep_watching(st, at(12)))        # window opens 15:00, within 3h
+        self.assertFalse(run.keep_watching(st, at(11, 59)))   # more than 3h out
+        self.assertTrue(run.keep_watching(st, at(16, 50)))    # inside window
+        self.assertTrue(run.keep_watching(st, at(19, 30)))    # SNF window (22:20) within 3h
+        self.assertFalse(run.keep_watching({"upcoming_kickoffs": []}, at(12)))
+
 
 if __name__ == "__main__":
     unittest.main()

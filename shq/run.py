@@ -20,6 +20,18 @@ SAVED_ROSTER = STATE / "kosmonauts_roster.json"   # written by the laptop task (
 ROSTER_STALE = dt.timedelta(hours=30)
 
 
+KEEP_ALIVE_AHEAD = dt.timedelta(hours=3)
+
+
+def keep_watching(status, now):
+    """Should the workflow's loop do another pass in 10 minutes? Yes while a watch window is open
+    or opens within KEEP_ALIVE_AHEAD — GitHub drops many scheduled triggers, so a run that does
+    start carries the whole game-day window instead of trusting the next cron."""
+    lead = dt.timedelta(hours=WATCH_LEAD_HOURS)
+    return any(parse_iso(k) - lead <= now + KEEP_ALIVE_AHEAD and parse_iso(k) > now
+               for k in status.get("upcoming_kickoffs") or [])
+
+
 def watch_active(ctx, now):
     return any(k - dt.timedelta(hours=WATCH_LEAD_HOURS) <= now < k for k in ctx.kickoffs())
 
@@ -110,6 +122,7 @@ def main():
     status["week"] = ctx.week
     upcoming = [k for k in ctx.kickoffs() if k > now]
     status["next_kickoff"] = iso(upcoming[0]) if upcoming else None
+    status["upcoming_kickoffs"] = [iso(k) for k in upcoming]
 
     prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
     league_views = {}
@@ -178,4 +191,6 @@ def main():
 
 
 if __name__ == "__main__":
+    if sys.argv[1:] == ["--keep-watching"]:
+        sys.exit(0 if keep_watching(load_json(DATA / "status.json", {}) or {}, now_utc()) else 1)
     main()

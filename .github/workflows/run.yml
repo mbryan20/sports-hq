@@ -40,7 +40,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 355  # a run keeps looping through game-day windows (see Run step)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -50,13 +50,14 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Cache bucket (6h) for the Sleeper players dump
         id: bucket
-        run: echo "key=$(date -u +%Y%m%d)-$(( $(date -u +%H) / 6 ))" >> "$GITHUB_OUTPUT"
+        run: echo "key=$(date -u +%Y%m%d)-$(( 10#$(date -u +%H) / 6 ))" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         with:
           path: .cache
           key: sleeper-players-${{ steps.bucket.outputs.key }}
           restore-keys: sleeper-players-
-      - name: Run
+      - name: Run (loops every 10 min while a watch window is open or near)
+        id: run
         env:
           YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
           YAHOO_CLIENT_SECRET: ${{ secrets.YAHOO_CLIENT_SECRET }}
@@ -66,20 +67,28 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           FORCE_WEEKLY: ${{ inputs.force_weekly && '1' || '0' }}
           TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
-        run: python -m shq.run
-      - name: Commit data
-        if: always()
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        # GitHub drops many scheduled triggers under load, so one run that starts carries the
+        # whole window: pass, commit, then keep going every 10 min while shq.run says a watch
+        # window is open or opens within 3h, up to ~5h45m (job limit is 6h).
         run: |
-          git config user.name "sports-hq-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p state && git add docs/data state
-          git commit -q -m "data: $(date -u +%FT%TZ)" || echo "nothing to commit"
-          for i in 1 2 3; do git pull -q --rebase -X theirs && git push -q && break; sleep 5; done
+          set +e
+          end=$((SECONDS + 345*60)); failed=0
+          while :; do
+            if ! python -m shq.run; then
+              [ $failed -eq 0 ] && curl -s -H "Title: Sports HQ job failed" -H "Priority: 4" -H "Tags: x"                 -H "Click: $RUN_URL" -d "A Sports HQ pass failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC" >/dev/null
+              failed=1
+            fi
+            bash .github/commit_data.sh || failed=1
+            export FORCE_WEEKLY=0 TEST_PUSH=0
+            python -m shq.run --keep-watching || break
+            [ $((SECONDS + 660)) -ge $end ] && break
+            sleep $(( 600 - $(date +%s) % 600 + 15 ))
+          done
+          exit $failed
       - name: Push alert on failure
-        if: failure()
+        if: failure() && steps.run.outcome != 'failure'
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-          curl -s -H "Title: Sports HQ job failed" -H "Priority: 4" -H "Tags: x" \
-            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            -d "Run ${{ github.run_number }} failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"
+          curl -s -H "Title: Sports HQ job failed" -H "Priority: 4" -H "Tags: x"             -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"             -d "Run ${{ github.run_number }} failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"
