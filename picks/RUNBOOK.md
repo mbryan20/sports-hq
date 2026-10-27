@@ -1,12 +1,12 @@
 # Pool Picks weekly runbook
 
-The scheduled tasks call this file with a STAGE. Work in `C:\Claude\pool-picks`. Python is `py`. The CFBD key is in `.env` (never print it). The ntfy topic is in `.ntfy_topic`.
+The scheduled tasks call this file with a STAGE. Work in `C:\Claude\sports-hq\picks` (Pool Picks is part of Sports HQ). Python is `py`. The CFBD key is in `.env` (never print it). The ntfy topic is in `.ntfy_topic`.
 
-The page is https://mbryan20.github.io/pool-picks/ and is built from `docs/` on `main`.
+The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../docs/picks/` (the Sports HQ repo's `docs/picks/`) on `main`.
 
 ## Hard rules
 - **Read-only on pool sites.** Never submit, save or change picks. Never sign in, sign out or type a password. If a site shows a sign-in page, record "slate not confirmed (signed out)" in the slate file. Send a push saying which site needs Michael to sign in to the Claude desktop app's browser, then continue with what you have.
-- Follow `docs/method/pool-method.md`. Research fresh every run: prior opinions and old research files are not evidence. Use sources published in the last 7 days.
+- Follow `../docs/picks/method/pool-method.md`. Research fresh every run: prior opinions and old research files are not evidence. Use sources published in the last 7 days.
 - Every pick's reason is 12 words or fewer and has a source link. Tiebreakers show one alternate.
 - Survivor: Michael was eliminated in Week 7. Don't make survivor picks.
 - Stay under 1,000 CFBD calls/month. `pp/http.py` caches and caps at 900, so don't bypass it.
@@ -35,7 +35,7 @@ The page is https://mbryan20.github.io/pool-picks/ and is built from `docs/` on 
    - Read `data/cards.json`. Sanity-check every row: no pick on a locked game, reasons ≤ 12 words, links work.
    - Check that any underdog shows its signals. Check that the BTO picks obey the mode rules (count, Big Game, 2× rule, $10 multiples).
 5. **Publish:** `py -m pp.publish --stage <stage>`. This commits, pushes, waits for Pages, then sends the ntfy push.
-6. Open https://mbryan20.github.io/pool-picks/ in the browser and confirm the new timestamp shows.
+6. Open https://mbryan20.github.io/sports-hq/picks/ in the browser and confirm the new timestamp shows.
 
 ### Stage specifics
 - **draft** (Wed 9pm): all pools. Cards are labeled DRAFT.
@@ -61,7 +61,7 @@ Grade last week. Last week = the CFBD week whose games just finished, which is `
      - Include entries on games the card didn't pick, using game keys in the same format.
    - If a site is signed out, skip that pool's entries, say so in the history, and keep going.
 3. **Grade:** `py -m pp.grade --week NN`. This grades the card picks and the entries against final scores, lists every place the entry differs from the card, and writes `data/postmortem/2026-wNN.json` (which marks the week as graded).
-4. **Append** to `docs/history.md` a dated section for the week:
+4. **Append** to `../docs/picks/history.md` a dated section for the week:
    - Each pool's record: card vs entered, plus net for BTO/CFP.
    - Current standings.
    - For each difference between the card and the entry: which call was better and why, judged on the information available before kickoff, not just the result.

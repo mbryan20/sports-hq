@@ -7,8 +7,8 @@ from pathlib import Path
 import requests
 
 ROOT = Path(__file__).resolve().parent.parent
-REPO = "mbryan20/pool-picks"
-PAGE = "https://mbryan20.github.io/pool-picks/"
+REPO = "mbryan20/sports-hq"
+PAGE = "https://mbryan20.github.io/sports-hq/picks/"
 NTFY_FILE = ROOT / ".ntfy_topic"  # local only (gitignored); CI uses the NTFY_TOPIC secret
 
 
@@ -34,15 +34,23 @@ def notify(title, msg, tags="football", priority=3):
     return r.ok
 
 
+def _contains(commit, sha):
+    sh("git", "fetch", "-q", "origin", "main", check=False)
+    return subprocess.run(["git", "merge-base", "--is-ancestor", sha, commit], cwd=ROOT).returncode == 0
+
+
 def wait_pages(sha, timeout=600):
     end = time.time() + timeout
     while time.time() < end:
         try:
             b = json.loads(sh("gh", "api", f"repos/{REPO}/pages/builds/latest"))
-            if b.get("commit") == sha and b.get("status") == "built":
-                return True
-            if b.get("commit") == sha and b.get("status") == "errored":
-                return False
+            # Sports HQ's data jobs push often, so the latest build may be a later commit that
+            # already contains ours.
+            if b.get("commit") and _contains(b["commit"], sha):
+                if b.get("status") == "built":
+                    return True
+                if b.get("status") == "errored" and b["commit"] == sha:
+                    return False
         except subprocess.CalledProcessError:
             pass
         time.sleep(15)
@@ -56,10 +64,10 @@ def main():
     ap.add_argument("--msg")
     ap.add_argument("--no-push-notify", action="store_true")
     a = ap.parse_args()
-    sh("git", "add", "-A")
+    sh("git", "add", "-A", "--", ".", "../docs/picks")  # only Pool Picks files
     if sh("git", "status", "--porcelain"):
         sh("git", "commit", "-m", f"Pool picks: {a.stage} ({time.strftime('%Y-%m-%d %H:%M')})")
-    sh("git", "pull", "--rebase", "origin", "main", check=False)
+    sh("git", "pull", "--rebase", "--autostash", "origin", "main", check=False)
     sh("git", "push", "origin", "main")
     sha = sh("git", "rev-parse", "HEAD")
     built = wait_pages(sha)

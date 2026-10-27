@@ -16,6 +16,7 @@ from .weather import kickoff_weather, total_adjustment
 from . import pools as P
 
 ROOT = Path(__file__).resolve().parent.parent
+DOCS = ROOT.parent / "docs" / "picks"  # served by Sports HQ's GitHub Pages at /picks/
 YEAR = 2026
 CT = timezone(timedelta(hours=-5))  # CDT through Nov 1; cards show "CT"
 ALIASES = {"miami (fl)": "miami", "n. carolina": "north carolina", "sdsu": "san diego state",
@@ -412,7 +413,7 @@ th,td{{border-bottom:1px solid var(--line);padding:4px 2px;vertical-align:top;wo
 th{{font-size:10.5px;color:var(--mut)}}th:nth-child(1){{width:23%}}th:nth-child(2){{width:19%}}th:nth-child(3){{width:12%}}th:nth-child(4){{width:13%}}th:nth-child(5){{width:25%}}th:nth-child(6){{width:8%}}
 tr.chg td{{background:var(--chg);color:var(--red)}}a{{color:var(--acc)}}ul{{padding-left:16px;margin:6px 0}}li{{margin:2px 0}}
 .stage{{display:inline-block;padding:1px 6px;border-radius:4px;background:var(--acc);color:#fff;font-size:11px;font-weight:700}}
-</style></head><body><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
+</style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
 <p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}</p>
 {''.join(body)}
 <section><h2>Model check</h2><ul>{''.join(f'<li>{t}</li>' for t in meta['calibration'])}</ul>
@@ -447,8 +448,8 @@ def main():
             "generated_iso": datetime.now(timezone.utc).isoformat(), "calibration": calib}
     (ROOT / "data").mkdir(exist_ok=True)
     (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards}, indent=1, default=str))
-    (ROOT / "docs").mkdir(exist_ok=True)
-    (ROOT / "docs/index.html").write_text(render(cards, meta), encoding="utf-8")
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / "index.html").write_text(render(cards, meta), encoding="utf-8")
     changed = [f"{c['title']}: {r['pick']}" for c in cards for r in c["rows"] if r.get("changed")]
     print(json.dumps({"stage": stage_label, "week": week, "changed": changed}))
 
