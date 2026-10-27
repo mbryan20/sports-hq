@@ -7,9 +7,11 @@ import sys
 import traceback
 
 from . import notify
-from .common import DATA, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
-from .config import TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
-from .leagues import Context, SavedYahooLeague, SleeperLeague, YahooLeague, view
+from . import espn_fantasy as ef
+from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
+from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
+from .leagues import (Context, EspnLeague, LeagueOver, SavedYahooLeague, SleeperLeague, SnapshotMissing,
+                      YahooLeague, view)
 from .notify import push, push_once
 from .status import OUTISH
 from .swap import plan_injury_swaps
@@ -111,6 +113,36 @@ def weekly_section(league):
     return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
 
 
+def nba_weekly_section(league):
+    """Category leagues have no point projections: plan around games played and health."""
+    live = [p for p in league.starters + league.bench if p["status"] not in OUTISH]
+    games = {p["name"]: league.games_in_matchup(p) for p in live}
+    ss = [f"Bench {p['name']} ({p['status']}) — he can't play" for p in league.starters if p["status"] in OUTISH]
+    few = sorted((g, n) for n, g in games.items() if any(s["name"] == n for s in league.starters))[:2]
+    if few:
+        ss.append("Fewest games left this week: " + ", ".join(f"{n} ({g})" for g, n in few))
+    if not ss:
+        ss = [f"{sum(games.values())} games left this week across your healthy players."]
+    fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
+                 key=lambda t: (-t[0], -t[1]))[:3]
+    adds = [f"Add {p['name']} ({'/'.join(p['positions'][:2])}, {p['team']}): {g} games left, {o}% owned" for g, o, p in fas]
+    return {"name": league.name, "week": league.week, "start_sit": ss[:3],
+            "adds": adds or ["No free agent data in the latest snapshot."]}
+
+
+def job_health(now):
+    """When each laptop job last delivered, from what it committed. The cloud alerts on staleness."""
+    jobs = []
+    roster = load_json(SAVED_ROSTER) or {}
+    jobs.append({"job": "Kosmonauts roster (laptop, daily)", "last": roster.get("captured")})
+    for cfg in ESPN_PRIVATE:
+        snap = ef.load_snapshot(cfg["sport"], cfg["league_id"]) or {}
+        jobs.append({"job": f"{cfg['name']} ESPN snapshot (laptop, daily)", "last": snap.get("captured")})
+    cards = (load_json(ROOT / "picks" / "data" / "cards.json", {}) or {}).get("meta", {})
+    jobs.append({"job": "Picks cards (laptop, Wed–Sat)", "last": cards.get("generated_iso")})
+    return jobs
+
+
 def main():
     now = now_utc()
     errors, notes, leagues = [], [], []
@@ -120,22 +152,34 @@ def main():
 
     ctx = Context(now)
     status["week"] = ctx.week
-    upcoming = [k for k in ctx.kickoffs() if k > now]
-    status["next_kickoff"] = iso(upcoming[0]) if upcoming else None
-    status["upcoming_kickoffs"] = [iso(k) for k in upcoming]
 
     prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
     league_views = {}
-    for name, cls in (("Kosmonauts", YahooLeague), ("Domo Arigato", SleeperLeague)):
+    for cfg in LEAGUES:
+        name = cfg["name"]
         try:
-            lg = cls(ctx)
+            if cfg["platform"] == "yahoo":
+                lg = YahooLeague(ctx)
+            elif cfg["platform"] == "sleeper":
+                lg = SleeperLeague(ctx, name, cfg.get("league_id"), cfg.get("format"))
+            else:
+                lg = EspnLeague(ctx, cfg)
+                if lg.captured and now - lg.captured > ROSTER_STALE:
+                    push_once(f"espn-stale:{name}:{iso(lg.captured)}", f"{name}: ESPN sync is stale",
+                              f"Last read from ESPN {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open?",
+                              tags=["warning"])
+                    notes.append(f"{name}: ESPN snapshot is stale")
             leagues.append(lg)
             league_views[name] = view(lg)
             prev = prev_views.get(name) or {}
-            if cls is YahooLeague and (prev.get("pending") or prev.get("roster_synced")):
+            if cfg["platform"] == "yahoo" and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
                           "Yahoo approved the app. The lineup tab and injury watch now cover this league.",
                           tags=["tada"])
+        except (LeagueOver, SnapshotMissing) as e:
+            notes.append(str(e))
+            league_views[name] = {"name": name, "platform": cfg["platform"], "sport": cfg["sport"],
+                                  "pending": True, "message": str(e).split(": ", 1)[-1]}
         except YahooPending as e:
             notes.append(f"{name}: Yahoo API pending ({e})")
             saved = load_json(SAVED_ROSTER)
@@ -156,7 +200,16 @@ def main():
             errors.append(f"{name}: {type(e).__name__}: {e}")
             league_views[name] = {**(prev_views.get(name) or {"name": name}), "stale": True}
 
-    status["watch_active"] = watch_active(ctx, now)
+    kicks = set(ctx.kickoffs())
+    for lg in leagues:
+        if isinstance(lg, EspnLeague):
+            kicks |= lg.kickoffs()
+    upcoming = sorted(k for k in kicks if k > now)
+    status["next_kickoff"] = iso(upcoming[0]) if upcoming else None
+    status["upcoming_kickoffs"] = [iso(k) for k in upcoming]
+    lead = dt.timedelta(hours=WATCH_LEAD_HOURS)
+    status["watch_active"] = any(k - lead <= now < k for k in kicks)
+    status["jobs"] = job_health(now)
     actions = []
     if status["watch_active"]:
         for lg in leagues:
@@ -174,7 +227,8 @@ def main():
     if weekly_due(now, parse_iso(weekly.get("generated"))) or os.environ.get("FORCE_WEEKLY") == "1":
         try:
             weekly = {"generated": iso(now), "week": ctx.week,
-                      "leagues": [weekly_section(lg) for lg in leagues]}
+                      "leagues": [nba_weekly_section(lg) if getattr(lg, "sport", "nfl") == "nba" else weekly_section(lg)
+                                  for lg in leagues]}
             save_json(DATA / "weekly.json", weekly)
             if os.environ.get("FORCE_WEEKLY") != "1":
                 push(f"Week {ctx.week} plan ready", "Start/sit and FA adds are on the Weekly tab.", priority=2, tags=["clipboard"])

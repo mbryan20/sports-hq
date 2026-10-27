@@ -1,8 +1,8 @@
 "use strict";
 const TZ = "America/Chicago";
-const TABS = ["Kosmonauts", "Domo Arigato", "weekly"];
 let data = { lineups: null, weekly: null, status: null };
-let tab = localGet("tab") || TABS[0];
+let tab = localGet("tab") || "Kosmonauts";
+const tabNames = () => [...Object.keys(data.lineups?.leagues || {}), "weekly"];
 
 function localGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function localSet(k, v) { try { localStorage.setItem(k, v); } catch {} }
@@ -33,20 +33,21 @@ function row(p) {
   return `<div class="row${p.started ? " locked" : ""}">
     <div class="slot">${esc(p.slot === "SUPER_FLEX" ? "SF" : p.slot)}</div>
     <div class="who"><div class="name">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div></div>
-    <div class="proj">${p.proj?.toFixed ? p.proj.toFixed(1) : ""}</div></div>`;
+    <div class="proj">${p.proj ? p.proj.toFixed(1) : ""}</div></div>`;
 }
 
 function lineup(name) {
   const lg = data.lineups?.leagues?.[name];
   if (!lg) return `<div class="card"><p class="note">No data yet.</p></div>`;
-  if (lg.pending) return `<div class="card"><h2>${esc(name)}</h2><p class="note"><b>Yahoo access pending.</b><br>${esc(lg.message)}<br><br>This tab fills in automatically once Yahoo approves the app.</p></div>`;
+  if (lg.pending) return `<div class="card"><h2>${esc(name)}</h2><p class="note">${esc(lg.message)}<br><br>This tab fills in automatically.</p></div>`;
   const stale = lg.stale ? `<p class="note"><b>Showing last good data</b> — latest refresh failed.</p>` : "";
-  const opp = lg.roster_synced ? `Roster synced ${esc(kick(lg.roster_synced))} (Yahoo API pending)`
-    : lg.opponent ? `vs ${esc(lg.opponent)}` : "No opponent found";
+  const src = lg.roster_synced ? ` · roster read ${esc(kick(lg.roster_synced))}` : lg.snapshot ? ` · ESPN read ${esc(kick(lg.snapshot))}` : "";
+  const opp = (lg.format === "guillotine" ? "Survive the week" : lg.opponent ? `vs ${esc(lg.opponent)}` : "No opponent listed") + src;
+  const cats = lg.sport === "nba";
   const oppScore = lg.opp_proj != null ? ` <span class="opp">– ${lg.opp_proj.toFixed(1)}</span>` : "";
   return `<div class="card">${stale}
     <div class="summary"><div><div class="name">${esc(name)} · Wk ${lg.week}</div><div class="vs">${opp}</div></div>
-      <div class="score">${(lg.proj ?? 0).toFixed(1)}${oppScore}</div></div>
+      <div class="score">${cats ? (lg.league || "") : (lg.proj ?? 0).toFixed(1) + oppScore}</div></div>
     <div class="section">Starters</div>${lg.starters.map(row).join("")}
     <div class="section">Bench</div>${lg.bench.length ? lg.bench.map(row).join("") : `<p class="note">Empty</p>`}
   </div>`;
@@ -74,10 +75,23 @@ function footer() {
   if (s.next_kickoff) bits.push(`next kickoff ${kick(s.next_kickoff)}`);
   if (s.watch_active) bits.push("injury watch ON");
   const errs = (s.errors || []).map(e => `<div class="err">${esc(e)}</div>`).join("");
-  return `<div>${bits.join(" · ")}</div>${errs}`;
+  const jobs = (s.jobs || []).map(j => {
+    const age = j.last ? (Date.now() - new Date(j.last)) / 3600000 : null;
+    return `<div class="${age === null || age > 30 ? "stale" : ""}">${esc(j.job)}: ${j.last ? esc(ago(j.last)) : "not yet"}</div>`;
+  }).join("");
+  return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>`;
+}
+
+function renderTabs() {
+  const names = tabNames();
+  if (!names.includes(tab)) tab = names[0];
+  document.getElementById("tabs").innerHTML = names.map(n =>
+    `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n)}</button>`).join("") +
+    `<a class="navlink" href="picks/">Picks</a>`;
 }
 
 function render() {
+  renderTabs();
   document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
   document.getElementById("main").innerHTML = tab === "weekly" ? weekly() : lineup(tab);
   document.getElementById("foot").innerHTML = footer();
@@ -91,10 +105,12 @@ async function load() {
   render();
 }
 
-document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; localSet("tab", tab); render(); }));
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-tab]");
+  if (b) { tab = b.dataset.tab; localSet("tab", tab); render(); }
+});
 document.getElementById("refresh").addEventListener("click", load);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
-if (!TABS.includes(tab)) tab = TABS[0];
 load();
 setInterval(load, 5 * 60 * 1000);
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});

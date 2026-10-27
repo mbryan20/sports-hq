@@ -7,7 +7,7 @@ _MAP = {
     "questionable": "Q", "q": "Q", "day-to-day": "Q",
     "doubtful": "D", "d": "D",
     "out": "OUT", "o": "OUT", "dnr": "OUT",
-    "ir": "IR", "ir-r": "IR", "injured reserve": "IR", "ir-nr": "IR",
+    "ir": "IR", "ir-r": "IR", "injury_reserve": "IR", "day_to_day": "Q", "injured reserve": "IR", "ir-nr": "IR",
     "pup": "PUP", "pup-r": "PUP", "pup-p": "PUP", "physically unable to perform": "PUP",
     "nfi-r": "PUP", "nfi-a": "PUP", "non football injury": "PUP",
     "sus": "SUSP", "susp": "SUSP", "suspension": "SUSP", "suspended": "SUSP",

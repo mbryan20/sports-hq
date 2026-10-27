@@ -43,7 +43,7 @@ def main(path):
     if prev.get("players") == players and fresh_enough:
         print("Roster unchanged; nothing to commit.")
         return
-    git("pull", "-q", "--rebase")
+    git("pull", "-q", "--no-rebase", "--no-edit")
     save_json(SAVED_ROSTER, {"captured": iso(now_utc()), "players": players})
     git("add", str(SAVED_ROSTER.relative_to(ROOT)))
     git("commit", "-q", "-m", "Kosmonauts roster sync from Yahoo website")

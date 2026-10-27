@@ -57,6 +57,11 @@ def find_league(username, team_name, season):
     raise RuntimeError(f"No Sleeper league with team '{team_name}' for {username}")
 
 
+def league_by_id(username, league_id):
+    uid = get_json(f"{BASE}/user/{username}")["user_id"]
+    return get_json(f"{BASE}/league/{league_id}"), uid, get_json(f"{BASE}/league/{league_id}/users")
+
+
 def rosters(league_id):
     return get_json(f"{BASE}/league/{league_id}/rosters")
 

@@ -25,10 +25,11 @@ def games(season, week):
     return by_team
 
 
-def injuries():
+def injuries(league="football/nfl"):
     """{espn_athlete_id: status string} e.g. 'Out', 'Questionable', 'Injured Reserve'."""
     out = {}
-    for team in get_json(f"{SITE}/injuries").get("injuries", []):
+    url = f"https://site.api.espn.com/apis/site/v2/sports/{league}/injuries"
+    for team in get_json(url).get("injuries", []):
         for item in team.get("injuries", []):
             ath = item.get("athlete", {})
             aid = None

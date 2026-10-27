@@ -1,11 +1,15 @@
 """Build a uniform view of each league and wire up its platform-specific actions."""
 import re
 
-from . import espn, sleeper
+from . import espn, espn_fantasy as ef, sleeper
 from .common import iso, parse_iso
-from .config import SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
+from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
 from .status import worst
 from .yahoo import Yahoo
+
+
+class LeagueOver(Exception):
+    """This team is out of the league (e.g. guillotined); skip it quietly."""
 
 
 class Context:
@@ -43,6 +47,20 @@ class Context:
 
     def kickoffs(self):
         return sorted({g["kickoff"] for g in self.games.values() if g["kickoff"]})
+
+    def pro_schedule(self, sport, season):
+        cache = self.__dict__.setdefault("_sched", {})
+        if (sport, season) not in cache:
+            cache[(sport, season)] = ef.pro_schedule(sport, season)
+        return cache[(sport, season)]
+
+    def injuries(self, sport):
+        if sport == "nfl":
+            return self.espn_inj
+        cache = self.__dict__.setdefault("_inj", {})
+        if sport not in cache:
+            cache[sport] = espn.injuries("basketball/nba")
+        return cache[sport]
 
 
 def name_key(name):
@@ -88,13 +106,18 @@ class SleeperLeague:
     platform = "sleeper"
     can_write = False
 
-    def __init__(self, ctx):
-        lg, uid, users = sleeper.find_league(SLEEPER_USERNAME, SLEEPER_TEAM_NAME, SEASON)
-        self.key, self.name, self.week = f"sleeper:{lg['league_id']}", SLEEPER_TEAM_NAME, ctx.week
+    def __init__(self, ctx, name=SLEEPER_TEAM_NAME, league_id=None, fmt=None):
+        if league_id:
+            lg, uid, users = sleeper.league_by_id(SLEEPER_USERNAME, league_id)
+        else:
+            lg, uid, users = sleeper.find_league(SLEEPER_USERNAME, name, SEASON)
+        self.key, self.name, self.week, self.format = f"sleeper:{lg['league_id']}", name, ctx.week, fmt
         self.league_name = lg["name"]
         self.scoring = lg["scoring_settings"]
         rosters = sleeper.rosters(lg["league_id"])
         mine = next(r for r in rosters if r["owner_id"] == uid)
+        if not mine.get("players"):
+            raise LeagueOver(f"{name}: no roster left (eliminated)")
         slots = [s for s in lg["roster_positions"] if s != "BN"]
         starter_ids = list(mine.get("starters") or [])
         held = set(mine.get("reserve") or []) | set(mine.get("taxi") or [])
@@ -207,6 +230,73 @@ class SavedYahooLeague(YahooLeague):
         return None
 
 
+class SnapshotMissing(Exception):
+    """A private ESPN league whose laptop snapshot hasn't been saved yet."""
+
+
+class EspnLeague:
+    """ESPN football/basketball league. Read-only: swaps and adds come as pushes for Michael."""
+    platform = "espn"
+    can_write = False
+
+    def __init__(self, ctx, cfg):
+        sport = self.sport = cfg["sport"]
+        self.ctx, self.cfg, self.name = ctx, cfg, cfg["name"]
+        if cfg.get("private"):
+            data = ef.load_snapshot(sport, cfg["league_id"])
+            if not data:
+                raise SnapshotMissing(f"{self.name}: waiting for the laptop's first ESPN snapshot")
+            self.captured = parse_iso(data["captured"])
+        else:
+            data = ef.fetch_public(sport, cfg["season"], cfg["league_id"], cfg["team_id"])
+            self.captured = None
+        self.data, self.key = data, f"espn:{sport}:{cfg['league_id']}"
+        self.league_name, self.opponent, self.opp_proj = data.get("league_name"), data.get("opponent"), None
+        self.sched = ctx.pro_schedule(sport, data["season"])
+        self.inj = ctx.injuries(sport)
+        self.period = data["scoring_period"]
+        if sport == "nba" and self.captured:  # NBA periods are days; roll a morning snapshot forward
+            self.period += (ctx.now.astimezone(TZ).date() - self.captured.astimezone(TZ).date()).days
+        self.week = data["matchup_period"] if sport == "nba" else ctx.week
+        bench = ef.BENCH[sport]
+        roster = data["roster"]
+        self.starters = [self._player(p) for p in roster if p["slot"] not in bench]
+        self.bench = [self._player(p) for p in roster if p["slot"] == bench[0]]
+        self.free_agents = sorted((self._player(p, "FA") for p in data.get("free_agents") or []),
+                                  key=lambda p: (-p["proj"], -p["owned"]))
+
+    def _player(self, p, slot=None):
+        names, bench = ef.SLOT_NAMES[self.sport], ef.BENCH[self.sport]
+        team = self.sched.get(p.get("pro_team"), {})
+        games = team.get("games", {}).get(self.period, [])
+        kickoff, opp_id, home = games[0] if games else (None, None, None)
+        status, why = worst(("ESPN", p.get("injury")), ("ESPN", self.inj.get(str(p["id"]))))
+        return {
+            "id": f"espn{p['id']}", "key": p["id"], "name": p["name"], "team": team.get("abbrev") or None,
+            "positions": [names[x] for x in p.get("eligible", []) if x in names and x not in bench],
+            "slot": slot or names.get(p["slot"], str(p["slot"])), "status": status, "why": why,
+            "kickoff": kickoff, "started": bool(kickoff) and self.ctx.now >= kickoff,
+            "bye": bool(p.get("pro_team")) and not games,
+            "opp": (("vs " if home else "@") + self.sched.get(opp_id, {}).get("abbrev", "?")) if games else None,
+            "proj": p.get("proj") or 0.0, "owned": p.get("owned", 0), "empty": False,
+        }
+
+    def games_in_matchup(self, p):
+        """Games left this matchup period for the player's team (NBA)."""
+        # ESPN basketball periods are days and matchups run Monday-Sunday, so count today..Sunday.
+        team = next((t for t in self.sched.values() if t["abbrev"] == p["team"]), None)
+        days_left = 6 - self.ctx.now.astimezone(TZ).weekday()
+        return sum(len(team["games"].get(d, [])) for d in range(self.period, self.period + days_left + 1)) if team else 0
+
+    def kickoffs(self):
+        return {p["kickoff"] for p in self.starters + self.bench if p["kickoff"]}
+
+    def best_fa(self, positions, now):
+        from .swap import playable
+        cands = [p for p in self.free_agents if set(p["positions"]) & set(positions) and playable(p, now)]
+        return max(cands, key=lambda p: (p["proj"], p["owned"]), default=None)
+
+
 def view(league):
     """JSON for the Lineup tab. Player names and NFL info only — no IDs or tokens."""
     def row(p):
@@ -214,7 +304,7 @@ def view(league):
         if p.get("empty"):
             flags.append("EMPTY")
         if p["bye"]:
-            flags.append("BYE")
+            flags.append("NO GAME" if getattr(league, "sport", "nfl") == "nba" else "BYE")
         if p["status"]:
             flags.append(p["status"])
         if p["team"] is None and not p.get("empty") and p["slot"] != "DEF":
@@ -224,6 +314,8 @@ def view(league):
                 "status": p["status"], "why": p["why"], "flags": flags}
     return {
         "name": league.name, "platform": league.platform, "week": league.week,
+        "sport": getattr(league, "sport", "nfl"), "format": getattr(league, "format", None),
+        "snapshot": iso(league.captured) if getattr(league, "captured", None) and not getattr(league, "saved", False) else None,
         "league": getattr(league, "league_name", None),
         "opponent": league.opponent, "opp_proj": league.opp_proj,
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
