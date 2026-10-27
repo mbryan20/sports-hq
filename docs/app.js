@@ -87,7 +87,7 @@ function renderTabs() {
   if (!names.includes(tab)) tab = names[0];
   document.getElementById("tabs").innerHTML = names.map(n =>
     `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n)}</button>`).join("") +
-    `<a class="navlink" href="picks/">Picks</a>`;
+    `<a class="navlink" href="picks/">Picks</a><a class="navlink" href="war-room/">War Room</a>`;
 }
 
 function render() {

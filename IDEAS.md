@@ -1,0 +1,26 @@
+# Ideas and open questions
+
+Add anything here (from your phone: github.com → this file → pencil icon). The monthly review reads it,
+ranks it, and proposes what to build next.
+
+## From Michael
+- Baseball leagues (ESPN: 3-Ball dynasty, Hardball) — plan in Feb, before drafts (ops/tasks/baseball-kickoff.md).
+
+## Open decisions
+- **Overlap with the older Claude routines.** A separate set of claude.ai routines (Fantasy football helper with
+  Chrome auto-swaps and Tuesday pickups/guillotine bids, Basketball helper, Guillotine strategy review,
+  Background job runner / Michael's Queue, Laptop watchdog, System health audit) still runs alongside Sports HQ.
+  Sports HQ now covers all 8 teams' lineups, injury alerts and weekly plans; the routines still own *actions*
+  (auto-swaps through Chrome, FAAB bids) and the War Room's strategy model. Decide per routine: keep, fold into
+  Sports HQ, or retire — and turn off duplicate alerts.
+- **Fantasy Command Center artifact** overlaps the Sports HQ tabs (team cards, injuries). Its "Moves to make"
+  list and 3-Ball dynasty assets (draft picks, minors) are not in Sports HQ yet.
+
+## Proposed by Claude (not built yet)
+- Guillotine: show survival odds and FAAB bid guidance on the Guillotine tab (today: link to the War Room copy).
+- One "Today" tab: everything that needs action in the next 24h across all leagues and pools.
+- Basketball category view: per-category strengths vs this week's opponent (ESPN matchup stats).
+- Yahoo FA adds for Kosmonauts once the API is approved (or read FAs from the website in the laptop sync).
+- 3-Ball dynasty assets (picks, minors) from the Google Sheet onto the site.
+
+## Proposed by monthly review
