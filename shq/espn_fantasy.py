@@ -22,7 +22,7 @@ SLOT_NAMES = {
             10: "F/C", 11: "UT", 12: "BN", 13: "IR"},
 }
 BENCH = {"nfl": (20, 21), "nba": (12, 13)}       # BN, IR
-FA_FILTER = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS"]}, "limit": 25,
+FA_FILTER = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS"]}, "limit": 12,
                          "sortPercOwned": {"sortPriority": 1, "sortAsc": False}}}
 
 
@@ -115,7 +115,7 @@ for (const [sport, game, season, lid, tid] of SPECS) {
   const t = raw.teams.find(x => x.id === tid);
   const m = (raw.schedule || []).find(x => x.matchupPeriodId === mp && [x.home && x.home.teamId, x.away && x.away.teamId].includes(tid));
   const oid = m ? (m.home && m.home.teamId === tid ? (m.away || {}).teamId : (m.home || {}).teamId) : null;
-  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: 25, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
+  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: 12, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
   let fa = {players: []};
   try { fa = await (await fetch(base + `?view=kona_player_info&scoringPeriodId=${period}`, {credentials: 'include', headers: {'X-Fantasy-Filter': JSON.stringify(filt)}})).json(); } catch (e) {}
   out.push({captured: now, sport, league_id: lid, season, league_name: s.name, scoring_period: period, matchup_period: mp,
