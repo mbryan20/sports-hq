@@ -1,16 +1,19 @@
 {
- "updated": "2026-10-27T10:24:30Z",
+ "updated": "2026-10-27T16:14:11Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
    "name": "Kosmonauts",
    "platform": "yahoo",
    "week": 8,
+   "sport": "nfl",
+   "format": null,
+   "snapshot": null,
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-10-27T01:14:09Z",
-   "proj": 87.6,
+   "roster_synced": "2026-10-27T14:51:08Z",
+   "proj": 102.7,
    "starters": [
     {
      "slot": "QB",
@@ -40,18 +43,16 @@
     },
     {
      "slot": "RB",
-     "name": "Kendre Miller",
-     "team": "NO",
+     "name": "Bhayshul Tuten",
+     "team": "JAX",
      "pos": "RB",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs IND",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 13.4,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ]
+     "flags": []
     },
     {
      "slot": "WR",
@@ -83,16 +84,18 @@
     },
     {
      "slot": "TE",
-     "name": "Tyler Higbee",
-     "team": "LAR",
+     "name": "Tyler Warren",
+     "team": "IND",
      "pos": "TE",
-     "opp": "vs LAC",
-     "kickoff": "2026-11-01T21:05:00Z",
+     "opp": "@JAX",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 6.8,
-     "status": null,
-     "why": "",
-     "flags": []
+     "proj": 8.4,
+     "status": "OUT",
+     "why": "Sleeper: Out",
+     "flags": [
+      "OUT"
+     ]
     },
     {
      "slot": "K",
@@ -109,13 +112,13 @@
     },
     {
      "slot": "DEF",
-     "name": "Chiefs",
+     "name": "Kansas City",
      "team": "KC",
      "pos": "DEF",
      "opp": "@DEN",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 7.2,
+     "proj": 7.3,
      "status": null,
      "why": "",
      "flags": []
@@ -124,41 +127,41 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Tyler Allgeier",
-     "team": "ARI",
-     "pos": "RB",
-     "opp": "@DAL",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "name": "Tyler Higbee",
+     "team": "LAR",
+     "pos": "TE",
+     "opp": "vs LAC",
+     "kickoff": "2026-11-01T21:05:00Z",
      "started": false,
-     "proj": 6.5,
+     "proj": 6.8,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "BN",
-     "name": "Tyler Warren",
-     "team": "IND",
-     "pos": "TE",
-     "opp": "@JAX",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "name": "Kendre Miller",
+     "team": "NO",
+     "pos": "RB",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 8.4,
-     "status": "OUT",
-     "why": "Yahoo: Out",
+     "proj": 0,
+     "status": null,
+     "why": "",
      "flags": [
-      "OUT"
+      "BYE"
      ]
     },
     {
      "slot": "BN",
-     "name": "Bhayshul Tuten",
-     "team": "JAX",
+     "name": "Tyler Allgeier",
+     "team": "ARI",
      "pos": "RB",
-     "opp": "vs IND",
+     "opp": "@DAL",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.0,
+     "proj": 6.4,
      "status": null,
      "why": "",
      "flags": []
@@ -185,54 +188,55 @@
    "name": "Domo Arigato",
    "platform": "sleeper",
    "week": 8,
+   "sport": "nfl",
+   "format": null,
+   "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Take Mahomes Tonight",
-   "opp_proj": 134.3,
+   "opp_proj": 134.2,
    "roster_synced": null,
-   "proj": 87.9,
+   "proj": 113.1,
    "starters": [
     {
      "slot": "QB",
-     "name": "Tyler Shough",
-     "team": "NO",
+     "name": "Caleb Williams",
+     "team": "CHI",
      "pos": "QB",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@SEA",
+     "kickoff": "2026-11-03T01:15:00Z",
      "started": false,
-     "proj": 0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "BYE"
-     ]
-    },
-    {
-     "slot": "RB",
-     "name": "Rhamondre Stevenson",
-     "team": "NE",
-     "pos": "RB",
-     "opp": "@MIA",
-     "kickoff": "2026-11-01T21:25:00Z",
-     "started": false,
-     "proj": 10.6,
+     "proj": 15.3,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "RB",
-     "name": "Kaelon Black",
-     "team": "SF",
+     "name": "Jeremiyah Love",
+     "team": "ARI",
      "pos": "RB",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@DAL",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 9.4,
+     "status": "OUT",
+     "why": "Sleeper: Out",
+     "flags": [
+      "OUT"
+     ]
+    },
+    {
+     "slot": "RB",
+     "name": "Bhayshul Tuten",
+     "team": "JAX",
+     "pos": "RB",
+     "opp": "vs IND",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 14.1,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ]
+     "flags": []
     },
     {
      "slot": "WR",
@@ -242,7 +246,7 @@
      "opp": "vs LV",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 16.3,
+     "proj": 15.8,
      "status": null,
      "why": "",
      "flags": []
@@ -255,7 +259,7 @@
      "opp": "@GB",
      "kickoff": "2026-10-30T00:15:00Z",
      "started": false,
-     "proj": 14.3,
+     "proj": 14.9,
      "status": null,
      "why": "",
      "flags": []
@@ -268,65 +272,78 @@
      "opp": "vs LV",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.8,
+     "proj": 8.5,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "FLEX",
-     "name": "Tre Tucker",
-     "team": "LV",
+     "name": "Stefon Diggs",
+     "team": "WAS",
      "pos": "WR",
-     "opp": "@NYJ",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "opp": "vs PHI",
+     "kickoff": "2026-11-02T01:20:00Z",
      "started": false,
-     "proj": 9.4,
+     "proj": 11.6,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "SUPER_FLEX",
-     "name": "Caleb Williams",
-     "team": "CHI",
-     "pos": "QB",
-     "opp": "@SEA",
-     "kickoff": "2026-11-03T01:15:00Z",
+     "name": "Rhamondre Stevenson",
+     "team": "NE",
+     "pos": "RB",
+     "opp": "@MIA",
+     "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 15.5,
+     "proj": 10.6,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "K",
-     "name": "Wil Lutz",
-     "team": "DEN",
+     "name": "Jake Elliott",
+     "team": "PHI",
      "pos": "K",
-     "opp": "vs KC",
-     "kickoff": "2026-11-01T21:25:00Z",
+     "opp": "@WAS",
+     "kickoff": "2026-11-02T01:20:00Z",
      "started": false,
-     "proj": 7.1,
+     "proj": 6.7,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "DEF",
-     "name": "Philadelphia Eagles",
-     "team": "PHI",
+     "name": "Detroit Lions",
+     "team": "DET",
      "pos": "DEF",
-     "opp": "@WAS",
-     "kickoff": "2026-11-02T01:20:00Z",
+     "opp": "vs MIN",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 5.9,
+     "proj": 6.2,
      "status": null,
      "why": "",
      "flags": []
     }
    ],
    "bench": [
+    {
+     "slot": "BN",
+     "name": "Tre Tucker",
+     "team": "LV",
+     "pos": "WR",
+     "opp": "@NYJ",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 10.6,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
     {
      "slot": "BN",
      "name": "Chris Rodriguez Jr.",
@@ -385,16 +402,18 @@
     },
     {
      "slot": "BN",
-     "name": "Bhayshul Tuten",
-     "team": "JAX",
-     "pos": "RB",
-     "opp": "vs IND",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "name": "Tyler Shough",
+     "team": "NO",
+     "pos": "QB",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 13.8,
+     "proj": 0,
      "status": null,
      "why": "",
-     "flags": []
+     "flags": [
+      "BYE"
+     ]
     },
     {
      "slot": "BN",
@@ -413,21 +432,6 @@
     },
     {
      "slot": "BN",
-     "name": "Jeremiyah Love",
-     "team": "ARI",
-     "pos": "RB",
-     "opp": "@DAL",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 9.8,
-     "status": "OUT",
-     "why": "Sleeper: Out",
-     "flags": [
-      "OUT"
-     ]
-    },
-    {
-     "slot": "BN",
      "name": "Ja'Kobi Lane",
      "team": "BAL",
      "pos": "WR",
@@ -441,13 +445,28 @@
     },
     {
      "slot": "BN",
-     "name": "Stefon Diggs",
-     "team": "WAS",
-     "pos": "WR",
-     "opp": "vs PHI",
-     "kickoff": "2026-11-02T01:20:00Z",
+     "name": "Kaelon Black",
+     "team": "SF",
+     "pos": "RB",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 11.6,
+     "proj": 0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Wil Lutz",
+     "team": "DEN",
+     "pos": "K",
+     "opp": "vs KC",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 7.1,
      "status": null,
      "why": "",
      "flags": []
@@ -461,19 +480,6 @@
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
      "proj": 4.9,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
-     "name": "Jake Elliott",
-     "team": "PHI",
-     "pos": "K",
-     "opp": "@WAS",
-     "kickoff": "2026-11-02T01:20:00Z",
-     "started": false,
-     "proj": 6.7,
      "status": null,
      "why": "",
      "flags": []
@@ -527,25 +533,819 @@
      "opp": "@NYJ",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 3.5,
+     "proj": 3.7,
      "status": null,
      "why": "",
      "flags": []
     },
     {
      "slot": "BN",
-     "name": "Detroit Lions",
-     "team": "DET",
+     "name": "Philadelphia Eagles",
+     "team": "PHI",
      "pos": "DEF",
-     "opp": "vs MIN",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "opp": "@WAS",
+     "kickoff": "2026-11-02T01:20:00Z",
      "started": false,
-     "proj": 6.2,
+     "proj": 5.9,
      "status": null,
      "why": "",
      "flags": []
     }
    ]
+  },
+  "Guillotine": {
+   "name": "Guillotine",
+   "platform": "sleeper",
+   "week": 8,
+   "sport": "nfl",
+   "format": "guillotine",
+   "snapshot": null,
+   "league": "Damon\u2019s Guilltoine League 2026",
+   "opponent": null,
+   "opp_proj": null,
+   "roster_synced": null,
+   "proj": 102.2,
+   "starters": [
+    {
+     "slot": "QB",
+     "name": "Jordan Love",
+     "team": "GB",
+     "pos": "QB",
+     "opp": "vs CAR",
+     "kickoff": "2026-10-30T00:15:00Z",
+     "started": false,
+     "proj": 20.4,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Chuba Hubbard",
+     "team": "CAR",
+     "pos": "RB",
+     "opp": "@GB",
+     "kickoff": "2026-10-30T00:15:00Z",
+     "started": false,
+     "proj": 15.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Braelon Allen",
+     "team": "NYJ",
+     "pos": "RB",
+     "opp": "vs LV",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 8.6,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Amon-Ra St. Brown",
+     "team": "DET",
+     "pos": "WR",
+     "opp": "vs MIN",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 14.3,
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ]
+    },
+    {
+     "slot": "WR",
+     "name": "Tee Higgins",
+     "team": "CIN",
+     "pos": "WR",
+     "opp": "vs TEN",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 13.5,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Carnell Tate",
+     "team": "TEN",
+     "pos": "WR",
+     "opp": "@CIN",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 11.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "TE",
+     "name": "Dalton Schultz",
+     "team": "HOU",
+     "pos": "TE",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ]
+    },
+    {
+     "slot": "FLEX",
+     "name": "Tre Tucker",
+     "team": "LV",
+     "pos": "WR",
+     "opp": "@NYJ",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 8.9,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "FLEX",
+     "name": "Khalil Shakir",
+     "team": "BUF",
+     "pos": "WR",
+     "opp": "vs BAL",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 7.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "K",
+     "name": "Eddy Pineiro",
+     "team": "SF",
+     "pos": "K",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ]
+    },
+    {
+     "slot": "DEF",
+     "name": "Tennessee Titans",
+     "team": "TEN",
+     "pos": "DEF",
+     "opp": "@CIN",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 3.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Woody Marks",
+     "team": "HOU",
+     "pos": "RB",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0,
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "BYE",
+      "Q"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "J.K. Dobbins",
+     "team": "DEN",
+     "pos": "RB",
+     "opp": "vs KC",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 5.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Breece Hall",
+     "team": "NYJ",
+     "pos": "RB",
+     "opp": "vs LV",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 9.8,
+     "status": "OUT",
+     "why": "Sleeper: Out",
+     "flags": [
+      "OUT"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Zach Charbonnet",
+     "team": "SEA",
+     "pos": "RB",
+     "opp": "vs CHI",
+     "kickoff": "2026-11-03T01:15:00Z",
+     "started": false,
+     "proj": 8.5,
+     "status": "OUT",
+     "why": "Sleeper: Out",
+     "flags": [
+      "OUT"
+     ]
+    }
+   ]
+  },
+  "3-Ball FB": {
+   "name": "3-Ball FB",
+   "platform": "espn",
+   "week": 8,
+   "sport": "nfl",
+   "format": null,
+   "snapshot": null,
+   "league": "3-Ball Dynasty League",
+   "opponent": "Kevin  Love Sosa",
+   "opp_proj": null,
+   "roster_synced": null,
+   "proj": 137.7,
+   "starters": [
+    {
+     "slot": "QB",
+     "name": "Daniel Jones",
+     "team": "IND",
+     "pos": "QB/OP",
+     "opp": "@JAX",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 11.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Parker Washington",
+     "team": "JAX",
+     "pos": "WR/FLEX",
+     "opp": "vs IND",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 16.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "FLEX",
+     "name": "Makai Lemon",
+     "team": "PHI",
+     "pos": "WR/FLEX",
+     "opp": "@WSH",
+     "kickoff": "2026-11-02T01:20:00Z",
+     "started": false,
+     "proj": 6.5,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "OP",
+     "name": "Jayden Daniels",
+     "team": "WSH",
+     "pos": "QB/OP",
+     "opp": "vs PHI",
+     "kickoff": "2026-11-02T01:20:00Z",
+     "started": false,
+     "proj": 22.8,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Kenneth Walker III",
+     "team": "KC",
+     "pos": "RB/FLEX",
+     "opp": "@DEN",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 19.9,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "TE",
+     "name": "Dallas Goedert",
+     "team": "PHI",
+     "pos": "TE/FLEX",
+     "opp": "@WSH",
+     "kickoff": "2026-11-02T01:20:00Z",
+     "started": false,
+     "proj": 10.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "FLEX",
+     "name": "Tre Tucker",
+     "team": "LV",
+     "pos": "WR/FLEX",
+     "opp": "@NYJ",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 10.8,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Denzel Boston",
+     "team": "CLE",
+     "pos": "WR/FLEX",
+     "opp": "@PIT",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 11.4,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "WR",
+     "name": "Christian Watson",
+     "team": "GB",
+     "pos": "WR/FLEX",
+     "opp": "vs CAR",
+     "kickoff": "2026-10-30T00:15:00Z",
+     "started": false,
+     "proj": 14.5,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "RB",
+     "name": "Ollie Gordon II",
+     "team": "MIA",
+     "pos": "RB/FLEX",
+     "opp": "vs NE",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 14.4,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Jake Ferguson",
+     "team": "DAL",
+     "pos": "TE/FLEX",
+     "opp": "vs ARI",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 5.5,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Fernando Mendoza",
+     "team": "LV",
+     "pos": "QB/OP",
+     "opp": "@NYJ",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Tyler Shough",
+     "team": "NO",
+     "pos": "QB/OP",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Kenyon Sadiq",
+     "team": "NYJ",
+     "pos": "TE/FLEX",
+     "opp": "vs LV",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 4.9,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Christian McCaffrey",
+     "team": "SF",
+     "pos": "RB/FLEX",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "BYE",
+      "Q"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Cam Skattebo",
+     "team": "NYG",
+     "pos": "RB/FLEX",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "BYE",
+      "Q"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "J.K. Dobbins",
+     "team": "DEN",
+     "pos": "RB/FLEX",
+     "opp": "vs KC",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 6.4,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Rico Dowdle",
+     "team": "PIT",
+     "pos": "RB/FLEX",
+     "opp": "vs CLE",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 9.3,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Xavier Worthy",
+     "team": "KC",
+     "pos": "WR/FLEX",
+     "opp": "@DEN",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 8.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Kaytron Allen",
+     "team": "MIA",
+     "pos": "RB/FLEX",
+     "opp": "vs NE",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ]
+  },
+  "Stempak": {
+   "name": "Stempak",
+   "platform": "espn",
+   "sport": "nfl",
+   "pending": true,
+   "message": "waiting for the laptop's first ESPN snapshot"
+  },
+  "Bro-vid19": {
+   "name": "Bro-vid19",
+   "platform": "espn",
+   "sport": "nfl",
+   "pending": true,
+   "message": "waiting for the laptop's first ESPN snapshot"
+  },
+  "3-Ball BB": {
+   "name": "3-Ball BB",
+   "platform": "espn",
+   "week": 2,
+   "sport": "nba",
+   "format": null,
+   "snapshot": null,
+   "league": "3-Ball Dynasty League",
+   "opponent": "Deep in the  MUFF",
+   "opp_proj": null,
+   "roster_synced": null,
+   "proj": 0.0,
+   "starters": [
+    {
+     "slot": "SF",
+     "name": "Mikal Bridges",
+     "team": "NY",
+     "pos": "SG/SF",
+     "opp": "vs DET",
+     "kickoff": "2026-10-28T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "UT",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "PG",
+     "name": "Shai Gilgeous-Alexander",
+     "team": "OKC",
+     "pos": "PG/G",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "G",
+     "name": "Josh Giddey",
+     "team": "CHI",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "F",
+     "name": "Franz Wagner",
+     "team": "ORL",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "C",
+     "name": "Walker Kessler",
+     "team": "LAL",
+     "pos": "C/PF/C",
+     "opp": "vs POR",
+     "kickoff": "2026-10-28T03:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "PF",
+     "name": "Jonathan Kuminga",
+     "team": "MIN",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "SG",
+     "name": "De'Aaron Fox",
+     "team": "SA",
+     "pos": "PG/SG",
+     "opp": "vs SAC",
+     "kickoff": "2026-10-28T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "UT",
+     "name": "Khaman Maluach",
+     "team": "PHX",
+     "pos": "C/PF/C",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "UT",
+     "name": "Day'Ron Sharpe",
+     "team": "BKN",
+     "pos": "C/PF/C",
+     "opp": "@BOS",
+     "kickoff": "2026-10-27T23:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Saddiq Bey",
+     "team": "NO",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Jalen Suggs",
+     "team": "ORL",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "OUT",
+     "why": "ESPN: OUT",
+     "flags": [
+      "NO GAME",
+      "OUT"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Kevin Porter Jr.",
+     "team": "FA",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Kingston Flemings",
+     "team": "ATL",
+     "pos": "SG/G",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Matas Buzelis",
+     "team": "CHI",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Ayo Dosunmu",
+     "team": "MIN",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Jarrett Allen",
+     "team": "CLE",
+     "pos": "C/PF/C",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    }
+   ]
+  },
+  "Ball is Life": {
+   "name": "Ball is Life",
+   "platform": "espn",
+   "sport": "nba",
+   "pending": true,
+   "message": "waiting for the laptop's first ESPN snapshot"
   }
  }
 }
