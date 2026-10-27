@@ -1,0 +1,53 @@
+# Backup for the laptop's scheduled Claude runs: if a slot passes with no fresh card,
+# build a model-only card from the committed slate + research and push it.
+name: backup-cards
+on:
+  schedule:
+    - cron: "45 3 * * 4"   # Wed 9pm CT slot (draft)
+    - cron: "45 2 * * 5"   # Thu 8pm CT slot (BTO final)
+    - cron: "45 3 * * 6"   # Fri 9pm CT slot (final)
+    - cron: "45 14 * * 6"  # Sat 8am CT slot (refresh)
+  workflow_dispatch:
+    inputs:
+      stage: {description: "draft|final|refresh", required: true, default: draft}
+permissions:
+  contents: write
+concurrency: cards
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install numpy requests
+      - name: Decide stage and whether the laptop already posted
+        id: s
+        run: |
+          case "${{ github.event.schedule }}" in
+            "45 3 * * 4") st=draft;; "45 2 * * 5") st=final;; "45 3 * * 6") st=final;; "45 14 * * 6") st=refresh;;
+            *) st="${{ github.event.inputs.stage }}";;
+          esac
+          fresh=$(python -c "import json,datetime as d;m=json.load(open('data/cards.json'))['meta'];t=d.datetime.fromisoformat(m.get('generated_iso','2000-01-01T00:00:00+00:00'));print(int((d.datetime.now(d.timezone.utc)-t).total_seconds()<3*3600))")
+          echo "stage=$st" >> $GITHUB_OUTPUT; echo "fresh=$fresh" >> $GITHUB_OUTPUT
+      - name: Build backup card
+        if: steps.s.outputs.fresh == '0' || github.event_name == 'workflow_dispatch'
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+          BACKUP: "1"
+        run: python -m pp.cards --stage ${{ steps.s.outputs.stage }}
+      - name: Commit, push, notify
+        if: steps.s.outputs.fresh == '0' || github.event_name == 'workflow_dispatch'
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          git config user.name "pool-picks-bot"; git config user.email "actions@users.noreply.github.com"
+          git add -A && git commit -m "Backup card: ${{ steps.s.outputs.stage }}" && git push
+          sleep 90
+          curl -s -H "Title: Pool Picks BACKUP card posted" -H "Tags: warning" -H "Click: https://mbryan20.github.io/pool-picks/" \
+            -d "Laptop run missed; model-only card (no fresh injury research)." "https://ntfy.sh/$NTFY_TOPIC"
+      - name: Notify on failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: curl -s -H "Title: Pool Picks backup failed" -H "Tags: x" -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "Backup card build failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"

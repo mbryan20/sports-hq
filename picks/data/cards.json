@@ -1,0 +1,387 @@
+{
+ "meta": {
+  "stage": "draft",
+  "stage_label": "DRAFT",
+  "week_label": "Week of Oct 29 - Nov 2, 2026 (Yahoo Week 10, NFL Week 8)",
+  "generated": "Mon Oct 26, 09:36 AM CT",
+  "generated_iso": "2026-10-26T14:36:35.529992+00:00",
+  "calibration": [
+   "Backtest 2026 wks 1-8 (444 games): picks rated 60-70% hit 64%, 70-80% hit 71%, 80-90% hit 83%, 90%+ hit 86%.",
+   "Straight-up: model 70% vs market 75%; model trails early weeks, near market by wks 6-8."
+  ]
+ },
+ "cards": [
+  {
+   "id": "yahoo",
+   "title": "Yahoo pick'em (Kosmos, 14)",
+   "deadline": "Each game locks at kickoff; first Fri 6:30pm CT",
+   "rows": [
+    {
+     "game": "Baylor @ UCF",
+     "kick": "Fri 10/30 6:30 PM",
+     "pick": "UCF",
+     "model": 0.6343,
+     "market": 0.5162337662337663,
+     "wager": "",
+     "why": "Stats 63%, stronger than market 52%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856844",
+     "key": "Baylor@UCF",
+     "pick_team": "UCF",
+     "changed": false
+    },
+    {
+     "game": "Boston Coll. @ Duke",
+     "kick": "Sat 10/31 11:00 AM",
+     "pick": "Duke",
+     "model": 0.777,
+     "market": 0.7271596040647463,
+     "wager": "",
+     "why": "Stats 78% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858279",
+     "key": "Boston Coll.@Duke",
+     "pick_team": "Duke",
+     "changed": false
+    },
+    {
+     "game": "Illinois @ Maryland",
+     "kick": "Sat 10/31 11:00 AM",
+     "pick": "Illinois",
+     "model": 0.5283,
+     "market": 0.5580430331739232,
+     "wager": "",
+     "why": "Illinois: True freshman backup; won first start vs Oregon",
+     "source": "https://sports.yahoo.com/articles/duck-gets-qb-call-illini-174000025.html",
+     "key": "Illinois@Maryland",
+     "pick_team": "Illinois",
+     "changed": false
+    },
+    {
+     "game": "Wisconsin @ Iowa",
+     "kick": "Sat 10/31 11:00 AM",
+     "pick": "Iowa",
+     "model": 0.7425,
+     "market": 0.6077653202909663,
+     "wager": "TB1 13-23",
+     "why": "Stats 74%, stronger than market 61%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858502",
+     "key": "Wisconsin@Iowa",
+     "pick_team": "Iowa",
+     "changed": false
+    },
+    {
+     "game": "Arizona @ Texas Tech",
+     "kick": "Sat 10/31 11:00 AM",
+     "pick": "Texas Tech",
+     "model": 0.6287,
+     "market": 0.6151729210180337,
+     "wager": "",
+     "why": "Stats 63% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856842",
+     "key": "Arizona@Texas Tech",
+     "pick_team": "Texas Tech",
+     "changed": false
+    },
+    {
+     "game": "Notre Dame @ Navy",
+     "kick": "Sat 10/31 11:00 AM",
+     "pick": "Notre Dame",
+     "model": 0.9489,
+     "market": 0.9538784067085954,
+     "wager": "",
+     "why": "Stats 95% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401859185",
+     "key": "Notre Dame@Navy",
+     "pick_team": "Notre Dame",
+     "changed": false
+    },
+    {
+     "game": "Michigan @ Rutgers",
+     "kick": "Sat 10/31 11:30 AM",
+     "pick": "Michigan",
+     "model": 0.7384999999999999,
+     "market": 0.8244623103782166,
+     "wager": "",
+     "why": "Rutgers: Exited first quarter Oct 24; no update; Surace backup",
+     "source": "https://www.espn.com/college-football/story/_/id/50267749/rutgers-qb-dylan-lonergan-exits-apparent-head-injury",
+     "key": "Michigan@Rutgers",
+     "pick_team": "Michigan",
+     "changed": false
+    },
+    {
+     "game": "Connecticut @ Air Force",
+     "kick": "Sat 10/31 2:00 PM",
+     "pick": "Air Force",
+     "model": 0.5423,
+     "market": 0.5770543073942005,
+     "wager": "",
+     "why": "Stats 54% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401861966",
+     "key": "Connecticut@Air Force",
+     "pick_team": "Air Force",
+     "changed": false
+    },
+    {
+     "game": "Minnesota @ Indiana",
+     "kick": "Sat 10/31 2:30 PM",
+     "pick": "Indiana",
+     "model": 0.9275,
+     "market": 0.8916970787575049,
+     "wager": "",
+     "why": "Indiana: Threw once in second half vs Michigan",
+     "source": "https://sports.yahoo.com/articles/why-curt-cignetti-stuck-injured-214508828.html",
+     "key": "Minnesota@Indiana",
+     "pick_team": "Indiana",
+     "changed": false
+    },
+    {
+     "game": "Northwestern @ Oregon",
+     "kick": "Sat 10/31 2:30 PM",
+     "pick": "Oregon",
+     "model": 0.7017,
+     "market": 0.6116356610887788,
+     "wager": "",
+     "why": "Oregon: Experienced backup Dylan Raiola starting in his place",
+     "source": "https://sports.yahoo.com/articles/dante-moores-oregon-return-gets-203943633.html",
+     "key": "Northwestern@Oregon",
+     "pick_team": "Oregon",
+     "changed": false
+    },
+    {
+     "game": "Florida @ Georgia",
+     "kick": "Sat 10/31 2:30 PM",
+     "pick": "Georgia",
+     "model": 0.8154,
+     "market": 0.7838706779522644,
+     "wager": "",
+     "why": "Florida: Tramell Jones Jr. likely starts again; beat Texas",
+     "source": "https://hailfloridahail.com/florida-opens-double-digit-underdog-vs-georgia-but-has-momentum-on-its-side",
+     "key": "Florida@Georgia",
+     "pick_team": "Georgia",
+     "changed": false
+    },
+    {
+     "game": "Kansas @ TCU",
+     "kick": "Sat 10/31 2:30 PM",
+     "pick": "TCU",
+     "model": 0.6468,
+     "market": 0.654089725773859,
+     "wager": "",
+     "why": "Stats 65% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856845",
+     "key": "Kansas@TCU",
+     "pick_team": "TCU",
+     "changed": false
+    },
+    {
+     "game": "Virginia @ Wake Forest",
+     "kick": "Sat 10/31 2:45 PM",
+     "pick": "Wake Forest",
+     "model": 0.8116,
+     "market": 0.8268566456759388,
+     "wager": "",
+     "why": "Virginia: Two offensive starters out; Wake status unclear",
+     "source": "https://www.si.com/college/virginia/football/deshazo-cavaliers-can-t-seem-to-finish-what-they-start-01m5smk648yr",
+     "key": "Virginia@Wake Forest",
+     "pick_team": "Wake Forest",
+     "changed": false
+    },
+    {
+     "game": "Utah @ Cincinnati",
+     "kick": "Sat 10/31 2:45 PM",
+     "pick": "Utah",
+     "model": 0.7565999999999999,
+     "market": 0.6898408859714785,
+     "wager": "",
+     "why": "Stats 76% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856848",
+     "key": "Utah@Cincinnati",
+     "pick_team": "Utah",
+     "changed": false
+    },
+    {
+     "game": "New Mexico @ San Jose St.",
+     "kick": "Sat 10/31 3:00 PM",
+     "pick": "New Mexico",
+     "model": 0.8087,
+     "market": 0.8356481040299064,
+     "wager": "",
+     "why": "Stats 81% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401864529",
+     "key": "New Mexico@San Jose St.",
+     "pick_team": "New Mexico",
+     "changed": false
+    },
+    {
+     "game": "Clemson @ Florida St.",
+     "kick": "Sat 10/31 6:00 PM",
+     "pick": "Florida St.",
+     "model": 0.7594,
+     "market": 0.6605616751935336,
+     "wager": "",
+     "why": "Stats 76%, stronger than market 66%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858280",
+     "key": "Clemson@Florida St.",
+     "pick_team": "Florida St.",
+     "changed": false
+    },
+    {
+     "game": "Oklahoma St. @ Iowa St.",
+     "kick": "Sat 10/31 6:00 PM",
+     "pick": "Oklahoma St.",
+     "model": 0.5268999999999999,
+     "market": 0.7576758409785933,
+     "wager": "",
+     "why": "Stats 53% vs market 76%; favorite kept",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856847",
+     "key": "Oklahoma St.@Iowa St.",
+     "pick_team": "Oklahoma St.",
+     "changed": false
+    },
+    {
+     "game": "Washington St. @ SDSU",
+     "kick": "Sat 10/31 6:00 PM",
+     "pick": "SDSU",
+     "model": 0.5022,
+     "market": 0.5656365237448291,
+     "wager": "",
+     "why": "San Diego State: Starter hurt Oct 24; redshirt freshman backup",
+     "source": "https://sports.yahoo.com/articles/san-diego-state-makes-quarterback-231056170.html",
+     "key": "Washington St.@SDSU",
+     "pick_team": "SDSU",
+     "changed": false
+    },
+    {
+     "game": "Miami (FL) @ N. Carolina",
+     "kick": "Sat 10/31 6:30 PM",
+     "pick": "Miami (FL)",
+     "model": 0.8308,
+     "market": 0.8356481040299064,
+     "wager": "",
+     "why": "Stats 83% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858282",
+     "key": "Miami (FL)@N. Carolina",
+     "pick_team": "Miami (FL)",
+     "changed": false
+    },
+    {
+     "game": "Georgia Tech @ Pittsburgh",
+     "kick": "Sat 10/31 6:30 PM",
+     "pick": "Pittsburgh",
+     "model": 0.8695,
+     "market": 0.7231085949562532,
+     "wager": "",
+     "why": "Stats 87%, stronger than market 72%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858281",
+     "key": "Georgia Tech@Pittsburgh",
+     "pick_team": "Pittsburgh",
+     "changed": false
+    },
+    {
+     "game": "Ohio St. @ USC",
+     "kick": "Sat 10/31 6:30 PM",
+     "pick": "Ohio St.",
+     "model": 0.6218,
+     "market": 0.6979660133138218,
+     "wager": "TB1 31-24",
+     "why": "Ohio State: Starter out; freshman Fahey or St. Clair unproven",
+     "source": "https://www.clickorlando.com/sports/2026/10/21/ohio-state-qb-julian-sayin-out-indefinitely-after-injuring-throwing-arm/",
+     "key": "Ohio St.@USC",
+     "pick_team": "Ohio St.",
+     "changed": false
+    },
+    {
+     "game": "Mississippi St. @ Texas",
+     "kick": "Sat 10/31 6:30 PM",
+     "pick": "Texas",
+     "model": 0.8074,
+     "market": 0.8994290375203915,
+     "wager": "",
+     "why": "Mississippi State: Left Oklahoma game early; backups Puckett/Swann weak",
+     "source": "https://www.orangebloods.com/2026/10/25/texas-longhorns-mississippi-state-football/",
+     "key": "Mississippi St.@Texas",
+     "pick_team": "Texas",
+     "changed": false
+    },
+    {
+     "game": "Washington @ Nebraska",
+     "kick": "Sat 10/31 7:00 PM",
+     "pick": "Nebraska",
+     "model": 0.7729,
+     "market": 0.7372069667061747,
+     "wager": "",
+     "why": "Stats 77% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858504",
+     "key": "Washington@Nebraska",
+     "pick_team": "Nebraska",
+     "changed": false
+    },
+    {
+     "game": "Army @ Memphis",
+     "kick": "Sat 10/31 7:00 PM",
+     "pick": "Memphis",
+     "model": 0.6498,
+     "market": 0.687606022052587,
+     "wager": "",
+     "why": "Stats 65% agrees with market",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401862814",
+     "key": "Army@Memphis",
+     "pick_team": "Memphis",
+     "changed": false
+    },
+    {
+     "game": "Oregon St. @ Fresno St.",
+     "kick": "Sat 10/31 10:00 PM",
+     "pick": "Oregon St.",
+     "model": 0.5437000000000001,
+     "market": 0.6714467036051649,
+     "wager": "",
+     "why": "Stats 54% vs market 67%; favorite kept",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401860924",
+     "key": "Oregon St.@Fresno St.",
+     "pick_team": "Oregon St.",
+     "changed": false
+    }
+   ],
+   "tiebreakers": [
+    "TB1 Ohio St. @ USC: <b>Ohio St. 31, USC 24</b> (alt Ohio St. 31, USC 27)",
+    "TB1 Wisconsin @ Iowa: <b>Wisconsin 13, Iowa 23</b> (alt Wisconsin 12, Iowa 23)",
+    "TB2 most points: <b>Notre Dame</b> (18%), alt Georgia (8%)",
+    "TB2 fewest points: <b>Minnesota</b> (21%), alt Wisconsin (14%)",
+    "TB2 locks Fri, Oct 30 6:25 pm CDT"
+   ],
+   "notes": [
+    "Underdogs: 0. Pool sim (10k): P(win week) 10.6% vs 10.6% all favorites; 0 dogs passed the 4-pt / 2-signal rule.",
+    "Group: you 120 pts, rank 4, leader 126."
+   ]
+  },
+  {
+   "id": "bto",
+   "title": "BTO Beat the Odds",
+   "deadline": "Due Fri 8:00pm CT (games lock at kickoff)",
+   "status": "Week 9 slate not posted yet (checked Mon 10/26).",
+   "rows": [],
+   "notes": [
+    "Balance $2,820 (Balance after Week 7; Week 8 still being scored), #18 of 49; mode Three Bet: exactly 3 bets incl. Big Game, 50%+ of balance, 4 line points.",
+    "Playoff line (12th) $3,200; leader $7,800."
+   ]
+  },
+  {
+   "id": "cfp",
+   "title": "CFP 2026 points pool",
+   "deadline": "Locks Sat 11:00am CT",
+   "status": "No week open yet (checked Mon 10/26); commissioner posts spreads by Tuesday.",
+   "rows": [],
+   "notes": [
+    "Balance 11,904 (#29); leader 105,000. Must wager 50-100%.",
+    "Rebuy window: a bust before 11am Nov 7 can be reset to 10,000 for $25 (your call)."
+   ]
+  },
+  {
+   "id": "survivor",
+   "title": "Guhy NFL survivor",
+   "deadline": "",
+   "status": "Eliminated in Week 7 (NYJ). No picks needed.",
+   "rows": []
+  }
+ ]
+}
