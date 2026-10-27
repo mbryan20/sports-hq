@@ -1,0 +1,586 @@
+{
+ "captured": "2026-10-27T16:10:36.611Z",
+ "sport": "nfl",
+ "league_id": 1912619648,
+ "season": 2026,
+ "league_name": "Stempak Family and Friends 2026",
+ "scoring_period": 8,
+ "matchup_period": 8,
+ "matchup_scoring_periods": [
+  8
+ ],
+ "scoring_type": "H2H_POINTS",
+ "slot_counts": {
+  "0": 2,
+  "2": 2,
+  "4": 2,
+  "6": 1,
+  "16": 1,
+  "17": 1,
+  "20": 7,
+  "21": 2,
+  "23": 2
+ },
+ "team": {
+  "id": 8,
+  "name": "Going Concern"
+ },
+ "opponent": "Robert's Rowdy Team",
+ "roster": [
+  {
+   "id": 3918298,
+   "name": "Josh Allen",
+   "pro_team": 2,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 27.1,
+   "owned": 99.8,
+   "slot": 20
+  },
+  {
+   "id": 4374302,
+   "name": "Amon-Ra St. Brown",
+   "pro_team": 8,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "QUESTIONABLE",
+   "proj": 17.8,
+   "owned": 99.9,
+   "slot": 4
+  },
+  {
+   "id": 4379399,
+   "name": "James Cook III",
+   "pro_team": 2,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 19.2,
+   "owned": 99.7,
+   "slot": 20
+  },
+  {
+   "id": 4362238,
+   "name": "Chase Brown",
+   "pro_team": 4,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 16.9,
+   "owned": 98.7,
+   "slot": 2
+  },
+  {
+   "id": 4431611,
+   "name": "Caleb Williams",
+   "pro_team": 3,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 17.6,
+   "owned": 89.1,
+   "slot": 0
+  },
+  {
+   "id": 4429615,
+   "name": "Zay Flowers",
+   "pro_team": 33,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 20.1,
+   "owned": 99,
+   "slot": 4
+  },
+  {
+   "id": 4361579,
+   "name": "Javonte Williams",
+   "pro_team": 6,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 20.3,
+   "owned": 99.3,
+   "slot": 23
+  },
+  {
+   "id": 4035538,
+   "name": "David Montgomery",
+   "pro_team": 34,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "QUESTIONABLE",
+   "proj": 0,
+   "owned": 82.2,
+   "slot": 21
+  },
+  {
+   "id": 4372016,
+   "name": "Jaylen Waddle",
+   "pro_team": 7,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "QUESTIONABLE",
+   "proj": 10.7,
+   "owned": 89.7,
+   "slot": 20
+  },
+  {
+   "id": 4569173,
+   "name": "Rhamondre Stevenson",
+   "pro_team": 17,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 13.3,
+   "owned": 91.7,
+   "slot": 2
+  },
+  {
+   "id": 4248528,
+   "name": "Christian Watson",
+   "pro_team": 9,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 14.5,
+   "owned": 96.8,
+   "slot": 23
+  },
+  {
+   "id": 4710714,
+   "name": "De'Zhaun Stribling",
+   "pro_team": 25,
+   "eligible": [
+    25,
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 20.6,
+   "slot": 21
+  },
+  {
+   "id": 4385690,
+   "name": "Dalton Kincaid",
+   "pro_team": 2,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 8.9,
+   "owned": 77.7,
+   "slot": 20
+  },
+  {
+   "id": 3929645,
+   "name": "Juwan Johnson",
+   "pro_team": 18,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 68.9,
+   "slot": 6
+  },
+  {
+   "id": 4432577,
+   "name": "C.J. Stroud",
+   "pro_team": 34,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 78.4,
+   "slot": 0
+  },
+  {
+   "id": 4688813,
+   "name": "Josh Downs",
+   "pro_team": 11,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 8.4,
+   "owned": 67,
+   "slot": 20
+  },
+  {
+   "id": 4711533,
+   "name": "Ollie Gordon II",
+   "pro_team": 15,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 14.7,
+   "owned": 80.5,
+   "slot": 20
+  },
+  {
+   "id": 4429023,
+   "name": "MarShawn Lloyd",
+   "pro_team": 9,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 4.9,
+   "owned": 44.3,
+   "slot": 20
+  },
+  {
+   "id": 2473037,
+   "name": "Jason Myers",
+   "pro_team": 26,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 9.7,
+   "owned": 87.8,
+   "slot": 17
+  },
+  {
+   "id": -16034,
+   "name": "Texans D/ST",
+   "pro_team": 34,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 0,
+   "owned": 90.8,
+   "slot": 16
+  }
+ ],
+ "free_agents": [
+  {
+   "id": 16800,
+   "name": "Davante Adams",
+   "pro_team": 14,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 92.3
+  },
+  {
+   "id": -16026,
+   "name": "Seahawks D/ST",
+   "pro_team": 26,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.8,
+   "owned": 91.9
+  },
+  {
+   "id": 4696981,
+   "name": "Cam Skattebo",
+   "pro_team": 19,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "QUESTIONABLE",
+   "proj": 0,
+   "owned": 91.5
+  },
+  {
+   "id": 4360248,
+   "name": "Kyle Pitts Sr.",
+   "pro_team": 1,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 10.3,
+   "owned": 81.6
+  },
+  {
+   "id": 4683062,
+   "name": "Xavier Worthy",
+   "pro_team": 12,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 8.2,
+   "owned": 79.6
+  },
+  {
+   "id": 4432710,
+   "name": "TreVeyon Henderson",
+   "pro_team": 17,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 6.6,
+   "owned": 76.1
+  },
+  {
+   "id": 4429096,
+   "name": "Blake Corum",
+   "pro_team": 14,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 11.6,
+   "owned": 74.1
+  },
+  {
+   "id": -16014,
+   "name": "Rams D/ST",
+   "pro_team": 14,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 7.6,
+   "owned": 71.9
+  },
+  {
+   "id": 3116365,
+   "name": "Mark Andrews",
+   "pro_team": 33,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 9.6,
+   "owned": 68.2
+  },
+  {
+   "id": 3128429,
+   "name": "Courtland Sutton",
+   "pro_team": 7,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 8.8,
+   "owned": 65.1
+  },
+  {
+   "id": 3054850,
+   "name": "Alvin Kamara",
+   "pro_team": 18,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 61.5
+  },
+  {
+   "id": 4034949,
+   "name": "Eddy Pineiro",
+   "pro_team": 25,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 61.4
+  }
+ ]
+}

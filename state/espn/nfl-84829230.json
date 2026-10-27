@@ -1,0 +1,522 @@
+{
+ "captured": "2026-10-27T16:10:36.611Z",
+ "sport": "nfl",
+ "league_id": 84829230,
+ "season": 2026,
+ "league_name": "Bro-vid19",
+ "scoring_period": 8,
+ "matchup_period": 8,
+ "matchup_scoring_periods": [
+  8
+ ],
+ "scoring_type": "H2H_POINTS",
+ "slot_counts": {
+  "0": 1,
+  "2": 2,
+  "4": 3,
+  "6": 1,
+  "16": 1,
+  "17": 1,
+  "20": 6,
+  "21": 2,
+  "23": 1
+ },
+ "team": {
+  "id": 9,
+  "name": "Abeona (support boat)"
+ },
+ "opponent": "Party Puka",
+ "roster": [
+  {
+   "id": 4362628,
+   "name": "Ja'Marr Chase",
+   "pro_team": 4,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 21.7,
+   "owned": 99.9,
+   "slot": 4
+  },
+  {
+   "id": 4258173,
+   "name": "Nico Collins",
+   "pro_team": 34,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 99.3,
+   "slot": 20
+  },
+  {
+   "id": 4426502,
+   "name": "Drake London",
+   "pro_team": 1,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 18.1,
+   "owned": 99.6,
+   "slot": 4
+  },
+  {
+   "id": 4569618,
+   "name": "Garrett Wilson",
+   "pro_team": 20,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 14,
+   "owned": 98.7,
+   "slot": 4
+  },
+  {
+   "id": 4035538,
+   "name": "David Montgomery",
+   "pro_team": 34,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "QUESTIONABLE",
+   "proj": 0,
+   "owned": 82.2,
+   "slot": 21
+  },
+  {
+   "id": 4569987,
+   "name": "Jaylen Warren",
+   "pro_team": 23,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 15.9,
+   "owned": 96.1,
+   "slot": 2
+  },
+  {
+   "id": 3915511,
+   "name": "Joe Burrow",
+   "pro_team": 4,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 22.1,
+   "owned": 98.1,
+   "slot": 0
+  },
+  {
+   "id": 15847,
+   "name": "Travis Kelce",
+   "pro_team": 12,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 9.3,
+   "owned": 93.2,
+   "slot": 6
+  },
+  {
+   "id": 4360569,
+   "name": "Jordan Mason",
+   "pro_team": 16,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 9.5,
+   "owned": 65.8,
+   "slot": 2
+  },
+  {
+   "id": 3042519,
+   "name": "Aaron Jones Sr.",
+   "pro_team": 16,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "QUESTIONABLE",
+   "proj": 10.5,
+   "owned": 92.8,
+   "slot": 20
+  },
+  {
+   "id": 4870653,
+   "name": "KC Concepcion",
+   "pro_team": 5,
+   "eligible": [
+    25,
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 10.2,
+   "owned": 43,
+   "slot": 23
+  },
+  {
+   "id": 4032473,
+   "name": "Rashid Shaheed",
+   "pro_team": 26,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "QUESTIONABLE",
+   "proj": 8.2,
+   "owned": 28.7,
+   "slot": 20
+  },
+  {
+   "id": 3929645,
+   "name": "Juwan Johnson",
+   "pro_team": 18,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 68.9,
+   "slot": 20
+  },
+  {
+   "id": 4685720,
+   "name": "Bryce Young",
+   "pro_team": 29,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 16.9,
+   "owned": 85.9,
+   "slot": 20
+  },
+  {
+   "id": 4430539,
+   "name": "Brenton Strange",
+   "pro_team": 30,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 9.8,
+   "owned": 36,
+   "slot": 20
+  },
+  {
+   "id": -16020,
+   "name": "Jets D/ST",
+   "pro_team": 20,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.2,
+   "owned": 67.4,
+   "slot": 16
+  },
+  {
+   "id": 17372,
+   "name": "Chris Boswell",
+   "pro_team": 23,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 10.4,
+   "owned": 69.1,
+   "slot": 17
+  }
+ ],
+ "free_agents": [
+  {
+   "id": 4036133,
+   "name": "T.J. Hockenson",
+   "pro_team": 16,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 11.2,
+   "owned": 63.9
+  },
+  {
+   "id": 4034949,
+   "name": "Eddy Pineiro",
+   "pro_team": 25,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 61.4
+  },
+  {
+   "id": -16017,
+   "name": "Patriots D/ST",
+   "pro_team": 17,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.8,
+   "owned": 59.7
+  },
+  {
+   "id": 4686361,
+   "name": "Cam Little",
+   "pro_team": 30,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 9.1,
+   "owned": 59.2
+  },
+  {
+   "id": 4373678,
+   "name": "Khalil Shakir",
+   "pro_team": 2,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 9.4,
+   "owned": 57.7
+  },
+  {
+   "id": -16025,
+   "name": "49ers D/ST",
+   "pro_team": 25,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 0,
+   "owned": 55.1
+  },
+  {
+   "id": 4242355,
+   "name": "Jake Ferguson",
+   "pro_team": 6,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 5.5,
+   "owned": 53.4
+  },
+  {
+   "id": 3121422,
+   "name": "Terry McLaurin",
+   "pro_team": 28,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "OUT",
+   "proj": 0,
+   "owned": 51
+  },
+  {
+   "id": 4362081,
+   "name": "Cameron Dicker",
+   "pro_team": 24,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 7.3,
+   "owned": 45.9
+  },
+  {
+   "id": 4429023,
+   "name": "MarShawn Lloyd",
+   "pro_team": 9,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 4.9,
+   "owned": 44.3
+  },
+  {
+   "id": -16021,
+   "name": "Eagles D/ST",
+   "pro_team": 21,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 3.7,
+   "owned": 40.8
+  },
+  {
+   "id": 4038941,
+   "name": "Justin Herbert",
+   "pro_team": 24,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 10.9,
+   "owned": 38.4
+  }
+ ]
+}
