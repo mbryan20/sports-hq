@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T21:47:00Z",
+ "updated": "2026-10-28T21:57:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -198,7 +198,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "Domo Arigato": {
@@ -396,11 +396,9 @@
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
      "proj": 4.1,
-     "status": "Q",
-     "why": "Sleeper: Questionable",
-     "flags": [
-      "Q"
-     ]
+     "status": null,
+     "why": "",
+     "flags": []
     },
     {
      "slot": "BN",
@@ -641,7 +639,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "Guillotine": {
@@ -941,7 +939,7 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Wed 4:47p",
+    "built": "Wed 4:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1528,7 +1526,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "Stempak": {
@@ -1537,13 +1535,26 @@
    "week": 8,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-10-27T21:04:11Z",
+   "snapshot": "2026-10-28T21:34:59Z",
    "league": "Stempak Family and Friends 2026",
    "opponent": "Robert's Rowdy Team",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 130.2,
+   "proj": 177.9,
    "starters": [
+    {
+     "slot": "QB",
+     "name": "Josh Allen",
+     "team": "BUF",
+     "pos": "QB/OP",
+     "opp": "vs BAL",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 27.1,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
     {
      "slot": "WR",
      "name": "Amon-Ra St. Brown",
@@ -1558,6 +1569,19 @@
      "flags": [
       "Q"
      ]
+    },
+    {
+     "slot": "RB",
+     "name": "James Cook III",
+     "team": "BUF",
+     "pos": "RB/FLEX",
+     "opp": "vs BAL",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 19.2,
+     "status": null,
+     "why": "",
+     "flags": []
     },
     {
      "slot": "RB",
@@ -1612,19 +1636,6 @@
      "flags": []
     },
     {
-     "slot": "RB",
-     "name": "Rhamondre Stevenson",
-     "team": "NE",
-     "pos": "RB/FLEX",
-     "opp": "@MIA",
-     "kickoff": "2026-11-01T21:25:00Z",
-     "started": false,
-     "proj": 13.3,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
      "slot": "FLEX",
      "name": "Christian Watson",
      "team": "GB",
@@ -1639,32 +1650,17 @@
     },
     {
      "slot": "TE",
-     "name": "Juwan Johnson",
-     "team": "NO",
+     "name": "Dalton Kincaid",
+     "team": "BUF",
      "pos": "TE/FLEX",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs BAL",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
+     "proj": 8.9,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
      "flags": [
-      "BYE"
-     ]
-    },
-    {
-     "slot": "QB",
-     "name": "C.J. Stroud",
-     "team": "HOU",
-     "pos": "QB/OP",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "BYE"
+      "Q"
      ]
     },
     {
@@ -1682,47 +1678,19 @@
     },
     {
      "slot": "D/ST",
-     "name": "Texans D/ST",
-     "team": "HOU",
+     "name": "Patriots D/ST",
+     "team": "NE",
      "pos": "D/ST",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@MIA",
+     "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 0.0,
+     "proj": 5.8,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ]
+     "flags": []
     }
    ],
    "bench": [
-    {
-     "slot": "BN",
-     "name": "Josh Allen",
-     "team": "BUF",
-     "pos": "QB/OP",
-     "opp": "vs BAL",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 27.1,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
-     "name": "James Cook III",
-     "team": "BUF",
-     "pos": "RB/FLEX",
-     "opp": "vs BAL",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 19.2,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
     {
      "slot": "BN",
      "name": "Jaylen Waddle",
@@ -1740,17 +1708,45 @@
     },
     {
      "slot": "BN",
-     "name": "Dalton Kincaid",
-     "team": "BUF",
-     "pos": "TE/FLEX",
-     "opp": "vs BAL",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "name": "Rhamondre Stevenson",
+     "team": "NE",
+     "pos": "RB/FLEX",
+     "opp": "@MIA",
+     "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 8.9,
-     "status": "Q",
-     "why": "ESPN: Questionable",
+     "proj": 13.3,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Juwan Johnson",
+     "team": "NO",
+     "pos": "TE/FLEX",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
      "flags": [
-      "Q"
+      "BYE"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "C.J. Stroud",
+     "team": "HOU",
+     "pos": "QB/OP",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
      ]
     },
     {
@@ -1794,26 +1790,43 @@
     }
    ],
    "advice": {
-    "matchup": "130.2 projected vs Robert's Rowdy Team",
+    "matchup": "177.9 projected vs Robert's Rowdy Team",
     "danger": false,
-    "fixes": [
-     "Juwan Johnson (TE) on BYE \u2192 no bench fit; best FA Blake Corum (LAR)",
-     "C.J. Stroud (QB) on BYE \u2192 start Josh Allen (27.1 proj)",
-     "Texans D/ST (D/ST) on BYE \u2192 no bench fit; best FA Rams D/ST (LAR)"
-    ],
-    "moves": [
-     "Start James Cook III (19.2) over Rhamondre Stevenson (13.3) at RB, +5.9"
-    ],
+    "fixes": [],
+    "moves": [],
     "adds": [
-     "Add Blake Corum (RB, LAR, 6.8/gm ROS, value 910), drop MarShawn Lloyd (4.9/gm)",
-     "Add Rams D/ST (D/ST, LAR, 7.6 proj this week), drop Texans D/ST (0.0 proj)"
+     "Add Sam Darnold (QB, SEA, 1.8/gm ROS, value 1,807), drop C.J. Stroud (1.8/gm)",
+     "Add Rico Dowdle (RB, PIT, 4.9/gm ROS, value 451), drop MarShawn Lloyd (3.4/gm)",
+     "Add Kyle Pitts Sr. (TE, ATL, 0.0/gm ROS, value 1,111), drop Juwan Johnson (0.0/gm)"
     ],
-    "trades": null,
-    "notes": [
-     "(roster as of the laptop read Tue 4:04p; check it's still current)"
-    ],
+    "trades": {
+     "lines": [
+      "Surplus: C.J. Stroud (QB), 1.8/gm on your bench, would start for 4 of 7 teams",
+      "Trade deadline: Dec 2."
+     ],
+     "offers": [
+      {
+       "team": "Cleveland Corgis",
+       "give": [
+        "James Cook III (RB)",
+        "Rhamondre Stevenson (RB)"
+       ],
+       "get": [
+        "Jonathan Taylor (RB)"
+       ],
+       "give_value": 7571,
+       "get_value": 6942,
+       "my_gain": 1.5,
+       "their_gain": 3.9,
+       "cut": false,
+       "why": "Jonathan Taylor starts for you; James Cook III and Rhamondre Stevenson start for them over A.J. Brown (0.0/gm)"
+      }
+     ],
+     "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
+    },
+    "notes": [],
     "cats": null,
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "Bro-vid19": {
@@ -1822,12 +1835,12 @@
    "week": 8,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-10-27T21:04:11Z",
+   "snapshot": "2026-10-28T21:34:59Z",
    "league": "Bro-vid19",
    "opponent": "Party Puka",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 136.4,
+   "proj": 138.4,
    "starters": [
     {
      "slot": "WR",
@@ -1837,9 +1850,9 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 21.7,
+     "proj": 21.5,
      "status": "Q",
-     "why": "ESPN: Questionable",
+     "why": "ESPN: QUESTIONABLE",
      "flags": [
       "Q"
      ]
@@ -1936,19 +1949,6 @@
      "flags": []
     },
     {
-     "slot": "D/ST",
-     "name": "Jets D/ST",
-     "team": "NYJ",
-     "pos": "D/ST",
-     "opp": "vs LV",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 5.2,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
      "slot": "K",
      "name": "Chris Boswell",
      "team": "PIT",
@@ -1957,6 +1957,19 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 10.4,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "D/ST",
+     "name": "Jaguars D/ST",
+     "team": "JAX",
+     "pos": "D/ST",
+     "opp": "vs IND",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 7.4,
      "status": null,
      "why": "",
      "flags": []
@@ -2051,19 +2064,77 @@
     }
    ],
    "advice": {
-    "matchup": "136.4 projected vs Party Puka",
+    "matchup": "138.4 projected vs Party Puka",
     "danger": false,
     "fixes": [],
     "moves": [
      "Start Aaron Jones Sr. (10.5) over Jordan Mason (9.5) at RB, +1.0"
     ],
     "adds": [
-     "Add Khalil Shakir (WR, BUF, 7.2/gm ROS, value 288), drop Rashid Shaheed (5.6/gm)"
+     "No free agent beats your bench on rest-of-season value."
     ],
-    "trades": null,
+    "trades": {
+     "lines": [
+      "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 10th of 12)",
+      "Surplus: Brenton Strange (TE), 10.9/gm on your bench, would start for 10 of 11 teams",
+      "Surplus: Juwan Johnson (TE), 10.7/gm on your bench, would start for 8 of 11 teams",
+      "Trade deadline: Dec 2."
+     ],
+     "offers": [
+      {
+       "team": "Inglorious Staffords",
+       "give": [
+        "Ja'Marr Chase (WR)",
+        "Aaron Jones Sr. (RB)"
+       ],
+       "get": [
+        "Kenneth Walker III (RB)"
+       ],
+       "give_value": 9192,
+       "get_value": 9472,
+       "my_gain": 3.7,
+       "their_gain": 1.6,
+       "cut": false,
+       "why": "Kenneth Walker III starts for you; Ja'Marr Chase and Aaron Jones Sr. start for them over Savion Williams (5.6/gm)"
+      },
+      {
+       "team": "Inglorious Staffords",
+       "give": [
+        "Garrett Wilson (WR)",
+        "Juwan Johnson (TE)"
+       ],
+       "get": [
+        "Bucky Irving (RB)"
+       ],
+       "give_value": 3993,
+       "get_value": 4217,
+       "my_gain": 2.3,
+       "their_gain": 3.0,
+       "cut": false,
+       "why": "Bucky Irving starts for you; Garrett Wilson and Juwan Johnson start for them over Savion Williams (5.6/gm)"
+      },
+      {
+       "team": "Daaaaaarrrrrrrnnnnn Tuten!",
+       "give": [
+        "Joe Burrow (QB)",
+        "Brenton Strange (TE)"
+       ],
+       "get": [
+        "Bhayshul Tuten (RB)"
+       ],
+       "give_value": 3433,
+       "get_value": 3743,
+       "my_gain": 2.1,
+       "their_gain": 1.6,
+       "cut": false,
+       "why": "Bhayshul Tuten starts for you; Joe Burrow and Brenton Strange start for them over C.J. Stroud (15.6/gm)"
+      }
+     ],
+     "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
+    },
     "notes": [],
     "cats": null,
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "3-Ball BB": {
@@ -2400,7 +2471,7 @@
       "For 3PM: Grayson Allen (PG/SG, CHA), 3 games left, 2.7/g"
      ]
     },
-    "built": "Wed 4:47p"
+    "built": "Wed 4:57p"
    }
   },
   "Ball is Life": {
@@ -2409,13 +2480,26 @@
    "week": 2,
    "sport": "nba",
    "format": null,
-   "snapshot": "2026-10-27T21:04:11Z",
+   "snapshot": "2026-10-28T21:34:59Z",
    "league": "We playin basketball",
    "opponent": "Maxey Pads",
    "opp_proj": null,
    "roster_synced": null,
    "proj": 0.0,
    "starters": [
+    {
+     "slot": "PF",
+     "name": "Giannis Antetokounmpo",
+     "team": "MIA",
+     "pos": "PF/C",
+     "opp": "@ATL",
+     "kickoff": "2026-10-28T23:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
     {
      "slot": "PG",
      "name": "LaMelo Ball",
@@ -2456,7 +2540,33 @@
      "flags": []
     },
     {
-     "slot": "F",
+     "slot": "UT",
+     "name": "Darius Garland",
+     "team": "LAC",
+     "pos": "PG/G",
+     "opp": "vs LAL",
+     "kickoff": "2026-10-29T02:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "SF",
+     "name": "Jaden McDaniels",
+     "team": "MIN",
+     "pos": "SF/PF",
+     "opp": "vs GS",
+     "kickoff": "2026-10-29T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "C",
      "name": "John Collins",
      "team": "DET",
      "pos": "PF/C",
@@ -2469,7 +2579,7 @@
      "flags": []
     },
     {
-     "slot": "SF",
+     "slot": "F",
      "name": "Quentin Grimes",
      "team": "LAL",
      "pos": "SG/SF",
@@ -2483,6 +2593,23 @@
     },
     {
      "slot": "UT",
+     "name": "Ajay Mitchell",
+     "team": "OKC",
+     "pos": "PG/SG",
+     "opp": "@DAL",
+     "kickoff": "2026-10-29T01:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: DAY_TO_DAY",
+     "flags": [
+      "Q"
+     ]
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
      "name": "Draymond Green",
      "team": "GS",
      "pos": "PF/C",
@@ -2495,7 +2622,7 @@
      "flags": []
     },
     {
-     "slot": "C",
+     "slot": "BN",
      "name": "Day'Ron Sharpe",
      "team": "BKN",
      "pos": "C/PF/C",
@@ -2510,68 +2637,12 @@
      ]
     },
     {
-     "slot": "PF",
+     "slot": "BN",
      "name": "Peyton Watson",
      "team": "CLE",
      "pos": "SF/PF",
      "opp": "vs WSH",
      "kickoff": "2026-10-28T23:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "UT",
-     "name": "Robert Williams III",
-     "team": "POR",
-     "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    }
-   ],
-   "bench": [
-    {
-     "slot": "BN",
-     "name": "Giannis Antetokounmpo",
-     "team": "MIA",
-     "pos": "PF/C",
-     "opp": "@ATL",
-     "kickoff": "2026-10-28T23:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
-     "name": "Darius Garland",
-     "team": "LAC",
-     "pos": "PG/G",
-     "opp": "vs LAL",
-     "kickoff": "2026-10-29T02:30:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
-     "name": "Jaden McDaniels",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": "vs GS",
-     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
@@ -2593,40 +2664,113 @@
     },
     {
      "slot": "BN",
-     "name": "Ajay Mitchell",
-     "team": "OKC",
-     "pos": "PG/SG",
-     "opp": "@DAL",
-     "kickoff": "2026-10-29T01:30:00Z",
+     "name": "Robert Williams III",
+     "team": "POR",
+     "pos": "C/PF/C",
+     "opp": null,
+     "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: Day-To-Day",
+     "status": null,
+     "why": "",
      "flags": [
-      "Q"
+      "NO GAME"
      ]
     }
    ],
    "advice": {
     "matchup": "vs Maxey Pads",
     "danger": false,
-    "fixes": [
-     "Day'Ron Sharpe (C) no game today \u2192 start Giannis Antetokounmpo",
-     "Robert Williams III (UT) no game today \u2192 start Darius Garland"
-    ],
+    "fixes": [],
     "moves": [],
     "adds": [
-     "Nikola Vucevic (C, ORL): 3 games left this week, 44.2% owned",
-     "Jeremiah Fears (PG/SG, NO): 3 games left this week, 36.4% owned",
-     "Collin Sexton (PG/SG, LAL): 3 games left this week, 27% owned"
+     "Nikola Vucevic (C, ORL): 3 games left this week, 43.2% owned",
+     "Jeremiah Fears (PG/SG, NO): 3 games left this week, 35.5% owned",
+     "Collin Sexton (PG/SG, LAL): 3 games left this week, 26.1% owned"
     ],
     "trades": null,
     "notes": [
-     "7 of 9 starters play tonight",
-     "(roster as of the laptop read Tue 4:04p; check it's still current)"
+     "Ajay Mitchell (UT) is Questionable, plays Wed 8:30p",
+     "8 of 9 starters play tonight"
     ],
-    "cats": null,
-    "built": "Wed 4:47p"
+    "cats": {
+     "rows": [
+      {
+       "cat": "FT%",
+       "me": ".737",
+       "opp": ".806",
+       "now": "L",
+       "outlook": "lose"
+      },
+      {
+       "cat": "REB",
+       "me": "71",
+       "opp": "63",
+       "now": "W",
+       "outlook": "close"
+      },
+      {
+       "cat": "PTS",
+       "me": "166",
+       "opp": "181",
+       "now": "L",
+       "outlook": "close"
+      },
+      {
+       "cat": "BLK",
+       "me": "11",
+       "opp": "7",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "3PM",
+       "me": "12",
+       "opp": "12",
+       "now": "T",
+       "outlook": "win"
+      },
+      {
+       "cat": "STL",
+       "me": "8",
+       "opp": "12",
+       "now": "L",
+       "outlook": "close"
+      },
+      {
+       "cat": "AST",
+       "me": "49",
+       "opp": "42",
+       "now": "W",
+       "outlook": "close"
+      },
+      {
+       "cat": "FG%",
+       "me": ".516",
+       "opp": ".440",
+       "now": "W",
+       "outlook": "win"
+      }
+     ],
+     "now": "4-3-1",
+     "proj": "3-1",
+     "close": 4,
+     "games_left": [
+      32,
+      30
+     ],
+     "chase": [
+      "PTS is close. Keep in the lineup: Austin Reaves (3 games, 25.4/g) and LaMelo Ball (3 games, 23.9/g).",
+      "STL is close. Keep in the lineup: LaMelo Ball (3 games, 1.4/g) and Dyson Daniels (2 games, 2.0/g).",
+      "AST is close. Keep in the lineup: LaMelo Ball (3 games, 8.3/g) and Darius Garland (3 games, 7.4/g)."
+     ],
+     "adds": [
+      "For PTS: Collin Sexton (PG/SG, LAL), 3 games left, 17.3/g",
+      "For STL: Matisse Thybulle (SF, LAL), 3 games left, 1.9/g",
+      "For AST: Isaiah Collier (PG, UTAH), 2 games left, 6.2/g"
+     ]
+    },
+    "built": "Wed 4:57p"
    }
   }
  }
