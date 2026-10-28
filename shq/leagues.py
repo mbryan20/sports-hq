@@ -119,6 +119,8 @@ class SleeperLeague:
         if not mine.get("players"):
             raise LeagueOver(f"{name}: no roster left (eliminated)")
         slots = [s for s in lg["roster_positions"] if s != "BN"]
+        # kept for the guillotine model (shq/guillotine.py), which needs every team's roster
+        self.rosters, self.users, self.roster_slots, self.my_roster_id = rosters, users, slots, mine["roster_id"]
         starter_ids = list(mine.get("starters") or [])
         held = set(mine.get("reserve") or []) | set(mine.get("taxi") or [])
         mp = lambda pid, slot: make_player(ctx, self.scoring, pid if pid not in (None, "0") else None, slot)
@@ -132,11 +134,11 @@ class SleeperLeague:
             key=lambda p: -p["proj"])
 
         self.standing = self._standing(ctx, rosters, mine) if fmt == "guillotine" else None
-        budget = (lg.get("settings") or {}).get("waiver_budget") or 0
+        budget = self.faab_budget = (lg.get("settings") or {}).get("waiver_budget") or 0
         self.faab = budget - ((mine.get("settings") or {}).get("waiver_budget_used") or 0) if budget else None
-        self.opponent, self.opp_proj = None, None
+        self.opponent, self.opp_proj, self.matchups = None, None, []
         try:
-            ms = sleeper.matchups(lg["league_id"], ctx.week)
+            ms = self.matchups = sleeper.matchups(lg["league_id"], ctx.week) or []
             me = next(m for m in ms if m["roster_id"] == mine["roster_id"])
             opp = next((m for m in ms if m["matchup_id"] == me["matchup_id"] and m["roster_id"] != me["roster_id"]), None)
             if opp:

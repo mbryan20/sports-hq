@@ -28,7 +28,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | League tabs as action pages (matchup, fixes, moves, adds, guillotine standing, FAAB) | live 2026-10-28 (`shq/advice.py`) |
 | Waiver adds ranked on rest-of-season value, not one week's projection | not started |
 | Trade finder + trade offers | not started |
-| Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
+| Guillotine survival odds + FAAB bid guidance on the tab | live 2026-10-28 (`shq/guillotine.py`; push when cut risk > 20%) |
 | NBA category matchup view | not started |
 | 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
@@ -45,9 +45,8 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
    - NBA has no free value API; use ESPN ranks and projections.
 2. **Better waiver adds:** rank free agents by rest-of-season value, not one week, using the same value
    source plus projections. For each add, say who to drop. FAAB guidance where the league uses FAAB.
-3. Guillotine tab: survival odds and bid guidance.
-4. NBA category matchup.
-5. Dynasty assets.
+3. NBA category matchup.
+4. Dynasty assets.
 
 ## Rules that must not break
 - **The repo is public.** Never commit the ntfy topic, cookies, tokens or passwords.
@@ -90,3 +89,6 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
+- **Guillotine model** (`shq/guillotine.py`) assumes every team plays its best lineup; started games are locked
+  in place and final games use real points, so odds move live on Sundays. Bid prices are a rough rival model
+  (25% of a rival's FAAB left, scaled by need and player quality); the War Room has the fuller history-based one.

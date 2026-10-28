@@ -11,6 +11,7 @@ from .status import OUTISH
 from .swap import eligible, playable
 
 DEAD = OUTISH | {"D"}
+DANGER_CUT = 0.20   # guillotine elimination chance that counts as urgent
 
 
 def due(now, last_generated):
@@ -91,16 +92,33 @@ def league_items(league, now):
 
 
 def standing_item(league):
-    """Guillotine: projected rank among teams still alive; bottom 3 is urgent."""
+    """Guillotine: projected rank among teams still alive; bottom 3, or an elimination chance over
+    DANGER_CUT (from shq/guillotine.py), is urgent."""
     standing = getattr(league, "standing", None)
     if not standing:
         return None
-    rank, n, gap = standing["rank"], standing["n"], standing["gap"]
-    danger = rank > n - 3
+    rank, n, gap, cut = standing["rank"], standing["n"], standing["gap"], standing.get("cut")
+    danger = rank > n - 3 or (cut or 0) > DANGER_CUT
     return {"league": league.name, "urgent": danger,
             "text": (f"projected {rank} of {n} this week" +
                      (f", {gap:+.1f} pts vs the lowest other team" if gap is not None else "") +
+                     (f", {_pct(cut)} chance of being cut" if cut is not None else "") +
                      (" — DANGER ZONE, check the War Room" if danger else ""))}
+
+
+def danger_push(league):
+    """Guillotine: (key, title, message) for a once-a-week push when my elimination chance tops
+    DANGER_CUT, whenever in the week that happens (the 8am digest also lists it as urgent)."""
+    g = (getattr(league, "standing", None) or {})
+    if (g.get("cut") or 0) <= DANGER_CUT:
+        return None
+    return (f"{league.key}:w{league.week}:cut-danger", f"{league.name}: {_pct(g['cut'])} elimination risk",
+            f"Projected {g['rank']} of {g['n']} ({g['gap']:+.1f} pts vs the lowest other team). "
+            "Check the lineup and the What to do card.")
+
+
+def _pct(x):
+    return "<1%" if 0 < x < 0.005 else f"{round(x * 100)}%"
 
 
 def picks_items(cards, now):

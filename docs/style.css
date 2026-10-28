@@ -66,6 +66,7 @@ ul.tips.fix li { color: var(--text); font-weight: 600; }
 ul.tips.fix li::marker { content: "⚠ "; color: var(--orange); }
 ul.tips.muted li { color: var(--muted); font-size: 13.5px; }
 ul.tips li.ok { color: var(--green); }
+ul.tips li.bad { color: var(--red); }
 .actions .summary .vs { white-space: normal; }
 .vs.danger { color: var(--red); font-weight: 600; }
 .small { font-size: 12px; white-space: nowrap; }
