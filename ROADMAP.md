@@ -68,6 +68,12 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   endings.
 
 ## Hand-off practice
+- **One intake chat.** Michael drops ideas, tips and requests into the main Sports HQ chat. That chat routes each one:
+  - to the feature session that owns it, by message;
+  - into IDEAS.md or ROADMAP.md;
+  - or into a proposed new session.
+  Away from the laptop, he can add to IDEAS.md from his phone.
+- **Parallel sessions:** each works in its own worktree and branch, then merges `main` in and pushes to `main`.
 - Start a **new session per big feature** (e.g. "build trade tools"). Open it in C:\Claude\sports-hq and say:
   "read ROADMAP.md and build item N". The repo, README, this file and IDEAS.md carry everything needed. A
   long chat isn't needed and gets summarized anyway.

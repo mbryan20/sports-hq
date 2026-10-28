@@ -4,6 +4,9 @@ Add anything here (from your phone: github.com → this file → pencil icon). T
 ranks it, and proposes what to build next.
 
 ## From Michael
+- 2026-10-28: Sleeper's beta website now shows the guillotine **Chop** menu (only the app had it before).
+  It may give official chop/elimination data a laptop task can read in Chrome. Sent to the guillotine
+  session to inspect; findings go in ROADMAP.md "Lessons".
 - Baseball leagues (ESPN: 3-Ball dynasty, Hardball) — plan in Feb, before drafts (ops/tasks/baseball-kickoff.md).
 
 ## Open decisions
