@@ -91,6 +91,16 @@ class Bids(unittest.TestCase):
         self.assertEqual(g.rival_bid(100, 6, "RB", 16), 25)        # full need, stud: 25% of $100
         self.assertEqual(g.rival_bid(100, 3, "RB", 11), 6)         # half need, half quality
         self.assertEqual(g.rival_bid(100, 9, "DEF", 16), g.KDEF_CAP)
+        self.assertEqual(g.rival_bid(100, 6, "RB", 16, bold=0.6), 60)   # a rival who has gone big before
+
+    def test_boldness_from_waiver_history(self):
+        claim = lambda rid, leg, bid, status: {"type": "waiver", "status": status, "roster_ids": [rid], "leg": leg,
+                                               "created": leg, "settings": {"waiver_bid": bid}}
+        past = [claim(2, 1, 50, "complete"), claim(2, 3, 60, "failed"), claim(3, 2, 10, "failed"),
+                {"type": "free_agent", "status": "complete", "roster_ids": [3], "leg": 2}]
+        bold = g.boldness(past, 200)
+        self.assertEqual(bold[2], 0.4)       # $60 of the $150 left after week 1's $50 win
+        self.assertEqual(bold[3], 0.05)
 
     def test_my_max_keeps_a_reserve_and_rises_with_danger(self):
         self.assertEqual(g.my_max(8, 10, 0.5), 0)                  # all of it is reserve
@@ -120,7 +130,7 @@ class Analyze(unittest.TestCase):
         self.lg.free_agents = [make_player(self.ctx, {"pts": 1}, pid, "FA") for pid in ("fa", "fk")]
 
     def test_odds_rank_and_bids(self):
-        out = g.analyze(self.lg, self.ctx, NOW, sims=2000)
+        out = g.analyze(self.lg, self.ctx, NOW, sims=2000, past=[])
         self.assertEqual((out["n"], out["rank"], out["faab"]), (3, 2, 60))
         self.assertEqual(out["teams"][0]["name"], "Weak Sauce")    # most at risk first
         self.assertGreater(out["teams"][0]["cut"], out["cut"])
@@ -144,7 +154,7 @@ class Analyze(unittest.TestCase):
 
     def test_one_team_left(self):
         self.lg.rosters = self.lg.rosters[:1]
-        self.assertIsNone(g.analyze(self.lg, self.ctx, NOW, sims=100))
+        self.assertIsNone(g.analyze(self.lg, self.ctx, NOW, sims=100, past=[]))
 
 
 class DangerPush(unittest.TestCase):

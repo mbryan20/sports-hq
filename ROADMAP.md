@@ -90,5 +90,14 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
 - **Guillotine model** (`shq/guillotine.py`) assumes every team plays its best lineup; started games are locked
-  in place and final games use real points, so odds move live on Sundays. Bid prices are a rough rival model
-  (25% of a rival's FAAB left, scaled by need and player quality); the War Room has the fuller history-based one.
+  in place and final games use real points, so odds move live on Sundays. Rival prices use each rival's boldest
+  past bid share (floor 25%), scaled by need and player quality.
+- **Sleeper beta Chop menu** (checked 2026-10-28): `https://sleeper.com/beta/leagues/<league_id>/matchup` (the old
+  `sleeper.com/leagues/<id>` URL redirects there when signed in). It shows per-team "% safe" and chop rank, a
+  Graveyard of eliminated teams (week, FAAB left, points), and in the chat each waiver run's winning bids with
+  the number of bids. **No chop endpoint:** "% safe" is computed in the browser from public rosters and matchups
+  (team score normal with variance (points − proj)² / (1 + 10·(1 − points/proj)), so about 30% of the projection
+  before kickoff), so the cloud already has everything. Its odds are flatter than ours (team SD ~36 vs ~27).
+  Public `GET /v1/league/<id>/transactions/<week>` lists every processed claim, won or lost, with its
+  `waiver_bid`, which is what the bid model learns from. Only pending claims need the signed-in browser
+  (`shq/guillotine_bids.py`).

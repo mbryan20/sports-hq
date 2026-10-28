@@ -68,3 +68,8 @@ def rosters(league_id):
 
 def matchups(league_id, week):
     return get_json(f"{BASE}/league/{league_id}/matchups/{week}")
+
+
+def transactions(league_id, week):
+    """Adds, drops and waiver claims for one week; processed claims (won and lost) show their FAAB bid."""
+    return get_json(f"{BASE}/league/{league_id}/transactions/{week}")

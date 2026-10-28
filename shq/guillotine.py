@@ -6,21 +6,24 @@ starter's score is normal around his Sleeper projection with a position-based SD
 normal too. Several thousand draws give each team's chance of finishing lowest (the lowest is cut).
 
 Bids: for the free agents who most improve my lineup, the points and survival they add, a likely price
-(each rival who would start the player is assumed to bid a share of the FAAB they have left, scaled by
-how much he helps them and how good he is) and the most he is worth to me. Waivers run Wednesday about
+(each rival who would start the player bids up to his boldest past share of FAAB, from the league's
+public waiver history, scaled by how much the player helps him and how good he is) and the most he is
+worth to me. Waivers run Wednesday about
 2:15am CT; the cut team's players hit the pool after Monday night, so the likely cut team's best players
 are previewed too. Read-only: this only recommends, it never bids."""
 import datetime as dt
 import random
 
+from . import sleeper
 from .common import ct_label
 from .config import TZ
 from .status import OUTISH
 from .swap import FLEX_SLOTS, eligible
 
 SIMS = 5000
-POS_SD = {"QB": 7.0, "RB": 7.0, "WR": 7.5, "TE": 5.5, "K": 4.0, "DEF": 5.0}
-BOLD = 0.25          # share of their FAAB left a rival spends on a player he badly needs (War Room floor is 20%)
+# a ~120-point lineup swings about 27 points; Sleeper's own Chop page uses ~30% of the projection (~36)
+POS_SD = {"QB": 8.5, "RB": 8.5, "WR": 9.0, "TE": 7.0, "K": 5.0, "DEF": 6.5}
+BOLD = 0.25          # least share of FAAB left a rival spends on a player he badly needs (War Room floor is 20%)
 RESERVE = 10         # FAAB I keep back for emergencies (War Room default)
 KDEF_CAP = 3         # nobody pays real money for a kicker or defense
 WAIVER_WEEKDAY, WAIVER_HOUR, WAIVER_MINUTE = 2, 2, 15   # Wednesday 2:15am CT
@@ -93,10 +96,26 @@ def quality(pos, proj):
     return max(0.1, min(1.0, q))
 
 
-def rival_bid(faab, gain, pos, proj):
+def boldness(history, budget):
+    """{roster_id: boldest bid as a share of the FAAB that roster had going into that week}, from every
+    processed claim, won or lost. Spending inside a week isn't tracked, so shares lean a little low."""
+    spent, bold = {}, {}
+    for t in sorted(history, key=lambda t: (t.get("leg") or 0, t.get("created") or 0)):
+        if t.get("type") != "waiver" or t.get("status") not in ("complete", "failed"):
+            continue
+        bid, rid, leg = (t.get("settings") or {}).get("waiver_bid") or 0, (t.get("roster_ids") or [None])[0], t.get("leg") or 0
+        before = budget - sum(b for l, b in spent.get(rid, []) if l < leg)
+        if bid > 0 and before > 0:
+            bold[rid] = max(bold.get(rid, 0.0), min(1.0, bid / before))
+        if t["status"] == "complete":
+            spent.setdefault(rid, []).append((leg, bid))
+    return bold
+
+
+def rival_bid(faab, gain, pos, proj, bold=BOLD):
     if faab <= 0 or gain < 1:
         return 0
-    bid = round(faab * BOLD * min(1.0, gain / 6) * quality(pos, proj))
+    bid = round(faab * max(BOLD, bold) * min(1.0, gain / 6) * quality(pos, proj))
     return min(faab, KDEF_CAP if pos in ("K", "DEF") else faab, bid)
 
 
@@ -126,8 +145,14 @@ class Team:
         return m - self.mean
 
 
-def analyze(league, ctx, now, sims=SIMS):
-    """Survival odds for every surviving team plus bid guidance for me. None if the league is down to one."""
+def history(league, week):
+    lid = league.key.split(":", 1)[1]
+    return [t for w in range(1, week + 1) for t in sleeper.transactions(lid, w) or []]
+
+
+def analyze(league, ctx, now, sims=SIMS, past=None):
+    """Survival odds for every surviving team plus bid guidance for me. None if the league is down to one.
+    `past` is the league's transactions so far (fetched when None)."""
     from .leagues import make_player
     points = {}
     for m in league.matchups or []:
@@ -148,6 +173,7 @@ def analyze(league, ctx, now, sims=SIMS):
     if len(teams) < 2:
         return None
     me = next(i for i, t in enumerate(teams) if t.rid == league.my_roster_id)
+    bold = boldness(history(league, ctx.week) if past is None else past, budget)
     stats = [(t.mean, t.sd) for t in teams]
     z = draws(len(teams), sims, f"{league.key}:{ctx.week}")
     odds = cut_odds(stats, z)
@@ -165,7 +191,7 @@ def analyze(league, ctx, now, sims=SIMS):
         m, s = lineup(mine.slots, mine.starters, {**mine.pool, e["id"]: e})
         cut_with = my_cut(m, s, z, me, low)
         pos = (p["positions"] or ["?"])[0]
-        rivals = sorted(({"name": t.name, "bid": rival_bid(t.faab, t.gain(e), pos, p["proj"])}
+        rivals = sorted(({"name": t.name, "bid": rival_bid(t.faab, t.gain(e), pos, p["proj"], bold.get(t.rid, BOLD))}
                          for i, t in enumerate(teams) if i != me and t is not source), key=lambda r: -r["bid"])
         rivals = [r for r in rivals if r["bid"] > 0]
         price = rivals[0]["bid"] + 1 if rivals else 0
@@ -194,7 +220,7 @@ def analyze(league, ctx, now, sims=SIMS):
         "proj": round(mine.mean, 1), "cut": round(odds[me], 3), "survive": round(1 - odds[me], 3),
         "faab": mine.faab, "waivers": ct_label(next_waivers(now)),
         "teams": [{"name": teams[i].name, "proj": round(teams[i].mean, 1), "cut": round(odds[i], 3),
-                   "faab": teams[i].faab, "me": i == me} for i in order],
+                   "faab": teams[i].faab, "bold": round(bold.get(teams[i].rid, 0), 2), "me": i == me} for i in order],
         "rich": [{"name": t.name, "faab": t.faab} for t in sorted(teams, key=lambda t: -t.faab) if t is not mine][:3],
         "bids": bids, "freed": freed,
     }
