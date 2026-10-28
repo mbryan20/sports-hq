@@ -1,5 +1,5 @@
 {
- "captured": "2026-10-27T21:04:11.421Z",
+ "captured": "2026-10-28T21:34:59.794Z",
  "sport": "nfl",
  "league_id": 84829230,
  "season": 2026,
@@ -21,6 +21,23 @@
   "21": 2,
   "23": 1
  },
+ "size": 12,
+ "scoring": {
+  "rush_td": 6,
+  "rec": 1,
+  "fum_lost": -2,
+  "pass_2pt": 2,
+  "rec_td": 6,
+  "pass_int": -2,
+  "pass_td": 4,
+  "rush_yd": 0.1,
+  "rush_2pt": 2,
+  "pass_yd": 0.04,
+  "rec_yd": 0.1,
+  "rec_2pt": 2
+ },
+ "trade_deadline": "2026-12-02T17:00:00Z",
+ "faab": null,
  "team": {
   "id": 9,
   "name": "Abeona (support boat)"
@@ -41,8 +58,8 @@
     21
    ],
    "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 21.7,
+   "injury": "QUESTIONABLE",
+   "proj": 21.5,
    "owned": 99.9,
    "slot": 4
   },
@@ -62,7 +79,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 0,
-   "owned": 99.3,
+   "owned": 99.1,
    "slot": 20
   },
   {
@@ -100,7 +117,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 14,
-   "owned": 98.7,
+   "owned": 98.6,
    "slot": 4
   },
   {
@@ -118,7 +135,7 @@
    "pos": 2,
    "injury": "QUESTIONABLE",
    "proj": 0,
-   "owned": 82.2,
+   "owned": 80.4,
    "slot": 21
   },
   {
@@ -136,7 +153,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 15.9,
-   "owned": 96.1,
+   "owned": 96.3,
    "slot": 2
   },
   {
@@ -152,7 +169,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 22.1,
-   "owned": 98.1,
+   "owned": 98.5,
    "slot": 0
   },
   {
@@ -170,7 +187,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 9.3,
-   "owned": 93.2,
+   "owned": 92.8,
    "slot": 6
   },
   {
@@ -188,7 +205,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 9.5,
-   "owned": 65.7,
+   "owned": 66.3,
    "slot": 2
   },
   {
@@ -206,7 +223,7 @@
    "pos": 2,
    "injury": "QUESTIONABLE",
    "proj": 10.5,
-   "owned": 92.7,
+   "owned": 90.7,
    "slot": 20
   },
   {
@@ -226,7 +243,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 10.2,
-   "owned": 43,
+   "owned": 54.3,
    "slot": 23
   },
   {
@@ -245,7 +262,7 @@
    "pos": 3,
    "injury": "QUESTIONABLE",
    "proj": 8.2,
-   "owned": 28.7,
+   "owned": 27.4,
    "slot": 20
   },
   {
@@ -263,7 +280,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 0,
-   "owned": 68.5,
+   "owned": 58,
    "slot": 20
   },
   {
@@ -279,7 +296,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 16.9,
-   "owned": 85.8,
+   "owned": 82.5,
    "slot": 20
   },
   {
@@ -297,23 +314,8 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 9.8,
-   "owned": 36,
+   "owned": 42.9,
    "slot": 20
-  },
-  {
-   "id": -16020,
-   "name": "Jets D/ST",
-   "pro_team": 20,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 5.2,
-   "owned": 66.8,
-   "slot": 16
   },
   {
    "id": 17372,
@@ -327,8 +329,23 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": 10.4,
-   "owned": 69.1,
+   "owned": 73.5,
    "slot": 17
+  },
+  {
+   "id": -16030,
+   "name": "Jaguars D/ST",
+   "pro_team": 30,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 7.4,
+   "owned": 63.8,
+   "slot": 16
   }
  ],
  "free_agents": [
@@ -347,35 +364,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 11.2,
-   "owned": 63.9
-  },
-  {
-   "id": 4034949,
-   "name": "Eddy Pineiro",
-   "pro_team": 25,
-   "eligible": [
-    17,
-    20,
-    21
-   ],
-   "pos": 5,
-   "injury": "ACTIVE",
-   "proj": 0,
-   "owned": 61.2
-  },
-  {
-   "id": -16017,
-   "name": "Patriots D/ST",
-   "pro_team": 17,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 5.8,
-   "owned": 59.7
+   "owned": 72.7
   },
   {
    "id": 4686361,
@@ -389,39 +378,36 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": 9.1,
-   "owned": 59.1
+   "owned": 63.8
   },
   {
-   "id": 4373678,
-   "name": "Khalil Shakir",
-   "pro_team": 2,
+   "id": 3917315,
+   "name": "Kyler Murray",
+   "pro_team": 16,
    "eligible": [
-    3,
-    4,
-    5,
-    23,
+    0,
     7,
     20,
     21
    ],
-   "pos": 3,
+   "pos": 1,
    "injury": "ACTIVE",
-   "proj": 9.4,
-   "owned": 57.7
+   "proj": 17.3,
+   "owned": 59.9
   },
   {
-   "id": -16025,
-   "name": "49ers D/ST",
+   "id": 4034949,
+   "name": "Eddy Pineiro",
    "pro_team": 25,
    "eligible": [
-    16,
+    17,
     20,
     21
    ],
-   "pos": 16,
-   "injury": null,
+   "pos": 5,
+   "injury": "ACTIVE",
    "proj": 0,
-   "owned": 54.9
+   "owned": 51.5
   },
   {
    "id": 4242355,
@@ -438,7 +424,22 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 5.5,
-   "owned": 53.3
+   "owned": 50
+  },
+  {
+   "id": 8439,
+   "name": "Aaron Rodgers",
+   "pro_team": 23,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 15.1,
+   "owned": 48.2
   },
   {
    "id": 3121422,
@@ -454,9 +455,9 @@
     21
    ],
    "pos": 3,
-   "injury": "OUT",
+   "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 50.7
+   "owned": 47.3
   },
   {
    "id": 4362081,
@@ -470,7 +471,35 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": 7.3,
-   "owned": 45.8
+   "owned": 44.4
+  },
+  {
+   "id": -16025,
+   "name": "49ers D/ST",
+   "pro_team": 25,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 0,
+   "owned": 44.3
+  },
+  {
+   "id": -16020,
+   "name": "Jets D/ST",
+   "pro_team": 20,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.2,
+   "owned": 42.9
   },
   {
    "id": 4429023,
@@ -487,7 +516,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 4.9,
-   "owned": 44.1
+   "owned": 40.4
   },
   {
    "id": -16021,
@@ -501,7 +530,7 @@
    "pos": 16,
    "injury": null,
    "proj": 3.7,
-   "owned": 40.7
+   "owned": 38.7
   },
   {
    "id": 4038941,
@@ -516,7 +545,4094 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 10.9,
-   "owned": 38.3
+   "owned": 36.7
+  },
+  {
+   "id": 5082424,
+   "name": "Dominic Zvada",
+   "pro_team": 19,
+   "eligible": [
+    25,
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 34.3
+  },
+  {
+   "id": 4429160,
+   "name": "De'Von Achane",
+   "pro_team": 15,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 31.5
+  },
+  {
+   "id": 3912547,
+   "name": "Sam Darnold",
+   "pro_team": 26,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 14.8,
+   "owned": 30.7
+  },
+  {
+   "id": 4366031,
+   "name": "Tank Dell",
+   "pro_team": 34,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 28.3
+  },
+  {
+   "id": 4685415,
+   "name": "Travis Hunter",
+   "pro_team": 30,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21,
+    12,
+    14,
+    15
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 2.4,
+   "owned": 28.1
+  },
+  {
+   "id": 4429025,
+   "name": "Quentin Johnston",
+   "pro_team": 24,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 6.1,
+   "owned": 26.8
+  },
+  {
+   "id": 3116406,
+   "name": "Tyreek Hill",
+   "pro_team": 0,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "QUESTIONABLE",
+   "proj": null,
+   "owned": 26.7
+  },
+  {
+   "id": 3052587,
+   "name": "Baker Mayfield",
+   "pro_team": 27,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 15.7,
+   "owned": 25.8
+  },
+  {
+   "id": 17427,
+   "name": "Cairo Santos",
+   "pro_team": 3,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 8.5,
+   "owned": 25.1
+  },
+  {
+   "id": 4429086,
+   "name": "Michael Mayer",
+   "pro_team": 13,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 7.4,
+   "owned": 25
+  },
+  {
+   "id": -16008,
+   "name": "Lions D/ST",
+   "pro_team": 8,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.6,
+   "owned": 24.7
+  },
+  {
+   "id": 4689114,
+   "name": "Jaxson Dart",
+   "pro_team": 19,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 23.1
+  },
+  {
+   "id": 2578570,
+   "name": "Jacoby Brissett",
+   "pro_team": 22,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 15.5,
+   "owned": 22
+  },
+  {
+   "id": 4362249,
+   "name": "Jayden Reed",
+   "pro_team": 9,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 20.8
+  },
+  {
+   "id": 4574716,
+   "name": "Harrison Mevis",
+   "pro_team": 0,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 0,
+   "owned": 20.5
+  },
+  {
+   "id": -16010,
+   "name": "Titans D/ST",
+   "pro_team": 10,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 3.2,
+   "owned": 18.5
+  },
+  {
+   "id": -16029,
+   "name": "Panthers D/ST",
+   "pro_team": 29,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 4.7,
+   "owned": 18.5
+  },
+  {
+   "id": 4586312,
+   "name": "Jaylin Noel",
+   "pro_team": 34,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 17.6
+  },
+  {
+   "id": 4363538,
+   "name": "Chad Ryland",
+   "pro_team": 22,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 9.6,
+   "owned": 16.2
+  },
+  {
+   "id": 4360423,
+   "name": "Michael Penix Jr.",
+   "pro_team": 1,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 15.7,
+   "owned": 16.1
+  },
+  {
+   "id": -16006,
+   "name": "Cowboys D/ST",
+   "pro_team": 6,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.6,
+   "owned": 16
+  },
+  {
+   "id": 4361529,
+   "name": "Isiah Pacheco",
+   "pro_team": 8,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 15.8
+  },
+  {
+   "id": 2573401,
+   "name": "Tyler Higbee",
+   "pro_team": 14,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 6.6,
+   "owned": 15.5
+  },
+  {
+   "id": -16009,
+   "name": "Packers D/ST",
+   "pro_team": 9,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.5,
+   "owned": 14.8
+  },
+  {
+   "id": 3122840,
+   "name": "Deshaun Watson",
+   "pro_team": 5,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 13,
+   "owned": 14
+  },
+  {
+   "id": 4869461,
+   "name": "Trey Smack",
+   "pro_team": 9,
+   "eligible": [
+    25,
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 9.1,
+   "owned": 13.1
+  },
+  {
+   "id": 3917792,
+   "name": "Daniel Jones",
+   "pro_team": 11,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 11.2,
+   "owned": 12.9
+  },
+  {
+   "id": 4570037,
+   "name": "Terrance Ferguson",
+   "pro_team": 14,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 12.5
+  },
+  {
+   "id": 4568263,
+   "name": "Ryan Fitzgerald",
+   "pro_team": 29,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 7.4,
+   "owned": 12.3
+  },
+  {
+   "id": 4715355,
+   "name": "Darius Cooper",
+   "pro_team": 21,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 4.2,
+   "owned": 11.6
+  },
+  {
+   "id": 3116389,
+   "name": "Samaje Perine",
+   "pro_team": 4,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 7.3,
+   "owned": 11.2
+  },
+  {
+   "id": 4360939,
+   "name": "Rashod Bateman",
+   "pro_team": 33,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 6.5,
+   "owned": 11.2
+  },
+  {
+   "id": 4360635,
+   "name": "Chig Okonkwo",
+   "pro_team": 28,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 8.3,
+   "owned": 10.7
+  },
+  {
+   "id": 5081397,
+   "name": "Dylan Sampson",
+   "pro_team": 5,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 6.8,
+   "owned": 10.2
+  },
+  {
+   "id": 4430834,
+   "name": "Jalen McMillan",
+   "pro_team": 27,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 10.1
+  },
+  {
+   "id": -16024,
+   "name": "Chargers D/ST",
+   "pro_team": 24,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 3.5,
+   "owned": 10.1
+  },
+  {
+   "id": 2576925,
+   "name": "Darren Waller",
+   "pro_team": 29,
+   "eligible": [
+    5,
+    6,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 4,
+   "injury": "ACTIVE",
+   "proj": 5.4,
+   "owned": 9.9
+  }
+ ],
+ "teams": [
+  {
+   "id": 1,
+   "name": "Likley a Swift Bateman",
+   "roster": [
+    {
+     "id": 3117251,
+     "name": "Christian McCaffrey",
+     "pro_team": 25,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 0,
+     "owned": 99.9,
+     "slot": 20
+    },
+    {
+     "id": 3918298,
+     "name": "Josh Allen",
+     "pro_team": 2,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 23.7,
+     "owned": 99.9,
+     "slot": 0
+    },
+    {
+     "id": 4361370,
+     "name": "Chris Olave",
+     "pro_team": 18,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 99.4,
+     "slot": 20
+    },
+    {
+     "id": 4259545,
+     "name": "D'Andre Swift",
+     "pro_team": 3,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 13,
+     "owned": 97.2,
+     "slot": 2
+    },
+    {
+     "id": 4567750,
+     "name": "Emeka Egbuka",
+     "pro_team": 27,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 12.9,
+     "owned": 94.4,
+     "slot": 21
+    },
+    {
+     "id": 4678008,
+     "name": "Jonathon Brooks",
+     "pro_team": 29,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 35.3,
+     "slot": 21
+    },
+    {
+     "id": 4871023,
+     "name": "Carnell Tate",
+     "pro_team": 10,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 11.8,
+     "owned": 87,
+     "slot": 4
+    },
+    {
+     "id": 4572680,
+     "name": "Tucker Kraft",
+     "pro_team": 9,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 10.8,
+     "owned": 92,
+     "slot": 6
+    },
+    {
+     "id": 4568490,
+     "name": "RJ Harvey",
+     "pro_team": 7,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 9.3,
+     "owned": 76.3,
+     "slot": 20
+    },
+    {
+     "id": 4361050,
+     "name": "Isaiah Likely",
+     "pro_team": 19,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 95.4,
+     "slot": 20
+    },
+    {
+     "id": 4702555,
+     "name": "Jonah Coleman",
+     "pro_team": 7,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 7.6,
+     "owned": 38.4,
+     "slot": 2
+    },
+    {
+     "id": -16016,
+     "name": "Vikings D/ST",
+     "pro_team": 16,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 4.5,
+     "owned": 89.4,
+     "slot": 16
+    },
+    {
+     "id": 4635008,
+     "name": "Keon Coleman",
+     "pro_team": 2,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 6.7,
+     "owned": 28,
+     "slot": 23
+    },
+    {
+     "id": 4683062,
+     "name": "Xavier Worthy",
+     "pro_team": 12,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8.2,
+     "owned": 75.7,
+     "slot": 4
+    },
+    {
+     "id": 4696044,
+     "name": "Kaelon Black",
+     "pro_team": 25,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 23.9,
+     "slot": 20
+    },
+    {
+     "id": 4360234,
+     "name": "Evan McPherson",
+     "pro_team": 4,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 8.2,
+     "owned": 21.5,
+     "slot": 17
+    },
+    {
+     "id": 4870795,
+     "name": "Makai Lemon",
+     "pro_team": 21,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 6.5,
+     "owned": 39,
+     "slot": 4
+    },
+    {
+     "id": 4686468,
+     "name": "Seth McGowan",
+     "pro_team": 11,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 3.7,
+     "owned": 12.5,
+     "slot": 20
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Cooked",
+   "roster": [
+    {
+     "id": 4262921,
+     "name": "Justin Jefferson",
+     "pro_team": 16,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 17.9,
+     "owned": 99.8,
+     "slot": 4
+    },
+    {
+     "id": 4379399,
+     "name": "James Cook III",
+     "pro_team": 2,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 18.8,
+     "owned": 99.9,
+     "slot": 20
+    },
+    {
+     "id": 4426354,
+     "name": "George Pickens",
+     "pro_team": 6,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 13.9,
+     "owned": 98.8,
+     "slot": 4
+    },
+    {
+     "id": 4426348,
+     "name": "Jayden Daniels",
+     "pro_team": 28,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 22.8,
+     "owned": 93.8,
+     "slot": 20
+    },
+    {
+     "id": 4432710,
+     "name": "TreVeyon Henderson",
+     "pro_team": 17,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 6.6,
+     "owned": 73,
+     "slot": 2
+    },
+    {
+     "id": 4685278,
+     "name": "Luther Burden III",
+     "pro_team": 3,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 13.5,
+     "owned": 91.6,
+     "slot": 20
+    },
+    {
+     "id": 5083076,
+     "name": "Harold Fannin Jr.",
+     "pro_team": 5,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 8.9,
+     "owned": 85.5,
+     "slot": 6
+    },
+    {
+     "id": 4038815,
+     "name": "Rico Dowdle",
+     "pro_team": 23,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 9.3,
+     "owned": 60.9,
+     "slot": 21
+    },
+    {
+     "id": 3116165,
+     "name": "Chris Godwin Jr.",
+     "pro_team": 27,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9,
+     "owned": 53.7,
+     "slot": 20
+    },
+    {
+     "id": 4688813,
+     "name": "Josh Downs",
+     "pro_team": 11,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8.4,
+     "owned": 64.1,
+     "slot": 23
+    },
+    {
+     "id": 4373626,
+     "name": "Tyler Allgeier",
+     "pro_team": 22,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 8,
+     "owned": 51,
+     "slot": 2
+    },
+    {
+     "id": 4695883,
+     "name": "Jalen Coker",
+     "pro_team": 29,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 14.5,
+     "owned": 90.1,
+     "slot": 4
+    },
+    {
+     "id": 4880281,
+     "name": "Jordyn Tyson",
+     "pro_team": 18,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 34.9,
+     "slot": 21
+    },
+    {
+     "id": 4697745,
+     "name": "Tyler Loop",
+     "pro_team": 33,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 8.9,
+     "owned": 59.2,
+     "slot": 17
+    },
+    {
+     "id": 4697815,
+     "name": "Rachaad White",
+     "pro_team": 28,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 12.4,
+     "owned": 68.2,
+     "slot": 20
+    },
+    {
+     "id": 4036378,
+     "name": "Jordan Love",
+     "pro_team": 9,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 17.1,
+     "owned": 89.6,
+     "slot": 0
+    },
+    {
+     "id": 2991662,
+     "name": "Mack Hollins",
+     "pro_team": 17,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 3.3,
+     "slot": 20
+    },
+    {
+     "id": -16005,
+     "name": "Browns D/ST",
+     "pro_team": 5,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 6.2,
+     "owned": 55.3,
+     "slot": 16
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Love that Njiba!",
+   "roster": [
+    {
+     "id": 4430878,
+     "name": "Jaxon Smith-Njigba",
+     "pro_team": 26,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 22,
+     "owned": 99.9,
+     "slot": 4
+    },
+    {
+     "id": 4870808,
+     "name": "Jeremiyah Love",
+     "pro_team": 22,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 11.6,
+     "owned": 94.7,
+     "slot": 2
+    },
+    {
+     "id": 4047365,
+     "name": "Josh Jacobs",
+     "pro_team": 9,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 15.1,
+     "owned": 92.2,
+     "slot": 2
+    },
+    {
+     "id": 4612826,
+     "name": "Ladd McConkey",
+     "pro_team": 24,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 10.4,
+     "owned": 84.2,
+     "slot": 4
+    },
+    {
+     "id": 3916387,
+     "name": "Lamar Jackson",
+     "pro_team": 33,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "QUESTIONABLE",
+     "proj": 22.2,
+     "owned": 98.5,
+     "slot": 0
+    },
+    {
+     "id": 4431459,
+     "name": "Tyler Warren",
+     "pro_team": 11,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "QUESTIONABLE",
+     "proj": 11.5,
+     "owned": 96,
+     "slot": 21
+    },
+    {
+     "id": 4432708,
+     "name": "Marvin Harrison Jr.",
+     "pro_team": 34,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 70.8,
+     "slot": 20
+    },
+    {
+     "id": 4241985,
+     "name": "J.K. Dobbins",
+     "pro_team": 7,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 6.4,
+     "owned": 79.6,
+     "slot": 20
+    },
+    {
+     "id": -16007,
+     "name": "Broncos D/ST",
+     "pro_team": 7,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 5.1,
+     "owned": 86.3,
+     "slot": 16
+    },
+    {
+     "id": 4569559,
+     "name": "Devaughn Vele",
+     "pro_team": 18,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 61.8,
+     "slot": 20
+    },
+    {
+     "id": 4428718,
+     "name": "Tre Tucker",
+     "pro_team": 13,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 10.8,
+     "owned": 68.3,
+     "slot": 4
+    },
+    {
+     "id": 14880,
+     "name": "Kirk Cousins",
+     "pro_team": 13,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 16.6,
+     "owned": 58.7,
+     "slot": 20
+    },
+    {
+     "id": 4571557,
+     "name": "Spencer Shrader",
+     "pro_team": 11,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 10.2,
+     "owned": 85.6,
+     "slot": 17
+    },
+    {
+     "id": 3046439,
+     "name": "Hunter Henry",
+     "pro_team": 17,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 10.6,
+     "owned": 63.2,
+     "slot": 6
+    },
+    {
+     "id": 3895856,
+     "name": "Christian Kirk",
+     "pro_team": 25,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 10.5,
+     "slot": 20
+    },
+    {
+     "id": 4427728,
+     "name": "Bam Knight",
+     "pro_team": 22,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 13.4,
+     "slot": 20
+    },
+    {
+     "id": 4373678,
+     "name": "Khalil Shakir",
+     "pro_team": 2,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.4,
+     "owned": 58.5,
+     "slot": 23
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Future so Bright my Rice Hurts",
+   "roster": [
+    {
+     "id": 4242335,
+     "name": "Jonathan Taylor",
+     "pro_team": 11,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 15.9,
+     "owned": 99.9,
+     "slot": 2
+    },
+    {
+     "id": 4428331,
+     "name": "Rashee Rice",
+     "pro_team": 12,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 12.6,
+     "owned": 94.1,
+     "slot": 4
+    },
+    {
+     "id": 4239996,
+     "name": "Travis Etienne Jr.",
+     "pro_team": 18,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 80.5,
+     "slot": 21
+    },
+    {
+     "id": 4239993,
+     "name": "Tee Higgins",
+     "pro_team": 4,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 15.2,
+     "owned": 96.9,
+     "slot": 4
+    },
+    {
+     "id": 4040715,
+     "name": "Jalen Hurts",
+     "pro_team": 21,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 39,
+     "slot": 21
+    },
+    {
+     "id": 3128429,
+     "name": "Courtland Sutton",
+     "pro_team": 7,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8.8,
+     "owned": 63.2,
+     "slot": 4
+    },
+    {
+     "id": 4360248,
+     "name": "Kyle Pitts Sr.",
+     "pro_team": 1,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 10.3,
+     "owned": 84.2,
+     "slot": 6
+    },
+    {
+     "id": 4241416,
+     "name": "Chuba Hubbard",
+     "pro_team": 29,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 15.3,
+     "owned": 95.3,
+     "slot": 2
+    },
+    {
+     "id": 4569587,
+     "name": "Wan'Dale Robinson",
+     "pro_team": 10,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8.8,
+     "owned": 55.7,
+     "slot": 20
+    },
+    {
+     "id": 3126486,
+     "name": "Deebo Samuel Sr.",
+     "pro_team": 25,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 0,
+     "owned": 71.6,
+     "slot": 20
+    },
+    {
+     "id": 3046779,
+     "name": "Jared Goff",
+     "pro_team": 8,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 16.1,
+     "owned": 90.4,
+     "slot": 0
+    },
+    {
+     "id": 3116365,
+     "name": "Mark Andrews",
+     "pro_team": 33,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 9.6,
+     "owned": 67,
+     "slot": 23
+    },
+    {
+     "id": 2971573,
+     "name": "Ka'imi Fairbairn",
+     "pro_team": 34,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 83.9,
+     "slot": 20
+    },
+    {
+     "id": 4597500,
+     "name": "Adonai Mitchell",
+     "pro_team": 20,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 7.5,
+     "owned": 12.8,
+     "slot": 20
+    },
+    {
+     "id": -16027,
+     "name": "Buccaneers D/ST",
+     "pro_team": 27,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 4.1,
+     "owned": 25.4,
+     "slot": 20
+    },
+    {
+     "id": 4599739,
+     "name": "Kendre Miller",
+     "pro_team": 18,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 33.5,
+     "slot": 20
+    },
+    {
+     "id": 3917232,
+     "name": "Tyler Bass",
+     "pro_team": 2,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 10.4,
+     "owned": 41.5,
+     "slot": 17
+    },
+    {
+     "id": -16028,
+     "name": "Commanders D/ST",
+     "pro_team": 28,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 7.1,
+     "owned": 20.6,
+     "slot": 16
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "Going up on Odunze",
+   "roster": [
+    {
+     "id": 4362238,
+     "name": "Chase Brown",
+     "pro_team": 4,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 16.6,
+     "owned": 98.7,
+     "slot": 2
+    },
+    {
+     "id": 4429615,
+     "name": "Zay Flowers",
+     "pro_team": 33,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 20.1,
+     "owned": 99.2,
+     "slot": 4
+    },
+    {
+     "id": 4372016,
+     "name": "Jaylen Waddle",
+     "pro_team": 7,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 10.7,
+     "owned": 87.4,
+     "slot": 23
+    },
+    {
+     "id": 4431299,
+     "name": "Rome Odunze",
+     "pro_team": 3,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.3,
+     "owned": 84.4,
+     "slot": 20
+    },
+    {
+     "id": 4569173,
+     "name": "Rhamondre Stevenson",
+     "pro_team": 17,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 13.2,
+     "owned": 92.2,
+     "slot": 2
+    },
+    {
+     "id": 4360310,
+     "name": "Trevor Lawrence",
+     "pro_team": 30,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 20.8,
+     "owned": 90.3,
+     "slot": 0
+    },
+    {
+     "id": 3040151,
+     "name": "George Kittle",
+     "pro_team": 25,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 98.3,
+     "slot": 20
+    },
+    {
+     "id": 4432773,
+     "name": "Brian Thomas Jr.",
+     "pro_team": 30,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 5.4,
+     "owned": 41.8,
+     "slot": 20
+    },
+    {
+     "id": 4710714,
+     "name": "De'Zhaun Stribling",
+     "pro_team": 25,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 20.4,
+     "slot": 21
+    },
+    {
+     "id": 4686658,
+     "name": "Mike Washington Jr.",
+     "pro_team": 13,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 6.9,
+     "owned": 17.1,
+     "slot": 20
+    },
+    {
+     "id": 4385690,
+     "name": "Dalton Kincaid",
+     "pro_team": 2,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "QUESTIONABLE",
+     "proj": 8.9,
+     "owned": 77.5,
+     "slot": 6
+    },
+    {
+     "id": -16026,
+     "name": "Seahawks D/ST",
+     "pro_team": 26,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 5.8,
+     "owned": 93.4,
+     "slot": 16
+    },
+    {
+     "id": 4685247,
+     "name": "Braelon Allen",
+     "pro_team": 20,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 9.9,
+     "owned": 80.8,
+     "slot": 20
+    },
+    {
+     "id": 4569603,
+     "name": "Malik Washington",
+     "pro_team": 15,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 10.3,
+     "owned": 38.4,
+     "slot": 20
+    },
+    {
+     "id": 4685261,
+     "name": "Germie Bernard",
+     "pro_team": 23,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 10.8,
+     "owned": 76.1,
+     "slot": 4
+    },
+    {
+     "id": 4426385,
+     "name": "Zach Charbonnet",
+     "pro_team": 26,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 11.4,
+     "owned": 69.2,
+     "slot": 21
+    },
+    {
+     "id": 4567104,
+     "name": "Will Reichard",
+     "pro_team": 16,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 11.2,
+     "owned": 91.2,
+     "slot": 17
+    },
+    {
+     "id": 4869645,
+     "name": "Caleb Douglas",
+     "pro_team": 15,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.2,
+     "owned": 22.3,
+     "slot": 4
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "Ashton DJENTY",
+   "roster": [
+    {
+     "id": 4241389,
+     "name": "CeeDee Lamb",
+     "pro_team": 6,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 20,
+     "owned": 99.9,
+     "slot": 4
+    },
+    {
+     "id": 4890973,
+     "name": "Ashton Jeanty",
+     "pro_team": 13,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 16.8,
+     "owned": 99.7,
+     "slot": 2
+    },
+    {
+     "id": 4595348,
+     "name": "Malik Nabers",
+     "pro_team": 19,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 99.4,
+     "slot": 20
+    },
+    {
+     "id": 4427366,
+     "name": "Breece Hall",
+     "pro_team": 20,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 15.4,
+     "owned": 96.2,
+     "slot": 2
+    },
+    {
+     "id": 4685702,
+     "name": "Quinshon Judkins",
+     "pro_team": 5,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 11.2,
+     "owned": 93.8,
+     "slot": 23
+    },
+    {
+     "id": 4431452,
+     "name": "Drake Maye",
+     "pro_team": 17,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 23.6,
+     "owned": 98.7,
+     "slot": 0
+    },
+    {
+     "id": 4432620,
+     "name": "Parker Washington",
+     "pro_team": 30,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 16.2,
+     "owned": 95.2,
+     "slot": 4
+    },
+    {
+     "id": 3121023,
+     "name": "Dallas Goedert",
+     "pro_team": 21,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 10.1,
+     "owned": 84.5,
+     "slot": 6
+    },
+    {
+     "id": 4429205,
+     "name": "Jordan Addison",
+     "pro_team": 16,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.8,
+     "owned": 72.6,
+     "slot": 20
+    },
+    {
+     "id": 5083315,
+     "name": "Kenyon Sadiq",
+     "pro_team": 20,
+     "eligible": [
+      25,
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 4.9,
+     "owned": 24.6,
+     "slot": 20
+    },
+    {
+     "id": 4887558,
+     "name": "Emanuel Wilson",
+     "pro_team": 26,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 8.8,
+     "owned": 69.3,
+     "slot": 20
+    },
+    {
+     "id": 4431545,
+     "name": "Will Shipley",
+     "pro_team": 21,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 4.7,
+     "slot": 21
+    },
+    {
+     "id": 4360238,
+     "name": "Dameon Pierce",
+     "pro_team": 21,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 8.8,
+     "owned": 39.7,
+     "slot": 20
+    },
+    {
+     "id": 4427095,
+     "name": "DeMario Douglas",
+     "pro_team": 17,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 10.6,
+     "owned": 43.1,
+     "slot": 4
+    },
+    {
+     "id": -16033,
+     "name": "Ravens D/ST",
+     "pro_team": 33,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 3.2,
+     "owned": 63.4,
+     "slot": 20
+    },
+    {
+     "id": 3055899,
+     "name": "Harrison Butker",
+     "pro_team": 12,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 9,
+     "owned": 64.4,
+     "slot": 17
+    },
+    {
+     "id": 4241474,
+     "name": "Brian Robinson Jr.",
+     "pro_team": 1,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 5.8,
+     "owned": 31.8,
+     "slot": 21
+    },
+    {
+     "id": -16012,
+     "name": "Chiefs D/ST",
+     "pro_team": 12,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 5.1,
+     "owned": 59.5,
+     "slot": 16
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "Can You Diggs It?",
+   "roster": [
+    {
+     "id": 4430807,
+     "name": "Bijan Robinson",
+     "pro_team": 1,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 19.2,
+     "owned": 99.9,
+     "slot": 2
+    },
+    {
+     "id": 4047646,
+     "name": "A.J. Brown",
+     "pro_team": 17,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 15.9,
+     "owned": 96.3,
+     "slot": 4
+    },
+    {
+     "id": 4432665,
+     "name": "Brock Bowers",
+     "pro_team": 13,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "QUESTIONABLE",
+     "proj": 16.1,
+     "owned": 99.9,
+     "slot": 6
+    },
+    {
+     "id": 4685512,
+     "name": "Jadarian Price",
+     "pro_team": 26,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 65.1,
+     "slot": 21
+    },
+    {
+     "id": 3915416,
+     "name": "DJ Moore",
+     "pro_team": 2,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 13.6,
+     "owned": 90.1,
+     "slot": 4
+    },
+    {
+     "id": 4035687,
+     "name": "Michael Pittman Jr.",
+     "pro_team": 23,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 44.4,
+     "slot": 21
+    },
+    {
+     "id": 2577417,
+     "name": "Dak Prescott",
+     "pro_team": 6,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 19.5,
+     "owned": 91.4,
+     "slot": 0
+    },
+    {
+     "id": 2976212,
+     "name": "Stefon Diggs",
+     "pro_team": 28,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 12.6,
+     "owned": 83.1,
+     "slot": 23
+    },
+    {
+     "id": 4608686,
+     "name": "Kyle Monangai",
+     "pro_team": 3,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 8.7,
+     "owned": 76.8,
+     "slot": 2
+    },
+    {
+     "id": 4428557,
+     "name": "Tyjae Spears",
+     "pro_team": 10,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 6.8,
+     "owned": 26.5,
+     "slot": 20
+    },
+    {
+     "id": -16023,
+     "name": "Steelers D/ST",
+     "pro_team": 23,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 8,
+     "owned": 95.6,
+     "slot": 16
+    },
+    {
+     "id": 4682648,
+     "name": "Malachi Fields",
+     "pro_team": 19,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 4.8,
+     "slot": 20
+    },
+    {
+     "id": 4426386,
+     "name": "Roschon Johnson",
+     "pro_team": 3,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 15.1,
+     "slot": 20
+    },
+    {
+     "id": 4249836,
+     "name": "Pierre Strong Jr.",
+     "pro_team": 9,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 4.9,
+     "slot": 20
+    },
+    {
+     "id": 16731,
+     "name": "Brandin Cooks",
+     "pro_team": 25,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 1.2,
+     "slot": 20
+    },
+    {
+     "id": 4433970,
+     "name": "J.J. McCarthy",
+     "pro_team": 19,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 18.2,
+     "slot": 20
+    },
+    {
+     "id": 5083754,
+     "name": "Ryan Flournoy",
+     "pro_team": 6,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.1,
+     "owned": 18.1,
+     "slot": 4
+    },
+    {
+     "id": 4249087,
+     "name": "Matt Gay",
+     "pro_team": 13,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 10.1,
+     "owned": 50.4,
+     "slot": 17
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "Henry \"not charles\" Barkley ",
+   "roster": [
+    {
+     "id": 3043078,
+     "name": "Derrick Henry",
+     "pro_team": 33,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 18.8,
+     "owned": 99.8,
+     "slot": 2
+    },
+    {
+     "id": 3929630,
+     "name": "Saquon Barkley",
+     "pro_team": 21,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 11.7,
+     "owned": 97.9,
+     "slot": 21
+    },
+    {
+     "id": 4241478,
+     "name": "DeVonta Smith",
+     "pro_team": 21,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 15,
+     "owned": 97.3,
+     "slot": 4
+    },
+    {
+     "id": 3916148,
+     "name": "Tony Pollard",
+     "pro_team": 10,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 13.9,
+     "owned": 88.7,
+     "slot": 2
+    },
+    {
+     "id": 4361741,
+     "name": "Brock Purdy",
+     "pro_team": 25,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 98.5,
+     "slot": 20
+    },
+    {
+     "id": 4430027,
+     "name": "Sam LaPorta",
+     "pro_team": 8,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 10.7,
+     "owned": 96.4,
+     "slot": 6
+    },
+    {
+     "id": 4360761,
+     "name": "Michael Wilson",
+     "pro_team": 22,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 12.7,
+     "owned": 89.7,
+     "slot": 20
+    },
+    {
+     "id": 3916433,
+     "name": "Jakobi Meyers",
+     "pro_team": 30,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 10.8,
+     "owned": 68.6,
+     "slot": 4
+    },
+    {
+     "id": -16034,
+     "name": "Texans D/ST",
+     "pro_team": 34,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 0,
+     "owned": 76.8,
+     "slot": 20
+    },
+    {
+     "id": 4832800,
+     "name": "Denzel Boston",
+     "pro_team": 5,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 11.4,
+     "owned": 77.8,
+     "slot": 4
+    },
+    {
+     "id": 3117256,
+     "name": "Dalton Schultz",
+     "pro_team": 34,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 27.9,
+     "slot": 20
+    },
+    {
+     "id": 2973405,
+     "name": "Kalif Raymond",
+     "pro_team": 3,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 4.9,
+     "owned": 12.8,
+     "slot": 20
+    },
+    {
+     "id": 4711533,
+     "name": "Ollie Gordon II",
+     "pro_team": 15,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 14.4,
+     "owned": 83.3,
+     "slot": 23
+    },
+    {
+     "id": 15864,
+     "name": "Geno Smith",
+     "pro_team": 20,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 18.4,
+     "owned": 22.5,
+     "slot": 0
+    },
+    {
+     "id": 3150744,
+     "name": "Chase McLaughlin",
+     "pro_team": 27,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 9.5,
+     "owned": 34.1,
+     "slot": 17
+    },
+    {
+     "id": -16017,
+     "name": "Patriots D/ST",
+     "pro_team": 17,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 5.8,
+     "owned": 66.5,
+     "slot": 16
+    },
+    {
+     "id": -16004,
+     "name": "Bengals D/ST",
+     "pro_team": 4,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 6,
+     "owned": 45.7,
+     "slot": 20
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "Inglorious Staffords",
+   "roster": [
+    {
+     "id": 4374302,
+     "name": "Amon-Ra St. Brown",
+     "pro_team": 8,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 17.8,
+     "owned": 99.9,
+     "slot": 4
+    },
+    {
+     "id": 4567048,
+     "name": "Kenneth Walker III",
+     "pro_team": 12,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 19.9,
+     "owned": 99.9,
+     "slot": 2
+    },
+    {
+     "id": 4696981,
+     "name": "Cam Skattebo",
+     "pro_team": 19,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 0,
+     "owned": 92.2,
+     "slot": 20
+    },
+    {
+     "id": 16800,
+     "name": "Davante Adams",
+     "pro_team": 14,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 91.9,
+     "slot": 21
+    },
+    {
+     "id": 4596448,
+     "name": "Bucky Irving",
+     "pro_team": 27,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 17.3,
+     "owned": 97.4,
+     "slot": 2
+    },
+    {
+     "id": 4723086,
+     "name": "Colston Loveland",
+     "pro_team": 3,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 11.8,
+     "owned": 94.8,
+     "slot": 6
+    },
+    {
+     "id": 12483,
+     "name": "Matthew Stafford",
+     "pro_team": 14,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 16.9,
+     "owned": 92.3,
+     "slot": 20
+    },
+    {
+     "id": 4047650,
+     "name": "DK Metcalf",
+     "pro_team": 23,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 12.2,
+     "owned": 90.8,
+     "slot": 4
+    },
+    {
+     "id": 4429096,
+     "name": "Blake Corum",
+     "pro_team": 14,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 11.5,
+     "owned": 77,
+     "slot": 23
+    },
+    {
+     "id": 4431611,
+     "name": "Caleb Williams",
+     "pro_team": 3,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 15.6,
+     "owned": 89.6,
+     "slot": 0
+    },
+    {
+     "id": 4361432,
+     "name": "Romeo Doubs",
+     "pro_team": 17,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 52.7,
+     "slot": 21
+    },
+    {
+     "id": 4241463,
+     "name": "Jerry Jeudy",
+     "pro_team": 5,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 5.1,
+     "owned": 10,
+     "slot": 20
+    },
+    {
+     "id": 2473037,
+     "name": "Jason Myers",
+     "pro_team": 26,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 9.7,
+     "owned": 88.5,
+     "slot": 17
+    },
+    {
+     "id": 3054850,
+     "name": "Alvin Kamara",
+     "pro_team": 18,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 59.8,
+     "slot": 20
+    },
+    {
+     "id": 3116164,
+     "name": "Mike Gesicki",
+     "pro_team": 4,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 7.9,
+     "owned": 13.9,
+     "slot": 20
+    },
+    {
+     "id": -16011,
+     "name": "Colts D/ST",
+     "pro_team": 11,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 3,
+     "owned": 4.6,
+     "slot": 16
+    },
+    {
+     "id": 4431487,
+     "name": "Savion Williams",
+     "pro_team": 9,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 6.8,
+     "owned": 1.4,
+     "slot": 4
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "Daaaaaarrrrrrrnnnnn Tuten!",
+   "roster": [
+    {
+     "id": 4429795,
+     "name": "Jahmyr Gibbs",
+     "pro_team": 8,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 24.6,
+     "owned": 99.9,
+     "slot": 2
+    },
+    {
+     "id": 4361579,
+     "name": "Javonte Williams",
+     "pro_team": 6,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 19.9,
+     "owned": 99.4,
+     "slot": 2
+    },
+    {
+     "id": 4685472,
+     "name": "Tetairoa McMillan",
+     "pro_team": 29,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 15.6,
+     "owned": 98.6,
+     "slot": 4
+    },
+    {
+     "id": 4426388,
+     "name": "Jameson Williams",
+     "pro_team": 8,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 11.1,
+     "owned": 91.3,
+     "slot": 4
+    },
+    {
+     "id": 4882093,
+     "name": "Bhayshul Tuten",
+     "pro_team": 30,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 14.7,
+     "owned": 93,
+     "slot": 23
+    },
+    {
+     "id": 4701936,
+     "name": "Matthew Golden",
+     "pro_team": 9,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 15.1,
+     "owned": 94.3,
+     "slot": 4
+    },
+    {
+     "id": 4426338,
+     "name": "Bo Nix",
+     "pro_team": 7,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 13.8,
+     "owned": 57.9,
+     "slot": 0
+    },
+    {
+     "id": 4360078,
+     "name": "Alec Pierce",
+     "pro_team": 11,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 51.1,
+     "slot": 20
+    },
+    {
+     "id": 4362619,
+     "name": "Chris Rodriguez Jr.",
+     "pro_team": 30,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 6.2,
+     "owned": 11.7,
+     "slot": 20
+    },
+    {
+     "id": 4429059,
+     "name": "Woody Marks",
+     "pro_team": 34,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 74.6,
+     "slot": 20
+    },
+    {
+     "id": 15818,
+     "name": "Keenan Allen",
+     "pro_team": 11,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 9.2,
+     "owned": 41.8,
+     "slot": 20
+    },
+    {
+     "id": 3953687,
+     "name": "Brandon Aubrey",
+     "pro_team": 6,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 10,
+     "owned": 95.4,
+     "slot": 17
+    },
+    {
+     "id": 4432577,
+     "name": "C.J. Stroud",
+     "pro_team": 34,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 72.3,
+     "slot": 20
+    },
+    {
+     "id": 4428850,
+     "name": "Dontayvion Wicks",
+     "pro_team": 21,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 8.1,
+     "owned": 24.8,
+     "slot": 20
+    },
+    {
+     "id": 4361411,
+     "name": "Pat Freiermuth",
+     "pro_team": 23,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 8.5,
+     "owned": 52.8,
+     "slot": 6
+    },
+    {
+     "id": -16003,
+     "name": "Bears D/ST",
+     "pro_team": 3,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 5.5,
+     "owned": 18.9,
+     "slot": 16
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "Party Puka",
+   "roster": [
+    {
+     "id": 4426515,
+     "name": "Puka Nacua",
+     "pro_team": 14,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 22.4,
+     "owned": 99.9,
+     "slot": 4
+    },
+    {
+     "id": 4685382,
+     "name": "Omarion Hampton",
+     "pro_team": 24,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 8.1,
+     "owned": 90.3,
+     "slot": 2
+    },
+    {
+     "id": 4430737,
+     "name": "Kyren Williams",
+     "pro_team": 14,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 17.9,
+     "owned": 99.6,
+     "slot": 2
+    },
+    {
+     "id": 4361307,
+     "name": "Trey McBride",
+     "pro_team": 22,
+     "eligible": [
+      5,
+      6,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": 17.7,
+     "owned": 99.9,
+     "slot": 6
+    },
+    {
+     "id": 4248528,
+     "name": "Christian Watson",
+     "pro_team": 9,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 14.5,
+     "owned": 96.9,
+     "slot": 4
+    },
+    {
+     "id": 16737,
+     "name": "Mike Evans",
+     "pro_team": 25,
+     "eligible": [
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "QUESTIONABLE",
+     "proj": 0,
+     "owned": 92.9,
+     "slot": 20
+    },
+    {
+     "id": 4371733,
+     "name": "Kenny Gainwell",
+     "pro_team": 27,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "QUESTIONABLE",
+     "proj": 7.8,
+     "owned": 51.2,
+     "slot": 20
+    },
+    {
+     "id": 4575131,
+     "name": "Jacory Croskey-Merritt",
+     "pro_team": 28,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "INJURY_RESERVE",
+     "proj": 0,
+     "owned": 45.6,
+     "slot": 21
+    },
+    {
+     "id": 3139477,
+     "name": "Patrick Mahomes",
+     "pro_team": 12,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 14.2,
+     "owned": 91,
+     "slot": 0
+    },
+    {
+     "id": 4596334,
+     "name": "Keaton Mitchell",
+     "pro_team": 24,
+     "eligible": [
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 5.9,
+     "owned": 12.8,
+     "slot": 20
+    },
+    {
+     "id": -16014,
+     "name": "Rams D/ST",
+     "pro_team": 14,
+     "eligible": [
+      16,
+      20,
+      21
+     ],
+     "pos": 16,
+     "injury": null,
+     "proj": 7.6,
+     "owned": 87.1,
+     "slot": 16
+    },
+    {
+     "id": 4360689,
+     "name": "Tyler Shough",
+     "pro_team": 18,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 0,
+     "owned": 69.8,
+     "slot": 20
+    },
+    {
+     "id": 4689936,
+     "name": "Jake Bates",
+     "pro_team": 8,
+     "eligible": [
+      17,
+      20,
+      21
+     ],
+     "pos": 5,
+     "injury": "ACTIVE",
+     "proj": 8.5,
+     "owned": 41,
+     "slot": 17
+    },
+    {
+     "id": 4832955,
+     "name": "Emmett Johnson",
+     "pro_team": 12,
+     "eligible": [
+      25,
+      2,
+      3,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": 4.8,
+     "owned": 12.4,
+     "slot": 20
+    },
+    {
+     "id": 4870847,
+     "name": "Ja'Kobi Lane",
+     "pro_team": 33,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8,
+     "owned": 12.3,
+     "slot": 20
+    },
+    {
+     "id": 5081432,
+     "name": "Antonio Williams",
+     "pro_team": 28,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 8.2,
+     "owned": 12.1,
+     "slot": 4
+    },
+    {
+     "id": 4723820,
+     "name": "Omar Cooper Jr.",
+     "pro_team": 20,
+     "eligible": [
+      25,
+      3,
+      4,
+      5,
+      23,
+      7,
+      20,
+      21
+     ],
+     "pos": 3,
+     "injury": "ACTIVE",
+     "proj": 10.5,
+     "owned": 59.3,
+     "slot": 23
+    }
+   ]
   }
  ]
 }
