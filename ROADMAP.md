@@ -31,7 +31,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
 | NBA category matchup view | not started |
 | 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
-| Kosmonauts FA adds | blocked: Yahoo API approval (or read FAs in the laptop sync) |
+| Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 

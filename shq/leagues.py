@@ -224,11 +224,13 @@ class YahooLeague:
 
 
 class SavedYahooLeague(YahooLeague):
-    """Kosmonauts from the roster the laptop's scheduled task reads off the Yahoo website
-    (state/kosmonauts_roster.json) — used only while Yahoo's API is still gated. Read-only and
-    without a free-agent list, so swaps and FA ideas come as pushes/notes for you to act on."""
+    """Kosmonauts from what the laptop's scheduled task reads off the Yahoo website
+    (state/kosmonauts_roster.json) — used only while Yahoo's API is still gated. Read-only, so swaps
+    and adds come as pushes/notes for you to act on. Free agents are the top ~15 available players per
+    position from the league's player list, dropped once that read is older than FA_STALE_HOURS."""
     can_write = False
     saved = True
+    FA_STALE_HOURS = 48
 
     def __init__(self, ctx, saved):
         self.ctx, self.name, self.week, self.scoring = ctx, YAHOO_LEAGUE_NAME, ctx.week, YAHOO_SCORING
@@ -237,13 +239,19 @@ class SavedYahooLeague(YahooLeague):
         roster = saved["players"]
         self.starters = [self._player(p, p["slot"]) for p in roster if p["slot"] not in ("BN", "IR", "IR+")]
         self.bench = [self._player(p, "BN") for p in roster if p["slot"] == "BN"]
+        fa_captured = parse_iso(saved["fa_captured"]) if saved.get("fa_captured") else None
+        fresh = fa_captured is not None and (ctx.now - fa_captured).total_seconds() < self.FA_STALE_HOURS * 3600
+        self.fa_captured = fa_captured
+        self._free_agents = sorted((self._player(p, "FA") for p in saved.get("free_agents") or [] if fresh),
+                                   key=lambda p: -p["proj"])
 
     @property
     def free_agents(self):
-        return []
+        return self._free_agents
 
     def best_fa(self, positions, now):
-        return None
+        from .swap import playable
+        return next((p for p in self.free_agents if set(p["positions"]) & set(positions) and playable(p, now)), None)
 
 
 class SnapshotMissing(Exception):

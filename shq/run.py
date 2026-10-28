@@ -88,8 +88,6 @@ def injury_watch(league, now):
             fa = league.best_fa(out["positions"], now)
             if fa:
                 tip = f"Best FA: {fa['name']} ({fa['team']}, {fa['proj']} proj) — add/drop manually."
-            elif getattr(league, "saved", False):
-                tip = "Check Yahoo free agents (FA list needs Yahoo API access)."
             else:
                 tip = "No playable FA found."
             push_once(key + ":fa", f"{league.name}: no healthy bench {slot}",
@@ -119,8 +117,7 @@ def weekly_section(league):
             + (f" over {who['name']} ({who['status'] if who['status'] in OUTISH else who['proj']})" if who else "")
             for _, fa, who in fa_adds(roster, league.free_agents[:300])]
     if not adds:
-        adds = (["FA adds need Yahoo API access (pending approval)."] if getattr(league, "saved", False)
-                else ["No free agent projects above your current depth."])
+        adds = ["No free agent projects above your current depth."]
     return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
 
 
