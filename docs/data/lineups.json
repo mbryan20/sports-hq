@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T08:49:28Z",
+ "updated": "2026-10-28T15:48:15Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-27T21:03:46Z",
-   "proj": 103.0,
+   "proj": 103.4,
    "starters": [
     {
      "slot": "QB",
@@ -23,7 +23,7 @@
      "opp": "vs LAC",
      "kickoff": "2026-11-01T21:05:00Z",
      "started": false,
-     "proj": 18.9,
+     "proj": 19.1,
      "status": null,
      "why": "",
      "flags": []
@@ -36,7 +36,7 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 15.7,
+     "proj": 15.9,
      "status": null,
      "why": "",
      "flags": []
@@ -49,7 +49,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.6,
+     "proj": 13.4,
      "status": null,
      "why": "",
      "flags": []
@@ -90,7 +90,7 @@
      "opp": "@JAX",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.3,
+     "proj": 8.5,
      "status": "Q",
      "why": "Yahoo: Questionable",
      "flags": [
@@ -193,9 +193,9 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Take Mahomes Tonight",
-   "opp_proj": 144.8,
+   "opp_proj": 144.6,
    "roster_synced": null,
-   "proj": 113.9,
+   "proj": 114.0,
    "starters": [
     {
      "slot": "QB",
@@ -233,7 +233,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 14.3,
+     "proj": 14.2,
      "status": null,
      "why": "",
      "flags": []
@@ -285,7 +285,7 @@
      "opp": "vs PHI",
      "kickoff": "2026-11-02T01:20:00Z",
      "started": false,
-     "proj": 11.7,
+     "proj": 11.8,
      "status": null,
      "why": "",
      "flags": []
@@ -298,7 +298,7 @@
      "opp": "@MIA",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 10.4,
+     "proj": 10.5,
      "status": null,
      "why": "",
      "flags": []
@@ -352,7 +352,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 5.9,
+     "proj": 5.8,
      "status": null,
      "why": "",
      "flags": []
@@ -564,7 +564,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 99.5,
+   "proj": 122.0,
    "starters": [
     {
      "slot": "QB",
@@ -628,7 +628,7 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.5,
+     "proj": 13.6,
      "status": null,
      "why": "",
      "flags": []
@@ -648,18 +648,16 @@
     },
     {
      "slot": "TE",
-     "name": "Dalton Schultz",
-     "team": "HOU",
+     "name": "Chig Okonkwo",
+     "team": "WAS",
      "pos": "TE",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs PHI",
+     "kickoff": "2026-11-02T01:20:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 5.9,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ]
+     "flags": []
     },
     {
      "slot": "FLEX",
@@ -689,38 +687,6 @@
     },
     {
      "slot": "K",
-     "name": "Empty",
-     "team": null,
-     "pos": "",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "EMPTY"
-     ]
-    },
-    {
-     "slot": "DEF",
-     "name": "Empty",
-     "team": null,
-     "pos": "",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "EMPTY"
-     ]
-    }
-   ],
-   "bench": [
-    {
-     "slot": "BN",
      "name": "Spencer Shrader",
      "team": "IND",
      "pos": "K",
@@ -732,6 +698,21 @@
      "why": "",
      "flags": []
     },
+    {
+     "slot": "DEF",
+     "name": "New England Patriots",
+     "team": "NE",
+     "pos": "DEF",
+     "opp": "@MIA",
+     "kickoff": "2026-11-01T21:25:00Z",
+     "started": false,
+     "proj": 9.2,
+     "status": null,
+     "why": "",
+     "flags": []
+    }
+   ],
+   "bench": [
     {
      "slot": "BN",
      "name": "Woody Marks",
@@ -771,7 +752,7 @@
      "opp": "vs KC",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 5.1,
+     "proj": 5.0,
      "status": null,
      "why": "",
      "flags": []
@@ -790,19 +771,6 @@
      "flags": [
       "Q"
      ]
-    },
-    {
-     "slot": "BN",
-     "name": "New England Patriots",
-     "team": "NE",
-     "pos": "DEF",
-     "opp": "@MIA",
-     "kickoff": "2026-11-01T21:25:00Z",
-     "started": false,
-     "proj": 9.2,
-     "status": null,
-     "why": "",
-     "flags": []
     }
    ]
   },
