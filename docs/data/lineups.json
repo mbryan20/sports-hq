@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T19:07:00Z",
+ "updated": "2026-10-28T19:17:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -12,8 +12,8 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-10-27T21:03:46Z",
-   "proj": 103.4,
+   "roster_synced": "2026-10-28T19:04:42Z",
+   "proj": 105.4,
    "starters": [
     {
      "slot": "QB",
@@ -84,18 +84,16 @@
     },
     {
      "slot": "TE",
-     "name": "Tyler Warren",
-     "team": "IND",
+     "name": "Brenton Strange",
+     "team": "JAX",
      "pos": "TE",
-     "opp": "@JAX",
+     "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.4,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
-     "flags": [
-      "Q"
-     ]
+     "proj": 8.8,
+     "status": null,
+     "why": "",
+     "flags": []
     },
     {
      "slot": "K",
@@ -112,13 +110,13 @@
     },
     {
      "slot": "DEF",
-     "name": "Chiefs",
-     "team": "KC",
+     "name": "Bengals",
+     "team": "CIN",
      "pos": "DEF",
-     "opp": "@DEN",
-     "kickoff": "2026-11-01T21:25:00Z",
+     "opp": "vs TEN",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 7.3,
+     "proj": 8.9,
      "status": null,
      "why": "",
      "flags": []
@@ -127,30 +125,17 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Tyler Higbee",
-     "team": "LAR",
+     "name": "Tyler Warren",
+     "team": "IND",
      "pos": "TE",
-     "opp": "vs LAC",
-     "kickoff": "2026-11-01T21:05:00Z",
+     "opp": "@JAX",
+     "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 6.8,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
-     "name": "Kendre Miller",
-     "team": "NO",
-     "pos": "RB",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0,
-     "status": null,
-     "why": "",
+     "proj": 8.4,
+     "status": "Q",
+     "why": "Yahoo: Questionable",
      "flags": [
-      "BYE"
+      "Q"
      ]
     },
     {
@@ -181,18 +166,34 @@
       "BYE",
       "IR"
      ]
+    },
+    {
+     "slot": "BN",
+     "name": "Chris Rodriguez Jr.",
+     "team": "JAX",
+     "pos": "RB",
+     "opp": "vs IND",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 5.7,
+     "status": null,
+     "why": "",
+     "flags": []
     }
    ],
    "advice": {
-    "matchup": "103.4 projected",
+    "matchup": "105.4 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
-     "Free agent adds need Yahoo API access (pending approval)."
+     "Jacoby Brissett (QB, ARI, 22.5 proj) for Matthew Stafford (19.1)",
+     "Zach Charbonnet (RB, SEA, 8.4 proj) for Chris Rodriguez Jr. (5.7)",
+     "TreVeyon Henderson (RB, NE, 6.7 proj) for Chris Rodriguez Jr. (5.7)"
     ],
     "notes": [],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   },
   "Domo Arigato": {
@@ -576,7 +577,8 @@
     "notes": [
      "FAAB left: $100"
     ],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   },
   "Guillotine": {
@@ -590,7 +592,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 122.0,
+   "proj": 121.7,
    "starters": [
     {
      "slot": "QB",
@@ -717,13 +719,13 @@
     },
     {
      "slot": "K",
-     "name": "Spencer Shrader",
-     "team": "IND",
+     "name": "Cam Little",
+     "team": "JAX",
      "pos": "K",
-     "opp": "@JAX",
+     "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 7.3,
+     "proj": 7.0,
      "status": null,
      "why": "",
      "flags": []
@@ -804,7 +806,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 11 this week, +24.7 pts vs the lowest other team",
+    "matchup": "Projected 7 of 11 this week, +19.5 pts vs the lowest other team, 7% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -818,7 +820,249 @@
     "notes": [
      "FAAB left: $59"
     ],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p",
+    "guillotine": {
+     "week": 8,
+     "sims": 5000,
+     "n": 11,
+     "rank": 7,
+     "gap": 19.5,
+     "proj": 124.6,
+     "cut": 0.073,
+     "survive": 0.927,
+     "faab": 59,
+     "waivers": "Wed 2:15a",
+     "teams": [
+      {
+       "name": "MoneyManChas",
+       "proj": 105.1,
+       "cut": 0.273,
+       "faab": 180,
+       "me": false
+      },
+      {
+       "name": "CodyRust",
+       "proj": 106.9,
+       "cut": 0.261,
+       "faab": 0,
+       "me": false
+      },
+      {
+       "name": "GoodFellas",
+       "proj": 115.8,
+       "cut": 0.142,
+       "faab": 77,
+       "me": false
+      },
+      {
+       "name": "Aniasin1",
+       "proj": 119.1,
+       "cut": 0.106,
+       "faab": 4,
+       "me": false
+      },
+      {
+       "name": "michaelbryan",
+       "proj": 124.6,
+       "cut": 0.073,
+       "faab": 59,
+       "me": true
+      },
+      {
+       "name": "Off with his head",
+       "proj": 129.4,
+       "cut": 0.044,
+       "faab": 106,
+       "me": false
+      },
+      {
+       "name": "robert8063",
+       "proj": 134.7,
+       "cut": 0.032,
+       "faab": 37,
+       "me": false
+      },
+      {
+       "name": "SteelRob420",
+       "proj": 136.1,
+       "cut": 0.025,
+       "faab": 43,
+       "me": false
+      },
+      {
+       "name": "JHED1979",
+       "proj": 139.3,
+       "cut": 0.018,
+       "faab": 43,
+       "me": false
+      },
+      {
+       "name": "Swegs4",
+       "proj": 138.6,
+       "cut": 0.017,
+       "faab": 20,
+       "me": false
+      },
+      {
+       "name": "drewpepin1",
+       "proj": 143.5,
+       "cut": 0.011,
+       "faab": 15,
+       "me": false
+      }
+     ],
+     "rich": [
+      {
+       "name": "MoneyManChas",
+       "faab": 180
+      },
+      {
+       "name": "Off with his head",
+       "faab": 106
+      },
+      {
+       "name": "GoodFellas",
+       "faab": 77
+      }
+     ],
+     "bids": [
+      {
+       "name": "Jake Ferguson",
+       "pos": "TE",
+       "team": "DAL",
+       "proj": 8.1,
+       "gain": 2.2,
+       "cut_with": 0.06,
+       "price": 4,
+       "max": 8,
+       "call": "bid",
+       "rivals": [
+        {
+         "name": "MoneyManChas",
+         "bid": 3
+        },
+        {
+         "name": "GoodFellas",
+         "bid": 1
+        }
+       ],
+       "freed_from": null
+      },
+      {
+       "name": "Mark Andrews",
+       "pos": "TE",
+       "team": "BAL",
+       "proj": 7.3,
+       "gain": 1.4,
+       "cut_with": 0.065,
+       "price": 2,
+       "max": 5,
+       "call": "bid",
+       "rivals": [
+        {
+         "name": "MoneyManChas",
+         "bid": 1
+        }
+       ],
+       "freed_from": null
+      },
+      {
+       "name": "Kenyon Sadiq",
+       "pos": "TE",
+       "team": "NYJ",
+       "proj": 7.2,
+       "gain": 1.3,
+       "cut_with": 0.065,
+       "price": 2,
+       "max": 5,
+       "call": "bid",
+       "rivals": [
+        {
+         "name": "MoneyManChas",
+         "bid": 1
+        }
+       ],
+       "freed_from": null
+      }
+     ],
+     "freed": {
+      "team": "MoneyManChas",
+      "cut": 0.273,
+      "players": [
+       {
+        "name": "Drake London",
+        "pos": "WR",
+        "team": "ATL",
+        "proj": 13.9,
+        "gain": 5.1,
+        "cut_with": 0.047,
+        "price": 16,
+        "max": 19,
+        "call": "bid",
+        "rivals": [
+         {
+          "name": "GoodFellas",
+          "bid": 15
+         },
+         {
+          "name": "Off with his head",
+          "bid": 14
+         },
+         {
+          "name": "JHED1979",
+          "bid": 8
+         }
+        ],
+        "freed_from": "MoneyManChas"
+       },
+       {
+        "name": "Jaylen Warren",
+        "pos": "RB",
+        "team": "PIT",
+        "proj": 13.4,
+        "gain": 4.6,
+        "cut_with": 0.048,
+        "price": 15,
+        "max": 17,
+        "call": "bid",
+        "rivals": [
+         {
+          "name": "GoodFellas",
+          "bid": 14
+         },
+         {
+          "name": "Off with his head",
+          "bid": 11
+         },
+         {
+          "name": "JHED1979",
+          "bid": 7
+         }
+        ],
+        "freed_from": "MoneyManChas"
+       },
+       {
+        "name": "Harold Fannin Jr.",
+        "pos": "TE",
+        "team": "CLE",
+        "proj": 8.8,
+        "gain": 2.9,
+        "cut_with": 0.056,
+        "price": 3,
+        "max": 11,
+        "call": "bid",
+        "rivals": [
+         {
+          "name": "GoodFellas",
+          "bid": 2
+         }
+        ],
+        "freed_from": "MoneyManChas"
+       }
+      ]
+     }
+    }
    }
   },
   "3-Ball FB": {
@@ -1118,7 +1362,8 @@
      "Pat Freiermuth (TE, PIT, 8.5 proj), beats your weakest TE Kenyon Sadiq (4.9) this week"
     ],
     "notes": [],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   },
   "Stempak": {
@@ -1400,7 +1645,8 @@
     "notes": [
      "(roster as of the laptop read Tue 4:04p; check it's still current)"
     ],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   },
   "Bro-vid19": {
@@ -1648,7 +1894,8 @@
      "Patriots D/ST (D/ST, NE, 5.8 proj) for Jets D/ST (5.2)"
     ],
     "notes": [],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   },
   "3-Ball BB": {
@@ -1907,7 +2154,84 @@
     "notes": [
      "10 of 10 starters play tonight"
     ],
-    "built": "Wed 2:07p"
+    "cats": {
+     "rows": [
+      {
+       "cat": "FT%",
+       "me": ".700",
+       "opp": ".625",
+       "now": "W",
+       "outlook": "close"
+      },
+      {
+       "cat": "REB",
+       "me": "56",
+       "opp": "52",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "PTS",
+       "me": "138",
+       "opp": "101",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "BLK",
+       "me": "11",
+       "opp": "8",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "3PM",
+       "me": "11",
+       "opp": "11",
+       "now": "T",
+       "outlook": "close"
+      },
+      {
+       "cat": "STL",
+       "me": "9",
+       "opp": "9",
+       "now": "T",
+       "outlook": "close"
+      },
+      {
+       "cat": "AST",
+       "me": "34",
+       "opp": "23",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "FG%",
+       "me": ".491",
+       "opp": ".438",
+       "now": "W",
+       "outlook": "win"
+      }
+     ],
+     "now": "6-0-2",
+     "proj": "5-0",
+     "close": 3,
+     "games_left": [
+      34,
+      33
+     ],
+     "chase": [
+      "STL is close. Keep in the lineup: Franz Wagner (3 games, 1.2/g) and Shai Gilgeous-Alexander (2 games, 1.7/g).",
+      "FT% is close. Keep in the lineup: Shai Gilgeous-Alexander (2 games, .884 on 8.8 FTA/g) and Franz Wagner (3 games, .849 on 5.3 FTA/g).",
+      "3PM is close. Keep in the lineup: Ayo Dosunmu (3 games, 1.8/g) and Saddiq Bey (3 games, 1.8/g)."
+     ],
+     "adds": [
+      "For STL: Matisse Thybulle (SF, LAL), 3 games left, 1.9/g",
+      "For FT%: Jordan Poole (PG/SG, NO), 3 games left, .874 on 2.4 FTA/g",
+      "For 3PM: Grayson Allen (PG/SG, CHA), 3 games left, 2.7/g"
+     ]
+    },
+    "built": "Wed 2:17p"
    }
   },
   "Ball is Life": {
@@ -2131,7 +2455,8 @@
      "7 of 9 starters play tonight",
      "(roster as of the laptop read Tue 4:04p; check it's still current)"
     ],
-    "built": "Wed 2:07p"
+    "cats": null,
+    "built": "Wed 2:17p"
    }
   }
  }
