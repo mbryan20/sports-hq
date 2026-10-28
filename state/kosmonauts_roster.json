@@ -1,5 +1,5 @@
 {
- "captured": "2026-10-27T21:03:46Z",
+ "captured": "2026-10-28T19:04:42Z",
  "players": [
   {
    "slot": "QB",
@@ -63,6 +63,18 @@
   },
   {
    "slot": "TE",
+   "name": "Brenton Strange",
+   "yahoo_id": "40078",
+   "key": null,
+   "team": "JAX",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "BN",
    "name": "Tyler Warren",
    "yahoo_id": "41799",
    "key": null,
@@ -72,30 +84,6 @@
     "TE"
    ],
    "status": "Questionable"
-  },
-  {
-   "slot": "BN",
-   "name": "Tyler Higbee",
-   "yahoo_id": "29344",
-   "key": null,
-   "team": "LAR",
-   "pos": "TE",
-   "eligible": [
-    "TE"
-   ],
-   "status": null
-  },
-  {
-   "slot": "BN",
-   "name": "Kendre Miller",
-   "yahoo_id": "40108",
-   "key": null,
-   "team": "NO",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
   },
   {
    "slot": "BN",
@@ -122,6 +110,18 @@
    "status": "IR"
   },
   {
+   "slot": "BN",
+   "name": "Chris Rodriguez Jr.",
+   "yahoo_id": "40231",
+   "key": null,
+   "team": "JAX",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
    "slot": "K",
    "name": "Spencer Shrader",
    "yahoo_id": "41499",
@@ -135,6 +135,932 @@
   },
   {
    "slot": "DEF",
+   "name": "Bengals",
+   "yahoo_id": "100004",
+   "key": null,
+   "team": "CIN",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  }
+ ],
+ "free_agents": [
+  {
+   "slot": "FA",
+   "name": "Aaron Rodgers",
+   "yahoo_id": "7200",
+   "key": null,
+   "team": "PIT",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Justin Herbert",
+   "yahoo_id": "32676",
+   "key": null,
+   "team": "LAC",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jalen Hurts",
+   "yahoo_id": "32723",
+   "key": null,
+   "team": "PHI",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Sam Darnold",
+   "yahoo_id": "30973",
+   "key": null,
+   "team": "SEA",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jacoby Brissett",
+   "yahoo_id": "29325",
+   "key": null,
+   "team": "ARI",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Baker Mayfield",
+   "yahoo_id": "30971",
+   "key": null,
+   "team": "TB",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Michael Penix Jr.",
+   "yahoo_id": "40889",
+   "key": null,
+   "team": "ATL",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jaxson Dart",
+   "yahoo_id": "41810",
+   "key": null,
+   "team": "NYG",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Malik Willis",
+   "yahoo_id": "34042",
+   "key": null,
+   "team": "MIA",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Geno Smith",
+   "yahoo_id": "26662",
+   "key": null,
+   "team": "NYJ",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Daniel Jones",
+   "yahoo_id": "31838",
+   "key": null,
+   "team": "IND",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Deshaun Watson",
+   "yahoo_id": "30125",
+   "key": null,
+   "team": "CLE",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "J.J. McCarthy",
+   "yahoo_id": "40905",
+   "key": null,
+   "team": "NYG",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Cam Ward",
+   "yahoo_id": "41786",
+   "key": null,
+   "team": "TEN",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Tanner McKee",
+   "yahoo_id": "40220",
+   "key": null,
+   "team": "PHI",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "J.K. Dobbins",
+   "yahoo_id": "32725",
+   "key": null,
+   "team": "DEN",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "David Montgomery",
+   "yahoo_id": "31905",
+   "key": null,
+   "team": "HOU",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "TreVeyon Henderson",
+   "yahoo_id": "41823",
+   "key": null,
+   "team": "NE",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Zach Charbonnet",
+   "yahoo_id": "40075",
+   "key": null,
+   "team": "SEA",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Jadarian Price",
+   "yahoo_id": "42654",
+   "key": null,
+   "team": "SEA",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "J. Croskey-Merritt",
+   "yahoo_id": "42010",
+   "key": null,
+   "team": "WAS",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Alvin Kamara",
+   "yahoo_id": "30180",
+   "key": null,
+   "team": "NO",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Dameon Pierce",
+   "yahoo_id": "34063",
+   "key": null,
+   "team": "PHI",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "MarShawn Lloyd",
+   "yahoo_id": "40971",
+   "key": null,
+   "team": "GB",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Kenny Gainwell",
+   "yahoo_id": "33538",
+   "key": null,
+   "team": "TB",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jonathon Brooks",
+   "yahoo_id": "40926",
+   "key": null,
+   "team": "CAR",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Kendre Miller",
+   "yahoo_id": "40108",
+   "key": null,
+   "team": "NO",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Brian Robinson Jr.",
+   "yahoo_id": "34054",
+   "key": null,
+   "team": "ATL",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Kaelon Black",
+   "yahoo_id": "42712",
+   "key": null,
+   "team": "SF",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Mike Washington Jr.",
+   "yahoo_id": "42744",
+   "key": null,
+   "team": "LV",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Davante Adams",
+   "yahoo_id": "27581",
+   "key": null,
+   "team": "LAR",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Ladd McConkey",
+   "yahoo_id": "40908",
+   "key": null,
+   "team": "LAC",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Xavier Worthy",
+   "yahoo_id": "40877",
+   "key": null,
+   "team": "KC",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jordan Addison",
+   "yahoo_id": "40042",
+   "key": null,
+   "team": "MIN",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Marvin Harrison Jr.",
+   "yahoo_id": "40893",
+   "key": null,
+   "team": "HOU",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chris Godwin Jr.",
+   "yahoo_id": "30197",
+   "key": null,
+   "team": "TB",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Deebo Samuel Sr.",
+   "yahoo_id": "31868",
+   "key": null,
+   "team": "SF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Tre Tucker",
+   "yahoo_id": "40114",
+   "key": null,
+   "team": "LV",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Courtland Sutton",
+   "yahoo_id": "31010",
+   "key": null,
+   "team": "DEN",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
+   "key": null,
+   "team": "IND",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jordyn Tyson",
+   "yahoo_id": "42630",
+   "key": null,
+   "team": "NO",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR-Return"
+  },
+  {
+   "slot": "FA",
+   "name": "Wan'Dale Robinson",
+   "yahoo_id": "33998",
+   "key": null,
+   "team": "TEN",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Khalil Shakir",
+   "yahoo_id": "34104",
+   "key": null,
+   "team": "BUF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Alec Pierce",
+   "yahoo_id": "34008",
+   "key": null,
+   "team": "IND",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Romeo Doubs",
+   "yahoo_id": "34088",
+   "key": null,
+   "team": "NE",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Juwan Johnson",
+   "yahoo_id": "33113",
+   "key": null,
+   "team": "NO",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Mark Andrews",
+   "yahoo_id": "31056",
+   "key": null,
+   "team": "BAL",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jake Ferguson",
+   "yahoo_id": "34085",
+   "key": null,
+   "team": "DAL",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Dalton Schultz",
+   "yahoo_id": "31107",
+   "key": null,
+   "team": "HOU",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Tyler Higbee",
+   "yahoo_id": "29344",
+   "key": null,
+   "team": "LAR",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chig Okonkwo",
+   "yahoo_id": "34099",
+   "key": null,
+   "team": "WAS",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Terrance Ferguson",
+   "yahoo_id": "41831",
+   "key": null,
+   "team": "LAR",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Michael Mayer",
+   "yahoo_id": "40065",
+   "key": null,
+   "team": "LV",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Kenyon Sadiq",
+   "yahoo_id": "42638",
+   "key": null,
+   "team": "NYJ",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "AJ Barner",
+   "yahoo_id": "41001",
+   "key": null,
+   "team": "SEA",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Darren Waller",
+   "yahoo_id": "28592",
+   "key": null,
+   "team": "CAR",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Cade Otton",
+   "yahoo_id": "34062",
+   "key": null,
+   "team": "TB",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Greg Dulcich",
+   "yahoo_id": "34036",
+   "key": null,
+   "team": "MIA",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Oronde Gadsden",
+   "yahoo_id": "41951",
+   "key": null,
+   "team": "LAC",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Darnell Washington",
+   "yahoo_id": "40094",
+   "key": null,
+   "team": "PIT",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Evan McPherson",
+   "yahoo_id": "33537",
+   "key": null,
+   "team": "CIN",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chris Boswell",
+   "yahoo_id": "28188",
+   "key": null,
+   "team": "PIT",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Trey Smack",
+   "yahoo_id": "42838",
+   "key": null,
+   "team": "GB",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Cameron Dicker",
+   "yahoo_id": "34344",
+   "key": null,
+   "team": "LAC",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Harrison Butker",
+   "yahoo_id": "30346",
+   "key": null,
+   "team": "KC",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Tyler Bass",
+   "yahoo_id": "32858",
+   "key": null,
+   "team": "BUF",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Wil Lutz",
+   "yahoo_id": "29754",
+   "key": null,
+   "team": "DEN",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Nick Folk",
+   "yahoo_id": "8432",
+   "key": null,
+   "team": "ATL",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Dominic Zvada",
+   "yahoo_id": "43171",
+   "key": null,
+   "team": "NYG",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Ryan Fitzgerald",
+   "yahoo_id": "42262",
+   "key": null,
+   "team": "CAR",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Andy Borregales",
+   "yahoo_id": "41980",
+   "key": null,
+   "team": "NE",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jake Elliott",
+   "yahoo_id": "30266",
+   "key": null,
+   "team": "PHI",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Harrison Mevis",
+   "yahoo_id": "41312",
+   "key": null,
+   "team": "LAR",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": "Inactive"
+  },
+  {
+   "slot": "FA",
+   "name": "Brandon McManus",
+   "yahoo_id": "27120",
+   "key": null,
+   "team": "LAR",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chad Ryland",
+   "yahoo_id": "40159",
+   "key": null,
+   "team": "ARI",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Browns",
+   "yahoo_id": "100005",
+   "key": null,
+   "team": "CLE",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Chiefs",
    "yahoo_id": "100012",
    "key": null,
@@ -144,6 +1070,163 @@
     "DEF"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Eagles",
+   "yahoo_id": "100021",
+   "key": null,
+   "team": "PHI",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "49ers",
+   "yahoo_id": "100025",
+   "key": null,
+   "team": "SF",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Bears",
+   "yahoo_id": "100003",
+   "key": null,
+   "team": "CHI",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Panthers",
+   "yahoo_id": "100029",
+   "key": null,
+   "team": "CAR",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Cowboys",
+   "yahoo_id": "100006",
+   "key": null,
+   "team": "DAL",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Packers",
+   "yahoo_id": "100009",
+   "key": null,
+   "team": "GB",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Commanders",
+   "yahoo_id": "100028",
+   "key": null,
+   "team": "WAS",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Lions",
+   "yahoo_id": "100008",
+   "key": null,
+   "team": "DET",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Colts",
+   "yahoo_id": "100011",
+   "key": null,
+   "team": "IND",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Buccaneers",
+   "yahoo_id": "100027",
+   "key": null,
+   "team": "TB",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Bills",
+   "yahoo_id": "100002",
+   "key": null,
+   "team": "BUF",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chargers",
+   "yahoo_id": "100024",
+   "key": null,
+   "team": "LAC",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Raiders",
+   "yahoo_id": "100013",
+   "key": null,
+   "team": "LV",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
   }
- ]
+ ],
+ "fa_captured": "2026-10-28T19:04:42Z"
 }
