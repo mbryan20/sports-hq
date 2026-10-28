@@ -27,16 +27,15 @@ h1 { font-size: 20px; margin: 0; letter-spacing: -.01em; }
   border: 1px solid var(--line); background: var(--card); color: var(--muted);
   border-radius: 999px; padding: 5px 10px; font: inherit; font-size: 12px;
 }
+.links { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.pill.link { color: var(--text); font-weight: 600; text-decoration: none; }
+.bar { gap: 8px; }
 .pill.ok { color: var(--green); } .pill.warn { color: var(--orange); } .pill.bad { color: var(--red); }
 nav { display: flex; gap: 4px; padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 nav::-webkit-scrollbar { display: none; }
 nav button {
   flex: 0 0 auto; border: 0; border-radius: 9px; padding: 9px 12px; font: inherit; font-weight: 600; font-size: 14px;
   background: transparent; color: var(--muted); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-nav a.navlink {
-  flex: 0 0 auto; border-radius: 9px; padding: 9px 12px; font-weight: 600; font-size: 14px; color: var(--muted);
-  text-align: center; text-decoration: none; white-space: nowrap;
 }
 nav button[aria-selected="true"] { background: var(--card); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
 main { padding: 12px 16px; max-width: 640px; margin: 0 auto; }

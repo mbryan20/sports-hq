@@ -80,7 +80,8 @@ function footer() {
   if (!s) return "";
   const btn = document.getElementById("refresh");
   const mins = (Date.now() - new Date(s.last_run)) / 60000;
-  btn.textContent = `Last run ${ago(s.last_run)}`;
+  btn.textContent = `↻ ${ago(s.last_run)}`;
+  btn.title = `Last run ${kick(s.last_run)} · tap to reload`;
   btn.className = "pill " + (!s.ok ? "bad" : mins > 150 ? "warn" : "ok");
   const bits = [`Last run ${kick(s.last_run)}`, `Week ${s.week}`];
   if (s.next_kickoff) bits.push(`next kickoff ${kick(s.next_kickoff)}`);
@@ -97,8 +98,7 @@ function renderTabs() {
   const names = tabNames();
   if (!names.includes(tab)) tab = names[0];
   document.getElementById("tabs").innerHTML = names.map(n =>
-    `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n === "today" ? "Today" : n)}</button>`).join("") +
-    `<a class="navlink" href="picks/">Picks</a><a class="navlink" href="war-room/">War Room</a>`;
+    `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n === "today" ? "Today" : n)}</button>`).join("");
 }
 
 function render() {
