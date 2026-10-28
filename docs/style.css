@@ -62,6 +62,13 @@ main { padding: 12px 16px; max-width: 640px; margin: 0 auto; }
 .chip.bye { color: var(--red); box-shadow: inset 0 0 0 1px var(--red); background: transparent; }
 ul.tips { margin: 0; padding: 8px 14px 12px 32px; }
 ul.tips li { margin: 4px 0; }
+ul.tips.fix li { color: var(--text); font-weight: 600; }
+ul.tips.fix li::marker { content: "⚠ "; color: var(--orange); }
+ul.tips.muted li { color: var(--muted); font-size: 13.5px; }
+ul.tips li.ok { color: var(--green); }
+.actions .summary .vs { white-space: normal; }
+.vs.danger { color: var(--red); font-weight: 600; }
+.small { font-size: 12px; white-space: nowrap; }
 .note { padding: 14px; color: var(--muted); }
 .note b { color: var(--text); }
 .muted { color: var(--muted); } .center { text-align: center; }

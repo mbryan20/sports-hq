@@ -5,7 +5,7 @@ import unittest
 
 os.environ["DRY_RUN"] = "1"
 
-from shq import digest
+from shq import advice, digest
 
 UTC = dt.timezone.utc
 NOW = dt.datetime(2026, 10, 29, 13, 30, tzinfo=UTC)          # Thu 8:30am CDT
@@ -19,7 +19,7 @@ def p(name, slot, positions, *, status=None, kickoff=SUN, bye=False, proj=10.0, 
 
 
 class League:
-    name, sport, free_agents = "Test", "nfl", []
+    name, sport, free_agents, opponent, opp_proj = "Test", "nfl", [], "Rival", 20.0
     def __init__(self, starters, bench, sport="nfl"):
         self.starters, self.bench, self.sport = starters, bench, sport
     def best_fa(self, positions, now):
@@ -64,6 +64,18 @@ class Digest(unittest.TestCase):
         item = digest.league_items(lg, NOW)[0]
         self.assertTrue(item["urgent"])
         self.assertIn("DANGER ZONE", item["text"])
+
+    def test_advice_block(self):
+        lg = League([p("Hurt RB", "RB", ["RB"], status="OUT"), p("Weak WR", "WR", ["WR"], proj=3.0)],
+                    [p("Spare RB", "BN", ["RB"], proj=6.0), p("Good WR", "BN", ["WR"], proj=9.0)])
+        a = advice.build(lg, NOW)
+        self.assertEqual(a["fixes"], ["Hurt RB (RB) OUT → start Spare RB (6.0 proj)"])
+        self.assertEqual(a["moves"], ["Start Good WR (9.0) over Weak WR (3.0) at WR, +6.0"])
+        self.assertIn("projected to lose by 17.0", a["matchup"])
+        lg.standing = {"rank": 2, "n": 10, "gap": 30.0}
+        a = advice.build(lg, NOW)
+        self.assertTrue(a["matchup"].startswith("Projected 2 of 10"))
+        self.assertFalse(a["danger"])
 
 
 if __name__ == "__main__":

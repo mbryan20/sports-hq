@@ -1,0 +1,86 @@
+# Sports HQ roadmap and hand-off notes
+
+**Read this first in any new session.** It holds the goal, where things stand, what's next, and the rules
+that keep the system working. README.md explains how the system runs; IDEAS.md collects ideas.
+
+## The goal
+Michael wants **one all-in-one fantasy hub** for every league and pool. It should work from his phone,
+including at work, where claude.ai is blocked. For each league it should tell him *what to do*:
+- lineup fixes
+- waiver adds, with who to drop
+- trade targets and trade offers
+- guillotine survival and bids
+- matchup outlook
+- pick'em cards
+
+It runs on its own (GitHub Actions, no AI in scheduled jobs). The laptop's Claude tasks only read sites
+that need a sign-in. It is an ongoing project, improved through the monthly review and ideas he adds.
+
+## Where things stand (update this table when something ships)
+| Area | Status |
+|---|---|
+| Lineup tabs, 8 leagues (NFL + NBA) | live |
+| Injury watch + exact-swap pushes (2h before lock) | live |
+| Weekly tab (Tue 7am): start/sit + top FA adds | live |
+| Today tab + 8am digest push | live 2026-10-28 |
+| Picks (BTO, CFP, Yahoo pick'em) | live (laptop, Tue–Sat) |
+| War Room copy + pinned header links | live |
+| League tabs as action pages (matchup, fixes, moves, adds, guillotine standing, FAAB) | live 2026-10-28 (`shq/advice.py`) |
+| Waiver adds ranked on rest-of-season value, not one week's projection | not started |
+| Trade finder + trade offers | not started |
+| Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
+| NBA category matchup view | not started |
+| 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
+| Kosmonauts FA adds | blocked: Yahoo API approval (or read FAs in the laptop sync) |
+| Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
+| Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
+
+## Next up, in order
+1. **Trade tools.**
+   - Value source: FantasyCalc's free public values API (dynasty and redraft, superflex and PPR settings).
+     Sleeper and public ESPN leagues expose every roster. Private ESPN leagues need the laptop snapshot to
+     include all teams.
+   - Trade finder: other teams' needs vs my surplus.
+   - Offers: 1-for-1 and 2-for-1 deals that are fair by value and help both lineups.
+   - NBA has no free value API; use ESPN ranks and projections.
+2. **Better waiver adds:** rank free agents by rest-of-season value, not one week, using the same value
+   source plus projections. For each add, say who to drop. FAAB guidance where the league uses FAAB.
+3. Guillotine tab: survival odds and bid guidance.
+4. NBA category matchup.
+5. Dynasty assets.
+
+## Rules that must not break
+- **The repo is public.** Never commit the ntfy topic, cookies, tokens or passwords.
+  - Secrets live only in GitHub Secrets.
+  - Laptop runs read the topic from `picks/.ntfy_topic` (gitignored).
+- **Read-only on fantasy sites.** Never add, drop, trade or bid automatically. The only automatic action is
+  a Yahoo lineup swap via the API, if write access ever exists. Everything else is a push saying exactly
+  what to do.
+- **Git:** always merge, never rebase (`git pull --no-rebase --no-edit`); the repo has subtree merges.
+- **Laptop tasks:** use Michael's Chrome through Claude in Chrome (`ops/BROWSER.md`), never the built-in
+  browser. Never type passwords.
+- **Manual steps for Michael:** follow the hard rule in his global CLAUDE.md. Give exact window, URL, labels,
+  values and the expected result, and close any tabs you opened.
+- **No paid APIs and no AI calls in GitHub Actions.**
+- **Tests:** run `py -m unittest discover -s tests` before every push. Verify the site at phone width
+  (375px, no horizontal scroll).
+- **Windows quirks:** run Python as `py`. Set `PYTHONIOENCODING=utf-8` for console output. Keep LF line
+  endings.
+
+## Hand-off practice
+- Start a **new session per big feature** (e.g. "build trade tools"). Open it in C:\Claude\sports-hq and say:
+  "read ROADMAP.md and build item N". The repo, README, this file and IDEAS.md carry everything needed. A
+  long chat isn't needed and gets summarized anyway.
+- At the end of each feature: update the status table and "Next up", commit, and note anything
+  non-obvious under "Lessons" below.
+
+## Lessons (non-obvious things learned the hard way)
+- **GitHub drops many scheduled runs,** so one run loops through game-day windows (run.yml). Daily jobs
+  use "first run after X o'clock" anchors, not exact crons.
+- **Bash cache key:** hours 08 and 09 need `10#` or bash reads them as octal and crashes.
+- **Yahoo:** blocked unapproved apps in July 2026. Read-only access is pending; the roster comes from the
+  laptop sync until then.
+- **ESPN NBA:** scoring periods are days, and matchups run Monday to Sunday.
+- **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
+- **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
+- **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.

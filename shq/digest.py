@@ -80,19 +80,27 @@ def league_items(league, now):
         if today:
             items.append({"league": league.name, "urgent": False,
                           "text": f"{len(today)} starters play today, first locks {ct_label(today[0])}"})
-    standing = getattr(league, "standing", None)
+    standing = standing_item(league)
     if standing:
-        rank, n, gap = standing["rank"], standing["n"], standing["gap"]
-        danger = rank > n - 3
-        items.append({"league": league.name, "urgent": danger,
-                      "text": (f"projected {rank} of {n} this week" +
-                               (f", {gap:+.1f} pts vs the lowest other team" if gap is not None else "") +
-                               (" — DANGER ZONE, check the War Room" if danger else ""))})
+        items.append(standing)
     captured = getattr(league, "captured", None)  # laptop-read leagues (Kosmonauts, private ESPN)
     if captured and any(i["urgent"] for i in items):
         items.append({"league": league.name, "urgent": False,
                       "text": f"(roster as of the laptop read {ct_label(captured)}; check it's still current)"})
     return items
+
+
+def standing_item(league):
+    """Guillotine: projected rank among teams still alive; bottom 3 is urgent."""
+    standing = getattr(league, "standing", None)
+    if not standing:
+        return None
+    rank, n, gap = standing["rank"], standing["n"], standing["gap"]
+    danger = rank > n - 3
+    return {"league": league.name, "urgent": danger,
+            "text": (f"projected {rank} of {n} this week" +
+                     (f", {gap:+.1f} pts vs the lowest other team" if gap is not None else "") +
+                     (" — DANGER ZONE, check the War Room" if danger else ""))}
 
 
 def picks_items(cards, now):

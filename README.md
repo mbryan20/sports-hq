@@ -18,6 +18,10 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 
+Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
+guillotine rank, fixes for starters who can't play, start/sit moves, top waiver adds, FAAB left.
+What's next and the hand-off rules live in **ROADMAP.md**.
+
 The footer shows the last cloud run and when each laptop job last delivered.
 
 ## Two engines

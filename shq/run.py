@@ -6,7 +6,7 @@ import os
 import sys
 import traceback
 
-from . import digest, notify
+from . import advice, digest, notify
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -41,6 +41,17 @@ def watch_active(ctx, now):
 def label(p):
     extra = f" ({p['why']})" if p.get("why") else ""
     return f"{p['name']}{extra}"
+
+
+def league_view(league, now):
+    """Lineup tab JSON plus the "what to do" block. Advice is best-effort: a bug there never blocks the
+    lineup data or the injury watch."""
+    try:
+        tips = advice.build(league, now)
+    except Exception:
+        traceback.print_exc()
+        tips = None
+    return view(league, tips)
 
 
 def injury_watch(league, now):
@@ -169,8 +180,9 @@ def main():
                               f"Last read from ESPN {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open?",
                               tags=["warning"])
                     notes.append(f"{name}: ESPN snapshot is stale")
+            lg.dynasty = bool(cfg.get("dynasty"))
             leagues.append(lg)
-            league_views[name] = view(lg)
+            league_views[name] = league_view(lg, now)
             prev = prev_views.get(name) or {}
             if cfg["platform"] == "yahoo" and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
@@ -186,7 +198,7 @@ def main():
             if saved:
                 lg = SavedYahooLeague(ctx, saved)
                 leagues.append(lg)
-                league_views[name] = view(lg)
+                league_views[name] = league_view(lg, now)
                 if now - lg.captured > ROSTER_STALE:
                     push_once(f"roster-stale:{saved['captured']}", f"{name}: roster sync is stale",
                               f"Last read from Yahoo {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open? "
@@ -215,7 +227,7 @@ def main():
         for lg in leagues:
             try:
                 actions += injury_watch(lg, now)
-                league_views[lg.name] = view(lg)  # reflect any swap
+                league_views[lg.name] = league_view(lg, now)  # reflect any swap
             except Exception as e:
                 traceback.print_exc()
                 errors.append(f"{lg.name} injury watch: {type(e).__name__}: {e}")

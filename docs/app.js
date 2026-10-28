@@ -45,11 +45,25 @@ function lineup(name) {
   const opp = (lg.format === "guillotine" ? "Survive the week" : lg.opponent ? `vs ${esc(lg.opponent)}` : "No opponent listed") + src;
   const cats = lg.sport === "nba";
   const oppScore = lg.opp_proj != null ? ` <span class="opp">– ${lg.opp_proj.toFixed(1)}</span>` : "";
-  return `<div class="card">${stale}
+  return actions(lg) + `<div class="card">${stale}
     <div class="summary"><div><div class="name">${esc(name)} · Wk ${lg.week}</div><div class="vs">${opp}</div></div>
       <div class="score">${cats ? (lg.league || "") : (lg.proj ?? 0).toFixed(1) + oppScore}</div></div>
     <div class="section">Starters</div>${lg.starters.map(row).join("")}
     <div class="section">Bench</div>${lg.bench.length ? lg.bench.map(row).join("") : `<p class="note">Empty</p>`}
+  </div>`;
+}
+
+function actions(lg) {
+  const a = lg.advice;
+  if (!a) return "";
+  const list = (title, items, cls = "") => items?.length
+    ? `<div class="section">${title}</div><ul class="tips ${cls}">${items.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : "";
+  const fixes = a.fixes?.length ? list("Fix now", a.fixes, "fix")
+    : `<div class="section">Fix now</div><ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
+  return `<div class="card actions">
+    <div class="summary"><div><div class="name">What to do</div>${a.matchup ? `<div class="vs ${a.danger ? "danger" : ""}">${esc(a.matchup)}</div>` : ""}</div>
+      <div class="muted small">${esc(a.built)}</div></div>
+    ${fixes}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${list("Notes", a.notes, "muted")}
   </div>`;
 }
 

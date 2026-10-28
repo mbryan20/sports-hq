@@ -132,6 +132,8 @@ class SleeperLeague:
             key=lambda p: -p["proj"])
 
         self.standing = self._standing(ctx, rosters, mine) if fmt == "guillotine" else None
+        budget = (lg.get("settings") or {}).get("waiver_budget") or 0
+        self.faab = budget - ((mine.get("settings") or {}).get("waiver_budget_used") or 0) if budget else None
         self.opponent, self.opp_proj = None, None
         try:
             ms = sleeper.matchups(lg["league_id"], ctx.week)
@@ -311,7 +313,7 @@ class EspnLeague:
         return max(cands, key=lambda p: (p["proj"], p["owned"]), default=None)
 
 
-def view(league):
+def view(league, advice=None):
     """JSON for the Lineup tab. Player names and NFL info only — no IDs or tokens."""
     def row(p):
         flags = []
@@ -335,4 +337,5 @@ def view(league):
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
         "proj": round(sum(p["proj"] for p in league.starters), 1),
         "starters": [row(p) for p in league.starters], "bench": [row(p) for p in league.bench],
+        "advice": advice,
     }
