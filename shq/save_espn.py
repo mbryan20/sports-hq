@@ -3,8 +3,9 @@
     py -m shq.save_espn --js           print the JavaScript to run in a signed-in fantasy.espn.com tab
     py -m shq.save_espn <file.json>    validate what it returned, save state/espn/*.json, commit + push
 
-The JavaScript returns compact league snapshots (see espn_fantasy.compact). Commits only when a
-roster, injury or free-agent list changed, or the last snapshot is over 20h old."""
+The JavaScript returns compact league snapshots (see espn_fantasy.compact; NBA category leagues also
+carry this week's category totals). Commits only when a roster, injury, free-agent list or category
+total changed, or the last snapshot is over 20h old."""
 import datetime as dt
 import json
 import subprocess
@@ -29,6 +30,10 @@ def validate(snap):
         raise ValueError(f"unexpected league {snap.get('sport')} {snap.get('league_id')}")
     if len(snap.get("roster") or []) < 8 or not (snap.get("team") or {}).get("name"):
         raise ValueError(f"{cfg['name']}: roster looks incomplete ({len(snap.get('roster') or [])} players)")
+    m = snap.get("matchup")
+    if m is not None and not (m.get("cats") and isinstance(m.get("mine"), dict) and isinstance(m.get("opp"), dict)
+                              and m.get("my_roster") and m.get("opp_roster")):
+        raise ValueError(f"{cfg['name']}: category matchup looks incomplete")
     return cfg
 
 
@@ -48,7 +53,7 @@ def main(path):
             errors.append(str(e))
             continue
         prev = load_snapshot(snap["sport"], snap["league_id"]) or {}
-        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent"))
+        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent", "matchup"))
         fresh = prev.get("captured") and now_utc() - parse_iso(prev["captured"]) < dt.timedelta(hours=20)
         if same and fresh:
             continue

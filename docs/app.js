@@ -64,7 +64,7 @@ function actions(lg) {
     <div class="summary"><div><div class="name">What to do</div>${a.matchup ? `<div class="vs ${a.danger ? "danger" : ""}">${esc(a.matchup)}</div>` : ""}</div>
       <div class="muted small">${esc(a.built)}</div></div>
     ${guillotine(a.guillotine)}
-    ${fixes}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${list("Notes", a.notes, "muted")}
+    ${fixes}${cats(a.cats, list)}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${list("Notes", a.notes, "muted")}
   </div>`;
 }
 
@@ -83,6 +83,18 @@ function guillotine(g) {
       ${risk.map(li).join("")}</ul>
     <div class="section">Bids · waivers ${esc(g.waivers)} CT</div><ul class="tips">${g.bids.length ? g.bids.map(b => li(bid(b))).join("") : li("No free agent adds a point to your lineup.")}</ul>
     ${freed}<ul class="tips muted">${li(`You have $${g.faab} FAAB. Most left: ${g.rich.map(r => `${r.name} $${r.faab}`).join(", ")}. Model: ${g.sims} simulated weeks, best lineups; it only recommends.`)}</ul>`;
+}
+
+// NBA category matchup: this week's totals per category and where each is heading (shq/categories.py)
+function cats(c, list) {
+  if (!c?.rows?.length) return "";
+  const word = { win: "Win", lose: "Lose", close: "Close", tie: "Tie" };
+  const rows = c.rows.map(r => `<tr><td>${esc(r.cat)}</td><td class="${r.now === "W" ? "lead" : ""}">${esc(r.me)}</td>
+    <td class="${r.now === "L" ? "lead" : ""}">${esc(r.opp)}</td><td class="${esc(r.outlook)}">${esc(word[r.outlook] || r.outlook)}</td></tr>`).join("");
+  return `<div class="section">Categories · now ${esc(c.now)} · on course ${esc(c.proj)}${c.close ? `, ${c.close} close` : ""}</div>
+    <table class="cats"><thead><tr><th>Cat</th><th>Me</th><th>Opp</th><th>Outlook</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="cats-note">Games left this week (best lineup each day): you ${c.games_left[0]}, them ${c.games_left[1]}</p>`
+    + list("Chase", c.chase) + list("Category adds", c.adds);
 }
 
 function today() {

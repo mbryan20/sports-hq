@@ -5,7 +5,7 @@
     moves    healthy start/sit upgrades by projection
     adds     top free agents and who they'd replace
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
-from . import digest
+from . import categories, digest
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -42,8 +42,6 @@ def _moves(league):
 
 
 def _adds(league):
-    if getattr(league, "saved", False):
-        return ["Free agent adds need Yahoo API access (pending approval)."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                      key=lambda t: (-t[0], -t[1]))[:3]
@@ -72,5 +70,6 @@ def build(league, now):
         "moves": _moves(league)[:3],
         "adds": _adds(league)[:3],
         "notes": notes,
+        "cats": categories.build(league) if getattr(league, "sport", "nfl") == "nba" else None,
         "built": ct_label(now),
     }
