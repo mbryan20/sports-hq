@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T15:56:39Z",
+ "updated": "2026-10-28T18:31:34Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -182,7 +182,18 @@
       "IR"
      ]
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "103.4 projected",
+    "danger": false,
+    "fixes": [],
+    "moves": [],
+    "adds": [
+     "Free agent adds need Yahoo API access (pending approval)."
+    ],
+    "notes": [],
+    "built": "Wed 1:31p"
+   }
   },
   "Domo Arigato": {
    "name": "Domo Arigato",
@@ -193,7 +204,7 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Take Mahomes Tonight",
-   "opp_proj": 144.6,
+   "opp_proj": 144.7,
    "roster_synced": null,
    "proj": 114.0,
    "starters": [
@@ -551,7 +562,22 @@
      "why": "",
      "flags": []
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "114.0 vs 144.7 (Take Mahomes Tonight): projected to lose by 30.7",
+    "danger": false,
+    "fixes": [],
+    "moves": [],
+    "adds": [
+     "Zonovan Knight (RB, ARI, 7.4 proj), beats your weakest RB Jaylen Wright (4.1) this week",
+     "Washington Commanders (DEF, WAS, 8.4 proj), beats your weakest DEF Philadelphia Eagles (5.9) this week",
+     "Savion Williams (WR, GB, 5.6 proj), beats your weakest WR Jalen Nailor (3.5) this week"
+    ],
+    "notes": [
+     "FAAB left: $100"
+    ],
+    "built": "Wed 1:31p"
+   }
   },
   "Guillotine": {
    "name": "Guillotine",
@@ -601,9 +627,11 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 9.0,
-     "status": null,
-     "why": "",
-     "flags": []
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ]
     },
     {
      "slot": "WR",
@@ -642,9 +670,11 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 11.0,
-     "status": null,
-     "why": "",
-     "flags": []
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ]
     },
     {
      "slot": "TE",
@@ -772,7 +802,24 @@
       "Q"
      ]
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "Projected 7 of 11 this week, +24.7 pts vs the lowest other team",
+    "danger": false,
+    "fixes": [],
+    "moves": [
+     "Start Breece Hall (10.3) over Khalil Shakir (7.4) at FLEX, +2.9"
+    ],
+    "adds": [
+     "Zach Charbonnet (RB, SEA, 8.4 proj) for J.K. Dobbins (5.0)",
+     "Jake Ferguson (TE, DAL, 8.1 proj) for Chig Okonkwo (5.9)",
+     "Tyjae Spears (RB, TEN, 6.4 proj) for J.K. Dobbins (5.0)"
+    ],
+    "notes": [
+     "FAAB left: $59"
+    ],
+    "built": "Wed 1:31p"
+   }
   },
   "3-Ball FB": {
    "name": "3-Ball FB",
@@ -785,7 +832,7 @@
    "opponent": "Kevin  Love Sosa",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 137.7,
+   "proj": 137.8,
    "starters": [
     {
      "slot": "QB",
@@ -808,7 +855,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 16.1,
+     "proj": 16.2,
      "status": null,
      "why": "",
      "flags": []
@@ -1057,7 +1104,22 @@
      "why": "",
      "flags": []
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "137.8 projected vs Kevin Love Sosa",
+    "danger": false,
+    "fixes": [],
+    "moves": [
+     "Start Rico Dowdle (9.3) over Makai Lemon (6.5) at FLEX, +2.8"
+    ],
+    "adds": [
+     "Samaje Perine (RB, CIN, 7.3 proj), beats your weakest RB Kaytron Allen (0.0) this week",
+     "Chris Rodriguez Jr. (RB, JAX, 6.2 proj), beats your weakest RB Kaytron Allen (0.0) this week",
+     "Pat Freiermuth (TE, PIT, 8.5 proj), beats your weakest TE Kenyon Sadiq (4.9) this week"
+    ],
+    "notes": [],
+    "built": "Wed 1:31p"
+   }
   },
   "Stempak": {
    "name": "Stempak",
@@ -1318,7 +1380,28 @@
      "why": "",
      "flags": []
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "130.2 projected vs Robert's Rowdy Team",
+    "danger": false,
+    "fixes": [
+     "Juwan Johnson (TE) on BYE \u2192 start Dalton Kincaid (8.9 proj)",
+     "C.J. Stroud (QB) on BYE \u2192 start Josh Allen (27.1 proj)",
+     "Texans D/ST (D/ST) on BYE \u2192 no bench fit; best FA Rams D/ST (LAR)"
+    ],
+    "moves": [
+     "Start James Cook III (19.2) over Rhamondre Stevenson (13.3) at RB, +5.9"
+    ],
+    "adds": [
+     "Rams D/ST (D/ST, LAR, 7.6 proj)",
+     "Blake Corum (RB, LAR, 11.6 proj) for MarShawn Lloyd (4.9)",
+     "Seahawks D/ST (D/ST, SEA, 5.8 proj)"
+    ],
+    "notes": [
+     "(roster as of the laptop read Tue 4:04p; check it's still current)"
+    ],
+    "built": "Wed 1:31p"
+   }
   },
   "Bro-vid19": {
    "name": "Bro-vid19",
@@ -1551,7 +1634,22 @@
      "why": "",
      "flags": []
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "136.4 projected vs Party Puka",
+    "danger": false,
+    "fixes": [],
+    "moves": [
+     "Start Aaron Jones Sr. (10.5) over Jordan Mason (9.5) at RB, +1.0"
+    ],
+    "adds": [
+     "T.J. Hockenson (TE, MIN, 11.2 proj) for Travis Kelce (9.3)",
+     "Khalil Shakir (WR, BUF, 9.4 proj) for Rashid Shaheed (8.2)",
+     "Patriots D/ST (D/ST, NE, 5.8 proj) for Jets D/ST (5.2)"
+    ],
+    "notes": [],
+    "built": "Wed 1:31p"
+   }
   },
   "3-Ball BB": {
    "name": "3-Ball BB",
@@ -1795,7 +1893,22 @@
       "NO GAME"
      ]
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "vs Deep in the MUFF",
+    "danger": false,
+    "fixes": [],
+    "moves": [],
+    "adds": [
+     "Grayson Allen (PG/SG, CHA): 3 games left this week, 17.1% owned",
+     "Obi Toppin (PF, IND): 3 games left this week, 15.6% owned",
+     "Julian Champagnie (SF/PF, SA): 2 games left this week, 47.3% owned"
+    ],
+    "notes": [
+     "10 of 10 starters play tonight"
+    ],
+    "built": "Wed 1:31p"
+   }
   },
   "Ball is Life": {
    "name": "Ball is Life",
@@ -2000,7 +2113,26 @@
       "Q"
      ]
     }
-   ]
+   ],
+   "advice": {
+    "matchup": "vs Maxey Pads",
+    "danger": false,
+    "fixes": [
+     "Day'Ron Sharpe (C) no game today \u2192 start Giannis Antetokounmpo",
+     "Robert Williams III (UT) no game today \u2192 start Darius Garland"
+    ],
+    "moves": [],
+    "adds": [
+     "Nikola Vucevic (C, ORL): 3 games left this week, 44.2% owned",
+     "Jeremiah Fears (PG/SG, NO): 3 games left this week, 36.4% owned",
+     "Collin Sexton (PG/SG, LAL): 3 games left this week, 27% owned"
+    ],
+    "notes": [
+     "7 of 9 starters play tonight",
+     "(roster as of the laptop read Tue 4:04p; check it's still current)"
+    ],
+    "built": "Wed 1:31p"
+   }
   }
  }
 }
