@@ -2,7 +2,7 @@
 taskId: sports-hq-monthly-review
 title: "Sports HQ: monthly review"
 cron: "0 10 1 * *"   # 1st of each month, 10am CT
-status: NOT CREATED YET (needs Michael's OK)
+status: CREATED 2026-10-27 (scheduled task, Auto mode)
 ---
 
 Monthly review of Michael's Sports HQ system (repo C:\Claude\sports-hq; site https://mbryan20.github.io/sports-hq/; README.md explains every part). Goal: scrutinize what exists, find what's broken, flaky, missing or improvable, and propose ranked improvements. Do NOT change code, schedules or tasks yourself; this run only investigates and reports. Michael approves changes.

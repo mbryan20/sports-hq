@@ -2,7 +2,7 @@
 taskId: sports-hq-baseball-kickoff
 title: "Sports HQ: add baseball (Feb reminder)"
 fireAt: "2027-02-01T10:00:00-06:00"   # one-time
-status: NOT CREATED YET (needs Michael's OK)
+status: CREATED 2026-10-27 (scheduled task, Auto mode)
 ---
 
 Prepare to add Michael's ESPN fantasy BASEBALL leagues to Sports HQ (repo C:\Claude\sports-hq; README.md explains the design). Leagues: "3-Ball Dynasty League" baseball (ESPN leagueId 142878, his team id 6, "Ragonk Force", dynasty) and "Hardball" (ESPN leagueId 143598, team id 2, "Ippei You Later"). Confirm 2027 season ids on https://fantasy.espn.com/baseball/ in the built-in browser (read-only; never type passwords).

@@ -43,8 +43,10 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Picks Fri 9pm CFP + Yahoo final | Fri | CFP + Yahoo final |
 | Sports HQ: Picks Sat 8am injury refresh | Sat | changed picks to the top in red |
 | Sports HQ: sign-in check (manual) | on demand | are BTO, CFP, Yahoo, ESPN still signed in? |
+| Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
+| Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
 
-Prompts for tasks not yet created are in `ops/tasks/` (monthly review, baseball kickoff).
+Copies of the review and baseball prompts are in `ops/tasks/`.
 Rules for every laptop run: read-only on fantasy/pool sites, never type passwords, close opened tabs,
 `git pull --no-rebase` (the repo has merge commits — never rebase). The ntfy topic is never committed: laptop
 runs read it from `picks/.ntfy_topic` (gitignored); the cloud uses the `NTFY_TOPIC` secret.
@@ -55,7 +57,7 @@ Add an entry to `LEAGUES` in `shq/config.py` (platform sleeper / espn). ESPN pri
 
 ## Improving it
 - `IDEAS.md`: drop ideas there anytime (phone: edit on github.com). Open decisions live there too.
-- Monthly review (`ops/tasks/monthly-review.md`): audits reliability, freshness and usefulness, writes
+- Monthly review (1st of each month): audits reliability, freshness and usefulness, writes
   `reviews/YYYY-MM.md`, pushes the top 3 improvements. Nothing changes without Michael's OK.
 
 ## Open items
