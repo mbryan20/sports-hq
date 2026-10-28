@@ -131,6 +131,7 @@ class SleeperLeague:
              if pid not in rostered and pid in ctx.players and ctx.players[pid].get("team")),
             key=lambda p: -p["proj"])
 
+        self.standing = self._standing(ctx, rosters, mine) if fmt == "guillotine" else None
         self.opponent, self.opp_proj = None, None
         try:
             ms = sleeper.matchups(lg["league_id"], ctx.week)
@@ -144,6 +145,19 @@ class SleeperLeague:
                                           for p in opp.get("starters") or [] if p != "0"), 1)
         except (StopIteration, KeyError, TypeError):
             pass
+
+    def _standing(self, ctx, rosters, mine):
+        """Guillotine: where my starters' projection ranks among teams still alive (lowest is cut)."""
+        proj = lambda r: sum(score((ctx.proj.get(p) or {}).get("stats"), self.scoring)
+                             for p in r.get("starters") or [] if p != "0")
+        alive = [(proj(r), r["roster_id"]) for r in rosters if r.get("players")]
+        if len(alive) < 2:
+            return None
+        alive.sort(reverse=True)
+        rank = next(i for i, (_, rid) in enumerate(alive, 1) if rid == mine["roster_id"])
+        lowest_other = min(v for v, rid in alive if rid != mine["roster_id"])
+        my = next(v for v, rid in alive if rid == mine["roster_id"])
+        return {"rank": rank, "n": len(alive), "gap": round(my - lowest_other, 1)}
 
     def best_fa(self, positions, now):
         from .swap import playable

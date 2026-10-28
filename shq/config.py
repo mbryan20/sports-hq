@@ -16,6 +16,11 @@ WATCH_LEAD_HOURS = 2
 WEEKLY_WEEKDAY = 1  # Monday=0
 WEEKLY_HOUR = 7
 
+# Daily digest (Today tab + one push when something needs fixing): 8am Central. A digest whose run
+# GitHub delays past DIGEST_PUSH_UNTIL updates the Today tab without pushing.
+DIGEST_HOUR = 8
+DIGEST_PUSH_UNTIL = 13
+
 # Kosmonauts scoring in Sleeper stat keys: 0.5 PPR, 6-pt passing TD, otherwise Yahoo defaults.
 YAHOO_SCORING = {
     "pass_yd": 0.04, "pass_td": 6, "pass_int": -1, "pass_2pt": 2,

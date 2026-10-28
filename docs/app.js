@@ -1,8 +1,8 @@
 "use strict";
 const TZ = "America/Chicago";
-let data = { lineups: null, weekly: null, status: null };
-let tab = localGet("tab") || "Kosmonauts";
-const tabNames = () => [...Object.keys(data.lineups?.leagues || {}), "weekly"];
+let data = { lineups: null, weekly: null, status: null, digest: null };
+let tab = localGet("tab") || "today";
+const tabNames = () => ["today", ...Object.keys(data.lineups?.leagues || {}), "weekly"];
 
 function localGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function localSet(k, v) { try { localStorage.setItem(k, v); } catch {} }
@@ -53,6 +53,17 @@ function lineup(name) {
   </div>`;
 }
 
+function today() {
+  const d = data.digest;
+  if (!d?.items) return `<div class="card"><p class="note">The daily check posts at 8am CT.</p></div>`;
+  const items = d.items.length ? d.items : [{ league: "All leagues", text: "Every lineup looks set.", urgent: false }];
+  const groups = {};
+  items.forEach(i => (groups[i.league] = groups[i.league] || []).push(i));
+  return `<p class="muted" style="margin:0 0 10px">${esc(d.title)} · ${esc(kick(d.generated))}</p>` +
+    Object.entries(groups).map(([lg, list]) => `<div class="card"><h2>${esc(lg)}</h2><ul class="tips">${
+      list.map(i => `<li>${i.urgent ? "<b>⚠ " + esc(i.text) + "</b>" : esc(i.text)}</li>`).join("")}</ul></div>`).join("");
+}
+
 function weekly() {
   const w = data.weekly;
   if (!w?.leagues?.length) return `<div class="card"><p class="note">The weekly plan posts Tuesdays at 7am CT.</p></div>`;
@@ -86,22 +97,22 @@ function renderTabs() {
   const names = tabNames();
   if (!names.includes(tab)) tab = names[0];
   document.getElementById("tabs").innerHTML = names.map(n =>
-    `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n)}</button>`).join("") +
+    `<button role="tab" data-tab="${esc(n)}">${esc(n === "weekly" ? "Weekly" : n === "today" ? "Today" : n)}</button>`).join("") +
     `<a class="navlink" href="picks/">Picks</a><a class="navlink" href="war-room/">War Room</a>`;
 }
 
 function render() {
   renderTabs();
   document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
-  document.getElementById("main").innerHTML = tab === "weekly" ? weekly() : lineup(tab);
+  document.getElementById("main").innerHTML = tab === "weekly" ? weekly() : tab === "today" ? today() : lineup(tab);
   document.getElementById("foot").innerHTML = footer();
 }
 
 async function load() {
   const t = Date.now();
   const get = f => fetch(`data/${f}.json?t=${t}`, { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
-  const [lineups, weekly, status] = await Promise.all([get("lineups"), get("weekly"), get("status")]);
-  data = { lineups: lineups || data.lineups, weekly: weekly || data.weekly, status: status || data.status };
+  const [lineups, weekly, status, digest] = await Promise.all([get("lineups"), get("weekly"), get("status"), get("digest")]);
+  data = { lineups: lineups || data.lineups, weekly: weekly || data.weekly, status: status || data.status, digest: digest || data.digest };
   render();
 }
 

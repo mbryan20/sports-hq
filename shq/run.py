@@ -1,12 +1,12 @@
 """Entry point for every scheduled run: refresh lineups, run the injury watch when inside a
-pre-kickoff window, build the Weekly tab on Tuesday 7am CT. Exits non-zero on any real error so
+pre-kickoff window, post the daily digest at 8am CT, build the Weekly tab on Tuesday 7am CT. Exits non-zero on any real error so
 the workflow's failure step pushes an alert."""
 import datetime as dt
 import os
 import sys
 import traceback
 
-from . import notify
+from . import digest, notify
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -222,6 +222,18 @@ def main():
     status["actions"] = actions
 
     save_json(DATA / "lineups.json", {"updated": iso(now), "week": ctx.week, "leagues": league_views})
+
+    today = load_json(DATA / "digest.json", {}) or {}
+    if digest.due(now, parse_iso(today.get("generated"))) or os.environ.get("FORCE_DIGEST") == "1":
+        try:
+            items = digest.build(leagues, now, load_json(ROOT / "picks" / "data" / "cards.json", {}))
+            title, msg = digest.message(items)
+            save_json(DATA / "digest.json", {"generated": iso(now), "title": title, "items": items})
+            if any(i["urgent"] for i in items) and digest.push_window(now):
+                push(title, msg, priority=3, tags=["sunrise"])
+        except Exception as e:
+            traceback.print_exc()
+            errors.append(f"digest: {type(e).__name__}: {e}")
 
     weekly = load_json(DATA / "weekly.json", {}) or {}
     if weekly_due(now, parse_iso(weekly.get("generated"))) or os.environ.get("FORCE_WEEKLY") == "1":

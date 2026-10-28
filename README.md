@@ -7,6 +7,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 
 | Tab | What | Source |
 |---|---|---|
+| Today | daily 8am CT check: starters on bye/out/doubtful with the fix, today's locks, guillotine rank, Friday picks deadlines | cloud, daily |
 | Kosmonauts | Yahoo, 0.5 PPR, no flex | roster read twice daily by the laptop (Yahoo API approval pending) |
 | Domo Arigato | Sleeper "Sunday's Best", dynasty, superflex | Sleeper API (cloud) |
 | Guillotine | Sleeper "Damon's Guillotine League" | Sleeper API (cloud) |
@@ -28,6 +29,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
   bench option → push the best free agent. Never adds or drops.
 - GitHub drops many scheduled triggers, so a run keeps looping every 10 min while a watch window is open or
   opens within 3h (up to ~5h45m per run). Times come from real kickoffs, so DST doesn't matter.
+- Daily digest (`shq/digest.py`): first run after 8am CT fills the Today tab; pushes once only if something
+  needs fixing (dead starter or empty slot, NBA starter with no game while the bench can cover, guillotine
+  bottom 3, Friday picks deadlines). Late runs (after 1pm) update the tab without pushing.
 - Alerts if a laptop job's data goes stale (>30h) and on any failed run.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push.
@@ -36,7 +40,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 
 | Task | When | Does |
 |---|---|---|
-| Sports HQ: daily laptop sync | 9am, 4pm | Kosmonauts roster (Yahoo), private ESPN snapshots, War Room copy |
+| Sports HQ: daily laptop sync | 7:30am, 4:30pm (before the 8am digest) | Kosmonauts roster (Yahoo), private ESPN snapshots, War Room copy |
 | Sports HQ: Picks Tue 8pm postmortem | Tue | grade last week's cards and entries |
 | Sports HQ: Picks Wed 9pm drafts | Wed | draft cards for BTO, CFP, Yahoo |
 | Sports HQ: Picks Thu 8pm BTO final | Thu | BTO final + Yahoo Friday/TB2 |

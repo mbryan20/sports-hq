@@ -15,6 +15,7 @@ on:
     - cron: "*/10 15-23 * * 5,6"      # Fri (Black Friday/Christmas) + Sat (late-season Saturdays)
     - cron: "*/10 0-4 * * 6,0"        # Fri/Sat nights (UTC Sat/Sun)
     - cron: "*/30 20-23,0-3 * * *"    # every evening: NBA tip-offs (6pm-10pm CT)
+    - cron: "*/20 13-14 * * *"        # daily 8am CT digest (13 UTC in CDT, 14 UTC in CST)
     - cron: "7 * * * *"               # hourly everywhere else
   workflow_dispatch:
     inputs:
@@ -24,6 +25,10 @@ on:
         default: false
       force_weekly:
         description: "Rebuild the Weekly tab now"
+        type: boolean
+        default: false
+      force_digest:
+        description: "Rebuild the Today digest now (pushes if something needs fixing)"
         type: boolean
         default: false
       test_push:
@@ -67,6 +72,7 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           FORCE_WEEKLY: ${{ inputs.force_weekly && '1' || '0' }}
+          FORCE_DIGEST: ${{ inputs.force_digest && '1' || '0' }}
           TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         # GitHub drops many scheduled triggers under load, so one run that starts carries the
@@ -81,7 +87,7 @@ jobs:
               failed=1
             fi
             bash .github/commit_data.sh || failed=1
-            export FORCE_WEEKLY=0 TEST_PUSH=0
+            export FORCE_WEEKLY=0 FORCE_DIGEST=0 TEST_PUSH=0
             python -m shq.run --keep-watching || break
             [ $((SECONDS + 660)) -ge $end ] && break
             # wake at :07/:17/:27… so a pass lands 3 min before kickoffs on :00/:05/:30 marks
