@@ -43,6 +43,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Picks Fri 9pm CFP + Yahoo final | Fri | CFP + Yahoo final |
 | Sports HQ: Picks Sat 8am injury refresh | Sat | changed picks to the top in red |
 | Sports HQ: sign-in check (manual) | on demand | are BTO, CFP, Yahoo, ESPN still signed in? |
+| Sports HQ: Tue 10:30am guillotine bid check | Tue | War Room calls vs pending Sleeper bids → push the exact changes |
 | Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
 | Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
 
