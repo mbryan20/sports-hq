@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T03:07:00Z",
+ "updated": "2026-10-28T08:18:52Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -91,10 +91,10 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 8.3,
-     "status": "OUT",
-     "why": "Sleeper: Out",
+     "status": "Q",
+     "why": "Yahoo: Questionable",
      "flags": [
-      "OUT"
+      "Q"
      ]
     },
     {
@@ -193,9 +193,9 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Take Mahomes Tonight",
-   "opp_proj": 144.7,
+   "opp_proj": 144.6,
    "roster_synced": null,
-   "proj": 114.0,
+   "proj": 113.9,
    "starters": [
     {
      "slot": "QB",
@@ -219,10 +219,10 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 9.4,
-     "status": "OUT",
-     "why": "Sleeper: Out",
+     "status": "Q",
+     "why": "Sleeper: Questionable",
      "flags": [
-      "OUT"
+      "Q"
      ]
     },
     {
@@ -298,7 +298,7 @@
      "opp": "@MIA",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 10.5,
+     "proj": 10.4,
      "status": null,
      "why": "",
      "flags": []
@@ -492,7 +492,7 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.0,
+     "proj": 8.1,
      "status": null,
      "why": "",
      "flags": []
@@ -519,10 +519,10 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 4.3,
-     "status": "OUT",
-     "why": "Sleeper: Out",
+     "status": "Q",
+     "why": "Sleeper: Questionable",
      "flags": [
-      "OUT"
+      "Q"
      ]
     },
     {
@@ -564,7 +564,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 102.7,
+   "proj": 99.5,
    "starters": [
     {
      "slot": "QB",
@@ -689,34 +689,49 @@
     },
     {
      "slot": "K",
-     "name": "Eddy Pineiro",
-     "team": "SF",
-     "pos": "K",
+     "name": "Empty",
+     "team": null,
+     "pos": "",
      "opp": null,
      "kickoff": null,
      "started": false,
-     "proj": 0,
+     "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [
-      "BYE"
+      "EMPTY"
      ]
     },
     {
      "slot": "DEF",
-     "name": "Tennessee Titans",
-     "team": "TEN",
-     "pos": "DEF",
-     "opp": "@CIN",
-     "kickoff": "2026-11-01T18:00:00Z",
+     "name": "Empty",
+     "team": null,
+     "pos": "",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 3.2,
+     "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": []
+     "flags": [
+      "EMPTY"
+     ]
     }
    ],
    "bench": [
+    {
+     "slot": "BN",
+     "name": "Spencer Shrader",
+     "team": "IND",
+     "pos": "K",
+     "opp": "@JAX",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 7.3,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
     {
      "slot": "BN",
      "name": "Woody Marks",
@@ -731,6 +746,21 @@
      "flags": [
       "BYE",
       "Q"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Jadarian Price",
+     "team": "SEA",
+     "pos": "RB",
+     "opp": "vs CHI",
+     "kickoff": "2026-11-03T01:15:00Z",
+     "started": false,
+     "proj": 0,
+     "status": "IR",
+     "why": "Sleeper: IR",
+     "flags": [
+      "IR"
      ]
     },
     {
@@ -755,26 +785,24 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 10.3,
-     "status": "OUT",
-     "why": "Sleeper: Out",
+     "status": "Q",
+     "why": "Sleeper: Questionable",
      "flags": [
-      "OUT"
+      "Q"
      ]
     },
     {
      "slot": "BN",
-     "name": "Zach Charbonnet",
-     "team": "SEA",
-     "pos": "RB",
-     "opp": "vs CHI",
-     "kickoff": "2026-11-03T01:15:00Z",
+     "name": "New England Patriots",
+     "team": "NE",
+     "pos": "DEF",
+     "opp": "@MIA",
+     "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
-     "proj": 8.4,
-     "status": "OUT",
-     "why": "Sleeper: Out",
-     "flags": [
-      "OUT"
-     ]
+     "proj": 9.2,
+     "status": null,
+     "why": "",
+     "flags": []
     }
    ]
   },
@@ -925,19 +953,6 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Jake Ferguson",
-     "team": "DAL",
-     "pos": "TE/FLEX",
-     "opp": "vs ARI",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 5.5,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "BN",
      "name": "Fernando Mendoza",
      "team": "LV",
      "pos": "QB/OP",
@@ -1057,6 +1072,19 @@
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
      "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Treylon Burks",
+     "team": "WSH",
+     "pos": "WR/FLEX",
+     "opp": "vs PHI",
+     "kickoff": "2026-11-02T01:20:00Z",
+     "started": false,
+     "proj": 9.0,
      "status": null,
      "why": "",
      "flags": []
@@ -1571,86 +1599,78 @@
    "proj": 0.0,
    "starters": [
     {
-     "slot": "SF",
-     "name": "Mikal Bridges",
-     "team": "NY",
-     "pos": "SG/SF",
-     "opp": "vs DET",
-     "kickoff": "2026-10-28T00:00:00Z",
-     "started": true,
+     "slot": "UT",
+     "name": "Saddiq Bey",
+     "team": "NO",
+     "pos": "SF/PF",
+     "opp": "vs DEN",
+     "kickoff": "2026-10-29T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": []
     },
     {
-     "slot": "UT",
-     "name": "Devin Booker",
-     "team": "PHX",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
-    {
      "slot": "PG",
      "name": "Shai Gilgeous-Alexander",
      "team": "OKC",
      "pos": "PG/G",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@DAL",
+     "kickoff": "2026-10-29T01:30:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "G",
      "name": "Josh Giddey",
      "team": "CHI",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs NY",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
+    },
+    {
+     "slot": "SF",
+     "name": "Matas Buzelis",
+     "team": "CHI",
+     "pos": "SF/PF",
+     "opp": "vs NY",
+     "kickoff": "2026-10-29T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
     },
     {
      "slot": "F",
      "name": "Franz Wagner",
      "team": "ORL",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@TOR",
+     "kickoff": "2026-10-28T23:30:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "C",
      "name": "Walker Kessler",
      "team": "LAL",
      "pos": "C/PF/C",
-     "opp": "vs POR",
-     "kickoff": "2026-10-28T03:00:00Z",
-     "started": true,
+     "opp": "@LAC",
+     "kickoff": "2026-10-29T02:30:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1661,24 +1681,9 @@
      "name": "Jonathan Kuminga",
      "team": "MIN",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs GS",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
-    {
-     "slot": "SG",
-     "name": "De'Aaron Fox",
-     "team": "SA",
-     "pos": "PG/SG",
-     "opp": "vs SAC",
-     "kickoff": "2026-10-28T00:00:00Z",
-     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1686,27 +1691,38 @@
     },
     {
      "slot": "UT",
-     "name": "Khaman Maluach",
-     "team": "PHX",
+     "name": "Jarrett Allen",
+     "team": "CLE",
      "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs WSH",
+     "kickoff": "2026-10-28T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
+    },
+    {
+     "slot": "SG",
+     "name": "De'Aaron Fox",
+     "team": "SA",
+     "pos": "PG/SG",
+     "opp": "@UTAH",
+     "kickoff": "2026-10-29T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
     },
     {
      "slot": "UT",
-     "name": "Day'Ron Sharpe",
-     "team": "BKN",
-     "pos": "C/PF/C",
-     "opp": "@BOS",
-     "kickoff": "2026-10-27T23:30:00Z",
-     "started": true,
+     "name": "Brandin Podziemski",
+     "team": "GS",
+     "pos": "PG/SG",
+     "opp": "@MIN",
+     "kickoff": "2026-10-29T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1716,9 +1732,22 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Saddiq Bey",
-     "team": "NO",
-     "pos": "SF/PF",
+     "name": "Mikal Bridges",
+     "team": "NY",
+     "pos": "SG/SF",
+     "opp": "@CHI",
+     "kickoff": "2026-10-29T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": []
+    },
+    {
+     "slot": "BN",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -1747,50 +1776,31 @@
      "name": "Kingston Flemings",
      "team": "ATL",
      "pos": "SG/G",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs MIA",
+     "kickoff": "2026-10-28T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
-    {
-     "slot": "BN",
-     "name": "Matas Buzelis",
-     "team": "CHI",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
      "name": "Ayo Dosunmu",
      "team": "MIN",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs GS",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
-     "name": "Jarrett Allen",
-     "team": "CLE",
+     "name": "Khaman Maluach",
+     "team": "PHX",
      "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
@@ -1804,9 +1814,9 @@
     },
     {
      "slot": "BN",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
+     "name": "Day'Ron Sharpe",
+     "team": "BKN",
+     "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -1837,24 +1847,22 @@
      "name": "LaMelo Ball",
      "team": "MIN",
      "pos": "PG/G",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs GS",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "SG",
      "name": "Austin Reaves",
      "team": "LAL",
      "pos": "PG/SG",
-     "opp": "vs POR",
-     "kickoff": "2026-10-28T03:00:00Z",
-     "started": true,
+     "opp": "@LAC",
+     "kickoff": "2026-10-29T02:30:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1865,24 +1873,22 @@
      "name": "Dyson Daniels",
      "team": "ATL",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs MIA",
+     "kickoff": "2026-10-28T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "F",
      "name": "John Collins",
      "team": "DET",
      "pos": "PF/C",
-     "opp": "@NY",
-     "kickoff": "2026-10-28T00:00:00Z",
-     "started": true,
+     "opp": "vs CHA",
+     "kickoff": "2026-10-28T23:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1893,9 +1899,9 @@
      "name": "Quentin Grimes",
      "team": "LAL",
      "pos": "SG/SF",
-     "opp": "vs POR",
-     "kickoff": "2026-10-28T03:00:00Z",
-     "started": true,
+     "opp": "@LAC",
+     "kickoff": "2026-10-29T02:30:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -1906,34 +1912,19 @@
      "name": "Draymond Green",
      "team": "GS",
      "pos": "PF/C",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@MIN",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "C",
      "name": "Day'Ron Sharpe",
      "team": "BKN",
      "pos": "C/PF/C",
-     "opp": "@BOS",
-     "kickoff": "2026-10-27T23:30:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": []
-    },
-    {
-     "slot": "PF",
-     "name": "Peyton Watson",
-     "team": "CLE",
-     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -1945,17 +1936,32 @@
      ]
     },
     {
-     "slot": "UT",
-     "name": "Robert Williams III",
-     "team": "POR",
-     "pos": "C/PF/C",
-     "opp": "@LAL",
-     "kickoff": "2026-10-28T03:00:00Z",
-     "started": true,
+     "slot": "PF",
+     "name": "Peyton Watson",
+     "team": "CLE",
+     "pos": "SF/PF",
+     "opp": "vs WSH",
+     "kickoff": "2026-10-28T23:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": []
+    },
+    {
+     "slot": "UT",
+     "name": "Robert Williams III",
+     "team": "POR",
+     "pos": "C/PF/C",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
     }
    ],
    "bench": [
@@ -1964,74 +1970,65 @@
      "name": "Giannis Antetokounmpo",
      "team": "MIA",
      "pos": "PF/C",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@ATL",
+     "kickoff": "2026-10-28T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
      "name": "Darius Garland",
      "team": "LAC",
      "pos": "PG/G",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs LAL",
+     "kickoff": "2026-10-29T02:30:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
      "name": "Jaden McDaniels",
      "team": "MIN",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs GS",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
      "name": "Trevon Brazile",
      "team": "DEN",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@NO",
+     "kickoff": "2026-10-29T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     },
     {
      "slot": "BN",
      "name": "Ajay Mitchell",
      "team": "OKC",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@DAL",
+     "kickoff": "2026-10-29T01:30:00Z",
      "started": false,
      "proj": 0.0,
      "status": "Q",
      "why": "ESPN: Day-To-Day",
      "flags": [
-      "NO GAME",
       "Q"
      ]
     }
