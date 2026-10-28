@@ -19,7 +19,9 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 
 Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
-guillotine rank, fixes for starters who can't play, start/sit moves, top waiver adds, FAAB left.
+guillotine rank, fixes for starters who can't play, start/sit moves, waiver adds on rest-of-season value
+with who to drop and a FAAB bid range, trade ideas (weak spots, surplus, up to 3 fair offers that help
+both lineups, from FantasyCalc values), FAAB left. Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.

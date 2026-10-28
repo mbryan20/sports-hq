@@ -63,8 +63,24 @@ function actions(lg) {
   return `<div class="card actions">
     <div class="summary"><div><div class="name">What to do</div>${a.matchup ? `<div class="vs ${a.danger ? "danger" : ""}">${esc(a.matchup)}</div>` : ""}</div>
       <div class="muted small">${esc(a.built)}</div></div>
-    ${fixes}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${list("Notes", a.notes, "muted")}
+    ${fixes}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${trades(a.trades)}${list("Notes", a.notes, "muted")}
   </div>`;
+}
+
+function trades(t) {
+  if (!t || !(t.offers?.length || t.lines?.length)) return "";
+  const n = v => Number(v).toLocaleString("en-US");
+  const offer = o => {
+    const pct = Math.round((o.get_value - o.give_value) / Math.max(o.give_value, o.get_value) * 100);
+    return `<li class="offer"><div><b>Give</b> ${esc(o.give.join(" + "))} <b>→ get</b> ${esc(o.get.join(" + "))}</div>
+      <div class="sub-wrap">to ${esc(o.team)} · value ${n(o.give_value)} for ${n(o.get_value)} (${pct > 0 ? "+" : ""}${pct}%) ·
+      your lineup <b class="gain">+${o.my_gain}/gm</b>, theirs +${o.their_gain}/gm</div>
+      <div class="sub-wrap">${esc(o.why)}${o.cut ? ". You'd cut your worst bench player." : ""}</div></li>`;
+  };
+  const offers = t.offers?.length ? `<ul class="tips offers">${t.offers.map(offer).join("")}</ul>` : "";
+  const lines = t.lines?.length ? `<ul class="tips muted">${t.lines.map(l => `<li>${esc(l)}</li>`).join("")}</ul>` : "";
+  const basis = t.basis ? `<p class="basis">${esc(t.basis)}. Ideas only: nothing is sent.</p>` : "";
+  return `<div class="section" id="trades">Trade ideas</div>${offers}${lines}${basis}`;
 }
 
 function today() {

@@ -3,9 +3,12 @@
     matchup  one line: projected score vs opponent, or guillotine standing
     fixes    starters who can't play (bye/out/doubtful/empty) with the fix — same rules as the digest
     moves    healthy start/sit upgrades by projection
-    adds     top free agents and who they'd replace
+    adds     top free agents on rest-of-season value, who to drop, FAAB bid (shq/waivers.py)
+    trades   trade finder lines + up to 3 fair offers that help both lineups (shq/trades.py)
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
-from . import digest
+import traceback
+
+from . import digest, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -41,9 +44,25 @@ def _moves(league):
             for s, b, gain in start_sit(league.starters, league.bench) if not _dead(s)]
 
 
-def _adds(league):
+def _valued(league):
+    """FantasyCalc values + multi-week projections on every player; False where there are none (NBA,
+    Kosmonauts, test leagues) or the free sources are down."""
+    try:
+        return values.annotate(league)
+    except Exception:
+        traceback.print_exc()
+        return False
+
+
+def adds(league):
     if getattr(league, "saved", False):
         return ["Free agent adds need Yahoo API access (pending approval)."]
+    if _valued(league):
+        dynasty = bool(getattr(league, "dynasty", False))
+        found = waivers.adds(league.starters, league.bench, league.free_agents, league.slots, dynasty=dynasty,
+                             open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
+                             budget=getattr(league, "faab_budget", 0))
+        return [waivers.line(a) for a in found] or ["No free agent beats your bench on rest-of-season value."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                      key=lambda t: (-t[0], -t[1]))[:3]
@@ -58,6 +77,33 @@ def _adds(league):
             for _, fa, who in fa_adds(roster, league.free_agents[:300])]
 
 
+def trade_block(league):
+    """{"lines": [...], "offers": [...]} or None where trades aren't covered."""
+    if getattr(league, "sport", "nfl") != "nfl":
+        return None
+    if getattr(league, "platform", None) == "yahoo":
+        return {"lines": ["Trade ideas need every team's roster: waiting on Yahoo API access."], "offers": []}
+    if not getattr(league, "others", None) or not _valued(league):
+        return None
+    if "_trades" not in league.__dict__:
+        deadline = getattr(league, "trade_deadline", None)
+        if not getattr(league, "trades_open", True):
+            league._trades = {"lines": [f"Trade deadline has passed ({deadline})." if deadline else "Trades are closed."],
+                              "offers": []}
+        else:
+            mine = league.starters + league.bench
+            found = trades.offers(league.slots, mine, league.others)
+            lines = trades.finder(league.slots, mine, league.others)
+            if not found:
+                lines.append("No fair 1-for-1 or 2-for-1 that helps both lineups right now.")
+            if deadline:
+                lines.append(f"Trade deadline: {deadline}.")
+            league._trades = {"lines": lines, "offers": found,
+                              "basis": "FantasyCalc " + ("dynasty" if league.fc_settings["dynasty"] else "redraft")
+                                       + " values; lineup gain in projected points per game"}
+    return league._trades
+
+
 def build(league, now):
     standing = digest.standing_item(league)
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
@@ -70,7 +116,8 @@ def build(league, now):
         "danger": bool(standing and standing["urgent"]),
         "fixes": [i["text"] for i in items if i["urgent"]],
         "moves": _moves(league)[:3],
-        "adds": _adds(league)[:3],
+        "adds": adds(league)[:3],
+        "trades": trade_block(league),
         "notes": notes,
         "built": ct_label(now),
     }

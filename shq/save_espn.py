@@ -3,8 +3,9 @@
     py -m shq.save_espn --js           print the JavaScript to run in a signed-in fantasy.espn.com tab
     py -m shq.save_espn <file.json>    validate what it returned, save state/espn/*.json, commit + push
 
-The JavaScript returns compact league snapshots (see espn_fantasy.compact). Commits only when a
-roster, injury or free-agent list changed, or the last snapshot is over 20h old."""
+The JavaScript returns compact league snapshots (see espn_fantasy.compact), including every other
+team's roster for the trade finder. Commits only when a roster (yours or another team's), injury or
+free-agent list changed, or the last snapshot is over 20h old."""
 import datetime as dt
 import json
 import subprocess
@@ -13,11 +14,12 @@ import sys
 from .common import ROOT, now_utc, parse_iso
 from .config import ESPN_PRIVATE
 from .espn_fantasy import GAME, LAPTOP_SNAPSHOT_JS, SNAPSHOTS, load_snapshot
+from .values import ESPN_STATS
 
 
 def js():
     specs = [[c["sport"], GAME[c["sport"]], c["season"], c["league_id"], c["team_id"]] for c in ESPN_PRIVATE]
-    return LAPTOP_SNAPSHOT_JS.replace("__SPECS__", json.dumps(specs))
+    return LAPTOP_SNAPSHOT_JS.replace("__SPECS__", json.dumps(specs)).replace("__STATS__", json.dumps(ESPN_STATS))
 
 
 def validate(snap):
@@ -48,7 +50,7 @@ def main(path):
             errors.append(str(e))
             continue
         prev = load_snapshot(snap["sport"], snap["league_id"]) or {}
-        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent"))
+        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent", "teams"))
         fresh = prev.get("captured") and now_utc() - parse_iso(prev["captured"]) < dt.timedelta(hours=20)
         if same and fresh:
             continue

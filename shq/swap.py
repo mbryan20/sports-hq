@@ -9,7 +9,7 @@ from .status import OUTISH
 
 FLEX_SLOTS = {
     "FLEX": {"RB", "WR", "TE"}, "W/R/T": {"RB", "WR", "TE"},
-    "SUPER_FLEX": {"QB", "RB", "WR", "TE"}, "Q/W/R/T": {"QB", "RB", "WR", "TE"},
+    "SUPER_FLEX": {"QB", "RB", "WR", "TE"}, "Q/W/R/T": {"QB", "RB", "WR", "TE"}, "OP": {"QB", "RB", "WR", "TE"},
     "WRRB_FLEX": {"WR", "RB"}, "W/R": {"WR", "RB"},
     "REC_FLEX": {"WR", "TE"}, "W/T": {"WR", "TE"},
 }

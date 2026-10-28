@@ -26,8 +26,9 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Picks (BTO, CFP, Yahoo pick'em) | live (laptop, Tue–Sat) |
 | War Room copy + pinned header links | live |
 | League tabs as action pages (matchup, fixes, moves, adds, guillotine standing, FAAB) | live 2026-10-28 (`shq/advice.py`) |
-| Waiver adds ranked on rest-of-season value, not one week's projection | not started |
-| Trade finder + trade offers | not started |
+| Waiver adds on rest-of-season value, with who to drop + FAAB bid range (NFL) | live 2026-10-28 (`shq/waivers.py`) |
+| Trade finder + up to 3 offers per football league (FantasyCalc values) | live 2026-10-28 (`shq/trades.py`); Stempak/Bro-vid19 fill in after the next laptop ESPN sync |
+| NBA trade values and ROS waiver ranking | not covered: no free value API (adds stay games-left + ownership) |
 | Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
 | NBA category matchup view | not started |
 | 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
@@ -36,18 +37,27 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 
 ## Next up, in order
-1. **Trade tools.**
-   - Value source: FantasyCalc's free public values API (dynasty and redraft, superflex and PPR settings).
-     Sleeper and public ESPN leagues expose every roster. Private ESPN leagues need the laptop snapshot to
-     include all teams.
-   - Trade finder: other teams' needs vs my surplus.
-   - Offers: 1-for-1 and 2-for-1 deals that are fair by value and help both lineups.
-   - NBA has no free value API; use ESPN ranks and projections.
-2. **Better waiver adds:** rank free agents by rest-of-season value, not one week, using the same value
-   source plus projections. For each add, say who to drop. FAAB guidance where the league uses FAAB.
-3. Guillotine tab: survival odds and bid guidance.
-4. NBA category matchup.
-5. Dynasty assets.
+1. Guillotine tab: survival odds and bid guidance (the waiver bid ranges on the tab are generic; the
+   War Room has the guillotine model).
+2. NBA category matchup.
+3. Dynasty assets (3-Ball picks and minors; FantasyCalc also values draft picks).
+4. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
+5. Kosmonauts trades and FA adds once the Yahoo API is approved (needs every team's roster).
+
+## How trades and waiver adds work (`shq/values.py`, `shq/trades.py`, `shq/waivers.py`)
+- **Values:** FantasyCalc's public API, matched per league (dynasty or redraft, 1QB or superflex, PPR,
+  team count); cached in `.cache` for 6h like the Sleeper players dump. ESPN players map to Sleeper ids
+  through FantasyCalc's espnId (Sleeper's DB lacks many), then by name/team.
+- **Points per game:** Sleeper weekly projections for the next 4 weeks, scored with the league's
+  settings (ESPN scoring is read from the league's scoringItems). Byes aren't counted as games.
+- **Offers:** fair within 10% by value (in a two-player side the lesser player counts at 80%), my best
+  lineup +0.5/gm or more, theirs +0.5/gm or more. Up to 3, the best straight 1-for-1 always included,
+  no player in two offers. After the trade deadline the card says so.
+- **Adds:** score = 70% ROS points per game + 30% this week + FantasyCalc value nudge. Drops come from the
+  bench, never a starter-level player or (dynasty) anyone worth 750+. A non-starter only replaces his
+  own position. K/DEF stream one of each, $0–1. FAAB range scales with the lineup gain.
+- **Private ESPN leagues:** `LAPTOP_SNAPSHOT_JS` now saves every team's roster, scoring, trade deadline and
+  FAAB. Old snapshots still work; trade ideas appear after the next laptop sync.
 
 ## Rules that must not break
 - **The repo is public.** Never commit the ntfy topic, cookies, tokens or passwords.
@@ -90,3 +100,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
+- **FantasyCalc:** the redraft list only has ~200 players; the dynasty list (same settings) carries a
+  `redraftValue` for ~420, so `values.py` always fetches the dynasty list and picks the field.
+- **Sleeper projections** for a week skip players on bye, so the Sleeper free-agent pool also takes anyone
+  projected in the next 4 weeks.

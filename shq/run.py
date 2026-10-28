@@ -109,18 +109,12 @@ def weekly_due(now, last_generated):
 
 
 def weekly_section(league):
-    from .swap import fa_adds, start_sit
+    from .swap import start_sit
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
           for s, b, _ in start_sit(league.starters, league.bench)]
     if not ss:
         ss = [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
-    roster = league.starters + league.bench
-    adds = [f"Add {fa['name']} ({fa['positions'][0]}, {fa['team']}, {fa['proj']})"
-            + (f" over {who['name']} ({who['status'] if who['status'] in OUTISH else who['proj']})" if who else "")
-            for _, fa, who in fa_adds(roster, league.free_agents[:300])]
-    if not adds:
-        adds = (["FA adds need Yahoo API access (pending approval)."] if getattr(league, "saved", False)
-                else ["No free agent projects above your current depth."])
+    adds = advice.adds(league) or ["No free agent projects above your current depth."]  # same list as the league tab
     return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
 
 

@@ -1,7 +1,7 @@
 """Build a uniform view of each league and wire up its platform-specific actions."""
 import re
 
-from . import espn, espn_fantasy as ef, sleeper
+from . import espn, espn_fantasy as ef, sleeper, values
 from .common import iso, parse_iso
 from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
 from .status import worst
@@ -47,6 +47,20 @@ class Context:
 
     def kickoffs(self):
         return sorted({g["kickoff"] for g in self.games.values() if g["kickoff"]})
+
+    def ros(self):
+        """Sleeper projections for the next few weeks (trade and waiver values)."""
+        if "_ros" not in self.__dict__:
+            self._ros = values.ros_projections(SEASON, self.week)
+        return self._ros
+
+    def ros_ids(self):
+        return {pid for wk in self.ros()["weeks"].values() for pid in wk["stats"]}
+
+    def espn_to_sleeper(self):
+        if "_espn_map" not in self.__dict__:
+            self._espn_map = {str(p["espn_id"]): pid for pid, p in self.players.items() if p.get("espn_id")}
+        return self._espn_map
 
     def pro_schedule(self, sport, season):
         cache = self.__dict__.setdefault("_sched", {})
@@ -112,8 +126,9 @@ class SleeperLeague:
         else:
             lg, uid, users = sleeper.find_league(SLEEPER_USERNAME, name, SEASON)
         self.key, self.name, self.week, self.format = f"sleeper:{lg['league_id']}", name, ctx.week, fmt
-        self.league_name = lg["name"]
+        self.ctx, self.league_name = ctx, lg["name"]
         self.scoring = lg["scoring_settings"]
+        self.team_count = lg.get("total_rosters") or 12
         rosters = sleeper.rosters(lg["league_id"])
         mine = next(r for r in rosters if r["owner_id"] == uid)
         if not mine.get("players"):
@@ -124,15 +139,27 @@ class SleeperLeague:
         mp = lambda pid, slot: make_player(ctx, self.scoring, pid if pid not in (None, "0") else None, slot)
         self.starters = [mp(pid, slot) for slot, pid in zip(slots, starter_ids)]
         self.bench = [mp(pid, "BN") for pid in mine.get("players") or [] if pid not in starter_ids and pid not in held]
+        self.slots = slots
+        self.open_spots = max(0, len(lg["roster_positions"]) - len([p for p in mine.get("players") or [] if p not in held]))
+        names = {u["user_id"]: (u.get("metadata") or {}).get("team_name") or u.get("display_name") for u in users}
+        # every other live roster, for the trade finder (guillotined teams have no players left)
+        self.others = [{"name": names.get(r["owner_id"]) or f"Team {r['roster_id']}",
+                        "players": [mp(pid, "BN") for pid in r["players"]]}
+                       for r in rosters if r is not mine and r.get("players")]
+        deadline = (lg.get("settings") or {}).get("trade_deadline")
+        self.trades_open = not (lg.get("settings") or {}).get("disable_trades") and not (deadline and ctx.week > deadline)
+        self.trade_deadline = f"week {deadline}" if deadline and deadline < 99 else None
 
         rostered = {p for r in rosters for p in (r.get("players") or [])}
+        # this week's projections miss players on bye, so take anyone projected in the next few weeks
+        pool = set(ctx.proj) | (ctx.ros_ids() if hasattr(ctx, "ros") else set())
         self.free_agents = sorted(
-            (make_player(ctx, self.scoring, pid, "FA") for pid in ctx.proj
+            (make_player(ctx, self.scoring, pid, "FA") for pid in pool
              if pid not in rostered and pid in ctx.players and ctx.players[pid].get("team")),
             key=lambda p: -p["proj"])
 
         self.standing = self._standing(ctx, rosters, mine) if fmt == "guillotine" else None
-        budget = (lg.get("settings") or {}).get("waiver_budget") or 0
+        budget = self.faab_budget = (lg.get("settings") or {}).get("waiver_budget") or 0
         self.faab = budget - ((mine.get("settings") or {}).get("waiver_budget_used") or 0) if budget else None
         self.opponent, self.opp_proj = None, None
         try:
@@ -280,6 +307,23 @@ class EspnLeague:
         self.bench = [self._player(p) for p in roster if p["slot"] == bench[0]]
         self.free_agents = sorted((self._player(p, "FA") for p in data.get("free_agents") or []),
                                   key=lambda p: (-p["proj"], -p["owned"]))
+        names = ef.SLOT_NAMES[sport]
+        self.slots = [names[int(k)] for k, n in sorted((data.get("slot_counts") or {}).items(), key=lambda kv: int(kv[0]))
+                      for _ in range(n) if int(k) in names and int(k) not in bench]
+        self.team_count = data.get("size") or (len(data["teams"]) + 1 if data.get("teams") else 12)
+        self.open_spots = max(0, sum(n for k, n in (data.get("slot_counts") or {}).items() if int(k) != bench[1])
+                              - len([p for p in roster if p["slot"] != bench[1]]))
+        self.others = [{"name": t["name"], "players": [self._player(p, "BN") for p in t["roster"]]}
+                       for t in data.get("teams") or []]
+        deadline = data.get("trade_deadline")
+        self.trades_open = not deadline or ctx.now < parse_iso(deadline)
+        self.trade_deadline = ct_date(parse_iso(deadline)) if deadline else None
+        faab = data.get("faab") or {}
+        self.faab_budget = faab.get("budget") or 0
+        self.faab = self.faab_budget - (faab.get("spent") or 0) if self.faab_budget else None
+
+    def value_scoring(self):
+        return {**values.DEFAULT_SCORING, **(self.data.get("scoring") or {})}
 
     def _player(self, p, slot=None):
         names, bench = ef.SLOT_NAMES[self.sport], ef.BENCH[self.sport]
@@ -311,6 +355,11 @@ class EspnLeague:
         from .swap import playable
         cands = [p for p in self.free_agents if set(p["positions"]) & set(positions) and playable(p, now)]
         return max(cands, key=lambda p: (p["proj"], p["owned"]), default=None)
+
+
+def ct_date(d):
+    local = d.astimezone(TZ)
+    return f"{local.strftime('%b')} {local.day}"
 
 
 def view(league, advice=None):
