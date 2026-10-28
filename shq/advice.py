@@ -5,7 +5,7 @@
     moves    healthy start/sit upgrades by projection
     adds     top free agents and who they'd replace
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
-from . import digest
+from . import categories, digest
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -72,5 +72,6 @@ def build(league, now):
         "moves": _moves(league)[:3],
         "adds": _adds(league)[:3],
         "notes": notes,
+        "cats": categories.build(league) if getattr(league, "sport", "nfl") == "nba" else None,
         "built": ct_label(now),
     }

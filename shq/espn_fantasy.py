@@ -24,6 +24,13 @@ SLOT_NAMES = {
 BENCH = {"nfl": (20, 21), "nba": (12, 13)}       # BN, IR
 FA_FILTER = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS"]}, "limit": 12,
                          "sortPercOwned": {"sortPriority": 1, "sortAsc": False}}}
+FA_POOL = 40   # NBA reads this many free agents for category ideas; the first 12 stay the usual list
+
+# NBA category leagues: ESPN stat ids, and the ratio categories with their (made, attempted) parts.
+NBA_STATS = {0: "PTS", 1: "BLK", 2: "STL", 3: "AST", 4: "OREB", 5: "DREB", 6: "REB", 11: "TO", 13: "FGM",
+             14: "FGA", 15: "FTM", 16: "FTA", 17: "3PM", 18: "3PA", 19: "FG%", 20: "FT%", 21: "3P%", 35: "A/TO",
+             37: "DD", 38: "TD"}
+RATIO = {19: (13, 14), 20: (15, 16), 21: (17, 18), 35: (3, 11)}
 
 
 def _url(sport, season, league_id=None):
@@ -45,10 +52,42 @@ def _team_name(t):
     return t.get("name") or f"{t.get('location', '')} {t.get('nickname', '')}".strip()
 
 
+def _avg(p, season, keep):
+    """Per-game averages: this season once a player has 5 games, before that ESPN's season projection."""
+    by_id = {x.get("id"): x.get("averageStats") or {} for x in p.get("stats") or []}
+    cur = by_id.get(f"00{season}") or {}
+    a = cur if cur.get("42", 0) >= 5 else by_id.get(f"10{season}") or cur
+    return {k: round(a[k], 2) for k in keep if a.get(k)}
+
+
+def cat_matchup(raw, team_id, opp_id, free_agents):
+    """This week's category totals (mMatchup scoreByStat) for both teams, plus per-game averages for
+    both rosters and the free agents so shq.categories can project the rest of the week."""
+    s = raw["settings"]["scoringSettings"]
+    if "CATEGORY" not in (s.get("scoringType") or "") or opp_id is None:
+        return None
+    cats = [[i["statId"], bool(i.get("isReverseItem"))] for i in s.get("scoringItems") or []]
+    keep = list(dict.fromkeys(str(x) for c, _ in cats for x in RATIO.get(c, (c,))))
+    score = {}
+    for m in raw.get("schedule") or []:
+        if m.get("matchupPeriodId") == raw["status"]["currentMatchupPeriod"]:
+            for side in (m.get("home"), m.get("away")):
+                if side:
+                    by = (side.get("cumulativeScore") or {}).get("scoreByStat") or {}
+                    score[side.get("teamId")] = {k: v["score"] for k, v in by.items() if v.get("score") is not None}
+    pl = lambda p, **extra: {"id": p["id"], "name": p["fullName"], "pro_team": p.get("proTeamId"),
+                             "injury": p.get("injuryStatus"), "avg": _avg(p, raw["seasonId"], keep), **extra}
+    ros = lambda tid: [pl(e["playerPoolEntry"]["player"], slot=e["lineupSlotId"])
+                       for t in raw["teams"] if t["id"] == tid for e in (t.get("roster") or {}).get("entries", [])]
+    return {"cats": cats, "mine": score.get(team_id, {}), "opp": score.get(opp_id, {}),
+            "my_roster": ros(team_id), "opp_roster": ros(opp_id),
+            "fa": [pl(f["player"], eligible=f["player"].get("eligibleSlots") or []) for f in free_agents or []]}
+
+
 def compact(raw, sport, team_id, free_agents=None):
     period, mp, s = raw["scoringPeriodId"], raw["status"]["currentMatchupPeriod"], raw["settings"]
     team = next(t for t in raw["teams"] if t["id"] == team_id)
-    opp = None
+    opp = other = None
     for m in raw.get("schedule") or []:
         ids = [(m.get("home") or {}).get("teamId"), (m.get("away") or {}).get("teamId")]
         if m.get("matchupPeriodId") == mp and team_id in ids:
@@ -62,15 +101,17 @@ def compact(raw, sport, team_id, free_agents=None):
         "slot_counts": {k: v for k, v in s["rosterSettings"]["lineupSlotCounts"].items() if v},
         "team": {"id": team_id, "name": _team_name(team)}, "opponent": opp,
         "roster": [{**_player(e["playerPoolEntry"], period), "slot": e["lineupSlotId"]} for e in team["roster"]["entries"]],
-        "free_agents": [_player(fa, period) for fa in free_agents or []],
+        "free_agents": [_player(fa, period) for fa in (free_agents or [])[:12]],
+        **({"matchup": cat_matchup(raw, team_id, other, free_agents)} if sport == "nba" else {}),
     }
 
 
 def fetch_public(sport, season, league_id, team_id):
     url = _url(sport, season, league_id)
     raw = get_json(url, [("view", v) for v in VIEWS])
+    filt = {"players": {**FA_FILTER["players"], "limit": FA_POOL if sport == "nba" else 12}}
     fas = get_json(url, {"view": "kona_player_info", "scoringPeriodId": raw["scoringPeriodId"]},
-                   headers={"X-Fantasy-Filter": json.dumps(FA_FILTER)}).get("players", [])
+                   headers={"X-Fantasy-Filter": json.dumps(filt)}).get("players", [])
     return compact(raw, sport, team_id, fas)
 
 
@@ -101,6 +142,24 @@ LAPTOP_SNAPSHOT_JS = r"""(async () => {
 const SPECS = __SPECS__;
 const out = [], now = new Date().toISOString();
 const tn = t => t ? (t.name || ((t.location||'') + ' ' + (t.nickname||'')).trim()) : null;
+// NBA category matchup, same shape as espn_fantasy.cat_matchup()
+const RATIO = {19: [13, 14], 20: [15, 16], 21: [17, 18], 35: [3, 11]};
+const avg = (p, season, keep) => { const by = {}; (p.stats || []).forEach(x => { by[x.id] = x.averageStats || {}; });
+  const cur = by['00' + season] || {}, a = (cur['42'] || 0) >= 5 ? cur : (by['10' + season] || cur);
+  return Object.fromEntries(keep.filter(k => a[k]).map(k => [k, Math.round(a[k] * 100) / 100])); };
+const cm = (raw, tid, oid, fap) => {
+  const sc = raw.settings.scoringSettings;
+  if (!(sc.scoringType || '').includes('CATEGORY') || oid == null) return null;
+  const cats = (sc.scoringItems || []).map(i => [i.statId, !!i.isReverseItem]);
+  const keep = [...new Set(cats.flatMap(([c]) => RATIO[c] || [c]).map(String))], score = {};
+  (raw.schedule || []).filter(m => m.matchupPeriodId === raw.status.currentMatchupPeriod).forEach(m => [m.home, m.away].forEach(sd => {
+    if (sd) score[sd.teamId] = Object.fromEntries(Object.entries((sd.cumulativeScore || {}).scoreByStat || {})
+      .filter(([k, v]) => v.score != null).map(([k, v]) => [k, v.score])); }));
+  const pl = (p, extra) => ({id: p.id, name: p.fullName, pro_team: p.proTeamId, injury: p.injuryStatus || null, avg: avg(p, raw.seasonId, keep), ...extra});
+  const ros = id => raw.teams.filter(x => x.id === id).flatMap(x => (x.roster || {}).entries || []).map(e => pl(e.playerPoolEntry.player, {slot: e.lineupSlotId}));
+  return {cats, mine: score[tid] || {}, opp: score[oid] || {}, my_roster: ros(tid), opp_roster: ros(oid),
+          fa: fap.map(f => pl(f.player, {eligible: f.player.eligibleSlots || []}))};
+};
 for (const [sport, game, season, lid, tid] of SPECS) {
   const base = `https://lm-api-reads.fantasy.espn.com/apis/v3/games/${game}/seasons/${season}/segments/0/leagues/${lid}`;
   let raw;
@@ -115,7 +174,7 @@ for (const [sport, game, season, lid, tid] of SPECS) {
   const t = raw.teams.find(x => x.id === tid);
   const m = (raw.schedule || []).find(x => x.matchupPeriodId === mp && [x.home && x.home.teamId, x.away && x.away.teamId].includes(tid));
   const oid = m ? (m.home && m.home.teamId === tid ? (m.away || {}).teamId : (m.home || {}).teamId) : null;
-  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: 12, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
+  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: sport === 'nba' ? 40 : 12, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
   let fa = {players: []};
   try { fa = await (await fetch(base + `?view=kona_player_info&scoringPeriodId=${period}`, {credentials: 'include', headers: {'X-Fantasy-Filter': JSON.stringify(filt)}})).json(); } catch (e) {}
   out.push({captured: now, sport, league_id: lid, season, league_name: s.name, scoring_period: period, matchup_period: mp,
@@ -124,7 +183,8 @@ for (const [sport, game, season, lid, tid] of SPECS) {
     slot_counts: Object.fromEntries(Object.entries(s.rosterSettings.lineupSlotCounts).filter(([k, v]) => v)),
     team: {id: tid, name: tn(t)}, opponent: tn(raw.teams.find(x => x.id === oid)),
     roster: t.roster.entries.map(e => ({...pc(e.playerPoolEntry), slot: e.lineupSlotId})),
-    free_agents: (fa.players || []).map(pc)});
+    free_agents: (fa.players || []).slice(0, 12).map(pc),
+    ...(sport === 'nba' ? {matchup: cm(raw, tid, oid, fa.players || [])} : {})});
 }
 return JSON.stringify(out);
 })()"""

@@ -78,3 +78,13 @@ footer .err { color: var(--red); }
 .jobs { margin-top: 6px; }
 .jobs div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .jobs .stale { color: var(--orange); }
+
+table.cats { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+table.cats th { font-size: 11px; font-weight: 600; color: var(--muted); text-align: right; padding: 2px 8px 4px; }
+table.cats td { text-align: right; padding: 5px 8px; border-top: 1px solid var(--line); }
+table.cats th:first-child, table.cats td:first-child { text-align: left; padding-left: 14px; font-weight: 600; }
+table.cats th:last-child, table.cats td:last-child { padding-right: 14px; }
+table.cats .lead { font-weight: 700; }
+table.cats .win { color: var(--green); } table.cats .lose { color: var(--red); }
+table.cats .close { color: var(--orange); font-weight: 700; } table.cats .tie { color: var(--muted); }
+.cats-note { margin: 0; padding: 6px 14px 2px; font-size: 12.5px; color: var(--muted); }

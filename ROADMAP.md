@@ -29,7 +29,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Waiver adds ranked on rest-of-season value, not one week's projection | not started |
 | Trade finder + trade offers | not started |
 | Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
-| NBA category matchup view | not started |
+| NBA category matchup (per-category totals, win/lose/close, what to chase, category FA adds) | live 2026-10-28 (`shq/categories.py`; Ball is Life fills in from the next laptop sync) |
 | 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
 | Kosmonauts FA adds | blocked: Yahoo API approval (or read FAs in the laptop sync) |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
@@ -46,8 +46,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 2. **Better waiver adds:** rank free agents by rest-of-season value, not one week, using the same value
    source plus projections. For each add, say who to drop. FAAB guidance where the league uses FAAB.
 3. Guillotine tab: survival odds and bid guidance.
-4. NBA category matchup.
-5. Dynasty assets.
+4. Dynasty assets.
 
 ## Rules that must not break
 - **The repo is public.** Never commit the ntfy topic, cookies, tokens or passwords.
@@ -84,3 +83,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
+- **ESPN NBA categories:** `mMatchup` already carries each side's `cumulativeScore.scoreByStat` (no extra view
+  needed), including FGM/FGA/FTM/FTA for the percentage cats. `settings.scheduleSettings.matchupPeriods` maps
+  matchup periods to matchup periods, not to scoring days. Player `stats` ids: `00<season>` = this season's
+  actuals, `10<season>` = ESPN's season projection, each with per-game `averageStats` (stat 42 = games played).
