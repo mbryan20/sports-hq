@@ -42,8 +42,6 @@ def _moves(league):
 
 
 def _adds(league):
-    if getattr(league, "saved", False):
-        return ["Free agent adds need Yahoo API access (pending approval)."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                      key=lambda t: (-t[0], -t[1]))[:3]
