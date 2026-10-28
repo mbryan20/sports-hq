@@ -7,7 +7,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 
 | Tab | What | Source |
 |---|---|---|
-| Kosmonauts | Yahoo, 0.5 PPR, no flex | roster read daily by the laptop (Yahoo API approval pending) |
+| Kosmonauts | Yahoo, 0.5 PPR, no flex | roster read twice daily by the laptop (Yahoo API approval pending) |
 | Domo Arigato | Sleeper "Sunday's Best", dynasty, superflex | Sleeper API (cloud) |
 | Guillotine | Sleeper "Damon's Guillotine League" | Sleeper API (cloud) |
 | 3-Ball FB / 3-Ball BB | ESPN 3-Ball Dynasty (football, basketball) | ESPN API, public league (cloud) |
@@ -32,7 +32,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push.
 
-**Laptop (Claude scheduled tasks in the desktop app; the built-in browser holds the sign-ins)**
+**Laptop (Claude scheduled tasks in the desktop app; they read sign-in sites in Michael's Chrome — see `ops/BROWSER.md`)**
 
 | Task | When | Does |
 |---|---|---|

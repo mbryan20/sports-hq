@@ -5,7 +5,7 @@ The scheduled tasks call this file with a STAGE. Work in `C:\Claude\sports-hq\pi
 The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../docs/picks/` (the Sports HQ repo's `docs/picks/`) on `main`.
 
 ## Hard rules
-- **Read-only on pool sites.** Never submit, save or change picks. Never sign in, sign out or type a password. If a site shows a sign-in page, record "slate not confirmed (signed out)" in the slate file. Send a push saying which site needs Michael to sign in to the Claude desktop app's browser, then continue with what you have.
+- **Read-only on pool sites.** Never submit, save or change picks. Never sign in, sign out or type a password. If a site shows a sign-in page, record "slate not confirmed (signed out)" in the slate file. Send a push saying which site needs Michael to sign in to in his Chrome, then continue with what you have.
 - Follow `../docs/picks/method/pool-method.md`. Research fresh every run: prior opinions and old research files are not evidence. Use sources published in the last 7 days.
 - Every pick's reason is 12 words or fewer and has a source link. Tiebreakers show one alternate.
 - Survivor: Michael was eliminated in Week 7. Don't make survivor picks.
@@ -18,7 +18,7 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
 
 ## Steps for STAGE = draft (Wed 9pm), bto_final (Thu 8pm), final (Fri 9pm), refresh (Sat 8am)
 1. `git pull`.
-2. **Read the slates** in the built-in browser (the `mcp__Claude_Browser__*` tools; Michael's sign-ins persist there).
+2. **Read the slates** in Michael's Chrome via Claude in Chrome (follow `../ops/BROWSER.md`; never the Claude app's built-in browser, which loses sign-ins).
    - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/9/picks?week=<week>` (9 is Michael's team ID, not a week; other numbers show other members' picks) has the 25 games, kick times, TB1 games, TB2 deadline and pick distribution. The group page `https://football.fantasysports.yahoo.com/college/3659` has the standings.
    - BTO: `https://beattheoddspickem.com/player/picks/current` has the 16 games, visitor spreads, Big Game and lock state. `/player/dashboard` has the balance, `/player/leaderboard` has every balance and Michael's status (normal / Three Bet / One Bet). Use ESPN abbreviations for NFL teams.
    - CFP: `https://ncaa-pool-two.vercel.app/player/picks` has the games and spreads; `/player/leaderboard` has all balances.
@@ -46,7 +46,7 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
 ## STAGE = postmortem (Tue 8pm; Wednesday catch-up)
 Grade last week. Last week = the CFBD week whose games just finished, which is `current_week() - 1` on Tue/Wed.
 1. `git pull`. If `data/postmortem/2026-wNN.json` already exists for last week, it was already graded: skip steps 2–4 and go to step 5.
-2. **Read what Michael actually entered.** In the built-in browser, read-only, never change anything:
+2. **Read what Michael actually entered.** In Michael's Chrome (`../ops/BROWSER.md`), read-only, never change anything:
    - BTO: `/player/history` has last week's picks, lines incl. line points, and wagers. The dashboard and `/player/leaderboard` have the balance and rank.
    - CFP: `https://ncaa-pool-two.vercel.app/player/history` (or Individual Picks) has his picks and wagers. `/player/leaderboard` has the balance and rank.
    - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/9/picks?week=<week>` (9 is Michael's team ID, not a week; other numbers show other members' picks) has his picks and tiebreakers. The group page has the standings.
