@@ -20,7 +20,7 @@ DOCS = ROOT.parent / "docs" / "picks"  # served by Sports HQ's GitHub Pages at /
 YEAR = 2026
 CT = timezone(timedelta(hours=-5))  # CDT through Nov 1; cards show "CT"
 ALIASES = {"miami (fl)": "miami", "n. carolina": "north carolina", "sdsu": "san diego state",
-           "connecticut": "uconn", "boston coll.": "boston college", "byu": "byu", "ole miss": "ole miss"}
+           "connecticut": "uconn", "boston coll.": "boston college", "n. dak. st.": "north dakota state", "byu": "byu", "ole miss": "ole miss"}
 
 
 def norm(name):
@@ -162,7 +162,7 @@ def load_slate(week):
     prev = sorted(glob.glob(str(ROOT / f"slates/{YEAR}-w*.json")))
     s = json.loads(Path(prev[-1]).read_text(encoding="utf-8")) if prev else {"bto": {}, "cfp": {}}
     msg = "Slate not read from the site yet (laptop run missed)."
-    s["label"] = f"CFBD week {week} (Yahoo week {week + 1})"
+    s["label"] = f"CFBD week {week} (Yahoo week {week})"
     s["yahoo"] = None
     for k in ("bto", "cfp"):
         s[k] = {**{kk: vv for kk, vv in s.get(k, {}).items() if kk not in ("games", "status")}, "status": msg}

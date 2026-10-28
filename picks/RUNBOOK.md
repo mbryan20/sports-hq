@@ -12,14 +12,14 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
 - Stay under 1,000 CFBD calls/month. `pp/http.py` caches and caps at 900, so don't bypass it.
 
 ## Weeks
-- CFBD week N = Yahoo week N+1. For example, CFBD 9 is the Oct 31 slate and Yahoo week 10.
+- CFBD week N = Yahoo week N = BTO week N. For example, CFBD 9 is the Oct 31 slate, Yahoo week 9 and BTO week 9 (NFL week 8). (Checked 10/27 on the Yahoo week selector; the old "N+1" was wrong.)
 - `py -c "from pp.cards import current_week; print(current_week())"` prints the CFBD week of the next games.
 - Slate file: `slates/2026-wNN.json` (NN = CFBD week). `slates/2026-w09.json` is the schema example.
 
 ## Steps for STAGE = draft (Wed 9pm), bto_final (Thu 8pm), final (Fri 9pm), refresh (Sat 8am)
 1. `git pull`.
 2. **Read the slates** in the built-in browser (the `mcp__Claude_Browser__*` tools; Michael's sign-ins persist there).
-   - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/<yahoo week>/picks` has the 25 games, kick times, TB1 games, TB2 deadline and pick distribution. The group page `https://football.fantasysports.yahoo.com/college/3659` has the standings.
+   - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/9/picks?week=<week>` (9 is Michael's team ID, not a week; other numbers show other members' picks) has the 25 games, kick times, TB1 games, TB2 deadline and pick distribution. The group page `https://football.fantasysports.yahoo.com/college/3659` has the standings.
    - BTO: `https://beattheoddspickem.com/player/picks/current` has the 16 games, visitor spreads, Big Game and lock state. `/player/dashboard` has the balance, `/player/leaderboard` has every balance and Michael's status (normal / Three Bet / One Bet). Use ESPN abbreviations for NFL teams.
    - CFP: `https://ncaa-pool-two.vercel.app/player/picks` has the games and spreads; `/player/leaderboard` has all balances.
    - Write or update the slate file:
@@ -49,7 +49,7 @@ Grade last week. Last week = the CFBD week whose games just finished, which is `
 2. **Read what Michael actually entered.** In the built-in browser, read-only, never change anything:
    - BTO: `/player/history` has last week's picks, lines incl. line points, and wagers. The dashboard and `/player/leaderboard` have the balance and rank.
    - CFP: `https://ncaa-pool-two.vercel.app/player/history` (or Individual Picks) has his picks and wagers. `/player/leaderboard` has the balance and rank.
-   - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/<yahoo week>/picks` has his picks and tiebreakers. The group page has the standings.
+   - Yahoo: `https://football.fantasysports.yahoo.com/college/3659/9/picks?week=<week>` (9 is Michael's team ID, not a week; other numbers show other members' picks) has his picks and tiebreakers. The group page has the standings.
    - Write `data/entries/2026-wNN.json`:
      ```
      {"yahoo": {"<Away>@<Home>": {"pick": "<Team>"}},

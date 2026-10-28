@@ -1,43 +1,649 @@
 {
  "cfbd_week": 9,
- "label": "Week of Oct 29 - Nov 2, 2026 (Yahoo Week 10, NFL Week 8)",
+ "label": "Week of Oct 29 - Nov 2, 2026 (Yahoo Week 9, BTO Week 9, NFL Week 8)",
  "read_at": "2026-10-26T09:30:00-05:00",
  "yahoo": {
-  "url": "https://football.fantasysports.yahoo.com/college/3659/10/picks",
+  "url": "https://football.fantasysports.yahoo.com/college/3659/9/picks?week=9",
   "group_size": 14,
-  "standings": {"me": 120, "leader": 126, "rank": 4},
-  "tb1": [["Ohio St.", "USC"], ["Wisconsin", "Iowa"]],
+  "standings": {
+   "me": 120,
+   "leader": 126,
+   "rank": 4
+  },
+  "tb1": [
+   [
+    "Ohio St.",
+    "USC"
+   ],
+   [
+    "Wisconsin",
+    "Iowa"
+   ]
+  ],
   "tb1_note": "Predict exact scores: Ohio St. @ USC (locks Sat 6:30pm CDT); Wisconsin @ Iowa (locks Sat 11:00am CDT)",
   "tb2_deadline": "Fri, Oct 30 6:25 pm CDT",
   "games": [
-   {"away": "Baylor", "home": "UCF", "kick": "Fri 10/30 6:30 PM", "pub": {"Baylor": 14, "UCF": 86}},
-   {"away": "Boston Coll.", "home": "Duke", "kick": "Sat 10/31 11:00 AM", "pub": {"Duke": 97, "Boston Coll.": 3}},
-   {"away": "Illinois", "home": "Maryland", "kick": "Sat 10/31 11:00 AM", "pub": {"Illinois": 98, "Maryland": 2}},
-   {"away": "Wisconsin", "home": "Iowa", "kick": "Sat 10/31 11:00 AM", "pub": {"Iowa": 61, "Wisconsin": 39}},
-   {"away": "Arizona", "home": "Texas Tech", "kick": "Sat 10/31 11:00 AM", "pub": {"Texas Tech": 80, "Arizona": 20}},
-   {"away": "Notre Dame", "home": "Navy", "kick": "Sat 10/31 11:00 AM", "pub": {"Notre Dame": 100, "Navy": 0}},
-   {"away": "Michigan", "home": "Rutgers", "kick": "Sat 10/31 11:30 AM", "pub": {"Michigan": 98, "Rutgers": 2}},
-   {"away": "Connecticut", "home": "Air Force", "kick": "Sat 10/31 2:00 PM", "pub": {"Air Force": 89, "Connecticut": 11}},
-   {"away": "Minnesota", "home": "Indiana", "kick": "Sat 10/31 2:30 PM", "pub": {"Indiana": 99, "Minnesota": 1}},
-   {"away": "Northwestern", "home": "Oregon", "kick": "Sat 10/31 2:30 PM", "pub": {"Oregon": 48, "Northwestern": 52}},
-   {"away": "Florida", "home": "Georgia", "kick": "Sat 10/31 2:30 PM", "neutral": true, "pub": {"Georgia": 95, "Florida": 5}},
-   {"away": "Kansas", "home": "TCU", "kick": "Sat 10/31 2:30 PM", "pub": {"TCU": 83, "Kansas": 17}},
-   {"away": "Virginia", "home": "Wake Forest", "kick": "Sat 10/31 2:45 PM", "pub": {"Wake Forest": 96, "Virginia": 4}},
-   {"away": "Utah", "home": "Cincinnati", "kick": "Sat 10/31 2:45 PM", "pub": {"Utah": 82, "Cincinnati": 18}},
-   {"away": "New Mexico", "home": "San Jose St.", "kick": "Sat 10/31 3:00 PM", "pub": {"New Mexico": 84, "San Jose St.": 16}},
-   {"away": "Clemson", "home": "Florida St.", "kick": "Sat 10/31 6:00 PM", "pub": {"Florida St.": 87, "Clemson": 13}},
-   {"away": "Oklahoma St.", "home": "Iowa St.", "kick": "Sat 10/31 6:00 PM", "pub": {"Oklahoma St.": 97, "Iowa St.": 3}},
-   {"away": "Washington St.", "home": "SDSU", "kick": "Sat 10/31 6:00 PM", "pub": {"SDSU": 70, "Washington St.": 30}},
-   {"away": "Miami (FL)", "home": "N. Carolina", "kick": "Sat 10/31 6:30 PM", "pub": {"Miami (FL)": 98, "N. Carolina": 2}},
-   {"away": "Georgia Tech", "home": "Pittsburgh", "kick": "Sat 10/31 6:30 PM", "pub": {"Pittsburgh": 90, "Georgia Tech": 10}},
-   {"away": "Ohio St.", "home": "USC", "kick": "Sat 10/31 6:30 PM", "pub": {"Ohio St.": 95, "USC": 5}},
-   {"away": "Mississippi St.", "home": "Texas", "kick": "Sat 10/31 6:30 PM", "pub": {"Texas": 100, "Mississippi St.": 0}},
-   {"away": "Washington", "home": "Nebraska", "kick": "Sat 10/31 7:00 PM", "pub": {"Nebraska": 100, "Washington": 0}},
-   {"away": "Army", "home": "Memphis", "kick": "Sat 10/31 7:00 PM", "pub": {"Memphis": 81, "Army": 19}},
-   {"away": "Oregon St.", "home": "Fresno St.", "kick": "Sat 10/31 10:00 PM", "pub": {"Oregon St.": 98, "Fresno St.": 2}}
+   {
+    "away": "Baylor",
+    "home": "UCF",
+    "kick": "Fri 10/30 6:30 PM",
+    "pub": {
+     "Baylor": 14,
+     "UCF": 86
+    }
+   },
+   {
+    "away": "Boston Coll.",
+    "home": "Duke",
+    "kick": "Sat 10/31 11:00 AM",
+    "pub": {
+     "Duke": 97,
+     "Boston Coll.": 3
+    }
+   },
+   {
+    "away": "Illinois",
+    "home": "Maryland",
+    "kick": "Sat 10/31 11:00 AM",
+    "pub": {
+     "Illinois": 98,
+     "Maryland": 2
+    }
+   },
+   {
+    "away": "Wisconsin",
+    "home": "Iowa",
+    "kick": "Sat 10/31 11:00 AM",
+    "pub": {
+     "Iowa": 61,
+     "Wisconsin": 39
+    }
+   },
+   {
+    "away": "Arizona",
+    "home": "Texas Tech",
+    "kick": "Sat 10/31 11:00 AM",
+    "pub": {
+     "Texas Tech": 80,
+     "Arizona": 20
+    }
+   },
+   {
+    "away": "Notre Dame",
+    "home": "Navy",
+    "kick": "Sat 10/31 11:00 AM",
+    "pub": {
+     "Notre Dame": 100,
+     "Navy": 0
+    }
+   },
+   {
+    "away": "Michigan",
+    "home": "Rutgers",
+    "kick": "Sat 10/31 11:30 AM",
+    "pub": {
+     "Michigan": 98,
+     "Rutgers": 2
+    }
+   },
+   {
+    "away": "Connecticut",
+    "home": "Air Force",
+    "kick": "Sat 10/31 2:00 PM",
+    "pub": {
+     "Air Force": 89,
+     "Connecticut": 11
+    }
+   },
+   {
+    "away": "Minnesota",
+    "home": "Indiana",
+    "kick": "Sat 10/31 2:30 PM",
+    "pub": {
+     "Indiana": 99,
+     "Minnesota": 1
+    }
+   },
+   {
+    "away": "Northwestern",
+    "home": "Oregon",
+    "kick": "Sat 10/31 2:30 PM",
+    "pub": {
+     "Oregon": 48,
+     "Northwestern": 52
+    }
+   },
+   {
+    "away": "Florida",
+    "home": "Georgia",
+    "kick": "Sat 10/31 2:30 PM",
+    "neutral": true,
+    "pub": {
+     "Georgia": 95,
+     "Florida": 5
+    }
+   },
+   {
+    "away": "Kansas",
+    "home": "TCU",
+    "kick": "Sat 10/31 2:30 PM",
+    "pub": {
+     "TCU": 83,
+     "Kansas": 17
+    }
+   },
+   {
+    "away": "Virginia",
+    "home": "Wake Forest",
+    "kick": "Sat 10/31 2:45 PM",
+    "pub": {
+     "Wake Forest": 96,
+     "Virginia": 4
+    }
+   },
+   {
+    "away": "Utah",
+    "home": "Cincinnati",
+    "kick": "Sat 10/31 2:45 PM",
+    "pub": {
+     "Utah": 82,
+     "Cincinnati": 18
+    }
+   },
+   {
+    "away": "New Mexico",
+    "home": "San Jose St.",
+    "kick": "Sat 10/31 3:00 PM",
+    "pub": {
+     "New Mexico": 84,
+     "San Jose St.": 16
+    }
+   },
+   {
+    "away": "Clemson",
+    "home": "Florida St.",
+    "kick": "Sat 10/31 6:00 PM",
+    "pub": {
+     "Florida St.": 87,
+     "Clemson": 13
+    }
+   },
+   {
+    "away": "Oklahoma St.",
+    "home": "Iowa St.",
+    "kick": "Sat 10/31 6:00 PM",
+    "pub": {
+     "Oklahoma St.": 97,
+     "Iowa St.": 3
+    }
+   },
+   {
+    "away": "Washington St.",
+    "home": "SDSU",
+    "kick": "Sat 10/31 6:00 PM",
+    "pub": {
+     "SDSU": 70,
+     "Washington St.": 30
+    }
+   },
+   {
+    "away": "Miami (FL)",
+    "home": "N. Carolina",
+    "kick": "Sat 10/31 6:30 PM",
+    "pub": {
+     "Miami (FL)": 98,
+     "N. Carolina": 2
+    }
+   },
+   {
+    "away": "Georgia Tech",
+    "home": "Pittsburgh",
+    "kick": "Sat 10/31 6:30 PM",
+    "pub": {
+     "Pittsburgh": 90,
+     "Georgia Tech": 10
+    }
+   },
+   {
+    "away": "Ohio St.",
+    "home": "USC",
+    "kick": "Sat 10/31 6:30 PM",
+    "pub": {
+     "Ohio St.": 95,
+     "USC": 5
+    }
+   },
+   {
+    "away": "Mississippi St.",
+    "home": "Texas",
+    "kick": "Sat 10/31 6:30 PM",
+    "pub": {
+     "Texas": 100,
+     "Mississippi St.": 0
+    }
+   },
+   {
+    "away": "Washington",
+    "home": "Nebraska",
+    "kick": "Sat 10/31 7:00 PM",
+    "pub": {
+     "Nebraska": 100,
+     "Washington": 0
+    }
+   },
+   {
+    "away": "Army",
+    "home": "Memphis",
+    "kick": "Sat 10/31 7:00 PM",
+    "pub": {
+     "Memphis": 81,
+     "Army": 19
+    }
+   },
+   {
+    "away": "Oregon St.",
+    "home": "Fresno St.",
+    "kick": "Sat 10/31 10:00 PM",
+    "pub": {
+     "Oregon St.": 98,
+     "Fresno St.": 2
+    }
+   }
   ],
   "pub_note": "Yahoo-wide pick distribution shown on the picks page; used as the proxy for the 13 other group members."
  },
- "bto": {"status": "Week 9 slate not posted yet (checked Mon 10/26).", "balance": 2820, "balance_note": "Balance after Week 7; Week 8 still being scored", "rank": 18, "players": 49, "mode": "Three Bet", "leader": 7800, "twelfth": 3200},
- "cfp": {"status": "No week open yet (checked Mon 10/26); commissioner posts spreads by Tuesday.", "balance": 11904, "rank": 29, "players_alive": 63, "leader": 105000, "rebuy_used": false, "rebuy_deadline": "2026-11-07T11:00:00-06:00"}
+ "bto": {
+  "status": "Week 9 slate posted (read Tue 10/27 8pm). Locks: Thu NFL 7:15pm CT, rest at kickoff.",
+  "games": [
+   {
+    "league": "CFB",
+    "away": "Wisconsin",
+    "home": "Iowa",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Sat 10/31 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "SMU",
+    "home": "Syracuse",
+    "home_spread": 10.5,
+    "big": false,
+    "kick": "Sat 10/31 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Arizona",
+    "home": "Texas Tech",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Sat 10/31 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Florida",
+    "home": "Georgia",
+    "home_spread": -11.5,
+    "big": false,
+    "kick": "Sat 10/31 2:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Northwestern",
+    "home": "Oregon",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Sat 10/31 2:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Utah",
+    "home": "Cincinnati",
+    "home_spread": 6.5,
+    "big": false,
+    "kick": "Sat 10/31 2:45 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Virginia",
+    "home": "Wake Forest",
+    "home_spread": -12.5,
+    "big": false,
+    "kick": "Sat 10/31 2:45 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Ohio State",
+    "home": "USC",
+    "home_spread": 6.5,
+    "big": false,
+    "kick": "Sat 10/31 6:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "CAR",
+    "home": "GB",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Thu 10/29 7:15 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "BAL",
+    "home": "BUF",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Sun 11/1 12:00 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "MIN",
+    "home": "DET",
+    "home_spread": -3.5,
+    "big": true,
+    "kick": "Sun 11/1 12:00 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "CLE",
+    "home": "PIT",
+    "home_spread": -3.5,
+    "big": false,
+    "kick": "Sun 11/1 12:00 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "IND",
+    "home": "JAX",
+    "home_spread": -8.5,
+    "big": false,
+    "kick": "Sun 11/1 12:00 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "KC",
+    "home": "DEN",
+    "home_spread": 1.5,
+    "big": false,
+    "kick": "Sun 11/1 3:25 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "PHI",
+    "home": "WSH",
+    "home_spread": -4.5,
+    "big": false,
+    "kick": "Sun 11/1 7:20 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "CHI",
+    "home": "SEA",
+    "home_spread": -3.0,
+    "big": false,
+    "kick": "Mon 11/2 7:20 PM CT",
+    "locked": false
+   }
+  ],
+  "mode": "three",
+  "mode_rules": "Three Bet: exactly 3 bets, total wager >= 50% ($1,310), Big Game required, 4 line points.",
+  "balance": 2620,
+  "balance_note": "After Week 8 (-$200)",
+  "rank": 20,
+  "players": 49,
+  "leader": 9000,
+  "twelfth": 3500,
+  "field": [
+   9000,
+   6640,
+   6100,
+   4890,
+   4800,
+   4600,
+   4500,
+   4050,
+   3600,
+   3550,
+   3500,
+   3500,
+   3360,
+   3320,
+   3250,
+   3200,
+   3200,
+   3020,
+   2980,
+   2500,
+   2490,
+   2160,
+   2000,
+   1600,
+   1520,
+   1510,
+   1400,
+   1110,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "weeks_left_note": "Not read this run; cards default to 6. Draft run should confirm from the Rules page."
+ },
+ "cfp": {
+  "status": "Week 9 open (read Tue 10/27 8pm). All picks lock Sat 10/31 11:00 AM CT.",
+  "games": [
+   {
+    "away": "Notre Dame",
+    "home": "Navy",
+    "home_spread": 30.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Arizona",
+    "home": "Texas Tech",
+    "home_spread": -3.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "SMU",
+    "home": "Syracuse",
+    "home_spread": 9.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Wisconsin",
+    "home": "Iowa",
+    "home_spread": -3.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Auburn",
+    "home": "Ole Miss",
+    "home_spread": -13.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Florida",
+    "home": "Georgia",
+    "home_spread": -11.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Minnesota",
+    "home": "Indiana",
+    "home_spread": -20.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Arizona State",
+    "home": "BYU",
+    "home_spread": -16.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Northwestern",
+    "home": "Oregon",
+    "home_spread": -3.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Utah",
+    "home": "Cincinnati",
+    "home_spread": 6.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Virginia",
+    "home": "Wake Forest",
+    "home_spread": -12.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Nevada",
+    "home": "UCLA",
+    "home_spread": -22.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Oklahoma State",
+    "home": "Iowa State",
+    "home_spread": 8.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Miami",
+    "home": "North Carolina",
+    "home_spread": 14.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Ohio State",
+    "home": "USC",
+    "home_spread": 6.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Mississippi State",
+    "home": "Texas",
+    "home_spread": -20.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Missouri",
+    "home": "Arkansas",
+    "home_spread": 10.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Texas State",
+    "home": "Boise State",
+    "home_spread": -11.5,
+    "kick": "Sat 10/31 (pool locks 11:00 AM CT)"
+   }
+  ],
+  "balance": 11904,
+  "rank": 29,
+  "players_alive": 63,
+  "leader": 105000,
+  "money_line_12th": 23000,
+  "field": [
+   105000,
+   58000,
+   49560,
+   43000,
+   40000,
+   40000,
+   38400,
+   34830,
+   30000,
+   30000,
+   29000,
+   23000,
+   22500,
+   22000,
+   22000,
+   20000,
+   20000,
+   19561,
+   19000,
+   18000,
+   17000,
+   15500,
+   15000,
+   14750,
+   14500,
+   12750,
+   12000,
+   12000,
+   11600,
+   11550,
+   10000,
+   10000,
+   10000,
+   10000,
+   10000,
+   9900,
+   9300,
+   9250,
+   9000,
+   9000,
+   8000,
+   7500,
+   6500,
+   6000,
+   6000,
+   5750,
+   5750,
+   5000,
+   5000,
+   5000,
+   5000,
+   3900,
+   3103,
+   3000,
+   3000,
+   2250,
+   2000,
+   2000,
+   1000,
+   1000
+  ],
+  "field_note": "Leaderboard ranks 1-61 excl. Michael; the tail below 1,000 pts was not captured.",
+  "rebuy_used": false,
+  "rebuy_window": true,
+  "rebuy_deadline": "2026-11-07T11:00:00-06:00",
+  "min_wager": 5952
+ },
+ "read_at_bto_cfp": "2026-10-27T20:00:00-05:00"
 }

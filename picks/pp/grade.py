@@ -36,8 +36,9 @@ def nfl_result(game):
 
 def grade_pick(week, game, pick_text, ats):
     """Returns 1 win, 0 loss, 0.5 push, None if not final/unknown."""
+    # All-caps could be NFL (KC) or college (LSU, BYU), so try college first.
     is_nfl = game.replace("★", "").split(" @ ")[0].strip().isupper()
-    res = nfl_result(game) if is_nfl else cfb_result(week, game)
+    res = cfb_result(week, game) or (nfl_result(game) if is_nfl else None)
     if not res:
         return None
     if ats:
@@ -85,7 +86,7 @@ def main():
     entries_f = ROOT / f"data/entries/{YEAR}-w{wk:02d}.json"
     entries = json.loads(entries_f.read_text(encoding="utf-8")) if entries_f.exists() else {}
     report = {"week": wk, "pools": {}, "entries_read": entries_f.exists(), "standings": entries.get("standings")}
-    lines = [f"### CFBD week {wk} (Yahoo week {wk + 1})"]
+    lines = [f"### CFBD week {wk} (Yahoo week {wk})"]
     files = {Path(f).stem.split("-")[-1]: Path(f) for f in glob.glob(str(ROOT / f"data/published/{YEAR}-w{wk:02d}-*.json"))}
     for pool in sorted(set(files) | {k for k in entries if k != "standings"}):
         ats = pool in ("bto", "cfp")
