@@ -6,7 +6,7 @@ import os
 import sys
 import traceback
 
-from . import advice, digest, notify
+from . import advice, digest, guillotine, notify
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -48,10 +48,28 @@ def league_view(league, now):
     lineup data or the injury watch."""
     try:
         tips = advice.build(league, now)
+        if tips is not None and getattr(league, "guillotine", None):
+            tips["guillotine"] = league.guillotine
     except Exception:
         traceback.print_exc()
         tips = None
     return view(league, tips)
+
+
+def guillotine_odds(league, ctx, now):
+    """Survival odds + bid guidance for a guillotine league. Best-effort like the advice: on a bug the tab
+    keeps the plain projected standing."""
+    try:
+        g = league.guillotine = guillotine.analyze(league, ctx, now)
+        if not g:
+            return
+        # the simulated best-lineup standing replaces the set-lineup one, so tab, digest and push agree
+        league.standing = {"rank": g["rank"], "n": g["n"], "gap": g["gap"], "cut": g["cut"]}
+        alert = digest.danger_push(league)
+        if alert:
+            push_once(*alert, priority=4, tags=["warning"])
+    except Exception:
+        traceback.print_exc()
 
 
 def injury_watch(league, now):
@@ -181,6 +199,8 @@ def main():
                               tags=["warning"])
                     notes.append(f"{name}: ESPN snapshot is stale")
             lg.dynasty = bool(cfg.get("dynasty"))
+            if cfg.get("format") == "guillotine":
+                guillotine_odds(lg, ctx, now)
             leagues.append(lg)
             league_views[name] = league_view(lg, now)
             prev = prev_views.get(name) or {}

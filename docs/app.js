@@ -63,8 +63,26 @@ function actions(lg) {
   return `<div class="card actions">
     <div class="summary"><div><div class="name">What to do</div>${a.matchup ? `<div class="vs ${a.danger ? "danger" : ""}">${esc(a.matchup)}</div>` : ""}</div>
       <div class="muted small">${esc(a.built)}</div></div>
+    ${guillotine(a.guillotine)}
     ${fixes}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${list("Notes", a.notes, "muted")}
   </div>`;
+}
+
+function guillotine(g) {
+  if (!g) return "";
+  const pct = x => x > 0 && x < 0.005 ? "<1%" : `${Math.round(x * 100)}%`;
+  const li = t => `<li>${esc(t)}</li>`;
+  const price = b => b.call === "bid" ? `bid $${b.price}${b.max > b.price ? "–" + b.max : ""}`
+    : `${b.call}: rivals may go $${b.price}, worth $${b.max} to you`;
+  const bid = b => `${b.name} (${b.pos} ${b.team || "FA"}, +${b.gain} pts): ${price(b)}, cut risk ${pct(g.cut)} → ${pct(b.cut_with)}`;
+  const risk = g.teams.filter(t => !t.me).slice(0, 3).map(t => `${t.name}: ${pct(t.cut)} cut risk (${t.proj.toFixed(1)} proj, $${t.faab} FAAB)`);
+  const freed = g.freed?.players?.length
+    ? `<div class="section">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div><ul class="tips">${g.freed.players.map(b => li(bid(b))).join("")}</ul>` : "";
+  return `<div class="section">Survival · week ${g.week}</div><ul class="tips">
+      <li class="${g.cut > 0.2 ? "bad" : "ok"}"><b>Survive ${pct(g.survive)}</b> · rank ${g.rank} of ${g.n} (${g.proj.toFixed(1)} proj) · cut risk ${pct(g.cut)}</li>
+      ${risk.map(li).join("")}</ul>
+    <div class="section">Bids · waivers ${esc(g.waivers)} CT</div><ul class="tips">${g.bids.length ? g.bids.map(b => li(bid(b))).join("") : li("No free agent adds a point to your lineup.")}</ul>
+    ${freed}<ul class="tips muted">${li(`You have $${g.faab} FAAB. Most left: ${g.rich.map(r => `${r.name} $${r.faab}`).join(", ")}. Model: ${g.sims} simulated weeks, best lineups; it only recommends.`)}</ul>`;
 }
 
 function today() {
