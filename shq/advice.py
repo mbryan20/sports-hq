@@ -8,7 +8,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import digest, trades, values, waivers
+from . import categories, digest, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -44,7 +44,7 @@ def _moves(league):
             for s, b, gain in start_sit(league.starters, league.bench) if not _dead(s)]
 
 
-def _valued(league):
+def valued(league):
     """FantasyCalc values + multi-week projections on every player; False where there are none (NBA,
     Kosmonauts, test leagues) or the free sources are down."""
     try:
@@ -55,13 +55,13 @@ def _valued(league):
 
 
 def adds(league):
-    if getattr(league, "saved", False):
-        return ["Free agent adds need Yahoo API access (pending approval)."]
-    if _valued(league):
+    if valued(league):
         dynasty = bool(getattr(league, "dynasty", False))
+        # guillotine bids come from the survival model (shq/guillotine.py), not the generic ranges
+        budget = 0 if getattr(league, "format", None) == "guillotine" else getattr(league, "faab_budget", 0)
         found = waivers.adds(league.starters, league.bench, league.free_agents, league.slots, dynasty=dynasty,
                              open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
-                             budget=getattr(league, "faab_budget", 0))
+                             budget=budget)
         return [waivers.line(a) for a in found] or ["No free agent beats your bench on rest-of-season value."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
@@ -83,7 +83,7 @@ def trade_block(league):
         return None
     if getattr(league, "platform", None) == "yahoo":
         return {"lines": ["Trade ideas need every team's roster: waiting on Yahoo API access."], "offers": []}
-    if not getattr(league, "others", None) or not _valued(league):
+    if not getattr(league, "others", None) or not valued(league):
         return None
     if "_trades" not in league.__dict__:
         deadline = getattr(league, "trade_deadline", None)
@@ -119,5 +119,6 @@ def build(league, now):
         "adds": adds(league)[:3],
         "trades": trade_block(league),
         "notes": notes,
+        "cats": categories.build(league) if getattr(league, "sport", "nfl") == "nba" else None,
         "built": ct_label(now),
     }

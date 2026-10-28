@@ -66,6 +66,7 @@ ul.tips.fix li { color: var(--text); font-weight: 600; }
 ul.tips.fix li::marker { content: "⚠ "; color: var(--orange); }
 ul.tips.muted li { color: var(--muted); font-size: 13.5px; }
 ul.tips li.ok { color: var(--green); }
+ul.tips li.bad { color: var(--red); }
 .actions .summary .vs { white-space: normal; }
 .vs.danger { color: var(--red); font-weight: 600; }
 .small { font-size: 12px; white-space: nowrap; }
@@ -83,3 +84,12 @@ ul.tips.offers li { margin: 6px 0 10px; }
 .sub-wrap { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
 .gain { color: var(--green); }
 .basis { margin: -6px 0 0; padding: 0 14px 12px; font-size: 12px; color: var(--muted); }
+table.cats { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+table.cats th { font-size: 11px; font-weight: 600; color: var(--muted); text-align: right; padding: 2px 8px 4px; }
+table.cats td { text-align: right; padding: 5px 8px; border-top: 1px solid var(--line); }
+table.cats th:first-child, table.cats td:first-child { text-align: left; padding-left: 14px; font-weight: 600; }
+table.cats th:last-child, table.cats td:last-child { padding-right: 14px; }
+table.cats .lead { font-weight: 700; }
+table.cats .win { color: var(--green); } table.cats .lose { color: var(--red); }
+table.cats .close { color: var(--orange); font-weight: 700; } table.cats .tie { color: var(--muted); }
+.cats-note { margin: 0; padding: 6px 14px 2px; font-size: 12.5px; color: var(--muted); }

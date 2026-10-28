@@ -6,7 +6,7 @@ import os
 import sys
 import traceback
 
-from . import advice, digest, notify
+from . import advice, digest, guillotine, notify
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -48,10 +48,28 @@ def league_view(league, now):
     lineup data or the injury watch."""
     try:
         tips = advice.build(league, now)
+        if tips is not None and getattr(league, "guillotine", None):
+            tips["guillotine"] = league.guillotine
     except Exception:
         traceback.print_exc()
         tips = None
     return view(league, tips)
+
+
+def guillotine_odds(league, ctx, now):
+    """Survival odds + bid guidance for a guillotine league. Best-effort like the advice: on a bug the tab
+    keeps the plain projected standing."""
+    try:
+        g = league.guillotine = guillotine.analyze(league, ctx, now)
+        if not g:
+            return
+        # the simulated best-lineup standing replaces the set-lineup one, so tab, digest and push agree
+        league.standing = {"rank": g["rank"], "n": g["n"], "gap": g["gap"], "cut": g["cut"]}
+        alert = digest.danger_push(league)
+        if alert:
+            push_once(*alert, priority=4, tags=["warning"])
+    except Exception:
+        traceback.print_exc()
 
 
 def injury_watch(league, now):
@@ -88,8 +106,6 @@ def injury_watch(league, now):
             fa = league.best_fa(out["positions"], now)
             if fa:
                 tip = f"Best FA: {fa['name']} ({fa['team']}, {fa['proj']} proj) — add/drop manually."
-            elif getattr(league, "saved", False):
-                tip = "Check Yahoo free agents (FA list needs Yahoo API access)."
             else:
                 tip = "No playable FA found."
             push_once(key + ":fa", f"{league.name}: no healthy bench {slot}",
@@ -109,12 +125,20 @@ def weekly_due(now, last_generated):
 
 
 def weekly_section(league):
-    from .swap import start_sit
+    from .swap import fa_adds, start_sit
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
           for s, b, _ in start_sit(league.starters, league.bench)]
     if not ss:
         ss = [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
-    adds = advice.adds(league) or ["No free agent projects above your current depth."]  # same list as the league tab
+    if advice.valued(league):  # same rest-of-season list as the league tab
+        adds = advice.adds(league)
+    else:
+        roster = league.starters + league.bench
+        adds = [f"Add {fa['name']} ({fa['positions'][0]}, {fa['team']}, {fa['proj']})"
+                + (f" over {who['name']} ({who['status'] if who['status'] in OUTISH else who['proj']})" if who else "")
+                for _, fa, who in fa_adds(roster, league.free_agents[:300])]
+    if not adds:
+        adds = ["No free agent projects above your current depth."]
     return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
 
 
@@ -175,6 +199,8 @@ def main():
                               tags=["warning"])
                     notes.append(f"{name}: ESPN snapshot is stale")
             lg.dynasty = bool(cfg.get("dynasty"))
+            if cfg.get("format") == "guillotine":
+                guillotine_odds(lg, ctx, now)
             leagues.append(lg)
             league_views[name] = league_view(lg, now)
             prev = prev_views.get(name) or {}

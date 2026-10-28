@@ -8,7 +8,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Tab | What | Source |
 |---|---|---|
 | Today | daily 8am CT check: starters on bye/out/doubtful with the fix, today's locks, guillotine rank, Friday picks deadlines | cloud, daily |
-| Kosmonauts | Yahoo, 0.5 PPR, no flex | roster read twice daily by the laptop (Yahoo API approval pending) |
+| Kosmonauts | Yahoo, 0.5 PPR, no flex | roster + top free agents read twice daily by the laptop (Yahoo API approval pending) |
 | Domo Arigato | Sleeper "Sunday's Best", dynasty, superflex | Sleeper API (cloud) |
 | Guillotine | Sleeper "Damon's Guillotine League" | Sleeper API (cloud) |
 | 3-Ball FB / 3-Ball BB | ESPN 3-Ball Dynasty (football, basketball) | ESPN API, public league (cloud) |
@@ -19,9 +19,12 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 
 Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
-guillotine rank, fixes for starters who can't play, start/sit moves, waiver adds on rest-of-season value
-with who to drop and a FAAB bid range, trade ideas (weak spots, surplus, up to 3 fair offers that help
-both lineups, from FantasyCalc values), FAAB left. Ideas only: nothing is ever sent to a fantasy site.
+guillotine survival odds and FAAB bid ranges (`shq/guillotine.py`), fixes for starters who can't play, start/sit
+moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
+for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
+values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
+win/lose/close by the rest-of-week projection), which close categories to chase and with whom, and free agents
+strong in them (`shq/categories.py`). Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.
@@ -46,7 +49,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 
 | Task | When | Does |
 |---|---|---|
-| Sports HQ: daily laptop sync | 7:30am, 4:30pm (before the 8am digest) | Kosmonauts roster (Yahoo), private ESPN snapshots, War Room copy |
+| Sports HQ: daily laptop sync | 7:30am, 4:30pm (before the 8am digest) | Kosmonauts roster + free agents (Yahoo), private ESPN snapshots, War Room copy |
 | Sports HQ: Picks Tue 8pm postmortem | Tue | grade last week's cards and entries |
 | Sports HQ: Picks Wed 9pm drafts | Wed | draft cards for BTO, CFP, Yahoo |
 | Sports HQ: Picks Thu 8pm BTO final | Thu | BTO final + Yahoo Friday/TB2 |

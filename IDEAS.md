@@ -23,7 +23,6 @@ ranks it, and proposes what to build next.
 - Guillotine: show survival odds and FAAB bid guidance on the Guillotine tab (today: link to the War Room copy).
 - One "Today" tab: everything that needs action in the next 24h across all leagues and pools.
 - Basketball category view: per-category strengths vs this week's opponent (ESPN matchup stats).
-- Yahoo FA adds for Kosmonauts once the API is approved (or read FAs from the website in the laptop sync).
 - 3-Ball dynasty assets (picks, minors) from the Google Sheet onto the site.
 
 ## Proposed by monthly review

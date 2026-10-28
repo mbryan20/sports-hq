@@ -28,21 +28,18 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | League tabs as action pages (matchup, fixes, moves, adds, guillotine standing, FAAB) | live 2026-10-28 (`shq/advice.py`) |
 | Waiver adds on rest-of-season value, with who to drop + FAAB bid range (NFL) | live 2026-10-28 (`shq/waivers.py`) |
 | Trade finder + up to 3 offers per football league (FantasyCalc values) | live 2026-10-28 (`shq/trades.py`); Stempak/Bro-vid19 fill in after the next laptop ESPN sync |
-| NBA trade values and ROS waiver ranking | not covered: no free value API (adds stay games-left + ownership) |
-| Guillotine survival odds + FAAB bid guidance on the tab | not started (War Room has the model) |
-| NBA category matchup view | not started |
+| NBA trade values and ROS waiver ranking | not covered: no free value API (NBA adds come from `shq/categories.py`) |
+| Guillotine survival odds + FAAB bid guidance on the tab | live 2026-10-28 (`shq/guillotine.py`; push when cut risk > 20%) |
+| NBA category matchup (per-category totals, win/lose/close, what to chase, category FA adds) | live 2026-10-28 (`shq/categories.py`; Ball is Life fills in from the next laptop sync) |
 | 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
-| Kosmonauts FA adds | blocked: Yahoo API approval (or read FAs in the laptop sync) |
+| Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 
 ## Next up, in order
-1. Guillotine tab: survival odds and bid guidance (the waiver bid ranges on the tab are generic; the
-   War Room has the guillotine model).
-2. NBA category matchup.
-3. Dynasty assets (3-Ball picks and minors; FantasyCalc also values draft picks).
-4. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
-5. Kosmonauts trades and FA adds once the Yahoo API is approved (needs every team's roster).
+1. Dynasty assets (3-Ball picks and minors; FantasyCalc also values draft picks).
+2. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
+3. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
 
 ## How trades and waiver adds work (`shq/values.py`, `shq/trades.py`, `shq/waivers.py`)
 - **Values:** FantasyCalc's public API, matched per league (dynasty or redraft, 1QB or superflex, PPR,
@@ -104,3 +101,19 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   `redraftValue` for ~420, so `values.py` always fetches the dynasty list and picks the field.
 - **Sleeper projections** for a week skip players on bye, so the Sleeper free-agent pool also takes anyone
   projected in the next 4 weeks.
+- **ESPN NBA categories:** `mMatchup` already carries each side's `cumulativeScore.scoreByStat` (no extra view
+  needed), including FGM/FGA/FTM/FTA for the percentage cats. `settings.scheduleSettings.matchupPeriods` maps
+  matchup periods to matchup periods, not to scoring days. Player `stats` ids: `00<season>` = this season's
+  actuals, `10<season>` = ESPN's season projection, each with per-game `averageStats` (stat 42 = games played).
+- **Guillotine model** (`shq/guillotine.py`) assumes every team plays its best lineup; started games are locked
+  in place and final games use real points, so odds move live on Sundays. Rival prices use each rival's boldest
+  past bid share (floor 25%), scaled by need and player quality.
+- **Sleeper beta Chop menu** (checked 2026-10-28): `https://sleeper.com/beta/leagues/<league_id>/matchup` (the old
+  `sleeper.com/leagues/<id>` URL redirects there when signed in). It shows per-team "% safe" and chop rank, a
+  Graveyard of eliminated teams (week, FAAB left, points), and in the chat each waiver run's winning bids with
+  the number of bids. **No chop endpoint:** "% safe" is computed in the browser from public rosters and matchups
+  (team score normal with variance (points − proj)² / (1 + 10·(1 − points/proj)), so about 30% of the projection
+  before kickoff), so the cloud already has everything. Its odds are flatter than ours (team SD ~36 vs ~27).
+  Public `GET /v1/league/<id>/transactions/<week>` lists every processed claim, won or lost, with its
+  `waiver_bid`, which is what the bid model learns from. Only pending claims need the signed-in browser
+  (`shq/guillotine_bids.py`).
