@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T22:47:00Z",
+ "updated": "2026-10-29T22:57:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "Domo Arigato": {
@@ -631,7 +631,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "Guillotine": {
@@ -933,7 +933,7 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 5:47p",
+    "built": "Thu 5:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1471,7 +1471,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "Stempak": {
@@ -1755,7 +1755,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "Bro-vid19": {
@@ -2063,7 +2063,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "3-Ball BB": {
@@ -2080,7 +2080,7 @@
    "proj": 0.0,
    "starters": [
     {
-     "slot": "UT",
+     "slot": "SF",
      "name": "Saddiq Bey",
      "team": "NO",
      "pos": "SF/PF",
@@ -2093,7 +2093,7 @@
      "flags": []
     },
     {
-     "slot": "SF",
+     "slot": "SG",
      "name": "Mikal Bridges",
      "team": "NY",
      "pos": "SG/SF",
@@ -2108,7 +2108,22 @@
      ]
     },
     {
-     "slot": "PG",
+     "slot": "UT",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "G",
      "name": "Shai Gilgeous-Alexander",
      "team": "OKC",
      "pos": "PG/G",
@@ -2123,7 +2138,7 @@
      ]
     },
     {
-     "slot": "G",
+     "slot": "PG",
      "name": "Kingston Flemings",
      "team": "ATL",
      "pos": "SG/G",
@@ -2137,6 +2152,21 @@
     },
     {
      "slot": "UT",
+     "name": "Josh Giddey",
+     "team": "CHI",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "F",
      "name": "Matas Buzelis",
      "team": "CHI",
      "pos": "SF/PF",
@@ -2151,22 +2181,7 @@
      ]
     },
     {
-     "slot": "F",
-     "name": "Franz Wagner",
-     "team": "ORL",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
-    {
-     "slot": "C",
+     "slot": "UT",
      "name": "Walker Kessler",
      "team": "LAL",
      "pos": "C/PF/C",
@@ -2181,22 +2196,7 @@
      ]
     },
     {
-     "slot": "PF",
-     "name": "Jonathan Kuminga",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
-    {
-     "slot": "UT",
+     "slot": "C",
      "name": "Jarrett Allen",
      "team": "CLE",
      "pos": "C/PF/C",
@@ -2209,37 +2209,20 @@
      "flags": []
     },
     {
-     "slot": "SG",
-     "name": "De'Aaron Fox",
-     "team": "SA",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "slot": "PF",
+     "name": "De'Andre Hunter",
+     "team": "SAC",
+     "pos": "SF/PF",
+     "opp": "@NO",
+     "kickoff": "2026-10-30T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ]
+     "flags": []
     }
    ],
    "bench": [
-    {
-     "slot": "BN",
-     "name": "Devin Booker",
-     "team": "PHX",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
-    },
     {
      "slot": "BN",
      "name": "Kevin Porter Jr.",
@@ -2255,9 +2238,24 @@
     },
     {
      "slot": "BN",
-     "name": "Josh Giddey",
-     "team": "CHI",
-     "pos": "PG/SG",
+     "name": "Franz Wagner",
+     "team": "ORL",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "Jonathan Kuminga",
+     "team": "MIN",
+     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2272,6 +2270,21 @@
      "slot": "BN",
      "name": "Ayo Dosunmu",
      "team": "MIN",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ]
+    },
+    {
+     "slot": "BN",
+     "name": "De'Aaron Fox",
+     "team": "SA",
      "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
@@ -2312,21 +2325,6 @@
      "flags": [
       "NO GAME"
      ]
-    },
-    {
-     "slot": "BN",
-     "name": "Day'Ron Sharpe",
-     "team": "BKN",
-     "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ]
     }
    ],
    "advice": {
@@ -2341,7 +2339,7 @@
     ],
     "trades": null,
     "notes": [
-     "3 of 10 starters play tonight"
+     "4 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2378,7 +2376,7 @@
        "me": "21",
        "opp": "17",
        "now": "W",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "STL",
@@ -2403,22 +2401,24 @@
       }
      ],
      "now": "7-1-0",
-     "proj": "5-1",
-     "close": 2,
+     "proj": "5-0",
+     "close": 3,
      "games_left": [
-      24,
+      25,
       23
      ],
      "chase": [
       "FT% is close. Keep in the lineup: Franz Wagner (2 games, .849 on 5.3 FTA/g) and Devin Booker (1 games, .885 on 7.2 FTA/g).",
+      "3PM is close. Keep in the lineup: De'Andre Hunter (2 games, 2.1/g) and Brandin Podziemski (2 games, 2.0/g).",
       "FG% is close. Keep in the lineup: Walker Kessler (2 games, .750 on 8.8 FGA/g) and Jarrett Allen (2 games, .657 on 9.7 FGA/g)."
      ],
      "adds": [
       "For FT%: Dennis Schroder (PG, CHA), 2 games left, 1.000 on 2.6 FTA/g",
+      "For 3PM: Matisse Thybulle (SF, LAL), 2 games left, 2.4/g",
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g"
      ]
     },
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   },
   "Ball is Life": {
@@ -2735,7 +2735,7 @@
       "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
      ]
     },
-    "built": "Thu 5:47p"
+    "built": "Thu 5:57p"
    }
   }
  }
