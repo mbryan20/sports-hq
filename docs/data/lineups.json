@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T21:17:00Z",
+ "updated": "2026-10-29T21:27:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "Domo Arigato": {
@@ -631,7 +631,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "Guillotine": {
@@ -859,7 +859,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 11 this week, +19.3 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 7 of 11 this week, +17.4 pts vs the lowest other team, 8% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -933,39 +933,39 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 4:17p",
+    "built": "Thu 4:27p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 7,
-     "gap": 19.3,
+     "gap": 17.4,
      "proj": 124.5,
-     "cut": 0.083,
-     "survive": 0.917,
+     "cut": 0.085,
+     "survive": 0.915,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
-       "name": "MoneyManChas",
-       "proj": 105.2,
-       "cut": 0.239,
-       "faab": 180,
-       "bold": 0.2,
-       "me": false
-      },
-      {
        "name": "CodyRust",
        "proj": 107.7,
-       "cut": 0.222,
+       "cut": 0.228,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
+       "name": "MoneyManChas",
+       "proj": 107.1,
+       "cut": 0.221,
+       "faab": 180,
+       "bold": 0.2,
+       "me": false
+      },
+      {
        "name": "GoodFellas",
        "proj": 115.9,
-       "cut": 0.14,
+       "cut": 0.144,
        "faab": 77,
        "bold": 0.44,
        "me": false
@@ -973,7 +973,7 @@
       {
        "name": "Aniasin1",
        "proj": 115.9,
-       "cut": 0.13,
+       "cut": 0.132,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -981,7 +981,7 @@
       {
        "name": "michaelbryan",
        "proj": 124.5,
-       "cut": 0.083,
+       "cut": 0.085,
        "faab": 59,
        "bold": 0.51,
        "me": true
@@ -997,7 +997,7 @@
       {
        "name": "robert8063",
        "proj": 134.7,
-       "cut": 0.041,
+       "cut": 0.042,
        "faab": 37,
        "bold": 0.53,
        "me": false
@@ -1005,7 +1005,7 @@
       {
        "name": "SteelRob420",
        "proj": 136.0,
-       "cut": 0.033,
+       "cut": 0.034,
        "faab": 43,
        "bold": 0.98,
        "me": false
@@ -1013,7 +1013,7 @@
       {
        "name": "JHED1979",
        "proj": 140.4,
-       "cut": 0.025,
+       "cut": 0.026,
        "faab": 43,
        "bold": 0.77,
        "me": false
@@ -1051,127 +1051,92 @@
      ],
      "bids": [
       {
-       "name": "Jake Ferguson",
-       "pos": "TE",
-       "team": "DAL",
-       "proj": 8.1,
-       "gain": 2.2,
-       "cut_with": 0.073,
-       "price": 4,
-       "max": 8,
-       "call": "bid",
-       "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 3
-        },
-        {
-         "name": "GoodFellas",
-         "bid": 2
-        },
-        {
-         "name": "drewpepin1",
-         "bid": 1
-        }
-       ],
-       "freed_from": null
-      },
-      {
        "name": "Mark Andrews",
        "pos": "TE",
        "team": "BAL",
        "proj": 7.3,
        "gain": 1.4,
-       "cut_with": 0.077,
-       "price": 2,
+       "cut_with": 0.079,
+       "price": 0,
        "max": 5,
        "call": "bid",
-       "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 1
-        }
-       ],
+       "rivals": [],
        "freed_from": null
       }
      ],
      "freed": {
-      "team": "MoneyManChas",
-      "cut": 0.239,
+      "team": "CodyRust",
+      "cut": 0.228,
       "players": [
        {
-        "name": "Drake London",
-        "pos": "WR",
-        "team": "ATL",
-        "proj": 13.8,
-        "gain": 5.0,
-        "cut_with": 0.06,
-        "price": 29,
-        "max": 19,
-        "call": "priced out",
-        "rivals": [
-         {
-          "name": "SteelRob420",
-          "bid": 28
-         },
-         {
-          "name": "GoodFellas",
-          "bid": 26
-         },
-         {
-          "name": "JHED1979",
-          "bid": 23
-         }
-        ],
-        "freed_from": "MoneyManChas"
-       },
-       {
-        "name": "Jaylen Warren",
+        "name": "Derrick Henry",
         "pos": "RB",
-        "team": "PIT",
-        "proj": 13.4,
-        "gain": 4.6,
-        "cut_with": 0.06,
-        "price": 26,
-        "max": 18,
+        "team": "BAL",
+        "proj": 15.2,
+        "gain": 6.4,
+        "cut_with": 0.055,
+        "price": 42,
+        "max": 24,
         "call": "priced out",
         "rivals": [
          {
-          "name": "GoodFellas",
-          "bid": 25
+          "name": "MoneyManChas",
+          "bid": 41
          },
          {
           "name": "SteelRob420",
-          "bid": 24
+          "bid": 39
          },
          {
-          "name": "JHED1979",
-          "bid": 20
+          "name": "Off with his head",
+          "bid": 34
          }
         ],
-        "freed_from": "MoneyManChas"
+        "freed_from": "CodyRust"
        },
        {
-        "name": "Harold Fannin Jr.",
+        "name": "Drake Maye",
+        "pos": "QB",
+        "team": "NE",
+        "proj": 25.4,
+        "gain": 5.3,
+        "cut_with": 0.061,
+        "price": 44,
+        "max": 20,
+        "call": "priced out",
+        "rivals": [
+         {
+          "name": "MoneyManChas",
+          "bid": 43
+         },
+         {
+          "name": "Off with his head",
+          "bid": 40
+         },
+         {
+          "name": "SteelRob420",
+          "bid": 40
+         }
+        ],
+        "freed_from": "CodyRust"
+       },
+       {
+        "name": "Colston Loveland",
         "pos": "TE",
-        "team": "CLE",
-        "proj": 8.8,
-        "gain": 2.9,
-        "cut_with": 0.07,
-        "price": 4,
-        "max": 11,
+        "team": "CHI",
+        "proj": 7.7,
+        "gain": 1.8,
+        "cut_with": 0.077,
+        "price": 2,
+        "max": 7,
         "call": "bid",
         "rivals": [
          {
           "name": "GoodFellas",
-          "bid": 3
-         },
-         {
-          "name": "drewpepin1",
           "bid": 1
          }
         ],
-        "freed_from": "MoneyManChas"
+        "freed_from": "CodyRust"
        }
       ]
      }
@@ -1506,7 +1471,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "Stempak": {
@@ -1792,7 +1757,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "Bro-vid19": {
@@ -2102,7 +2067,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "3-Ball BB": {
@@ -2457,7 +2422,7 @@
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g"
      ]
     },
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   },
   "Ball is Life": {
@@ -2774,7 +2739,7 @@
       "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
      ]
     },
-    "built": "Thu 4:17p"
+    "built": "Thu 4:27p"
    }
   }
  }
