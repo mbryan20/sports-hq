@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T23:27:00Z",
+ "updated": "2026-10-29T23:37:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-29T21:34:14Z",
-   "proj": 105.0,
+   "proj": 105.1,
    "starters": [
     {
      "slot": "QB",
@@ -49,7 +49,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.4,
+     "proj": 13.5,
      "status": null,
      "why": "",
      "flags": []
@@ -184,7 +184,7 @@
     }
    ],
    "advice": {
-    "matchup": "105.0 projected",
+    "matchup": "105.1 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "Domo Arigato": {
@@ -511,7 +511,7 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.2,
+     "proj": 8.1,
      "status": null,
      "why": "",
      "flags": []
@@ -576,7 +576,7 @@
     "danger": false,
     "fixes": [],
     "moves": [
-     "Start Mike Gesicki (8.2) over Kenyon Sadiq (3.9) at TE, +4.3"
+     "Start Mike Gesicki (8.1) over Kenyon Sadiq (3.9) at TE, +4.2"
     ],
     "adds": [
      "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
@@ -631,7 +631,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "Guillotine": {
@@ -645,7 +645,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 121.7,
+   "proj": 122.0,
    "starters": [
     {
      "slot": "QB",
@@ -655,7 +655,7 @@
      "opp": "vs CAR",
      "kickoff": "2026-10-30T00:15:00Z",
      "started": false,
-     "proj": 20.1,
+     "proj": 20.3,
      "status": null,
      "why": "",
      "flags": []
@@ -668,7 +668,7 @@
      "opp": "@GB",
      "kickoff": "2026-10-30T00:15:00Z",
      "started": false,
-     "proj": 15.1,
+     "proj": 15.2,
      "status": null,
      "why": "",
      "flags": []
@@ -859,7 +859,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 11 this week, +17.4 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 7 of 11 this week, +17.7 pts vs the lowest other team, 8% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -933,23 +933,23 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 6:27p",
+    "built": "Thu 6:37p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 7,
-     "gap": 17.4,
-     "proj": 124.5,
-     "cut": 0.085,
-     "survive": 0.915,
+     "gap": 17.7,
+     "proj": 124.8,
+     "cut": 0.083,
+     "survive": 0.917,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "CodyRust",
        "proj": 107.6,
-       "cut": 0.228,
+       "cut": 0.229,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -965,7 +965,7 @@
       {
        "name": "GoodFellas",
        "proj": 115.9,
-       "cut": 0.143,
+       "cut": 0.144,
        "faab": 77,
        "bold": 0.44,
        "me": false
@@ -980,8 +980,8 @@
       },
       {
        "name": "michaelbryan",
-       "proj": 124.5,
-       "cut": 0.085,
+       "proj": 124.8,
+       "cut": 0.083,
        "faab": 59,
        "bold": 0.51,
        "me": true
@@ -996,8 +996,8 @@
       },
       {
        "name": "robert8063",
-       "proj": 134.6,
-       "cut": 0.043,
+       "proj": 134.7,
+       "cut": 0.042,
        "faab": 37,
        "bold": 0.53,
        "me": false
@@ -1012,7 +1012,7 @@
       },
       {
        "name": "JHED1979",
-       "proj": 140.4,
+       "proj": 140.5,
        "cut": 0.026,
        "faab": 43,
        "bold": 0.77,
@@ -1020,7 +1020,7 @@
       },
       {
        "name": "drewpepin1",
-       "proj": 143.4,
+       "proj": 143.3,
        "cut": 0.019,
        "faab": 15,
        "bold": 1.0,
@@ -1056,7 +1056,7 @@
        "team": "BAL",
        "proj": 7.3,
        "gain": 1.4,
-       "cut_with": 0.079,
+       "cut_with": 0.077,
        "price": 0,
        "max": 5,
        "call": "bid",
@@ -1066,7 +1066,7 @@
      ],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.228,
+      "cut": 0.229,
       "players": [
        {
         "name": "Derrick Henry",
@@ -1074,7 +1074,7 @@
         "team": "BAL",
         "proj": 15.1,
         "gain": 6.3,
-        "cut_with": 0.055,
+        "cut_with": 0.054,
         "price": 42,
         "max": 24,
         "call": "priced out",
@@ -1099,10 +1099,10 @@
         "pos": "QB",
         "team": "NE",
         "proj": 25.4,
-        "gain": 5.3,
+        "gain": 5.1,
         "cut_with": 0.06,
         "price": 44,
-        "max": 20,
+        "max": 19,
         "call": "priced out",
         "rivals": [
          {
@@ -1126,7 +1126,7 @@
         "team": "CHI",
         "proj": 7.7,
         "gain": 1.8,
-        "cut_with": 0.077,
+        "cut_with": 0.076,
         "price": 2,
         "max": 7,
         "call": "bid",
@@ -1471,7 +1471,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "Stempak": {
@@ -1755,7 +1755,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "Bro-vid19": {
@@ -2063,7 +2063,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "3-Ball BB": {
@@ -2335,7 +2335,7 @@
     "adds": [
      "Mitchell Robinson (C, BOS): 2 games left this week, 15.8% owned",
      "Terrence Shannon Jr. (SG, MIN): 2 games left this week, 15.0% owned",
-     "Obi Toppin (PF, IND): 2 games left this week, 14.9% owned"
+     "Obi Toppin (PF, IND): 2 games left this week, 14.8% owned"
     ],
     "trades": null,
     "notes": [
@@ -2418,7 +2418,7 @@
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g"
      ]
     },
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   },
   "Ball is Life": {
@@ -2735,7 +2735,7 @@
       "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
      ]
     },
-    "built": "Thu 6:27p"
+    "built": "Thu 6:37p"
    }
   }
  }
