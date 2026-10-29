@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T01:27:00Z",
+ "updated": "2026-10-29T01:37:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -189,8 +189,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Zach Charbonnet (RB, SEA, 9.0/gm ROS, value 1,012), drop Chris Rodriguez Jr. (5.3/gm)",
-     "Add TreVeyon Henderson (RB, NE, 6.9/gm ROS, value 843), drop Tyler Allgeier (5.5/gm)"
+     "Add Zach Charbonnet (RB, SEA, 9.0/gm ROS, value 985), drop Chris Rodriguez Jr. (5.3/gm)",
+     "Add TreVeyon Henderson (RB, NE, 6.9/gm ROS, value 819), drop Tyler Allgeier (5.5/gm)"
     ],
     "trades": {
      "lines": [
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Domo Arigato": {
@@ -579,7 +579,7 @@
     "adds": [
      "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
      "Add Washington Commanders (DEF, WAS, 8.4 proj this week), drop Philadelphia Eagles (5.8 proj). Bid $0\u20131",
-     "Add Darnell Washington (TE, PIT, 6.3/gm ROS, value 609), drop Evan Engram (5.1/gm). Bid $1\u20133"
+     "Add Darnell Washington (TE, PIT, 6.3/gm ROS, value 622), drop Evan Engram (5.1/gm). Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -598,8 +598,8 @@
         "Harold Fannin Jr. (TE)",
         "Jordyn Tyson (WR)"
        ],
-       "give_value": 5265,
-       "get_value": 5233,
+       "give_value": 5193,
+       "get_value": 5155,
        "my_gain": 2.4,
        "their_gain": 1.0,
        "cut": true,
@@ -608,33 +608,34 @@
       {
        "team": "TheParlay",
        "give": [
-        "Tetairoa McMillan (WR)"
-       ],
-       "get": [
-        "Emeka Egbuka (WR)",
-        "Juwan Johnson (TE)"
-       ],
-       "give_value": 4619,
-       "get_value": 4233,
-       "my_gain": 0.8,
-       "their_gain": 1.6,
-       "cut": true,
-       "why": "Emeka Egbuka and Juwan Johnson start for you; Tetairoa McMillan starts for them"
-      },
-      {
-       "team": "Ride\u2019n the Chubba train",
-       "give": [
         "Rhamondre Stevenson (RB)"
        ],
        "get": [
-        "Dalton Kincaid (TE)"
+        "Tory Horton (WR)",
+        "Juwan Johnson (TE)"
        ],
-       "give_value": 1956,
-       "get_value": 2046,
-       "my_gain": 0.7,
-       "their_gain": 1.0,
-       "cut": false,
-       "why": "Dalton Kincaid starts for you; Rhamondre Stevenson starts for them over RJ Harvey (9.9/gm)"
+       "give_value": 1833,
+       "get_value": 1756,
+       "my_gain": 1.0,
+       "their_gain": 2.4,
+       "cut": true,
+       "why": "Juwan Johnson starts for you; Rhamondre Stevenson starts for them over Tyrone Tracy Jr. (8.5/gm)"
+      },
+      {
+       "team": "Thank Goff!!",
+       "give": [
+        "Garrett Wilson (WR)"
+       ],
+       "get": [
+        "Dallas Goedert (TE)",
+        "D'Andre Swift (RB)"
+       ],
+       "give_value": 3986,
+       "get_value": 4326,
+       "my_gain": 0.6,
+       "their_gain": 1.2,
+       "cut": true,
+       "why": "D'Andre Swift and Dallas Goedert start for you; Garrett Wilson starts for them over DJ Moore (14.3/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -643,7 +644,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Guillotine": {
@@ -878,8 +879,8 @@
      "Start Breece Hall (10.3) over Khalil Shakir (7.4) at FLEX, +2.9"
     ],
     "adds": [
-     "Add Bryce Young (QB, CAR, 21.2/gm ROS, value 679), drop Jadarian Price (3.5/gm), lineup +1.8/gm",
-     "Add Zach Charbonnet (RB, SEA, 9.0/gm ROS, value 1,012), drop J.K. Dobbins (7.9/gm), lineup +1.1/gm"
+     "Add Bryce Young (QB, CAR, 21.2/gm ROS, value 817), drop Jadarian Price (3.5/gm), lineup +1.8/gm",
+     "Add Zach Charbonnet (RB, SEA, 9.0/gm ROS, value 985), drop J.K. Dobbins (7.9/gm), lineup +1.1/gm"
     ],
     "trades": {
      "lines": [
@@ -895,46 +896,47 @@
         "Amon-Ra St. Brown (WR)"
        ],
        "get": [
-        "Tyler Warren (TE)",
-        "Josh Allen (QB)"
+        "Joe Burrow (QB)",
+        "Trey McBride (TE)"
        ],
-       "give_value": 8209,
-       "get_value": 8279,
-       "my_gain": 3.9,
-       "their_gain": 2.8,
+       "give_value": 8260,
+       "get_value": 8412,
+       "my_gain": 4.0,
+       "their_gain": 2.7,
        "cut": true,
-       "why": "Josh Allen and Tyler Warren start for you; Amon-Ra St. Brown starts for them"
+       "why": "Joe Burrow and Trey McBride start for you; Amon-Ra St. Brown starts for them"
       },
       {
        "team": "Off with his head",
        "give": [
-        "Chuba Hubbard (RB)"
-       ],
-       "get": [
-        "Ollie Gordon II (RB)",
-        "Isaiah Likely (TE)"
-       ],
-       "give_value": 4440,
-       "get_value": 4036,
-       "my_gain": 2.3,
-       "their_gain": 0.5,
-       "cut": true,
-       "why": "Ollie Gordon II and Isaiah Likely start for you; Chuba Hubbard starts for them"
-      },
-      {
-       "team": "Swegs4",
-       "give": [
         "Breece Hall (RB)"
        ],
        "get": [
-        "Joe Burrow (QB)"
+        "Luther Burden III (WR)",
+        "Brenton Strange (TE)"
        ],
-       "give_value": 3160,
-       "get_value": 2932,
-       "my_gain": 1.5,
-       "their_gain": 2.6,
-       "cut": false,
-       "why": "Joe Burrow starts for you; Breece Hall starts for them over Chris Godwin Jr. (8.6/gm)"
+       "give_value": 3225,
+       "get_value": 3229,
+       "my_gain": 1.9,
+       "their_gain": 0.9,
+       "cut": true,
+       "why": "Brenton Strange and Luther Burden III start for you; Breece Hall starts for them"
+      },
+      {
+       "team": "JHED1979",
+       "give": [
+        "Carnell Tate (WR)"
+       ],
+       "get": [
+        "Dallas Goedert (TE)",
+        "David Montgomery (RB)"
+       ],
+       "give_value": 1400,
+       "get_value": 1397,
+       "my_gain": 1.8,
+       "their_gain": 0.7,
+       "cut": true,
+       "why": "Dallas Goedert and David Montgomery start for you; Carnell Tate starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -943,7 +945,7 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Wed 8:27p",
+    "built": "Wed 8:37p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1022,7 +1024,7 @@
       },
       {
        "name": "JHED1979",
-       "proj": 139.0,
+       "proj": 139.1,
        "cut": 0.028,
        "faab": 43,
        "bold": 0.77,
@@ -1500,8 +1502,8 @@
      "Start Rico Dowdle (9.3) over Makai Lemon (6.5) at FLEX, +2.8"
     ],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.6/gm ROS, value 1,139) into your open roster spot",
-     "Add Samaje Perine (RB, CIN, 6.2/gm ROS, value 563), drop Kaytron Allen (1.2/gm)"
+     "Add Pat Freiermuth (TE, PIT, 9.6/gm ROS, value 1,205) into your open roster spot",
+     "Add Samaje Perine (RB, CIN, 6.2/gm ROS, value 542), drop Kaytron Allen (1.2/gm)"
     ],
     "trades": {
      "lines": [
@@ -1520,8 +1522,8 @@
         "A.J. Brown (WR)",
         "Mike Evans (WR)"
        ],
-       "give_value": 4526,
-       "get_value": 4549,
+       "give_value": 4449,
+       "get_value": 4505,
        "my_gain": 1.2,
        "their_gain": 1.7,
        "cut": true,
@@ -1532,7 +1534,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Stempak": {
@@ -1832,7 +1834,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Bro-vid19": {
@@ -2131,7 +2133,7 @@
        "give_value": 3433,
        "get_value": 3743,
        "my_gain": 2.1,
-       "their_gain": 1.6,
+       "their_gain": 1.5,
        "cut": false,
        "why": "Bhayshul Tuten starts for you; Joe Burrow and Brenton Strange start for them over C.J. Stroud (15.6/gm)"
       }
@@ -2140,7 +2142,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "3-Ball BB": {
@@ -2176,7 +2178,7 @@
      "pos": "PG/G",
      "opp": "@DAL",
      "kickoff": "2026-10-29T01:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2392,13 +2394,13 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Obi Toppin (PF, IND): 3 games left this week, 15.6% owned",
+     "Obi Toppin (PF, IND): 3 games left this week, 15.5% owned",
      "Terrence Shannon Jr. (SG, MIN): 3 games left this week, 13.8% owned",
      "Jordan Poole (PG/SG, NO): 3 games left this week, 13.7% owned"
     ],
     "trades": null,
     "notes": [
-     "2 of 10 starters play tonight"
+     "1 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2463,19 +2465,19 @@
      "proj": "5-1",
      "close": 2,
      "games_left": [
-      26,
+      25,
       24
      ],
      "chase": [
-      "FT% is close. Keep in the lineup: Shai Gilgeous-Alexander (2 games, .884 on 8.8 FTA/g) and Franz Wagner (2 games, .849 on 5.3 FTA/g).",
-      "STL is close. Keep in the lineup: Jonathan Kuminga (2 games, 1.8/g) and Shai Gilgeous-Alexander (2 games, 1.7/g)."
+      "FT% is close. Keep in the lineup: Shai Gilgeous-Alexander (1 games, .884 on 8.8 FTA/g) and Franz Wagner (2 games, .849 on 5.3 FTA/g).",
+      "STL is close. Keep in the lineup: Jonathan Kuminga (2 games, 1.8/g) and Franz Wagner (2 games, 1.2/g)."
      ],
      "adds": [
       "For FT%: Dennis Schroder (PG, CHA), 2 games left, 1.000 on 2.6 FTA/g",
       "For STL: Matisse Thybulle (SF, LAL), 3 games left, 1.9/g"
      ]
     },
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Ball is Life": {
@@ -2602,7 +2604,7 @@
      "pos": "PG/SG",
      "opp": "@DAL",
      "kickoff": "2026-10-29T01:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": "Q",
      "why": "ESPN: DAY_TO_DAY",
@@ -2694,7 +2696,6 @@
     ],
     "trades": null,
     "notes": [
-     "Ajay Mitchell (UT) is Questionable, plays Wed 8:30p",
      "3 of 9 starters play tonight"
     ],
     "cats": {
@@ -2718,7 +2719,7 @@
        "me": "166",
        "opp": "181",
        "now": "L",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "BLK",
@@ -2757,22 +2758,20 @@
       }
      ],
      "now": "4-3-1",
-     "proj": "6-0",
-     "close": 2,
+     "proj": "7-0",
+     "close": 1,
      "games_left": [
-      27,
-      22
+      26,
+      21
      ],
      "chase": [
-      "FT% is close. Keep in the lineup: Austin Reaves (3 games, .872 on 7.4 FTA/g) and Darius Garland (3 games, .858 on 3.5 FTA/g).",
-      "PTS is close. Keep in the lineup: Austin Reaves (3 games, 25.4/g) and Darius Garland (3 games, 21.6/g)."
+      "FT% is close. Keep in the lineup: Austin Reaves (3 games, .872 on 7.4 FTA/g) and Darius Garland (3 games, .858 on 3.5 FTA/g)."
      ],
      "adds": [
-      "For FT%: Collin Sexton (PG/SG, LAL), 3 games left, .861 on 4.1 FTA/g",
-      "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
+      "For FT%: Collin Sexton (PG/SG, LAL), 3 games left, .861 on 4.1 FTA/g"
      ]
     },
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   }
  }
