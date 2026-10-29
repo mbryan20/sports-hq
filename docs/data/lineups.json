@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T18:50:52Z",
+ "updated": "2026-10-29T19:28:14Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-29T12:34:09Z",
-   "proj": 105.0,
+   "proj": 105.1,
    "starters": [
     {
      "slot": "QB",
@@ -49,7 +49,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.4,
+     "proj": 13.5,
      "status": null,
      "why": "",
      "flags": []
@@ -184,7 +184,7 @@
     }
    ],
    "advice": {
-    "matchup": "105.0 projected",
+    "matchup": "105.1 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "Domo Arigato": {
@@ -631,7 +631,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "Guillotine": {
@@ -822,7 +822,7 @@
      "opp": "vs CHI",
      "kickoff": "2026-11-03T01:15:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 4.1,
      "status": "IR",
      "why": "Sleeper: IR",
      "flags": [
@@ -859,7 +859,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 11 this week, +19.4 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 7 of 11 this week, +19.3 pts vs the lowest other team, 8% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -932,13 +932,13 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 1:50p",
+    "built": "Thu 2:28p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 7,
-     "gap": 19.4,
+     "gap": 19.3,
      "proj": 124.5,
      "cut": 0.083,
      "survive": 0.917,
@@ -947,8 +947,8 @@
      "teams": [
       {
        "name": "MoneyManChas",
-       "proj": 105.1,
-       "cut": 0.238,
+       "proj": 105.2,
+       "cut": 0.237,
        "faab": 180,
        "bold": 0.2,
        "me": false
@@ -995,7 +995,7 @@
       },
       {
        "name": "robert8063",
-       "proj": 134.6,
+       "proj": 134.7,
        "cut": 0.041,
        "faab": 37,
        "bold": 0.53,
@@ -1096,7 +1096,7 @@
      ],
      "freed": {
       "team": "MoneyManChas",
-      "cut": 0.238,
+      "cut": 0.237,
       "players": [
        {
         "name": "Drake London",
@@ -1130,7 +1130,7 @@
         "team": "PIT",
         "proj": 13.4,
         "gain": 4.6,
-        "cut_with": 0.06,
+        "cut_with": 0.061,
         "price": 26,
         "max": 18,
         "call": "priced out",
@@ -1505,7 +1505,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "Stempak": {
@@ -1807,7 +1807,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "Bro-vid19": {
@@ -2115,7 +2115,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "3-Ball BB": {
@@ -2470,7 +2470,7 @@
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g"
      ]
     },
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   },
   "Ball is Life": {
@@ -2611,9 +2611,11 @@
      "kickoff": "2026-10-30T02:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": []
+     "status": "Q",
+     "why": "ESPN: Day-To-Day",
+     "flags": [
+      "Q"
+     ]
     }
    ],
    "bench": [
@@ -2705,7 +2707,8 @@
     ],
     "trades": null,
     "notes": [
-     "3 of 9 starters play tonight"
+     "Robert Williams III (C) is Questionable, plays Thu 9:00p",
+     "2 of 9 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2784,7 +2787,7 @@
       "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
      ]
     },
-    "built": "Thu 1:50p"
+    "built": "Thu 2:28p"
    }
   }
  }
