@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T20:47:01Z",
+ "updated": "2026-10-29T20:57:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "Domo Arigato": {
@@ -579,7 +579,7 @@
      "Start Mike Gesicki (8.1) over Kenyon Sadiq (3.9) at TE, +4.2"
     ],
     "adds": [
-     "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
+     "Add Matt Gay (K, LV, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
      "Add Washington Commanders (DEF, WAS, 8.4 proj this week), drop Philadelphia Eagles (5.8 proj). Bid $0\u20131",
      "Add Darnell Washington (TE, PIT, 6.3/gm ROS, value 669), drop Evan Engram (5.1/gm). Bid $1\u20133"
     ],
@@ -631,7 +631,7 @@
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "Guillotine": {
@@ -871,43 +871,12 @@
     ],
     "trades": {
      "lines": [
-      "Weak spot: QB (Jordan Love 19.3/gm, 10th of 11)",
-      "Weak spot: RB (Breece Hall 11.2/gm, 8th of 11)",
+      "Weak spot: QB (Jordan Love 19.3/gm, 11th of 11)",
+      "Weak spot: RB (Breece Hall 11.2/gm, 9th of 11)",
       "Weak spot: TE (Chig Okonkwo 6.0/gm, 11th of 11)",
       "Trade deadline: week 11."
      ],
      "offers": [
-      {
-       "team": "Swegs4",
-       "give": [
-        "Amon-Ra St. Brown (WR)"
-       ],
-       "get": [
-        "Tyler Warren (TE)",
-        "Josh Allen (QB)"
-       ],
-       "give_value": 8111,
-       "get_value": 8303,
-       "my_gain": 4.1,
-       "their_gain": 2.7,
-       "cut": true,
-       "why": "Josh Allen and Tyler Warren start for you; Amon-Ra St. Brown starts for them"
-      },
-      {
-       "team": "Swegs4",
-       "give": [
-        "Breece Hall (RB)"
-       ],
-       "get": [
-        "Joe Burrow (QB)"
-       ],
-       "give_value": 3119,
-       "get_value": 3091,
-       "my_gain": 1.6,
-       "their_gain": 2.6,
-       "cut": false,
-       "why": "Joe Burrow starts for you; Breece Hall starts for them over Chris Godwin Jr. (8.6/gm)"
-      },
       {
        "team": "JHED1979",
        "give": [
@@ -923,6 +892,38 @@
        "their_gain": 0.8,
        "cut": true,
        "why": "Dallas Goedert and David Montgomery start for you; Carnell Tate starts for them"
+      },
+      {
+       "team": "SteelRob420",
+       "give": [
+        "Amon-Ra St. Brown (WR)"
+       ],
+       "get": [
+        "Malik Nabers (WR)",
+        "Travis Kelce (TE)"
+       ],
+       "give_value": 8111,
+       "get_value": 7312,
+       "my_gain": 1.6,
+       "their_gain": 0.9,
+       "cut": true,
+       "why": "Malik Nabers and Travis Kelce start for you; Amon-Ra St. Brown starts for them"
+      },
+      {
+       "team": "Swegs4",
+       "give": [
+        "Chuba Hubbard (RB)"
+       ],
+       "get": [
+        "Tyler Warren (TE)",
+        "A.J. Brown (WR)"
+       ],
+       "give_value": 4702,
+       "get_value": 5095,
+       "my_gain": 0.8,
+       "their_gain": 1.8,
+       "cut": true,
+       "why": "A.J. Brown and Tyler Warren start for you; Chuba Hubbard starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -932,7 +933,7 @@
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 3:47p",
+    "built": "Thu 3:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -940,15 +941,15 @@
      "rank": 7,
      "gap": 19.3,
      "proj": 124.5,
-     "cut": 0.083,
-     "survive": 0.917,
+     "cut": 0.082,
+     "survive": 0.918,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "MoneyManChas",
        "proj": 105.2,
-       "cut": 0.237,
+       "cut": 0.236,
        "faab": 180,
        "bold": 0.2,
        "me": false
@@ -956,7 +957,7 @@
       {
        "name": "CodyRust",
        "proj": 106.8,
-       "cut": 0.234,
+       "cut": 0.23,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -964,15 +965,15 @@
       {
        "name": "GoodFellas",
        "proj": 115.9,
-       "cut": 0.14,
+       "cut": 0.139,
        "faab": 77,
        "bold": 0.44,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 119.4,
-       "cut": 0.109,
+       "proj": 115.9,
+       "cut": 0.13,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -980,7 +981,7 @@
       {
        "name": "michaelbryan",
        "proj": 124.5,
-       "cut": 0.083,
+       "cut": 0.082,
        "faab": 59,
        "bold": 0.51,
        "me": true
@@ -988,7 +989,7 @@
       {
        "name": "Off with his head",
        "proj": 129.5,
-       "cut": 0.055,
+       "cut": 0.054,
        "faab": 106,
        "bold": 0.4,
        "me": false
@@ -996,7 +997,7 @@
       {
        "name": "robert8063",
        "proj": 134.7,
-       "cut": 0.041,
+       "cut": 0.04,
        "faab": 37,
        "bold": 0.53,
        "me": false
@@ -1018,19 +1019,19 @@
        "me": false
       },
       {
-       "name": "Swegs4",
-       "proj": 138.8,
-       "cut": 0.024,
-       "faab": 20,
-       "bold": 0.52,
-       "me": false
-      },
-      {
        "name": "drewpepin1",
        "proj": 143.3,
        "cut": 0.019,
        "faab": 15,
        "bold": 1.0,
+       "me": false
+      },
+      {
+       "name": "Swegs4",
+       "proj": 147.9,
+       "cut": 0.012,
+       "faab": 20,
+       "bold": 0.52,
        "me": false
       }
      ],
@@ -1081,7 +1082,7 @@
        "team": "BAL",
        "proj": 7.3,
        "gain": 1.4,
-       "cut_with": 0.077,
+       "cut_with": 0.076,
        "price": 2,
        "max": 5,
        "call": "bid",
@@ -1096,7 +1097,7 @@
      ],
      "freed": {
       "team": "MoneyManChas",
-      "cut": 0.237,
+      "cut": 0.236,
       "players": [
        {
         "name": "Drake London",
@@ -1104,7 +1105,7 @@
         "team": "ATL",
         "proj": 13.8,
         "gain": 5.0,
-        "cut_with": 0.06,
+        "cut_with": 0.059,
         "price": 29,
         "max": 19,
         "call": "priced out",
@@ -1130,7 +1131,7 @@
         "team": "PIT",
         "proj": 13.4,
         "gain": 4.6,
-        "cut_with": 0.061,
+        "cut_with": 0.059,
         "price": 26,
         "max": 18,
         "call": "priced out",
@@ -1156,7 +1157,7 @@
         "team": "CLE",
         "proj": 8.8,
         "gain": 2.9,
-        "cut_with": 0.07,
+        "cut_with": 0.069,
         "price": 4,
         "max": 11,
         "call": "bid",
@@ -1505,7 +1506,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "Stempak": {
@@ -1791,7 +1792,7 @@
      "1 starters play today, first locks Thu 7:15p"
     ],
     "cats": null,
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "Bro-vid19": {
@@ -2099,7 +2100,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "3-Ball BB": {
@@ -2454,7 +2455,7 @@
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g"
      ]
     },
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   },
   "Ball is Life": {
@@ -2771,7 +2772,7 @@
       "For PTS: Bennedict Mathurin (SG/SF, NO), 2 games left, 16.5/g"
      ]
     },
-    "built": "Thu 3:47p"
+    "built": "Thu 3:57p"
    }
   }
  }
