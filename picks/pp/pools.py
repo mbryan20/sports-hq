@@ -152,6 +152,8 @@ def bto_split(total, n, weights):
     s = np.maximum(np.round(total * w / 10) * 10, 10)
     lo = s.min()
     s = np.minimum(s, 2 * lo)
+    while s.sum() > total + 1e-9:  # rounding up can overshoot the balance; trim the largest bet
+        s[int(np.argmax(s))] -= 10
     return [int(x) for x in s]
 
 

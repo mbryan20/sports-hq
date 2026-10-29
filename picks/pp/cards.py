@@ -76,11 +76,13 @@ class Week:
         a, h = norm(away), norm(home)
         return self.by_pair.get((a, h)) or self.by_pair.get((h, a))
 
-    def team_adj(self, g):
+    def team_adj(self, g, unpriced_only=False):
         adj = {g["homeTeam"]: 0.0, g["awayTeam"]: 0.0}
         why = []
         for t, o in ((g["homeTeam"], g["awayTeam"]), (g["awayTeam"], g["homeTeam"])):
             for a in self.research.get(norm(t), []):
+                if unpriced_only and a.get("priced"):
+                    continue  # ATS pools center on the market line, which already reflects this news
                 adj[t] += a.get("off_pts", 0)
                 adj[o] += a.get("def_pts", 0)
                 why.append(a)
@@ -112,7 +114,7 @@ def fair_margins(W, g):
     S = W.sim(g)
     m = (S["h"] - S["a"]).astype(float)
     mk = W.lines.get(g["id"])
-    adj, _, _ = W.team_adj(g)
+    adj, _, _ = W.team_adj(g, unpriced_only=True)
     news = adj[g["homeTeam"]] - adj[g["awayTeam"]]
     if not mk:
         return np.rint(m), S
@@ -142,6 +144,12 @@ def research_why(S, g):
         return None, None
     a = max(items, key=lambda a: abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)))
     return short(f"{a['team']}: {a['reason']}"), a["source"]
+
+
+def ats_why(S):
+    """ATS reasons: unpriced research items only, most material first."""
+    items = [a for a in S["why"] if not a.get("priced")]
+    return sorted(items, key=lambda a: -(abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0))))
 
 
 def src_link(g, research):
@@ -289,7 +297,7 @@ def build_cfp_slate(W, slate):
     c = slate["cfp"]
     cands = []
     for sg in c["games"]:
-        g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g)
+        g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g); S = {**S, "why": ats_why(S)}
         home_line = sg["home_spread"]
         if norm(sg["home"]) != norm(g["homeTeam"]):
             m = -m
@@ -331,7 +339,7 @@ def build_bto_slate(W, slate):
         if sg.get("locked"):
             continue
         if sg["league"] == "CFB":
-            g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g); src = src_link(g, S["why"]); why = S["why"]
+            g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g); why = ats_why(S); src = src_link(g, why)
             if norm(sg["home"]) != norm(g["homeTeam"]):
                 m = -m
         else:
