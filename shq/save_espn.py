@@ -43,7 +43,7 @@ def validate(snap):
         raise ValueError(f"{cfg['name']}: roster looks incomplete ({len(snap.get('roster') or [])} players)")
     m = snap.get("matchup")
     if m is not None and not (m.get("cats") and isinstance(m.get("mine"), dict) and isinstance(m.get("opp"), dict)
-                              and m.get("my_roster") and m.get("opp_roster")):
+                              and m.get("avg") and any(t["id"] == m.get("opp_id") for t in snap.get("teams") or [])):
         raise ValueError(f"{cfg['name']}: category matchup looks incomplete")
     return cfg
 
