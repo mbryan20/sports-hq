@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T21:07:00Z",
+ "updated": "2026-10-30T21:17:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -218,7 +218,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "Domo Arigato": {
@@ -695,7 +695,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "Guillotine": {
@@ -950,7 +950,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 5 of 11 this week, +27.9 pts vs the lowest other team, 3% chance of being cut",
+    "matchup": "Projected 5 of 11 this week, +26.7 pts vs the lowest other team, 3% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -1023,47 +1023,47 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p",
+    "built": "Fri 4:17p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 5,
-     "gap": 27.9,
+     "gap": 26.7,
      "proj": 136.1,
-     "cut": 0.028,
-     "survive": 0.972,
+     "cut": 0.031,
+     "survive": 0.969,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "CodyRust",
        "proj": 109.4,
-       "cut": 0.231,
+       "cut": 0.245,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
-       "name": "GoodFellas",
-       "proj": 108.2,
-       "cut": 0.226,
-       "faab": 77,
-       "bold": 0.44,
-       "me": false
-      },
-      {
        "name": "MoneyManChas",
        "proj": 113.8,
-       "cut": 0.174,
+       "cut": 0.185,
        "faab": 150,
        "bold": 0.2,
        "me": false
       },
       {
+       "name": "GoodFellas",
+       "proj": 115.7,
+       "cut": 0.171,
+       "faab": 77,
+       "bold": 0.44,
+       "me": false
+      },
+      {
        "name": "Aniasin1",
        "proj": 115.8,
-       "cut": 0.154,
+       "cut": 0.162,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -1071,7 +1071,7 @@
       {
        "name": "Off with his head",
        "proj": 125.1,
-       "cut": 0.077,
+       "cut": 0.084,
        "faab": 106,
        "bold": 0.4,
        "me": false
@@ -1079,7 +1079,7 @@
       {
        "name": "JHED1979",
        "proj": 135.9,
-       "cut": 0.03,
+       "cut": 0.033,
        "faab": 43,
        "bold": 0.77,
        "me": false
@@ -1087,7 +1087,7 @@
       {
        "name": "michaelbryan",
        "proj": 136.1,
-       "cut": 0.028,
+       "cut": 0.031,
        "faab": 59,
        "bold": 0.51,
        "me": true
@@ -1095,7 +1095,7 @@
       {
        "name": "robert8063",
        "proj": 140.6,
-       "cut": 0.025,
+       "cut": 0.028,
        "faab": 37,
        "bold": 0.53,
        "me": false
@@ -1103,7 +1103,7 @@
       {
        "name": "SteelRob420",
        "proj": 141.6,
-       "cut": 0.02,
+       "cut": 0.022,
        "faab": 43,
        "bold": 0.98,
        "me": false
@@ -1111,7 +1111,7 @@
       {
        "name": "drewpepin1",
        "proj": 145.4,
-       "cut": 0.02,
+       "cut": 0.022,
        "faab": 15,
        "bold": 1.0,
        "me": false
@@ -1119,7 +1119,7 @@
       {
        "name": "Swegs4",
        "proj": 146.8,
-       "cut": 0.016,
+       "cut": 0.018,
        "faab": 20,
        "bold": 0.52,
        "me": false
@@ -1146,22 +1146,17 @@
        "team": "BAL",
        "proj": 7.4,
        "gain": 1.2,
-       "cut_with": 0.025,
-       "price": 6,
+       "cut_with": 0.028,
+       "price": 0,
        "max": 4,
-       "call": "priced out",
-       "rivals": [
-        {
-         "name": "GoodFellas",
-         "bid": 5
-        }
-       ],
+       "call": "bid",
+       "rivals": [],
        "freed_from": null
       }
      ],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.231,
+      "cut": 0.245,
       "players": [
        {
         "name": "Derrick Henry",
@@ -1169,7 +1164,7 @@
         "team": "BAL",
         "proj": 15.4,
         "gain": 7.4,
-        "cut_with": 0.016,
+        "cut_with": 0.017,
         "price": 40,
         "max": 26,
         "call": "priced out",
@@ -1195,14 +1190,14 @@
         "team": "CLE",
         "proj": 9.6,
         "gain": 1.6,
-        "cut_with": 0.024,
-        "price": 13,
+        "cut_with": 0.026,
+        "price": 5,
         "max": 6,
-        "call": "priced out",
+        "call": "bid",
         "rivals": [
          {
           "name": "GoodFellas",
-          "bid": 12
+          "bid": 4
          },
          {
           "name": "MoneyManChas",
@@ -1221,16 +1216,11 @@
         "team": "CHI",
         "proj": 7.6,
         "gain": 1.4,
-        "cut_with": 0.024,
-        "price": 6,
+        "cut_with": 0.027,
+        "price": 0,
         "max": 5,
-        "call": "coin flip",
-        "rivals": [
-         {
-          "name": "GoodFellas",
-          "bid": 5
-         }
-        ],
+        "call": "bid",
+        "rivals": [],
         "freed_from": "CodyRust"
        }
       ]
@@ -1616,7 +1606,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "Stempak": {
@@ -1934,7 +1924,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "Bro-vid19": {
@@ -2275,7 +2265,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "3-Ball BB": {
@@ -2636,7 +2626,7 @@
      ]
     },
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   },
   "Ball is Life": {
@@ -2950,7 +2940,7 @@
      ]
     },
     "assets": null,
-    "built": "Fri 4:07p"
+    "built": "Fri 4:17p"
    }
   }
  }
