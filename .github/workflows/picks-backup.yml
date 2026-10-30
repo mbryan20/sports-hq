@@ -31,7 +31,26 @@ jobs:
             "45 3 * * 4") st=draft;; "45 2 * * 5") st=final;; "45 3 * * 6") st=final;; "45 14 * * 6") st=refresh;;
             *) st="${{ github.event.inputs.stage }}";;
           esac
-          fresh=$(python -c "import json,datetime as d;m=json.load(open('data/cards.json'))['meta'];t=d.datetime.fromisoformat(m.get('generated_iso','2000-01-01T00:00:00+00:00'));print(int((d.datetime.now(d.timezone.utc)-t).total_seconds()<3*3600))")
+          # Fresh = the laptop posted after this slot opened (2h before the cron time). Measured from the slot,
+          # not from now: GitHub can run a schedule hours late (Oct 30: 9h), and an age rule then overwrote a
+          # researched card with a model-only one.
+          fresh=$(SLOT="${{ github.event.schedule }}" python - <<'PY'
+          import datetime as d, json, os
+          m = json.load(open("data/cards.json"))["meta"]
+          made = d.datetime.fromisoformat(m.get("generated_iso", "2000-01-01T00:00:00+00:00"))
+          now = d.datetime.now(d.timezone.utc)
+          cron = os.environ.get("SLOT", "").split()
+          if len(cron) == 5:
+              mi, hr, dow = int(cron[0]), int(cron[1]), int(cron[4])      # cron: 0 = Sunday
+              slot = now.replace(hour=hr, minute=mi, second=0, microsecond=0)
+              slot -= d.timedelta(days=((now.isoweekday() % 7) - dow) % 7)
+              if slot > now:
+                  slot -= d.timedelta(days=7)
+          else:
+              slot = now
+          print(int(made >= slot - d.timedelta(hours=2)))
+          PY
+          )
           echo "stage=$st" >> $GITHUB_OUTPUT; echo "fresh=$fresh" >> $GITHUB_OUTPUT
       - name: Build backup card
         if: steps.s.outputs.fresh == '0' || github.event_name == 'workflow_dispatch'
