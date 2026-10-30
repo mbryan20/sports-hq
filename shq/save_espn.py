@@ -2,12 +2,21 @@
 
     py -m shq.save_espn --js           print the JavaScript to run in a signed-in fantasy.espn.com tab
     py -m shq.save_espn <file.json>    validate what it returned, save state/espn/*.json, commit + push
+    py -m shq.save_espn --parts FULL_SHA SHA0 SHA1 ...
+                                       join .cache/espn_part<k>.txt (gzip+base64 chunks read from the tab),
+                                       check every hash, then save as above
+
+Claude in Chrome cuts javascript_tool results off at ~1,000 characters and the snapshot is ~109 KB, so
+the laptop task gzips + base64s it in the page (~24 KB) and reads it back in 15,000-character chunks.
 
 The JavaScript returns compact league snapshots (see espn_fantasy.compact), including every other
 team's roster for the trade finder; NBA category leagues also carry this week's category totals.
 Commits only when a roster (yours or another team's), injury, free-agent list or category total
 changed, or the last snapshot is over 20h old."""
+import base64
 import datetime as dt
+import gzip
+import hashlib
 import json
 import subprocess
 import sys
@@ -72,5 +81,30 @@ def main(path):
         sys.exit(1)
 
 
+def join_parts(full_sha, chunk_shas, folder=ROOT / ".cache"):
+    """Rebuild the snapshot JSON from the chunk files; raises ValueError on any hash mismatch."""
+    chunks = []
+    for k, want in enumerate(chunk_shas):
+        part = "".join(open(folder / f"espn_part{k}.txt", encoding="utf-8").read().split())
+        if hashlib.sha256(part.encode()).hexdigest() != want:
+            raise ValueError(f"chunk {k} hash mismatch: re-read espn_part{k}.txt from the tab")
+        chunks.append(part)
+    text = gzip.decompress(base64.b64decode("".join(chunks))).decode("utf-8")
+    if hashlib.sha256(text.encode("utf-8")).hexdigest() != full_sha:
+        raise ValueError("full snapshot hash mismatch after joining")
+    out = folder / "espn_snapshot.json"
+    out.write_text(text, encoding="utf-8")
+    return out
+
+
 if __name__ == "__main__":
-    print(js()) if sys.argv[1:] == ["--js"] else main(sys.argv[1])
+    if sys.argv[1:] == ["--js"]:
+        print(js())
+    elif sys.argv[1:2] == ["--parts"]:
+        try:
+            path = join_parts(sys.argv[2], sys.argv[3:])
+        except ValueError as e:
+            sys.exit(f"Problems: {e}")
+        main(path)
+    else:
+        main(sys.argv[1])

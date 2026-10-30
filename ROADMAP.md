@@ -95,6 +95,9 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   laptop sync until then.
 - **ESPN NBA:** scoring periods are days, and matchups run Monday to Sunday.
 - **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
+- **Claude in Chrome cuts `javascript_tool` results at ~1,000 characters.** Yahoo reads go one position per
+  call. The ESPN snapshot (~109 KB) is gzipped + base64'd in the page, read back with `get_page_text` in
+  15,000-character pieces, and joined with hash checks by `py -m shq.save_espn --parts` (since 2026-10-30).
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
 - **FantasyCalc:** the redraft list only has ~200 players; the dynasty list (same settings) carries a
