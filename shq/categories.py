@@ -1,7 +1,8 @@
 """NBA category matchup for head-to-head category leagues. Pure logic, no AI.
 
 Reads the snapshot's "matchup" block (espn_fantasy.cat_matchup): this week's totals for me and my
-opponent, and per-game averages for both rosters and the free agents. Projects the rest of the week
+opponent, and per-game averages by player id for both rosters and the free agents, whose other details
+come from the snapshot's "roster", "teams" and "free_agents". Projects the rest of the week
 (each day, the best healthy players with a game fill the starting slots), then says per category
 whether I'm on course to win, lose or it's close, which of my players have the most left to give in the
 close ones, and which free agents would help there."""
@@ -19,8 +20,9 @@ def build(league):
     if not m or not m.get("cats") or not _this_week(league):
         return None
     slots = sum(v for k, v in league.data["slot_counts"].items() if int(k) not in BENCH["nba"])
-    mine, my_games = _games_left(league, m["my_roster"], slots)
-    opp, opp_games = _games_left(league, m["opp_roster"], slots)
+    my_roster, opp_roster, fas = _players(league.data, m)
+    mine, my_games = _games_left(league, my_roster, slots)
+    opp, opp_games = _games_left(league, opp_roster, slots)
     now_mine, now_opp = _totals(m["mine"], []), _totals(m["opp"], [])
     end_mine, end_opp = _totals(m["mine"], mine), _totals(m["opp"], opp)
     done = not (my_games or opp_games)
@@ -45,8 +47,17 @@ def build(league):
         "games_left": [my_games, opp_games],
         "chase": [] if done else [_chase(league, cat, reverse, mine, end_mine) for cat, reverse in close[:3]]
                  or ["No category is within reach either way; nothing to chase."],
-        "adds": [] if done else _adds(league, m.get("fa") or [], close, end_mine),
+        "adds": [] if done else _adds(league, fas, close, end_mine),
     }
+
+
+def _players(data, m):
+    """My roster, the opponent's and the free agents, each player with his per-game averages."""
+    if "avg" not in m:   # snapshots saved before 2026-10-30 carried full player lists in the block
+        return m["my_roster"], m["opp_roster"], m.get("fa") or []
+    with_avg = lambda ps: [{**p, "avg": m["avg"].get(str(p["id"]), {})} for p in ps]
+    opp = next((t["roster"] for t in data.get("teams") or [] if t["id"] == m["opp_id"]), [])
+    return with_avg(data["roster"]), with_avg(opp), with_avg((data.get("free_agents") or []) + m.get("fa_more", []))
 
 
 def _this_week(league):

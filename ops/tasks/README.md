@@ -6,5 +6,6 @@ as scheduled tasks. If you edit a prompt here, update the task too (Scheduled in
 
 The daily laptop sync runs `py -m shq.save_espn --js` and executes whatever JavaScript it prints, so changes to
 the snapshot (`LAPTOP_SNAPSHOT_JS` in `shq/espn_fantasy.py`) need no prompt change. Since 2026-10-28 NBA snapshots
-also carry a `matchup` block (this week's category totals, both rosters' per-game averages, 40 free agents) for
-the category table; `save_espn` rejects a snapshot whose `matchup` block is incomplete.
+also carry a `matchup` block (this week's category totals, per-game averages by player id for both rosters and
+20 free agents) for the category table; the players themselves come from `roster`, `teams` and `free_agents`
+(trimmed 2026-10-30, about 7 KB). `save_espn` rejects a snapshot whose `matchup` block is incomplete.

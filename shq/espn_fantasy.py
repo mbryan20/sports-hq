@@ -25,7 +25,7 @@ SLOT_NAMES = {
 BENCH = {"nfl": (20, 21), "nba": (12, 13)}       # BN, IR
 FA_FILTER = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS"]}, "limit": 50,
                          "sortPercOwned": {"sortPriority": 1, "sortAsc": False}}}
-FA_POOL = 40   # NBA reads this many free agents for category ideas; the first 12 stay the usual list
+FA_POOL = 20   # NBA reads this many free agents for category ideas; the first 12 stay the usual list
 
 # NBA category leagues: ESPN stat ids, and the ratio categories with their (made, attempted) parts.
 NBA_STATS = {0: "PTS", 1: "BLK", 2: "STL", 3: "AST", 4: "OREB", 5: "DREB", 6: "REB", 11: "TO", 13: "FGM",
@@ -74,8 +74,10 @@ def _avg(p, season, keep):
 
 
 def cat_matchup(raw, team_id, opp_id, free_agents):
-    """This week's category totals (mMatchup scoreByStat) for both teams, plus per-game averages for
-    both rosters and the free agents so shq.categories can project the rest of the week."""
+    """This week's category totals (mMatchup scoreByStat) for both teams, plus per-game averages (by player
+    id) for both rosters and the free agents so shq.categories can project the rest of the week. The players
+    themselves are already in the snapshot ("roster", "teams", "free_agents"); "fa_more" adds the free
+    agents past the usual 12."""
     s = raw["settings"]["scoringSettings"]
     if "CATEGORY" not in (s.get("scoringType") or "") or opp_id is None:
         return None
@@ -88,13 +90,12 @@ def cat_matchup(raw, team_id, opp_id, free_agents):
                 if side:
                     by = (side.get("cumulativeScore") or {}).get("scoreByStat") or {}
                     score[side.get("teamId")] = {k: v["score"] for k, v in by.items() if v.get("score") is not None}
-    pl = lambda p, **extra: {"id": p["id"], "name": p["fullName"], "pro_team": p.get("proTeamId"),
-                             "injury": p.get("injuryStatus"), "avg": _avg(p, raw["seasonId"], keep), **extra}
-    ros = lambda tid: [pl(e["playerPoolEntry"]["player"], slot=e["lineupSlotId"])
-                       for t in raw["teams"] if t["id"] == tid for e in (t.get("roster") or {}).get("entries", [])]
-    return {"cats": cats, "mine": score.get(team_id, {}), "opp": score.get(opp_id, {}),
-            "my_roster": ros(team_id), "opp_roster": ros(opp_id),
-            "fa": [pl(f["player"], eligible=f["player"].get("eligibleSlots") or []) for f in free_agents or []]}
+    players = [e["playerPoolEntry"]["player"] for t in raw["teams"] if t["id"] in (team_id, opp_id)
+               for e in (t.get("roster") or {}).get("entries", [])] + [f["player"] for f in free_agents or []]
+    avg = {str(p["id"]): a for p in players if (a := _avg(p, raw["seasonId"], keep))}
+    return {"cats": cats, "mine": score.get(team_id, {}), "opp": score.get(opp_id, {}), "opp_id": opp_id, "avg": avg,
+            "fa_more": [{"id": p["id"], "name": p["fullName"], "pro_team": p.get("proTeamId"), "injury": p.get("injuryStatus"),
+                         "eligible": p.get("eligibleSlots") or []} for p in (f["player"] for f in (free_agents or [])[12:])]}
 
 
 def compact(raw, sport, team_id, free_agents=None):
@@ -175,10 +176,11 @@ const cm = (raw, tid, oid, fap) => {
   (raw.schedule || []).filter(m => m.matchupPeriodId === raw.status.currentMatchupPeriod).forEach(m => [m.home, m.away].forEach(sd => {
     if (sd) score[sd.teamId] = Object.fromEntries(Object.entries((sd.cumulativeScore || {}).scoreByStat || {})
       .filter(([k, v]) => v.score != null).map(([k, v]) => [k, v.score])); }));
-  const pl = (p, extra) => ({id: p.id, name: p.fullName, pro_team: p.proTeamId, injury: p.injuryStatus || null, avg: avg(p, raw.seasonId, keep), ...extra});
-  const ros = id => raw.teams.filter(x => x.id === id).flatMap(x => (x.roster || {}).entries || []).map(e => pl(e.playerPoolEntry.player, {slot: e.lineupSlotId}));
-  return {cats, mine: score[tid] || {}, opp: score[oid] || {}, my_roster: ros(tid), opp_roster: ros(oid),
-          fa: fap.map(f => pl(f.player, {eligible: f.player.eligibleSlots || []}))};
+  const players = raw.teams.filter(x => x.id === tid || x.id === oid).flatMap(x => (x.roster || {}).entries || [])
+    .map(e => e.playerPoolEntry.player).concat(fap.map(f => f.player));
+  const av = Object.fromEntries(players.map(p => [String(p.id), avg(p, raw.seasonId, keep)]).filter(([k, a]) => Object.keys(a).length));
+  return {cats, mine: score[tid] || {}, opp: score[oid] || {}, opp_id: oid, avg: av,
+          fa_more: fap.slice(12).map(f => f.player).map(p => ({id: p.id, name: p.fullName, pro_team: p.proTeamId, injury: p.injuryStatus || null, eligible: p.eligibleSlots || []}))};
 };
 for (const [sport, game, season, lid, tid] of SPECS) {
   const base = `https://lm-api-reads.fantasy.espn.com/apis/v3/games/${game}/seasons/${season}/segments/0/leagues/${lid}`;
@@ -194,7 +196,7 @@ for (const [sport, game, season, lid, tid] of SPECS) {
   const t = raw.teams.find(x => x.id === tid);
   const m = (raw.schedule || []).find(x => x.matchupPeriodId === mp && [x.home && x.home.teamId, x.away && x.away.teamId].includes(tid));
   const oid = m ? (m.home && m.home.teamId === tid ? (m.away || {}).teamId : (m.home || {}).teamId) : null;
-  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: sport === 'nba' ? 40 : 50, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
+  const filt = {players: {filterStatus: {value: ['FREEAGENT', 'WAIVERS']}, limit: sport === 'nba' ? 20 : 50, sortPercOwned: {sortPriority: 1, sortAsc: false}}};
   const acq = s.acquisitionSettings || {}, dl = (s.tradeSettings || {}).deadlineDate;
   const ros = x => ((x.roster || {}).entries || []).map(e => ({...pc(e.playerPoolEntry), slot: e.lineupSlotId}));
   let fa = {players: []};
