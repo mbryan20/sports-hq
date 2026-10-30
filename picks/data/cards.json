@@ -1,10 +1,10 @@
 {
  "meta": {
   "stage": "final",
-  "stage_label": "FINAL",
+  "stage_label": "FINAL (BTO + CFP refreshed Fri afternoon)",
   "week_label": "Week of Oct 29 - Nov 2, 2026 (Yahoo Week 9, BTO Week 9, NFL Week 8)",
-  "generated": "Thu Oct 29, 08:25 PM CT",
-  "generated_iso": "2026-10-30T01:25:30.893085+00:00",
+  "generated": "Fri Oct 30, 04:11 PM CT",
+  "generated_iso": "2026-10-30T21:11:52.899847+00:00",
   "calibration": [
    "Backtest 2026 wks 1-8 (444 games): picks rated 60-70% hit 64%, 70-80% hit 71%, 80-90% hit 83%, 90%+ hit 86%.",
    "Straight-up: model 70% vs market 75%; model trails early weeks, near market by wks 6-8."
@@ -31,7 +31,7 @@
     {
      "game": "Florida @ Georgia",
      "pick": "Georgia -11.5",
-     "model": 0.5458,
+     "model": 0.5388,
      "market": 0.5,
      "wager": "$660",
      "why": "Florida WR Stockton, ILB Robinson doubtful Thursday",
@@ -406,22 +406,22 @@
    "deadline": "Locks Sat 11:00am CT",
    "rows": [
     {
-     "game": "Minnesota @ Indiana",
-     "pick": "Indiana -20.5",
-     "model": 0.5534,
+     "game": "Auburn @ Ole Miss",
+     "pick": "Auburn +13.5",
+     "model": 0.5550999999999999,
      "market": 0.5,
      "wager": "11,904",
-     "why": "Starting tight end doubtful, second straight miss",
-     "source": "https://www.rotowire.com/cfootball/headlines/pierce-walsh-injury-carrying-doubtful-tag-versus-indiana-237310",
-     "key": "Minnesota@Indiana",
-     "pick_team": "Indiana",
+     "why": "Cover 56% vs pool line at current market; top edge",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856735",
+     "key": "Auburn@Ole Miss",
+     "pick_team": "Auburn",
      "changed": false
     }
    ],
    "notes": [
     "Sizing sim (10k seasons): 1 bet(s), 100% of 11,904 \u2192 P(1st) 3.5%, P(top 3) 3.9%. Assumes $25 rebuy if busted this week.",
     "Alternate: 2 bet(s) at 100% \u2192 P(1st) 2.8%.",
-    "CFP is still a DRAFT (Thu night); the Fri 9pm run posts the CFP final. Pool locks Sat 11am CT."
+    "CFP final posted Fri afternoon; the Sat 8am refresh re-checks Friday's official availability reports. Pool locks Sat 11am CT."
    ]
   },
   {
