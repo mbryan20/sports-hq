@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T21:37:00Z",
+ "updated": "2026-10-30T21:47:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -12,7 +12,7 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-10-29T21:34:14Z",
+   "roster_synced": "2026-10-30T21:34:47Z",
    "proj": 105.6,
    "starters": [
     {
@@ -87,10 +87,10 @@
     },
     {
      "slot": "TE",
-     "name": "Brenton Strange",
-     "team": "JAX",
+     "name": "Tyler Warren",
+     "team": "IND",
      "pos": "TE",
-     "opp": "vs IND",
+     "opp": "@JAX",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 8.4,
@@ -131,23 +131,17 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Tyler Warren",
-     "team": "IND",
+     "name": "Brenton Strange",
+     "team": "JAX",
      "pos": "TE",
-     "opp": "@JAX",
+     "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
      "proj": 8.4,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
-     "flags": [
-      "Q"
-     ],
-     "news": {
-      "note": "Warren (groin) is good to go for Sunday's game against the Jaguars, Mike Chappell of FOX59 reports.",
-      "at": "2026-10-30T16:49:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4431459/tyler-warren"
-     }
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
     },
     {
      "slot": "BN",
@@ -159,7 +153,7 @@
      "started": false,
      "proj": 6.5,
      "status": "Q",
-     "why": "Yahoo: Questionable",
+     "why": "Sleeper: Questionable",
      "flags": [
       "Q"
      ],
@@ -207,7 +201,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "No free agent beats your bench on rest-of-season value."
+     "Add Zach Charbonnet (RB, SEA, 9.0/gm ROS, value 1,163), drop Chris Rodriguez Jr. (5.2/gm)",
+     "Add David Montgomery (RB, HOU, 10.3/gm ROS, value 808), drop Tyler Allgeier (5.4/gm)"
     ],
     "trades": {
      "lines": [
@@ -218,7 +213,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "Domo Arigato": {
@@ -629,7 +624,7 @@
      "Start Mike Gesicki (8.1) over Kenyon Sadiq (4.0) at TE, +4.1"
     ],
     "adds": [
-     "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
+     "Add Matt Gay (K, LV, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
      "Add Washington Commanders (DEF, WAS, 8.4 proj this week), drop Philadelphia Eagles (5.9 proj). Bid $0\u20131",
      "Add Colby Parkinson (TE, LAR, 5.7/gm ROS, value 435), drop Evan Engram (5.1/gm). Bid $1\u20133"
     ],
@@ -695,7 +690,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "Guillotine": {
@@ -1023,7 +1018,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p",
+    "built": "Fri 4:47p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1606,7 +1601,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "Stempak": {
@@ -1924,7 +1919,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "Bro-vid19": {
@@ -2265,7 +2260,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "3-Ball BB": {
@@ -2626,7 +2621,7 @@
      ]
     },
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   },
   "Ball is Life": {
@@ -2940,7 +2935,7 @@
      ]
     },
     "assets": null,
-    "built": "Fri 4:37p"
+    "built": "Fri 4:47p"
    }
   }
  }
