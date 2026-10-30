@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T23:27:00Z",
+ "updated": "2026-10-30T23:37:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-30T21:34:47Z",
-   "proj": 105.2,
+   "proj": 105.1,
    "starters": [
     {
      "slot": "QB",
@@ -79,7 +79,7 @@
      "opp": "vs MIN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.9,
+     "proj": 13.8,
      "status": null,
      "why": "",
      "flags": [],
@@ -196,7 +196,7 @@
     }
    ],
    "advice": {
-    "matchup": "105.2 projected",
+    "matchup": "105.1 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -213,7 +213,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "Domo Arigato": {
@@ -569,26 +569,6 @@
     },
     {
      "slot": "BN",
-     "name": "Brian Robinson Jr.",
-     "team": "ATL",
-     "pos": "RB",
-     "opp": "@TB",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 0,
-     "status": "OUT",
-     "why": "Sleeper: Out",
-     "flags": [
-      "OUT"
-     ],
-     "news": {
-      "note": "Robinson (hamstring) has been ruled out for Sunday's game at Tampa Bay, Will McFadden of the Falcons' official site reports.",
-      "at": "2026-10-30T17:22:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4241474/brian-robinson-jr"
-     }
-    },
-    {
-     "slot": "BN",
      "name": "Jalen Nailor",
      "team": "LV",
      "pos": "WR",
@@ -600,6 +580,26 @@
      "why": "",
      "flags": [],
      "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Zach Charbonnet",
+     "team": "SEA",
+     "pos": "RB",
+     "opp": "vs CHI",
+     "kickoff": "2026-11-03T01:15:00Z",
+     "started": false,
+     "proj": 8.2,
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Charbonnet (knee) was a limited participant in Friday's practice, John Boyle of the Seahawks' official site reports.",
+      "at": "2026-10-30T23:18:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4426385/zach-charbonnet"
+     }
     },
     {
      "slot": "BN",
@@ -653,34 +653,33 @@
       {
        "team": "TheParlay",
        "give": [
-        "Bhayshul Tuten (RB)"
-       ],
-       "get": [
-        "Jalen Coker (WR)",
-        "Juwan Johnson (TE)"
-       ],
-       "give_value": 3350,
-       "get_value": 3678,
-       "my_gain": 1.7,
-       "their_gain": 3.8,
-       "cut": true,
-       "why": "Jalen Coker and Juwan Johnson start for you; Bhayshul Tuten starts for them over Tyjae Spears (4.9/gm)"
-      },
-      {
-       "team": "TheParlay",
-       "give": [
-        "Rhamondre Stevenson (RB)",
-        "Chris Rodriguez Jr. (RB)"
+        "Chris Rodriguez Jr. (RB)",
+        "Zach Charbonnet (RB)"
        ],
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2454,
+       "give_value": 2411,
        "get_value": 2634,
-       "my_gain": 0.9,
-       "their_gain": 6.0,
+       "my_gain": 2.4,
+       "their_gain": 5.0,
        "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Rhamondre Stevenson starts for them over Tyjae Spears (4.9/gm)"
+       "why": "Harold Fannin Jr. starts for you; Zach Charbonnet starts for them over Tyjae Spears (4.9/gm)"
+      },
+      {
+       "team": "Kratos1738",
+       "give": [
+        "Bhayshul Tuten (RB)"
+       ],
+       "get": [
+        "Sam LaPorta (TE)"
+       ],
+       "give_value": 3350,
+       "get_value": 3354,
+       "my_gain": 0.5,
+       "their_gain": 1.7,
+       "cut": false,
+       "why": "Sam LaPorta starts for you; Bhayshul Tuten starts for them over David Montgomery (11.2/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -690,7 +689,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "Guillotine": {
@@ -704,7 +703,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 120.4,
+   "proj": 120.3,
    "starters": [
     {
      "slot": "QB",
@@ -756,7 +755,7 @@
      "opp": "vs MIN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 13.9,
+     "proj": 13.8,
      "status": null,
      "why": "",
      "flags": [],
@@ -945,7 +944,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 6 of 11 this week, +26.5 pts vs the lowest other team, 4% chance of being cut",
+    "matchup": "Projected 6 of 11 this week, +26.4 pts vs the lowest other team, 4% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -1018,14 +1017,14 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p",
+    "built": "Fri 6:37p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 6,
-     "gap": 26.5,
-     "proj": 135.4,
+     "gap": 26.4,
+     "proj": 135.3,
      "cut": 0.036,
      "survive": 0.964,
      "faab": 59,
@@ -1034,15 +1033,15 @@
       {
        "name": "CodyRust",
        "proj": 108.9,
-       "cut": 0.259,
+       "cut": 0.258,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
        "name": "MoneyManChas",
-       "proj": 114.4,
-       "cut": 0.187,
+       "proj": 114.2,
+       "cut": 0.189,
        "faab": 150,
        "bold": 0.2,
        "me": false
@@ -1050,14 +1049,14 @@
       {
        "name": "Aniasin1",
        "proj": 115.3,
-       "cut": 0.177,
+       "cut": 0.176,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "GoodFellas",
-       "proj": 117.6,
+       "proj": 117.5,
        "cut": 0.163,
        "faab": 77,
        "bold": 0.44,
@@ -1065,19 +1064,35 @@
       },
       {
        "name": "Off with his head",
-       "proj": 131.8,
-       "cut": 0.056,
+       "proj": 131.6,
+       "cut": 0.057,
        "faab": 106,
        "bold": 0.4,
        "me": false
       },
       {
        "name": "michaelbryan",
-       "proj": 135.4,
+       "proj": 135.3,
        "cut": 0.036,
        "faab": 59,
        "bold": 0.51,
        "me": true
+      },
+      {
+       "name": "SteelRob420",
+       "proj": 140.3,
+       "cut": 0.027,
+       "faab": 43,
+       "bold": 0.98,
+       "me": false
+      },
+      {
+       "name": "robert8063",
+       "proj": 142.2,
+       "cut": 0.027,
+       "faab": 37,
+       "bold": 0.53,
+       "me": false
       },
       {
        "name": "JHED1979",
@@ -1088,25 +1103,9 @@
        "me": false
       },
       {
-       "name": "robert8063",
-       "proj": 142.3,
-       "cut": 0.027,
-       "faab": 37,
-       "bold": 0.53,
-       "me": false
-      },
-      {
-       "name": "SteelRob420",
-       "proj": 140.5,
-       "cut": 0.027,
-       "faab": 43,
-       "bold": 0.98,
-       "me": false
-      },
-      {
        "name": "drewpepin1",
        "proj": 145.9,
-       "cut": 0.023,
+       "cut": 0.022,
        "faab": 15,
        "bold": 1.0,
        "me": false
@@ -1137,7 +1136,7 @@
      "bids": [],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.259,
+      "cut": 0.258,
       "players": [
        {
         "name": "Derrick Henry",
@@ -1197,7 +1196,7 @@
         "team": "CLE",
         "proj": 9.3,
         "gain": 1.6,
-        "cut_with": 0.033,
+        "cut_with": 0.032,
         "price": 4,
         "max": 6,
         "call": "bid",
@@ -1600,7 +1599,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "Stempak": {
@@ -1918,7 +1917,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "Bro-vid19": {
@@ -2121,8 +2120,8 @@
       "Q"
      ],
      "news": {
-      "note": "Shaheed (knee) did not practice Thursday, John Boyle of the Seahawks' official site reports.",
-      "at": "2026-10-29T23:11:00Z",
+      "note": "Shaheed (knee) didn't practice Friday, John Boyle of the Seahawks' official site reports.",
+      "at": "2026-10-30T23:29:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4032473/rashid-shaheed"
      }
     },
@@ -2247,7 +2246,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "3-Ball BB": {
@@ -2270,7 +2269,7 @@
      "pos": "SG/SF",
      "opp": "@PHI",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2298,7 +2297,7 @@
      "pos": "PG/SG",
      "opp": "@BOS",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2312,7 +2311,7 @@
      "pos": "SF/PF",
      "opp": "@BOS",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2326,7 +2325,7 @@
      "pos": "SF/PF",
      "opp": "@TOR",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2528,7 +2527,7 @@
     ],
     "trades": null,
     "notes": [
-     "10 of 10 starters play tonight"
+     "6 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2565,7 +2564,7 @@
        "me": "27",
        "opp": "18",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "STL",
@@ -2590,25 +2589,23 @@
       }
      ],
      "now": "6-1-1",
-     "proj": "5-0",
-     "close": 3,
+     "proj": "6-0",
+     "close": 2,
      "games_left": [
-      21,
-      20
+      17,
+      15
      ],
      "chase": [
-      "FT% is close. Keep in the lineup: Franz Wagner (2 games, .849 on 5.3 FTA/g) and Devin Booker (1 games, .885 on 7.2 FTA/g).",
-      "3PM is close. Keep in the lineup: Brandin Podziemski (2 games, 2.0/g) and Jonathan Kuminga (2 games, 2.0/g).",
+      "FT% is close. Keep in the lineup: Devin Booker (1 games, .885 on 7.2 FTA/g) and Shai Gilgeous-Alexander (1 games, .875 on 4.8 FTA/g).",
       "FG% is close. Keep in the lineup: Walker Kessler (2 games, .750 on 8.8 FGA/g) and Jarrett Allen (1 games, .615 on 7.8 FGA/g)."
      ],
      "adds": [
       "For FT%: Dennis Schroder (PG, CHA), 1 games left, 1.000 on 2.2 FTA/g",
-      "For 3PM: Rui Hachimura (SF/PF, LAC), 2 games left, 1.8/g",
-      "For FG%: Mitchell Robinson (C, BOS), 2 games left, .712 on 4.5 FGA/g"
+      "For FG%: Mitchell Robinson (C, BOS), 1 games left, .712 on 4.5 FGA/g"
      ]
     },
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   },
   "Ball is Life": {
@@ -2701,7 +2698,7 @@
      "pos": "SG/G",
      "opp": "vs NY",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2715,7 +2712,7 @@
      "pos": "PF/C",
      "opp": "@BKN",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2743,7 +2740,7 @@
      "pos": "C/PF/C",
      "opp": "vs DET",
      "kickoff": "2026-10-30T23:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2841,7 +2838,7 @@
     ],
     "trades": null,
     "notes": [
-     "9 of 9 starters play tonight",
+     "6 of 9 starters play tonight",
      "Move Robert Williams III out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 30 6:11p: Williams (knee) is questionable for Saturday's game against the Jazz.]"
     ],
     "cats": {
@@ -2858,14 +2855,14 @@
        "me": "129",
        "opp": "114",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "PTS",
        "me": "318",
        "opp": "352",
        "now": "L",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "BLK",
@@ -2904,25 +2901,21 @@
       }
      ],
      "now": "4-4-0",
-     "proj": "4-1",
-     "close": 3,
+     "proj": "6-1",
+     "close": 1,
      "games_left": [
-      20,
-      18
+      19,
+      14
      ],
      "chase": [
-      "PTS is close. Keep in the lineup: Austin Reaves (2 games, 24.4/g) and Darius Garland (2 games, 21.6/g).",
-      "3PM is close. Keep in the lineup: Darius Garland (2 games, 2.9/g) and LaMelo Ball (2 games, 2.8/g).",
-      "REB is close. Keep in the lineup: Day'Ron Sharpe (2 games, 8.4/g) and Jaden McDaniels (2 games, 6.6/g)."
+      "3PM is close. Keep in the lineup: Darius Garland (2 games, 2.9/g) and LaMelo Ball (2 games, 2.8/g)."
      ],
      "adds": [
-      "For PTS: Nikola Vucevic (C, ORL), 2 games left, 13.8/g",
-      "For 3PM: Anfernee Simons (PG/SG, PHI), 2 games left, 2.2/g",
-      "For REB: Jake LaRavia (SF/PF, LAL), 2 games left, 4.7/g"
+      "For 3PM: Klay Thompson (SG/SF, MIA), 1 games left, 2.4/g"
      ]
     },
     "assets": null,
-    "built": "Fri 6:27p"
+    "built": "Fri 6:37p"
    }
   }
  }
