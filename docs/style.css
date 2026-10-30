@@ -53,6 +53,8 @@ main { padding: 12px 16px; max-width: 640px; margin: 0 auto; }
 .who { min-width: 0; }
 .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sub { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sub.news { white-space: normal; overflow-wrap: anywhere; margin-top: 2px; }
+.sub.news a { color: inherit; text-decoration: underline; }
 .proj { font-variant-numeric: tabular-nums; font-weight: 600; text-align: right; }
 .chips { display: inline-flex; gap: 4px; margin-left: 6px; vertical-align: 1px; }
 .chip { font-size: 10.5px; font-weight: 700; padding: 1px 6px; border-radius: 5px; background: var(--chip-bg); }

@@ -18,8 +18,12 @@ class Ctx:
         return {1: {"abbrev": "ATL", "games": {9: [(TIP, 2, True)]}},
                 2: {"abbrev": "BOS", "games": {9: [(TIP, 1, False)]}},
                 3: {"abbrev": "CHI", "games": {}}}
+    week_start = None
     def injuries(self, sport):
         return {}
+    def injury_report(self, sport):
+        return {"10": {"status": "Out", "name": "Out Guard", "team": "ATL", "date": NOW, "note": "Out Guard (knee) won't play.",
+                       "url": "https://www.espn.com/nba/player/_/id/10"}}
 
 
 def pl(pid, name, team, slot, elig, injury="ACTIVE"):

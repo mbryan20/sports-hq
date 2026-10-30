@@ -40,6 +40,15 @@ def _problem(p, nba):
     return None
 
 
+def cite(p, limit=160):
+    """The dated ESPN injury-report note behind a status, so every status call names its source."""
+    n = p.get("news")
+    if not n:
+        return ""
+    note = n["note"] if len(n["note"]) <= limit else n["note"][:limit].rsplit(" ", 1)[0] + "…"
+    return f" [ESPN{', ' + ct_label(n['at']) if n.get('at') else ''}: {note}]"
+
+
 def _fix(league, starter, used, now):
     bench = [b for b in league.bench if b["id"] not in used and playable(b, now)
              and eligible(starter["slot"], b["positions"])]
@@ -67,10 +76,14 @@ def league_items(league, now):
                 continue
             label = s["name"] if not s.get("empty") else s["slot"]
             items.append({"league": league.name, "urgent": from_bench or not nba,
-                          "text": f"{label} ({s['slot']}) {why} → {fix}"})
+                          "text": f"{label} ({s['slot']}) {why} → {fix}" + cite(s)})
+        elif s.get("conflict"):
+            # sources disagree on whether he plays: say so, never bench him on it
+            items.append({"league": league.name, "urgent": False,
+                          "text": f"{s['name']} ({s['slot']}): {s['why']}. Check before benching" + cite(s)})
         elif s["status"] == "Q" and _today(s["kickoff"], now):
             items.append({"league": league.name, "urgent": False,
-                          "text": f"{s['name']} ({s['slot']}) is Questionable, plays {ct_label(s['kickoff'])}"})
+                          "text": f"{s['name']} ({s['slot']}) is Questionable, plays {ct_label(s['kickoff'])}" + cite(s)})
     if nba:
         playing = sum(1 for s in league.starters if playable(s, now))
         if playing:

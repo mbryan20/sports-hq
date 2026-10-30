@@ -40,7 +40,7 @@ def watch_active(ctx, now):
 
 def label(p):
     extra = f" ({p['why']})" if p.get("why") else ""
-    return f"{p['name']}{extra}"
+    return f"{p['name']}{extra}{digest.cite(p)}"
 
 
 def league_view(league, now):
@@ -87,7 +87,7 @@ def injury_watch(league, now):
                     ok = league.execute_swap(out, inn)
                 if ok:
                     push(f"{league.name}: lineup fixed", f"Swapped {out['name']} → {inn['name']} ({slot}). "
-                         f"{out['name']}: {out['why']}.", priority=4, tags=["arrows_counterclockwise"])
+                         f"{out['name']}: {out['why']}.{digest.cite(out)}", priority=4, tags=["arrows_counterclockwise"])
                     actions.append(f"swapped {out['name']} -> {inn['name']}")
                     continue
                 push_once(key + ":unconfirmed", f"{league.name}: CHECK LINEUP",
@@ -124,12 +124,20 @@ def weekly_due(now, last_generated):
     return last_generated is None or last_generated < anchor
 
 
-def weekly_section(league):
-    from .swap import fa_adds, start_sit
+def start_sit_lines(league):
+    """Weekly tab start/sit, rebuilt every run so an injury status is never days old."""
+    if getattr(league, "sport", "nfl") == "nba":
+        return nba_weekly_section(league)["start_sit"]
+    from .swap import start_sit
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
+          + (digest.cite(s) if s["status"] and not s["bye"] else "")
           for s, b, _ in start_sit(league.starters, league.bench)]
-    if not ss:
-        ss = [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
+    return ss or [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
+
+
+def weekly_section(league):
+    from .swap import fa_adds
+    ss = start_sit_lines(league)
     if advice.valued(league):  # same rest-of-season list as the league tab
         adds = advice.adds(league)
     else:
@@ -146,7 +154,7 @@ def nba_weekly_section(league):
     """Category leagues have no point projections: plan around games played and health."""
     live = [p for p in league.starters + league.bench if p["status"] not in OUTISH]
     games = {p["name"]: league.games_in_matchup(p) for p in live}
-    ss = [f"Bench {p['name']} ({p['status']}) — he can't play" for p in league.starters if p["status"] in OUTISH]
+    ss = [f"Bench {p['name']} ({p['status']}) — he can't play{digest.cite(p)}" for p in league.starters if p["status"] in OUTISH]
     few = sorted((g, n) for n, g in games.items() if any(s["name"] == n for s in league.starters))[:2]
     if few:
         ss.append("Fewest games left this week: " + ", ".join(f"{n} ({g})" for g, n in few))
@@ -279,6 +287,17 @@ def main():
         except Exception as e:
             traceback.print_exc()
             errors.append(f"weekly: {type(e).__name__}: {e}")
+    elif weekly.get("week") == ctx.week:
+        # adds stay Tuesday's plan; start/sit follows the latest injury news
+        by_name = {lg.name: lg for lg in leagues}
+        for sec in weekly.get("leagues", []):
+            try:
+                if sec["name"] in by_name:
+                    sec["start_sit"] = start_sit_lines(by_name[sec["name"]])[:3]
+            except Exception:
+                traceback.print_exc()
+        weekly["start_sit_updated"] = iso(now)
+        save_json(DATA / "weekly.json", weekly)
 
     status["errors"], status["notes"], status["pushes"] = errors, notes, len(notify.sent)
     status["ok"] = not errors

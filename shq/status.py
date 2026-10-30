@@ -22,6 +22,31 @@ def norm(raw):
     return _MAP.get(str(raw).strip().lower())
 
 
+DEAD = OUTISH | {"D"}
+GAME_ONLY = {"OUT", "D", "INACTIVE"}   # set for one game; IR/PUP/SUSP/NA last for weeks
+
+
+def confirm(status, why, entry, week_start=None):
+    """A status that would bench someone must be backed by ESPN's injury report, which carries a dated
+    news note: ESPN lists him as out too and, for a one-game designation, the note is from this NFL week
+    (week_start; None for NBA). Otherwise he's shown as Q with the disagreement spelled out, so nothing
+    is benched or swapped on it. Returns (status, why, news, conflict)."""
+    news = {"note": entry["note"], "at": entry["date"], "url": entry["url"]} if entry and entry.get("note") else None
+    if status not in DEAD:
+        return status, why, news, False
+    espn = norm(entry["status"]) if entry else None
+    current = espn not in GAME_ONLY or week_start is None or bool(entry.get("date") and entry["date"] >= week_start)
+    if espn in DEAD and current:
+        return status, why, news, False
+    if not entry:
+        reason = "not on ESPN's injury report"
+    elif espn in DEAD:
+        reason = f"ESPN's {entry['status']} is from last week"
+    else:
+        reason = f"ESPN says {entry['status']}"
+    return "Q", f"{why}, but {reason}: unconfirmed", news, True
+
+
 def worst(*sources):
     """Combine (source, raw) pairs → (status, 'Src: raw' explanation of the worst one)."""
     best, why = None, ""

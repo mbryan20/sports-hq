@@ -19,7 +19,10 @@ class Ctx:
         return {1: {"abbrev": "ATL", "games": {d: [(TIP(d), 2, True)] for d in (9, 11, 13)}},
                 2: {"abbrev": "BOS", "games": {d: [(TIP(d), 1, False)] for d in (10, 12)}},
                 3: {"abbrev": "CHI", "games": {}}}
+    week_start = None
     def injuries(self, sport):
+        return {}
+    def injury_report(self, sport):
         return {}
 
 

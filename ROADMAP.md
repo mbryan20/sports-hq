@@ -69,6 +69,10 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Manual steps for Michael:** follow the hard rule in his global CLAUDE.md. Give exact window, URL, labels,
   values and the expected result, and close any tabs you opened.
 - **No paid APIs and no AI calls in GitHub Actions.**
+- **Every injury call is cited.** A status that would bench someone (Out, Doubtful, IR…) only counts when
+  ESPN's public injury report agrees, and for a one-game Out/Doubtful its dated note is from this NFL week
+  (Tuesday on). Otherwise the player shows as Q, "unconfirmed", and nothing is benched, swapped or pushed on
+  it (`status.confirm`). The ESPN note, its time and the player-card link go with every status line.
 - **Tests:** run `py -m unittest discover -s tests` before every push. Verify the site at phone width
   (375px, no horizontal scroll).
 - **Windows quirks:** run Python as `py`. Set `PYTHONIOENCODING=utf-8` for console output. Keep LF line
@@ -95,6 +99,11 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   laptop sync until then.
 - **ESPN NBA:** scoring periods are days, and matchups run Monday to Sunday.
 - **ESPN private leagues:** return 401 without cookies. The laptop snapshot (`shq/save_espn.py`) covers them.
+- **Sleeper's injury_status lags.** It kept Jeremiyah Love "Out" Oct 26–28 from the prior week while
+  ESPN had moved on, and the Tuesday Weekly tab froze that. ESPN's injury report
+  (`site.api.espn.com/.../nfl/injuries`) lists ~800 players with a status, a dated Rotowire note and a
+  player-card link; Sleeper's DB lacks ESPN ids for many rookies, so players are also matched by name + team.
+  The Weekly tab's start/sit is now rebuilt every run.
 - **Claude in Chrome cuts `javascript_tool` results at ~1,000 characters.** Yahoo reads go one position per
   call. The ESPN snapshot (~109 KB) is gzipped + base64'd in the page, read back with `get_page_text` in
   15,000-character pieces, and joined with hash checks by `py -m shq.save_espn --parts` (since 2026-10-30).

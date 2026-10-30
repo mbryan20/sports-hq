@@ -30,9 +30,11 @@ function chip(f) {
 function row(p) {
   const sub = [p.team && p.opp ? `${p.team} ${p.opp}` : p.team, p.started ? "Locked" : kick(p.kickoff), p.why].filter(Boolean).join(" · ");
   const chips = p.flags?.length ? `<span class="chips">${p.flags.map(chip).join("")}</span>` : "";
+  // the dated ESPN injury-report note behind any status, linked to his ESPN player card
+  const news = p.news ? `<div class="sub news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN${p.news.at ? " " + esc(kick(p.news.at)) : ""}</a>: ${esc(p.news.note)}</div>` : "";
   return `<div class="row${p.started ? " locked" : ""}">
     <div class="slot">${esc(p.slot === "SUPER_FLEX" ? "SF" : p.slot)}</div>
-    <div class="who"><div class="name">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div></div>
+    <div class="who"><div class="name">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div>${news}</div>
     <div class="proj">${p.proj ? p.proj.toFixed(1) : ""}</div></div>`;
 }
 
@@ -129,7 +131,8 @@ function weekly() {
   if (!w?.leagues?.length) return `<div class="card"><p class="note">The weekly plan posts Tuesdays at 7am CT.</p></div>`;
   const pending = data.lineups?.leagues?.Kosmonauts?.pending && !w.leagues.some(l => l.name === "Kosmonauts")
     ? `<div class="card"><h2>Kosmonauts</h2><p class="note">Waiting on Yahoo API approval.</p></div>` : "";
-  return `<p class="muted" style="margin:0 0 10px">Week ${w.week} · generated ${esc(kick(w.generated))}</p>` +
+  const upd = w.start_sit_updated ? ` · start/sit updated ${esc(kick(w.start_sit_updated))}` : "";
+  return `<p class="muted" style="margin:0 0 10px">Week ${w.week} · generated ${esc(kick(w.generated))}${upd}</p>` +
     w.leagues.map(l => `<div class="card"><h2>${esc(l.name)}</h2>
       <div class="section" style="border:0">Start / sit</div><ul class="tips">${l.start_sit.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
       <div class="section">Top FA adds</div><ul class="tips">${l.adds.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>`).join("") + pending;

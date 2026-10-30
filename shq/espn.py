@@ -25,19 +25,25 @@ def games(season, week):
     return by_team
 
 
-def injuries(league="football/nfl"):
-    """{espn_athlete_id: status string} e.g. 'Out', 'Questionable', 'Injured Reserve'."""
+def injury_report(league="football/nfl"):
+    """{espn_athlete_id: {status, name, team, date, note, url}} from ESPN's public injury report. The
+    note is the latest dated news blurb ESPN carries for him (Rotowire), url his ESPN player card."""
     out = {}
     url = f"https://site.api.espn.com/apis/site/v2/sports/{league}/injuries"
     for team in get_json(url).get("injuries", []):
         for item in team.get("injuries", []):
             ath = item.get("athlete", {})
-            aid = None
             for link in ath.get("links", []):
                 m = re.search(r"/id/(\d+)", link.get("href", ""))
                 if m:
-                    aid = m.group(1)
+                    out[m.group(1)] = {"status": item.get("status"), "name": ath.get("displayName"),
+                                       "team": norm_team((ath.get("team") or {}).get("abbreviation")),
+                                       "date": parse_iso(item["date"]) if item.get("date") else None,
+                                       "note": item.get("shortComment") or "", "url": link["href"]}
                     break
-            if aid:
-                out[aid] = item.get("status")
     return out
+
+
+def injuries(league="football/nfl"):
+    """{espn_athlete_id: status string} e.g. 'Out', 'Questionable', 'Injured Reserve'."""
+    return {aid: r["status"] for aid, r in injury_report(league).items()}

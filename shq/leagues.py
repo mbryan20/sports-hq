@@ -1,10 +1,11 @@
 """Build a uniform view of each league and wire up its platform-specific actions."""
+import datetime as dt
 import re
 
 from . import espn, espn_fantasy as ef, sleeper, values
 from .common import iso, parse_iso
 from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
-from .status import worst
+from .status import confirm, worst
 from .yahoo import Yahoo
 
 
@@ -27,7 +28,13 @@ class Context:
         self.week, self.games = week, games
         self.proj = sleeper.projections(SEASON, week)
         self.players = sleeper.players()
-        self.espn_inj = espn.injuries()
+        self.espn_report = espn.injury_report()
+        self.espn_inj = {aid: r["status"] for aid, r in self.espn_report.items()}
+        self.espn_by_name = {(name_key(r["name"]), r["team"]): aid for aid, r in self.espn_report.items()}
+        # NFL game designations (Out/Doubtful) are reset each week; they count from Tuesday on
+        local = now.astimezone(TZ)
+        self.week_start = (local - dt.timedelta(days=(local.weekday() - 1) % 7)).replace(
+            hour=0, minute=0, second=0, microsecond=0)
         self.yahoo_to_sleeper = {str(p["yahoo_id"]): pid for pid, p in self.players.items() if p.get("yahoo_id")}
         self.by_name = {}
         for pid, p in self.players.items():
@@ -69,11 +76,14 @@ class Context:
         return cache[(sport, season)]
 
     def injuries(self, sport):
+        return {aid: r["status"] for aid, r in self.injury_report(sport).items()}
+
+    def injury_report(self, sport):
         if sport == "nfl":
-            return self.espn_inj
+            return self.espn_report
         cache = self.__dict__.setdefault("_inj", {})
         if sport not in cache:
-            cache[sport] = espn.injuries("basketball/nba")
+            cache[sport] = espn.injury_report("basketball/nba")
         return cache[sport]
 
 
@@ -96,19 +106,22 @@ def make_player(ctx, scoring, pid, slot, *, name=None, team=None, positions=None
     team = espn.norm_team(team or pr.get("team") or pp.get("team") or db.get("team")) or None
     positions = positions or db.get("fantasy_positions") or ([db["position"]] if db.get("position") else [])
     sleeper_status = db.get("status") if db.get("status") not in (None, "Active") else None
+    # Sleeper's DB lacks ESPN ids for many players (rookies especially), so fall back to name + team
+    espn_id = str(db.get("espn_id") or "") or ctx.espn_by_name.get((name_key(name or db.get("full_name")), team))
+    entry = ctx.espn_report.get(espn_id or "")
     sources = [("Sleeper", pp.get("injury_status") or db.get("injury_status")),
                ("Sleeper", sleeper_status),
-               ("ESPN", ctx.espn_inj.get(str(db.get("espn_id"))))]
+               ("ESPN", entry and entry["status"])]
     if native:
         sources.insert(0, native)
-    status, why = worst(*sources)
+    status, why, news, conflict = confirm(*worst(*sources), entry, ctx.week_start)
     game = ctx.games.get(team) if team else None
     kickoff = game["kickoff"] if game else None
     started = bool(game) and (game["state"] != "pre" or ctx.now >= kickoff)
     return {
         "id": pid or key or name, "key": key, "name": name or db.get("full_name") or pid or "Empty",
         "team": team, "positions": positions, "slot": slot,
-        "status": status, "why": why,
+        "status": status, "why": why, "news": news, "conflict": conflict,
         "kickoff": kickoff, "started": started, "bye": bool(team) and game is None,
         "opp": (("vs " if game["home"] else "@") + game["opp"]) if game else None,
         "proj": score(pr.get("stats"), scoring),
@@ -308,7 +321,8 @@ class EspnLeague:
         self.data, self.key = data, f"espn:{sport}:{cfg['league_id']}"
         self.league_name, self.opponent, self.opp_proj = data.get("league_name"), data.get("opponent"), None
         self.sched = ctx.pro_schedule(sport, data["season"])
-        self.inj = ctx.injuries(sport)
+        self.report = ctx.injury_report(sport)
+        self.inj = {aid: r["status"] for aid, r in self.report.items()}
         self.period = data["scoring_period"]
         if sport == "nba" and self.captured:  # NBA periods are days; roll a morning snapshot forward
             self.period += (ctx.now.astimezone(TZ).date() - self.captured.astimezone(TZ).date()).days
@@ -342,11 +356,14 @@ class EspnLeague:
         team = self.sched.get(p.get("pro_team"), {})
         games = team.get("games", {}).get(self.period, [])
         kickoff, opp_id, home = games[0] if games else (None, None, None)
-        status, why = worst(("ESPN", p.get("injury")), ("ESPN", self.inj.get(str(p["id"]))))
+        entry = self.report.get(str(p["id"]))
+        status, why, news, conflict = confirm(*worst(("ESPN", p.get("injury")), ("ESPN", entry and entry["status"])),
+                                              entry, self.ctx.week_start if self.sport == "nfl" else None)
         return {
             "id": f"espn{p['id']}", "key": p["id"], "name": p["name"], "team": team.get("abbrev") or None,
             "positions": [names[x] for x in p.get("eligible", []) if x in names and x not in bench],
             "slot": slot or names.get(p["slot"], str(p["slot"])), "status": status, "why": why,
+            "news": news, "conflict": conflict,
             "kickoff": kickoff, "started": bool(kickoff) and self.ctx.now >= kickoff,
             "bye": bool(p.get("pro_team")) and not games,
             "opp": (("vs " if home else "@") + self.sched.get(opp_id, {}).get("abbrev", "?")) if games else None,
@@ -388,7 +405,8 @@ def view(league, advice=None):
             flags.append("NO TEAM")
         return {"slot": p["slot"], "name": p["name"], "team": p["team"], "pos": "/".join(p["positions"][:2]),
                 "opp": p["opp"], "kickoff": iso(p["kickoff"]), "started": p["started"], "proj": p["proj"],
-                "status": p["status"], "why": p["why"], "flags": flags}
+                "status": p["status"], "why": p["why"], "flags": flags,
+                "news": {**p["news"], "at": iso(p["news"]["at"])} if p.get("news") and p["status"] else None}
     return {
         "name": league.name, "platform": league.platform, "week": league.week,
         "sport": getattr(league, "sport", "nfl"), "format": getattr(league, "format", None),

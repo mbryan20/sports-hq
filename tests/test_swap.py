@@ -64,7 +64,14 @@ class Ctx:
     proj = {"s1": {"stats": {"rec": 6, "rec_yd": 80}}, "s2": {"stats": {"rec": 4, "rec_yd": 50}},
             "s3": {"stats": {"rec": 3, "rec_yd": 30}}, "s9": {"stats": {"rec": 5, "rec_yd": 70}}}
     players = {}
-    espn_inj = {}
+    # ESPN's injury report backs the Yahoo "O": without it the status would be unconfirmed
+    espn_report = {str(i): {"status": st, "name": n, "team": t, "date": NOW - dt.timedelta(hours=20),
+                            "note": f"{n} (hamstring) was ruled out Saturday.", "url": f"https://www.espn.com/nfl/player/_/id/{i}"}
+                   for i, (n, t, st) in enumerate([("Starter WR", "NYJ", "Out"), ("Starter RB", "NYJ", "Out"),
+                                                   ("Hurt RB", "MIA", "Injured Reserve")], 1)}
+    espn_inj = {i: r["status"] for i, r in espn_report.items()}
+    espn_by_name = {(r["name"].lower(), r["team"]): i for i, r in espn_report.items()}
+    week_start = NOW - dt.timedelta(days=5)
     yahoo_to_sleeper = {"101": "s1", "102": "s2", "103": "s3", "900": "s9"}
 
 

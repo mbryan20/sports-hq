@@ -21,6 +21,7 @@ class Ctx:
     """Just enough of leagues.Context for make_player: one team per player, every game Sunday."""
     def __init__(self, players, started=()):
         self.now, self.week, self.espn_inj = NOW, 8, {}
+        self.espn_report, self.espn_by_name, self.week_start = {}, {}, None
         self.players = {pid: {"full_name": pid, "position": pos, "fantasy_positions": [pos], "team": team}
                         for pid, pos, team, _ in players}
         self.proj = {pid: {"stats": {"pts": proj}} for pid, _, _, proj in players}
