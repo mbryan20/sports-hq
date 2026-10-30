@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T00:07:00Z",
+ "updated": "2026-10-30T00:17:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -200,7 +200,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "Domo Arigato": {
@@ -277,7 +277,7 @@
      "pos": "WR",
      "opp": "@GB",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 14.8,
      "status": null,
      "why": "",
@@ -627,11 +627,10 @@
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
     "notes": [
-     "1 starters play today, first locks Thu 7:15p",
      "FAAB left: $100"
     ],
     "cats": null,
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "Guillotine": {
@@ -654,7 +653,7 @@
      "pos": "QB",
      "opp": "vs CAR",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 20.2,
      "status": null,
      "why": "",
@@ -667,7 +666,7 @@
      "pos": "RB",
      "opp": "@GB",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 15.1,
      "status": null,
      "why": "",
@@ -859,7 +858,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 11 this week, +17.5 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 7 of 11 this week, +17.5 pts vs the lowest other team, 7% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -929,11 +928,10 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "2 starters play today, first locks Thu 7:15p",
      "FAAB left: $59"
     ],
     "cats": null,
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -941,15 +939,15 @@
      "rank": 7,
      "gap": 17.5,
      "proj": 124.6,
-     "cut": 0.084,
-     "survive": 0.916,
+     "cut": 0.074,
+     "survive": 0.926,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "CodyRust",
        "proj": 107.6,
-       "cut": 0.229,
+       "cut": 0.237,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -957,7 +955,7 @@
       {
        "name": "MoneyManChas",
        "proj": 107.1,
-       "cut": 0.221,
+       "cut": 0.227,
        "faab": 180,
        "bold": 0.2,
        "me": false
@@ -965,7 +963,7 @@
       {
        "name": "GoodFellas",
        "proj": 115.9,
-       "cut": 0.144,
+       "cut": 0.149,
        "faab": 77,
        "bold": 0.44,
        "me": false
@@ -973,7 +971,7 @@
       {
        "name": "Aniasin1",
        "proj": 115.9,
-       "cut": 0.132,
+       "cut": 0.137,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -981,7 +979,7 @@
       {
        "name": "michaelbryan",
        "proj": 124.6,
-       "cut": 0.084,
+       "cut": 0.074,
        "faab": 59,
        "bold": 0.51,
        "me": true
@@ -989,7 +987,7 @@
       {
        "name": "Off with his head",
        "proj": 129.5,
-       "cut": 0.055,
+       "cut": 0.053,
        "faab": 106,
        "bold": 0.4,
        "me": false
@@ -997,7 +995,7 @@
       {
        "name": "robert8063",
        "proj": 134.7,
-       "cut": 0.042,
+       "cut": 0.038,
        "faab": 37,
        "bold": 0.53,
        "me": false
@@ -1005,31 +1003,31 @@
       {
        "name": "SteelRob420",
        "proj": 136.0,
-       "cut": 0.034,
+       "cut": 0.032,
        "faab": 43,
        "bold": 0.98,
        "me": false
       },
       {
-       "name": "JHED1979",
-       "proj": 140.4,
-       "cut": 0.026,
-       "faab": 43,
-       "bold": 0.77,
-       "me": false
-      },
-      {
        "name": "drewpepin1",
        "proj": 143.3,
-       "cut": 0.019,
+       "cut": 0.021,
        "faab": 15,
        "bold": 1.0,
        "me": false
       },
       {
+       "name": "JHED1979",
+       "proj": 140.4,
+       "cut": 0.018,
+       "faab": 43,
+       "bold": 0.77,
+       "me": false
+      },
+      {
        "name": "Swegs4",
        "proj": 146.3,
-       "cut": 0.014,
+       "cut": 0.015,
        "faab": 20,
        "bold": 0.52,
        "me": false
@@ -1056,7 +1054,7 @@
        "team": "BAL",
        "proj": 7.3,
        "gain": 1.4,
-       "cut_with": 0.079,
+       "cut_with": 0.067,
        "price": 0,
        "max": 5,
        "call": "bid",
@@ -1066,7 +1064,7 @@
      ],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.229,
+      "cut": 0.237,
       "players": [
        {
         "name": "Derrick Henry",
@@ -1074,7 +1072,7 @@
         "team": "BAL",
         "proj": 15.1,
         "gain": 6.3,
-        "cut_with": 0.055,
+        "cut_with": 0.045,
         "price": 42,
         "max": 24,
         "call": "priced out",
@@ -1095,38 +1093,12 @@
         "freed_from": "CodyRust"
        },
        {
-        "name": "Drake Maye",
-        "pos": "QB",
-        "team": "NE",
-        "proj": 25.4,
-        "gain": 5.2,
-        "cut_with": 0.06,
-        "price": 44,
-        "max": 20,
-        "call": "priced out",
-        "rivals": [
-         {
-          "name": "MoneyManChas",
-          "bid": 43
-         },
-         {
-          "name": "Off with his head",
-          "bid": 40
-         },
-         {
-          "name": "SteelRob420",
-          "bid": 40
-         }
-        ],
-        "freed_from": "CodyRust"
-       },
-       {
         "name": "Colston Loveland",
         "pos": "TE",
         "team": "CHI",
         "proj": 7.7,
         "gain": 1.8,
-        "cut_with": 0.076,
+        "cut_with": 0.065,
         "price": 2,
         "max": 7,
         "call": "bid",
@@ -1267,7 +1239,7 @@
      "pos": "WR/FLEX",
      "opp": "vs CAR",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 14.5,
      "status": null,
      "why": "",
@@ -1467,11 +1439,9 @@
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
-    "notes": [
-     "1 starters play today, first locks Thu 7:15p"
-    ],
+    "notes": [],
     "cats": null,
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "Stempak": {
@@ -1585,7 +1555,7 @@
      "pos": "WR/FLEX",
      "opp": "vs CAR",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 14.5,
      "status": null,
      "why": "",
@@ -1725,7 +1695,7 @@
      "pos": "RB/FLEX",
      "opp": "vs CAR",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 4.9,
      "status": null,
      "why": "",
@@ -1751,11 +1721,9 @@
      "offers": [],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "1 starters play today, first locks Thu 7:15p"
-    ],
+    "notes": [],
     "cats": null,
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "Bro-vid19": {
@@ -1972,7 +1940,7 @@
      "pos": "QB/OP",
      "opp": "@GB",
      "kickoff": "2026-10-30T00:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 16.9,
      "status": null,
      "why": "",
@@ -2063,7 +2031,7 @@
     },
     "notes": [],
     "cats": null,
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "3-Ball BB": {
@@ -2406,17 +2374,17 @@
       22
      ],
      "chase": [
+      "FG% is close. Keep in the lineup: Walker Kessler (2 games, .750 on 8.8 FGA/g) and Jarrett Allen (1 games, .625 on 6.4 FGA/g).",
       "FT% is close. Keep in the lineup: Franz Wagner (2 games, .849 on 5.3 FTA/g) and Devin Booker (1 games, .885 on 7.2 FTA/g).",
-      "FG% is close. Keep in the lineup: Walker Kessler (2 games, .750 on 8.8 FGA/g) and Jarrett Allen (1 games, .657 on 9.7 FGA/g).",
       "REB is close. Keep in the lineup: Walker Kessler (2 games, 8.2/g) and Franz Wagner (2 games, 5.7/g)."
      ],
      "adds": [
-      "For FT%: Dennis Schroder (PG, CHA), 2 games left, 1.000 on 2.6 FTA/g",
       "For FG%: Mo Bamba (C, UTAH), 1 games left, .786 on 7.0 FGA/g",
+      "For FT%: Dennis Schroder (PG, CHA), 2 games left, 1.000 on 2.6 FTA/g",
       "For REB: Mitchell Robinson (C, BOS), 2 games left, 11.1/g"
      ]
     },
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   },
   "Ball is Life": {
@@ -2730,7 +2698,7 @@
       "For REB: Nikola Vucevic (C, ORL), 2 games left, 7.7/g"
      ]
     },
-    "built": "Thu 7:07p"
+    "built": "Thu 7:17p"
    }
   }
  }
