@@ -44,6 +44,15 @@ def injury_report(league="football/nfl"):
     return out
 
 
+def player_news(espn_id, game="ffl"):
+    """Latest ESPN fantasy news item for one player: {note, at} or None."""
+    feed = get_json(f"https://site.api.espn.com/apis/fantasy/v2/games/{game}/news/players",
+                    {"playerId": espn_id, "limit": 1}).get("feed") or []
+    if not feed or not feed[0].get("headline"):
+        return None
+    return {"note": feed[0]["headline"], "at": parse_iso(feed[0]["published"]) if feed[0].get("published") else None}
+
+
 def injuries(league="football/nfl"):
     """{espn_athlete_id: status string} e.g. 'Out', 'Questionable', 'Injured Reserve'."""
     return {aid: r["status"] for aid, r in injury_report(league).items()}

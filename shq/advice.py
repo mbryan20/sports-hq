@@ -5,10 +5,11 @@
     moves    healthy start/sit upgrades by projection
     adds     top free agents on rest-of-season value, who to drop, FAAB bid (shq/waivers.py)
     trades   trade finder lines + up to 3 fair offers that help both lineups (shq/trades.py)
+    assets   3-Ball dynasty picks and minor leaguers from the league sheet (shq/dynasty.py)
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, trades, values, waivers
+from . import categories, digest, dynasty, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -120,5 +121,6 @@ def build(league, now):
         "trades": trade_block(league),
         "notes": notes,
         "cats": categories.build(league) if getattr(league, "sport", "nfl") == "nba" else None,
+        "assets": dynasty.block(league.sport, now) if getattr(league, "assets", False) else None,
         "built": ct_label(now),
     }

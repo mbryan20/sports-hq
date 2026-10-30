@@ -3,10 +3,11 @@ pre-kickoff window, post the daily digest at 8am CT, build the Weekly tab on Tue
 the workflow's failure step pushes an alert."""
 import datetime as dt
 import os
+import re
 import sys
 import traceback
 
-from . import advice, digest, guillotine, notify
+from . import advice, digest, espn, guillotine, notify
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -54,6 +55,24 @@ def league_view(league, now):
         traceback.print_exc()
         tips = None
     return view(league, tips)
+
+
+def better_news(league):
+    """ESPN's injury report sometimes carries only a bare status ("questionable") as its note. For my own
+    players with a status, swap that for the player's latest ESPN news headline so the citation says why."""
+    game = "fba" if getattr(league, "sport", "nfl") == "nba" else "ffl"
+    for p in league.starters + league.bench + getattr(league, "ir_blocked", []):
+        n = p.get("news")
+        if not (p["status"] and n and len(n["note"]) < 30):
+            continue
+        m = re.search(r"/id/(\d+)", n.get("url") or "")
+        try:
+            fresh = m and espn.player_news(m.group(1), game)
+        except Exception:
+            traceback.print_exc()
+            continue
+        if fresh:
+            p["news"] = {**n, **fresh}
 
 
 def guillotine_odds(league, ctx, now):
@@ -207,8 +226,10 @@ def main():
                               tags=["warning"])
                     notes.append(f"{name}: ESPN snapshot is stale")
             lg.dynasty = bool(cfg.get("dynasty"))
+            lg.assets = bool(cfg.get("assets"))  # 3-Ball: picks and minors from the league sheet
             if cfg.get("format") == "guillotine":
                 guillotine_odds(lg, ctx, now)
+            better_news(lg)
             leagues.append(lg)
             league_views[name] = league_view(lg, now)
             prev = prev_views.get(name) or {}
@@ -225,6 +246,7 @@ def main():
             saved = load_json(SAVED_ROSTER)
             if saved:
                 lg = SavedYahooLeague(ctx, saved)
+                better_news(lg)
                 leagues.append(lg)
                 league_views[name] = league_view(lg, now)
                 if now - lg.captured > ROSTER_STALE:

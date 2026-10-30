@@ -23,6 +23,7 @@ SLOT_NAMES = {
             10: "F/C", 11: "UT", 12: "BN", 13: "IR"},
 }
 BENCH = {"nfl": (20, 21), "nba": (12, 13)}       # BN, IR
+IR_OK = {"OUT", "INJURY_RESERVE", "SUSPENSION"}   # ESPN injury values allowed in an IR slot
 FA_FILTER = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS"]}, "limit": 50,
                          "sortPercOwned": {"sortPriority": 1, "sortAsc": False}}}
 FA_POOL = 20   # NBA reads this many free agents for category ideas; the first 12 stay the usual list

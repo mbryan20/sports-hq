@@ -31,13 +31,15 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | NBA trade values and ROS waiver ranking | not covered: no free value API (NBA adds come from `shq/categories.py`) |
 | Guillotine survival odds + FAAB bid guidance on the tab | live 2026-10-28 (`shq/guillotine.py`; push when cut risk > 20%) |
 | NBA category matchup (per-category totals, win/lose/close, what to chase, category FA adds) | live 2026-10-28 (`shq/categories.py`; Ball is Life fills in from the next laptop sync) |
-| 3-Ball dynasty assets (picks, minors) + Command Center "Moves to make" | not started |
+| 3-Ball dynasty assets (picks, minors) on both 3-Ball tabs | built 2026-10-30 (`shq/dynasty.py`); not on the site yet: the league sheet is private, so publishing even my own picks waits on Michael |
+| ESPN IR-slot check (a non-Out player in IR blocks adds/drops) | live 2026-10-30 (urgent in football) |
+| Fantasy Command Center (older claude.ai dashboard) | folded in 2026-10-30; retired |
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 
 ## Next up, in order
-1. Dynasty assets (3-Ball picks and minors; FantasyCalc also values draft picks).
+1. Value 3-Ball draft picks in trade ideas (FantasyCalc values picks too).
 2. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
 3. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
 
@@ -104,6 +106,13 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   (`site.api.espn.com/.../nfl/injuries`) lists ~800 players with a status, a dated Rotowire note and a
   player-card link; Sleeper's DB lacks ESPN ids for many rookies, so players are also matched by name + team.
   The Weekly tab's start/sit is now rebuilt every run.
+- **3-Ball league sheet** isn't public (gviz CSV returns 401), so the cloud can't read it. The monthly review
+  re-reads "Updated Draft Picks" (A1:J41) and "Minor League Spots & Transaction Log" (A1:J7) with the Sheets
+  connector into `state/dynasty_sheet.json` and updates `picks_updated`/`minors_updated`/`read`. A pick cell
+  is "<n> Rd" while its owner holds it, else the holder's name. **The copy is gitignored**: the sheet is the
+  league's private data and this repo is public, so it lives only on the laptop.
+- **ESPN injury-report notes are sometimes bare** ("questionable"); `run.better_news` swaps in the player's
+  latest ESPN news headline for my players. Citations show the date, not a weekday.
 - **Claude in Chrome cuts `javascript_tool` results at ~1,000 characters.** Yahoo reads go one position per
   call. The ESPN snapshot (~109 KB) is gzipped + base64'd in the page, read back with `get_page_text` in
   15,000-character pieces, and joined with hash checks by `py -m shq.save_espn --parts` (since 2026-10-30).

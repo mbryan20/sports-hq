@@ -16,13 +16,11 @@ ranks it, and proposes what to build next.
   Sports HQ now covers all 8 teams' lineups, injury alerts and weekly plans; the routines still own *actions*
   (auto-swaps through Chrome, FAAB bids) and the War Room's strategy model. Decide per routine: keep, fold into
   Sports HQ, or retire — and turn off duplicate alerts.
-- **Fantasy Command Center artifact** overlaps the Sports HQ tabs (team cards, injuries). Its "Moves to make"
-  list and 3-Ball dynasty assets (draft picks, minors) are not in Sports HQ yet.
+- ~~Fantasy Command Center artifact~~: folded into Sports HQ 2026-10-30 (dynasty assets, IR-slot check).
 
 ## Proposed by Claude (not built yet)
 - Guillotine: show survival odds and FAAB bid guidance on the Guillotine tab (today: link to the War Room copy).
 - One "Today" tab: everything that needs action in the next 24h across all leagues and pools.
 - Basketball category view: per-category strengths vs this week's opponent (ESPN matchup stats).
-- 3-Ball dynasty assets (picks, minors) from the Google Sheet onto the site.
 
 ## Proposed by monthly review

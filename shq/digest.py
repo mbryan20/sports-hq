@@ -46,7 +46,9 @@ def cite(p, limit=160):
     if not n:
         return ""
     note = n["note"] if len(n["note"]) <= limit else n["note"][:limit].rsplit(" ", 1)[0] + "…"
-    return f" [ESPN{', ' + ct_label(n['at']) if n.get('at') else ''}: {note}]"
+    # dated, not just a weekday: a last-week note must not read as today's
+    when = f"{n['at'].astimezone(TZ).strftime('%b')} {n['at'].astimezone(TZ).day} {ct_label(n['at']).split(' ')[1]}" if n.get("at") else ""
+    return f" [ESPN{', ' + when if when else ''}: {note}]"
 
 
 def _fix(league, starter, used, now):
@@ -94,6 +96,11 @@ def league_items(league, now):
         if today:
             items.append({"league": league.name, "urgent": False,
                           "text": f"{len(today)} starters play today, first locks {ct_label(today[0])}"})
+    for p in getattr(league, "ir_blocked", []):
+        # blocks every add and drop; in football he may also be a missed starter
+        items.append({"league": league.name, "urgent": not nba,
+                      "text": f"Move {p['name']} out of IR: ESPN lists him {_ir_label(p, nba)}, "
+                              f"so ESPN blocks adds and drops until he's on your bench" + cite(p)})
     standing = standing_item(league)
     if standing:
         items.append(standing)
@@ -102,6 +109,10 @@ def league_items(league, now):
         items.append({"league": league.name, "urgent": False,
                       "text": f"(roster as of the laptop read {ct_label(captured)}; check it's still current)"})
     return items
+
+
+def _ir_label(p, nba):
+    return {None: "as active", "Q": "day-to-day" if nba else "Questionable", "D": "Doubtful"}.get(p["status"], p["status"])
 
 
 def standing_item(league):

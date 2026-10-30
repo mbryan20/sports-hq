@@ -331,6 +331,10 @@ class EspnLeague:
         roster = data["roster"]
         self.starters = [self._player(p) for p in roster if p["slot"] not in bench]
         self.bench = [self._player(p) for p in roster if p["slot"] == bench[0]]
+        # ESPN only lets Out/IR/suspended players sit in an IR slot and blocks adds and drops until anyone
+        # else is moved out
+        self.ir_blocked = [self._player(p, "IR") for p in roster
+                           if p["slot"] == bench[1] and p.get("injury") not in ef.IR_OK]
         self.free_agents = sorted((self._player(p, "FA") for p in data.get("free_agents") or []),
                                   key=lambda p: (-p["proj"], -p["owned"]))
         names = ef.SLOT_NAMES[sport]

@@ -40,10 +40,10 @@ LEAGUES = [
     {"name": "Kosmonauts", "sport": "nfl", "platform": "yahoo"},
     {"name": "Domo Arigato", "sport": "nfl", "platform": "sleeper", "dynasty": True},
     {"name": "Guillotine", "sport": "nfl", "platform": "sleeper", "league_id": "1385516543386845184", "format": "guillotine"},
-    {"name": "3-Ball FB", "sport": "nfl", "platform": "espn", "league_id": 1829431, "team_id": 10, "season": 2026, "dynasty": True},
+    {"name": "3-Ball FB", "sport": "nfl", "platform": "espn", "league_id": 1829431, "team_id": 10, "season": 2026, "dynasty": True, "assets": True},
     {"name": "Stempak", "sport": "nfl", "platform": "espn", "league_id": 1912619648, "team_id": 8, "season": 2026, "private": True},
     {"name": "Bro-vid19", "sport": "nfl", "platform": "espn", "league_id": 84829230, "team_id": 9, "season": 2026, "private": True},
-    {"name": "3-Ball BB", "sport": "nba", "platform": "espn", "league_id": 184031, "team_id": 7, "season": 2027, "dynasty": True},
+    {"name": "3-Ball BB", "sport": "nba", "platform": "espn", "league_id": 184031, "team_id": 7, "season": 2027, "dynasty": True, "assets": True},
     {"name": "Ball is Life", "sport": "nba", "platform": "espn", "league_id": 190278, "team_id": 5, "season": 2027, "private": True},
 ]
 ESPN_PRIVATE = [lg for lg in LEAGUES if lg["platform"] == "espn" and lg.get("private")]

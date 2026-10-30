@@ -52,7 +52,7 @@ class Confirm(unittest.TestCase):
             name, sport, free_agents, starters, bench = "Domo", "nfl", [], [love], [spare]
         items = digest.league_items(League, FRI)
         self.assertFalse(any(i["urgent"] for i in items))
-        self.assertIn("Check before benching [ESPN, Fri 12:46p: Coach said Friday", items[0]["text"])
+        self.assertIn("Check before benching [ESPN, Oct 30 12:46p: Coach said Friday", items[0]["text"])
 
 
 if __name__ == "__main__":

@@ -15,6 +15,11 @@ function kick(iso) {
   const t = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: TZ }).replace(" AM", "a").replace(" PM", "p");
   return `${day} ${t}`;
 }
+function newsDate(iso) {
+  // dated, not just a weekday: a last-week note must not read as today's
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: TZ }) + " " + kick(iso).split(" ")[1];
+}
 function ago(iso) {
   const m = Math.round((Date.now() - new Date(iso)) / 60000);
   if (m < 1) return "just now";
@@ -31,7 +36,7 @@ function row(p) {
   const sub = [p.team && p.opp ? `${p.team} ${p.opp}` : p.team, p.started ? "Locked" : kick(p.kickoff), p.why].filter(Boolean).join(" · ");
   const chips = p.flags?.length ? `<span class="chips">${p.flags.map(chip).join("")}</span>` : "";
   // the dated ESPN injury-report note behind any status, linked to his ESPN player card
-  const news = p.news ? `<div class="sub news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN${p.news.at ? " " + esc(kick(p.news.at)) : ""}</a>: ${esc(p.news.note)}</div>` : "";
+  const news = p.news ? `<div class="sub news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN${p.news.at ? " " + esc(newsDate(p.news.at)) : ""}</a>: ${esc(p.news.note)}</div>` : "";
   return `<div class="row${p.started ? " locked" : ""}">
     <div class="slot">${esc(p.slot === "SUPER_FLEX" ? "SF" : p.slot)}</div>
     <div class="who"><div class="name">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div>${news}</div>
@@ -66,8 +71,14 @@ function actions(lg) {
     <div class="summary"><div><div class="name">What to do</div>${a.matchup ? `<div class="vs ${a.danger ? "danger" : ""}">${esc(a.matchup)}</div>` : ""}</div>
       <div class="muted small">${esc(a.built)}</div></div>
     ${guillotine(a.guillotine)}
-    ${fixes}${cats(a.cats, list)}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${trades(a.trades)}${list("Notes", a.notes, "muted")}
+    ${fixes}${cats(a.cats, list)}${list("Lineup moves", a.moves)}${list("Waiver adds", a.adds)}${trades(a.trades)}${assets(a.assets, list)}${list("Notes", a.notes, "muted")}
   </div>`;
+}
+
+function assets(s, list) {
+  if (!s) return "";
+  return list("Dynasty assets", s.lines) +
+    `<p class="basis"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.source)}</a></p>`;
 }
 
 function trades(t) {
