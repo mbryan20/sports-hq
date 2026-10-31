@@ -31,6 +31,10 @@ on:
         description: "Rebuild the Today digest now (pushes if something needs fixing)"
         type: boolean
         default: false
+      force_wrapup:
+        description: "Build the weekend wrap-up now (Sunday edition mid-week, else last week's final) and push it"
+        type: boolean
+        default: false
       test_push:
         description: "Send a test push"
         type: boolean
@@ -73,6 +77,7 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           FORCE_WEEKLY: ${{ inputs.force_weekly && '1' || '0' }}
           FORCE_DIGEST: ${{ inputs.force_digest && '1' || '0' }}
+          FORCE_WRAPUP: ${{ inputs.force_wrapup && '1' || '0' }}
           TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         # GitHub drops many scheduled triggers under load, so one run that starts carries the
@@ -89,7 +94,7 @@ jobs:
             # Pool Picks stale-line scan: Wed-Sat every 2h (30 min before CFP's Sat lock); never fails the run
             (cd picks && python -m pp.lines --if-due) || echo "pick line scan failed"
             bash .github/commit_data.sh || failed=1
-            export FORCE_WEEKLY=0 FORCE_DIGEST=0 TEST_PUSH=0
+            export FORCE_WEEKLY=0 FORCE_DIGEST=0 FORCE_WRAPUP=0 TEST_PUSH=0
             python -m shq.run --keep-watching || break
             [ $((SECONDS + 660)) -ge $end ] && break
             # wake at :07/:17/:27… so a pass lands 3 min before kickoffs on :00/:05/:30 marks

@@ -9,16 +9,20 @@ ALERTS = STATE / "alerts.json"
 sent = []  # what this run pushed (or would have, in dry-run)
 
 
-def push(title, message, priority=3, tags=None):
-    sent.append({"title": title, "message": message})
+def push(title, message, priority=3, tags=None, click=None, actions=None, delay=None):
+    """click: URL the notification opens (default the site); actions: ntfy view buttons; delay: e.g. "3m"."""
+    sent.append({"title": title, "message": message, "click": click})
     topic = os.environ.get("NTFY_TOPIC")
     if os.environ.get("DRY_RUN") == "1" or not topic:
         print(f"[push skipped] {title}: {message}")
         return
-    r = session.post("https://ntfy.sh/", json={
-        "topic": topic, "title": title, "message": message,
-        "priority": priority, "tags": tags or [], "click": SITE_URL,
-    }, timeout=20)
+    body = {"topic": topic, "title": title, "message": message,
+            "priority": priority, "tags": tags or [], "click": click or SITE_URL}
+    if actions:
+        body["actions"] = actions
+    if delay:
+        body["delay"] = delay
+    r = session.post("https://ntfy.sh/", json=body, timeout=20)
     r.raise_for_status()
 
 

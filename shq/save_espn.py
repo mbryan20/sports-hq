@@ -64,7 +64,7 @@ def main(path):
             errors.append(str(e))
             continue
         prev = load_snapshot(snap["sport"], snap["league_id"]) or {}
-        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent", "teams", "matchup"))
+        same = all(prev.get(k) == snap.get(k) for k in ("roster", "free_agents", "scoring_period", "opponent", "teams", "matchup", "results", "box"))
         fresh = prev.get("captured") and now_utc() - parse_iso(prev["captured"]) < dt.timedelta(hours=20)
         if same and fresh:
             continue

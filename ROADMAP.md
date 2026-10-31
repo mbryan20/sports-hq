@@ -23,6 +23,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Injury watch + exact-swap pushes (2h before lock) | live |
 | Weekly tab (Tue 7am): start/sit + top FA adds | live |
 | Today tab + 8am digest push | live 2026-10-28 |
+| Weekend wrap-up: phone-sized PDF + web page per week, ntfy push opens the PDF (`/wrapups/`, header link) | live 2026-10-31 (`shq/wrapup.py` builds, `shq/wrapup_render.py` draws with reportlab). Sunday edition once every Sunday game is final (Monday players listed as still to play), final from Tue 8am CT, redrawn quietly when the Tue 8pm picks postmortem lands. Per league: result, standing and movement, bench points left, boom/bust vs projection, cited injuries, next week from the What to do card; pools card graded on ESPN scores (entries after the postmortem), War Room v2 bid picture, model and stale-line hits. First issue: NFL week 7 (private ESPN leagues had no scores yet; the laptop snapshot carries `results` + `box` from Oct 31) |
 | Picks (BTO, CFP, Yahoo pick'em) | live (laptop, Tue–Sat) |
 | Yahoo: season value of taking the other side, upset watch, rebuilt-roster flag | live 2026-10-31 (`picks/pp/yahoo_value.py`, `pool_profile.py`; profile refreshed at the Tue postmortem) |
 | Picks stale-line scanner + fresh market lines | live 2026-10-31 (`picks/pp/lines.py`): run.yml compares open BTO/CFP pool lines with ESPN's current line Wed–Sat every 2h (30 min Sat 6–11am CT), pushes once per game at 1.5+ pts or a key number, gap table on the Picks page; cards center on ESPN's line at build time. Backtest: stale 1.5+ openers covered 61% (CFB n=194, NFL n=64); MODEL_W stays 0.1 (walk-forward picks 0) |
@@ -180,6 +181,11 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Source terms (checked 2026-10-31, `docs/picks/method/sources.md`):** ESPN's (Disney) terms bar automated access, and CFBD's bar republishing raw responses. `pp/publish.py` runs `git add -A` on `picks/`, which is how raw CFBD cache files reached this public repo; new ones are gitignored now, and the 17 already tracked still need untracking. On Windows, open files as UTF-8 explicitly: `Path.read_text()` defaults to cp1252 and a failed `write_text` truncates the file.
 - **nflverse kickoff times lag schedule changes.** On Oct 31 it still had LV @ SF at 4:05 ET after the game moved to 4:25 on FOX. Final scores matched ESPN on every 2026 game, so Picks reads NFL results from nflverse with ESPN as the backup. Kickoffs, live state and injuries stay on ESPN (`docs/picks/method/sources.md`, "Less ESPN").
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
+- **Wrap-up and the laptop-read leagues:** the Sunday edition reads Stempak, Bro-vid19 and Ball is Life from the 4:30pm
+  snapshot, so their late games count as still to play (a game is over 3h30m after kickoff, `wrapup.GAME_LENGTH`); the
+  Tuesday final has them complete from the 7:30am read (the snapshot keeps last week's box score as well as this week's).
+  Kosmonauts has no score feed until Yahoo approves the API: the wrap-up scores my saved lineup with Sleeper's stats and
+  league scoring, and shows no W/L.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
 - **FantasyCalc:** the redraft list only has ~200 players; the dynasty list (same settings) carries a
   `redraftValue` for ~420, so `values.py` always fetches the dynasty list and picks the field.

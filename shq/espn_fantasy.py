@@ -99,6 +99,52 @@ def cat_matchup(raw, team_id, opp_id, free_agents):
                          "eligible": p.get("eligibleSlots") or []} for p in (f["player"] for f in (free_agents or [])[12:])]}
 
 
+WIN = {"HOME": "H", "AWAY": "A", "TIE": "T"}
+
+
+def results(raw):
+    """Every head-to-head matchup so far, compact, for standings and the weekend wrap-up (shq/wrapup.py):
+    [matchup period, home id, home score, away id, away score, winner "H"/"A"/"T" or "" while open, tied categories].
+    Category leagues score categories won instead of points. Byes are skipped."""
+    cat = "CATEGORY" in ((raw.get("settings") or {}).get("scoringSettings") or {}).get("scoringType", "")
+    val = (lambda x: (x.get("cumulativeScore") or {}).get("wins", 0)) if cat else (lambda x: round(x.get("totalPoints") or 0, 2))
+    return [[m["matchupPeriodId"], m["home"].get("teamId"), val(m["home"]), m["away"].get("teamId"), val(m["away"]),
+             WIN.get(m.get("winner"), ""), (m["home"].get("cumulativeScore") or {}).get("ties", 0) if cat else 0]
+            for m in raw.get("schedule") or [] if m.get("home") and m.get("away")]
+
+
+def box(raw, team_id, period):
+    """My matchup in one NFL week from a mMatchupScore + mBoxscore read at scoringPeriodId=period: both totals
+    and my players' points and projections. None when I have no box score that week."""
+    r2 = lambda v: round(v or 0, 2)
+    for m in raw.get("schedule") or []:
+        sides = [m.get("home") or {}, m.get("away") or {}]
+        me = next((x for x in sides if x.get("teamId") == team_id), None)
+        if not me or not ((me.get("rosterForCurrentScoringPeriod") or {}).get("entries")):
+            continue
+        op = next((x for x in sides if x is not me and x.get("teamId") is not None), {})
+
+        def player(e):
+            p = e["playerPoolEntry"]["player"]
+            st = {x.get("statSourceId"): x.get("appliedTotal") for x in p.get("stats") or [] if x.get("scoringPeriodId") == period}
+            return {"name": p["fullName"], "slot": e["lineupSlotId"], "pro_team": p.get("proTeamId"),
+                    "eligible": p.get("eligibleSlots") or [], "pts": r2(st.get(0)), "proj": r2(st.get(1))}
+        return {"period": period, "pts": r2(me.get("totalPoints")), "proj": r2(me.get("totalProjectedPoints")),
+                "opp_id": op.get("teamId"), "opp_pts": r2(op.get("totalPoints")), "opp_proj": r2(op.get("totalProjectedPoints")),
+                "players": [player(e) for e in me["rosterForCurrentScoringPeriod"]["entries"]]}
+    return None
+
+
+def fetch_week(sport, season, league_id, team_id, period=None):
+    """Public league, read fresh for the weekend wrap-up: {"results", "names", "box"} (box only for a given NFL week)."""
+    views = [("view", "mMatchupScore"), ("view", "mTeam"), ("view", "mSettings")]
+    if period:
+        views += [("view", "mBoxscore"), ("scoringPeriodId", period)]
+    raw = get_json(_url(sport, season, league_id), views)
+    return {"results": results(raw), "names": {t["id"]: _team_name(t) for t in raw.get("teams") or []},
+            "box": box(raw, team_id, period) if period else None}
+
+
 def compact(raw, sport, team_id, free_agents=None):
     """Snapshot shape shared with LAPTOP_SNAPSHOT_JS. "teams" holds every other roster (trade finder)."""
     period, mp, s = raw["scoringPeriodId"], raw["status"]["currentMatchupPeriod"], raw["settings"]
@@ -124,6 +170,7 @@ def compact(raw, sport, team_id, free_agents=None):
                    "roster": [{**_player(e["playerPoolEntry"], period), "slot": e["lineupSlotId"]}
                               for e in (t.get("roster") or {}).get("entries") or []]}
                   for t in raw["teams"] if t["id"] != team_id],
+        "results": results(raw),
         **({"matchup": cat_matchup(raw, team_id, other, free_agents)} if sport == "nba" else {}),
     }
 
@@ -167,6 +214,22 @@ const HP = {pass: '1', rush: '2', rec: '3', fum: '2'};
 const pts = (i, k) => { const ov = i.pointsOverrides || {}, p = HP[k.split('_')[0]];
   return p in ov ? ov[p] : (Object.keys(ov).length && !i.points ? Object.values(ov)[0] : i.points); };
 const out = [], now = new Date().toISOString();
+// matchup results and NFL box scores, same shapes as espn_fantasy.results() / box()
+const WIN = {HOME: 'H', AWAY: 'A', TIE: 'T'}, r2 = v => Math.round((v || 0) * 100) / 100;
+const res = raw => { const cat = (raw.settings.scoringSettings.scoringType || '').includes('CATEGORY');
+  const sv = x => cat ? ((x.cumulativeScore || {}).wins || 0) : r2(x.totalPoints);
+  return (raw.schedule || []).filter(m => m.home && m.away).map(m => [m.matchupPeriodId, m.home.teamId, sv(m.home),
+    m.away.teamId, sv(m.away), WIN[m.winner] || '', cat ? ((m.home.cumulativeScore || {}).ties || 0) : 0]); };
+const bx = (b, tid, P) => { for (const m of (b.schedule || [])) { const sides = [m.home || {}, m.away || {}];
+    const me = sides.find(x => x.teamId === tid);
+    if (!me || !((me.rosterForCurrentScoringPeriod || {}).entries || []).length) continue;
+    const op = sides.find(x => x !== me && x.teamId != null) || {};
+    return {period: P, pts: r2(me.totalPoints), proj: r2(me.totalProjectedPoints), opp_id: op.teamId == null ? null : op.teamId,
+      opp_pts: r2(op.totalPoints), opp_proj: r2(op.totalProjectedPoints),
+      players: me.rosterForCurrentScoringPeriod.entries.map(e => { const p = e.playerPoolEntry.player, st = {};
+        (p.stats || []).filter(x => x.scoringPeriodId === P).forEach(x => { st[x.statSourceId] = x.appliedTotal; });
+        return {name: p.fullName, slot: e.lineupSlotId, pro_team: p.proTeamId, eligible: p.eligibleSlots || [], pts: r2(st[0]), proj: r2(st[1])}; })}; }
+  return null; };
 const tn = t => t ? (t.name || ((t.location||'') + ' ' + (t.nickname||'')).trim()) : null;
 // NBA category matchup, same shape as espn_fantasy.cat_matchup()
 const RATIO = {19: [13, 14], 20: [15, 16], 21: [17, 18], 35: [3, 11]};
@@ -206,6 +269,11 @@ for (const [sport, game, season, lid, tid] of SPECS) {
   const ros = x => ((x.roster || {}).entries || []).map(e => ({...pc(e.playerPoolEntry), slot: e.lineupSlotId}));
   let fa = {players: []};
   try { fa = await (await fetch(base + `?view=kona_player_info&scoringPeriodId=${period}`, {credentials: 'include', headers: {'X-Fantasy-Filter': JSON.stringify(filt)}})).json(); } catch (e) {}
+  const box = {};  // this week and last, so a Tuesday read still has the finished week
+  if (sport === 'nfl') for (const P of [period - 1, period].filter(x => x >= 1)) {
+    try { const b = bx(await (await fetch(base + `?view=mMatchupScore&view=mBoxscore&scoringPeriodId=${P}`, {credentials: 'include'})).json(), tid, P);
+      if (b) box[P] = b; } catch (e) {}
+  }
   out.push({captured: now, sport, league_id: lid, season, league_name: s.name, scoring_period: period, matchup_period: mp,
     matchup_scoring_periods: ((s.scheduleSettings || {}).matchupPeriods || {})[mp] || [],
     scoring_type: s.scoringSettings.scoringType,
@@ -216,6 +284,7 @@ for (const [sport, game, season, lid, tid] of SPECS) {
     team: {id: tid, name: tn(t)}, opponent: tn(raw.teams.find(x => x.id === oid)),
     roster: ros(t), free_agents: (fa.players || []).slice(0, sport === 'nba' ? 12 : 50).map(pc),
     teams: raw.teams.filter(x => x.id !== tid).map(x => ({id: x.id, name: tn(x), roster: ros(x)})),
+    results: res(raw), ...(sport === 'nfl' ? {box} : {}),
     ...(sport === 'nba' ? {matchup: cm(raw, tid, oid, fa.players || [])} : {})});
 }
 return JSON.stringify(out);

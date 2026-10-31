@@ -15,6 +15,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Stempak, Bro-vid19 | ESPN football, private | laptop snapshot with Michael's ESPN sign-in |
 | Ball is Life | ESPN "We playin basketball", 8-cat, private | laptop snapshot |
 | Weekly | start/sit + top 3 adds per league (basketball: games left, injuries) | Tuesday 7am CT |
+| Wrap-up (`/wrapups/`, header link) | weekend wrap-up: every league's result, bench points, booms/busts, cited injuries, next week's moves, pools, War Room bids; a phone-sized PDF plus a web page, archived per week; push opens the PDF | cloud, Sunday night after the late games + final Tuesday 8am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 | War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
@@ -40,6 +41,10 @@ The footer shows the last cloud run and when each laptop job last delivered.
   bench option → push the best free agent. Never adds or drops.
 - GitHub drops many scheduled triggers, so a run keeps looping every 10 min while a watch window is open or
   opens within 3h (up to ~5h45m per run). Times come from real kickoffs, so DST doesn't matter.
+- Weekend wrap-up (`shq/wrapup.py`, `shq/wrapup_render.py`): Sunday edition on the first run after every Sunday game
+  is final, final edition from Tuesday 8am CT; writes `docs/wrapups/<season>-wNN.{pdf,html,json}` and the archive, pushes
+  the PDF link (3-min ntfy delay so Pages has published it). Run one by hand: Actions → Sports HQ run → `force_wrapup`, or
+  locally `py -m shq.wrapup --week N --edition final [--push]`.
 - Daily digest (`shq/digest.py`): first run after 8am CT fills the Today tab; pushes once only if something
   needs fixing (dead starter or empty slot, NBA starter with no game while the bench can cover, guillotine
   bottom 3, Friday picks deadlines). Late runs (after 1pm) update the tab without pushing.

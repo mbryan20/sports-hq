@@ -9,3 +9,5 @@ the snapshot (`LAPTOP_SNAPSHOT_JS` in `shq/espn_fantasy.py`) need no prompt chan
 also carry a `matchup` block (this week's category totals, per-game averages by player id for both rosters and
 20 free agents) for the category table; the players themselves come from `roster`, `teams` and `free_agents`
 (trimmed 2026-10-30, about 7 KB). `save_espn` rejects a snapshot whose `matchup` block is incomplete.
+Since 2026-10-31 every snapshot also carries `results` (every matchup's score) and football snapshots a `box` for this
+week and last (my players' points and projections) for the weekend wrap-up; about 6 KB more per football league.

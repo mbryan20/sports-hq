@@ -1,13 +1,13 @@
 """Entry point for every scheduled run: refresh lineups, run the injury watch when inside a
-pre-kickoff window, post the daily digest at 8am CT, build the Weekly tab on Tuesday 7am CT. Exits non-zero on any real error so
-the workflow's failure step pushes an alert."""
+pre-kickoff window, post the daily digest at 8am CT, build the Weekly tab on Tuesday 7am CT, publish the weekend
+wrap-up (Sunday night, final Tuesday 8am). Exits non-zero on any real error so the workflow's failure step pushes an alert."""
 import datetime as dt
 import os
 import re
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, notify
+from . import advice, digest, espn, guillotine, notify, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -320,6 +320,15 @@ def main():
                 traceback.print_exc()
         weekly["start_sit_updated"] = iso(now)
         save_json(DATA / "weekly.json", weekly)
+
+    # weekend wrap-up: Sunday night after the late games, final Tuesday 8am (shq/wrapup.py decides)
+    try:
+        note = wrapup.run(now, ctx.week, ctx.games, league_views, force=os.environ.get("FORCE_WRAPUP") == "1")
+        if note:
+            notes.append(note)
+    except Exception as e:
+        traceback.print_exc()
+        errors.append(f"wrap-up: {type(e).__name__}: {e}")
 
     status["errors"], status["notes"], status["pushes"] = errors, notes, len(notify.sent)
     status["ok"] = not errors
