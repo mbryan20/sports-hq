@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T02:07:01Z",
+ "updated": "2026-10-31T12:12:46Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-30T21:34:47Z",
-   "proj": 105.0,
+   "proj": 105.1,
    "starters": [
     {
      "slot": "QB",
@@ -37,7 +37,7 @@
      "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 16.2,
+     "proj": 16.1,
      "status": null,
      "why": "",
      "flags": [],
@@ -51,7 +51,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 14.2,
+     "proj": 14.5,
      "status": null,
      "why": "",
      "flags": [],
@@ -93,7 +93,7 @@
      "opp": "@JAX",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.4,
+     "proj": 8.3,
      "status": null,
      "why": "",
      "flags": [],
@@ -137,7 +137,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.4,
+     "proj": 8.2,
      "status": null,
      "why": "",
      "flags": [],
@@ -182,7 +182,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 5.9,
+     "proj": 6.0,
      "status": null,
      "why": "",
      "flags": [],
@@ -190,13 +190,13 @@
     }
    ],
    "advice": {
-    "matchup": "105.0 projected",
+    "matchup": "105.1 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Zach Charbonnet (RB, SEA, 8.9/gm ROS, value 1,160), drop Chris Rodriguez Jr. (5.2/gm)",
-     "Add David Montgomery (RB, HOU, 10.3/gm ROS, value 811), drop Tyler Allgeier (5.6/gm)"
+     "Add Zach Charbonnet (RB, SEA, 8.9/gm ROS, value 1,128), drop Chris Rodriguez Jr. (5.2/gm)",
+     "Add David Montgomery (RB, HOU, 10.3/gm ROS, value 987), drop Tyler Allgeier (5.6/gm)"
     ],
     "trades": {
      "lines": [
@@ -207,7 +207,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "Domo Arigato": {
@@ -219,9 +219,9 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Take Mahomes Tonight",
-   "opp_proj": 143.2,
+   "opp_proj": 143.4,
    "roster_synced": null,
-   "proj": 114.2,
+   "proj": 114.5,
    "starters": [
     {
      "slot": "QB",
@@ -259,7 +259,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 14.9,
+     "proj": 15.2,
      "status": null,
      "why": "",
      "flags": [],
@@ -387,7 +387,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 6.0,
+     "proj": 6.1,
      "status": null,
      "why": "",
      "flags": [],
@@ -605,16 +605,16 @@
     }
    ],
    "advice": {
-    "matchup": "114.2 vs 143.2 (Take Mahomes Tonight): projected to lose by 29.0",
+    "matchup": "114.5 vs 143.4 (Take Mahomes Tonight): projected to lose by 28.9",
     "danger": false,
     "fixes": [],
     "moves": [
      "Start Mike Gesicki (7.9) over Kenyon Sadiq (4.0) at TE, +3.9"
     ],
     "adds": [
-     "Add Matt Gay (K, LV, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
+     "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
      "Add Washington Commanders (DEF, WAS, 8.4 proj this week), drop Philadelphia Eagles (5.9 proj). Bid $0\u20131",
-     "Add Colby Parkinson (TE, LAR, 5.7/gm ROS, value 422), drop Evan Engram (5.1/gm). Bid $1\u20133"
+     "Add Colby Parkinson (TE, LAR, 5.7/gm ROS, value 412), drop Evan Engram (5.1/gm). Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -631,24 +631,24 @@
        "get": [
         "Ja'Marr Chase (WR)"
        ],
-       "give_value": 8552,
-       "get_value": 8218,
-       "my_gain": 3.7,
-       "their_gain": 1.0,
+       "give_value": 8641,
+       "get_value": 8211,
+       "my_gain": 3.8,
+       "their_gain": 0.9,
        "cut": false,
        "why": "Ja'Marr Chase starts for you; Jeremiyah Love and Garrett Wilson start for them over Tyjae Spears (4.9/gm)"
       },
       {
        "team": "TheParlay",
        "give": [
-        "Keon Coleman (WR)",
+        "Chris Rodriguez Jr. (RB)",
         "Zach Charbonnet (RB)"
        ],
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2837,
-       "get_value": 2656,
+       "give_value": 2522,
+       "get_value": 2655,
        "my_gain": 2.5,
        "their_gain": 4.9,
        "cut": false,
@@ -663,8 +663,8 @@
         "Jalen Coker (WR)",
         "Juwan Johnson (TE)"
        ],
-       "give_value": 3332,
-       "get_value": 3667,
+       "give_value": 3404,
+       "get_value": 3636,
        "my_gain": 2.1,
        "their_gain": 3.9,
        "cut": true,
@@ -678,7 +678,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "Guillotine": {
@@ -938,8 +938,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Jayden Daniels (QB, WAS, 20.2/gm ROS, value 1,780), drop Carnell Tate (7.6/gm), lineup +1.3/gm",
-     "Add Bryce Young (QB, CAR, 20.9/gm ROS, value 820), drop J.K. Dobbins (6.6/gm), lineup +0.7/gm"
+     "Add Jayden Daniels (QB, WAS, 20.2/gm ROS, value 1,605), drop Carnell Tate (7.6/gm), lineup +1.3/gm",
+     "Add Bryce Young (QB, CAR, 20.9/gm ROS, value 840), drop J.K. Dobbins (6.6/gm), lineup +0.7/gm"
     ],
     "trades": {
      "lines": [
@@ -951,22 +951,6 @@
      ],
      "offers": [
       {
-       "team": "Off with his head",
-       "give": [
-        "Chuba Hubbard (RB)"
-       ],
-       "get": [
-        "Jalen Coker (WR)",
-        "Isaiah Likely (TE)"
-       ],
-       "give_value": 4223,
-       "get_value": 3816,
-       "my_gain": 2.2,
-       "their_gain": 0.9,
-       "cut": true,
-       "why": "Jalen Coker and Isaiah Likely start for you; Chuba Hubbard starts for them"
-      },
-      {
        "team": "JHED1979",
        "give": [
         "Tee Higgins (WR)"
@@ -975,28 +959,44 @@
         "Dalton Kincaid (TE)",
         "Tetairoa McMillan (WR)"
        ],
-       "give_value": 4375,
-       "get_value": 4383,
+       "give_value": 4298,
+       "get_value": 4370,
        "my_gain": 0.8,
        "their_gain": 1.9,
        "cut": true,
        "why": "Tetairoa McMillan and Dalton Kincaid start for you; Tee Higgins starts for them"
       },
       {
-       "team": "robert8063",
+       "team": "MoneyManChas",
+       "give": [
+        "Chuba Hubbard (RB)"
+       ],
+       "get": [
+        "Harold Fannin Jr. (TE)",
+        "Jaylen Warren (RB)"
+       ],
+       "give_value": 4319,
+       "get_value": 4623,
+       "my_gain": 0.8,
+       "their_gain": 1.7,
+       "cut": true,
+       "why": "Jaylen Warren and Harold Fannin Jr. start for you; Chuba Hubbard starts for them"
+      },
+      {
+       "team": "SteelRob420",
        "give": [
         "Breece Hall (RB)"
        ],
        "get": [
-        "Sam LaPorta (TE)",
-        "Jordan Mason (RB)"
+        "DK Metcalf (WR)",
+        "Tucker Kraft (TE)"
        ],
-       "give_value": 3017,
+       "give_value": 3098,
        "get_value": 2797,
-       "my_gain": 1.0,
-       "their_gain": 0.8,
+       "my_gain": 0.5,
+       "their_gain": 2.2,
        "cut": true,
-       "why": "Sam LaPorta and Jordan Mason start for you; Breece Hall starts for them"
+       "why": "DK Metcalf and Tucker Kraft start for you; Breece Hall starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -1006,7 +1006,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p",
+    "built": "Sat 7:12a",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1022,14 +1022,14 @@
       {
        "name": "CodyRust",
        "proj": 108.8,
-       "cut": 0.26,
+       "cut": 0.258,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
        "name": "MoneyManChas",
-       "proj": 113.4,
+       "proj": 113.2,
        "cut": 0.201,
        "faab": 150,
        "bold": 0.2,
@@ -1037,23 +1037,23 @@
       },
       {
        "name": "Aniasin1",
-       "proj": 115.3,
-       "cut": 0.176,
+       "proj": 115.1,
+       "cut": 0.177,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "GoodFellas",
-       "proj": 117.4,
-       "cut": 0.164,
+       "proj": 117.1,
+       "cut": 0.165,
        "faab": 77,
        "bold": 0.44,
        "me": false
       },
       {
        "name": "Off with his head",
-       "proj": 134.5,
+       "proj": 134.4,
        "cut": 0.045,
        "faab": 106,
        "bold": 0.4,
@@ -1069,10 +1069,18 @@
       },
       {
        "name": "robert8063",
-       "proj": 142.1,
+       "proj": 142.4,
        "cut": 0.027,
        "faab": 37,
        "bold": 0.53,
+       "me": false
+      },
+      {
+       "name": "JHED1979",
+       "proj": 137.0,
+       "cut": 0.027,
+       "faab": 43,
+       "bold": 0.77,
        "me": false
       },
       {
@@ -1084,17 +1092,9 @@
        "me": false
       },
       {
-       "name": "JHED1979",
-       "proj": 137.1,
-       "cut": 0.027,
-       "faab": 43,
-       "bold": 0.77,
-       "me": false
-      },
-      {
        "name": "drewpepin1",
        "proj": 145.8,
-       "cut": 0.022,
+       "cut": 0.021,
        "faab": 15,
        "bold": 1.0,
        "me": false
@@ -1102,7 +1102,7 @@
       {
        "name": "Swegs4",
        "proj": 147.7,
-       "cut": 0.018,
+       "cut": 0.017,
        "faab": 20,
        "bold": 0.52,
        "me": false
@@ -1125,7 +1125,7 @@
      "bids": [],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.26,
+      "cut": 0.258,
       "players": [
        {
         "name": "Derrick Henry",
@@ -1185,7 +1185,7 @@
         "team": "CLE",
         "proj": 9.3,
         "gain": 1.6,
-        "cut_with": 0.032,
+        "cut_with": 0.031,
         "price": 4,
         "max": 6,
         "call": "bid",
@@ -1196,7 +1196,7 @@
          },
          {
           "name": "MoneyManChas",
-          "bid": 2
+          "bid": 3
          },
          {
           "name": "robert8063",
@@ -1540,8 +1540,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.4/gm ROS, value 1,161) into your open roster spot",
-     "Add Kimani Vidal (RB, LAC, 6.5/gm ROS, value 848), drop Kaytron Allen (1.2/gm)"
+     "Add Pat Freiermuth (TE, PIT, 9.4/gm ROS, value 1,164) into your open roster spot",
+     "Add Kimani Vidal (RB, LAC, 6.5/gm ROS, value 888), drop Kaytron Allen (1.2/gm)"
     ],
     "trades": {
      "lines": [
@@ -1559,8 +1559,8 @@
        "get": [
         "Chris Olave (WR)"
        ],
-       "give_value": 4778,
-       "get_value": 4557,
+       "give_value": 4754,
+       "get_value": 4608,
        "my_gain": 1.0,
        "their_gain": 0.6,
        "cut": false,
@@ -1575,8 +1575,8 @@
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2805,
-       "get_value": 2640,
+       "give_value": 2778,
+       "get_value": 2639,
        "my_gain": 0.7,
        "their_gain": 0.7,
        "cut": false,
@@ -1588,7 +1588,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "Stempak": {
@@ -1889,33 +1889,17 @@
     ],
     "moves": [],
     "adds": [
-     "Add Sam Darnold (QB, SEA, 1.9/gm ROS, value 2,117), drop C.J. Stroud (1.8/gm)",
-     "Add TreVeyon Henderson (RB, NE, 4.2/gm ROS, value 622), drop MarShawn Lloyd (3.6/gm)",
-     "Add KC Concepcion (WR, CLE, 0.5/gm ROS, value 818), drop Juwan Johnson (0.0/gm), lineup +0.4/gm"
+     "Add Sam Darnold (QB, SEA, 1.9/gm ROS, value 1,909), drop C.J. Stroud (1.8/gm)",
+     "Add TreVeyon Henderson (RB, NE, 4.2/gm ROS, value 605), drop MarShawn Lloyd (3.6/gm)",
+     "Add KC Concepcion (WR, CLE, 0.5/gm ROS, value 753), drop Juwan Johnson (0.0/gm), lineup +0.4/gm"
     ],
     "trades": {
      "lines": [
-      "Surplus: Rhamondre Stevenson (RB), 5.7/gm on your bench, would start for 4 of 7 teams",
+      "Surplus: Rhamondre Stevenson (RB), 5.8/gm on your bench, would start for 4 of 7 teams",
+      "No fair 1-for-1 or 2-for-1 that helps both lineups right now.",
       "Trade deadline: Dec 2."
      ],
-     "offers": [
-      {
-       "team": "Cleveland Corgis",
-       "give": [
-        "James Cook III (RB)",
-        "Rhamondre Stevenson (RB)"
-       ],
-       "get": [
-        "Jonathan Taylor (RB)"
-       ],
-       "give_value": 7377,
-       "get_value": 7082,
-       "my_gain": 0.5,
-       "their_gain": 5.2,
-       "cut": false,
-       "why": "Jonathan Taylor starts for you; James Cook III and Rhamondre Stevenson start for them over A.J. Brown (0.0/gm)"
-      }
-     ],
+     "offers": [],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
@@ -1923,7 +1907,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "Bro-vid19": {
@@ -2205,8 +2189,8 @@
        "get": [
         "Kenneth Walker III (RB)"
        ],
-       "give_value": 8610,
-       "get_value": 9462,
+       "give_value": 8678,
+       "get_value": 9403,
        "my_gain": 3.5,
        "their_gain": 0.8,
        "cut": false,
@@ -2216,17 +2200,17 @@
        "team": "Inglorious Staffords",
        "give": [
         "Garrett Wilson (WR)",
-        "Aaron Jones Sr. (RB)"
+        "KC Concepcion (WR)"
        ],
        "get": [
         "Bucky Irving (RB)"
        ],
-       "give_value": 4096,
-       "get_value": 4458,
+       "give_value": 4033,
+       "get_value": 4400,
        "my_gain": 2.8,
-       "their_gain": 0.5,
+       "their_gain": 0.9,
        "cut": false,
-       "why": "Bucky Irving starts for you; Garrett Wilson and Aaron Jones Sr. start for them over Cooper Kupp (7.5/gm)"
+       "why": "Bucky Irving starts for you; Garrett Wilson and KC Concepcion start for them over Cooper Kupp (7.5/gm)"
       },
       {
        "team": "Ashton DJENTY",
@@ -2236,8 +2220,8 @@
        "get": [
         "Ashton Jeanty (RB)"
        ],
-       "give_value": 5329,
-       "get_value": 5248,
+       "give_value": 5132,
+       "get_value": 5442,
        "my_gain": 0.5,
        "their_gain": 0.6,
        "cut": false,
@@ -2251,7 +2235,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "3-Ball BB": {
@@ -2269,12 +2253,12 @@
    "starters": [
     {
      "slot": "SF",
-     "name": "Mikal Bridges",
-     "team": "NY",
-     "pos": "SG/SF",
-     "opp": "@PHI",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "name": "Saddiq Bey",
+     "team": "NO",
+     "pos": "SF/PF",
+     "opp": "vs ATL",
+     "kickoff": "2026-10-31T23:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2283,12 +2267,26 @@
     },
     {
      "slot": "G",
-     "name": "Devin Booker",
-     "team": "PHX",
-     "pos": "PG/SG",
-     "opp": "vs DEN",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "name": "Shai Gilgeous-Alexander",
+     "team": "OKC",
+     "pos": "PG/G",
+     "opp": "@HOU",
+     "kickoff": "2026-11-01T00:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Kingston Flemings",
+     "team": "ATL",
+     "pos": "SG/G",
+     "opp": "@NO",
+     "kickoff": "2026-10-31T23:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2300,27 +2298,15 @@
      "name": "Josh Giddey",
      "team": "CHI",
      "pos": "PG/SG",
-     "opp": "@BOS",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "UT",
-     "name": "Matas Buzelis",
-     "team": "CHI",
-     "pos": "SF/PF",
-     "opp": "@BOS",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2328,27 +2314,15 @@
      "name": "Franz Wagner",
      "team": "ORL",
      "pos": "SF/PF",
-     "opp": "@TOR",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "C",
-     "name": "Walker Kessler",
-     "team": "LAL",
-     "pos": "C/PF/C",
-     "opp": "@GS",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2356,9 +2330,9 @@
      "name": "Jonathan Kuminga",
      "team": "MIN",
      "pos": "SF/PF",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2370,9 +2344,9 @@
      "name": "Ayo Dosunmu",
      "team": "MIN",
      "pos": "PG/SG",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2380,27 +2354,41 @@
      "news": null
     },
     {
-     "slot": "UT",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
-     "opp": "vs LAL",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "UT",
-     "name": "Khaman Maluach",
-     "team": "PHX",
+     "slot": "C",
+     "name": "Jarrett Allen",
+     "team": "CLE",
      "pos": "C/PF/C",
-     "opp": "vs DEN",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": "@MIL",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "De'Aaron Fox",
+     "team": "SA",
+     "pos": "PG/SG",
+     "opp": "vs MIN",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "De'Andre Hunter",
+     "team": "SAC",
+     "pos": "SF/PF",
+     "opp": "@MEM",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2411,9 +2399,25 @@
    "bench": [
     {
      "slot": "BN",
-     "name": "Saddiq Bey",
-     "team": "NO",
-     "pos": "SF/PF",
+     "name": "Mikal Bridges",
+     "team": "NY",
+     "pos": "SG/SF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2441,9 +2445,9 @@
     },
     {
      "slot": "BN",
-     "name": "Shai Gilgeous-Alexander",
-     "team": "OKC",
-     "pos": "PG/G",
+     "name": "Matas Buzelis",
+     "team": "CHI",
+     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2457,24 +2461,8 @@
     },
     {
      "slot": "BN",
-     "name": "Kingston Flemings",
-     "team": "ATL",
-     "pos": "SG/G",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Jarrett Allen",
-     "team": "CLE",
+     "name": "Walker Kessler",
+     "team": "LAL",
      "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
@@ -2489,8 +2477,8 @@
     },
     {
      "slot": "BN",
-     "name": "De'Aaron Fox",
-     "team": "SA",
+     "name": "Brandin Podziemski",
+     "team": "GS",
      "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
@@ -2505,9 +2493,9 @@
     },
     {
      "slot": "BN",
-     "name": "De'Andre Hunter",
-     "team": "SAC",
-     "pos": "SF/PF",
+     "name": "Khaman Maluach",
+     "team": "PHX",
+     "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2526,87 +2514,87 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Mitchell Robinson (C, BOS): 2 games left this week, 15.5% owned",
-     "Rui Hachimura (SF/PF, LAC): 2 games left this week, 13.6% owned",
-     "Collin Gillespie (PG, PHX): 1 games left this week, 33.3% owned"
+     "Jaxson Hayes (C, UTAH): 1 games left this week, 17.4% owned",
+     "Mitchell Robinson (C, BOS): 1 games left this week, 15.3% owned",
+     "Obi Toppin (PF, IND): 1 games left this week, 14.0% owned"
     ],
     "trades": null,
-    "notes": [],
+    "notes": [
+     "8 of 10 starters play tonight"
+    ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".764",
-       "opp": ".678",
+       "me": ".769",
+       "opp": ".697",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "REB",
-       "me": "129",
-       "opp": "104",
+       "me": "182",
+       "opp": "124",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "PTS",
-       "me": "321",
-       "opp": "224",
+       "me": "466",
+       "opp": "296",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "BLK",
-       "me": "19",
-       "opp": "19",
-       "now": "T",
-       "outlook": "win"
-      },
-      {
-       "cat": "3PM",
        "me": "27",
-       "opp": "18",
-       "now": "W",
-       "outlook": "win"
-      },
-      {
-       "cat": "STL",
-       "me": "24",
        "opp": "20",
        "now": "W",
        "outlook": "win"
       },
       {
+       "cat": "3PM",
+       "me": "46",
+       "opp": "24",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
+       "cat": "STL",
+       "me": "32",
+       "opp": "28",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
        "cat": "AST",
-       "me": "86",
-       "opp": "47",
+       "me": "120",
+       "opp": "59",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "FG%",
-       "me": ".459",
-       "opp": ".480",
+       "me": ".465",
+       "opp": ".521",
        "now": "L",
-       "outlook": "close"
+       "outlook": "lose"
       }
      ],
-     "now": "6-1-1",
-     "proj": "7-0",
-     "close": 1,
+     "now": "7-1-0",
+     "proj": "7-1",
+     "close": 0,
      "games_left": [
       11,
       10
      ],
      "chase": [
-      "FG% is close. Keep in the lineup: Walker Kessler (1 games, .750 on 8.8 FGA/g) and Jarrett Allen (1 games, .615 on 7.8 FGA/g)."
+      "No category is within reach either way; nothing to chase."
      ],
-     "adds": [
-      "For FG%: Mitchell Robinson (C, BOS), 1 games left, .824 on 3.4 FGA/g"
-     ]
+     "adds": []
     },
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   },
   "Ball is Life": {
@@ -2627,13 +2615,15 @@
      "name": "Giannis Antetokounmpo",
      "team": "MIA",
      "pos": "PF/C",
-     "opp": "vs IND",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2641,9 +2631,9 @@
      "name": "LaMelo Ball",
      "team": "MIN",
      "pos": "PG/G",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2655,13 +2645,15 @@
      "name": "Austin Reaves",
      "team": "LAL",
      "pos": "PG/SG",
-     "opp": "@GS",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2669,13 +2661,15 @@
      "name": "Darius Garland",
      "team": "LAC",
      "pos": "PG/G",
-     "opp": "@MIN",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2683,9 +2677,9 @@
      "name": "Jaden McDaniels",
      "team": "MIN",
      "pos": "SF/PF",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2697,9 +2691,9 @@
      "name": "VJ Edgecombe",
      "team": "PHI",
      "pos": "SG/G",
-     "opp": "vs NY",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": "@CHA",
+     "kickoff": "2026-10-31T22:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2711,13 +2705,15 @@
      "name": "John Collins",
      "team": "DET",
      "pos": "PF/C",
-     "opp": "@BKN",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2725,13 +2721,15 @@
      "name": "Quentin Grimes",
      "team": "LAL",
      "pos": "SG/SF",
-     "opp": "@GS",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2739,13 +2737,15 @@
      "name": "Day'Ron Sharpe",
      "team": "BKN",
      "pos": "C/PF/C",
-     "opp": "vs DET",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     }
    ],
@@ -2755,15 +2755,13 @@
      "name": "Dyson Daniels",
      "team": "ATL",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@NO",
+     "kickoff": "2026-10-31T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ],
+     "flags": [],
      "news": null
     },
     {
@@ -2771,13 +2769,15 @@
      "name": "Draymond Green",
      "team": "GS",
      "pos": "PF/C",
-     "opp": "vs LAL",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2785,25 +2785,9 @@
      "name": "Peyton Watson",
      "team": "CLE",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@MIL",
+     "kickoff": "2026-11-01T00:00:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Trevon Brazile",
-     "team": "DEN",
-     "pos": "SF/PF",
-     "opp": "@PHX",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2812,9 +2796,9 @@
     },
     {
      "slot": "BN",
-     "name": "Ajay Mitchell",
-     "team": "OKC",
-     "pos": "PG/SG",
+     "name": "Trevon Brazile",
+     "team": "DEN",
+     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2825,21 +2809,41 @@
       "NO GAME"
      ],
      "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Ajay Mitchell",
+     "team": "OKC",
+     "pos": "PG/SG",
+     "opp": "@HOU",
+     "kickoff": "2026-11-01T00:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
     }
    ],
    "advice": {
     "matchup": "vs Flagg Train",
     "danger": false,
-    "fixes": [],
+    "fixes": [
+     "Giannis Antetokounmpo (PF) no game today \u2192 start Peyton Watson",
+     "Austin Reaves (UT) no game today \u2192 start Dyson Daniels",
+     "Darius Garland (G) no game today \u2192 start Ajay Mitchell"
+    ],
     "moves": [],
     "adds": [
-     "Nikola Vucevic (C, ORL): 2 games left this week, 41.9% owned",
-     "Anfernee Simons (PG/SG, PHI): 2 games left this week, 12.4% owned",
+     "Nikola Vucevic (C, ORL): 1 games left this week, 41.9% owned",
+     "Obi Toppin (PF, IND): 1 games left this week, 15.4% owned",
      "Scotty Pippen Jr. (PG/SG, MEM): 1 games left this week, 13.5% owned"
     ],
     "trades": null,
     "notes": [
-     "Move Robert Williams III out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 30 6:11p: Williams (knee) is questionable for Saturday's game against the Jazz.]"
+     "3 of 9 starters play tonight",
+     "Move Robert Williams III out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 30 6:11p: Williams (knee) is questionable for Saturday's game against the Jazz.]",
+     "(roster as of the laptop read Fri 4:35p; check it's still current)"
     ],
     "cats": {
      "rows": [
@@ -2913,11 +2917,11 @@
      ],
      "adds": [
       "For REB: Nikola Vucevic (C, ORL), 1 games left, 7.7/g",
-      "For PTS: Malik Monk (PG/SG, SAC), 1 games left, 14.8/g"
+      "For PTS: Obi Toppin (PF, IND), 1 games left, 15.2/g"
      ]
     },
     "assets": null,
-    "built": "Fri 9:07p"
+    "built": "Sat 7:12a"
    }
   }
  }
