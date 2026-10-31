@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports HQ · Command center</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" href="../../icons/icon-180.png">
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="stylesheet" href="../../lib/core.css">
+<style>
+/* B · Command center: a mail-app layout. Left rail = leagues, middle = one ranked action inbox or a league,
+   right = scoreboard at a glance. On a phone the rail becomes a chip bar. */
+.shell { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1680px; margin: 0 auto; }
+.rail { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 10px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 49px; z-index: 10; background: var(--bg); }
+.rail::-webkit-scrollbar { display: none; }
+.rail button, .rail a { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 7px 12px; font-size: 13.5px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.rail [aria-current="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rail [aria-current="true"] .dot { box-shadow: none; }
+.rail .n { font-size: 11px; font-weight: 750; background: var(--bad-soft); color: var(--bad); padding: 0 6px; border-radius: 99px; }
+.rail [aria-current="true"] .n { background: rgba(255,255,255,.25); color: #fff; }
+.rail .dot { margin-right: 0; }
+.rail hr { display: none; }
+.center { padding: 14px 16px 80px; min-width: 0; }
+.side { padding: 0 16px 80px; min-width: 0; }
+@media (min-width: 800px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); }
+  .rail { flex-direction: column; overflow: visible; border-bottom: 0; border-right: 1px solid var(--line); height: calc(100vh - 49px); position: sticky; top: 49px; padding: 14px 12px; overflow-y: auto; }
+  .rail button, .rail a { border: 0; background: transparent; border-radius: 10px; padding: 9px 10px; justify-content: flex-start; }
+  .rail button:hover, .rail a:hover { background: var(--card); }
+  .rail .n { margin-left: auto; }
+  .rail hr { display: block; width: 100%; border: 0; border-top: 1px solid var(--line); margin: 8px 0; }
+  .rail .grp { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; padding: 6px 10px 2px; }
+  .side { grid-column: 2; }
+}
+@media (min-width: 1240px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr) 330px; }
+  .side { grid-column: 3; padding: 14px 16px 80px 0; position: sticky; top: 49px; height: calc(100vh - 49px); overflow-y: auto; }
+}
+.rail .grp { display: none; }
+@media (min-width: 800px) { .rail .grp { display: block; } }
+.h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.h h2 { font-size: 21px; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.filters button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 11px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.filters button[aria-pressed="true"] { color: var(--text); border-color: var(--accent); background: var(--accent-soft); }
+.feed { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+.item { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 4px 10px; padding: 11px 14px; border-top: 1px solid var(--line); cursor: pointer; }
+.item:first-child { border-top: 0; }
+.item:hover { background: var(--card2); }
+.item .kind { justify-self: start; align-self: start; margin-top: 2px; }
+.item .lg { font-size: 12px; font-weight: 700; color: var(--muted); display: flex; align-items: center; }
+.item .tx { font-size: 14px; overflow-wrap: anywhere; }
+.item .col { min-width: 0; }
+.empty { padding: 18px 14px; color: var(--good); font-weight: 600; }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; }
+.box h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); padding: 11px 14px 6px; display: flex; justify-content: space-between; }
+.mini { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; padding: 9px 14px; border-top: 1px solid var(--line); cursor: pointer; align-items: center; }
+.mini:hover { background: var(--card2); }
+.mini .nm { font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; }
+.mini .sc { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+.mini .meter { grid-column: 1 / -1; margin-top: 2px; height: 4px; }
+.locks { padding: 4px 14px 12px; margin: 0; list-style: none; font-size: 13.5px; }
+.locks li { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+.box .foot { padding: 4px 14px 12px; }
+</style>
+</head>
+<body data-layout="B · Command center">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab B</span></div>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div></header>
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Views"></nav>
+  <main class="center" id="center"><p class="note">Loading…</p></main>
+  <aside class="side" id="side"></aside>
+</div>
+<button class="fbfab" data-fb="idea" data-spot="whole page">💬 Feedback</button>
+<script src="../../lib/core.js"></script>
+<script>
+"use strict";
+const { esc } = SHQ;
+let view = decodeURIComponent((location.hash.match(/^#v=(.+)$/) || [])[1] || "") || "inbox";
+let filter = "all";
+const short = L => L.score.kind === "guillotine" ? `${SHQ.pct(L.score.survive)} safe` : L.score.kind === "cats" ? L.score.now
+  : L.score.opp != null ? `${L.score.me.toFixed(1)}–${L.score.opp.toFixed(1)}` : (L.score.me ?? 0).toFixed(1);
+const share = L => L.score.kind === "guillotine" ? L.score.survive : L.score.kind === "cats"
+  ? (([w, l]) => w / Math.max(1, w + l))(String(L.score.now).split("-").map(Number))
+  : L.score.opp != null ? L.score.me / Math.max(1, L.score.me + L.score.opp) : null;
+
+const until = t => { const h = (new Date(t) - Date.now()) / 3600000; return h < 1 ? `in ${Math.max(1, Math.round(h * 60))}m` : h < 48 ? `in ${Math.round(h)}h` : `in ${Math.round(h / 24)}d`; };
+
+function rail(Ls, feed) {
+  const cur = v => `aria-current="${view === v}"`;
+  const urgent = n => feed.filter(i => i.league === n && (i.kind === "fix" || i.kind === "move" || i.kind === "risk")).length;
+  const total = feed.filter(i => i.kind !== "add" && i.kind !== "trade").length;
+  return `<button data-v="inbox" ${cur("inbox")}>📥 Inbox${total ? `<span class="n">${total}</span>` : ""}</button>
+    <hr><div class="grp">Leagues</div>
+    ${Ls.map(L => `<button data-v="${esc(L.name)}" ${cur(L.name)}>${SHQ.dot(L.state)}${esc(L.name)}${urgent(L.name) ? `<span class="n">${urgent(L.name)}</span>` : ""}</button>`).join("")}
+    <hr><div class="grp">More</div>
+    <button data-v="today" ${cur("today")}>Today</button><button data-v="weekly" ${cur("weekly")}>Weekly</button>
+    <a href="../../picks/">Picks ↗</a><a href="../../war-room/">War Room ↗</a>`;
+}
+
+function inbox(feed) {
+  const counts = {};
+  feed.forEach(i => counts[i.kind] = (counts[i.kind] || 0) + 1);
+  const kinds = ["all", ...Object.keys(SHQ.KINDS).filter(k => counts[k])];
+  if (!kinds.includes(filter)) filter = "all";
+  const shown = filter === "all" ? feed : feed.filter(i => i.kind === filter);
+  const urgent = feed.filter(i => i.kind === "fix" || i.kind === "risk").length;
+  return `<div class="h" data-spot="Inbox"><div><h2>Inbox</h2><div class="meta">${urgent ? `<b class="bad">${urgent} to fix now</b> · ` : "Nothing urgent · "}${feed.length} ideas across ${SHQ.leagues().length} leagues and the pools, most urgent first</div></div>${SHQ.fbButtons("Inbox")}</div>
+    <div class="filters">${kinds.map(k => `<button data-f="${k}" aria-pressed="${filter === k}">${k === "all" ? "All" : SHQ.KINDS[k]} ${k === "all" ? feed.length : counts[k]}</button>`).join("")}</div>
+    <div class="feed">${shown.length ? shown.map(i => `<div class="item" data-v="${i.href ? "" : esc(i.league)}" ${i.href ? `data-href="${esc(i.href)}"` : ""}>
+        <span class="kind ${i.kind}">${SHQ.KINDS[i.kind]}</span>
+        <div class="col"><div class="lg">${i.league === "Picks" ? "" : SHQ.dot(i.state)}${esc(i.league)}</div><div class="tx">${esc(i.text)}</div></div></div>`).join("")
+      : `<div class="empty">✓ Nothing to do. Every lineup is set.</div>`}</div>`;
+}
+
+function side(Ls, d) {
+  const ups = (d.status?.upcoming_kickoffs || []).filter(t => new Date(t) > Date.now()).slice(0, 6);
+  const sp = L => share(L);
+  return `<div class="box" data-spot="Scoreboard box"><h3><span>Scoreboard</span>${SHQ.fbButtons("Scoreboard box")}</h3>
+      ${Ls.map(L => `<div class="mini" data-v="${esc(L.name)}"><span class="nm">${SHQ.dot(L.state)}${esc(L.name)}</span><span class="sc ${L.state === "bad" ? "bad" : ""}">${esc(short(L))}</span>
+        ${sp(L) != null ? `<div class="meter split"><i class="${sp(L) >= 0.5 ? "good" : "bad"}" style="width:${Math.round(sp(L) * 100)}%"></i></div>` : ""}</div>`).join("")}</div>
+    ${ups.length ? `<div class="box"><h3>Upcoming kickoffs</h3><ul class="locks">${ups.map(t => `<li><span>${esc(SHQ.kick(t))}</span><span class="muted">${until(t)}</span></li>`).join("")}</ul></div>` : ""}
+    <div class="box"><h3>Data</h3><div class="foot">${SHQ.footHTML()}</div></div>`;
+}
+
+function render(d) {
+  const Ls = SHQ.leagues(d), feed = SHQ.feed(d);
+  if (!["inbox", "today", "weekly"].includes(view) && !Ls.some(L => L.name === view)) view = "inbox";
+  document.getElementById("rail").innerHTML = rail(Ls, feed);
+  document.getElementById("center").innerHTML = view === "inbox" ? inbox(feed)
+    : view === "today" ? `<div class="h"><h2>Today</h2>${SHQ.fbButtons("Today")}</div>${SHQ.todayHTML(d)}`
+    : view === "weekly" ? `<div class="h"><h2>Weekly plan</h2>${SHQ.fbButtons("Weekly")}</div>${SHQ.weeklyHTML(d)}`
+    : SHQ.detail(view, d);
+  document.getElementById("side").innerHTML = side(Ls, d);
+}
+function go(v) {
+  view = v;
+  history.replaceState(null, "", v === "inbox" ? location.pathname : "#v=" + encodeURIComponent(v));
+  render(SHQ.data);
+  scrollTo({ top: 0 });
+  document.querySelector(`.rail [aria-current="true"]`)?.scrollIntoView({ inline: "center", block: "nearest" });
+}
+document.addEventListener("click", e => {
+  const f = e.target.closest("[data-f]");
+  if (f) { filter = f.dataset.f; render(SHQ.data); return; }
+  const h = e.target.closest("[data-href]");
+  if (h) { location.href = h.dataset.href; return; }
+  const v = e.target.closest("[data-v]");
+  if (v && v.dataset.v) go(v.dataset.v);
+});
+SHQ.start(render);
+</script>
+</body>
+</html>

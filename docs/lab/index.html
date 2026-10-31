@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports HQ · Layouts lab</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../lib/core.css">
+<style>
+main { max-width: 1100px; margin: 0 auto; padding: 18px 16px 90px; }
+.intro { color: var(--muted); margin: 0 0 18px; max-width: 70ch; }
+.intro b { color: var(--text); }
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+.lab { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+.lab .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.lab h2 { font-size: 18px; }
+.lab .letter { font-size: 12px; font-weight: 800; color: var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 3px 8px; margin-right: 8px; }
+.lab p { margin: 0; font-size: 14px; color: var(--muted); }
+.lab ul { margin: 0; padding-left: 18px; font-size: 13.5px; }
+.lab .go { margin-top: auto; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.lab .go a { background: var(--accent); color: #fff; text-decoration: none; font-weight: 700; border-radius: 10px; padding: 9px 14px; }
+.lab .fb button { font-size: 18px; opacity: .8; filter: none; padding: 6px 8px; }
+.pic { height: 92px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--line); padding: 8px; display: grid; gap: 5px; }
+.pic i { display: block; border-radius: 4px; background: var(--chip-bg); }
+.pic i.a { background: var(--accent-soft); } .pic i.r { background: var(--bad-soft); } .pic i.g { background: var(--good-soft); }
+.how { margin-top: 26px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+.how h2 { font-size: 16px; margin-bottom: 6px; }
+.how ol { margin: 6px 0 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
+.how ol b { color: var(--text); }
+</style>
+</head>
+<body data-layout="Lab page">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1>Layouts lab</h1></div>
+  <div class="links"><a class="pill" href="../">Current site</a><button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button></div>
+</div></header>
+<main>
+  <p class="intro">Four ways to lay out Sports HQ, all running on <b>today's real data</b>. Try each on your phone and on a laptop, then tap 👍 or 👎 (or 💬 Feedback for details). The current site stays at the main link until you pick one.</p>
+  <div class="cards">
+    <article class="lab" data-spot="Layout A card">
+      <div class="top"><h2><span class="letter">A</span>Scoreboard</h2></div>
+      <div class="pic" style="grid-template-columns:repeat(5,1fr);grid-template-rows:14px 1fr 1fr"><i class="r"></i><i></i><i></i><i class="g"></i><i></i><i class="a" style="grid-row:2"></i><i class="r"></i><i></i><i class="g"></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i></div>
+      <p>A tile per league: projected score, a bar, fix/move/add counts and the single most important move. Tap a tile and the full league slides in.</p>
+      <ul><li>Best for: seeing all 8 leagues at once on a laptop</li><li>Phone: tiles stack, KPIs on top</li></ul>
+      <div class="go"><a href="a/">Open A</a><span class="fbslot"></span></div>
+    </article>
+    <article class="lab" data-spot="Layout B card">
+      <div class="top"><h2><span class="letter">B</span>Command center</h2></div>
+      <div class="pic" style="grid-template-columns:1fr 3fr 1.4fr"><i></i><i class="a" style="display:grid"></i><i></i></div>
+      <p>One ranked inbox of everything to do across all leagues and the pools (fixes first, then picks, moves, adds, trades), with filters. Leagues in a side rail, scoreboard on the right.</p>
+      <ul><li>Best for: "what do I need to do right now?"</li><li>Phone: rail becomes a chip bar</li></ul>
+      <div class="go"><a href="b/">Open B</a><span class="fbslot"></span></div>
+    </article>
+    <article class="lab" data-spot="Layout C card">
+      <div class="top"><h2><span class="letter">C</span>Deck</h2></div>
+      <div class="pic" style="grid-template-columns:repeat(4,1fr)"><i class="a"></i><i></i><i class="r"></i><i></i></div>
+      <p>Each league is a full-height card. On the phone you swipe between them; on a laptop they sit side by side as columns that scroll on their own. Sections fold open and shut.</p>
+      <ul><li>Best for: flicking through leagues one by one</li><li>Laptop: 3–4 leagues visible side by side</li></ul>
+      <div class="go"><a href="c/">Open C</a><span class="fbslot"></span></div>
+    </article>
+    <article class="lab" data-spot="Layout D card">
+      <div class="top"><h2><span class="letter">D</span>Game day</h2></div>
+      <div class="pic" style="grid-template-columns:2.4fr 1fr;grid-template-rows:22px 1fr 1fr"><i class="r"></i><i class="g" style="grid-row:span 3"></i><i></i><i></i></div>
+      <p>Everything on a clock: "Do first" on top, then every one of your starters across all leagues grouped by kickoff, each tagged with the leagues he starts in. Scoreboard alongside.</p>
+      <ul><li>Best for: Sundays and NBA nights</li><li>Shows who you're riding on in each window</li></ul>
+      <div class="go"><a href="d/">Open D</a><span class="fbslot"></span></div>
+    </article>
+  </div>
+  <section class="how">
+    <h2>How feedback works</h2>
+    <ol>
+      <li>Tap 👍 / 👎 on any tile or section, or 💬 Feedback, and add a note if you like.</li>
+      <li><b>Send via GitHub</b> opens a pre-filled GitHub issue. Tap <b>Create</b> (you're already signed in to GitHub).</li>
+      <li>Within a minute it's logged in <a href="https://github.com/mbryan20/sports-hq/blob/main/FEEDBACK.md">FEEDBACK.md</a>, the issue closes itself, and the next Claude session and the monthly review act on it.</li>
+    </ol>
+  </section>
+</main>
+<button class="fbfab" data-fb="idea" data-spot="Lab page">💬 Feedback</button>
+<script src="../lib/core.js"></script>
+<script>
+// fill the 👍/👎 pairs, one per layout card
+document.querySelectorAll(".lab").forEach(c => { c.querySelector(".fbslot").outerHTML = SHQ.fbButtons(c.dataset.spot.replace(" card", "")); });
+</script>
+</body>
+</html>
