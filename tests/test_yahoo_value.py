@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "picks"))
 try:
     import numpy  # noqa: F401
     HAVE_NP = True
-except ImportError:  # CI installs no numpy; both modules need it (pool_profile via cards), so these run on the laptop
+except ImportError:  # test.yml installs numpy; requirements.txt (the 10-minute run) does not. Both modules need it (pool_profile via cards)
     HAVE_NP = False
 if HAVE_NP:
     from pp import pool_profile, yahoo_value as V   # noqa: E402

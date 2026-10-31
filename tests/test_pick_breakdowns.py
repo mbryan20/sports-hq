@@ -11,7 +11,7 @@ from pp import lines as L  # noqa: E402
 try:
     import numpy  # noqa: F401
     HAVE_NP = True
-except ImportError:  # CI installs no numpy; the page-render tests run on the laptop
+except ImportError:  # test.yml installs numpy; requirements.txt (the 10-minute run) does not
     HAVE_NP = False
 
 N = 138

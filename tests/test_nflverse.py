@@ -16,7 +16,7 @@ from pp import explain as E  # noqa: E402
 try:
     import numpy  # noqa: F401
     HAVE_NP = True
-except ImportError:  # CI installs no numpy
+except ImportError:  # test.yml installs numpy; requirements.txt (the 10-minute run) does not
     HAVE_NP = False
 
 PBP_COLS = ["game_id", "season_type", "week", "home_team", "away_team", "posteam", "defteam", "epa", "success",
