@@ -4,7 +4,9 @@ Every pool game (Yahoo, BTO, CFP) gets one: kickoff and TV, pool line vs market 
 market, an opponent-adjusted stats matchup with national ranks, strengths and weaknesses (a weakness only
 counts when the opponent can exploit it: pool-method rule 4), injuries and news with dates and sources,
 weather, and each pool's context. Presentation only: nothing here feeds the picks or the sizing.
-CFBD: the game-level advanced stats the model already caches, plus one cached season-stats call (havoc).
+CFBD: the game-level advanced stats the model already caches, plus cached season stats (havoc), SP+ and talent.
+NFL: opponent-adjusted EPA/success splits and style stats from nflverse play-by-play (pp.nflverse).
+Each panel also returns a compact `stats` dict that pp.cards writes to data/cards.json `game_stats`.
 """
 import html, re
 from datetime import datetime
@@ -22,6 +24,7 @@ from .weather import venues, total_adjustment
 CT = ZoneInfo("America/Chicago")
 RESEARCH_LOG = "https://github.com/mbryan20/sports-hq/tree/main/picks/research"  # where run notes live
 NFL_INJ = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries"
+NFLVERSE = "https://github.com/nflverse/nflverse-data"
 
 # (key, table label, value from a CFBD game-level offense record, higher is better for the offense).
 # epa and sr come from the model's own ratings (M.ratings), so the table matches what the sims used.
@@ -30,11 +33,13 @@ FACETS = [("epa", "EPA/play", None, True), ("sr", "Success rate", None, True),
           ("pass", "EPA/pass", lambda o: o["passingPlays"]["ppa"], True),
           ("expl", "Explosiveness", lambda o: o["explosiveness"], True),
           ("pdsr", "Passing-down SR", lambda o: o["passingDowns"]["successRate"], True),
+          ("sdsr", "Standard-down SR", lambda o: o["standardDowns"]["successRate"], True),
+          ("line", "Line yards/rush", lambda o: o["lineYards"], True),
           ("stuff", "Run stuff rate", lambda o: o["stuffRate"], False)]
 OFF_NAME = {"epa": "offense", "sr": "down-to-down offense", "rush": "run game", "pass": "pass game",
-            "expl": "big-play offense", "pdsr": "passing-down offense", "stuff": "run blocking", "havoc": "protection (havoc allowed)"}
+            "expl": "big-play offense", "pdsr": "passing-down offense", "sdsr": "standard-down offense", "line": "offensive line (line yards)", "stuff": "run blocking", "havoc": "protection (havoc allowed)"}
 DEF_NAME = {"epa": "defense", "sr": "down-to-down defense", "rush": "run defense", "pass": "pass defense",
-            "expl": "big-play defense", "pdsr": "passing-down defense", "stuff": "run stuffs", "havoc": "havoc (TFLs, sacks, PBUs)"}
+            "expl": "big-play defense", "pdsr": "passing-down defense", "sdsr": "standard-down defense", "line": "front seven (line yards)", "stuff": "run stuffs", "havoc": "havoc (TFLs, sacks, PBUs)"}
 TOP, EXPLOIT = 25, 50  # rank <= TOP is a strength; an opponent unit ranked <= EXPLOIT can exploit a weakness
 
 
@@ -67,6 +72,27 @@ def _havoc(year):
         return {}
     return {r["team"]: (((r.get("offense") or {}).get("havoc") or {}).get("total"),
                         ((r.get("defense") or {}).get("havoc") or {}).get("total")) for r in rows}
+
+
+def _cfbd_extra(year):
+    """Current-season SP+ (Bill Connelly, via CFBD) and the 247 talent composite. Context only: SP+ has no
+    week-by-week history to backtest. {} on any failure."""
+    out = {}
+    try:
+        for r in cfbd("/ratings/sp", max_age_h=20, year=year):
+            if r.get("rating") is not None:
+                out.setdefault(r["team"], {})["sp"] = r["rating"]
+    except Exception as ex:
+        print("CFBD SP+ unavailable:", ex)
+    try:
+        for r in cfbd("/talent", max_age_h=24 * 30, year=year):
+            out.setdefault(r["team"], {})["talent"] = r.get("talent")
+    except Exception as ex:
+        print("CFBD talent unavailable:", ex)
+    return out
+
+
+SP_HFA = 2.5  # home field in SP+ points (assumed; Connelly's own projections use about this)
 
 
 def _rank(vals, higher_better, pool):
@@ -107,6 +133,12 @@ def profiles(year, week):
                     rows.append((r["team"], r["opponent"], M._loc(gmap[r["gameId"]], r["team"]), float(y)))
             vals = _adjust(rows)
         put(key, vals, hb)
+    ex = _cfbd_extra(year)
+    for key in ("sp", "talent"):
+        rk = _rank({t: v.get(key) for t, v in ex.items()}, True, fbs)
+        for t, v in ex.items():
+            if v.get(key) is not None:
+                P.setdefault(t, {})[key] = {"o": v[key], "ro": rk.get(t)}
     hv = {t: v for t, v in _havoc(year).items() if v[0] is not None and v[1] is not None}
     put("havoc", hv, False, d_higher_better=True)  # offense: less havoc allowed is better
     plays, runs = {}, {}
@@ -186,11 +218,11 @@ def _cell(key, side, P, n):
     v, r = s.get(side), s.get("r" + side)
     if v is None:
         return "—"
-    if key in ("sr", "pdsr", "stuff", "havoc", "runrate"):
+    if key in ("sr", "pdsr", "sdsr", "stuff", "havoc", "runrate"):
         txt = f"{v * 100:.0f}%"
     elif key == "pace":
         txt = f"{v:.0f}"
-    elif key == "expl":
+    elif key in ("expl", "line"):
         txt = f"{v:.2f}"
     else:
         txt = f"{v:+.2f}".replace("0.", ".")
@@ -216,22 +248,26 @@ def _usage_ok(facet, opp, n):
     return True, ""
 
 
-def traits(team, opp, T, O, n):
+CFB_TRAITS = ("epa", "rush", "pass", "expl", "pdsr", "stuff", "havoc")
+
+
+def traits(team, opp, T, O, n, facets=CFB_TRAITS, top=TOP, exploit=EXPLOIT, bottom=35):
     """Strengths and weaknesses for `team` vs `opp`. A weakness is 'exploitable' only when the opponent's
-    matching unit ranks in the top EXPLOIT and leans on that kind of play (pool-method rule 4)."""
+    matching unit ranks in the top `exploit` and leans on that kind of play (pool-method rule 4).
+    Defaults are for 138 FBS teams; the NFL panel passes its own 32-team cutoffs."""
     strengths, weak = [], []
     for side, names, other in (("o", OFF_NAME, "d"), ("d", DEF_NAME, "o")):
-        for f in ("epa", "rush", "pass", "expl", "pdsr", "stuff", "havoc"):
+        for f in facets:
             r = (T.get(f) or {}).get("r" + side)
             if r is None:
                 continue
-            if r <= TOP:
+            if r <= top:
                 strengths.append((r, f"{names[f]} {ordn(r)}"))
-            elif r > n - 35:
+            elif r > n - bottom:
                 ro = (O.get(f) or {}).get("r" + other)
                 oname = (DEF_NAME if other == "d" else OFF_NAME)[f]
                 ok, why = _usage_ok(f, O, n) if side == "d" else (True, "")
-                if ro is not None and ro <= EXPLOIT and ok:
+                if ro is not None and ro <= exploit and ok:
                     weak.append((-r, f"{names[f]} {ordn(r)}: <b>exploitable</b>, {esc(opp)}'s {oname} is {ordn(ro)}"))
                 else:
                     reason = why or (f"{esc(opp)}'s {oname} is only {ordn(ro)}" if ro else "opponent unranked")
@@ -383,6 +419,12 @@ def cfb_breakdown(W, g, pools, ev, slate):
                      + (" (a real disagreement: check the news)" if abs(diff) >= 7 else "")
                      + f". ATS cards center on <b>{esc(by(h, a, center))}</b> (market + {MODEL_W:g} × the gap + unpriced news); "
                        "the backtest had the market ahead of the model 75% to 70% straight-up.")
+    sph, spa = (H.get("sp") or {}).get("o"), (A.get("sp") or {}).get("o")
+    if sph is not None and spa is not None:
+        spm = sph - spa + (0 if g.get("neutralSite") else SP_HFA)
+        model.append(f"SP+ (Bill Connelly, current ratings via CFBD): <b>{esc(by(h, a, spm))}</b>"
+                     + (f", {abs(spm + hs):.1f} pts {'more' if spm > -hs else 'less'} on {esc(h)} than the market" if hs is not None else "")
+                     + ". Built from the same kind of play data as our model, so it isn't a separate signal under rule 3; not backtested.")
     for pool, sg, _ in pools:
         if pool == "yahoo" or sg.get("home_spread") is None:
             continue
@@ -398,11 +440,15 @@ def cfb_breakdown(W, g, pools, ev, slate):
     rows.append("<tr class='sh'><td colspan='3'>Style and form</td></tr>")
     rows.append(f"<tr><td>Plays/game</td><td>{_cell('pace', 'o', A, n)}</td><td>{_cell('pace', 'o', H, n)}</td></tr>")
     rows.append(f"<tr><td>Run rate</td><td>{_cell('runrate', 'o', A, n)}</td><td>{_cell('runrate', 'o', H, n)}</td></tr>")
+    sp_cell = lambda T: f"{T['sp']['o']:+.1f} <span>{ordn(T['sp']['ro'])}</span>" if T.get("sp") else "—"
+    tal_cell = lambda T: f"{T['talent']['o']:.0f} <span>{ordn(T['talent']['ro'])}</span>" if T.get("talent") else "—"
+    rows.append(f"<tr><td>SP+ (now)</td><td>{sp_cell(A)}</td><td>{sp_cell(H)}</td></tr>")
+    rows.append(f"<tr><td>Talent (247)</td><td>{tal_cell(A)}</td><td>{tal_cell(H)}</td></tr>")
     form = lambda T: " ".join(f"{r}" for r, *_ in T.get("games", [])[-3:]) or "—"
     rows.append(f"<tr><td>Last 3</td><td>{form(A)}</td><td>{form(H)}</td></tr>")
     table = (f"<table class='mt'><thead><tr><th></th><th>{esc(a)}</th><th>{esc(h)}</th></tr></thead><tbody>"
              + "".join(rows) + "</tbody></table>"
-             f"<p class='mk'>Per game vs an average opponent, opponent-adjusted (havoc, plays and run rate are raw). "
+             f"<p class='mk'>Per game vs an average opponent, opponent-adjusted (havoc, plays, run rate, SP+ and talent are raw). "
              f"#rank of {n} FBS; green top {TOP}, red bottom 35. Games before week {W.week}.</p>")
     ed = edges(a, h, A, H, n)
     tr = []
@@ -421,7 +467,33 @@ def cfb_breakdown(W, g, pools, ev, slate):
     news = research_html(items, notes_for(W.notes, names), researched)
     bottom = _bottom(h, a, stats_m, hs, ed)
     return {"lines": lines, "model": model, "table": table, "edges": ed, "traits": "".join(tr) + form_txt,
-            "news": news, "weather": _venue_line(g, ev, S.get("wx")), "bottom": bottom}
+            "news": news, "weather": _venue_line(g, ev, S.get("wx")), "bottom": bottom,
+            "stats": cfb_stats_dict(P, h, a, W.week, stats_m)}
+
+
+CFB_DICT = [k for k, *_ in FACETS] + ["havoc"]
+
+
+def cfb_stats_dict(P, h, a, week, stats_margin=None):
+    """Compact per-game stats for data/cards.json `game_stats` (same shape as pp.nflverse.stats_dict):
+    {team: {"o_<facet>": [value, rank], "d_<facet>": [...], "sp", "talent", "pace", "runrate"}}; rank 1 = best
+    of P["_n"] FBS teams (for runrate 1 = most run-heavy, pace 1 = most plays)."""
+    rnd = lambda x: None if x is None else round(float(x), 4)
+    out = {"source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD", "through_week": week - 1,
+           "n_teams": P.get("_n"), "teams": {}}
+    if stats_margin is not None:
+        out["stats_home_margin"] = round(float(stats_margin), 1)
+    for t in (a, h):
+        T, d = P.get(t, {}), {}
+        for k in CFB_DICT:
+            f = T.get(k) or {}
+            d["o_" + k] = [rnd(f.get("o")), f.get("ro")]
+            d["d_" + k] = [rnd(f.get("d")), f.get("rd")]
+        for k in ("sp", "talent", "pace", "runrate"):
+            f = T.get(k) or {}
+            d[k] = [rnd(f.get("o")), f.get("ro")]
+        out["teams"][t] = d
+    return out
 
 
 def _researched(W):
@@ -499,8 +571,47 @@ def nfl_injuries(teams):
     return out
 
 
-def nfl_breakdown(sg, ev, flipped, slate, pools, rng):
-    from .nfl import nfl_sim, MODEL_W
+# nflverse play-by-play facets (pp.nflverse.profiles): opponent-adjusted per play; style rows are raw.
+NFL_FACETS = [("epa", "EPA/play"), ("sr", "Success rate"), ("pass", "EPA/dropback"), ("rush", "EPA/rush"), ("expl", "Explosive plays")]
+NFL_STYLE = [("ed_pass", "Early-down pass rate"), ("proe", "Pass rate over expected"), ("cpoe", "CPOE"), ("to_pg", "Giveaways/g")]
+NFL_TOP, NFL_EXPLOIT, NFL_BOTTOM = 8, 12, 8  # of 32: strength top 8, exploitable by a top-12 unit, weakness bottom 8
+
+
+def nfl_epa(year, week):
+    """nflverse profiles for games before NFL `week`, plus a runrate facet (early-down run share, rank 1 =
+    most run-heavy) so traits() can apply rule 4. {} when nflverse is unavailable."""
+    from . import nflverse
+    try:
+        P = {t: dict(v) for t, v in nflverse.profiles(year, week or 99).items()}
+    except Exception as ex:
+        print("nflverse unavailable for breakdowns:", ex)
+        return {}
+    run = {t: 1 - p["ed_pass"]["o"] for t, p in P.items() if (p.get("ed_pass") or {}).get("o") is not None}
+    rk = _rank(run, True, list(run))
+    for t, v in run.items():
+        P[t]["runrate"] = {"o": v, "ro": rk.get(t)}
+    return P
+
+
+def _ncell(key, side, T):
+    s = T.get(key) or {}
+    v, r = s.get(side), s.get("r" + side)
+    if v is None:
+        return "—"
+    if key in ("sr", "expl", "ed_pass"):
+        txt = f"{v * 100:.0f}%"
+    elif key in ("proe", "cpoe"):
+        txt = f"{v:+.1f}"
+    elif key == "to_pg":
+        txt = f"{v:.1f}"
+    else:
+        txt = f"{v:+.2f}".replace("0.", ".")
+    cls = " class='g'" if r and r <= NFL_TOP else (" class='r'" if r and r > 32 - NFL_BOTTOM else "")
+    return f"{txt} <span{cls}>{ordn(r)}</span>"
+
+
+def nfl_breakdown(sg, ev, flipped, slate, pools, rng, year=2026):
+    from .nfl import nfl_sim, stats_margin, MODEL_W
     from .sim import p_cover
     P, hfa = nfl_profiles()
     h, a = sg["home"], sg["away"]
@@ -525,13 +636,23 @@ def nfl_breakdown(sg, ev, flipped, slate, pools, rng):
     elif sg.get("market_home_spread") is not None:
         hs = sg["market_home_spread"]
         lines.append(f"Market (research run): {esc(fav_line(h, a, hs))}; BTO line {esc(fmt_spread(h, sg['home_spread']))}.")
-    stats = (H.get("rating") or 0) - (A.get("rating") or 0) + (0 if sg.get("neutral") else hfa)
-    model = [f"Power ratings (this season's scores, ridge): {esc(h)} {H.get('rating', 0):+.1f} ({ordn(H.get('r_rating'))}), "
-             f"{esc(a)} {A.get('rating', 0):+.1f} ({ordn(A.get('r_rating'))}), home field {hfa:+.1f} → <b>{esc(by(h, a, stats))}</b>."]
+    wk = sg.get("nfl_week")
+    E = nfl_epa(year, wk)
+    EH, EA = E.get(h, {}), E.get(a, {})
+    stats, src = stats_margin(h, a, wk, sg.get("neutral"), year)
+    score_m = (H.get("rating") or 0) - (A.get("rating") or 0) + (0 if sg.get("neutral") else hfa)
+    if src.startswith("nflverse"):
+        model = [f"EPA model (opponent-adjusted EPA/play and success rate, nflverse play-by-play): <b>{esc(by(h, a, stats))}</b>. "
+                 f"Power ratings from scores alone: {esc(by(h, a, score_m))}."]
+    else:
+        model = [f"Power ratings (this season's scores, ridge): {esc(h)} {H.get('rating', 0):+.1f} ({ordn(H.get('r_rating'))}), "
+                 f"{esc(a)} {A.get('rating', 0):+.1f} ({ordn(A.get('r_rating'))}), home field {hfa:+.1f} → <b>{esc(by(h, a, stats))}</b>."]
     if hs is not None:
         diff = stats - (-hs)
-        model.append(f"Market {esc(by(h, a, -hs))}: ratings {abs(diff):.1f} pts {'more' if diff > 0 else 'less'} on {esc(h)}. "
-                     f"The card centers on the market + {MODEL_W:g} × that gap + research ({sg.get('adj_home_pts', 0):+g} pts).")
+        model.append(f"Market {esc(by(h, a, -hs))}: stats {abs(diff):.1f} pts {'more' if diff > 0 else 'less'} on {esc(h)}. "
+                     + (f"The card centers on the market + {MODEL_W:g} × that gap + research ({sg.get('adj_home_pts', 0):+g} pts)." if MODEL_W else
+                        f"The card centers on the market + research ({sg.get('adj_home_pts', 0):+g} pts): in the 2023-26 backtest, "
+                        "leaning toward the stats lost to the closing line every season."))
     if not sg.get("locked"):
         try:
             m, _, _ = nfl_sim(sg, rng)
@@ -539,15 +660,33 @@ def nfl_breakdown(sg, ev, flipped, slate, pools, rng):
             model.append(f"BTO cover at the pool line: {esc(h)} {pct(ph)}, {esc(a)} {pct(1 - ph)} (before line points).")
         except Exception as ex:
             print("NFL cover sim skipped:", ex)
-    rows = [f"<tr><td>Record</td><td>{esc(A.get('rec', '—'))}</td><td>{esc(H.get('rec', '—'))}</td></tr>",
+    rows = []
+    if E:
+        for title, side in (("Offense", "o"), ("Defense (allowed)", "d")):
+            rows.append(f"<tr class='sh'><td colspan='3'>{title}</td></tr>")
+            rows += [f"<tr><td>{label}</td><td>{_ncell(k, side, EA)}</td><td>{_ncell(k, side, EH)}</td></tr>" for k, label in NFL_FACETS]
+        rows.append("<tr class='sh'><td colspan='3'>Style and form</td></tr>")
+        rows += [f"<tr><td>{label}</td><td>{_ncell(k, 'o', EA)}</td><td>{_ncell(k, 'o', EH)}</td></tr>" for k, label in NFL_STYLE]
+    rows += [f"<tr><td>Record</td><td>{esc(A.get('rec', '—'))}</td><td>{esc(H.get('rec', '—'))}</td></tr>",
             f"<tr><td>Power rating</td><td>{A.get('rating', 0):+.1f} {ordn(A.get('r_rating'))}</td><td>{H.get('rating', 0):+.1f} {ordn(H.get('r_rating'))}</td></tr>",
             f"<tr><td>Points/g</td><td>{A.get('pf') or 0:.1f} {ordn(A.get('r_pf'))}</td><td>{H.get('pf') or 0:.1f} {ordn(H.get('r_pf'))}</td></tr>",
             f"<tr><td>Allowed/g</td><td>{A.get('pa') or 0:.1f} {ordn(A.get('r_pa'))}</td><td>{H.get('pa') or 0:.1f} {ordn(H.get('r_pa'))}</td></tr>",
             f"<tr><td>Last 3</td><td>{' '.join(x[0] for x in A.get('games', [])[-3:]) or '—'}</td><td>{' '.join(x[0] for x in H.get('games', [])[-3:]) or '—'}</td></tr>"]
+    note = (f"Per play vs an average opponent, opponent-adjusted, from {link(NFLVERSE, 'nflverse')} play-by-play (CC BY 4.0; dropbacks and runs; explosive = "
+            f"20+ yd pass or 10+ yd run). Style rows are raw season averages; early-down pass rate is in neutral game states "
+            f"(10-90% win chance, outside the last 2 minutes of a half). #rank of 32; green top {NFL_TOP}, red bottom {NFL_BOTTOM}. "
+            f"Games before NFL week {wk}." if E else "#rank of 32. nflverse play-by-play was unavailable, so scores only (ESPN).")
     table = (f"<table class='mt'><thead><tr><th></th><th>{esc(a)}</th><th>{esc(h)}</th></tr></thead><tbody>{''.join(rows)}</tbody></table>"
-             "<p class='mk'>#rank of 32. Free NFL data here is scores only (ESPN), so no EPA splits.</p>")
+             f"<p class='mk'>{note}</p>")
     tr = []
-    for t, o, T, O in ((a, h, A, H), (h, a, H, A)):
+    ed = edges(a, h, EA, EH, 32) if E else []
+    for t, o, T, O, ET, EO in ((a, h, A, H, EA, EH), (h, a, H, A, EH, EA)):
+        last = "; ".join(f"{r} {me}-{them} {at} {esc(op)}" for r, me, them, at, op in T.get("games", [])[-3:])
+        if E:
+            s, w = traits(t, o, ET, EO, 32, facets=("epa", "sr", "pass", "rush", "expl"), top=NFL_TOP, exploit=NFL_EXPLOIT, bottom=NFL_BOTTOM)
+            tr.append(f"<p><b>{esc(t)}</b><br>Strengths: {', '.join(s) or f'none in the top {NFL_TOP}'}<br>"
+                      f"Weaknesses: {'; '.join(w) or f'none in the bottom {NFL_BOTTOM}'}<br><span class='mk'>Last 3: {last or '—'}</span></p>")
+            continue
         s, w = [], []
         for key, name, oppkey, oppname in (("r_pf", "scoring offense", "r_pa", "scoring defense"), ("r_pa", "scoring defense", "r_pf", "scoring offense")):
             r, ro = T.get(key), O.get(oppkey)
@@ -556,7 +695,6 @@ def nfl_breakdown(sg, ev, flipped, slate, pools, rng):
             elif r and r >= 25:
                 w.append(f"{name} {ordn(r)}: " + (f"<b>exploitable</b>, {esc(o)}'s {oppname} is {ordn(ro)}" if ro and ro <= 16
                                                    else f"probably won't matter, {esc(o)}'s {oppname} is {ordn(ro)}"))
-        last = "; ".join(f"{r} {me}-{them} {at} {esc(op)}" for r, me, them, at, op in T.get("games", [])[-3:])
         tr.append(f"<p><b>{esc(t)}</b><br>Strengths: {', '.join(s) or 'none top 8'}<br>Weaknesses: {'; '.join(w) or 'none bottom 8'}"
                   f"<br><span class='mk'>Last 3: {last or '—'}</span></p>")
     checked = (slate.get("read_at_bto_cfp") or slate.get("read_at") or "")[:10]
@@ -570,9 +708,19 @@ def nfl_breakdown(sg, ev, flipped, slate, pools, rng):
     else:
         wx = (f"{esc((ev or {}).get('venue') or 'Outdoors')}: weather comes from the research run; "
               "no Open-Meteo pull for NFL games (see the news items above).")
-    bottom = (f"Market {esc(by(h, a, -hs))}; ratings {esc(by(h, a, stats))}." if hs is not None else f"Ratings {esc(by(h, a, stats))}.")
-    return {"lines": lines, "model": model, "table": table, "edges": [], "traits": "".join(tr), "news": news,
-            "weather": wx, "bottom": bottom}
+    bottom = (f"Market {esc(by(h, a, -hs))}; stats {esc(by(h, a, stats))}." if hs is not None else f"Stats {esc(by(h, a, stats))}.")
+    if ed:
+        bottom += " Biggest mismatch: " + ed[0] + "."
+    st = None
+    if E:
+        from .nflverse import stats_dict
+        try:
+            st = stats_dict(year, wk or 99, h, a)
+            st["stats_home_margin"] = round(float(stats), 1)
+        except Exception as ex:
+            print("NFL stats dict skipped:", ex)
+    return {"lines": lines, "model": model, "table": table, "edges": ed, "traits": "".join(tr), "news": news,
+            "weather": wx, "bottom": bottom, "stats": st}
 
 
 # ---------- pool context ----------
@@ -667,6 +815,6 @@ def build(W, slate, cards):
             continue
         b["pools"] = pool_html(ent["pools"])
         out.append({"id": bid, "kick": kick, "label": label, "market": market or "—", "league": ent["league"],
-                    "pools": [(p, bool(r)) for p, _, r in ent["pools"]], "html": render_one(b)})
+                    "pools": [(p, bool(r)) for p, _, r in ent["pools"]], "html": render_one(b), "stats": b.get("stats")})
     out.sort(key=lambda x: x["kick"] or "9999")
     return out, {k: v for k, v in index.items() if any(o["id"] == v for o in out)}

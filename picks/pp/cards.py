@@ -522,7 +522,9 @@ def add_breakdowns(W, slate, cards, meta):
 
 def write(cards, meta, games):
     (ROOT / "data").mkdir(exist_ok=True)
-    (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards}, indent=1, default=str))
+    # game_stats: {breakdown id (a card row's "bd"): per-game stats dict from pp.explain (nflverse for NFL, CFBD for CFB)}
+    stats = {g["id"]: g["stats"] for g in games if g.get("stats")}
+    (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards, "game_stats": stats}, indent=1, default=str))
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "index.html").write_text(render(cards, meta, games), encoding="utf-8")
 

@@ -1,0 +1,50 @@
+{
+ "base (EPA, SR, points)": {
+  "n": 444,
+  "rmse_model": 16.911,
+  "rmse_market": 14.33,
+  "su_model": 0.7,
+  "w_ls": -0.098,
+  "w_ls_se": 0.083
+ },
+ "expl": {
+  "n": 444,
+  "rmse_model": 16.928,
+  "rmse_market": 14.33,
+  "su_model": 0.696,
+  "w_ls": -0.099,
+  "w_ls_se": 0.082
+ },
+ "line": {
+  "n": 444,
+  "rmse_model": 16.848,
+  "rmse_market": 14.33,
+  "su_model": 0.7,
+  "w_ls": -0.113,
+  "w_ls_se": 0.085
+ },
+ "pdsr+sdsr": {
+  "n": 444,
+  "rmse_model": 16.579,
+  "rmse_market": 14.33,
+  "su_model": 0.714,
+  "w_ls": -0.142,
+  "w_ls_se": 0.092
+ },
+ "rush+pass": {
+  "n": 444,
+  "rmse_model": 16.632,
+  "rmse_market": 14.33,
+  "su_model": 0.712,
+  "w_ls": -0.115,
+  "w_ls_se": 0.089
+ },
+ "expl+line+pdsr+stuff+rush+pass": {
+  "n": 444,
+  "rmse_model": 16.659,
+  "rmse_market": 14.33,
+  "su_model": 0.716,
+  "w_ls": -0.127,
+  "w_ls_se": 0.089
+ }
+}

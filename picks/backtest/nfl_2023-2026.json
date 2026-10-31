@@ -1,0 +1,246 @@
+{
+ "report": {
+  "margin_model": {
+   "a": 2.315549466828861,
+   "k_epa": 38.66015874171056,
+   "k_sr": 17.14110040096292,
+   "fit": "2023-2024 weeks 2-18, walk-forward ratings",
+   "n": 512
+  },
+  "note": "Market = nflverse closing spread_line. 'epa' margin map fit on 2023-2024 weeks 2-18, walk-forward ratings; its 2023-24 rows are in-sample for the map, not the ratings.",
+  "epa": {
+   "2023": {
+    "n": 256,
+    "w_ls": -0.231,
+    "w_ls_se": 0.231,
+    "ats_model_differs_3plus": {
+     "n": 94,
+     "hit": 0.426
+    },
+    "su": {
+     "model": 0.582,
+     "market": 0.691
+    },
+    "rmse": {
+     "model": 13.628,
+     "w0": 12.957,
+     "w0.1": 12.983
+    }
+   },
+   "2024": {
+    "n": 256,
+    "w_ls": -0.049,
+    "w_ls_se": 0.225,
+    "ats_model_differs_3plus": {
+     "n": 93,
+     "hit": 0.538
+    },
+    "su": {
+     "model": 0.668,
+     "market": 0.707
+    },
+    "rmse": {
+     "model": 13.114,
+     "w0": 12.593,
+     "w0.1": 12.602
+    }
+   },
+   "2025": {
+    "n": 256,
+    "w_ls": -0.479,
+    "w_ls_se": 0.227,
+    "ats_model_differs_3plus": {
+     "n": 76,
+     "hit": 0.382
+    },
+    "su": {
+     "model": 0.592,
+     "market": 0.643
+    },
+    "rmse": {
+     "model": 13.347,
+     "w0": 12.47,
+     "w0.1": 12.519
+    }
+   },
+   "2026": {
+    "n": 92,
+    "w_ls": -0.32,
+    "w_ls_se": 0.366,
+    "ats_model_differs_3plus": {
+     "n": 31,
+     "hit": 0.484
+    },
+    "su": {
+     "model": 0.615,
+     "market": 0.626
+    },
+    "rmse": {
+     "model": 12.456,
+     "w0": 11.706,
+     "w0.1": 11.741
+    }
+   },
+   "all": {
+    "n": 860,
+    "w_ls": -0.256,
+    "w_ls_se": 0.124,
+    "ats_model_differs_3plus": {
+     "n": 294,
+     "hit": 0.456
+    },
+    "su": {
+     "model": 0.614,
+     "market": 0.675
+    },
+    "rmse": {
+     "model": 13.27,
+     "w0": 12.575,
+     "w0.1": 12.604
+    }
+   },
+   "out_of_sample": {
+    "n": 348,
+    "w_ls": -0.438,
+    "w_ls_se": 0.193,
+    "ats_model_differs_3plus": {
+     "n": 107,
+     "hit": 0.411
+    },
+    "su": {
+     "model": 0.598,
+     "market": 0.639
+    },
+    "rmse": {
+     "model": 13.117,
+     "w0": 12.273,
+     "w0.1": 12.318
+    }
+   },
+   "walk_forward": {
+    "weeks": 50,
+    "w_chosen_share_zero": 1.0,
+    "w_chosen_max": 0.0,
+    "rmse": 12.437,
+    "rmse_market": 12.437
+   }
+  },
+  "scores": {
+   "2023": {
+    "n": 256,
+    "w_ls": -0.262,
+    "w_ls_se": 0.177,
+    "ats_model_differs_3plus": {
+     "n": 115,
+     "hit": 0.487
+    },
+    "su": {
+     "model": 0.609,
+     "market": 0.691
+    },
+    "rmse": {
+     "model": 14.125,
+     "w0": 12.957,
+     "w0.1": 13.007
+    }
+   },
+   "2024": {
+    "n": 256,
+    "w_ls": 0.118,
+    "w_ls_se": 0.151,
+    "ats_model_differs_3plus": {
+     "n": 147,
+     "hit": 0.524
+    },
+    "su": {
+     "model": 0.648,
+     "market": 0.707
+    },
+    "rmse": {
+     "model": 13.386,
+     "w0": 12.593,
+     "w0.1": 12.578
+    }
+   },
+   "2025": {
+    "n": 256,
+    "w_ls": -0.328,
+    "w_ls_se": 0.197,
+    "ats_model_differs_3plus": {
+     "n": 92,
+     "hit": 0.391
+    },
+    "su": {
+     "model": 0.588,
+     "market": 0.643
+    },
+    "rmse": {
+     "model": 13.454,
+     "w0": 12.47,
+     "w0.1": 12.516
+    }
+   },
+   "2026": {
+    "n": 92,
+    "w_ls": -0.265,
+    "w_ls_se": 0.23,
+    "ats_model_differs_3plus": {
+     "n": 54,
+     "hit": 0.481
+    },
+    "su": {
+     "model": 0.56,
+     "market": 0.626
+    },
+    "rmse": {
+     "model": 13.397,
+     "w0": 11.706,
+     "w0.1": 11.78
+    }
+   },
+   "all": {
+    "n": 860,
+    "w_ls": -0.136,
+    "w_ls_se": 0.092,
+    "ats_model_differs_3plus": {
+     "n": 408,
+     "hit": 0.478
+    },
+    "su": {
+     "model": 0.61,
+     "market": 0.675
+    },
+    "rmse": {
+     "model": 13.632,
+     "w0": 12.575,
+     "w0.1": 12.607
+    }
+   },
+   "out_of_sample": {
+    "n": 348,
+    "w_ls": -0.303,
+    "w_ls_se": 0.151,
+    "ats_model_differs_3plus": {
+     "n": 146,
+     "hit": 0.425
+    },
+    "su": {
+     "model": 0.581,
+     "market": 0.639
+    },
+    "rmse": {
+     "model": 13.439,
+     "w0": 12.273,
+     "w0.1": 12.326
+    }
+   },
+   "walk_forward": {
+    "weeks": 50,
+    "w_chosen_share_zero": 1.0,
+    "w_chosen_max": 0.0,
+    "rmse": 12.437,
+    "rmse_market": 12.437
+   }
+  }
+ }
+}

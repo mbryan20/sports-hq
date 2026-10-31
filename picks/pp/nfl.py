@@ -1,5 +1,6 @@
-"""Stats-only NFL margins for BTO's NFL games: ridge power ratings from this season's results
-(ESPN public scoreboard), Monte Carlo margins with NFL key-number weighting (3, 7, 10, 14)."""
+"""NFL margins for BTO's NFL games: the market line plus research, sampled with NFL key-number weighting
+(3, 7, 10, 14). Stats margin: opponent-adjusted EPA/play and success rate from nflverse play-by-play
+(pp.nflverse); if nflverse is unavailable, ridge power ratings from this season's ESPN scores."""
 from functools import lru_cache
 import numpy as np
 from .http import get_json
@@ -57,14 +58,28 @@ def market_home_spread(home, away, week, year=2026):
     return None
 
 
-MODEL_W = 0.1  # backtest: stats margins add ~nothing beyond the market line; small weight only
+# Backtest (pp.backtest --nfl, 2023-2026 vs the closing line, n=860): the least-squares weight on
+# (stats - market) was negative for both stats models and walk-forward picked 0 every week, so the cards
+# use the market + research only. Stats stay on the breakdown panels as context.
+MODEL_W = 0.0
+
+
+def stats_margin(home, away, week, neutral=False, year=2026):
+    """(home margin, source): nflverse EPA/SR model, else ESPN-scores ridge ratings."""
+    from . import nflverse
+    try:
+        return nflverse.predict(year, week or 99, home, away, neutral, current=year), "nflverse EPA/success"
+    except Exception as ex:
+        print("nflverse unavailable, using score ratings:", ex)
+    R, hfa = ratings(year)
+    return R[_team(home, R)] - R[_team(away, R)] + (0 if neutral else hfa), "ESPN scores"
 
 
 def nfl_sim(sg, rng, n=10_000, sd=13.5):
-    """Fair margin = current market + small stats tilt + research adjustment; samples with key numbers."""
+    """Fair margin = current market + MODEL_W x (stats - market) + research adjustment; samples with key numbers."""
     R, hfa = ratings()
     h, a = _team(sg["home"], R), _team(sg["away"], R)
-    stats = R[h] - R[a] + (0 if sg.get("neutral") else hfa)
+    stats, _ = stats_margin(h, a, sg.get("nfl_week"), sg.get("neutral"))
     mk = market_home_spread(h, a, sg.get("nfl_week"))
     if mk is None:
         mk = sg.get("market_home_spread")  # the laptop run's researched line
