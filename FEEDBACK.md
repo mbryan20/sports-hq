@@ -1,7 +1,7 @@
 # Site feedback
 
-Michael's 👍 / 👎 / ideas from the site's Feedback buttons (every lab layout, and the main site once a layout is
-picked). Each tap opens a pre-filled GitHub issue; `.github/workflows/feedback.yml` adds it below under **Inbox**
+Michael's 👍 / 👎 / ideas from the site's Feedback buttons (on the main page and every layout in
+the ▦ menu). Each tap opens a pre-filled GitHub issue; `.github/workflows/feedback.yml` adds it below under **Inbox**
 as one line (date, mood, layout, spot on the page, screen width and theme, his words, issue link) and closes the issue.
 Feedback typed straight into a new issue titled "Feedback: …" lands here too.
 

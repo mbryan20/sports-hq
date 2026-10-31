@@ -41,28 +41,32 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | ESPN IR-slot check (a non-Out player in IR blocks adds/drops) | live 2026-10-30 (urgent in football) |
 | Fantasy Command Center (older claude.ai dashboard) | folded in 2026-10-30; retired |
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
-| Layouts lab: 4 dashboard layouts on live data (A Scoreboard tiles, B Command center inbox, C swipe Deck, D Game-day timeline) | live 2026-10-31 at `/lab/` (`docs/lab/`, shared `docs/lib/core.js` + `core.css`); the current site stays at `/` until Michael picks one (see "Site layout") |
+| Dashboard main page = layout A (Scoreboard tiles) + ▦ layout menu to switch to B Command center, C Deck, D Game day | live 2026-10-31 (Michael picked A). `docs/index.html` is A; B/C/D in `docs/lab/<letter>/`; shared `docs/lib/core.js` + `core.css`; old list view (`app.js`, `style.css`) removed |
 | Feedback buttons (👍/👎 per tile, 💬 Feedback) → FEEDBACK.md | live 2026-10-31: a pre-filled GitHub issue, logged by `.github/workflows/feedback.yml` (`shq/feedback.py`), works without claude.ai |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 
 ## Next up, in order
-1. Promote the layout Michael picks from `/lab/` to `/` (steps in "Site layout").
-2. Value 3-Ball draft picks in trade ideas (FantasyCalc values picks too).
-3. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
-4. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
+1. Value 3-Ball draft picks in trade ideas (FantasyCalc values picks too).
+2. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
+3. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
 
 ## Site layout (`docs/lib/`, `docs/lab/`)
 - **Shared core:** `docs/lib/core.js` loads the data (`SHQ.load`, the only place that fetches `docs/data/*.json`, so the
   planned passphrase lock only has to decrypt there), builds per-league summaries (`SHQ.leagues`), one ranked action list
   across leagues and pools (`SHQ.feed`), the full league page (`SHQ.detail`), the drawer, the theme toggle and the feedback
   sheet. `docs/lib/core.css` holds the look (dark default, light by system setting or the ◐ toggle, saved per device).
-- **Lab:** `docs/lab/index.html` links each variant; each lives in `docs/lab/<letter>/index.html` (its own CSS and a small
-  render function on top of the core). To add a variant: copy one, change `data-layout`, add a card to the lab page.
-- **Promote a layout:** copy its page to `docs/index.html`, change `../../` paths to `./`, keep the manifest/meta tags
-  from the old `docs/index.html`, set `data-layout` to e.g. "Main · B", delete the old `app.js`/`style.css` once nothing
-  links them, and keep the lab (the winner stays there as a variant too). Verify at 375px and 1440px, both themes.
-  Keep header links to `picks/`, `war-room/` and `wrapups/` (weekend wrap-up) and the Lab, reachable at 375px too.
+- **Main page = layout A (Scoreboard)**, `docs/index.html` (picked by Michael 2026-10-31). B Command center, C Deck and
+  D Game day live in `docs/lab/b|c|d/index.html`; `docs/lab/a/` just forwards to `/`. Every page has the ▦ layout menu
+  (`SHQ.LAYOUTS` in core.js: name, path, one-line description; the footer of the menu links War Room, Wrap-up and the lab).
+  The menu only navigates; it does not change which page `/` opens.
+- **Each layout** is its own CSS plus a small render function on top of the core, with `data-view="<letter>"` on `<body>`
+  and `<div data-picker></div>` in the header. Keep header links to `picks/`, `war-room/` and `wrapups/`, and check
+  375px (no sideways scroll) and 1440px in dark and light after any change. A feature added to `SHQ.detail` or `SHQ.feed`
+  shows up in all four layouts at once.
+- **New variant:** copy a lab layout to `docs/lab/<next letter>/`, set `data-layout`/`data-view`, add it to `SHQ.LAYOUTS` and
+  a card on `docs/lab/index.html`. To make a different layout the main page, swap its page into `docs/index.html`
+  (paths `../../` → `./`, keep the manifest and home-screen meta tags) and move A into `docs/lab/a/`.
 - **Picks page and War Room** keep their own pages; restyle them into the shared shell only after the Picks per-game
   breakdown work (`picks/pp/cards.py` `render()`) has landed.
 - **Data contract:** the lab only reads what the cloud job already writes. New fields go through `shq/` and its tests.

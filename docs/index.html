@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sports HQ</title>
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#0b0d12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,24 +13,120 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="lib/core.css">
+<style>
+/* Main page = layout A · Scoreboard (the other layouts live in lab/b, lab/c, lab/d; switch with the header menu).
+   KPI strip, then one tile per league; a tile opens the full league in a side drawer. */
+main { padding: 14px 16px 80px; max-width: 1560px; margin: 0 auto; }
+.kpis { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 14px; }
+@media (max-width: 759px) { .kpi.small { grid-column: span 2; } }
+@media (min-width: 760px) { .kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; box-shadow: var(--shadow); min-width: 0; }
+.kpi .v { font-size: 26px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .k { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.kpi.bad .v { color: var(--bad); } .kpi.warn .v { color: var(--warn); } .kpi.good .v { color: var(--good); }
+.kpi.small .v { font-size: 19px; padding: 4px 0 3px; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.tile {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 10px;
+  display: flex; flex-direction: column; gap: 10px; cursor: pointer; box-shadow: var(--shadow); min-width: 0;
+  transition: transform .12s ease, border-color .12s ease;
+}
+.tile:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tile::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 3px 3px 0; background: transparent; }
+.tile.s-bad::before { background: var(--bad); } .tile.s-warn::before { background: var(--warn); }
+.t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.t-head h3 { font-size: 16px; display: flex; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.t-head .meta { white-space: nowrap; }
+.t-top { margin: 0; font-size: 13.5px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.t-top .kind { margin-right: 6px; vertical-align: 1px; }
+.t-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; border-top: 1px solid var(--line); padding-top: 8px; }
+.t-foot .meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile.extra { background: linear-gradient(160deg, var(--accent-soft), transparent 60%), var(--card); }
+.tile.extra ul.tips { padding: 0 0 0 18px; font-size: 13.5px; }
+.sechead { display: flex; align-items: baseline; justify-content: space-between; margin: 18px 2px 10px; }
+.sechead h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+</style>
 </head>
-<body>
-<header>
-  <div class="bar">
-    <h1>Sports HQ</h1>
-    <div class="links">
-      <a class="pill link" href="picks/">Picks</a>
-      <a class="pill link" href="war-room/">War Room</a>
-      <a class="pill link" href="wrapups/">Wrap-up</a>
-      <button id="refresh" class="pill" aria-label="Reload data">—</button>
-    </div>
-  </div>
-  <nav role="tablist" id="tabs"></nav>
-</header>
-<a href="lab/" style="display:block;width:calc(100% - 32px);max-width:608px;margin:12px auto 0;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--accent);font-weight:600;font-size:14px;text-decoration:none">New: try 4 dashboard layouts and pick one →</a>
-<main id="main"><p class="muted center">Loading…</p></main>
-<footer id="foot"></footer>
-<script src="app.js"></script>
+<body data-layout="A · Scoreboard" data-view="a">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1>Sports HQ</h1><div data-picker></div></div>
+  <div class="links"><a class="pill" href="picks/">Picks</a><a class="pill hide-sm" href="war-room/">War Room</a><a class="pill hide-sm" href="wrapups/">Wrap-up</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div></header>
+<main id="main"><p class="note">Loading…</p></main>
+<footer class="foot" data-foot></footer>
+<button class="fbfab" data-fb="idea" data-spot="whole page">💬 Feedback</button>
+<script src="lib/core.js"></script>
+<script>
+"use strict";
+const { esc } = SHQ;
+function render(d) {
+  const Ls = SHQ.leagues(d), feed = SHQ.feed(d), gaps = SHQ.pickGaps(d);
+  const fixes = feed.filter(i => i.kind === "fix").length, moves = feed.filter(i => i.kind === "move").length;
+  const locks = Ls.map(L => L.nextLock).filter(Boolean).sort();
+  const g = Ls.find(L => L.g)?.g;
+  const kpi = (v, k, cls = "", spot = k) => `<div class="kpi ${cls}" data-spot="KPI ${esc(spot)}"><div class="v">${v}</div><div class="k">${esc(k)}</div></div>`;
+  const kpis = `<section class="kpis">
+    ${kpi(fixes, "Fixes now", fixes ? "bad" : "good")}
+    ${kpi(moves, "Lineup moves", moves ? "warn" : "")}
+    ${kpi(gaps.filter(r => r.big).length, "Pick edges", gaps.some(r => r.big) ? "warn" : "")}
+    ${g ? kpi(SHQ.pct(g.survive), "Guillotine survive", g.cut > 0.2 ? "bad" : "good") : ""}
+    ${kpi(locks[0] ? esc(SHQ.kick(locks[0])) : "—", "Next lock", "small")}
+  </section>`;
+  const tiles = Ls.map(L => `<article class="tile s-${L.state}" tabindex="0" data-league="${esc(L.name)}" data-spot="${esc(L.name)} tile">
+      <div class="t-head"><h3>${SHQ.dot(L.state)}${esc(L.name)}</h3><span class="meta">${esc(L.meta)}</span></div>
+      ${SHQ.scoreHTML(L)}
+      <div class="badges">${SHQ.badges(L)}</div>
+      ${L.top ? `<p class="t-top"><span class="kind ${L.top.kind}">${SHQ.KINDS[L.top.kind]}</span>${esc(L.top.text)}</p>` : `<p class="t-top muted">${esc(L.headline)}</p>`}
+      <div class="t-foot"><span class="meta">${esc(SHQ.lockText(L) || L.headline)}</span>${SHQ.fbButtons(L.name + " tile")}</div>
+    </article>`).join("");
+  const today = SHQ.digestToday(d);
+  const picksTile = `<article class="tile extra" tabindex="0" data-go="picks/" data-spot="Picks tile">
+      <div class="t-head"><h3>Pool Picks</h3><span class="meta">BTO · CFP · Yahoo</span></div>
+      ${gaps.length ? `<ul class="tips">${gaps.slice(0, 3).map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="t-top muted">No stale-line edges open right now.</p>`}
+      <div class="t-foot"><span class="meta">Open the cards →</span>${SHQ.fbButtons("Picks tile")}</div></article>`;
+  const extras = `<article class="tile extra" tabindex="0" data-open="today" data-spot="Today tile">
+      <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.generated)) : ""}</span></div>
+      <p class="t-top">${today ? esc(today.title) : "Today's 8am check hasn't posted yet."}</p>
+      <div class="t-foot"><span class="meta">Daily check →</span>${SHQ.fbButtons("Today tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-open="weekly" data-spot="Weekly tile">
+      <div class="t-head"><h3>Weekly plan</h3><span class="meta">${d.weekly ? "Week " + d.weekly.week : ""}</span></div>
+      <p class="t-top">Start/sit and top adds for every league, built Tuesdays.</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Weekly tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-go="war-room/" data-spot="War Room tile">
+      <div class="t-head"><h3>War Room</h3><span class="meta">Guillotine model</span></div>
+      <p class="t-top">${g ? `Survive ${SHQ.pct(g.survive)} · waivers ${esc(g.waivers)} CT · $${g.faab} FAAB` : "Bid and elimination model."}</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("War Room tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-go="wrapups/" data-spot="Wrap-up tile">
+      <div class="t-head"><h3>Weekend wrap-up</h3><span class="meta">PDF + page</span></div>
+      <p class="t-top">How the week went across every league and pool.</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Wrap-up tile")}</div></article>`;
+  document.getElementById("main").innerHTML = kpis
+    + `<div class="sechead"><h2>Leagues</h2><span class="meta">tap a tile for the full page</span></div><section class="grid">${tiles}</section>`
+    + `<div class="sechead"><h2>Pools and plans</h2></div><section class="grid">${picksTile}${extras}</section>`;
+  if (SHQ.drawer.isOpen()) reopen(); else openFromHash();
+}
+let current = null;
+function openLeague(key) {
+  current = key;
+  const html = key === "today" ? `<h2>Today</h2>${SHQ.todayHTML()}` : key === "weekly" ? `<h2>Weekly plan</h2>${SHQ.weeklyHTML()}` : SHQ.detail(key);
+  SHQ.drawer.open(html, "lg=" + encodeURIComponent(key));
+}
+const reopen = () => current && openLeague(current);
+function openFromHash() {
+  const m = location.hash.match(/^#lg=(.+)$/);
+  if (m) openLeague(decodeURIComponent(m[1]));
+}
+document.getElementById("main").addEventListener("click", e => {
+  const t = e.target.closest(".tile");
+  if (!t) return;
+  if (t.dataset.go) location.href = t.dataset.go;
+  else openLeague(t.dataset.league || t.dataset.open);
+});
+document.getElementById("main").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.classList.contains("tile")) e.target.click(); });
+SHQ.start(render);
+</script>
 </body>
 </html>

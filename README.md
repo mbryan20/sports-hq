@@ -5,7 +5,13 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 
 ## What's on the site
 
-| Tab | What | Source |
+The main page is a dashboard (layout A, Scoreboard): totals across the top (fixes, moves, pick edges, guillotine
+odds, next lock), then a tile per league with its projected score, what needs fixing and the top move; tap a tile for the
+full league page. The ▦ menu at the top switches to the other layouts: B Command center (one ranked to-do list across
+all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game day (starters by kickoff). Code:
+`docs/index.html`, `docs/lab/`, shared `docs/lib/core.js` + `core.css`.
+
+| Tile / page | What | Source |
 |---|---|---|
 | Today | daily 8am CT check: starters on bye/out/doubtful with the fix, today's locks, guillotine rank, Friday picks deadlines | cloud, daily |
 | Kosmonauts | Yahoo, 0.5 PPR, no flex | roster + top free agents read twice daily by the laptop (Yahoo API approval pending) |
@@ -19,9 +25,9 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 | War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
-| Layouts lab (`/lab/`) | 4 dashboard layouts on the same data, to pick the next main view; 👍/👎 and 💬 Feedback on every page | same data files |
+| Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
-Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
+Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
 guillotine survival odds and FAAB bid ranges (`shq/guillotine.py`), fixes for starters who can't play, start/sit
 moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc

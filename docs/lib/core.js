@@ -316,6 +316,52 @@
     applyTheme(t); S.set("theme", t);
   });
 
+  // ---------- layout menu: every layout has [data-picker] in its header; A (Scoreboard) is the main page ----------
+  const LAYOUTS = S.LAYOUTS = [
+    { id: "a", name: "Scoreboard", path: "", desc: "A tile per league: projected score, what needs fixing and the top move. Tap a tile for the full league." },
+    { id: "b", name: "Command center", path: "lab/b/", desc: "One to-do list across every league and pool, most urgent first, with filters. Leagues in a side rail." },
+    { id: "c", name: "Deck", path: "lab/c/", desc: "One full card per league. Swipe between them on a phone; side-by-side columns on a laptop." },
+    { id: "d", name: "Game day", path: "lab/d/", desc: "What to do first, then your starters across all leagues by kickoff time, with a scoreboard alongside." },
+  ];
+  const view = () => document.body.dataset.view || "";
+  function pickerFill() {
+    const cur = LAYOUTS.find(l => l.id === view());
+    document.querySelectorAll("[data-picker]").forEach(el => {
+      el.innerHTML = `<button class="pill picker-btn" aria-haspopup="menu" aria-expanded="false" title="Switch layout"><span class="pk-ico" aria-hidden="true">▦</span>${esc(cur ? cur.name : "Layouts")}<span class="pk-car" aria-hidden="true">▾</span></button>`;
+    });
+  }
+  function menuOpen(btn) {
+    let m = document.getElementById("laymenu");
+    if (!m) {
+      m = document.createElement("div");
+      m.id = "laymenu";
+      m.setAttribute("role", "menu");
+      m.innerHTML = `<div class="lm-h">Layout</div>` + LAYOUTS.map(l => `<a role="menuitemradio" aria-checked="${l.id === view()}" href="${esc(S.url(l.path))}">
+          <span class="lm-letter">${l.id.toUpperCase()}</span><span class="lm-tx"><b>${esc(l.name)}</b>${l.id === "a" ? `<span class="lm-def">main page</span>` : ""}<span class="lm-d">${esc(l.desc)}</span></span>
+          <span class="lm-tick" aria-hidden="true">${l.id === view() ? "✓" : ""}</span></a>`).join("")
+        + `<div class="lm-f"><a href="${esc(S.url("war-room/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
+      document.body.appendChild(m);
+    }
+    const r = btn.getBoundingClientRect(), w = Math.min(360, innerWidth - 24);
+    m.style.width = w + "px";
+    m.style.top = Math.round(r.bottom + 6) + "px";
+    m.style.left = Math.round(Math.max(12, Math.min(r.left, innerWidth - w - 12))) + "px";
+    m.classList.add("on");
+    btn.setAttribute("aria-expanded", "true");
+  }
+  function menuClose() {
+    document.getElementById("laymenu")?.classList.remove("on");
+    document.querySelectorAll(".picker-btn").forEach(b => b.setAttribute("aria-expanded", "false"));
+  }
+  pickerFill();
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".picker-btn");
+    if (b) { document.getElementById("laymenu")?.classList.contains("on") ? menuClose() : menuOpen(b); return; }
+    if (!e.target.closest("#laymenu")) menuClose();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") menuClose(); });
+  addEventListener("resize", menuClose);
+
   // ---------- feedback: a prefilled GitHub issue; .github/workflows/feedback.yml logs it to FEEDBACK.md ----------
   const LAYOUT = () => document.body.dataset.layout || "current site";
   S.fbButtons = spot => `<span class="fb" data-spot="${esc(spot)}"><button data-fb="like" aria-label="Like this">👍</button><button data-fb="dislike" aria-label="Dislike this">👎</button></span>`;

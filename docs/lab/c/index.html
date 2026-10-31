@@ -43,10 +43,10 @@ body { display: flex; flex-direction: column; overflow: hidden; }
 .fbfab { bottom: calc(18px + env(safe-area-inset-bottom)); }
 </style>
 </head>
-<body data-layout="C · Deck">
+<body data-layout="C · Deck" data-view="c">
 <header class="topbar"><div class="row1">
-  <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab C</span></div>
-  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a><a class="pill" href="../">Lab</a>
+  <div class="brand"><h1>Sports HQ</h1><div data-picker></div></div>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div><nav class="pager" id="pager" aria-label="Cards"></nav></header>
 <div class="deckwrap"><button class="arrow l" data-step="-1" aria-label="Previous">‹</button><div class="deck" id="deck"></div><button class="arrow r" data-step="1" aria-label="Next">›</button></div>
