@@ -98,8 +98,34 @@ class Waivers(unittest.TestCase):
         found = self.run_adds([p("Hot WR", "WR", 11, 800)], dynasty=True)
         self.assertEqual(found[0]["drop"]["name"], "Scrub WR")
         self.assertGreater(found[0]["gain"], 0)          # 11/gm beats WR3's 9 in the flex
-        redraft = self.run_adds([p("Hot WR", "WR", 11, 800)])
-        self.assertEqual(redraft[0]["drop"]["name"], "Stash")   # 1/gm and no dynasty: fair game
+
+    def test_cross_position_add_drops_the_surplus_position_and_says_what_it_does(self):
+        # the Guillotine case: a better QB with no backup QB, 6 RBs and 5 WRs on the roster
+        wk = lambda *pts: [(w, x) for w, x in zip((9, 10, 11, 12), pts)]
+        starters = [p("Love", "QB", 18.9, 3000, slot="QB"), p("R1", "RB", 15, 3000, slot="RB"),
+                    p("R2", "RB", 12, 2000, slot="RB"), p("W1", "WR", 14, 3000, slot="WR"),
+                    p("W2", "WR", 13, 3000, slot="WR"), p("T1", "TE", 7, 800, slot="TE"),
+                    p("W3", "WR", 9, 900, slot="FLEX")]
+        starters[0]["wk"] = wk(19, None, 19, 19)          # Love's bye in week 10
+        bench = [p("Tate", "WR", 7.6, 900), p("Marks", "RB", 0, 300), p("R3", "RB", 7.7, 500),
+                 p("R4", "RB", 7.7, 500), p("W4", "WR", 6, 400)]
+        daniels = p("Daniels", "QB", 20.2, 1600)
+        for x in starters[1:] + bench:
+            x["wk"] = wk(*[x["ppg"]] * 4)
+        daniels["wk"] = wk(20.2, 20.2, 20.2, 20.2)
+        found = waivers.adds(starters, bench, [daniels], SLOTS)
+        self.assertEqual(found[0]["drop"]["name"], "Marks")          # surplus RB, not a WR
+        text = waivers.line(found[0])
+        self.assertIn("for Marks (RB, your RB5", text)
+        self.assertIn("starts at QB over Love", text)
+        self.assertIn("pts over the next 4 weeks", text)
+
+    def test_cross_position_needs_a_real_lineup_gain_and_keeps_a_backup(self):
+        # a QB barely better than mine, and a drop that would leave no backup RB: no add
+        bench = [p("Only backup RB", "RB", 6, 300)]
+        self.assertEqual(waivers.adds(self.starters, bench, [p("Meh QB", "QB", 20.4, 900)], SLOTS), [])
+        self.assertEqual(waivers.floor(trades.skill_slots(SLOTS)), {"QB": 1, "RB": 3, "WR": 3, "TE": 1})
+        self.assertEqual(waivers.floor(["QB", "RB", "WR", "SUPER_FLEX"])["QB"], 2)
 
     def test_bye_week_does_not_make_a_player_droppable(self):
         self.assertGreater(waivers.score(self.bench[3], rostered=True), waivers.score(self.bench[3]))
@@ -166,6 +192,11 @@ class Values(unittest.TestCase):
         self.assertEqual(values.fc_settings(["QB", "QB", "RB"], 10, {"rec": 0.5}), (2, 10, 0.5))
         self.assertEqual(values.fc_settings(["QB", "RB"], 18, {}), (1, 18, 0))
         self.assertEqual(values.espn_scoring([{"statId": 53, "points": 1.0}, {"statId": 999, "points": 3}]), {"rec": 1.0})
+        # Stempak-style per-position scoring: points 0, overrides by position id (1 QB, 2 RB, 3 WR)
+        items = [{"statId": 4, "points": 0, "pointsOverrides": {"1": 6, "2": 4, "3": 4}},
+                 {"statId": 53, "points": 0, "pointsOverrides": {"1": 1, "2": 1, "3": 1}},
+                 {"statId": 24, "points": 0.1}]
+        self.assertEqual(values.espn_scoring(items), {"pass_td": 6, "rec": 1, "rush_yd": 0.1})
 
     def test_annotate_espn_league_maps_ids_through_fantasycalc(self):
         class Ctx:

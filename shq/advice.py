@@ -63,7 +63,7 @@ def adds(league):
         found = waivers.adds(league.starters, league.bench, league.free_agents, league.slots, dynasty=dynasty,
                              open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
                              budget=budget)
-        return [waivers.line(a) for a in found] or ["No free agent beats your bench on rest-of-season value."]
+        return [waivers.line(a) for a in found] or ["No free agent improves your lineup, or beats a backup at his position, right now."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                      key=lambda t: (-t[0], -t[1]))[:3]

@@ -83,9 +83,14 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Offers:** fair within 10% by value (in a two-player side the lesser player counts at 80%), my best
   lineup +0.5/gm or more, theirs +0.5/gm or more. Up to 3, the best straight 1-for-1 always included,
   no player in two offers. After the trade deadline the card says so.
-- **Adds:** score = 70% ROS points per game + 30% this week + FantasyCalc value nudge. Drops come from the
-  bench, never a starter-level player or (dynasty) anyone worth 750+. A non-starter only replaces his
-  own position. K/DEF stream one of each, $0–1. FAAB range scales with the lineup gain.
+- **Adds (position-aware since 2026-10-31):** an add is judged by my best lineup summed over the next 4 weeks,
+  each week on that week's Sleeper projections (byes score 0), plus insurance for the top backups at each
+  position (`waivers.INSURANCE`). A same-position swap needs a better score (70% ROS ppg + 30% this week +
+  FantasyCalc nudge). A cross-position swap needs +2 lineup points over the window and can't leave RB/WR (or QB
+  in superflex) without a backup (`waivers.floor`). Every line says what the move does: "starts at QB over X",
+  "fills in at QB in week 11", or "better backup RB", and which depth spot the drop is ("your RB6"). Never
+  dropped: lineup players, (dynasty) anyone worth 750+, or an add suggested above. K/DEF stream one of
+  each, $0–1. FAAB range scales with the lineup gain.
 - **Private ESPN leagues:** `LAPTOP_SNAPSHOT_JS` now saves every team's roster, scoring, trade deadline and
   FAAB. Old snapshots still work; trade ideas appear after the next laptop sync.
 
@@ -157,6 +162,12 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   league's private data and this repo is public, so it lives only on the laptop.
 - **ESPN injury-report notes are sometimes bare** ("questionable"); `run.better_news` swaps in the player's
   latest ESPN news headline for my players. Citations show the date, not a weekday.
+- **Waiver adds were position-blind until Oct 31:** a QB was weighed against a WR by raw points ("add Jayden
+  Daniels, drop Carnell Tate"). Counting every bench player as insurance then made spare QBs look valuable
+  because QBs score more; only the top backups per position count now.
+- **ESPN per-position scoring:** some leagues (Stempak) set a stat's `points` to 0 and put the value in
+  `pointsOverrides` by position id (1 QB, 2 RB, 3 WR, 4 TE). Reading only `points` made Stempak's passing,
+  receiving and TD stats worth 0. `values.espn_scoring` and the laptop snapshot JS now use the override.
 - **Claude in Chrome cuts `javascript_tool` results at ~1,000 characters.** Yahoo reads go one position per
   call. The ESPN snapshot (~109 KB) is gzipped + base64'd in the page, read back with `get_page_text` in
   15,000-character pieces, and joined with hash checks by `py -m shq.save_espn --parts` (since 2026-10-30).

@@ -103,10 +103,34 @@ def ros_ppg(ros, sid, team, scoring):
     return round(total / games, 1) if games else 0.0
 
 
+# Some leagues (Stempak) score a stat per position: "points" is 0 and pointsOverrides holds
+# {position id: points} (1 QB, 2 RB, 3 WR, 4 TE). Use the position the stat mostly belongs to.
+HOME_POS = {"pass": "1", "rush": "2", "rec": "3", "fum": "2"}
+
+
+def _points(it, key):
+    ov = it.get("pointsOverrides") or {}
+    pos = HOME_POS[key.split("_")[0]]
+    if pos in ov:
+        return ov[pos]
+    return next(iter(ov.values())) if ov and not it.get("points") else it.get("points", 0)
+
+
+def ros_weeks(ros, sid, team, scoring):
+    """[(week, projected points or None on a bye)] over the ROS window, in week order."""
+    from .leagues import score
+    out = []
+    for w in sorted(ros["weeks"], key=int):
+        wk = ros["weeks"][w]
+        out.append((int(w), None if not sid or not team or team not in wk["teams"] else score(wk["stats"].get(sid), scoring)))
+    return out
+
+
 def espn_scoring(items):
     """Sleeper-keyed points for the main offensive stats in ESPN's settings.scoringSettings.scoringItems
     (LAPTOP_SNAPSHOT_JS does the same in the browser)."""
-    return {ESPN_STATS[it["statId"]]: it.get("points", 0) for it in items or [] if it.get("statId") in ESPN_STATS}
+    return {ESPN_STATS[it["statId"]]: _points(it, ESPN_STATS[it["statId"]])
+            for it in items or [] if it.get("statId") in ESPN_STATS}
 
 
 def fc_settings(slots, teams, scoring):
@@ -147,6 +171,7 @@ def annotate(league):
         p["sid"] = sid
         p["val"] = v.get("value" if dynasty else "redraft", 0)
         p["ppg"] = ros_ppg(ros, sid, team, scoring)
+        p["wk"] = ros_weeks(ros, sid, team, scoring)
     league.fc_settings = {"dynasty": dynasty, "qbs": qbs, "teams": teams, "ppr": ppr}
     league._valued = True
     return True

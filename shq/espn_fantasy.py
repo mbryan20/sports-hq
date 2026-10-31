@@ -162,6 +162,10 @@ def pro_schedule(sport, season):
 # league per entry (same shape as compact()). SPECS = [sport, game, season, leagueId, teamId].
 LAPTOP_SNAPSHOT_JS = r"""(async () => {
 const SPECS = __SPECS__, STATS = __STATS__;
+// per-position scoring (values.HOME_POS): "points" is 0 and pointsOverrides holds {position id: points}
+const HP = {pass: '1', rush: '2', rec: '3', fum: '2'};
+const pts = (i, k) => { const ov = i.pointsOverrides || {}, p = HP[k.split('_')[0]];
+  return p in ov ? ov[p] : (Object.keys(ov).length && !i.points ? Object.values(ov)[0] : i.points); };
 const out = [], now = new Date().toISOString();
 const tn = t => t ? (t.name || ((t.location||'') + ' ' + (t.nickname||'')).trim()) : null;
 // NBA category matchup, same shape as espn_fantasy.cat_matchup()
@@ -206,7 +210,7 @@ for (const [sport, game, season, lid, tid] of SPECS) {
     matchup_scoring_periods: ((s.scheduleSettings || {}).matchupPeriods || {})[mp] || [],
     scoring_type: s.scoringSettings.scoringType,
     slot_counts: Object.fromEntries(Object.entries(s.rosterSettings.lineupSlotCounts).filter(([k, v]) => v)),
-    size: s.size, scoring: Object.fromEntries((s.scoringSettings.scoringItems || []).filter(i => STATS[i.statId]).map(i => [STATS[i.statId], i.points])),
+    size: s.size, scoring: Object.fromEntries((s.scoringSettings.scoringItems || []).filter(i => STATS[i.statId]).map(i => [STATS[i.statId], pts(i, STATS[i.statId])])),
     trade_deadline: dl ? new Date(dl).toISOString().replace('.000Z', 'Z') : null,
     faab: acq.isUsingAcquisitionBudget ? {budget: acq.acquisitionBudget, spent: (t.transactionCounter || {}).acquisitionBudgetSpent || 0} : null,
     team: {id: tid, name: tn(t)}, opponent: tn(raw.teams.find(x => x.id === oid)),
