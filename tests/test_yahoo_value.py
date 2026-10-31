@@ -7,13 +7,20 @@ from pathlib import Path
 os.environ["DRY_RUN"] = "1"
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "picks"))
 
-from pp import pool_profile, yahoo_value as V   # noqa: E402
+try:
+    import numpy  # noqa: F401
+    HAVE_NP = True
+except ImportError:  # CI installs no numpy; both modules need it (pool_profile via cards), so these run on the laptop
+    HAVE_NP = False
+if HAVE_NP:
+    from pp import pool_profile, yahoo_value as V   # noqa: E402
 
 PROFILE = {"weeks": [1, 2], "dog_rate_by_spread": [[0, 3, 0.4], [3, 7, 0.2], [7, 14, 0.05], [14, 99, 0.005]],
            "spreads": [1.5, 3.5, 6.5, 10.5, 17.5, 24.5], "me": {"points": 120, "lean": 0.8},
            "others": [{"points": 126, "lean": 0.6}, {"points": 124, "lean": 0.9}, {"points": 110, "lean": 1.5}]}
 
 
+@unittest.skipUnless(HAVE_NP, "needs numpy")
 class GroupValue(unittest.TestCase):
     def test_close_game_everyone_else_on_the_favorite_is_worth_flipping(self):
         games = [{"p_fav": 0.53, "spread": 1.5, "pub_dog": 0.05, "my_dog": False},
