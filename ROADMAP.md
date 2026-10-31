@@ -81,11 +81,18 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   endings.
 
 ## Hand-off practice
-- **One intake chat.** Michael drops ideas, tips and requests into the main Sports HQ chat. That chat routes each one:
-  - to the feature session that owns it, by message;
-  - into IDEAS.md or ROADMAP.md;
-  - or into a proposed new session.
-  Away from the laptop, he can add to IDEAS.md from his phone.
+- **One intake chat.** Michael drops ideas, tips and requests, one or many at a time, into the Sports HQ intake chat.
+  In the same turn, the intake chat routes each item and ends with a short "where each went" list:
+  - **Quick** (a fix or answer a few tool calls settle): done right there.
+  - **Belongs to a feature session that exists:** sent to that session by message.
+  - **A new feature:** shown as a session card he starts with one click. If he says "start it", it starts right away.
+  - **Later / someday:** appended to IDEAS.md (the monthly review ranks it).
+  - **Needs his call:** one question at the end, never one per item.
+  The intake chat reads IDEAS.md for anything he added from his phone (github.com, this repo, IDEAS.md, pencil icon).
+- **Starting a fresh intake chat:** when the current one has been summarized more than once or gets slow, open a new
+  Code chat in C:\Claude\sports-hq and say: "This is the Sports HQ intake chat. Read ROADMAP.md, IDEAS.md and
+  README.md, then route what I send." Sessions started from the old chat still report there; check them with the
+  sessions list.
 - **Parallel sessions:** each works in its own worktree and branch, then merges `main` in and pushes to `main`.
 - Start a **new session per big feature** (e.g. "build trade tools"). Open it in C:\Claude\sports-hq and say:
   "read ROADMAP.md and build item N". The repo, README, this file and IDEAS.md carry everything needed. A
