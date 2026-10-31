@@ -101,8 +101,9 @@ function computeBase() {
 }
 
 // players freed by the latest cut who no surviving team has claimed yet
+// (once the waiver run after the cut has processed they're ordinary free agents, so none are listed)
 function freedPlayers() {
-  if (!CUT || !D.teams[CUT]) return [];
+  if (!CUT || !D.teams[CUT] || D.cut.freed_status === 'cleared') return [];
   const owned = new Set(); for (const t of ALIVE) D.teams[t].roster.forEach(s => owned.add(s));
   return D.teams[CUT].roster.filter(s => D.P[s] && !owned.has(s));
 }
@@ -157,7 +158,7 @@ function exportBids() {
   const player = s => { const p = D.P[s]; return { sleeper_id: s, name: p.n, pos: p.p, team: p.t, injury: p.inj || null, ir: p.st === 'RES', season_avg: r1(p.a), last3_avg: r1(p.r) }; };
   const bids = candidates().filter(r => r.dW !== undefined).sort((a, b) => b.dW - a.dW).map(r => {
     const d = decide(r);
-    return { ...player(r.s), source: r.freed ? 'freed' : 'free agent', gain_next_week: r1(r.g1), gain_rest_of_season: r1(r.gR),
+    return { ...player(r.s), source: r.freed ? (D.cut.freed_status === 'projected' ? 'freed (projected)' : 'freed') : 'free agent', gain_next_week: r1(r.g1), gain_rest_of_season: r1(r.gR),
              extra_weeks_alive: Math.round(r.dW * 100) / 100, extra_win_odds: r3(r.dWin),
              est_price: r.freed ? d.price : 0, your_max: r.freed ? d.mx : 0, call: d.call,
              likely_rival_bids: d.th.slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) };
@@ -165,7 +166,10 @@ function exportBids() {
   const sim = BASE.sim;
   return {
     league: D.league, data_as_of: D.asof, last_sleeper_move: D.data_as_of, week: W0, last_week: LAST,
-    cut: D.cut ? { team: tname(CUT), week: D.cut.week, confirmed: D.cut.confirmed } : null,
+    cut: D.cut ? { team: tname(CUT), week: D.cut.week, confirmed: D.cut.confirmed, freed_status: D.cut.freed_status } : null,
+    // FAAB claims are only possible while the cut team's players sit on waivers; otherwise est_price is 0
+    // everywhere except projected-freed rows, which are planning numbers for after the cut
+    waivers_open: !!D.cut && D.cut.freed_status === 'on waivers', next_waiver_run: D.next_waiver_run,
     waivers: D.waivers, my_team: tname(ME), my_faab: D.teams[ME].faab, reserve: S.reserve,
     settings: { blend_recent: S.blend, score_sd: S.sd, rival_aggression: S.aggr, dollars_per_week: S.dpw, sims: S.sims },
     me: { cut_risk_next_week: r3(sim[ME].pCut[W0]), expected_weeks_left: r1(sim[ME].expWeeks), win_odds: r3(sim[ME].pWin),

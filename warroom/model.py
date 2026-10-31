@@ -122,7 +122,7 @@ def build(now, nfl=None, fetch=get_json, players=None):
         if nfl_has and not final and abs(n_pts - s_pts) > MISMATCH:
             scores[m["roster_id"]] = n_pts
             note = "nflverse points used where Sleeper hadn't finished scoring"
-    cut = None
+    cut, chop = None, None
     confirmed = next((rid for rid, w in elim.items() if w and w == played), None)
     if confirmed:
         chop = next((t for t in txs if t.get("type") == "chopped" and confirmed in (t.get("roster_ids") or [])), None)
@@ -134,6 +134,7 @@ def build(now, nfl=None, fetch=get_json, players=None):
         players = next((r.get("players") or [] for r in rosters if r["roster_id"] == low), [])
         cut = {"roster": low, "week": played, "confirmed": False, "players": players}
     if cut:
+        cut["freed_status"] = freed_status(cut, chop, txs, now)
         cut["scores"] = {str(r): v for r, v in sorted(scores.items(), key=lambda x: x[1])}
         if note:
             cut["note"] = note
@@ -202,7 +203,28 @@ def build(now, nfl=None, fetch=get_json, players=None):
         "bye": {t: v for t, v in nfl.bye.items()}, "me": me, "cut": cut, "week": W0,
         "last_week": played + len(alive) - 1,   # one cut a week until one team is left
         "asof": asof, "data_as_of": iso_ms(last_tx), "waivers": ct_label(next_waivers(now)) + " CT",
+        "next_waiver_run": iso(next_waivers(now)),
     }
+
+
+def freed_status(cut, chop, txs, now):
+    """Where the cut team's players stand: "projected" (the cut isn't confirmed yet), "on waivers" (FAAB claims
+    are open until the next run, Wednesday ~2:15am CT), or "cleared" (that run is done: they're plain free
+    agents, and nothing is on waivers until the next cut)."""
+    if not cut["confirmed"]:
+        return "projected"
+    chopped_at = (chop or {}).get("status_updated") or 0
+    freed = set(cut["players"])
+    for t in txs:
+        if t.get("type") != "waiver" or t.get("status") not in ("complete", "failed"):
+            continue
+        if (chopped_at and (t.get("status_updated") or 0) > chopped_at) or freed & set(t.get("adds") or {}):
+            return "cleared"
+    if chopped_at:
+        run = next_waivers(dt.datetime.fromtimestamp(chopped_at / 1000, dt.timezone.utc))
+        if now > run + dt.timedelta(hours=1):
+            return "cleared"
+    return "on waivers"
 
 
 def iso_ms(ms):

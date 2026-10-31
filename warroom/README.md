@@ -37,6 +37,10 @@ WebFetch summaries that dropped data, and fixes made during a run were lost.
   - Before that, the lowest score is a projected cut, labeled as one on the page and in the JSON.
 - **Freed players** come from Sleeper's `chopped` transaction, or the team's last matchup. The page
   works when the cut roster is already empty.
+- **Freed players stop being bid targets once the waiver run after the cut has processed.** That is any claim
+  processed after the chop, or Wednesday ~2:15am CT plus an hour. After it, they are ordinary free agents ("Add
+  free" or Skip, no price) until the next cut. `bids.json` says so in `cut.freed_status` (projected / on waivers /
+  cleared), `waivers_open` and `next_waiver_run`, so the Tuesday checks can say "no FAAB bids possible yet".
 - **Claims** keep Sleeper's own `leg`: claims processed after week N's cut carry leg N.
 - **Budget check:** each build compares bids won against Sleeper's `waiver_budget_used` and prints any
   mismatch.

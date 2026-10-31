@@ -117,7 +117,8 @@ function renderMarket() {
 function renderHeader(top) {
   const me = D.teams[ME], s = BASE.sim[ME];
   $('asof').textContent = `${D.league} · ${D.asof} · ${ALIVE.length} teams alive`;
-  $('cutname').textContent = CUT ? tname(CUT) + (D.cut.confirmed ? '' : ', projected, not yet confirmed') : 'none yet';
+  $('cutname').textContent = CUT ? tname(CUT) + ({ projected: ', projected, not yet confirmed', 'on waivers': `; on waivers until ${D.waivers}`,
+    cleared: '; they already cleared waivers and are plain free agents now, so nothing is on waivers until the next cut' }[D.cut.freed_status] || '') : 'none yet';
   document.querySelectorAll('.wk').forEach(e => e.textContent = W0); document.querySelectorAll('.pw').forEach(e => e.textContent = D.cut ? D.cut.week : W0 - 1); document.querySelectorAll('.lw').forEach(e => e.textContent = LAST);
   $('kpis').innerHTML = [['FAAB left', '$' + me.faab], ['Wk ' + W0 + ' cut risk', pct(s.pCut[W0])], ['Exp. weeks left', fmt(s.expWeeks, 1)], ['Win odds', pct(s.pWin)]].map(([a, b]) => `<div class="kpi"><b>${b}</b><span>${a}</span></div>`).join('');
   const order = ALIVE.slice().sort((a, b) => BASE.sim[b].pCut[W0] - BASE.sim[a].pCut[W0]).slice(0, 3);
