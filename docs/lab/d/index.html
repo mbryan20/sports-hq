@@ -117,13 +117,13 @@ function render(d) {
     + `<h2><span>My starters by kickoff</span>${SHQ.fbButtons("Timeline")}</h2>`
     + (html || `<p class="note">No games left this week.</p>`)
     + (past.length ? `<details class="past"><summary>Already locked (${past.length} kickoff${past.length > 1 ? "s" : ""})</summary>${past.map(slotHTML).join("")}</details>` : "");
-  if (SHQ.drawer.isOpen() && current) open(current);
+  if (SHQ.drawer.isOpen() && current) openLeague(current);
 }
 let current = null;
-function open(name) { current = name; SHQ.drawer.open(SHQ.detail(name), "lg=" + encodeURIComponent(name)); }
+function openLeague(name) { current = name; SHQ.drawer.open(SHQ.detail(name), "lg=" + encodeURIComponent(name)); }
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-lg]");
-  if (t && !e.target.closest("#drawer")) open(t.dataset.lg);
+  if (t && !e.target.closest("#drawer")) openLeague(t.dataset.lg);
 });
 SHQ.start(render);
 </script>

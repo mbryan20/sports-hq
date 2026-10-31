@@ -99,21 +99,21 @@ function render(d) {
   if (SHQ.drawer.isOpen()) reopen(); else openFromHash();
 }
 let current = null;
-function open(key) {
+function openLeague(key) {
   current = key;
   const html = key === "today" ? `<h2>Today</h2>${SHQ.todayHTML()}` : key === "weekly" ? `<h2>Weekly plan</h2>${SHQ.weeklyHTML()}` : SHQ.detail(key);
   SHQ.drawer.open(html, "lg=" + encodeURIComponent(key));
 }
-const reopen = () => current && open(current);
+const reopen = () => current && openLeague(current);
 function openFromHash() {
   const m = location.hash.match(/^#lg=(.+)$/);
-  if (m) open(decodeURIComponent(m[1]));
+  if (m) openLeague(decodeURIComponent(m[1]));
 }
 document.getElementById("main").addEventListener("click", e => {
   const t = e.target.closest(".tile");
   if (!t) return;
   if (t.dataset.go) location.href = t.dataset.go;
-  else open(t.dataset.league || t.dataset.open);
+  else openLeague(t.dataset.league || t.dataset.open);
 });
 document.getElementById("main").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.classList.contains("tile")) e.target.click(); });
 SHQ.start(render);

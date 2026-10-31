@@ -10,6 +10,7 @@
   const BAD = { OUT: "bad", IR: "bad", PUP: "bad", SUSP: "bad", NA: "bad", INACTIVE: "bad", EMPTY: "bad", "NO TEAM": "bad", D: "d", Q: "q", BYE: "bye", "NO GAME": "off" };
 
   const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO };
+  const openTab = window.open.bind(window);   // kept before any layout script can shadow the global open()
 
   // ---------- helpers ----------
   const esc = S.esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -362,7 +363,7 @@
   function fbSend(text) {
     const f = S.feedbackURL(fb.mood, fb.spot, text);
     try { navigator.clipboard?.writeText(`${f.title}\n\n${f.body}`).catch(() => {}); } catch {}
-    window.open(f.url, "_blank", "noopener");
+    openTab(f.url, "_blank", "noopener");
     fbClose();
   }
   document.addEventListener("click", e => {
