@@ -24,6 +24,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Weekly tab (Tue 7am): start/sit + top FA adds | live |
 | Today tab + 8am digest push | live 2026-10-28 |
 | Picks (BTO, CFP, Yahoo pick'em) | live (laptop, Tue–Sat) |
+| Picks stale-line scanner + fresh market lines | live 2026-10-31 (`picks/pp/lines.py`): run.yml compares open BTO/CFP pool lines with ESPN's current line Wed–Sat every 2h (30 min Sat 6–11am CT), pushes once per game at 1.5+ pts or a key number, gap table on the Picks page; cards center on ESPN's line at build time. Backtest: stale 1.5+ openers covered 61% (CFB n=194, NFL n=64); MODEL_W stays 0.1 (walk-forward picks 0) |
 | War Room copy + pinned header links | live |
 | League tabs as action pages (matchup, fixes, moves, adds, guillotine standing, FAAB) | live 2026-10-28 (`shq/advice.py`) |
 | Waiver adds on rest-of-season value, with who to drop + FAAB bid range (NFL) | live 2026-10-28 (`shq/waivers.py`) |
@@ -124,6 +125,9 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Claude in Chrome cuts `javascript_tool` results at ~1,000 characters.** Yahoo reads go one position per
   call. The ESPN snapshot (~109 KB) is gzipped + base64'd in the page, read back with `get_page_text` in
   15,000-character pieces, and joined with hash checks by `py -m shq.save_espn --parts` (since 2026-10-30).
+- **Pool lines aren't openers.** Week 9's BTO/CFP spreads sat ~0.35 pts from Saturday's line but ~1 pt from the opener, so
+  the pools post after early movement and big stale gaps are rarer than open-vs-close history suggests. ESPN event ids are
+  CFBD game ids, so ESPN odds drop straight into the cards' line table (`lines.overlay`).
 - **Laptop sync timing:** runs at 7:30am so the 8am digest reads that morning's rosters.
 - **Browsers:** the Claude app's built-in browser loses sign-ins when the app restarts; use Chrome.
 - **FantasyCalc:** the redraft list only has ~200 players; the dynasty list (same settings) carries a

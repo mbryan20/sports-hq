@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    paths: ["shq/**", "tests/**", "requirements.txt", ".github/workflows/test.yml"]
+    paths: ["shq/**", "picks/pp/**", "tests/**", "requirements.txt", ".github/workflows/test.yml"]
   workflow_dispatch:
 
 jobs:

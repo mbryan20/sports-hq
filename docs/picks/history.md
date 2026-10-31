@@ -6,6 +6,15 @@ Weekly postmortems. Process is graded separately from outcome (method rule 9).
 - Started mid-season. Survivor: eliminated in Week 7 (NYJ). BTO: $2,820 after Week 7 (Three Bet status). CFP: 11,904 points (#29). Yahoo Kosmos: 120 points, 4th of 14.
 - Backtest of the stats-only college model on 2026 weeks 1–8 is on the main page (Model check).
 
+## Backtest refresh and stale-line scanner — Sat Oct 31, 2026
+Re-ran the walk-forward backtest through week 8, the last graded week (`picks/backtest/2026_w1-8.json`, 444 FBS games).
+
+- **Straight-up:** model 70% vs market 75%. The gap narrows late (weeks 6–8: model 63% vs market 66%; week 5 the model was ahead 77–71) but never closes.
+- **Model weight (MODEL_W):** the ATS cards center on market + w × (stats − market). Margin RMSE at w = 0 / 0.1 / 0.3 / 0.5: weeks 1–4 14.02 / 14.17 / 14.69 / 15.47; weeks 6–8 13.68 / 13.68 / 13.71 / 13.80. Least-squares w for weeks 6–8 is 0.09 ± 0.24, and walk-forward (w picked on prior weeks only) chose 0 every week (total RMSE 14.06 vs 14.10 at 0.1). A larger weight doesn't help late season, so **MODEL_W stays 0.1** (the cost vs 0 is negligible). When the model disagrees with the closing line by 3+ points, weeks 6–8 went 54.5% ATS (n=77, ±5.7), which is not significant.
+- **Stale lines:** there's no pool-line history for weeks 1–8, so the opener stands in for an early-week pool line (CFBD consensus open for CFB; ESPN/DraftKings open for NFL weeks 1–7), graded at that number (push = ½). The side the market moved away from, at a gap of 1.5+ points, covered **61.6% in CFB (n=194, ±3.5)** and **60.9% in NFL (n=64, ±6.1)**. A key number gained with a gap under 1.5 did not cover more (CFB 51.7%, n=58; NFL 37%, n=19). The same sides at the closing number went 52% / 46%, so the edge is the stale number, not following the move.
+- **Caveat:** week 9's pool lines sat ~0.35 pts from Saturday's market but ~1 pt from the opener, so the pools post after early movement and 1.5+ gaps will be rarer than in this test. This morning's scan flagged 5 of 18 open CFP games, led by Auburn +13.5 vs market +11.5.
+- **Shipped:** the scanner (`pp/lines.py`, run.yml Wed–Sat) pushes once per game at 1.5+ points or a key number and shows the gap table on the Picks page. Card builds now pull ESPN's current line, so `fair_margins` and the NFL sim center on the market at build time, not CFBD's line from up to 6h earlier.
+
 ## Week 8 (CFBD 8, Oct 22-26) — graded Tue Oct 27, 2026
 No cards were posted for this week (Pool Picks started Mon Oct 26), so there is no card record and no card-vs-entry differences. Entries were read read-only from all three sites; all were signed in.
 
