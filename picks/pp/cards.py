@@ -17,6 +17,7 @@ from .names import norm
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
+from . import explain
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT.parent / "docs" / "picks"  # served by Sports HQ's GitHub Pages at /picks/
@@ -47,23 +48,24 @@ def short(s, n=12):
 
 
 def load_research(week):
-    adj, notes = {}, []
+    adj, notes, at = {}, [], ""
     for f in sorted(glob.glob(str(ROOT / f"research/{YEAR}-w{week:02d}-*.json"))):
         d = json.loads(Path(f).read_text(encoding="utf-8"))
         for a in d.get("adjustments", []):
             adj.setdefault(norm(a["team"]), []).append(a)
         notes += d.get("notes", [])
-    return adj, notes
+        at = max(at, d.get("researched_at") or "")
+    return adj, notes, at
 
 
 class Week:
     def __init__(self, week):
-        self.week = week
+        self.week, self.year = week, YEAR
         self.games = [g for g in M.games(YEAR) if g["week"] == week]
         self.by_pair = {(norm(g["awayTeam"]), norm(g["homeTeam"])): g for g in self.games}
         # CFBD lines (cached up to 6h, keeps the opener) with ESPN's current line on top
         self.lines = overlay(lines(YEAR, week, max_age_h=6), week, YEAR, self.games)
-        self.research, self.notes = load_research(week)
+        self.research, self.notes, self.researched_at = load_research(week)
         self.rng = np.random.default_rng(2026 * 100 + week)
         self._sims = {}
 
@@ -417,18 +419,58 @@ fetch("../data/pick_lines.json?t=" + Date.now()).then(r => r.json()).then(d => {
 </script>"""
 
 
-def render(cards, meta):
+# Per-game breakdowns (pp.explain): each lives once in a <template>; tapping a row clones it into the hidden
+# row under it, so a game on three cards and in All games doesn't ship its panel four times.
+BD_JS = """<script>
+function bdToggle(tr) {
+  const row = tr.nextElementSibling, td = row.firstElementChild;
+  if (!td.hasChildNodes()) { const t = document.getElementById(tr.dataset.bd); if (t) td.appendChild(t.content.cloneNode(true)); }
+  row.hidden = !row.hidden; tr.classList.toggle("open", !row.hidden); tr.setAttribute("aria-expanded", !row.hidden);
+}
+document.addEventListener("click", e => { const tr = e.target.closest("tr[data-bd]"); if (tr && !e.target.closest("a")) bdToggle(tr); });
+document.addEventListener("keydown", e => { const tr = e.target.closest && e.target.closest("tr[data-bd]");
+  if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); bdToggle(tr); } });
+</script>"""
+
+
+def bd_attrs(bd, cls=""):
+    """Row attributes that make a table row open its breakdown."""
+    if not bd:
+        return f' class="{cls}"' if cls else ""
+    return f' class="{" ".join(filter(None, ("x", cls)))}" data-bd="{html.escape(bd)}" tabindex="0" aria-expanded="false"'
+
+
+def all_games_html(games):
+    if not games:
+        return ""
+    tag = {"yahoo": "Y", "bto": "B", "cfp": "C"}
+    rows = []
+    for g in games:
+        pools = " ".join(f"<b class='g'>{tag[p]}</b>" if picked else tag[p] for p, picked in g["pools"])
+        day, _, tm = explain.kick_ct(g["kick"]).partition(", ")
+        rows.append(f"<tr{bd_attrs(g['id'])}><td>{html.escape(tm)}<br><span class='mk'>{html.escape(day)}</span></td>"
+                    f"<td><span class='tg'>&#9656;</span> {html.escape(g['label'])}</td><td>{html.escape(g['market'])}</td><td>{pools}</td></tr>"
+                    f"<tr class='bdr' hidden><td colspan='4'></td></tr>")
+    return ("<section id='allg'><h2>All pool games</h2><p class='meta'>Tap any game (here or on a card) for what the model saw: lines, "
+            "model vs market, stats matchup with strengths and weaknesses, injuries and news, weather, pool context.</p>"
+            "<table class='ag'><thead><tr><th>Kick (CT)</th><th>Game</th><th>Market</th><th>Pools</th></tr></thead><tbody>"
+            + "".join(rows) + "</tbody></table><p class='meta'>Y Yahoo, B BTO, C CFP; green = on that card.</p></section>")
+
+
+def render(cards, meta, games=()):
     def pct(x):
         return "—" if x is None else f"{x*100:.0f}"
     body = []
     for c in cards:
         rows = []
         for r in c["rows"]:
-            cls = ' class="chg"' if r.get("changed") else ""
+            cls = "chg" if r.get("changed") else ""
             was = f'<br><span class="was">was {html.escape(r["was"])}</span>' if r.get("changed") else ""
-            rows.append(f"<tr{cls}><td>{html.escape(r['game'])}</td><td><b>{html.escape(r['pick'])}</b>{was}</td>"
+            tg = "<span class='tg'>&#9656;</span> " if r.get("bd") else ""
+            rows.append(f"<tr{bd_attrs(r.get('bd'), cls)}><td>{tg}{html.escape(r['game'])}</td><td><b>{html.escape(r['pick'])}</b>{was}</td>"
                         f"<td>{pct(r['model'])}<span class='mk'>/{pct(r['market'])}</span></td><td>{html.escape(r['wager'])}</td>"
-                        f"<td>{html.escape(r['why'])}</td><td><a href=\"{html.escape(r['source'])}\">link</a></td></tr>")
+                        f"<td>{html.escape(r['why'])}</td><td><a href=\"{html.escape(r['source'])}\">link</a></td></tr>"
+                        + ("<tr class='bdr' hidden><td colspan='6'></td></tr>" if r.get("bd") else ""))
         table = ("<table><thead><tr><th>Game</th><th>Pick</th><th>Win %<br><span class='mk'>model/mkt</span></th><th>Wager / score</th><th>Why</th><th>Src</th></tr></thead><tbody>"
                  + "".join(rows) + "</tbody></table>") if rows else ""
         extra = "".join(f"<li>{t}</li>" for t in c.get("tiebreakers", []) + c.get("notes", []))
@@ -437,8 +479,8 @@ def render(cards, meta):
                     + (f"<ul>{extra}</ul>" if extra else "") + "</section>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pool Picks</title><style>
-:root{{--bg:#fff;--fg:#111;--mut:#666;--line:#ddd;--acc:#0b5;--red:#c00;--chg:#fde8e8}}
-@media (prefers-color-scheme:dark){{:root{{--bg:#111;--fg:#eee;--mut:#999;--line:#333;--acc:#3d8;--red:#f66;--chg:#3a1414}}}}
+:root{{--bg:#fff;--fg:#111;--mut:#666;--line:#ddd;--acc:#0b5;--red:#c00;--chg:#fde8e8;--bd:#f4f6f5}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#111;--fg:#eee;--mut:#999;--line:#333;--acc:#3d8;--red:#f66;--chg:#3a1414;--bd:#1b1e1d}}}}
 *{{box-sizing:border-box}}body{{margin:0;padding:12px 8px 40px;background:var(--bg);color:var(--fg);font:13px/1.35 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}}
 h1{{font-size:18px;margin:0 0 2px}}h2{{font-size:15px;margin:18px 0 2px}}.meta,.dl,.mk,.was{{color:var(--mut);font-size:11px}}
 .st{{margin:4px 0;font-weight:600}}table{{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}}
@@ -447,13 +489,53 @@ th{{font-size:10.5px;color:var(--mut)}}th:nth-child(1){{width:23%}}th:nth-child(
 tr.chg td{{background:var(--chg);color:var(--red)}}a{{color:var(--acc)}}ul{{padding-left:16px;margin:6px 0}}li{{margin:2px 0}}
 .stage{{display:inline-block;padding:1px 6px;border-radius:4px;background:var(--acc);color:#fff;font-size:11px;font-weight:700}}
 table.gt th{{width:auto}}table.gt th:nth-child(1){{width:14%}}table.gt th:nth-child(4){{width:16%}}tr.flag td{{font-weight:700;color:var(--acc)}}
+tr.x{{cursor:pointer}}.tg{{display:inline-block;color:var(--acc);transition:transform .15s}}tr.open .tg{{transform:rotate(90deg)}}
+tr.bdr>td{{padding:0 0 8px;background:var(--bd)}}.bd{{padding:4px 6px;font-size:12px;line-height:1.4}}.bd p{{margin:4px 0}}.bd ul{{margin:2px 0}}
+.bd h4{{font-size:11px;margin:10px 0 2px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}}.bl{{font-weight:600}}
+table.mt th,table.ag th{{width:auto}}table.mt th:nth-child(1){{width:36%}}table.mt td{{padding:2px}}tr.sh td{{font-weight:700;color:var(--mut);padding-top:6px}}
+table.ag th:nth-child(1){{width:21%}}table.ag th:nth-child(2){{width:39%}}table.ag th:nth-child(4){{width:15%}}.g{{color:var(--acc)}}.r{{color:var(--red)}}
 </style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
-<p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}</p>
+<p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}{(' · breakdowns ' + html.escape(meta['breakdowns'])) if meta.get('breakdowns') else ''}</p>
 {''.join(body)}
 {GAPS_HTML}
+{all_games_html(games)}
 <section><h2>Model check</h2><ul>{''.join(f'<li>{t}</li>' for t in meta['calibration'])}</ul>
 <p class="meta">Win % = stats-only model / market implied. Method: <a href="method/pool-method.html">pool method</a> · <a href="method/pool-rules.html">pool rules</a> · <a href="history.html">history</a></p></section>
+{''.join(f'<template id="{html.escape(g["id"])}">{g["html"]}</template>' for g in games)}
+{BD_JS if games else ''}
 </body></html>"""
+
+
+def add_breakdowns(W, slate, cards, meta):
+    """Per-game 'what the model saw' panels (pp.explain). Presentation only: never blocks the cards."""
+    try:
+        games, index = explain.build(W, slate, cards)
+    except Exception as ex:
+        print("breakdowns skipped:", repr(ex))
+        return []
+    for c in cards:
+        for r in c["rows"]:
+            r["bd"] = index.get((c["id"], r["key"]))
+    meta["breakdowns"] = datetime.now(CT).strftime("%a %I:%M %p CT")
+    return games
+
+
+def write(cards, meta, games):
+    (ROOT / "data").mkdir(exist_ok=True)
+    (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards}, indent=1, default=str))
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / "index.html").write_text(render(cards, meta, games), encoding="utf-8")
+
+
+def rerender(week=None):
+    """Rebuild the breakdowns and the page around the posted cards (picks, wagers and stage unchanged)."""
+    d = json.loads((ROOT / "data/cards.json").read_text())
+    cards, meta = d["cards"], d["meta"]
+    week = week or meta.get("week") or current_week()
+    W = Week(week)
+    games = add_breakdowns(W, load_slate(week), cards, meta)
+    write(cards, meta, games)
+    print(json.dumps({"rerendered": week, "breakdowns": len(games)}))
 
 
 def main():
@@ -461,7 +543,10 @@ def main():
     ap.add_argument("--stage", default="draft", choices=["draft", "final", "refresh"])
     ap.add_argument("--week", type=int)
     ap.add_argument("--pools", default="yahoo,bto,cfp,survivor")
+    ap.add_argument("--render-only", action="store_true", help="refresh breakdowns around data/cards.json; picks unchanged")
     a = ap.parse_args()
+    if a.render_only:
+        return rerender(a.week)
     week = a.week or current_week()
     slate = load_slate(week)
     W = Week(week)
@@ -481,13 +566,10 @@ def main():
     stage_label = {"draft": "DRAFT", "final": "FINAL", "refresh": "SAT REFRESH"}[a.stage]
     if os.environ.get("BACKUP"):
         stage_label += " - BACKUP (no fresh research)"
-    meta = {"stage": a.stage, "stage_label": stage_label, "week_label": slate["label"],
+    meta = {"stage": a.stage, "stage_label": stage_label, "week_label": slate["label"], "week": week,
             "generated": datetime.now(CT).strftime("%a %b %d, %I:%M %p CT"),
             "generated_iso": datetime.now(timezone.utc).isoformat(), "calibration": calib}
-    (ROOT / "data").mkdir(exist_ok=True)
-    (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards}, indent=1, default=str))
-    DOCS.mkdir(parents=True, exist_ok=True)
-    (DOCS / "index.html").write_text(render(cards, meta), encoding="utf-8")
+    write(cards, meta, add_breakdowns(W, slate, cards, meta))
     changed = [f"{c['title']}: {r['pick']}" for c in cards for r in c["rows"] if r.get("changed")]
     print(json.dumps({"stage": stage_label, "week": week, "changed": changed}))
 

@@ -38,6 +38,13 @@ def _ml_prob(s):
     return 100 / (ml + 100) if ml > 0 else -ml / (-ml + 100)
 
 
+def _num(s):
+    try:
+        return float(str(s).replace("+", ""))
+    except (TypeError, ValueError):
+        return None
+
+
 def _names(team):
     return {norm(team.get(k) or "") for k in ("location", "shortDisplayName", "abbreviation", "displayName", "name")} - {""}
 
@@ -55,6 +62,18 @@ def parse_event(e, league):
            "home_names": _names(t["home"]), "away_names": _names(t["away"]),
            "home_spread": None if sp is None else float(sp), "total": o.get("overUnder"),
            "book": (o.get("provider") or {}).get("name") or "ESPN", "p_home": None}
+    # extras for the per-game breakdowns (pp.explain): TV, venue, DraftKings opener, records, AP rank, score
+    venue = c.get("venue") or {}
+    tv = [n for b in c.get("broadcasts") or [] for n in b.get("names") or []]
+    opn = str((((o.get("pointSpread") or {}).get("home") or {}).get("open") or {}).get("line") or "")
+    rec.update(tv=", ".join(dict.fromkeys(tv)) or c.get("broadcast") or None, venue=venue.get("fullName"),
+               indoor=venue.get("indoor"), open_home_spread=0.0 if opn.upper() in ("PK", "EVEN") else _num(opn))
+    for x in c["competitors"]:
+        k = x["homeAway"]
+        rank = (x.get("curatedRank") or {}).get("current")
+        rec[f"{k}_record"] = next((r.get("summary") for r in x.get("records") or [] if r.get("type") == "total"), None)
+        rec[f"{k}_rank"] = rank if rank and rank <= 25 else None
+        rec[f"{k}_score"] = x.get("score")
     ml = o.get("moneyline") or {}
     ph = _ml_prob(((ml.get("home") or {}).get("close") or {}).get("odds") or (o.get("homeTeamOdds") or {}).get("moneyLine"))
     pa = _ml_prob(((ml.get("away") or {}).get("close") or {}).get("odds") or (o.get("awayTeamOdds") or {}).get("moneyLine"))
