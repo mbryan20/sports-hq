@@ -78,6 +78,15 @@ Grade last week. Last week = the CFBD week whose games just finished, which is `
    - For each difference between the card and the entry: which call was better and why, judged on the information available before kickoff, not just the result.
    - Exactly 3 bullets that separate process from outcome: (1) a good decision that lost or a bad one that won; (2) card vs entries, where Michael's judgment added or cost value and whether that's repeatable; (3) one generalizable lesson, or "no change".
    - No team-specific permanent rules.
+4b. **Refresh the Yahoo group profile** (feeds the card's "value of taking the other side"). Both pages are read-only:
+   - Standings: `https://football.fantasysports.yahoo.com/college/3659` → write `.private/standings.json` as
+     `{"me": "Michael B.", "read": "<date>", "points": {member: total}}` (Rank / Pick Set Name / Total table).
+   - Group picks for the graded week: in that tab, fetch `/college/3659/grouppicks?week=NN` and `...&pg=2` (games 14-25)
+     and parse each `table tr` (rows "Favored", "Spread", "Underdog", then one row per member). Add the week to
+     `.private/grouppicks_2026.json` as `{"g": "FAV,spread,DOG;...", "p": {member: "F"/"D"/"-" per game}}`. Keep results
+     short (Claude in Chrome cuts JS results at ~1,000 chars): put the JSON in a `<pre>` and read it with get_page_text.
+   - Run `py -m pp.pool_profile`. It writes the anonymous `data/pool_profile.json`; publish commits it.
+   - `.private/` is gitignored: member names and their picks are the group's private data and never go in the repo.
 5. Also check whether this week's BTO, CFP and Yahoo slates are posted. If they are, write them into the next slate file so Wednesday's draft is ready.
 6. `py -m pp.publish --stage postmortem --title "Pool Picks postmortem posted" --msg "Week NN graded: <one-line summary>. Tap for history."`
 
