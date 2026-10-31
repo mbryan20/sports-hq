@@ -5,7 +5,7 @@ Inputs: slates/<year>-wNN.json (read from the pool sites), research/<year>-wNN-*
 research with sources), CFBD cache, Open-Meteo. Market lines are shown for comparison and
 used only after the stats model is built (blend for outcome sims, never as a model input).
 """
-import argparse, glob, html, json, os
+import argparse, glob, html, json, os, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -266,6 +266,7 @@ def build_yahoo(W, slate):
                     "model": pm, "market": pk, "wager": tbs, "why": why, "source": rsrc or src_link(g, []),
                     "key": f"{sg['away']}@{sg['home']}", "pick_team": pick})
     n_dogs = len(chosen)
+    watch = upset_watch(rows, picks, chosen, pub_home)
     return {
         "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": "Each game locks at kickoff; first Fri 6:30pm CT",
         "rows": out,
@@ -276,8 +277,57 @@ def build_yahoo(W, slate):
             f"TB2 locks {y['tb2_deadline']}",
         ],
         "notes": [f"Underdogs: {n_dogs}. Pool sim (10k): P(win week) {max(curve)*100:.1f}% vs {curve[0]*100:.1f}% all favorites; {len(eligible)} dogs passed the 4-pt / 2-signal rule.",
-                  f"Group: you {y['standings']['me']} pts, rank {y['standings']['rank']}, leader {y['standings']['leader']}."],
+                  f"Group: you {y['standings']['me']} pts, rank {y['standings']['rank']}, leader {y['standings']['leader']}."]
+                 + watch,
     }
+
+
+def cite(a):
+    """Linked source with its publish date, so every research claim can be checked: 'on3.com, Oct 31'."""
+    m = re.match(r"https?://(?:www\.)?([^/]+)", a.get("source") or "")
+    site = m.group(1) if m else ""
+    day = ""
+    if a.get("published"):
+        d = datetime.fromisoformat(a["published"][:10])
+        day = f", {d.strftime('%b')} {d.day}"
+    return f'<a href="{html.escape(a.get("source") or "")}">{html.escape(site)}{day}</a>' if site else "no source"
+
+
+WATCH_MAX_FAV = 0.55   # our stats give the favorite this or less
+WATCH_GAP = 0.10       # or our stats sit this far below the betting odds on the favorite
+
+
+def upset_watch(rows, picks, chosen, pub_home, limit=4):
+    """'Upset watch': favorites on the card that our numbers only barely back, so Michael can weigh a
+    contrarian pick himself. Betting odds = the win chance implied by sportsbook moneylines, vig removed.
+    Games that have kicked off are left out."""
+    now = datetime.now(timezone.utc)
+    cands = []
+    for i, r in enumerate(rows):
+        if i in chosen or r["pk"] is None:
+            continue
+        start = r["g"].get("startDate")
+        if start and datetime.fromisoformat(start.replace("Z", "+00:00")) <= now:
+            continue
+        home_pick = bool(picks[i])
+        fav_p = r["pm"] if home_pick else 1 - r["pm"]
+        fav_mk = r["pk"] if home_pick else 1 - r["pk"]
+        if fav_p > WATCH_MAX_FAV and fav_mk - fav_p < WATCH_GAP:
+            continue
+        sg = r["sg"]
+        fav, dog = (sg["home"], sg["away"]) if home_pick else (sg["away"], sg["home"])
+        group_dog = (1 - pub_home[i]) if home_pick else pub_home[i]
+        extra = [s for s in r["signals"] if s not in ("stats model", "no market line", "injury news")]
+        bits = [f"our stats give {dog} {(1 - fav_p) * 100:.0f}%", f"betting odds {(1 - fav_mk) * 100:.0f}%",
+                f"{group_dog * 100:.0f}% of the group on {dog}"] + extra
+        news = sorted((a for a in r["S"]["why"] if abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)) >= 0.3),
+                      key=lambda a: -(abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0))))[:2]
+        cands.append((fav_p, html.escape(f"{dog} over {fav} ({sg['kick']}): " + "; ".join(bits))
+                      + "".join(f"; {html.escape(a['team'] + ': ' + a['reason'])} ({cite(a)})" for a in news)))
+    cands.sort(key=lambda t: t[0])
+    if not cands:
+        return []
+    return ["Upset watch (favorites our numbers barely back; your call):"] + [t for _, t in cands[:limit]]
 
 
 def build_cfp(W, slate):
