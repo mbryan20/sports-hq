@@ -11,6 +11,18 @@ KEY_W = {0: 0.1, 1: 1.0, 2: 0.9, 3: 2.2, 4: 1.15, 6: 1.2, 7: 1.7, 8: 1.05, 10: 1
 
 @lru_cache(None)
 def results(year=2026, through_week=18):
+    """[(home, away, home margin, neutral)] for completed games: nflverse's schedule file (one 0.5 MB download
+    per 6h), with ESPN's scoreboards as the backup when nflverse is down or behind."""
+    from . import nflverse
+    try:
+        return [(r["home"], r["away"], r["home_score"] - r["away_score"], r["neutral"])
+                for r in nflverse.results(year, current=year) if r["week"] <= through_week]
+    except Exception as ex:
+        print("nflverse results unavailable, using ESPN:", ex)
+    return espn_results(year, through_week)
+
+
+def espn_results(year=2026, through_week=18):
     out = []
     for w in range(1, through_week + 1):
         d = get_json("espn", SB, max_age_h=12, seasontype=2, week=w, dates=year)

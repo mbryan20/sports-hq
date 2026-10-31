@@ -515,7 +515,13 @@ def _bottom(h, a, stats_m, hs, ed):
 
 @lru_cache(None)
 def nfl_games(year=2026, through_week=18):
-    """Completed NFL games from the same ESPN scoreboards pp.nfl reads (same cache)."""
+    """Completed NFL games [(week, home, away, home pts, away pts)]: nflverse first, ESPN as the backup."""
+    from . import nflverse
+    try:
+        return [(r["week"], r["home"], r["away"], r["home_score"], r["away_score"])
+                for r in nflverse.results(year, current=year) if r["week"] <= through_week]
+    except Exception as ex:
+        print("nflverse results unavailable, using ESPN:", ex)
     from .nfl import SB
     out = []
     for w in range(1, through_week + 1):

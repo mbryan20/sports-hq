@@ -46,8 +46,18 @@ Pass-through and context only:
 | gameonpaper.com | Web page only; robots.txt blocks AI crawlers; use the sportsdataverse files it is built on |
 
 ## Flags for Michael (existing setup, not changed here)
-- **ESPN's terms ban automated access.** ESPN.com's terms point to Disney's, which bar copying "using a robot, spider, script, or other automated means". That covers the JSON endpoints Sports HQ already relies on (scores, odds, injuries, news, league data). Usage is light, personal and cached, but it is against the written terms. nflverse can replace ESPN for NFL scores, schedules, closing lines and injuries; there's no clean free replacement for ESPN's current odds or fantasy league data.
+- **ESPN's terms ban automated access.** ESPN.com's terms point to Disney's, which bar copying "using a robot, spider, script, or other automated means". That covers the JSON endpoints Sports HQ already relies on (scores, odds, injuries, news, league data). Usage is light, personal and cached, but it is against the written terms. Michael's call (Oct 31): switch to another source only where it's a verified true replacement, keep ESPN as the backup, and ping ESPN as little as possible. See "Less ESPN" below.
 - **CFBD raw responses are committed to this public repo** (`picks/cache/cfbd/*.json`, 17 files added with the Oct 31 breakdowns change; the reason isn't written down, and the cloud backup has its own CFBD key). CFBD's terms bar republishing its data "as a standalone dataset or bulk download" or a "public database mirror". The fix is to stop committing raw responses (gitignore them, keep only derived files such as `points_model.json`) and let the backup build fetch within the budget. The two new cache files this change created (SP+ and talent) were not committed.
+
+## Less ESPN (Oct 31, 2026)
+Each ESPN data point was checked against nflverse for 2026 weeks 1-18 (272 games) before deciding.
+
+| Data | Verdict | Now |
+|---|---|---|
+| NFL final scores, home/away, neutral site | **Same**: all 108 finals matched ESPN exactly | Picks ratings, panels and grading read nflverse's `games.csv` (one 0.5 MB download per 6h). ESPN is the backup if nflverse is down, or if a game that kicked off 6+ hours ago has no score there yet. Saves ~18 ESPN scoreboard calls per card build. |
+| NFL kickoff times and live game state | **Not the same**: nflverse still had LV @ SF (week 9) at 4:05 ET after it moved to 4:25 on FOX (ESPN and FOX's game page agree on 4:25). The other 24 differences are unscheduled weeks 16-18 placeholders. nflverse also has no live in-game state. | Stays on ESPN. Lock-time swap alerts depend on it. |
+| NFL injury report | **Not the same**: nflverse updates once a day (7am UTC), and the injury rule needs ESPN's dated note and player-card link | Stays on ESPN |
+| Current and opening odds, player news, fantasy league data, NBA | No free replacement | Stays on ESPN. Player news headlines are now cached an hour per player, so the 10-minute game-day loop asks once an hour instead of six times. |
 
 ## Rate limits and caching in the pipeline
 - nflverse: the current season's play-by-play is re-downloaded at most every 20 hours, past seasons once a year, into `picks/cache/nflverse/` (gitignored). Each season is boiled down once to a ~0.2 MB per-team-game summary beside it.

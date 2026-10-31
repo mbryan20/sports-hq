@@ -77,12 +77,12 @@ class Summary(unittest.TestCase):
 class Schedule(unittest.TestCase):
     def test_spread_sign_and_codes(self):
         cols = ["game_id", "season", "game_type", "week", "home_team", "away_team", "home_score", "away_score",
-                "spread_line", "total_line", "roof", "location", "espn"]
+                "spread_line", "total_line", "roof", "location", "espn", "gameday", "gametime"]
         with tempfile.TemporaryDirectory() as d:
             p = pathlib.Path(d) / "games.csv.gz"
-            write_gz(p, cols, [["2026_01_NE_SEA", "2026", "REG", "1", "SEA", "NE", "13", "10", "3", "44.5", "outdoors", "Home", "1"],
-                               ["2026_02_WAS_LA", "2026", "REG", "2", "LA", "WAS", "", "", "-2.5", "47", "dome", "Neutral", "2"],
-                               ["2026_22_X_Y", "2026", "SB", "22", "KC", "PHI", "", "", "1", "50", "dome", "Neutral", "3"]])
+            write_gz(p, cols, [["2026_01_NE_SEA", "2026", "REG", "1", "SEA", "NE", "13", "10", "3", "44.5", "outdoors", "Home", "1", "2026-09-10", "20:20"],
+                               ["2026_02_WAS_LA", "2026", "REG", "2", "LA", "WAS", "", "", "-2.5", "47", "dome", "Neutral", "2", "2026-09-20", ""],
+                               ["2026_22_X_Y", "2026", "SB", "22", "KC", "PHI", "", "", "1", "50", "dome", "Neutral", "3", "2027-02-07", "18:30"]])
             N.schedule.cache_clear()
             with mock.patch.object(N, "_fetch", return_value=p):
                 S = N.schedule()
@@ -91,6 +91,7 @@ class Schedule(unittest.TestCase):
         g = S["2026_01_NE_SEA"]
         self.assertEqual(g["home_spread"], -3.0)             # SEA favored by 3 -> our convention -3
         self.assertEqual(g["home_score"], 13.0)
+        self.assertEqual(g["kick"].isoformat(), "2026-09-10T20:20:00-04:00")   # games.csv times are Eastern
         g2 = S["2026_02_WAS_LA"]
         self.assertEqual((g2["home"], g2["away"]), ("LAR", "WSH"))
         self.assertIsNone(g2["home_score"])
@@ -166,6 +167,34 @@ class NflTraits(unittest.TestCase):
         self.assertIn("+.15", E._ncell("epa", "o", T))
         self.assertIn("class='r'", E._ncell("epa", "d", T))
         self.assertEqual(E._ncell("sr", "o", T), "—")
+
+
+class Results(unittest.TestCase):
+    def sched(self, kick_ago_h, scored):
+        from datetime import datetime, timedelta, timezone
+        now = datetime(2026, 11, 2, 18, tzinfo=timezone.utc)
+        g = lambda i, h, a, hs, as_, ago: {"season": 2026, "week": 8, "home": h, "away": a, "home_score": hs, "away_score": as_,
+                                           "neutral": False, "kick": now - timedelta(hours=ago)}
+        S = {"1": g("1", "BUF", "BAL", 27.0, 24.0, 30),
+             "2": g("2", "DET", "MIN", 20.0 if scored else None, 17.0 if scored else None, kick_ago_h),
+             "3": g("3", "SEA", "CHI", None, None, -5)}   # not played yet
+        return S, now
+
+    def test_finals_only_in_kick_order(self):
+        S, now = self.sched(10, True)
+        with mock.patch.object(N, "schedule", lambda current=2026: S):
+            r = N.results(2026, now=now)
+        self.assertEqual([x["home"] for x in r], ["BUF", "DET"])
+        self.assertEqual(r[0]["home_score"] - r[0]["away_score"], 3)
+
+    def test_missing_score_after_lag_falls_back(self):
+        S, now = self.sched(10, False)
+        with mock.patch.object(N, "schedule", lambda current=2026: S):
+            with self.assertRaises(LookupError):
+                N.results(2026, now=now)
+        S, now = self.sched(2, False)    # still being played: just skipped
+        with mock.patch.object(N, "schedule", lambda current=2026: S):
+            self.assertEqual(len(N.results(2026, now=now)), 1)
 
 
 class CfbDict(unittest.TestCase):

@@ -11,7 +11,9 @@ final rating. Ratings at week w use only games before week w, so the backtest is
 Team codes are ESPN's (LAR, WSH), matching the BTO slates; nflverse's LA and WAS are mapped on read.
 """
 import csv, gzip, json, os, time
+from datetime import datetime, timedelta, timezone
 from functools import lru_cache
+from zoneinfo import ZoneInfo
 from pathlib import Path
 import requests
 
@@ -19,6 +21,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DIR = ROOT / "cache" / "nflverse"
 REL = "https://github.com/nflverse/nflverse-data/releases/download"
 TO_ESPN = {"LA": "LAR", "WAS": "WSH"}
+ET = ZoneInfo("America/New_York")  # games.csv gameday/gametime are Eastern
+SCORE_LAG_H = 6  # a game that kicked off this long ago should have a final score in games.csv
 SUMMARY_VERSION = 1
 
 
@@ -66,7 +70,7 @@ def schedule(current=2026):
     """{game_id: game} for every regular-season game in games.csv: ESPN team codes, scores (None if not
     played), home_spread in our convention (negative = home favored; nflverse's spread_line is the
     closing line with positive = home favored), total, roof, neutral."""
-    p = _fetch("schedules", "games.csv.gz", 20)
+    p = _fetch("schedules", "games.csv.gz", 6)
     out = {}
     with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
         for g in csv.DictReader(fh):
@@ -79,7 +83,33 @@ def schedule(current=2026):
                 "home_score": _f(g["home_score"]), "away_score": _f(g["away_score"]),
                 "home_spread": -sl if sl is not None else None, "total": _f(g["total_line"]),
                 "roof": g["roof"], "neutral": g["location"] == "Neutral", "espn_id": g["espn"],
+                "kick": _kick(g["gameday"], g["gametime"]),
             }
+    return out
+
+
+def _kick(day, tm):
+    try:
+        return datetime.fromisoformat(f"{day}T{tm or '13:00'}").replace(tzinfo=ET)
+    except ValueError:
+        return None
+
+
+def results(season=2026, now=None, current=2026):
+    """Final regular-season games in kickoff order: [{week, home, away, home_score, away_score, neutral}].
+    Scores were checked against ESPN's scoreboard for all 108 finals of 2026 weeks 1-8 (all equal). Kickoff
+    times are not used for anything live: nflverse lagged a TV-slot move (LV @ SF week 9) that ESPN had.
+    Raises LookupError if a game that kicked off SCORE_LAG_H+ hours ago still has no score, so callers
+    fall back to ESPN instead of missing a result."""
+    now = now or datetime.now(timezone.utc)
+    out = []
+    for g in sorted((g for g in schedule(current).values() if g["season"] == season), key=lambda g: (g["kick"] is None, g["kick"] or now)):
+        if g["home_score"] is None:
+            if g["kick"] and g["kick"] < now - timedelta(hours=SCORE_LAG_H):
+                raise LookupError(f"nflverse has no score yet for {g['away']} @ {g['home']} (kicked off {g['kick']:%a %b %d})")
+            continue
+        out.append({"week": g["week"], "home": g["home"], "away": g["away"], "home_score": int(g["home_score"]),
+                    "away_score": int(g["away_score"]), "neutral": g["neutral"]})
     return out
 
 

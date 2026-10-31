@@ -1,7 +1,8 @@
 """ESPN public site API: kickoff times, game state, injury designations."""
 import re
+import time
 
-from .common import get_json, parse_iso
+from .common import CACHE, get_json, load_json, parse_iso, save_json
 
 SITE = "https://site.api.espn.com/apis/site/v2/sports/football/nfl"
 TEAM_FIX = {"WSH": "WAS", "JAC": "JAX", "LA": "LAR"}
@@ -44,13 +45,28 @@ def injury_report(league="football/nfl"):
     return out
 
 
+NEWS_FILE = CACHE / "espn_player_news.json"
+NEWS_MAX_AGE = 3600  # the run loops every 10 min; a headline used only as a citation can be an hour old
+
+
 def player_news(espn_id, game="ffl"):
-    """Latest ESPN fantasy news item for one player: {note, at} or None."""
-    feed = get_json(f"https://site.api.espn.com/apis/fantasy/v2/games/{game}/news/players",
-                    {"playerId": espn_id, "limit": 1}).get("feed") or []
-    if not feed or not feed[0].get("headline"):
+    """Latest ESPN fantasy news item for one player: {note, at} or None. Cached an hour per player so the
+    10-minute game-day loop doesn't re-ask ESPN for the same headline six times an hour."""
+    cache = load_json(NEWS_FILE, {}) or {}
+    key = f"{game}:{espn_id}"
+    hit = cache.get(key)
+    if hit and time.time() - hit["t"] < NEWS_MAX_AGE:
+        item = hit["item"]
+    else:
+        feed = get_json(f"https://site.api.espn.com/apis/fantasy/v2/games/{game}/news/players",
+                        {"playerId": espn_id, "limit": 1}).get("feed") or []
+        item = {"note": feed[0]["headline"], "published": feed[0].get("published")} if feed and feed[0].get("headline") else None
+        cache = {k: v for k, v in cache.items() if time.time() - v["t"] < NEWS_MAX_AGE}
+        cache[key] = {"t": time.time(), "item": item}
+        save_json(NEWS_FILE, cache)
+    if not item:
         return None
-    return {"note": feed[0]["headline"], "at": parse_iso(feed[0]["published"]) if feed[0].get("published") else None}
+    return {"note": item["note"], "at": parse_iso(item["published"]) if item.get("published") else None}
 
 
 def injuries(league="football/nfl"):
