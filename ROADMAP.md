@@ -31,7 +31,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | NBA trade values and ROS waiver ranking | not covered: no free value API (NBA adds come from `shq/categories.py`) |
 | Guillotine survival odds + FAAB bid guidance on the tab | live 2026-10-28 (`shq/guillotine.py`; push when cut risk > 20%) |
 | NBA category matchup (per-category totals, win/lose/close, what to chase, category FA adds) | live 2026-10-28 (`shq/categories.py`; Ball is Life fills in from the next laptop sync) |
-| 3-Ball dynasty assets (picks, minors) on both 3-Ball tabs | built 2026-10-30 (`shq/dynasty.py`); not on the site yet: the league sheet is private, so publishing even my own picks waits on Michael |
+| 3-Ball dynasty assets (picks, minors) on both 3-Ball tabs | live 2026-10-31 (`shq/dynasty.py`): only my holdings are public (`state/dynasty_assets.json`, from `py -m shq.dynasty --export`); the full league sheet copy stays on the laptop |
 | ESPN IR-slot check (a non-Out player in IR blocks adds/drops) | live 2026-10-30 (urgent in football) |
 | Fantasy Command Center (older claude.ai dashboard) | folded in 2026-10-30; retired |
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
@@ -108,7 +108,8 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   The Weekly tab's start/sit is now rebuilt every run.
 - **3-Ball league sheet** isn't public (gviz CSV returns 401), so the cloud can't read it. The monthly review
   re-reads "Updated Draft Picks" (A1:J41) and "Minor League Spots & Transaction Log" (A1:J7) with the Sheets
-  connector into `state/dynasty_sheet.json` and updates `picks_updated`/`minors_updated`/`read`. A pick cell
+  connector into `state/dynasty_sheet.json`, updates `picks_updated`/`minors_updated`/`read`, then runs
+  `py -m shq.dynasty --export` and commits `state/dynasty_assets.json` (my holdings only). A pick cell
   is "<n> Rd" while its owner holds it, else the holder's name. **The copy is gitignored**: the sheet is the
   league's private data and this repo is public, so it lives only on the laptop.
 - **ESPN injury-report notes are sometimes bare** ("questionable"); `run.better_news` swaps in the player's

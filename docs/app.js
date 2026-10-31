@@ -78,7 +78,7 @@ function actions(lg) {
 function assets(s, list) {
   if (!s) return "";
   return list("Dynasty assets", s.lines) +
-    `<p class="basis"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.source)}</a></p>`;
+    `<p class="basis">${esc(s.source)}</p>`;
 }
 
 function trades(t) {

@@ -1,5 +1,6 @@
 """3-Ball dynasty assets from the league sheet copy, and ESPN's IR-slot rule."""
 import datetime as dt
+import json
 import os
 import unittest
 
@@ -34,11 +35,16 @@ class Assets(unittest.TestCase):
         self.assertEqual(sorted(h[(2027, "MLB")]["mine"]), [(1, None), (2, "Ann"), (3, None), (4, None)])
 
     def test_block(self):
-        b = dynasty.block("mlb", OCT, SHEET)
+        b = dynasty.block("mlb", OCT, dynasty.export(SHEET, OCT))
         self.assertEqual(b["lines"][0], "2027 MLB: 1st, 2nd (via Ann), 3rd, 4th (your 2nd went to Ann)")
         self.assertIn("2027 NFL: 2nd, 3rd, 4th (your 1st went to Ann)", b["lines"])
         self.assertEqual(b["lines"][-1], "Minor leaguers: Prospect B, Prospect D")
-        self.assertTrue(dynasty.block("nba", OCT, SHEET)["lines"][0].startswith("2028 NBA"))
+        self.assertTrue(dynasty.block("nba", OCT, dynasty.export(SHEET, OCT))["lines"][0].startswith("2028 NBA"))
+
+    def test_export_holds_only_mine(self):
+        out = dynasty.export(SHEET, OCT)
+        self.assertEqual(set(out), {"me", "read", "picks_updated", "minors_updated", "picks", "minors"})
+        self.assertNotIn("Prospect A", json.dumps(out))         # other owners' minor leaguers stay out
 
     def test_spring_still_shows_this_years_drafts(self):
         march = dt.datetime(2027, 3, 1, tzinfo=UTC)
