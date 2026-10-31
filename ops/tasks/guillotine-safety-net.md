@@ -26,6 +26,7 @@ Setup (PowerShell): $env:Path=[Environment]::GetEnvironmentVariable('Path','Mach
    - Roster: fetch https://api.sleeper.app/v1/league/1385516543386845184/rosters (PowerShell Invoke-RestMethod is fine here) and take the players list of the roster whose owner is Michael (roster_id 14; confirm via owner_id 605584791680663552).
 
 3. WHAT'S STILL MISSING (only these count; "Coin flip" players never count):
+   - WAIVERS CLOSED: if bids.json has waivers_open = false, there are no bids to place. Only the "Add free" check and the "consider cancelling" check apply. Never ask for a claim.
    - A "Bid" player with no pending claim, or a claim more than $1 below the suggested bid → "add claim: X $B (drop <weakest>)" or "raise X $A → $B".
    - A pending claim on a player called "Priced out" or "Skip" → "X: priced out (est $P), consider cancelling".
    - The top "Add free" player (highest extra_weeks_alive) not on his roster → "add now, $0: X (drop <weakest>)".
