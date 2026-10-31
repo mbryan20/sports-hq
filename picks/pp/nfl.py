@@ -44,14 +44,16 @@ def _team(name, R):
 
 
 def market_home_spread(home, away, week, year=2026):
-    d = get_json("espn", SB, max_age_h=3, seasontype=2, week=week, dates=year)
-    for e in d.get("events", []):
-        c = e["competitions"][0]
-        t = {x["homeAway"]: x["team"]["abbreviation"] for x in c["competitors"]}
-        if {t["home"], t["away"]} == {home, away} and c.get("odds"):
-            sp = c["odds"][0].get("spread")
-            if sp is not None:
-                return float(sp) if t["home"] == home else -float(sp)
+    """ESPN's current line (15-min cache), so the sim centers on the market at build time."""
+    from .lines import espn_odds
+    try:
+        events = espn_odds("NFL", week, year)
+    except Exception as ex:
+        print("ESPN NFL odds unavailable:", ex)
+        return None
+    for e in events:
+        if {e["home_abbr"], e["away_abbr"]} == {home, away} and e["home_spread"] is not None:
+            return e["home_spread"] if e["home_abbr"] == home else -e["home_spread"]
     return None
 
 
@@ -64,6 +66,8 @@ def nfl_sim(sg, rng, n=10_000, sd=13.5):
     h, a = _team(sg["home"], R), _team(sg["away"], R)
     stats = R[h] - R[a] + (0 if sg.get("neutral") else hfa)
     mk = market_home_spread(h, a, sg.get("nfl_week"))
+    if mk is None:
+        mk = sg.get("market_home_spread")  # the laptop run's researched line
     base_mu = stats if mk is None else -mk + MODEL_W * (stats - (-mk))
     mu = base_mu + sg.get("adj_home_pts", 0)
     support = np.arange(-60, 61)

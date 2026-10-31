@@ -5,12 +5,15 @@ Inputs: slates/<year>-wNN.json (read from the pool sites), research/<year>-wNN-*
 research with sources), CFBD cache, Open-Meteo. Market lines are shown for comparison and
 used only after the stats model is built (blend for outcome sims, never as a model input).
 """
-import argparse, glob, html, json, os, re, unicodedata
+import argparse, glob, html, json, os
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 import numpy as np
 from . import model as M
 from .market import lines
+from .lines import overlay
+from .names import norm
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
@@ -18,16 +21,7 @@ from . import pools as P
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT.parent / "docs" / "picks"  # served by Sports HQ's GitHub Pages at /picks/
 YEAR = 2026
-CT = timezone(timedelta(hours=-5))  # CDT through Nov 1; cards show "CT"
-ALIASES = {"miami (fl)": "miami", "n. carolina": "north carolina", "sdsu": "san diego state",
-           "connecticut": "uconn", "boston coll.": "boston college", "n. dak. st.": "north dakota state", "byu": "byu", "ole miss": "ole miss"}
-
-
-def norm(name):
-    n = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower().strip()
-    n = ALIASES.get(n, n)
-    n = re.sub(r"\bst\.$", "state", n)
-    return n.replace(".", "")
+CT = ZoneInfo("America/Chicago")  # cards show "CT"
 
 
 def current_week():
@@ -67,7 +61,8 @@ class Week:
         self.week = week
         self.games = [g for g in M.games(YEAR) if g["week"] == week]
         self.by_pair = {(norm(g["awayTeam"]), norm(g["homeTeam"])): g for g in self.games}
-        self.lines = lines(YEAR, week, max_age_h=6)
+        # CFBD lines (cached up to 6h, keeps the opener) with ESPN's current line on top
+        self.lines = overlay(lines(YEAR, week, max_age_h=6), week, YEAR, self.games)
         self.research, self.notes = load_research(week)
         self.rng = np.random.default_rng(2026 * 100 + week)
         self._sims = {}
@@ -385,6 +380,11 @@ def mark_changes(card, stage, week):
         r["changed"] = bool(stage == "refresh" and old and old != r["pick_team"])
         if r["changed"]:
             r["was"] = old
+        elif stage == "refresh" and prev and r["key"] not in prev:
+            # the pick moved to a game the last card didn't play (ATS pools re-rank on fresh lines)
+            dropped = [v.get("pick", k) if isinstance(v, dict) else v for k, v in prev.items()
+                       if k not in {x["key"] for x in card["rows"]}]
+            r["changed"], r["was"] = True, ("not on last card; dropped " + ", ".join(dropped)) if dropped else "not on last card"
     card["rows"].sort(key=lambda r: not r["changed"])
     if card["rows"]:
         pub.parent.mkdir(parents=True, exist_ok=True)
@@ -448,6 +448,9 @@ def main():
     cal = {c["bin"]: c for c in bt["calibration"]}
     calib = [f"Backtest 2026 wks 1-8 ({bt['n']} games): picks rated 60-70% hit {cal['60-70%']['hit']*100:.0f}%, 70-80% hit {cal['70-80%']['hit']*100:.0f}%, 80-90% hit {cal['80-90%']['hit']*100:.0f}%, 90%+ hit {cal['90-100%']['hit']*100:.0f}%.",
              f"Straight-up: model {bt['su_accuracy']['model']*100:.0f}% vs market {bt['su_accuracy']['market']*100:.0f}%; model trails early weeks, near market by wks 6-8."]
+    srcs = sorted({W.lines[g["id"]]["src"] for g in W.games if (W.lines.get(g["id"]) or {}).get("src")})
+    calib.append(f"Market lines: {srcs[-1]} for {sum(1 for g in W.games if (W.lines.get(g['id']) or {}).get('src'))} games; CFBD consensus for the rest."
+                 if srcs else "Market lines: CFBD consensus (ESPN odds unavailable at build).")
     stage_label = {"draft": "DRAFT", "final": "FINAL", "refresh": "SAT REFRESH"}[a.stage]
     if os.environ.get("BACKUP"):
         stage_label += " - BACKUP (no fresh research)"
