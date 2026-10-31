@@ -1,7 +1,7 @@
 {
- "researched_at": "2026-10-30T16:40:00-05:00",
+ "researched_at": "2026-10-30T21:40:00-05:00",
  "stage": "final",
- "convention": "off/def_pts are relative to season-to-date stats; 'priced' marks news the current market line likely already reflects. Fri 10/30 refresh: Thursday items re-verified against Fri news (official Friday availability reports post after 7pm CT); bto_final file moved to research/superseded.",
+ "convention": "off/def_pts are relative to season-to-date stats; 'priced' marks news the current market line likely already reflects. Fri 10/30 refresh: Thursday items re-verified against Fri news (official Friday availability reports post after 7pm CT); bto_final file moved to research/superseded. Fri 9pm run: Friday official SEC/Big Ten reports checked and applied (Auburn, Ole Miss, Florida, Georgia, Texas, Miss. State, Ohio State, Rutgers, Illinois, Wisconsin).",
  "adjustments": [
   {
    "team": "UCF",
@@ -56,10 +56,10 @@
   {
    "team": "Wisconsin",
    "off_pts": -0.3,
-   "def_pts": 0.3,
-   "status": "QB Colton Joseph starting; CB Cai Bates out; S Marvin Burks Jr. and DL Nolan Vils questionable; RG Barrett Nelson and RB Nate Palmer doubtful",
-   "reason": "Guard doubtful, starting safety questionable, CB out",
-   "source": "https://sports.yahoo.com/articles/wisconsins-marvin-burks-barrett-nelson-025702311.html",
+   "def_pts": 0.1,
+   "status": "QB Colton Joseph starting; S Burks and DL Vils upgraded to probable; CB Cai Bates out; RG Barrett Nelson, RB Nate Palmer doubtful",
+   "reason": "Guard doubtful, CB out; safety back",
+   "source": "https://sports.yahoo.com/articles/availability-report-reveals-good-news-005856004.html",
    "published": "2026-10-29",
    "priced": false
   },
@@ -97,30 +97,30 @@
    "team": "Florida",
    "off_pts": -0.5,
    "def_pts": 0,
-   "status": "Aaron Philo named starter vs Georgia (ESPN sources Fri); both QBs still listed questionable",
+   "status": "Aaron Philo to start (AP source Fri); upgraded to probable on Friday report",
    "reason": "Philo starts after shoulder injury; both QBs banged up",
-   "source": "https://espn.com/college-football/story/_/id/50328979/sources-florida-aaron-philo-resumes-qb1-role-vs-georgia",
+   "source": "https://sports.yahoo.com/articles/florida-plans-start-aaron-philo-174703605.html",
    "published": "2026-10-30",
    "priced": false
   },
   {
    "team": "Florida",
-   "off_pts": -0.3,
+   "off_pts": -0.4,
    "def_pts": 0.3,
-   "status": "WR Bailey Stockton and ILB Jaden Robinson doubtful (Thursday report); RB Duke Clark questionable",
-   "reason": "Florida WR Stockton, ILB Robinson doubtful Thursday",
-   "source": "https://sports.yahoo.com/articles/sec-availability-report-georgias-kj-001718462.html",
-   "published": "2026-10-29",
+   "status": "Fri SEC report: RB Duke Clark and ILB Jaden Robinson OUT; WR Bailey Stockton questionable",
+   "reason": "RB Clark, LB Robinson now out",
+   "source": "https://www.onlygators.com/10/30/2026/florida-football-friday-final-qb-aaron-philo-to-start-for-no-17-gators-vs-no-3-georgia-as-rivalry-hits-atlanta/",
+   "published": "2026-10-30",
    "priced": false
   },
   {
    "team": "Georgia",
    "off_pts": 0,
-   "def_pts": 0.3,
-   "status": "S KJ Bolden questionable (lower leg); RB Chauncey Bowens downgraded to OUT Thursday; S Tyriq Green, OLB Amaris Williams, WR Blackshear out",
-   "reason": "Starting safety uncertain; others already missing",
-   "source": "https://sports.yahoo.com/articles/sec-availability-report-georgias-kj-001718462.html",
-   "published": "2026-10-29",
+   "def_pts": 0.15,
+   "status": "S KJ Bolden questionable Fri but expected to return as starter; RB Bowens, S Green, OLB A. Williams, WR Blackshear out",
+   "reason": "Bolden expected back; several reserves out",
+   "source": "https://sports.yahoo.com/articles/georgia-kj-bolden-expected-return-230817801.html",
+   "published": "2026-10-30",
    "priced": false
   },
   {
@@ -157,20 +157,20 @@
    "team": "Ohio State",
    "off_pts": -4,
    "def_pts": 0,
-   "status": "QB Julian Sayin out (shoulder, likely season); Day won't name starter; freshman Luke Fahey expected, Tavien St. Clair may also play; RB Ja'Kobi Jackson out",
+   "status": "QB Julian Sayin out (shoulder); freshman Luke Fahey to start per CBS/On3 reports Fri; Day hasn't named him",
    "reason": "Star QB out; untested freshman makes first career start",
-   "source": "https://www.elevenwarriors.com/ohio-state-football/2026/10/164906/ohio-state-injury-report-jay-timmons-brandon-inniss-kenyatta-jackson-jr-austin-siereveld-usc",
-   "published": "2026-10-29",
+   "source": "https://www.on3.com/news/luke-fahey-to-start-at-qb-for-ohio-state-against-usc",
+   "published": "2026-10-30",
    "priced": true
   },
   {
    "team": "Ohio State",
    "off_pts": -0.2,
-   "def_pts": 0.3,
-   "status": "Starting CB Jay Timmons and WR Brandon Inniss questionable Thursday; LB Eli Lee, S Deshawn Stewart, WR Boyd ruled out; OL Siereveld back",
-   "reason": "Starting CB, WR questionable; depth pieces ruled out",
-   "source": "https://www.elevenwarriors.com/ohio-state-football/2026/10/164906/ohio-state-injury-report-jay-timmons-brandon-inniss-kenyatta-jackson-jr-austin-siereveld-usc",
-   "published": "2026-10-29",
+   "def_pts": 0.5,
+   "status": "Starting DB Jay Timmons downgraded to DOUBTFUL; WR Brandon Inniss questionable; LB Eli Lee, S Deshawn Stewart, WR Boyd out",
+   "reason": "Starting DB Timmons downgraded to doubtful",
+   "source": "https://sports.yahoo.com/articles/db-jay-timmons-status-downgraded-003901002.html",
+   "published": "2026-10-30",
    "priced": false
   },
   {
@@ -195,12 +195,12 @@
   },
   {
    "team": "Illinois",
-   "off_pts": -2,
+   "off_pts": -1.8,
    "def_pts": 0,
-   "status": "Katin Houser doubtful (broken hand, surgery 10/14); freshman Michael Clayton II expected to start (2nd start)",
+   "status": "Katin Houser upgraded to QUESTIONABLE on Friday report but not expected to play; Michael Clayton II expected to start",
    "reason": "Starter out; freshman backup won only start vs Oregon",
-   "source": "https://sports.yahoo.com/articles/illinois-injury-report-leaves-door-160035110.html",
-   "published": "2026-10-29",
+   "source": "https://www.on3.com/sites/orange-blue-news/news/illinois-at-maryland-gameday",
+   "published": "2026-10-30",
    "priced": true
   },
   {
@@ -235,12 +235,12 @@
   },
   {
    "team": "Rutgers",
-   "off_pts": -0.5,
+   "off_pts": -0.3,
    "def_pts": 0,
-   "status": "WR KJ Duff doubtful; OL Tyler Needham doubtful",
-   "reason": "Top WR and OL likely out",
-   "source": "https://sports.yahoo.com/articles/michigan-vs-rutgers-injury-report-000417630.html",
-   "published": "2026-10-28",
+   "status": "WR KJ Duff upgraded to questionable Fri; OL Tyler Needham doubtful",
+   "reason": "Star WR Duff now questionable",
+   "source": "https://www.on3.com/teams/michigan-wolverines/news/michigan-at-rutgers-injury-update-friday-availability-report-released",
+   "published": "2026-10-30",
    "priced": false
   },
   {
@@ -357,10 +357,10 @@
    "team": "Arizona State",
    "off_pts": -2.0,
    "def_pts": 0,
-   "status": "QB Mikey Keene (knee/leg) still questionable Thu; true freshman Jake Fette likely to make first start; QBs split reps Tuesday. Season baseline mostly benched Cutter Boley",
+   "status": "Freshman Jake Fette in line to start (Thamel, Fri); Mikey Keene game-time decision, limited in practice",
    "reason": "True freshman likely starts on road; Keene unresolved",
-   "source": "https://sports.yahoo.com/articles/three-storylines-im-watching-most-192547285.html",
-   "published": "2026-10-29",
+   "source": "https://arizonasports.com/ncaa/arizona-state/asu-football/jake-fette-in-line-to-start-byu",
+   "published": "2026-10-30",
    "priced": true
   },
   {
@@ -396,11 +396,11 @@
   {
    "team": "Texas",
    "off_pts": 0,
-   "def_pts": 0.75,
-   "status": "EDGE Colin Simmons (ankle) downgraded to DOUBTFUL on Thu SEC report, likely misses 2nd straight; EDGE Richard Wesley out",
-   "reason": "Star pass rusher likely out again",
-   "source": "https://www.rotowire.com/cfootball/headlines/colin-simmons-injury-downgraded-to-doubtful-for-week-9-237505",
-   "published": "2026-10-29",
+   "def_pts": 0.9,
+   "status": "EDGE Colin Simmons (FBS-high 10.5 sacks) OUT on Friday SEC report; EDGE Richard Wesley out",
+   "reason": "Sack leader Simmons officially out",
+   "source": "https://www.orangebloods.com/2026/10/30/texas-longhorn-football-colin-simmons-ruled-out/",
+   "published": "2026-10-30",
    "priced": false
   },
   {
@@ -505,12 +505,13 @@
   },
   {
    "team": "Florida",
-   "off_pts": 0.3,
+   "off_pts": 0.1,
    "def_pts": 0,
-   "status": "WR Vernell Brown III (knee) probable, returns after 3 missed games",
-   "reason": "Starting WR returns from three-game absence",
-   "source": "https://espn.com/college-football/story/_/id/50328979/sources-florida-aaron-philo-resumes-qb1-role-vs-georgia",
-   "published": "2026-10-30"
+   "status": "WR Vernell Brown III back to QUESTIONABLE on Friday report (knee); missed 3 games",
+   "reason": "Brown III questionable, may return",
+   "source": "https://www.onlygators.com/10/30/2026/florida-football-friday-final-qb-aaron-philo-to-start-for-no-17-gators-vs-no-3-georgia-as-rivalry-hits-atlanta/",
+   "published": "2026-10-30",
+   "priced": false
   },
   {
    "team": "BYU",
@@ -549,6 +550,36 @@
    "reason": "Two offensive starters cleared off report",
    "source": "https://hornsports.com/thursday-injury-report-coleman-smothers-cleared-as-simmons-downgraded-ahead-of-mississippi-state/",
    "published": "2026-10-29"
+  },
+  {
+   "team": "Mississippi State",
+   "off_pts": 0,
+   "def_pts": 0.4,
+   "status": "S Isaac Smith and LB Tyler Lockhart downgraded to DOUBTFUL Friday night",
+   "reason": "Starting safety, linebacker downgraded to doubtful",
+   "source": "https://www.on3.com/teams/mississippi-state-bulldogs/news/friday-availability-report-isaac-smith-and-tyler-lockhart-downgraded",
+   "published": "2026-10-30",
+   "priced": false
+  },
+  {
+   "team": "Auburn",
+   "off_pts": -0.4,
+   "def_pts": 0,
+   "status": "WR Jeremiah Koger downgraded to OUT Friday (3rd in rec yds); OL Tai Buster, TE Hunter Herring out; QB Byrum Brown not listed",
+   "reason": "WR Koger downgraded to out Friday",
+   "source": "https://therebelwalk.com/2026/10/friday-ole-miss-vs-auburn-injury-report/",
+   "published": "2026-10-30",
+   "priced": false
+  },
+  {
+   "team": "Ole Miss",
+   "off_pts": 0.3,
+   "def_pts": 0,
+   "status": "LT Terez Davis upgraded to probable; LB Luke Ferrelli added probable; C Sanders off report; CB Crawford questionable",
+   "reason": "Starting left tackle upgraded to probable",
+   "source": "https://therebelwalk.com/2026/10/friday-ole-miss-vs-auburn-injury-report/",
+   "published": "2026-10-30",
+   "priced": false
   }
  ],
  "checked_no_news": [
@@ -602,7 +633,11 @@
   "Weather not specifically researched this run.",
   "Utah @ Cincinnati: Utah -9.5 open to about -7 (2.5 pts toward Cincinnati); Utah WR Hunter Andrews cleared.",
   "Florida @ Georgia: Georgia -10.5 open to -12.5 by Thursday, before Philo was named.",
-  "Friday official availability reports (SEC ~7:10pm CT, Big Ten 8pm ET, ACC, Big 12) were not out at refresh time; the Sat 8am refresh re-checks them."
+  "Fri 9pm: Michigan CB Jo'Ziah Edmond ruled out, S Rod Moore/Jordan Young questionable (247Sports Fri report); small, not adjusted.",
+  "Fri 9pm: Arkansas WR Chris Marshall questionable but OC expects him to play; Missouri Fonoti/Atkins/Hoffman out (unchanged).",
+  "Fri 9pm: Washington's Demond Williams still probable; Fisch calls QB a game-time decision vs Elijah Brown.",
+  "Fri 9pm: Mississippi State QB (Swann or Puckett) still to be named Saturday.",
+  "Fri 9pm: Baylor led UCF 34-6 in Q3 when sites were read (Yahoo Friday game already locked)."
  ],
  "dropped": [
   "Texas Tech 'Cam Dickey expected back' wording: Thursday Big 12 report lists him questionable, so status revised (item kept at 0).",
