@@ -9,6 +9,7 @@ on:
     - cron: "10 12 * * *"          # daily 6:10am CT
     - cron: "40 4 * * 2"           # Mon 10:40pm CT, after Monday night football
     - cron: "20 5 * * 2"           # Mon 11:20pm CT
+    - cron: "40 11 * * 2"          # Tue 5:40am CT, fresh data (incl. a cut confirmed early Tuesday) for the 6:00am AI strategy task
     - cron: "50 12 * * 2"          # Tue 6:50am CT, fresh bids.json for the 7:11am bid check
     - cron: "10 14,15 * * 2"       # Tue 8:10am and 9:10am CT, a fresh page during the morning
     - cron: "50 15 * * 2"          # Tue 9:50am CT

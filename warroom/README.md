@@ -11,9 +11,9 @@ WebFetch summaries that dropped data, and fixes made during a run were lost.
   reads it and writes the Google Doc "Guillotine bid strategy (v2)". The Tuesday 7:11am bid check and 7:30pm safety
   net use that Doc when it was updated today after 5am CT, and fall back to this JSON, then the old War Room.
 - Workflow: `.github/workflows/war-room-v2.yml`: daily 6:10am CT, Mon 10:40pm and 11:20pm CT (after
-  Monday night), Tue 6:50am CT (fresh for the 7:11am bid check), Tue 8:10, 9:10 and 9:50am CT (a fresh
-  page during the morning), Wed 2:40am CT (after waivers). It commits only when the page or JSON changed.
-  A failed build sends an ntfy push.
+  Monday night), Tue 5:40am CT (fresh for the 6:00am AI strategy task), Tue 6:50am CT (fresh for the
+  7:11am bid check), Tue 8:10, 9:10 and 9:50am CT (a fresh page during the morning), Wed 2:40am CT
+  (after waivers). It commits only when the page or JSON changed. A failed build sends an ntfy push.
 
 ## Files
 | File | Does |
