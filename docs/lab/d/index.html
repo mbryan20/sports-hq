@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports HQ · Game day</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" href="../../icons/icon-180.png">
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="stylesheet" href="../../lib/core.css">
+<style>
+/* D · Game day: everything on a clock. "Do first" on top, then every one of my starters across all leagues
+   grouped by kickoff (one row per player, tagged with each league he starts in). Scoreboard on the side. */
+.wrap { max-width: 1440px; margin: 0 auto; padding: 14px 16px 80px; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1100px) { .wrap { grid-template-columns: minmax(0, 1fr) 360px; align-items: start; } .board { position: sticky; top: 68px; order: 2; } }
+.strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px 2px; }
+.strip::-webkit-scrollbar { display: none; }
+@media (min-width: 1100px) { .strip { display: grid; grid-template-columns: 1fr 1fr; margin: 0; padding: 0; overflow: visible; } }
+.sc { flex: 0 0 150px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 11px 9px; cursor: pointer; min-width: 0; box-shadow: var(--shadow); }
+.sc:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.sc .nm { font-size: 12.5px; font-weight: 700; display: flex; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc .score-line .num { font-size: 18px; } .sc .score-line .num.opp { font-size: 15px; } .sc .score-line .lbl { display: none; }
+.sc .meter { height: 4px; margin-top: 6px; }
+.board h2, .tl h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; display: flex; justify-content: space-between; align-items: center; }
+.first { background: var(--card); border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line)); border-radius: var(--r); box-shadow: var(--shadow); margin-bottom: 18px; overflow: hidden; }
+.first.calm { border-color: var(--line); }
+.first .it { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; padding: 10px 14px; border-top: 1px solid var(--line); }
+.first .it:first-of-type { border-top: 0; }
+.first .it .kind { justify-self: start; align-self: start; margin-top: 2px; }
+.first .it b { font-weight: 700; }
+.first .head { padding: 11px 14px 6px; display: flex; justify-content: space-between; font-weight: 700; }
+.day { font-size: 13px; font-weight: 800; letter-spacing: .02em; margin: 18px 0 8px; display: flex; align-items: center; gap: 10px; }
+.day::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+.kslot { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; margin-bottom: 10px; }
+.when { text-align: right; padding-top: 10px; }
+.when .t { font-weight: 800; font-variant-numeric: tabular-nums; font-size: 15px; }
+.when .sp { font-size: 11px; color: var(--muted); font-weight: 700; }
+.games { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; position: relative; }
+.games::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); opacity: .6; }
+.games.soon::before { background: var(--warn); opacity: 1; }
+.games .top { display: flex; justify-content: space-between; padding: 8px 14px 2px; font-size: 12px; color: var(--muted); }
+.pl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 7px 14px; border-top: 1px solid var(--line); }
+.pl:first-of-type { border-top: 0; }
+.pl .nm { font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl .pr { font-variant-numeric: tabular-nums; font-weight: 650; }
+.pl .tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px; }
+.pl .tags span { font-size: 11px; font-weight: 650; background: var(--chip-bg); color: var(--muted); border-radius: 6px; padding: 1px 6px; cursor: pointer; }
+.pl .news { grid-column: 1 / -1; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.pl .news a { color: inherit; }
+.locked .games { opacity: .6; }
+details.past > summary { cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 700; margin: 18px 0 8px; }
+</style>
+</head>
+<body data-layout="D · Game day">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab D</span></div>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div></header>
+<div class="wrap">
+  <aside class="board" id="board"></aside>
+  <main class="tl" id="tl"><p class="note">Loading…</p></main>
+</div>
+<footer class="foot" data-foot style="max-width:1440px;margin:0 auto"></footer>
+<button class="fbfab" data-fb="idea" data-spot="whole page">💬 Feedback</button>
+<script src="../../lib/core.js"></script>
+<script>
+"use strict";
+const { esc } = SHQ;
+const dayName = iso => new Date(iso).toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric", timeZone: SHQ.TZ });
+
+// every starter across leagues, one entry per player per kickoff, tagged with each league he starts in
+function slots(Ls) {
+  const by = {};
+  for (const L of Ls) for (const p of L.lg.starters || []) {
+    if (!p.kickoff || L.lg.pending) continue;
+    const key = `${p.kickoff}|${L.sport}`;
+    const s = by[key] = by[key] || { at: p.kickoff, sport: L.sport, started: p.started, players: {} };
+    const pl = s.players[p.name] = s.players[p.name] || { ...p, leagues: [], proj: 0 };
+    pl.leagues.push({ league: L.name, slot: p.slot === "SUPER_FLEX" ? "SF" : p.slot });
+    pl.proj += p.proj || 0;
+    s.started = s.started && p.started;
+  }
+  return Object.values(by).sort((a, b) => a.at.localeCompare(b.at));
+}
+
+function slotHTML(s) {
+  const ps = Object.values(s.players).sort((a, b) => b.leagues.length - a.leagues.length || b.proj - a.proj);
+  const hrs = (new Date(s.at) - Date.now()) / 3600000;
+  const total = ps.reduce((t, p) => t + p.proj, 0);
+  return `<div class="kslot${s.started ? " locked" : ""}"><div class="when"><div class="t">${esc(SHQ.time(s.at))}</div><div class="sp">${esc((s.sport || "").toUpperCase())}</div></div>
+    <div class="games${hrs > 0 && hrs < 3 ? " soon" : ""}"><div class="top"><span>${ps.length} starter${ps.length > 1 ? "s" : ""}${s.started ? " · locked" : ""}</span>${s.sport === "nfl" && total ? `<span>${total.toFixed(1)} proj riding</span>` : ""}</div>
+    ${ps.map(p => `<div class="pl"><div class="nm">${esc(p.name)}${p.flags?.length ? `<span class="chips">${p.flags.map(SHQ.chip).join("")}</span>` : ""} <span class="muted" style="font-weight:500;font-size:12.5px">${esc([p.team, p.opp].filter(Boolean).join(" "))}</span></div>
+      <div class="pr">${p.proj ? p.proj.toFixed(1) : ""}</div>
+      <div class="tags">${p.leagues.map(l => `<span data-lg="${esc(l.league)}">${esc(l.league)} · ${esc(l.slot)}</span>`).join("")}</div>
+      ${p.news ? `<div class="news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN</a>: ${esc(p.news.note)}</div>` : ""}</div>`).join("")}</div></div>`;
+}
+
+function render(d) {
+  const Ls = SHQ.leagues(d), feed = SHQ.feed(d);
+  document.getElementById("board").innerHTML = `<h2><span>Scoreboard</span>${SHQ.fbButtons("Scoreboard")}</h2><div class="strip">${Ls.map(L =>
+    `<div class="sc" data-lg="${esc(L.name)}"><div class="nm">${SHQ.dot(L.state)}${esc(L.name)}</div>${SHQ.scoreHTML(L)}</div>`).join("")}</div>`;
+  const first = feed.filter(i => ["fix", "risk", "pick", "move"].includes(i.kind));
+  const firstHTML = `<section class="first${first.some(i => i.kind === "fix" || i.kind === "risk") ? "" : " calm"}" data-spot="Do first">
+    <div class="head"><span>Do first</span>${SHQ.fbButtons("Do first")}</div>
+    ${first.length ? first.map(i => `<div class="it"><span class="kind ${i.kind}">${SHQ.KINDS[i.kind]}</span><div><b>${esc(i.league)}:</b> ${esc(i.text)}</div></div>`).join("")
+      : `<p class="note good">Nothing to fix. Every lineup is set.</p>`}</section>`;
+  const all = slots(Ls), past = all.filter(s => s.started), next = all.filter(s => !s.started);
+  let html = "", day = "";
+  for (const s of next) {
+    const k = SHQ.dayKey(s.at);
+    if (k !== day) { day = k; html += `<div class="day">${esc(dayName(s.at))}</div>`; }
+    html += slotHTML(s);
+  }
+  document.getElementById("tl").innerHTML = firstHTML
+    + `<h2><span>My starters by kickoff</span>${SHQ.fbButtons("Timeline")}</h2>`
+    + (html || `<p class="note">No games left this week.</p>`)
+    + (past.length ? `<details class="past"><summary>Already locked (${past.length} kickoff${past.length > 1 ? "s" : ""})</summary>${past.map(slotHTML).join("")}</details>` : "");
+  if (SHQ.drawer.isOpen() && current) openLeague(current);
+}
+let current = null;
+function openLeague(name) { current = name; SHQ.drawer.open(SHQ.detail(name), "lg=" + encodeURIComponent(name)); }
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-lg]");
+  if (t && !e.target.closest("#drawer")) openLeague(t.dataset.lg);
+});
+SHQ.start(render);
+</script>
+</body>
+</html>

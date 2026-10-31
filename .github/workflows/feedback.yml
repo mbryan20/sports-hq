@@ -1,0 +1,50 @@
+name: Feedback intake
+
+# The site's 👍 / 👎 / Feedback buttons (docs/lib/core.js) open a pre-filled GitHub issue: label "feedback",
+# title "Feedback: …". This logs it as one line in FEEDBACK.md (shq/feedback.py) and closes the issue.
+# Only the repo owner's issues count, since the repo is public. No AI, no secrets beyond the built-in token.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: feedback
+  cancel-in-progress: false
+
+jobs:
+  log:
+    if: github.event.issue.user.login == github.repository_owner && (contains(github.event.issue.labels.*.name, 'feedback') || startsWith(github.event.issue.title, 'Feedback:'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Append to FEEDBACK.md
+        # issue text only ever reaches the script through env vars, never the shell
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_CREATED: ${{ github.event.issue.created_at }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python -m shq.feedback FEEDBACK.md
+      - name: Commit (merge, never rebase)
+        env:
+          N: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FEEDBACK.md
+          git commit -q -m "Feedback #$N logged"
+          for i in 1 2 3 4 5; do git pull -q --no-rebase --no-edit && git push -q && exit 0; sleep 5; done
+          exit 1
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          N: ${{ github.event.issue.number }}
+        run: gh issue close "$N" -R "$GITHUB_REPOSITORY" --comment "Logged in FEEDBACK.md. The Sports HQ intake chat and the monthly review pick it up from there."

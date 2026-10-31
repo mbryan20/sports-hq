@@ -17,6 +17,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Weekly | start/sit + top 3 adds per league (basketball: games left, injuries) | Tuesday 7am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
+| Layouts lab (`/lab/`) | 4 dashboard layouts on the same data, to pick the next main view; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
 guillotine survival odds and FAAB bid ranges (`shq/guillotine.py`), fixes for starters who can't play, start/sit
@@ -43,7 +44,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   bottom 3, Friday picks deadlines). Late runs (after 1pm) update the tab without pushing.
 - Alerts if a laptop job's data goes stale (>30h) and on any failed run.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
-  `CFBD_API_KEY` secret). `test.yml` runs the tests on every push.
+  `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
 
 **Laptop (Claude scheduled tasks in the desktop app; they read sign-in sites in Michael's Chrome — see `ops/BROWSER.md`)**
 
@@ -71,6 +72,7 @@ Add an entry to `LEAGUES` in `shq/config.py` (platform sleeper / espn). ESPN pri
 
 ## Improving it
 - `IDEAS.md`: drop ideas there anytime (phone: edit on github.com). Open decisions live there too.
+- `FEEDBACK.md`: what the site's 👍 / 👎 / 💬 Feedback buttons send (a pre-filled GitHub issue, logged by `feedback.yml`).
 - Monthly review (1st of each month): audits reliability, freshness and usefulness, writes
   `reviews/YYYY-MM.md`, pushes the top 3 improvements. Nothing changes without Michael's OK.
 

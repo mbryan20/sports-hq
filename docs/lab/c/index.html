@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports HQ · Deck</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" href="../../icons/icon-180.png">
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="stylesheet" href="../../lib/core.css">
+<style>
+/* C · Deck: one full-height card per league. Phone: swipe left/right, one card at a time.
+   Wide screen: cards sit side by side as columns (3–4 visible at 1440px), each scrolling on its own. */
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+.pager { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 0 0 8px; }
+.pager::-webkit-scrollbar { display: none; }
+.pager button { flex: 0 0 auto; border: 0; background: transparent; color: var(--muted); border-radius: 9px; padding: 7px 10px; font-size: 13.5px; font-weight: 650; white-space: nowrap; display: flex; align-items: center; }
+.pager button[aria-current="true"] { background: var(--card); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
+.pager .dot { margin-right: 6px; }
+.deckwrap { position: relative; flex: 1; min-height: 0; }
+.deck { height: 100%; display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; padding: 12px 16px; scroll-padding: 0 16px; scrollbar-width: thin; overscroll-behavior-x: contain; }
+.col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--bg2); border: 1px solid var(--line); border-radius: 18px; padding: 14px 12px 70px; min-width: 0; }
+@media (min-width: 760px) { .col { flex-basis: 400px; } }
+@media (min-width: 1700px) { .col { flex-basis: 440px; } }
+.col .dcols { grid-template-columns: minmax(0, 1fr) !important; }
+.col .dhead h2 { font-size: 18px; }
+.col .dscore .score-line .num { font-size: 26px; }
+.col .dscore { position: sticky; top: -14px; z-index: 2; }
+.col details.sec { box-shadow: none; }
+.colhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.colhead h2 { font-size: 18px; }
+.col .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; }
+.col .card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); padding: 11px 14px 4px; }
+.col .card ul.tips { padding-top: 4px; }
+.col .card .meta { padding: 0 14px 8px; }
+.arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); box-shadow: var(--shadow); font-size: 18px; display: none; }
+.arrow.l { left: 6px; } .arrow.r { right: 6px; }
+@media (hover: hover) and (min-width: 760px) { .arrow { display: block; } }
+.hint { font-size: 12px; color: var(--muted); text-align: center; padding: 0 0 6px; }
+@media (min-width: 760px) { .hint { display: none; } }
+.fbfab { bottom: calc(18px + env(safe-area-inset-bottom)); }
+</style>
+</head>
+<body data-layout="C · Deck">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab C</span></div>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div><nav class="pager" id="pager" aria-label="Cards"></nav></header>
+<div class="deckwrap"><button class="arrow l" data-step="-1" aria-label="Previous">‹</button><div class="deck" id="deck"></div><button class="arrow r" data-step="1" aria-label="Next">›</button></div>
+<button class="fbfab" data-fb="idea" data-spot="whole page">💬 Feedback</button>
+<script src="../../lib/core.js"></script>
+<script>
+"use strict";
+const { esc } = SHQ;
+const KEEP_OPEN = /^(Fix now|Survival|Bids|Categories|Chase|Lineup moves|Waiver adds)/;
+let cur = SHQ.get("deck") || "Today";
+
+function todayCol(d) {
+  const feed = SHQ.feed(d), gaps = SHQ.pickGaps(d);
+  const now = feed.filter(i => i.kind === "fix" || i.kind === "risk" || i.kind === "move");
+  return `<div class="colhead"><h2>Today</h2>${SHQ.fbButtons("Today card")}</div>
+    <div class="card"><h3>Do now · ${now.length}</h3>${now.length ? `<ul class="tips">${now.map(i => `<li><b>${esc(i.league)}:</b> ${esc(i.text)}</li>`).join("")}</ul>` : `<p class="note good">Every lineup is set.</p>`}</div>
+    <div class="card"><h3>Pool picks</h3>${gaps.length ? `<ul class="tips">${gaps.map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="note">No stale-line edges open.</p>`}<p class="meta"><a href="../../picks/">Open the picks cards →</a></p></div>
+    <div class="card"><h3>8am check</h3>${SHQ.todayHTML(d)}</div>
+    <div class="card"><h3>Weekly plan</h3><div style="padding:0 14px 12px">${SHQ.weeklyHTML(d).replace('class="wgrid"', 'class="wgrid" style="grid-template-columns:1fr"')}</div></div>
+    <div class="card"><h3>Data</h3><div class="foot" style="padding:0 14px 12px">${SHQ.footHTML()}</div></div>`;
+}
+
+function render(d) {
+  const Ls = SHQ.leagues(d);
+  const names = ["Today", ...Ls.map(L => L.name)];
+  if (!names.includes(cur)) cur = "Today";
+  document.getElementById("pager").innerHTML = names.map(n => {
+    const L = Ls.find(x => x.name === n);
+    return `<button data-go="${esc(n)}" aria-current="${n === cur}">${L ? SHQ.dot(L.state) : ""}${esc(n)}</button>`;
+  }).join("");
+  const deck = document.getElementById("deck");
+  const keep = deck.scrollLeft, tops = {};
+  deck.querySelectorAll(".col").forEach(c => tops[c.dataset.name] = c.scrollTop);
+  deck.innerHTML = names.map(n => `<section class="col" data-name="${esc(n)}" data-spot="${esc(n)} card">${n === "Today" ? todayCol(d) : SHQ.detail(n, d)}</section>`).join("");
+  deck.querySelectorAll(".col details.sec").forEach(x => { if (!KEEP_OPEN.test(x.querySelector("summary").textContent.trim())) x.open = false; });
+  deck.querySelectorAll(".col").forEach(c => { if (tops[c.dataset.name]) c.scrollTop = tops[c.dataset.name]; });
+  if (first) { first = false; jump(cur, "auto"); } else deck.scrollLeft = keep;
+  watch();
+}
+let first = true, io;
+function jump(name, behavior = "smooth") {
+  const col = [...document.querySelectorAll(".col")].find(c => c.dataset.name === name);
+  if (col) document.getElementById("deck").scrollTo({ left: col.offsetLeft - 16, behavior });
+}
+function mark(name) {
+  if (name === cur) return;
+  cur = name; SHQ.set("deck", name);
+  document.querySelectorAll("#pager button").forEach(b => {
+    const on = b.dataset.go === name;
+    b.setAttribute("aria-current", on);
+    if (on) b.scrollIntoView({ inline: "center", block: "nearest" });
+  });
+}
+function watch() {
+  io?.disconnect();
+  // the left-most card that's mostly in view is "current"
+  io = new IntersectionObserver(es => {
+    const vis = es.filter(e => e.isIntersecting).map(e => e.target).sort((a, b) => a.offsetLeft - b.offsetLeft);
+    if (vis[0]) mark(vis[0].dataset.name);
+  }, { root: document.getElementById("deck"), threshold: 0.6 });
+  document.querySelectorAll(".col").forEach(c => io.observe(c));
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]");
+  if (g) { mark(g.dataset.go); jump(g.dataset.go); return; }
+  const s = e.target.closest("[data-step]");
+  if (s) { const deck = document.getElementById("deck"); deck.scrollBy({ left: Number(s.dataset.step) * (deck.querySelector(".col").offsetWidth + 12), behavior: "smooth" }); }
+});
+SHQ.start(render);
+</script>
+</body>
+</html>

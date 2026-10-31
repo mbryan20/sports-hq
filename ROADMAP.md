@@ -38,13 +38,41 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | ESPN IR-slot check (a non-Out player in IR blocks adds/drops) | live 2026-10-30 (urgent in football) |
 | Fantasy Command Center (older claude.ai dashboard) | folded in 2026-10-30; retired |
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
+| Layouts lab: 4 dashboard layouts on live data (A Scoreboard tiles, B Command center inbox, C swipe Deck, D Game-day timeline) | live 2026-10-31 at `/lab/` (`docs/lab/`, shared `docs/lib/core.js` + `core.css`); the current site stays at `/` until Michael picks one (see "Site layout") |
+| Feedback buttons (👍/👎 per tile, 💬 Feedback) → FEEDBACK.md | live 2026-10-31: a pre-filled GitHub issue, logged by `.github/workflows/feedback.yml` (`shq/feedback.py`), works without claude.ai |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 
 ## Next up, in order
-1. Value 3-Ball draft picks in trade ideas (FantasyCalc values picks too).
-2. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
-3. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
+1. Promote the layout Michael picks from `/lab/` to `/` (steps in "Site layout").
+2. Value 3-Ball draft picks in trade ideas (FantasyCalc values picks too).
+3. NBA trade ideas from ESPN ranks/projections, if wanted (no free value API).
+4. Kosmonauts trade ideas once the Yahoo API is approved (needs every team's roster).
+
+## Site layout (`docs/lib/`, `docs/lab/`)
+- **Shared core:** `docs/lib/core.js` loads the data (`SHQ.load`, the only place that fetches `docs/data/*.json`, so the
+  planned passphrase lock only has to decrypt there), builds per-league summaries (`SHQ.leagues`), one ranked action list
+  across leagues and pools (`SHQ.feed`), the full league page (`SHQ.detail`), the drawer, the theme toggle and the feedback
+  sheet. `docs/lib/core.css` holds the look (dark default, light by system setting or the ◐ toggle, saved per device).
+- **Lab:** `docs/lab/index.html` links each variant; each lives in `docs/lab/<letter>/index.html` (its own CSS and a small
+  render function on top of the core). To add a variant: copy one, change `data-layout`, add a card to the lab page.
+- **Promote a layout:** copy its page to `docs/index.html`, change `../../` paths to `./`, keep the manifest/meta tags
+  from the old `docs/index.html`, set `data-layout` to e.g. "Main · B", delete the old `app.js`/`style.css` once nothing
+  links them, and keep the lab (the winner stays there as a variant too). Verify at 375px and 1440px, both themes.
+- **Picks page and War Room** keep their own pages; restyle them into the shared shell only after the Picks per-game
+  breakdown work (`picks/pp/cards.py` `render()`) has landed.
+- **Data contract:** the lab only reads what the cloud job already writes. New fields go through `shq/` and its tests.
+
+### Next layout ideas (continuous improvement; FEEDBACK.md and the monthly review re-rank these)
+- Blend the winner with the best piece of another (e.g. A's tiles with B's inbox on the left).
+- Live scores during games: actual points vs projection per league (needs a new cloud field from ESPN/Sleeper box scores).
+- "Since you last looked": highlight new or changed actions (kept per device).
+- Mark an action done / snooze it (kept per device) so the inbox empties as he works.
+- Density toggle (comfortable / compact) and a bigger-text option.
+- Team logos and player headshots (ESPN CDN), only if they stay fast on a phone.
+- Projected-margin sparkline across the week per league.
+- Picks page and War Room restyled into the shared shell and theme (after the Picks breakdown work lands).
+- Passphrase lock (planned) plugs into `SHQ.load`.
 
 ## How trades and waiver adds work (`shq/values.py`, `shq/trades.py`, `shq/waivers.py`)
 - **Values:** FantasyCalc's public API, matched per league (dynasty or redraft, 1QB or superflex, PPR,
@@ -79,7 +107,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   (Tuesday on). Otherwise the player shows as Q, "unconfirmed", and nothing is benched, swapped or pushed on
   it (`status.confirm`). The ESPN note, its time and the player-card link go with every status line.
 - **Tests:** run `py -m unittest discover -s tests` before every push. Verify the site at phone width
-  (375px, no horizontal scroll).
+  (375px, no horizontal scroll) and desktop width (1440px), in dark and light.
 - **Windows quirks:** run Python as `py`. Set `PYTHONIOENCODING=utf-8` for console output. Keep LF line
   endings.
 
@@ -92,9 +120,14 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   - **Later / someday:** appended to IDEAS.md (the monthly review ranks it).
   - **Needs his call:** one question at the end, never one per item.
   The intake chat reads IDEAS.md for anything he added from his phone (github.com, this repo, IDEAS.md, pencil icon).
+- **Feedback from the site.** Every layout has 👍/👎 on its tiles and sections plus a 💬 Feedback button. Each opens a
+  pre-filled GitHub issue (works on his phone at work; no claude.ai needed); `.github/workflows/feedback.yml` logs it as one
+  line in FEEDBACK.md "Inbox" and closes the issue. The intake chat reads that Inbox at the start of each session and when
+  he says "check feedback", routes each line like any other item, then moves it to "Handled" with where it went. The
+  monthly review reads the whole file for patterns and recommends how to re-rank "Next layout ideas".
 - **Starting a fresh intake chat:** when the current one has been summarized more than once or gets slow, open a new
-  Code chat in C:\Claude\sports-hq and say: "This is the Sports HQ intake chat. Read ROADMAP.md, IDEAS.md and
-  README.md, then route what I send." Sessions started from the old chat still report there; check them with the
+  Code chat in C:\Claude\sports-hq and say: "This is the Sports HQ intake chat. Read ROADMAP.md, IDEAS.md,
+  FEEDBACK.md and README.md, then route what I send." Sessions started from the old chat still report there; check them with the
   sessions list.
 - **Parallel sessions:** each works in its own worktree and branch, then merges `main` in and pushes to `main`.
 - Start a **new session per big feature** (e.g. "build trade tools"). Open it in C:\Claude\sports-hq and say:
