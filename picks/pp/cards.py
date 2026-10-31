@@ -266,7 +266,7 @@ def build_yahoo(W, slate):
                     "model": pm, "market": pk, "wager": tbs, "why": why, "source": rsrc or src_link(g, []),
                     "key": f"{sg['away']}@{sg['home']}", "pick_team": pick})
     n_dogs = len(chosen)
-    watch = upset_watch(rows, picks, chosen, pub_home)
+    watch = upset_watch(rows, picks, chosen, pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
     return {
         "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": "Each game locks at kickoff; first Fri 6:30pm CT",
         "rows": out,
@@ -282,6 +282,25 @@ def build_yahoo(W, slate):
     }
 
 
+REBUILT = 0.10   # returned under 10% of last season's production (CFBD returning production, PPA share)
+
+
+def rebuilt_note(teams):
+    """teams: [(CFBD name, label)]. The stats model still gives last season ~3 games of weight (the backtest keeps
+    that: it predicts best overall), so for a rebuilt roster it leans on a team that no longer exists."""
+    try:
+        ret = M._ret(YEAR)
+    except Exception:
+        return None
+    low = [(label, ret.get(t, {}).get("percentPPA")) for t, label in teams]
+    low = [(label, r) for label, r in low if r is not None and r < REBUILT]
+    if not low:
+        return None
+    who = " and ".join(f"{label} ({max(r, 0) * 100:.0f}%)" for label, r in low)
+    return (f"rebuilt roster{'s' if len(low) > 1 else ''}: {who} returned almost none of last year's production, "
+            f"so our stats lean on last season here; trust the betting odds")
+
+
 def cite(a):
     """Linked source with its publish date, so every research claim can be checked: 'on3.com, Oct 31'."""
     m = re.match(r"https?://(?:www\.)?([^/]+)", a.get("source") or "")
@@ -291,6 +310,48 @@ def cite(a):
         d = datetime.fromisoformat(a["published"][:10])
         day = f", {d.strftime('%b')} {d.day}"
     return f'<a href="{html.escape(a.get("source") or "")}">{html.escape(site)}{day}</a>' if site else "no source"
+
+
+def group_value(rows, picks, fav_home, p_true, pub_home, y):
+    """Season-long value of taking the other side in each open game (pp.yahoo_value), as card notes."""
+    from . import yahoo_value as V
+    prof = V.load_profile()
+    if not prof:
+        return []
+    now = datetime.now(timezone.utc)
+    games, meta = [], []
+    for i, r in enumerate(rows):
+        start = r["g"].get("startDate")
+        if r["mk"] is None or (start and datetime.fromisoformat(start.replace("Z", "+00:00")) <= now):
+            continue
+        fh = bool(fav_home[i])
+        games.append({"p_fav": p_true[i] if fh else 1 - p_true[i], "spread": abs(r["mk"]["home_spread"]),
+                      "pub_dog": (1 - pub_home[i]) if fh else pub_home[i], "my_dog": bool(picks[i]) != fh})
+        sg = r["sg"]
+        meta.append(((sg["home"], sg["away"]) if fh else (sg["away"], sg["home"]), sg["kick"]))
+    if not games:
+        return []
+    base, vals, combo = V.season_values(games, prof)
+    st = y["standings"]
+    out = [f"Chance to win the group this season: {base * 100:.1f}% (you're #{st['rank']}, {st['leader'] - st['me']} back; "
+           f"simulated against each member's own pick habits over the last {len(prof['weeks'])} weeks)."]
+    order = sorted(range(len(games)), key=lambda i: -vals[i])
+    shown = [i for i in order if vals[i] > 0][:5] or order[:3]
+    out.append("Value of taking the other side (open games):")
+    for i in shown:
+        (fav, dog), kick = meta[i]
+        g = games[i]
+        side, other = (fav, dog) if g["my_dog"] else (dog, fav)
+        out.append(f"{side} instead of {other} ({kick}): {vals[i]:+.2f} points of win chance "
+                   f"({base * 100:.1f}% → {base * 100 + vals[i]:.1f}%); {side} wins "
+                   f"{(g['p_fav'] if g['my_dog'] else 1 - g['p_fav']) * 100:.0f}%, "
+                   f"{(1 - g['pub_dog'] if g['my_dog'] else g['pub_dog']) * 100:.0f}% of Yahoo players on {side}")
+    if combo > 0:
+        n_pos = sum(1 for v in vals if v > 0)
+        out.append(f"All {n_pos} of those together: {base * 100:.1f}% → {base * 100 + combo:.1f}%.")
+    else:
+        out.append("No other side raises your chance this week: the card's picks are the best for the season.")
+    return out
 
 
 WATCH_MAX_FAV = 0.55   # our stats give the favorite this or less
@@ -319,7 +380,10 @@ def upset_watch(rows, picks, chosen, pub_home, limit=4):
         group_dog = (1 - pub_home[i]) if home_pick else pub_home[i]
         extra = [s for s in r["signals"] if s not in ("stats model", "no market line", "injury news")]
         bits = [f"our stats give {dog} {(1 - fav_p) * 100:.0f}%", f"betting odds {(1 - fav_mk) * 100:.0f}%",
-                f"{group_dog * 100:.0f}% of the group on {dog}"] + extra
+                f"{group_dog * 100:.0f}% of Yahoo players on {dog}"] + extra
+        rebuilt = rebuilt_note([(r["g"]["homeTeam"], sg["home"]), (r["g"]["awayTeam"], sg["away"])])
+        if rebuilt:
+            bits.append(rebuilt)
         news = sorted((a for a in r["S"]["why"] if abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)) >= 0.3),
                       key=lambda a: -(abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0))))[:2]
         cands.append((fav_p, html.escape(f"{dog} over {fav} ({sg['kick']}): " + "; ".join(bits))
