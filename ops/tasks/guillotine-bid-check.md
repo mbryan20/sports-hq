@@ -1,7 +1,7 @@
 ---
 taskId: sports-hq-guillotine-bid-check
 title: "Sports HQ: Tue 7:30am guillotine bid check"
-cron: "11 7 * * 2"
+cron: "10 7 * * 2"   # fires ~7:11am CT (the app adds about a minute of jitter)
 status: CREATED 2026-10-28; moved to Tue 7:11am CT and War Room v2 first on 2026-10-31 (scheduled task, Auto mode)
 ---
 
