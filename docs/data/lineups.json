@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T04:00:32Z",
+ "updated": "2026-10-31T05:24:26Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -207,7 +207,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "Domo Arigato": {
@@ -678,7 +678,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "Guillotine": {
@@ -1006,7 +1006,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p",
+    "built": "Sat 12:24a",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1588,7 +1588,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "Stempak": {
@@ -1923,7 +1923,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "Bro-vid19": {
@@ -2251,7 +2251,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "3-Ball BB": {
@@ -2526,9 +2526,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Mitchell Robinson (C, BOS): 2 games left this week, 15.4% owned",
-     "Rui Hachimura (SF/PF, LAC): 2 games left this week, 13.6% owned",
-     "Collin Gillespie (PG, PHX): 1 games left this week, 33.2% owned"
+     "Collin Gillespie (PG, PHX): 1 games left this week, 33.3% owned",
+     "Bobby Portis (PF/C, MIA): 1 games left this week, 18.6% owned",
+     "Jaxson Hayes (C, UTAH): 1 games left this week, 16.6% owned"
     ],
     "trades": null,
     "notes": [],
@@ -2560,7 +2560,7 @@
        "me": "19",
        "opp": "19",
        "now": "T",
-       "outlook": "win"
+       "outlook": "close"
       },
       {
        "cat": "3PM",
@@ -2592,21 +2592,23 @@
       }
      ],
      "now": "6-1-1",
-     "proj": "7-0",
-     "close": 1,
+     "proj": "6-0",
+     "close": 2,
      "games_left": [
-      11,
-      10
+      8,
+      7
      ],
      "chase": [
-      "FG% is close. Keep in the lineup: Walker Kessler (1 games, .726 on 8.5 FGA/g) and Jarrett Allen (1 games, .615 on 7.8 FGA/g)."
+      "FG% is close. Keep in the lineup: Jarrett Allen (1 games, .615 on 7.8 FGA/g) and De'Aaron Fox (1 games, .531 on 9.8 FGA/g).",
+      "BLK is close. Keep in the lineup: Jarrett Allen (1 games, 2.2/g) and Shai Gilgeous-Alexander (1 games, 1.4/g)."
      ],
      "adds": [
-      "For FG%: Mitchell Robinson (C, BOS), 1 games left, .824 on 3.4 FGA/g"
+      "For FG%: Jaxson Hayes (C, UTAH), 1 games left, .737 on 3.5 FGA/g",
+      "For BLK: Jerami Grant (PF, MEM), 1 games left, 1.2/g"
      ]
     },
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   },
   "Ball is Life": {
@@ -2627,13 +2629,15 @@
      "name": "Giannis Antetokounmpo",
      "team": "MIA",
      "pos": "PF/C",
-     "opp": "vs IND",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2641,9 +2645,9 @@
      "name": "LaMelo Ball",
      "team": "MIN",
      "pos": "PG/G",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2655,13 +2659,15 @@
      "name": "Austin Reaves",
      "team": "LAL",
      "pos": "PG/SG",
-     "opp": "@GS",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2669,13 +2675,15 @@
      "name": "Darius Garland",
      "team": "LAC",
      "pos": "PG/G",
-     "opp": "@MIN",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2683,9 +2691,9 @@
      "name": "Jaden McDaniels",
      "team": "MIN",
      "pos": "SF/PF",
-     "opp": "vs LAC",
-     "kickoff": "2026-10-31T00:00:00Z",
-     "started": true,
+     "opp": "@SA",
+     "kickoff": "2026-11-01T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2697,9 +2705,9 @@
      "name": "VJ Edgecombe",
      "team": "PHI",
      "pos": "SG/G",
-     "opp": "vs NY",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": "@CHA",
+     "kickoff": "2026-10-31T22:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2711,13 +2719,15 @@
      "name": "John Collins",
      "team": "DET",
      "pos": "PF/C",
-     "opp": "@BKN",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2725,13 +2735,15 @@
      "name": "Quentin Grimes",
      "team": "LAL",
      "pos": "SG/SF",
-     "opp": "@GS",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2739,13 +2751,15 @@
      "name": "Day'Ron Sharpe",
      "team": "BKN",
      "pos": "C/PF/C",
-     "opp": "vs DET",
-     "kickoff": "2026-10-30T23:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     }
    ],
@@ -2755,15 +2769,13 @@
      "name": "Dyson Daniels",
      "team": "ATL",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@NO",
+     "kickoff": "2026-10-31T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ],
+     "flags": [],
      "news": null
     },
     {
@@ -2771,13 +2783,15 @@
      "name": "Draymond Green",
      "team": "GS",
      "pos": "PF/C",
-     "opp": "vs LAL",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2785,25 +2799,9 @@
      "name": "Peyton Watson",
      "team": "CLE",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@MIL",
+     "kickoff": "2026-11-01T00:00:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Trevon Brazile",
-     "team": "DEN",
-     "pos": "SF/PF",
-     "opp": "@PHX",
-     "kickoff": "2026-10-31T02:00:00Z",
-     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2812,9 +2810,9 @@
     },
     {
      "slot": "BN",
-     "name": "Ajay Mitchell",
-     "team": "OKC",
-     "pos": "PG/SG",
+     "name": "Trevon Brazile",
+     "team": "DEN",
+     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2825,21 +2823,41 @@
       "NO GAME"
      ],
      "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Ajay Mitchell",
+     "team": "OKC",
+     "pos": "PG/SG",
+     "opp": "@HOU",
+     "kickoff": "2026-11-01T00:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
     }
    ],
    "advice": {
     "matchup": "vs Flagg Train",
     "danger": false,
-    "fixes": [],
+    "fixes": [
+     "Giannis Antetokounmpo (PF) no game today \u2192 start Peyton Watson",
+     "Austin Reaves (UT) no game today \u2192 start Dyson Daniels",
+     "Darius Garland (G) no game today \u2192 start Ajay Mitchell"
+    ],
     "moves": [],
     "adds": [
-     "Nikola Vucevic (C, ORL): 2 games left this week, 41.9% owned",
-     "Anfernee Simons (PG/SG, PHI): 2 games left this week, 12.4% owned",
+     "Nikola Vucevic (C, ORL): 1 games left this week, 41.9% owned",
+     "Obi Toppin (PF, IND): 1 games left this week, 15.4% owned",
      "Scotty Pippen Jr. (PG/SG, MEM): 1 games left this week, 13.5% owned"
     ],
     "trades": null,
     "notes": [
-     "Move Robert Williams III out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 30 6:11p: Williams (knee) is questionable for Saturday's game against the Jazz.]"
+     "3 of 9 starters play tonight",
+     "Move Robert Williams III out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 30 6:11p: Williams (knee) is questionable for Saturday's game against the Jazz.]",
+     "(roster as of the laptop read Fri 4:35p; check it's still current)"
     ],
     "cats": {
      "rows": [
@@ -2913,11 +2931,11 @@
      ],
      "adds": [
       "For REB: Nikola Vucevic (C, ORL), 1 games left, 7.7/g",
-      "For PTS: Malik Monk (PG/SG, SAC), 1 games left, 14.8/g"
+      "For PTS: Obi Toppin (PF, IND), 1 games left, 15.2/g"
      ]
     },
     "assets": null,
-    "built": "Fri 11:00p"
+    "built": "Sat 12:24a"
    }
   }
  }
