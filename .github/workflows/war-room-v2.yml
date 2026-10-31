@@ -1,0 +1,55 @@
+name: War Room v2
+
+# Rebuilds the guillotine War Room (docs/war-room-v2/index.html) and its bids JSON
+# (docs/war-room-v2/bids.json) straight from Sleeper's public API and nflverse. See warroom/README.md.
+# Actions cron is UTC; times below are Central Standard Time (UTC-6, from Nov 1). GitHub drops some
+# scheduled runs, so the key moments get more than one slot.
+on:
+  schedule:
+    - cron: "10 12 * * *"          # daily 6:10am CT
+    - cron: "40 4 * * 2"           # Mon 10:40pm CT, after Monday night football
+    - cron: "20 5 * * 2"           # Mon 11:20pm CT
+    - cron: "10 14,15 * * 2"       # Tue 8:10am and 9:10am CT, before the 10:31am bid check
+    - cron: "50 15 * * 2"          # Tue 9:50am CT
+    - cron: "40 8 * * 3"           # Wed 2:40am CT, after waivers process (new FAAB and claims)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: war-room-v2
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: pip install -r requirements.txt
+      - name: Build the page and bids.json
+        run: python -m warroom.build
+      - name: Commit if changed
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/war-room-v2
+          git commit -q -m "War Room v2: $(date -u +%FT%TZ)" || { echo "nothing changed"; exit 0; }
+          for i in 1 2 3; do git pull -q --rebase -X theirs && git push -q && exit 0; sleep 5; done
+          exit 1
+      - name: Push alert on failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          curl -s -H "Title: War Room v2 build failed" -H "Priority: 3" -H "Tags: x" \
+            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -d "The guillotine War Room v2 didn't rebuild. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"

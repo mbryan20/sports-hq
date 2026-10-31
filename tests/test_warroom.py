@@ -1,0 +1,111 @@
+"""War Room v2 data build: bid history by leg, confirmed vs projected cuts, freed players from an empty roster."""
+import datetime as dt
+import os
+import unittest
+from unittest import mock
+
+os.environ["DRY_RUN"] = "1"
+
+from warroom import model
+
+NOW = dt.datetime(2026, 11, 3, 13, 0, tzinfo=dt.timezone.utc)   # Tue 7am CT
+
+
+def claim(rid, pid, bid, status, leg, tid):
+    return {"transaction_id": tid, "type": "waiver", "status": status, "roster_ids": [rid], "adds": {pid: rid},
+            "leg": leg, "settings": {"waiver_bid": bid}, "status_updated": 1793000000000 + tid}
+
+
+class History(unittest.TestCase):
+    def test_bids_by_leg_with_share_of_budget(self):
+        txs = [claim(1, "A", 50, "complete", 1, 1), claim(2, "A", 40, "failed", 1, 2),
+               claim(1, "B", 30, "complete", 3, 3), claim(2, "B", 75, "failed", 3, 4),
+               claim(2, "C", 5, "failed", 3, 5)]                       # nobody won C: not a market row
+        hist, before, spent = model.claims_history(txs, 200)
+        self.assertEqual([(h["leg"], h["sid"], h["win"], h["bid"]) for h in hist], [(1, "A", 1, 50), (3, "B", 1, 30)])
+        self.assertEqual(hist[1]["pct"], [[2, 75, 38], [1, 30, 20]])  # roster 1 had $150 left going into leg 3
+        self.assertEqual(spent, {1: 80, 2: 0})
+        self.assertEqual(before["1"][3], 150)
+
+
+class FakeNfl:
+    ids, pts, defpts, cur, injuries, bye = {}, {}, {}, {}, {}, {}
+
+    def __init__(self, final=(), weekly=None):
+        self.final, self.weekly = set(final), weekly or {}
+
+    def final_weeks(self):
+        return self.final
+
+    def stats_weeks(self):
+        return {w for v in self.weekly.values() for w in v}
+
+    def player(self, sid, db=None):
+        return {"name": sid, "pos": "WR", "team": "KC", "gsis": sid}
+
+    def week_points(self, sid, week, info=None):
+        return self.weekly.get(sid, {}).get(week)
+
+
+def league(rosters, txs=(), matchups=None, last_scored=7):
+    lid = model.LEAGUE_ID
+    base = model.BASE
+    data = {
+        f"{base}/league/{lid}": {"name": "Test", "settings": {"waiver_budget": 200, "leg": 8, "last_scored_leg": last_scored},
+                                 "scoring_settings": {"rec": 0.5}},
+        f"{base}/league/{lid}/rosters": rosters,
+        f"{base}/league/{lid}/users": [{"user_id": f"u{r['roster_id']}", "display_name": f"T{r['roster_id']}"} for r in rosters],
+        f"{base}/user/{model.SLEEPER_USERNAME}": {"user_id": "u1"},
+    }
+    for w in range(1, 10):
+        data[f"{base}/league/{lid}/transactions/{w}"] = [t for t in txs if t["leg"] == w]
+    for w, ms in (matchups or {}).items():
+        data[f"{base}/league/{lid}/matchups/{w}"] = ms
+    return lambda url, params=None: data.get(url, [])
+
+
+def roster(rid, players, eliminated=None, used=0):
+    st = {"waiver_budget_used": used}
+    if eliminated:
+        st["eliminated"] = eliminated
+    return {"roster_id": rid, "owner_id": f"u{rid}", "players": players, "starters": players[:1], "settings": st}
+
+
+@mock.patch("warroom.model.espn.games", lambda season, week: {})   # no live scoreboard in tests
+class Cut(unittest.TestCase):
+    def test_confirmed_cut_takes_players_from_the_chop_even_with_an_empty_roster(self):
+        chop = {"transaction_id": 99, "type": "chopped", "status": "complete", "roster_ids": [3], "leg": 7,
+                "drops": {"x1": 3, "x2": 3}, "status_updated": 1793000000000}
+        fetch = league([roster(1, ["a"]), roster(2, ["b"]), roster(3, [], eliminated=7)], [chop],
+                       {7: [{"roster_id": 1, "points": 120, "starters": ["a"]}, {"roster_id": 2, "points": 110, "starters": ["b"]},
+                            {"roster_id": 3, "points": 90, "starters": ["x1"], "players": ["x1", "x2"]}]})
+        d = model.build(NOW, FakeNfl(final={7}, weekly={"a": {7: 10}, "x1": {7: 8}, "x2": {7: 5}}), fetch, players={})
+        self.assertEqual((d["week"], d["cut"]["roster"], d["cut"]["confirmed"]), (8, 3, True))
+        self.assertEqual(sorted(d["teams"]["3"]["roster"]), ["x1", "x2"])
+        self.assertEqual(d["last_week"], 8)                      # two teams left: one more cut
+        self.assertIn("(confirmed)", d["asof"])
+
+    def test_monday_night_cut_is_projected_until_sleeper_marks_it(self):
+        # week 8 is final in nflverse but Sleeper hasn't scored it or chopped anyone yet
+        fetch = league([roster(1, ["a"]), roster(2, ["b"]), roster(3, ["c"])], [],
+                       {8: [{"roster_id": 1, "points": 120, "starters": ["a"]}, {"roster_id": 2, "points": 95, "starters": ["b"]},
+                            {"roster_id": 3, "points": 100, "starters": ["c"]}]})
+        d = model.build(NOW, FakeNfl(final={7, 8}), fetch, players={})
+        self.assertEqual((d["week"], d["cut"]["roster"], d["cut"]["confirmed"]), (9, 2, False))
+        self.assertEqual((d["teams"]["2"]["roster"], d["dead"]), (["b"], {}))   # still listed, so its players show as freed
+        self.assertIn("projected", d["asof"])
+
+    def test_nflverse_overrides_sleeper_only_while_sleeper_is_still_scoring(self):
+        ms = {8: [{"roster_id": 1, "points": 100, "starters": ["a"]}, {"roster_id": 2, "points": 90, "starters": ["b"]}]}
+        nfl = FakeNfl(final={7, 8}, weekly={"a": {8: 80.0}, "b": {8: 90.0}})   # nflverse: a really scored 80
+        d = model.build(NOW, nfl, league([roster(1, ["a"]), roster(2, ["b"])], [], ms), players={})
+        self.assertEqual(d["cut"]["roster"], 1)
+        self.assertIn("note", d["cut"])
+        # once Sleeper has scored the week, its official points decide
+        d = model.build(NOW, nfl, league([roster(1, ["a"]), roster(2, ["b"])], [], ms, last_scored=8), players={})
+        self.assertEqual(d["cut"]["roster"], 2)
+        self.assertNotIn("note", d["cut"])
+
+
+if __name__ == "__main__":
+    unittest.main()
