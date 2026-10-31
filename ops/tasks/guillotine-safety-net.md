@@ -2,7 +2,7 @@
 taskId: sports-hq-guillotine-safety-net
 title: "Sports HQ: Tue 7:30pm guillotine bid safety net"
 cron: "30 19 * * 2"   # fires ~7:35pm CT (the app adds a few minutes of jitter)
-status: CREATED 2026-10-31 (scheduled task, Auto mode)
+status: CREATED 2026-10-31; reads the AI strategy Doc first (scheduled task, Auto mode)
 ---
 
 
@@ -12,12 +12,13 @@ STRICTLY READ-ONLY: never place, edit or cancel a claim, never add/drop, never t
 
 Setup (PowerShell): $env:Path=[Environment]::GetEnvironmentVariable('Path','Machine')+';'+[Environment]::GetEnvironmentVariable('Path','User'); Set-Location C:\Claude\sports-hq; git pull --no-rebase --no-edit -q
 
-1. THE ADVICE.
+1. THE ADVICE. Source order: the AI strategy Doc first, then War Room v2 data, then the old War Room.
+   0. AI STRATEGY DOC (preferred, same source as this morning's push). With the Google Drive connector, find the Google Doc titled exactly "Guillotine bid strategy (v2)" and read it. Use it if its first line ("Updated <weekday> <date> <time> CT · ...") is TODAY at or after 5:00am CT. Its last section, "Machine lines", holds the final calls: BID;<sleeper_id>;<name>;<amount>;<drop> (amount = the suggested bid, used as is), FREE;<sleeper_id>;<name>;0;<drop> (add now at $0), SKIP;<sleeper_id>;<name>;0;- (shouldn't be claimed; counts like "Priced out"). Still read bids.json (below) for my_faab and my_roster. If the Doc wasn't updated today, use (a)–(c).
    a. Run `git log -1 --format=%cI -- docs/war-room-v2/bids.json`. FRESH if that time is after 6:00pm CT yesterday (Monday).
    b. If FRESH: read C:\Claude\sports-hq\docs\war-room-v2\bids.json: bids[] (sleeper_id, name, pos, team, call = Bid / Coin flip / Priced out / Skip / Add free, est_price, your_max, extra_weeks_alive), my_faab, my_roster.
    c. If NOT fresh or unreadable: use the old War Room instead — open https://mbryan20.github.io/sports-hq/war-room/ with get_page_text, rows under "Who to bid on this week" (PLAYER, EST. PRICE, YOUR MAX, CALL), and say "v2 data stale — used old War Room" in any push.
    d. Changed since this morning? Get the version that existed at 7:11am today: `git log -1 --before="<today> 07:11 -0600" --format=%H -- docs/war-room-v2/bids.json`, then `git show <hash>:docs/war-room-v2/bids.json`. If any player's call or your_max differs from now, note it as "changed since this morning: <player> <old> → <new>".
-   Suggested bid for a "Bid" player = est_price + $1 if that is at or below your_max, else your_max.
+   Suggested bid for a "Bid" player: from the Doc's BID line if you used the Doc; otherwise est_price + $1 if that is at or below your_max, else your_max. Step 3's "Bid", "Priced out/Skip" and "Add free" checks use the Doc's BID, SKIP and FREE lines when the Doc is the source.
 
 2. HIS ACTUAL BIDS AND ROSTER.
    - Pending claims: run `py -m shq.guillotine_bids --js`, open https://sleeper.com/leagues/1385516543386845184/team, wait ~5 seconds, run the printed JavaScript with javascript_tool. Write the returned JSON exactly to C:\Claude\sports-hq\.cache\guillotine_claims.json and run `py -m shq.guillotine_bids .cache\guillotine_claims.json`.

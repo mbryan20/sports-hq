@@ -69,10 +69,15 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Picks Fri 9pm CFP + Yahoo final | Fri | CFP + Yahoo final |
 | Sports HQ: Picks Sat 8am injury refresh | Sat | changed picks to the top in red |
 | Sports HQ: sign-in check (manual) | on demand | are BTO, CFP, Yahoo, ESPN still signed in? |
-| Sports HQ: Tue 7:30am guillotine bid check | Tue 7:11am | War Room v2 calls (`bids.json`; old War Room as fallback) vs pending Sleeper bids → push the exact changes by ~7:30am |
-| Sports HQ: Tue 7:30pm guillotine bid safety net | Tue ~7:35pm | Same check against your pending claims and roster; pushes only if a "Bid" player is unclaimed or underbid, a claim is on a Priced out/Skip player, the top free add is missing, or claims exceed FAAB (coin flips never count) |
+| Sports HQ: Tue 7:30am guillotine bid check | Tue 7:11am | The AI strategy Doc's bids when it was updated today after 5am CT (else War Room v2's `bids.json`, else the old War Room) vs pending Sleeper bids → push the exact changes by ~7:30am |
+| Sports HQ: Tue 7:30pm guillotine bid safety net | Tue ~7:35pm | Same sources and check against your pending claims and roster; pushes only if a "Bid" player is unclaimed or underbid, a claim is on a Priced out/Skip player, the top free add is missing, or claims exceed FAAB (coin flips never count) |
 | Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
 | Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
+
+**Cloud (claude.ai routine, read-only on the repo):** "Guillotine bid strategy (v2)", Tue 6:00am CT, Fable 5.1
+(`ops/tasks/guillotine-strategy-v2.md`). It reads War Room v2's `bids.json` plus news and rankings and rewrites the
+Google Doc "Guillotine bid strategy (v2)", ending with machine-readable BID/FREE/SKIP lines. It sends no push; the
+7:11am bid check turns the Doc into the Tuesday push.
 
 Copies of the review and baseball prompts are in `ops/tasks/`.
 Rules for every laptop run: read-only on fantasy/pool sites, never type passwords, close opened tabs,

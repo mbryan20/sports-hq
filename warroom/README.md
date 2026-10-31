@@ -7,8 +7,9 @@ WebFetch summaries that dropped data, and fixes made during a run were lost.
 
 - Page: https://mbryan20.github.io/sports-hq/war-room-v2/ (noindex, back link to Sports HQ)
 - JSON: https://mbryan20.github.io/sports-hq/war-room-v2/bids.json (bids table, cut risks, freed players,
-  my roster, FAAB, data as of). The AI write-up and the Tuesday bid check read this.
-  The Tuesday 7:30pm bid safety net (`ops/tasks/guillotine-safety-net.md`) reads it too.
+  my roster, FAAB, data as of). The AI strategy routine (Tue 6:00am CT, `ops/tasks/guillotine-strategy-v2.md`)
+  reads it and writes the Google Doc "Guillotine bid strategy (v2)". The Tuesday 7:11am bid check and 7:30pm safety
+  net use that Doc when it was updated today after 5am CT, and fall back to this JSON, then the old War Room.
 - Workflow: `.github/workflows/war-room-v2.yml`: daily 6:10am CT, Mon 10:40pm and 11:20pm CT (after
   Monday night), Tue 6:50am CT (fresh for the 7:11am bid check), Tue 8:10, 9:10 and 9:50am CT (a fresh
   page during the morning), Wed 2:40am CT (after waivers). It commits only when the page or JSON changed.
