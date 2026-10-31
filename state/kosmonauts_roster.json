@@ -1,5 +1,5 @@
 {
- "captured": "2026-10-30T21:34:47Z",
+ "captured": "2026-10-31T12:35:33Z",
  "players": [
   {
    "slot": "QB",
@@ -87,18 +87,6 @@
   },
   {
    "slot": "BN",
-   "name": "Tyler Allgeier",
-   "yahoo_id": "34107",
-   "key": null,
-   "team": "ARI",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "BN",
    "name": "Travis Etienne Jr.",
    "yahoo_id": "33413",
    "key": null,
@@ -111,15 +99,27 @@
   },
   {
    "slot": "BN",
-   "name": "Chris Rodriguez Jr.",
-   "yahoo_id": "40231",
+   "name": "David Montgomery",
+   "yahoo_id": "31905",
    "key": null,
-   "team": "JAX",
+   "team": "HOU",
    "pos": "RB",
    "eligible": [
     "RB"
    ],
-   "status": null
+   "status": "Questionable"
+  },
+  {
+   "slot": "BN",
+   "name": "Zach Charbonnet",
+   "yahoo_id": "40075",
+   "key": null,
+   "team": "SEA",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
   },
   {
    "slot": "K",
@@ -329,18 +329,6 @@
   },
   {
    "slot": "FA",
-   "name": "David Montgomery",
-   "yahoo_id": "31905",
-   "key": null,
-   "team": "HOU",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "J.K. Dobbins",
    "yahoo_id": "32725",
    "key": null,
@@ -350,18 +338,6 @@
     "RB"
    ],
    "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Zach Charbonnet",
-   "yahoo_id": "40075",
-   "key": null,
-   "team": "SEA",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -425,6 +401,18 @@
   },
   {
    "slot": "FA",
+   "name": "Tyler Allgeier",
+   "yahoo_id": "34107",
+   "key": null,
+   "team": "ARI",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Kenny Gainwell",
    "yahoo_id": "33538",
    "key": null,
@@ -473,6 +461,18 @@
   },
   {
    "slot": "FA",
+   "name": "Kendre Miller",
+   "yahoo_id": "40108",
+   "key": null,
+   "team": "NO",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Mike Washington Jr.",
    "yahoo_id": "42744",
    "key": null,
@@ -485,6 +485,18 @@
   },
   {
    "slot": "FA",
+   "name": "Brian Robinson Jr.",
+   "yahoo_id": "34054",
+   "key": null,
+   "team": "ATL",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Out"
+  },
+  {
+   "slot": "FA",
    "name": "Dameon Pierce",
    "yahoo_id": "34063",
    "key": null,
@@ -494,18 +506,6 @@
     "RB"
    ],
    "status": "IR"
-  },
-  {
-   "slot": "FA",
-   "name": "Kendre Miller",
-   "yahoo_id": "40108",
-   "key": null,
-   "team": "NO",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
   },
   {
    "slot": "FA",
@@ -545,18 +545,6 @@
   },
   {
    "slot": "FA",
-   "name": "Xavier Worthy",
-   "yahoo_id": "40877",
-   "key": null,
-   "team": "KC",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Jordan Addison",
    "yahoo_id": "40042",
    "key": null,
@@ -569,10 +557,10 @@
   },
   {
    "slot": "FA",
-   "name": "Marvin Harrison Jr.",
-   "yahoo_id": "40893",
+   "name": "Xavier Worthy",
+   "yahoo_id": "40877",
    "key": null,
-   "team": "HOU",
+   "team": "KC",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -585,6 +573,18 @@
    "yahoo_id": "30197",
    "key": null,
    "team": "TB",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Marvin Harrison Jr.",
+   "yahoo_id": "40893",
+   "key": null,
+   "team": "HOU",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -629,18 +629,6 @@
   },
   {
    "slot": "FA",
-   "name": "Jordyn Tyson",
-   "yahoo_id": "42630",
-   "key": null,
-   "team": "NO",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": "IR-Return"
-  },
-  {
-   "slot": "FA",
    "name": "Khalil Shakir",
    "yahoo_id": "34104",
    "key": null,
@@ -653,10 +641,34 @@
   },
   {
    "slot": "FA",
+   "name": "Jordyn Tyson",
+   "yahoo_id": "42630",
+   "key": null,
+   "team": "NO",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR-Return"
+  },
+  {
+   "slot": "FA",
    "name": "Wan'Dale Robinson",
    "yahoo_id": "33998",
    "key": null,
    "team": "TEN",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Makai Lemon",
+   "yahoo_id": "42642",
+   "key": null,
+   "team": "PHI",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -674,18 +686,6 @@
     "WR"
    ],
    "status": "Questionable"
-  },
-  {
-   "slot": "FA",
-   "name": "Makai Lemon",
-   "yahoo_id": "42642",
-   "key": null,
-   "team": "PHI",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
   },
   {
    "slot": "FA",
@@ -989,6 +989,18 @@
   },
   {
    "slot": "FA",
+   "name": "Chad Ryland",
+   "yahoo_id": "40159",
+   "key": null,
+   "team": "ARI",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Harrison Mevis",
    "yahoo_id": "41312",
    "key": null,
@@ -1005,18 +1017,6 @@
    "yahoo_id": "27120",
    "key": null,
    "team": "LAR",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Chad Ryland",
-   "yahoo_id": "40159",
-   "key": null,
-   "team": "ARI",
    "pos": "K",
    "eligible": [
     "K"
@@ -1085,10 +1085,10 @@
   },
   {
    "slot": "FA",
-   "name": "49ers",
-   "yahoo_id": "100025",
+   "name": "Bears",
+   "yahoo_id": "100003",
    "key": null,
-   "team": "SF",
+   "team": "CHI",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1097,10 +1097,10 @@
   },
   {
    "slot": "FA",
-   "name": "Bears",
-   "yahoo_id": "100003",
+   "name": "49ers",
+   "yahoo_id": "100025",
    "key": null,
-   "team": "CHI",
+   "team": "SF",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1157,10 +1157,10 @@
   },
   {
    "slot": "FA",
-   "name": "Panthers",
-   "yahoo_id": "100029",
+   "name": "Raiders",
+   "yahoo_id": "100013",
    "key": null,
-   "team": "CAR",
+   "team": "LV",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1169,10 +1169,10 @@
   },
   {
    "slot": "FA",
-   "name": "Raiders",
-   "yahoo_id": "100013",
+   "name": "Panthers",
+   "yahoo_id": "100029",
    "key": null,
-   "team": "LV",
+   "team": "CAR",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-10-30T21:34:47Z"
+ "fa_captured": "2026-10-31T12:35:33Z"
 }
