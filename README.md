@@ -17,6 +17,7 @@ Michael's all-in-one fantasy sports system: **https://mbryan20.github.io/sports-
 | Weekly | start/sit + top 3 adds per league (basketball: games left, injuries) | Tuesday 7am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
+| War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
 | Layouts lab (`/lab/`) | 4 dashboard layouts on the same data, to pick the next main view; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league tab opens with a **What to do** card (`shq/advice.py`, rebuilt every run): matchup outlook or
