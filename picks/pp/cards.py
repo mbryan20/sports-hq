@@ -313,9 +313,21 @@ def build_cfp_slate(W, slate):
                      "wager": f"{stake:,}", "why": short(x["S"]["why"][0]["reason"]) if x["S"]["why"] else short(f"Cover {x['p']*100:.0f}% vs pool line at current market; top edge"),
                      "source": src_link(x["g"], x["S"]["why"]), "key": f"{x['sg']['away']}@{x['sg']['home']}", "pick_team": team})
     alt = sorted(table, key=lambda r: -r["p_first"])[1]
+
+    def side(x):
+        team = x["sg"]["home"] if x["home"] else x["sg"]["away"]
+        why = short(x["S"]["why"][0]["reason"]) if x["S"]["why"] else "next-best edge vs pool line"
+        return f"{team} {x['line']:+g} (cover {x['p']*100:.0f}%): {why}"
+
+    # the next-best sides, so a primary pick never hides options worth a look (each has a breakdown below)
+    alts = [f"Also worth a look: {side(x)}" for x in cands[nb:nb + 3]]
+    if alt["bets"] > 1:
+        alts.append(f"Split option: {' + '.join(side(x).split(' (')[0] for x in cands[:alt['bets']])}, "
+                    f"{int(c['balance'] * alt['frac'] / alt['bets']):,} each → P(1st) {alt['p_first']*100:.1f}%.")
     return {"id": "cfp", "title": "CFP 2026 points pool", "deadline": "Locks Sat 11:00am CT", "rows": rows,
             "notes": [f"Sizing sim (10k seasons): {nb} bet(s), {best['frac']*100:.0f}% of {c['balance']:,} → P(1st) {best['p_first']*100:.1f}%, P(top 3) {best['p_top3']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else ""),
-                      f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → P(1st) {alt['p_first']*100:.1f}%."] + ([c["note"]] if c.get("note") else [])}
+                      f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → P(1st) {alt['p_first']*100:.1f}%."]
+                     + alts + ([c["note"]] if c.get("note") else [])}
 
 
 def build_bto(W, slate):
