@@ -221,11 +221,13 @@ def run(week=None, push=True, now=None, fetch=espn_odds):
     week, rows = scan(week, now, fetch)
     sent = json.loads(SENT.read_text()) if SENT.exists() else {}
     new = [r for r in rows if r["flag"] and f"{week}:{r['pool']}:{r['game']}" not in sent]
+    pushed = []
     if new and push and os.environ.get("DRY_RUN") != "1":
         title = f"Stale pool line: {new[0]['pool'].upper()} {new[0]['side']} {_fmt(new[0]['pool_line'])}" if len(new) == 1 \
             else f"{len(new)} stale pool lines"
         msg = "\n".join(describe(r) for r in new) + "\nPool lines are fixed; the market moved."
         if notify(title, msg, tags="chart_with_upwards_trend", priority=4):
+            pushed = new
             for r in new:
                 sent[f"{week}:{r['pool']}:{r['game']}"] = now.isoformat()
     cutoff = (now - timedelta(days=21)).isoformat()
@@ -234,7 +236,7 @@ def run(week=None, push=True, now=None, fetch=espn_odds):
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"updated": now.astimezone(CT).isoformat(), "week": week, "alert_gap": GAP_ALERT,
                                "rows": rows}, indent=1))
-    return week, rows, new
+    return week, rows, pushed
 
 
 def main():
@@ -245,8 +247,8 @@ def main():
     a = ap.parse_args()
     if a.if_due and not due():
         return
-    week, rows, new = run(a.week, push=not a.no_push)
-    print(f"week {week}: {len(rows)} open pool games, {sum(r['flag'] for r in rows)} flagged, {len(new)} newly pushed")
+    week, rows, pushed = run(a.week, push=not a.no_push)
+    print(f"week {week}: {len(rows)} open pool games, {sum(r['flag'] for r in rows)} flagged, {len(pushed)} pushed now")
     for r in rows[:12]:
         print(("* " if r["flag"] else "  ") + describe(r))
 

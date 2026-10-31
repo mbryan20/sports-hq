@@ -392,6 +392,31 @@ def mark_changes(card, stage, week):
                                               "game": r["game"], "stage": stage} for r in card["rows"]}, indent=1))
 
 
+# Live stale-line gaps: pp.lines writes docs/data/pick_lines.json every 2h Wed-Sat (run.yml), so the
+# page reads it in the browser instead of waiting for the next card build.
+GAPS_HTML = """<section id="gaps" hidden><h2>Pool lines vs market now</h2><p class="meta" id="gaps-up"></p>
+<table class="gt"><thead><tr><th>Pool</th><th>Pool line (value side)</th><th>Market</th><th>Gap</th></tr></thead><tbody id="gaps-rows"></tbody></table>
+<p class="meta">Bold = 1.5+ points or a key number gained (push sent once per game). Edges only; picks above already price them.</p></section>
+<script>
+fetch("../data/pick_lines.json?t=" + Date.now()).then(r => r.json()).then(d => {
+  const rows = (d.rows || []).filter(r => r.gap > 0);
+  if (!rows.length) return;
+  const f = x => x ? (x > 0 ? "+" : "") + x : "PK";
+  const tb = document.getElementById("gaps-rows");
+  for (const r of rows) {
+    const tr = tb.insertRow(); if (r.flag) tr.className = "flag";
+    const keys = r.keys.length ? " (gains " + r.keys.join("/") + ")" : "";
+    [r.pool.toUpperCase(), r.side + " " + f(r.pool_line), f(r.market_line) + " " + r.book, r.gap + keys]
+      .forEach(t => { tr.insertCell().textContent = t; });
+  }
+  const up = new Date(d.updated), old = (Date.now() - up) / 36e5 > 3;
+  document.getElementById("gaps-up").textContent = "Checked " + up.toLocaleString([], {weekday: "short", hour: "numeric", minute: "2-digit"})
+    + (old ? " (over 3h ago)" : "") + " · open games only";
+  document.getElementById("gaps").hidden = false;
+}).catch(() => {});
+</script>"""
+
+
 def render(cards, meta):
     def pct(x):
         return "—" if x is None else f"{x*100:.0f}"
@@ -421,9 +446,11 @@ th,td{{border-bottom:1px solid var(--line);padding:4px 2px;vertical-align:top;wo
 th{{font-size:10.5px;color:var(--mut)}}th:nth-child(1){{width:23%}}th:nth-child(2){{width:19%}}th:nth-child(3){{width:12%}}th:nth-child(4){{width:13%}}th:nth-child(5){{width:25%}}th:nth-child(6){{width:8%}}
 tr.chg td{{background:var(--chg);color:var(--red)}}a{{color:var(--acc)}}ul{{padding-left:16px;margin:6px 0}}li{{margin:2px 0}}
 .stage{{display:inline-block;padding:1px 6px;border-radius:4px;background:var(--acc);color:#fff;font-size:11px;font-weight:700}}
+table.gt th{{width:auto}}table.gt th:nth-child(1){{width:14%}}table.gt th:nth-child(4){{width:16%}}tr.flag td{{font-weight:700;color:var(--acc)}}
 </style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
 <p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}</p>
 {''.join(body)}
+{GAPS_HTML}
 <section><h2>Model check</h2><ul>{''.join(f'<li>{t}</li>' for t in meta['calibration'])}</ul>
 <p class="meta">Win % = stats-only model / market implied. Method: <a href="method/pool-method.html">pool method</a> · <a href="method/pool-rules.html">pool rules</a> · <a href="history.html">history</a></p></section>
 </body></html>"""

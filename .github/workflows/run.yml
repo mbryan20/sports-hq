@@ -86,6 +86,8 @@ jobs:
               [ $failed -eq 0 ] && curl -s -H "Title: Sports HQ job failed" -H "Priority: 4" -H "Tags: x"                 -H "Click: $RUN_URL" -d "A Sports HQ pass failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC" >/dev/null
               failed=1
             fi
+            # Pool Picks stale-line scan: Wed-Sat every 2h (30 min before CFP's Sat lock); never fails the run
+            (cd picks && python -m pp.lines --if-due) || echo "pick line scan failed"
             bash .github/commit_data.sh || failed=1
             export FORCE_WEEKLY=0 FORCE_DIGEST=0 TEST_PUSH=0
             python -m shq.run --keep-watching || break
