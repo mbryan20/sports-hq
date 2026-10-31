@@ -34,6 +34,7 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
 4. **Build:** `py -m pp.cards --stage <draft|final|refresh>`. bto_final uses `--stage final --pools bto,yahoo`.
    - The build pulls ESPN's current line (DraftKings, 15-min cache) on top of CFBD's consensus, so ATS cards center on the market at build time; the card's Model check names the line source and time. On the Sat refresh a pick that moved to a different game is flagged red too.
    - Stale lines: `py -m pp.lines --no-push` prints today's pool-vs-market gaps (the cloud scan in run.yml pushes them Wed–Sat).
+   - Breakdowns: every game on the page gets a tap-to-open panel, built automatically by the same command. `py -m pp.cards --render-only` redraws them around the posted `data/cards.json` without changing any pick.
    - Read `data/cards.json`. Sanity-check every row: no pick on a locked game, reasons ≤ 12 words, links work.
    - Check that any underdog shows its signals. Check that the BTO picks obey the mode rules (count, Big Game, 2× rule, $10 multiples).
 5. **Publish:** `py -m pp.publish --stage <stage>`. This commits, pushes, waits for Pages, then sends the ntfy push.
