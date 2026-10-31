@@ -1,7 +1,8 @@
 # Ideas and open questions
 
-Add anything here (from your phone: github.com → this file → pencil icon). The monthly review reads it,
-ranks it, and proposes what to build next.
+Add anything under "From Michael", one line per idea starting with "- " (from your phone:
+https://github.com/mbryan20/sports-hq/edit/main/IDEAS.md). The Sports HQ intake chat picks new lines up, and the
+monthly review ranks what's left. Sports HQ only; other projects don't read this file.
 
 ## From Michael
 - 2026-10-28: Sleeper's beta website now shows the guillotine **Chop** menu (only the app had it before).
@@ -19,8 +20,7 @@ ranks it, and proposes what to build next.
 - ~~Fantasy Command Center artifact~~: folded into Sports HQ 2026-10-30 (dynasty assets, IR-slot check).
 
 ## Proposed by Claude (not built yet)
-- Guillotine: show survival odds and FAAB bid guidance on the Guillotine tab (today: link to the War Room copy).
-- One "Today" tab: everything that needs action in the next 24h across all leagues and pools.
-- Basketball category view: per-category strengths vs this week's opponent (ESPN matchup stats).
+- Password-lock the whole site (encrypted data, passphrase once per device). Waiting on Michael's go.
+- (Built since: guillotine odds + bids, the Today tab, the basketball category view. See ROADMAP.md.)
 
 ## Proposed by monthly review
