@@ -59,6 +59,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Picks Sat 8am injury refresh | Sat | changed picks to the top in red |
 | Sports HQ: sign-in check (manual) | on demand | are BTO, CFP, Yahoo, ESPN still signed in? |
 | Sports HQ: Tue 7:30am guillotine bid check | Tue 7:11am | War Room v2 calls (`bids.json`; old War Room as fallback) vs pending Sleeper bids → push the exact changes by ~7:30am |
+| Sports HQ: Tue 7:30pm guillotine bid safety net | Tue ~7:35pm | Same check against your pending claims and roster; pushes only if a "Bid" player is unclaimed or underbid, a claim is on a Priced out/Skip player, the top free add is missing, or claims exceed FAAB (coin flips never count) |
 | Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
 | Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
 
