@@ -32,6 +32,9 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
    - **Weigh injuries by position value, then size the points.** Rough guide for one starter missing (backup quality moves it):
      QB 2–7 (depends on the drop to the backup); elite edge rusher, LT or CB1 0.5–1; RB1, WR1 or TE1 0.3–0.75; safety, LB,
      interior OL (center, guard) or DT 0.1–0.3. Several starters out in one unit add up (three OL out matters more than one).
+   - **Keep `reason` in step with `status`.** When a re-check changes a status (doubtful → questionable, or a starter named),
+     rewrite the reason and update `source`/`published` to the newest report. Oct 31: Illinois' status said "questionable"
+     while its reason still said "starter out".
    - **Only cite an injury as a pick's reason if it's worth 0.5+ points, or it's part of a unit that is.** Smaller items stay in
      the research file and the breakdown, not in the card's one-line reason.
    - NFL games: put `adj_home_pts` (net research adjustment to the home margin) and `why: [{reason, source}]` on the BTO slate entry.
