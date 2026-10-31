@@ -19,7 +19,7 @@ Re-ran the walk-forward backtest through week 8, the last graded week (`picks/ba
 - **Shipped:** tap any game on the Picks page (a card row or the new "All pool games" table) to see what the model saw: lines and movement, model vs market, cover % at the pool line, a stats matchup with national ranks, strengths and weaknesses, dated injury/news items, weather and each pool's context. Built from the numbers by templates (`picks/pp/explain.py`); no AI.
 - **Picks unchanged:** the Sat 8am refresh card was re-rendered around the posted picks (`--render-only`); every pick, wager and changed flag matched before and after.
 - **Rule 4 in the text:** a weakness is labeled "exploitable" only when the opponent's matching unit ranks top 50 and leans on that play type; otherwise it reads "probably won't matter" with the reason. Example: Georgia's big-play defense (#113) vs Florida's big-play offense (#89).
-- **Limits:** stats cover games before this week; havoc, plays and run rate are raw (not opponent-adjusted). NFL panels have scores-based ratings only (no free EPA splits) and no Open-Meteo pull. Research-run notes show the run date and log link rather than a per-note source; injury items keep their own dated source.
+- **Limits:** stats cover games before this week; havoc, plays and run rate are raw (not opponent-adjusted). NFL panels have no Open-Meteo pull (EPA splits from nflverse were added later the same day, commit 4e5d702). Research-run notes show the run date and log link rather than a per-note source; injury items keep their own dated source.
 
 ## New data sources and backtest — Sat Oct 31, 2026
 Michael asked for sources beyond Yahoo and ESPN (rbsdm-style EPA, success rate, CPOE). The ranked list, terms and limits are in `method/sources.md`.
