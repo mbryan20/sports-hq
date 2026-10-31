@@ -10,7 +10,7 @@ on:
     - cron: "40 4 * * 2"           # Mon 10:40pm CT, after Monday night football
     - cron: "20 5 * * 2"           # Mon 11:20pm CT
     - cron: "50 12 * * 2"          # Tue 6:50am CT, fresh bids.json for the 7:11am bid check
-    - cron: "10 14,15 * * 2"       # Tue 8:10am and 9:10am CT, before the 10:31am bid check
+    - cron: "10 14,15 * * 2"       # Tue 8:10am and 9:10am CT, a fresh page during the morning
     - cron: "50 15 * * 2"          # Tue 9:50am CT
     - cron: "40 8 * * 3"           # Wed 2:40am CT, after waivers process (new FAAB and claims)
   workflow_dispatch:
