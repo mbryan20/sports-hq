@@ -123,7 +123,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
   pre-filled GitHub issue (works on his phone at work; no claude.ai needed); `.github/workflows/feedback.yml` logs it as one
   line in FEEDBACK.md "Inbox" and closes the issue. The intake chat reads that Inbox at the start of each session and when
   he says "check feedback", routes each line like any other item, then moves it to "Handled" with where it went. The
-  monthly review reads the whole file for patterns and re-ranks "Next layout ideas".
+  monthly review reads the whole file for patterns and recommends how to re-rank "Next layout ideas".
 - **Starting a fresh intake chat:** when the current one has been summarized more than once or gets slow, open a new
   Code chat in C:\Claude\sports-hq and say: "This is the Sports HQ intake chat. Read ROADMAP.md, IDEAS.md,
   FEEDBACK.md and README.md, then route what I send." Sessions started from the old chat still report there; check them with the
