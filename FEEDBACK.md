@@ -13,4 +13,6 @@ Feedback typed straight into a new issue titled "Feedback: …" lands here too.
 
 ## Inbox
 
+- 2026-10-31 💡 Idea / want · A · Scoreboard · whole page · 1920px, dark: "TEST from Claude: checking the feedback loop end to end. Will be removed." ([#1](https://github.com/mbryan20/sports-hq/issues/1))
+
 ## Handled
