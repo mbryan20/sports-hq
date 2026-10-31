@@ -62,6 +62,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Promote a layout:** copy its page to `docs/index.html`, change `../../` paths to `./`, keep the manifest/meta tags
   from the old `docs/index.html`, set `data-layout` to e.g. "Main · B", delete the old `app.js`/`style.css` once nothing
   links them, and keep the lab (the winner stays there as a variant too). Verify at 375px and 1440px, both themes.
+  Keep header links to `picks/`, `war-room/` and `wrapups/` (weekend wrap-up) and the Lab, reachable at 375px too.
 - **Picks page and War Room** keep their own pages; restyle them into the shared shell only after the Picks per-game
   breakdown work (`picks/pp/cards.py` `render()`) has landed.
 - **Data contract:** the lab only reads what the cloud job already writes. New fields go through `shq/` and its tests.

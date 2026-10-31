@@ -46,7 +46,7 @@ body { display: flex; flex-direction: column; overflow: hidden; }
 <body data-layout="C · Deck">
 <header class="topbar"><div class="row1">
   <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab C</span></div>
-  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a><a class="pill" href="../">Lab</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div><nav class="pager" id="pager" aria-label="Cards"></nav></header>
 <div class="deckwrap"><button class="arrow l" data-step="-1" aria-label="Previous">‹</button><div class="deck" id="deck"></div><button class="arrow r" data-step="1" aria-label="Next">›</button></div>
@@ -63,7 +63,7 @@ function todayCol(d) {
   const now = feed.filter(i => i.kind === "fix" || i.kind === "risk" || i.kind === "move");
   return `<div class="colhead"><h2>Today</h2>${SHQ.fbButtons("Today card")}</div>
     <div class="card"><h3>Do now · ${now.length}</h3>${now.length ? `<ul class="tips">${now.map(i => `<li><b>${esc(i.league)}:</b> ${esc(i.text)}</li>`).join("")}</ul>` : `<p class="note good">Every lineup is set.</p>`}</div>
-    <div class="card"><h3>Pool picks</h3>${gaps.length ? `<ul class="tips">${gaps.map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="note">No stale-line edges open.</p>`}<p class="meta"><a href="../../picks/">Open the picks cards →</a></p></div>
+    <div class="card"><h3>Pool picks</h3>${gaps.length ? `<ul class="tips">${gaps.map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="note">No stale-line edges open.</p>`}<p class="meta"><a href="../../picks/">Open the picks cards →</a> · <a href="../../wrapups/">Weekend wrap-up →</a></p></div>
     <div class="card"><h3>8am check</h3>${SHQ.todayHTML(d)}</div>
     <div class="card"><h3>Weekly plan</h3><div style="padding:0 14px 12px">${SHQ.weeklyHTML(d).replace('class="wgrid"', 'class="wgrid" style="grid-template-columns:1fr"')}</div></div>
     <div class="card"><h3>Data</h3><div class="foot" style="padding:0 14px 12px">${SHQ.footHTML()}</div></div>`;

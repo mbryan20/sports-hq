@@ -55,7 +55,7 @@ details.past > summary { cursor: pointer; color: var(--muted); font-size: 13px; 
 <body data-layout="D · Game day">
 <header class="topbar"><div class="row1">
   <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab D</span></div>
-  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a><a class="pill" href="../">Lab</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div></header>
 <div class="wrap">
@@ -100,7 +100,8 @@ function slotHTML(s) {
 function render(d) {
   const Ls = SHQ.leagues(d), feed = SHQ.feed(d);
   document.getElementById("board").innerHTML = `<h2><span>Scoreboard</span>${SHQ.fbButtons("Scoreboard")}</h2><div class="strip">${Ls.map(L =>
-    `<div class="sc" data-lg="${esc(L.name)}"><div class="nm">${SHQ.dot(L.state)}${esc(L.name)}</div>${SHQ.scoreHTML(L)}</div>`).join("")}</div>`;
+    `<div class="sc" data-lg="${esc(L.name)}"><div class="nm">${SHQ.dot(L.state)}${esc(L.name)}</div>${SHQ.scoreHTML(L)}</div>`).join("")}</div>`
+    + `<p class="meta" style="margin:10px 0 0"><a href="../../war-room/">War Room →</a> · <a href="../../wrapups/">Weekend wrap-up →</a></p>`;
   const first = feed.filter(i => ["fix", "risk", "pick", "move"].includes(i.kind));
   const firstHTML = `<section class="first${first.some(i => i.kind === "fix" || i.kind === "risk") ? "" : " calm"}" data-spot="Do first">
     <div class="head"><span>Do first</span>${SHQ.fbButtons("Do first")}</div>

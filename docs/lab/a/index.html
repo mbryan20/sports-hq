@@ -46,7 +46,7 @@ main { padding: 14px 16px 80px; max-width: 1560px; margin: 0 auto; }
 <body data-layout="A · Scoreboard">
 <header class="topbar"><div class="row1">
   <div class="brand"><h1>Sports HQ</h1><span class="tag">Lab A</span></div>
-  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill" href="../">Lab</a>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a><a class="pill" href="../">Lab</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div></header>
 <main id="main"><p class="note">Loading…</p></main>
@@ -92,7 +92,11 @@ function render(d) {
     <article class="tile extra" tabindex="0" data-go="../../war-room/" data-spot="War Room tile">
       <div class="t-head"><h3>War Room</h3><span class="meta">Guillotine model</span></div>
       <p class="t-top">${g ? `Survive ${SHQ.pct(g.survive)} · waivers ${esc(g.waivers)} CT · $${g.faab} FAAB` : "Bid and elimination model."}</p>
-      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("War Room tile")}</div></article>`;
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("War Room tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-go="../../wrapups/" data-spot="Wrap-up tile">
+      <div class="t-head"><h3>Weekend wrap-up</h3><span class="meta">PDF + page</span></div>
+      <p class="t-top">How the week went across every league and pool.</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Wrap-up tile")}</div></article>`;
   document.getElementById("main").innerHTML = kpis
     + `<div class="sechead"><h2>Leagues</h2><span class="meta">tap a tile for the full page</span></div><section class="grid">${tiles}</section>`
     + `<div class="sechead"><h2>Pools and plans</h2></div><section class="grid">${picksTile}${extras}</section>`;
