@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T07:25:22Z",
+ "updated": "2026-11-01T08:18:27Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-10-31T21:35:07Z",
-   "proj": 105.2,
+   "proj": 105.1,
    "starters": [
     {
      "slot": "QB",
@@ -93,7 +93,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 8.5,
+     "proj": 8.4,
      "status": null,
      "why": "",
      "flags": [],
@@ -197,7 +197,7 @@
     }
    ],
    "advice": {
-    "matchup": "105.2 projected",
+    "matchup": "105.1 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -216,7 +216,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "Domo Arigato": {
@@ -682,7 +682,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "Guillotine": {
@@ -1005,7 +1005,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 1:25a",
+    "built": "Sun 2:18a",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1052,7 +1052,7 @@
       },
       {
        "name": "Off with his head",
-       "proj": 135.7,
+       "proj": 135.6,
        "cut": 0.046,
        "faab": 106,
        "bold": 0.4,
@@ -1588,7 +1588,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "Stempak": {
@@ -1956,7 +1956,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "Bro-vid19": {
@@ -2285,7 +2285,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "3-Ball BB": {
@@ -2306,13 +2306,15 @@
      "name": "Saddiq Bey",
      "team": "NO",
      "pos": "SF/PF",
-     "opp": "vs ATL",
-     "kickoff": "2026-10-31T23:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2320,13 +2322,15 @@
      "name": "Shai Gilgeous-Alexander",
      "team": "OKC",
      "pos": "PG/G",
-     "opp": "@HOU",
-     "kickoff": "2026-11-01T00:30:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2334,20 +2338,6 @@
      "name": "Kingston Flemings",
      "team": "ATL",
      "pos": "SG/G",
-     "opp": "@NO",
-     "kickoff": "2026-10-31T23:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "SG",
-     "name": "Josh Giddey",
-     "team": "CHI",
-     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2364,6 +2354,34 @@
      "name": "Franz Wagner",
      "team": "ORL",
      "pos": "SF/PF",
+     "opp": "vs BOS",
+     "kickoff": "2026-11-01T20:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "C",
+     "name": "Walker Kessler",
+     "team": "LAL",
+     "pos": "C/PF/C",
+     "opp": "vs TOR",
+     "kickoff": "2026-11-02T02:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "PF",
+     "name": "Jonathan Kuminga",
+     "team": "MIN",
+     "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2376,45 +2394,19 @@
      "news": null
     },
     {
-     "slot": "PF",
-     "name": "Jonathan Kuminga",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": "@SA",
-     "kickoff": "2026-11-01T00:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
      "slot": "PG",
      "name": "Ayo Dosunmu",
      "team": "MIN",
      "pos": "PG/SG",
-     "opp": "@SA",
-     "kickoff": "2026-11-01T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "C",
-     "name": "Jarrett Allen",
-     "team": "CLE",
-     "pos": "C/PF/C",
-     "opp": "@MIL",
-     "kickoff": "2026-11-01T00:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     },
     {
@@ -2422,9 +2414,25 @@
      "name": "De'Aaron Fox",
      "team": "SA",
      "pos": "PG/SG",
-     "opp": "vs MIN",
-     "kickoff": "2026-11-01T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "news": null
+    },
+    {
+     "slot": "SG",
+     "name": "Brandin Podziemski",
+     "team": "GS",
+     "pos": "PG/SG",
+     "opp": "vs LAC",
+     "kickoff": "2026-11-02T01:30:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2436,13 +2444,15 @@
      "name": "De'Andre Hunter",
      "team": "SAC",
      "pos": "SF/PF",
-     "opp": "@MEM",
-     "kickoff": "2026-11-01T00:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "news": null
     }
    ],
@@ -2495,6 +2505,22 @@
     },
     {
      "slot": "BN",
+     "name": "Josh Giddey",
+     "team": "CHI",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "news": null
+    },
+    {
+     "slot": "BN",
      "name": "Matas Buzelis",
      "team": "CHI",
      "pos": "SF/PF",
@@ -2511,25 +2537,9 @@
     },
     {
      "slot": "BN",
-     "name": "Walker Kessler",
-     "team": "LAL",
+     "name": "Jarrett Allen",
+     "team": "CLE",
      "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2564,80 +2574,86 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Jaxson Hayes (C, UTAH): 1 games left this week, 17.5% owned",
-     "Scotty Pippen Jr. (PG/SG, MEM): 1 games left this week, 12.5% owned",
-     "Kyle Kuzma (SF/PF, MIL): 1 games left this week, 12.5% owned"
+     "Mitchell Robinson (C, BOS): 1 games left this week, 14.9% owned",
+     "Rui Hachimura (SF/PF, LAC): 1 games left this week, 14.1% owned",
+     "Derrick Jones Jr. (SF/PF, LAC): 1 games left this week, 13.6% owned"
     ],
     "trades": null,
-    "notes": [],
+    "notes": [
+     "3 of 10 starters play tonight"
+    ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".769",
-       "opp": ".697",
+       "me": ".765",
+       "opp": ".716",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "REB",
-       "me": "182",
-       "opp": "124",
+       "me": "231",
+       "opp": "151",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "PTS",
-       "me": "466",
-       "opp": "296",
+       "me": "641",
+       "opp": "334",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "BLK",
-       "me": "27",
-       "opp": "20",
-       "now": "W",
-       "outlook": "win"
-      },
-      {
-       "cat": "3PM",
-       "me": "46",
+       "me": "29",
        "opp": "24",
        "now": "W",
        "outlook": "win"
       },
       {
+       "cat": "3PM",
+       "me": "57",
+       "opp": "27",
+       "now": "W",
+       "outlook": "win"
+      },
+      {
        "cat": "STL",
-       "me": "32",
-       "opp": "28",
+       "me": "46",
+       "opp": "33",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "AST",
-       "me": "120",
-       "opp": "59",
+       "me": "147",
+       "opp": "67",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "FG%",
-       "me": ".465",
-       "opp": ".521",
+       "me": ".494",
+       "opp": ".506",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       }
      ],
      "now": "7-1-0",
-     "proj": "7-1",
-     "close": 0,
+     "proj": "7-0",
+     "close": 1,
      "games_left": [
-      0,
-      0
+      3,
+      3
      ],
-     "chase": [],
-     "adds": []
+     "chase": [
+      "FG% is close. Keep in the lineup: Walker Kessler (1 games, .726 on 8.5 FGA/g)."
+     ],
+     "adds": [
+      "For FG%: Mitchell Robinson (C, BOS), 1 games left, .824 on 3.4 FGA/g"
+     ]
     },
     "assets": {
      "lines": [
@@ -2651,7 +2667,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   },
   "Ball is Life": {
@@ -2987,7 +3003,7 @@
      ]
     },
     "assets": null,
-    "built": "Sun 1:25a"
+    "built": "Sun 2:18a"
    }
   }
  }
