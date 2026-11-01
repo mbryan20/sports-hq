@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T22:47:00Z",
+ "updated": "2026-11-01T22:57:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -220,7 +220,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "Domo Arigato": {
@@ -630,7 +630,7 @@
     "moves": [],
     "adds": [
      "Add Washington Commanders (DEF, WAS, 8.4 proj this week), drop Philadelphia Eagles (5.9 proj). Bid $0\u20131",
-     "Add Matt Gay (K, LV, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
+     "Add Drew Stevens (K, WAS, 8.6 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
      "Add Josh Cameron (WR, JAX, 4.4/gm, value 715) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133"
     ],
     "trades": {
@@ -695,7 +695,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "Guillotine": {
@@ -1023,7 +1023,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 4:47p",
+    "built": "Sun 4:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1039,7 +1039,7 @@
       {
        "name": "drewpepin1",
        "proj": 91.4,
-       "cut": 0.851,
+       "cut": 0.847,
        "faab": 15,
        "bold": 1.0,
        "me": false
@@ -1047,9 +1047,17 @@
       {
        "name": "CodyRust",
        "proj": 108.9,
-       "cut": 0.111,
+       "cut": 0.11,
        "faab": 0,
        "bold": 0.75,
+       "me": false
+      },
+      {
+       "name": "robert8063",
+       "proj": 123.7,
+       "cut": 0.02,
+       "faab": 37,
+       "bold": 0.53,
        "me": false
       },
       {
@@ -1058,14 +1066,6 @@
        "cut": 0.018,
        "faab": 77,
        "bold": 0.44,
-       "me": false
-      },
-      {
-       "name": "robert8063",
-       "proj": 125.4,
-       "cut": 0.014,
-       "faab": 37,
-       "bold": 0.53,
        "me": false
       },
       {
@@ -1102,7 +1102,7 @@
       },
       {
        "name": "Swegs4",
-       "proj": 155.9,
+       "proj": 160.9,
        "cut": 0.0,
        "faab": 20,
        "bold": 0.52,
@@ -1142,7 +1142,7 @@
      "bids": [],
      "freed": {
       "team": "drewpepin1",
-      "cut": 0.851,
+      "cut": 0.847,
       "players": []
      }
     }
@@ -1539,7 +1539,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "Stempak": {
@@ -1548,7 +1548,7 @@
    "week": 8,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-01T13:40:25Z",
+   "snapshot": "2026-11-01T22:35:22Z",
    "league": "Stempak Family and Friends 2026",
    "opponent": "Robert's Rowdy Team",
    "opp_proj": null,
@@ -1682,16 +1682,10 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
      "proj": 8.9,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
-     "flags": [
-      "Q"
-     ],
-     "news": {
-      "note": "Kincaid (chest) is active for Sunday's game against the Ravens, Cameron Wolfe of NFL Network reports.",
-      "at": "2026-11-01T16:27:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4385690/dalton-kincaid"
-     }
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
     },
     {
      "slot": "K",
@@ -1725,6 +1719,27 @@
    "bench": [
     {
      "slot": "BN",
+     "name": "David Montgomery",
+     "team": "HOU",
+     "pos": "RB/FLEX",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "BYE",
+      "Q"
+     ],
+     "news": {
+      "note": "Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.",
+      "at": "2026-10-23T20:32:36Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
+     }
+    },
+    {
+     "slot": "BN",
      "name": "Jaylen Waddle",
      "team": "DEN",
      "pos": "WR/FLEX",
@@ -1732,11 +1747,9 @@
      "kickoff": "2026-11-01T21:25:00Z",
      "started": true,
      "proj": 10.8,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
-     "flags": [
-      "Q"
-     ],
+     "status": null,
+     "why": "",
+     "flags": [],
      "news": null
     },
     {
@@ -1747,7 +1760,7 @@
      "opp": "@MIA",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": true,
-     "proj": 16,
+     "proj": 15.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -1771,29 +1784,13 @@
     },
     {
      "slot": "BN",
-     "name": "C.J. Stroud",
-     "team": "HOU",
-     "pos": "QB/OP",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "BYE"
-     ],
-     "news": null
-    },
-    {
-     "slot": "BN",
      "name": "Josh Downs",
      "team": "IND",
      "pos": "WR/FLEX",
      "opp": "@JAX",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
-     "proj": 8.4,
+     "proj": 8.3,
      "status": null,
      "why": "",
      "flags": [],
@@ -1807,7 +1804,7 @@
      "opp": "vs NE",
      "kickoff": "2026-11-01T21:25:00Z",
      "started": true,
-     "proj": 14.7,
+     "proj": 14.4,
      "status": null,
      "why": "",
      "flags": [],
@@ -1831,12 +1828,11 @@
    "advice": {
     "matchup": "178.2 projected vs Robert's Rowdy Team",
     "danger": false,
-    "fixes": [
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 23 3:32p: Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.]"
-    ],
+    "fixes": [],
     "moves": [],
     "adds": [
-     "Add Sam Darnold (QB, SEA, 19.7/gm, value 2,036) for MarShawn Lloyd (RB, your RB6, 5.9/gm): fills in at QB in weeks 9, 10, +8.1 pts over the next 4 weeks"
+     "Add Sam Darnold (QB, SEA, 19.7/gm, value 2,036) for MarShawn Lloyd (RB, your RB7, 5.9/gm): fills in at QB in weeks 9, 10, +24.7 pts over the next 4 weeks",
+     "Add C.J. Stroud (QB, HOU, 17.9/gm, value 2,641) for David Montgomery (RB, your RB6, 11.4/gm): better backup QB, +4.3 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1878,30 +1874,28 @@
        "why": "George Kittle starts for you; Chase Brown starts for them over Jeremiyah Love (9.8/gm)"
       },
       {
-       "team": "Sacked again",
+       "team": "Jonesing for more",
        "give": [
-        "Zay Flowers (WR)",
-        "Jaylen Waddle (WR)"
+        "David Montgomery (RB)",
+        "Josh Downs (WR)"
        ],
        "get": [
-        "Trey McBride (TE)"
+        "Travis Kelce (TE)"
        ],
-       "give_value": 6516,
-       "get_value": 7012,
-       "my_gain": 0.7,
-       "their_gain": 3.0,
+       "give_value": 1257,
+       "get_value": 1295,
+       "my_gain": 2.1,
+       "their_gain": 1.6,
        "cut": false,
-       "why": "Trey McBride starts for you; Zay Flowers and Jaylen Waddle start for them over Quinshon Judkins (10.6/gm)"
+       "why": "Travis Kelce starts for you; David Montgomery starts for them over Jeremiyah Love (9.8/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "(roster as of the laptop read Sun 7:40a; check it's still current)"
-    ],
+    "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "Bro-vid19": {
@@ -1910,12 +1904,12 @@
    "week": 8,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-01T13:40:25Z",
+   "snapshot": "2026-11-01T22:35:22Z",
    "league": "Bro-vid19",
    "opponent": "Party Puka",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 139.7,
+   "proj": 139.5,
    "starters": [
     {
      "slot": "WR",
@@ -1939,7 +1933,7 @@
      "opp": "@TB",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
-     "proj": 18.1,
+     "proj": 17.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -2077,6 +2071,27 @@
     },
     {
      "slot": "BN",
+     "name": "David Montgomery",
+     "team": "HOU",
+     "pos": "RB/FLEX",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "BYE",
+      "Q"
+     ],
+     "news": {
+      "note": "Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.",
+      "at": "2026-10-23T20:32:36Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
+     }
+    },
+    {
+     "slot": "BN",
      "name": "Aaron Jones Sr.",
      "team": "MIN",
      "pos": "RB/FLEX",
@@ -2088,26 +2103,6 @@
      "why": "",
      "flags": [],
      "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Rashid Shaheed",
-     "team": "SEA",
-     "pos": "WR/FLEX",
-     "opp": "vs CHI",
-     "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": "OUT",
-     "why": "ESPN: OUT",
-     "flags": [
-      "OUT"
-     ],
-     "news": {
-      "note": "Shaheed (knee) has been ruled out for Monday's game against the Bears, Curtis Crabtree of FOX 13 Seattle reports.",
-      "at": "2026-10-31T20:53:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4032473/rashid-shaheed"
-     }
     },
     {
      "slot": "BN",
@@ -2147,7 +2142,7 @@
      "opp": "vs IND",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
-     "proj": 9.8,
+     "proj": 9.7,
      "status": null,
      "why": "",
      "flags": [],
@@ -2155,79 +2150,75 @@
     }
    ],
    "advice": {
-    "matchup": "139.7 projected vs Party Puka",
+    "matchup": "139.5 projected vs Party Puka",
     "danger": false,
-    "fixes": [
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 23 3:32p: Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.]"
-    ],
+    "fixes": [],
     "moves": [],
     "adds": [
-     "Add Quentin Johnston (WR, LAC, 6.9/gm) for Rashid Shaheed (WR, your WR6, 4.4/gm): better backup WR, +1.7 pts over the next 4 weeks"
+     "No free agent improves your lineup, or beats a backup at his position, right now."
     ],
     "trades": {
      "lines": [
-      "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 11th of 12)",
       "Surplus: Juwan Johnson (TE), 10.8/gm on your bench, would start for 9 of 11 teams",
       "Surplus: Brenton Strange (TE), 10.8/gm on your bench, would start for 9 of 11 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
       {
+       "team": "Inglorious Staffords",
+       "give": [
+        "Ja'Marr Chase (WR)",
+        "David Montgomery (RB)"
+       ],
+       "get": [
+        "Kenneth Walker III (RB)"
+       ],
+       "give_value": 8815,
+       "get_value": 9395,
+       "my_gain": 2.0,
+       "their_gain": 0.9,
+       "cut": false,
+       "why": "Kenneth Walker III starts for you; Ja'Marr Chase and David Montgomery start for them over Cooper Kupp (7.9/gm)"
+      },
+      {
        "team": "Future so Bright my Rice Hurts",
        "give": [
-        "Joe Burrow (QB)",
-        "Travis Kelce (TE)"
+        "Garrett Wilson (WR)",
+        "Juwan Johnson (TE)"
        ],
        "get": [
         "Chuba Hubbard (RB)"
        ],
-       "give_value": 4408,
+       "give_value": 3717,
        "get_value": 4098,
-       "my_gain": 3.1,
+       "my_gain": 1.8,
        "their_gain": 0.6,
        "cut": false,
-       "why": "Chuba Hubbard starts for you; Joe Burrow and Travis Kelce start for them over Jared Goff (17.2/gm)"
+       "why": "Chuba Hubbard starts for you; Garrett Wilson and Juwan Johnson start for them over Mark Andrews (8.3/gm)"
       },
       {
-       "team": "Inglorious Staffords",
+       "team": "Can You Diggs It?",
        "give": [
-        "Garrett Wilson (WR)",
-        "KC Concepcion (WR)"
+        "Drake London (WR)",
+        "Aaron Jones Sr. (RB)"
        ],
        "get": [
-        "Bucky Irving (RB)"
+        "Brock Bowers (TE)"
        ],
-       "give_value": 4120,
-       "get_value": 4367,
-       "my_gain": 2.8,
-       "their_gain": 0.5,
-       "cut": false,
-       "why": "Bucky Irving starts for you; Garrett Wilson and KC Concepcion start for them over Cooper Kupp (7.9/gm)"
-      },
-      {
-       "team": "Ashton DJENTY",
-       "give": [
-        "Drake London (WR)"
-       ],
-       "get": [
-        "Ashton Jeanty (RB)"
-       ],
-       "give_value": 5463,
-       "get_value": 5204,
+       "give_value": 6320,
+       "get_value": 6231,
        "my_gain": 0.6,
-       "their_gain": 0.5,
+       "their_gain": 3.7,
        "cut": false,
-       "why": "Ashton Jeanty starts for you; Drake London starts for them"
+       "why": "Brock Bowers starts for you; Drake London and Aaron Jones Sr. start for them over Jadarian Price (5.4/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "(roster as of the laptop read Sun 7:40a; check it's still current)"
-    ],
+    "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "3-Ball BB": {
@@ -2609,7 +2600,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   },
   "Ball is Life": {
@@ -2618,7 +2609,7 @@
    "week": 2,
    "sport": "nba",
    "format": null,
-   "snapshot": "2026-11-01T13:40:25Z",
+   "snapshot": "2026-11-01T22:35:22Z",
    "league": "We playin basketball",
    "opponent": "Flagg Train",
    "opp_proj": null,
@@ -2803,7 +2794,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "ESPN: Day-To-Day",
+     "why": "ESPN: DAY_TO_DAY",
      "flags": [
       "NO GAME",
       "Q"
@@ -2837,9 +2828,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Nikola Vucevic (C, ORL): 1 games left this week, 40.8% owned",
-     "Rui Hachimura (SF/PF, LAC): 1 games left this week, 14.4% owned",
-     "Jared McCain (PG/SG, OKC): 0 games left this week, 34.1% owned"
+     "Nikola Vucevic (C, ORL): 1 games left this week, 40.9% owned",
+     "Rui Hachimura (SF/PF, LAC): 1 games left this week, 15% owned",
+     "Jared McCain (PG/SG, OKC): 0 games left this week, 33.1% owned"
     ],
     "trades": null,
     "notes": [
@@ -2866,7 +2857,7 @@
        "me": "525",
        "opp": "620",
        "now": "L",
-       "outlook": "close"
+       "outlook": "lose"
       },
       {
        "cat": "BLK",
@@ -2905,25 +2896,24 @@
       }
      ],
      "now": "5-3-0",
-     "proj": "2-2",
-     "close": 4,
+     "proj": "2-3",
+     "close": 3,
      "games_left": [
       4,
-      2
+      3
      ],
      "chase": [
-      "FG% is close. Keep in the lineup: Austin Reaves (1 games, .548 on 14.0 FGA/g) and Isaiah Jackson (1 games, .600 on 6.0 FGA/g).",
       "REB is close. Keep in the lineup: Isaiah Jackson (1 games, 5.8/g) and Austin Reaves (1 games, 3.5/g).",
+      "FG% is close. Keep in the lineup: Austin Reaves (1 games, .548 on 14.0 FGA/g) and Isaiah Jackson (1 games, .600 on 6.0 FGA/g).",
       "AST is close. Keep in the lineup: Darius Garland (1 games, 6.2/g) and Austin Reaves (1 games, 5.3/g)."
      ],
      "adds": [
-      "For FG%: Rui Hachimura (SF/PF, LAC), 1 games left, .517 on 9.8 FGA/g",
-      "For REB: De'Anthony Melton (PG/SG, GS), 1 games left, 3.8/g",
-      "For AST: Jake LaRavia (SF/PF, LAL), 1 games left, 0.8/g"
+      "For REB: Rui Hachimura (SF/PF, LAC), 1 games left, 4.1/g",
+      "For FG%: Jake LaRavia (SF/PF, LAL), 1 games left, .526 on 3.8 FGA/g"
      ]
     },
     "assets": null,
-    "built": "Sun 4:47p"
+    "built": "Sun 4:57p"
    }
   }
  }
