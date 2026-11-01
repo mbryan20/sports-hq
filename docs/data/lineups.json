@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T20:47:00Z",
+ "updated": "2026-11-01T20:57:01Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-11-01T13:39:33Z",
-   "proj": 105.7,
+   "proj": 105.6,
    "starters": [
     {
      "slot": "QB",
@@ -23,7 +23,7 @@
      "opp": "vs LAC",
      "kickoff": "2026-11-01T21:05:00Z",
      "started": false,
-     "proj": 19.7,
+     "proj": 19.6,
      "status": null,
      "why": "",
      "flags": [],
@@ -203,7 +203,7 @@
     }
    ],
    "advice": {
-    "matchup": "105.7 projected",
+    "matchup": "105.6 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -222,7 +222,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "Domo Arigato": {
@@ -698,7 +698,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "Guillotine": {
@@ -953,7 +953,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 4 of 11 this week, +34.1 pts vs the lowest other team, 1% chance of being cut",
+    "matchup": "Projected 4 of 11 this week, +33.8 pts vs the lowest other team, 1% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -1027,71 +1027,71 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 2:47p",
+    "built": "Sun 2:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
      "n": 11,
      "rank": 4,
-     "gap": 34.1,
+     "gap": 33.8,
      "proj": 153.6,
-     "cut": 0.008,
-     "survive": 0.992,
+     "cut": 0.006,
+     "survive": 0.994,
      "faab": 59,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "CodyRust",
-       "proj": 119.5,
-       "cut": 0.42,
+       "proj": 119.8,
+       "cut": 0.365,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
-       "name": "Aniasin1",
-       "proj": 131.3,
-       "cut": 0.159,
-       "faab": 4,
-       "bold": 0.93,
-       "me": false
-      },
-      {
-       "name": "MoneyManChas",
-       "proj": 136.4,
-       "cut": 0.125,
-       "faab": 150,
-       "bold": 0.2,
-       "me": false
-      },
-      {
-       "name": "GoodFellas",
-       "proj": 138.3,
-       "cut": 0.118,
-       "faab": 77,
-       "bold": 0.44,
-       "me": false
-      },
-      {
        "name": "Off with his head",
-       "proj": 140.7,
-       "cut": 0.065,
+       "proj": 128.4,
+       "cut": 0.16,
        "faab": 106,
        "bold": 0.4,
        "me": false
       },
       {
+       "name": "GoodFellas",
+       "proj": 134.1,
+       "cut": 0.136,
+       "faab": 77,
+       "bold": 0.44,
+       "me": false
+      },
+      {
        "name": "Swegs4",
-       "proj": 146.4,
-       "cut": 0.057,
+       "proj": 137.2,
+       "cut": 0.101,
        "faab": 20,
        "bold": 0.52,
        "me": false
       },
       {
+       "name": "MoneyManChas",
+       "proj": 138.8,
+       "cut": 0.083,
+       "faab": 150,
+       "bold": 0.2,
+       "me": false
+      },
+      {
+       "name": "Aniasin1",
+       "proj": 138.1,
+       "cut": 0.07,
+       "faab": 4,
+       "bold": 0.93,
+       "me": false
+      },
+      {
        "name": "JHED1979",
-       "proj": 151.1,
-       "cut": 0.02,
+       "proj": 138.9,
+       "cut": 0.063,
        "faab": 43,
        "bold": 0.77,
        "me": false
@@ -1099,31 +1099,31 @@
       {
        "name": "robert8063",
        "proj": 156.3,
-       "cut": 0.014,
+       "cut": 0.011,
        "faab": 37,
        "bold": 0.53,
        "me": false
       },
       {
-       "name": "drewpepin1",
-       "proj": 155.7,
-       "cut": 0.01,
-       "faab": 15,
-       "bold": 1.0,
-       "me": false
-      },
-      {
        "name": "michaelbryan",
        "proj": 153.6,
-       "cut": 0.008,
+       "cut": 0.006,
        "faab": 59,
        "bold": 0.51,
        "me": true
       },
       {
-       "name": "SteelRob420",
-       "proj": 160.2,
+       "name": "drewpepin1",
+       "proj": 157.9,
        "cut": 0.004,
+       "faab": 15,
+       "bold": 1.0,
+       "me": false
+      },
+      {
+       "name": "SteelRob420",
+       "proj": 164.0,
+       "cut": 0.001,
        "faab": 43,
        "bold": 0.98,
        "me": false
@@ -1146,7 +1146,7 @@
      "bids": [],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.42,
+      "cut": 0.365,
       "players": []
      }
     }
@@ -1543,7 +1543,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "Stempak": {
@@ -1596,10 +1596,16 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
      "proj": 19.2,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "ESPN: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Knockout league pickups: Prioritize running backs while they're available",
+      "at": "2026-10-27T20:57:34Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4379399/james-cook-iii"
+     }
     },
     {
      "slot": "RB",
@@ -1906,7 +1912,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "Bro-vid19": {
@@ -2233,7 +2239,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "3-Ball BB": {
@@ -2615,7 +2621,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   },
   "Ball is Life": {
@@ -2924,7 +2930,7 @@
      ]
     },
     "assets": null,
-    "built": "Sun 2:47p"
+    "built": "Sun 2:57p"
    }
   }
  }
