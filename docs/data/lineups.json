@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T16:17:00Z",
+ "updated": "2026-11-01T16:27:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -216,7 +216,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "Domo Arigato": {
@@ -230,7 +230,7 @@
    "opponent": "Take Mahomes Tonight",
    "opp_proj": 143.4,
    "roster_synced": null,
-   "proj": 116.7,
+   "proj": 120.6,
    "starters": [
     {
      "slot": "QB",
@@ -304,13 +304,13 @@
     },
     {
      "slot": "TE",
-     "name": "Kenyon Sadiq",
-     "team": "NYJ",
+     "name": "Mike Gesicki",
+     "team": "CIN",
      "pos": "TE",
-     "opp": "vs LV",
+     "opp": "vs TEN",
      "kickoff": "2026-11-01T18:00:00Z",
      "started": false,
-     "proj": 4.0,
+     "proj": 7.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -494,6 +494,20 @@
     },
     {
      "slot": "BN",
+     "name": "Kenyon Sadiq",
+     "team": "NYJ",
+     "pos": "TE",
+     "opp": "vs LV",
+     "kickoff": "2026-11-01T18:00:00Z",
+     "started": false,
+     "proj": 4.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "BN",
      "name": "Kaelon Black",
      "team": "SF",
      "pos": "RB",
@@ -531,20 +545,6 @@
      "kickoff": "2026-11-01T21:25:00Z",
      "started": false,
      "proj": 4.9,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Mike Gesicki",
-     "team": "CIN",
-     "pos": "TE",
-     "opp": "vs TEN",
-     "kickoff": "2026-11-01T18:00:00Z",
-     "started": false,
-     "proj": 7.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -608,12 +608,10 @@
     }
    ],
    "advice": {
-    "matchup": "116.7 vs 143.4 (Take Mahomes Tonight): projected to lose by 26.7",
+    "matchup": "120.6 vs 143.4 (Take Mahomes Tonight): projected to lose by 22.8",
     "danger": false,
     "fixes": [],
-    "moves": [
-     "Start Mike Gesicki (7.9) over Kenyon Sadiq (4.0) at TE, +3.9"
-    ],
+    "moves": [],
     "adds": [
      "Add Washington Commanders (DEF, WAS, 8.5 proj this week), drop Philadelphia Eagles (5.8 proj). Bid $0\u20131",
      "Add Drew Stevens (K, WAS, 8.7 proj this week), drop Jake Elliott (6.6 proj). Bid $0\u20131",
@@ -644,13 +642,13 @@
       {
        "team": "TheParlay",
        "give": [
-        "Chris Rodriguez Jr. (RB)",
+        "Mike Gesicki (TE)",
         "Zach Charbonnet (RB)"
        ],
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2519,
+       "give_value": 2574,
        "get_value": 2630,
        "my_gain": 2.5,
        "their_gain": 4.8,
@@ -682,7 +680,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "Guillotine": {
@@ -1007,7 +1005,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 10:17a",
+    "built": "Sun 10:27a",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1602,7 +1600,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "Stempak": {
@@ -1970,7 +1968,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "Bro-vid19": {
@@ -2299,7 +2297,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "3-Ball BB": {
@@ -2681,7 +2679,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   },
   "Ball is Life": {
@@ -2990,7 +2988,7 @@
      ]
     },
     "assets": null,
-    "built": "Sun 10:17a"
+    "built": "Sun 10:27a"
    }
   }
  }
