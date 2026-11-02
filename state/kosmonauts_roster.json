@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-02T13:35:15Z",
+ "captured": "2026-11-02T22:34:42Z",
  "players": [
   {
    "slot": "QB",
@@ -361,7 +361,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "IR-Return"
+   "status": null
   },
   {
    "slot": "FA",
@@ -641,18 +641,6 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
-   "key": null,
-   "team": "IND",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Jordyn Tyson",
    "yahoo_id": "42630",
    "key": null,
@@ -662,6 +650,18 @@
     "WR"
    ],
    "status": "IR-Return"
+  },
+  {
+   "slot": "FA",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
+   "key": null,
+   "team": "IND",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
   },
   {
    "slot": "FA",
@@ -1121,10 +1121,10 @@
   },
   {
    "slot": "FA",
-   "name": "Packers",
-   "yahoo_id": "100009",
+   "name": "49ers",
+   "yahoo_id": "100025",
    "key": null,
-   "team": "GB",
+   "team": "SF",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1133,10 +1133,10 @@
   },
   {
    "slot": "FA",
-   "name": "49ers",
-   "yahoo_id": "100025",
+   "name": "Packers",
+   "yahoo_id": "100009",
    "key": null,
-   "team": "SF",
+   "team": "GB",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-02T13:35:15Z"
+ "fa_captured": "2026-11-02T22:34:42Z"
 }
