@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T01:57:00Z",
+ "updated": "2026-11-02T02:07:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -220,7 +220,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "Domo Arigato": {
@@ -693,7 +693,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "Guillotine": {
@@ -1021,7 +1021,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Sun 7:57p",
+    "built": "Sun 8:07p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1529,7 +1529,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "Stempak": {
@@ -1885,7 +1885,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "Bro-vid19": {
@@ -2208,7 +2208,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "3-Ball BB": {
@@ -2265,13 +2265,17 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: SUSPENSION, but not on ESPN's injury report: unconfirmed",
+     "status": "SUSP",
+     "why": "ESPN: SUSPENSION",
      "flags": [
       "NO GAME",
-      "Q"
+      "SUSP"
      ],
-     "news": null
+     "news": {
+      "note": "Flemings logged 23 points (9-12 FG, 3-5 3Pt, 2-3 FT), five rebounds, five assists, one block and one steal across 28 minutes during Wednesday's 129-117 loss to the Heat.",
+      "at": "2026-11-02T01:54:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/5149077/kingston-flemings"
+     }
     },
     {
      "slot": "F",
@@ -2294,7 +2298,7 @@
      "pos": "C/PF/C",
      "opp": "vs TOR",
      "kickoff": "2026-11-02T02:00:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2503,9 +2507,7 @@
      "Obi Toppin (PF, IND): 1 games left this week, 12.7% owned"
     ],
     "trades": null,
-    "notes": [
-     "1 of 10 starters play tonight"
-    ],
+    "notes": [],
     "cats": {
      "rows": [
       {
@@ -2562,22 +2564,18 @@
        "me": ".494",
        "opp": ".506",
        "now": "L",
-       "outlook": "close"
+       "outlook": "lose"
       }
      ],
      "now": "7-1-0",
-     "proj": "7-0",
-     "close": 1,
+     "proj": "7-1",
+     "close": 0,
      "games_left": [
-      1,
-      2
+      0,
+      0
      ],
-     "chase": [
-      "FG% is close. Keep in the lineup: Walker Kessler (1 games, .726 on 8.5 FGA/g)."
-     ],
-     "adds": [
-      "For FG%: Jake LaRavia (SF/PF, LAL), 1 games left, .526 on 3.8 FGA/g"
-     ]
+     "chase": [],
+     "adds": []
     },
     "assets": {
      "lines": [
@@ -2591,7 +2589,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   },
   "Ball is Life": {
@@ -2646,7 +2644,7 @@
      "pos": "PG/SG",
      "opp": "vs TOR",
      "kickoff": "2026-11-02T02:00:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2706,7 +2704,7 @@
      "pos": "SG/SF",
      "opp": "vs TOR",
      "kickoff": "2026-11-02T02:00:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2824,9 +2822,7 @@
      "Obi Toppin (PF, IND): 1 games left this week, 12.9% owned"
     ],
     "trades": null,
-    "notes": [
-     "2 of 9 starters play tonight"
-    ],
+    "notes": [],
     "cats": {
      "rows": [
       {
@@ -2841,7 +2837,7 @@
        "me": "221",
        "opp": "210",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "PTS",
@@ -2876,34 +2872,28 @@
        "me": "157",
        "opp": "155",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "FG%",
        "me": ".464",
        "opp": ".457",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       }
      ],
      "now": "5-3-0",
-     "proj": "2-3",
-     "close": 3,
+     "proj": "5-3",
+     "close": 0,
      "games_left": [
-      2,
-      1
+      0,
+      0
      ],
-     "chase": [
-      "FG% is close. Keep in the lineup: Austin Reaves (1 games, .548 on 14.0 FGA/g).",
-      "REB is close. Keep in the lineup: Austin Reaves (1 games, 3.5/g) and Quentin Grimes (1 games, 3.5/g).",
-      "AST is close. Keep in the lineup: Austin Reaves (1 games, 5.3/g) and Quentin Grimes (1 games, 2.7/g)."
-     ],
-     "adds": [
-      "For FG%: Jake LaRavia (SF/PF, LAL), 1 games left, .526 on 3.8 FGA/g"
-     ]
+     "chase": [],
+     "adds": []
     },
     "assets": null,
-    "built": "Sun 7:57p"
+    "built": "Sun 8:07p"
    }
   }
  }
