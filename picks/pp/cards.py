@@ -14,6 +14,7 @@ from . import model as M
 from .market import lines
 from .lines import overlay
 from .names import norm
+from .push import compose as push_compose
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
@@ -583,6 +584,27 @@ def all_games_html(games):
             + "".join(rows) + "</tbody></table><p class='meta'>Y Yahoo, B BTO, C CFP; green = on that card.</p></section>")
 
 
+def checks_html(meta):
+    """Top of the page: saved-pick CHANGE / decision Differs lines (same as the push), then the second opinion."""
+    al = "".join(f"<li>{html.escape(a)}</li>" for a in meta.get("alerts") or [])
+    ck = meta.get("checked")
+    if ck and ck.get("stage") == meta.get("stage"):
+        fails = f" Automatic checks failed: {html.escape('; '.join(ck['auto_fails']))}." if ck.get("auto_fails") else ""
+        line = (f"<p class='meta ck'>{html.escape(ck['text'])} (second opinion, {html.escape(ck['at'])}; "
+                f"{ck['auto_passed']}/{ck['auto_total']} automatic checks passed).{fails}</p>")
+    else:
+        line = "<p class='meta ck'>Second-opinion check: pending for this build.</p>"
+    return (f"<ul class='alerts'>{al}</ul>" if al else "") + line
+
+
+def alerts_for(cards, slate, stage):
+    try:
+        return push_compose(cards, slate, final_call=stage != "draft")[0]
+    except Exception as ex:  # the page and push must still go out
+        print("saved-pick compare skipped:", repr(ex))
+        return []
+
+
 def render(cards, meta, games=()):
     def pct(x):
         return "—" if x is None else f"{x*100:.0f}"
@@ -620,8 +642,10 @@ tr.bdr>td{{padding:0 0 8px;background:var(--bd)}}.bd{{padding:4px 6px;font-size:
 .bd h4{{font-size:11px;margin:10px 0 2px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}}.bl{{font-weight:600}}
 table.mt th,table.ag th{{width:auto}}table.mt th:nth-child(1){{width:36%}}table.mt td{{padding:2px}}tr.sh td{{font-weight:700;color:var(--mut);padding-top:6px}}
 table.ag th:nth-child(1){{width:21%}}table.ag th:nth-child(2){{width:39%}}table.ag th:nth-child(4){{width:15%}}.g{{color:var(--acc)}}.r{{color:var(--red)}}
+ul.alerts{{color:var(--red);font-weight:600;margin:8px 0}}.ck{{margin:2px 0 6px}}
 </style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
 <p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}{(' · breakdowns ' + html.escape(meta['breakdowns'])) if meta.get('breakdowns') else ''}</p>
+{checks_html(meta)}
 {''.join(body)}
 {GAPS_HTML}
 {all_games_html(games)}
@@ -661,7 +685,9 @@ def rerender(week=None):
     cards, meta = d["cards"], d["meta"]
     week = week or meta.get("week") or current_week()
     W = Week(week)
-    games = add_breakdowns(W, load_slate(week), cards, meta)
+    slate = load_slate(week)
+    meta["alerts"] = alerts_for(cards, slate, meta.get("stage"))
+    games = add_breakdowns(W, slate, cards, meta)
     write(cards, meta, games)
     print(json.dumps({"rerendered": week, "breakdowns": len(games)}))
 
@@ -696,7 +722,8 @@ def main():
         stage_label += " - BACKUP (no fresh research)"
     meta = {"stage": a.stage, "stage_label": stage_label, "week_label": slate["label"], "week": week,
             "generated": datetime.now(CT).strftime("%a %b %d, %I:%M %p CT"),
-            "generated_iso": datetime.now(timezone.utc).isoformat(), "calibration": calib}
+            "generated_iso": datetime.now(timezone.utc).isoformat(), "calibration": calib,
+            "alerts": alerts_for(cards, slate, a.stage)}
     write(cards, meta, add_breakdowns(W, slate, cards, meta))
     changed = [f"{c['title']}: {r['pick']}" for c in cards for r in c["rows"] if r.get("changed")]
     print(json.dumps({"stage": stage_label, "week": week, "changed": changed}))
