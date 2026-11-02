@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T15:36:24Z",
+ "updated": "2026-11-02T22:13:41Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -158,13 +158,17 @@
      "kickoff": null,
      "started": false,
      "proj": 0,
-     "status": "Q",
-     "why": "Yahoo: IR, but not on ESPN's injury report: unconfirmed",
+     "status": "IR",
+     "why": "Yahoo: IR",
      "flags": [
       "BYE",
-      "Q"
+      "IR"
      ],
-     "news": null
+     "news": {
+      "note": "Head coach Kellen Moore said that Etienne (hamstring) will be evaluated Monday before the Saints make a determination whether he practices this week, Ross Jackson of WWL Louisiana reports.",
+      "at": "2026-11-02T17:20:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4239996/travis-etienne-jr"
+     }
     },
     {
      "slot": "BN",
@@ -182,8 +186,8 @@
       "Q"
      ],
      "news": {
-      "note": "Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.",
-      "at": "2026-10-23T20:32:36Z",
+      "note": "Texans head coach DeMeco Ryans said Monday that he has \"no significant update\" on the status of Montgomery (groin) heading into a Week 9 matchup with the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-02T16:29:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -208,7 +212,7 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Baker Mayfield (QB, TB, 19.5/gm, value 262) for David Montgomery (RB, your RB3, 10.3/gm): fills in at QB in week 11, +23.1 pts over the next 4 weeks"
+     "Add Baker Mayfield (QB, TB, 19.5/gm, value 272) for David Montgomery (RB, your RB3, 10.3/gm): fills in at QB in week 11, +23.1 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -219,7 +223,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "Domo Arigato": {
@@ -264,8 +268,8 @@
       "Q"
      ],
      "news": {
-      "note": "Love (ankle) was ruled out for Sunday's game against the Cowboys to begin the second half, Alex Weiner of ArizonaSports.com reports.",
-      "at": "2026-11-01T21:11:00Z",
+      "note": "Head coach Mike LaFleur said Monday that Love suffered a \"new\" ankle injury during Sunday's overtime win at Dallas, and that he'll have an update on the running back later this week, Josh Weinfuss of ESPN.com reports.",
+      "at": "2026-11-02T21:48:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4870808/jeremiyah-love"
      }
     },
@@ -628,8 +632,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Josh Cameron (WR, JAX, 4.4/gm, value 642) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
-     "Add Corey Kiner (RB, NE, 5.6/gm, value 385) for Jaylen Wright (RB, your RB7, 4.2/gm): better backup RB. Bid $1\u20133"
+     "Add Treylon Burks (WR, WAS, 5.5/gm, value 730) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
+     "Add Corey Kiner (RB, NE, 5.6/gm, value 347) for Jaylen Wright (RB, your RB7, 4.2/gm): better backup RB. Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -646,8 +650,8 @@
        "get": [
         "Lamar Jackson (QB)"
        ],
-       "give_value": 5279,
-       "get_value": 5773,
+       "give_value": 5235,
+       "get_value": 5385,
        "my_gain": 4.0,
        "their_gain": 0.8,
        "cut": false,
@@ -659,11 +663,11 @@
         "Jeremiyah Love (RB)"
        ],
        "get": [
-        "Harold Fannin Jr. (TE)",
-        "Emeka Egbuka (WR)"
+        "Rome Odunze (WR)",
+        "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 5228,
-       "get_value": 5570,
+       "give_value": 5129,
+       "get_value": 4638,
        "my_gain": 2.4,
        "their_gain": 2.1,
        "cut": true,
@@ -678,8 +682,8 @@
         "Jalen Coker (WR)",
         "Juwan Johnson (TE)"
        ],
-       "give_value": 3535,
-       "get_value": 3346,
+       "give_value": 3526,
+       "get_value": 3287,
        "my_gain": 1.7,
        "their_gain": 4.0,
        "cut": true,
@@ -694,7 +698,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "Guillotine": {
@@ -908,8 +912,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Fantasy football buzz: Week 8's leading scorers through Sunday's 4 p.m. ET games",
-      "at": "2026-11-02T00:42:53Z",
+      "note": "Tate (shoulder) will not play against the Bengals on Sunday but is expected to be back in action following the Titans' bye for Week 10 against the Jaguars on Sunday, Nov. 15, Paul Kuharsky of PaulKuharsky.com reports.",
+      "at": "2026-10-31T15:10:01Z",
       "url": "https://www.espn.com/nfl/player/_/id/4871023/carnell-tate"
      }
     },
@@ -942,8 +946,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Hall (quadriceps) is inactive for Sunday's game against the Raiders.",
-      "at": "2026-11-01T16:32:00Z",
+      "note": "Hall (quadriceps) is considered \"good to go\" and is expected to return to action in next Sunday's game against the Chiefs, Ian Rapoport of NFL Network reports.",
+      "at": "2026-11-02T15:35:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4427366/breece-hall"
      }
     }
@@ -954,8 +958,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Bryce Young (QB, CAR, 20.9/gm, value 986) for J.K. Dobbins (RB, your RB5, 8.3/gm): starts at QB over Jordan Love, lineup +1.9/gm, +27.1 pts over the next 4 weeks",
-     "Add Juwan Johnson (TE, NO, 8.7/gm, value 318) for Carnell Tate (WR, your WR4, 7.6/gm): starts at TE over Mason Taylor, lineup +3.0/gm, +2.2 pts over the next 4 weeks"
+     "Add Bryce Young (QB, CAR, 20.9/gm, value 1,028) for J.K. Dobbins (RB, your RB5, 8.3/gm): starts at QB over Jordan Love, lineup +1.9/gm, +27.1 pts over the next 4 weeks",
+     "Add Juwan Johnson (TE, NO, 8.7/gm, value 296) for Carnell Tate (WR, your WR4, 7.6/gm): starts at TE over Mason Taylor, lineup +3.0/gm, +2.2 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -975,8 +979,8 @@
         "Garrett Wilson (WR)",
         "Brenton Strange (TE)"
        ],
-       "give_value": 4434,
-       "get_value": 4206,
+       "give_value": 4603,
+       "get_value": 4332,
        "my_gain": 2.4,
        "their_gain": 0.6,
        "cut": true,
@@ -991,8 +995,8 @@
         "Malik Nabers (WR)",
         "Travis Kelce (TE)"
        ],
-       "give_value": 7879,
-       "get_value": 7274,
+       "give_value": 7849,
+       "get_value": 7486,
        "my_gain": 2.3,
        "their_gain": 0.5,
        "cut": true,
@@ -1007,8 +1011,8 @@
        "get": [
         "Colston Loveland (TE)"
        ],
-       "give_value": 2228,
-       "get_value": 2258,
+       "give_value": 2289,
+       "get_value": 2192,
        "my_gain": 1.9,
        "their_gain": 0.7,
        "cut": false,
@@ -1023,7 +1027,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 9:36a",
+    "built": "Mon 4:13p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1288,8 +1292,8 @@
       "Q"
      ],
      "news": {
-      "note": "Watson said he suffered a broken rib in Thursday night's 27-19 win over the Panthers, Rob Demovsky of ESPN.com reports.",
-      "at": "2026-10-30T04:06:00Z",
+      "note": "Packers passing game coordinator Jason Vrable said Monday that Watson (ribs) is sore but \"doing great,\" Matt Schneidman of The Athletic reports.",
+      "at": "2026-11-02T20:13:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4248528/christian-watson"
      }
     },
@@ -1390,8 +1394,8 @@
       "Q"
      ],
      "news": {
-      "note": "Skattebo is expected to \"OK\" after tweaking his hamstring on a 42-yard run in overtime during Sunday's 27-21 win over the Texans, Mike Garafolo of NFL Network reports.",
-      "at": "2026-10-26T14:09:00Z",
+      "note": "Giants head coach John Harbaugh said that Skattebo (hamstring) is day-to-day and could end up being a game-time decision for Sunday's tilt with the Eagles, Jordan Raanan of ESPN.com reports.",
+      "at": "2026-11-02T21:11:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4696981/cam-skattebo"
      }
     },
@@ -1472,8 +1476,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Tyler Higbee (TE, LAR, 9.9/gm, value 1,040) into your open roster spot: fills in at TE in weeks 8, 9, 10, +7.5 pts over the next 4 weeks",
-     "Add Chris Rodriguez Jr. (RB, JAX, 5.6/gm, value 987) for Kaytron Allen (RB, your RB7, 1.2/gm): better backup RB, +0.5 pts over the next 4 weeks"
+     "Add Pat Freiermuth (TE, PIT, 9.4/gm, value 1,161) into your open roster spot: fills in at TE in week 10, +6.9 pts over the next 4 weeks",
+     "Add Chris Rodriguez Jr. (RB, JAX, 5.6/gm, value 994) for Kaytron Allen (RB, your RB7, 1.2/gm): better backup RB, +0.6 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1492,8 +1496,8 @@
        "get": [
         "Bryce Young (QB)"
        ],
-       "give_value": 3642,
-       "get_value": 3929,
+       "give_value": 3567,
+       "get_value": 3850,
        "my_gain": 1.5,
        "their_gain": 0.7,
        "cut": false,
@@ -1508,28 +1512,12 @@
        "get": [
         "Chris Olave (WR)"
        ],
-       "give_value": 5229,
-       "get_value": 4761,
+       "give_value": 5129,
+       "get_value": 4863,
        "my_gain": 1.0,
        "their_gain": 1.6,
        "cut": false,
        "why": "Chris Olave starts for you; Parker Washington and Xavier Worthy start for them over Keon Coleman (7.8/gm)"
-      },
-      {
-       "team": "The MONSTARS",
-       "give": [
-        "Dallas Goedert (TE)",
-        "J.K. Dobbins (RB)"
-       ],
-       "get": [
-        "Harold Fannin Jr. (TE)"
-       ],
-       "give_value": 2501,
-       "get_value": 2762,
-       "my_gain": 0.6,
-       "their_gain": 0.8,
-       "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Dallas Goedert and J.K. Dobbins start for them over Keon Coleman (7.8/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -1548,7 +1536,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "Stempak": {
@@ -1677,8 +1665,8 @@
       "Q"
      ],
      "news": {
-      "note": "Watson said he suffered a broken rib in Thursday night's 27-19 win over the Panthers, Rob Demovsky of ESPN.com reports.",
-      "at": "2026-10-30T04:06:00Z",
+      "note": "Packers passing game coordinator Jason Vrable said Monday that Watson (ribs) is sore but \"doing great,\" Matt Schneidman of The Athletic reports.",
+      "at": "2026-11-02T20:13:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4248528/christian-watson"
      }
     },
@@ -1742,8 +1730,8 @@
       "Q"
      ],
      "news": {
-      "note": "Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.",
-      "at": "2026-10-23T20:32:36Z",
+      "note": "Texans head coach DeMeco Ryans said Monday that he has \"no significant update\" on the status of Montgomery (groin) heading into a Week 9 matchup with the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-02T16:29:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -1840,8 +1828,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Sam Darnold (QB, SEA, 19.9/gm, value 2,087) for MarShawn Lloyd (RB, your RB7, 5.9/gm): starts at QB over Caleb Williams, lineup +0.1/gm, +25.3 pts over the next 4 weeks",
-     "Add C.J. Stroud (QB, HOU, 17.9/gm, value 2,671) for David Montgomery (RB, your RB6, 11.4/gm): better backup QB, +4.4 pts over the next 4 weeks"
+     "Add Sam Darnold (QB, SEA, 19.9/gm, value 2,040) for MarShawn Lloyd (RB, your RB7, 5.9/gm): starts at QB over Caleb Williams, lineup +0.1/gm, +25.3 pts over the next 4 weeks",
+     "Add C.J. Stroud (QB, HOU, 17.9/gm, value 2,846) for David Montgomery (RB, your RB6, 11.4/gm): better backup QB, +4.4 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1855,17 +1843,33 @@
        "team": "Jonesing for more",
        "give": [
         "James Cook III (RB)",
-        "Rhamondre Stevenson (RB)"
+        "Jaylen Waddle (WR)"
        ],
        "get": [
         "CeeDee Lamb (WR)"
        ],
-       "give_value": 7888,
-       "get_value": 8380,
+       "give_value": 7478,
+       "get_value": 8221,
        "my_gain": 3.9,
        "their_gain": 1.9,
        "cut": false,
        "why": "CeeDee Lamb starts for you; James Cook III starts for them over Blake Corum (7.3/gm)"
+      },
+      {
+       "team": "Jonesing for more",
+       "give": [
+        "Rhamondre Stevenson (RB)"
+       ],
+       "get": [
+        "Travis Kelce (TE)",
+        "RJ Harvey (RB)"
+       ],
+       "give_value": 1743,
+       "get_value": 1821,
+       "my_gain": 2.2,
+       "their_gain": 5.3,
+       "cut": true,
+       "why": "Travis Kelce starts for you; Rhamondre Stevenson starts for them over Blake Corum (7.3/gm)"
       },
       {
        "team": "Jonesing for more",
@@ -1875,28 +1879,12 @@
        "get": [
         "George Kittle (TE)"
        ],
-       "give_value": 3329,
-       "get_value": 3318,
+       "give_value": 3281,
+       "get_value": 3382,
        "my_gain": 1.5,
        "their_gain": 6.5,
        "cut": false,
        "why": "George Kittle starts for you; Chase Brown starts for them over Blake Corum (7.3/gm)"
-      },
-      {
-       "team": "Jonesing for more",
-       "give": [
-        "David Montgomery (RB)",
-        "Josh Downs (WR)"
-       ],
-       "get": [
-        "Travis Kelce (TE)"
-       ],
-       "give_value": 1310,
-       "get_value": 1296,
-       "my_gain": 2.2,
-       "their_gain": 4.1,
-       "cut": false,
-       "why": "Travis Kelce starts for you; David Montgomery starts for them over Blake Corum (7.3/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -1906,7 +1894,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "Bro-vid19": {
@@ -2096,8 +2084,8 @@
       "Q"
      ],
      "news": {
-      "note": "Montgomery (groin) has been ruled out for Sunday's game against the Giants, Adam Caplan of SiriusXM NFL Radio reports.",
-      "at": "2026-10-23T20:32:36Z",
+      "note": "Texans head coach DeMeco Ryans said Monday that he has \"no significant update\" on the status of Montgomery (groin) heading into a Week 9 matchup with the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-02T16:29:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -2184,8 +2172,8 @@
        "get": [
         "Kenneth Walker III (RB)"
        ],
-       "give_value": 8527,
-       "get_value": 9145,
+       "give_value": 8591,
+       "get_value": 9259,
        "my_gain": 2.4,
        "their_gain": 0.5,
        "cut": false,
@@ -2200,8 +2188,8 @@
        "get": [
         "Bucky Irving (RB)"
        ],
-       "give_value": 4427,
-       "get_value": 4681,
+       "give_value": 4522,
+       "get_value": 4841,
        "my_gain": 1.6,
        "their_gain": 0.6,
        "cut": false,
@@ -2216,8 +2204,8 @@
        "get": [
         "Brock Bowers (TE)"
        ],
-       "give_value": 6172,
-       "get_value": 6110,
+       "give_value": 6145,
+       "get_value": 6213,
        "my_gain": 0.6,
        "their_gain": 3.6,
        "cut": false,
@@ -2229,7 +2217,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "3-Ball BB": {
@@ -2330,20 +2318,6 @@
      "news": null
     },
     {
-     "slot": "UT",
-     "name": "Jonathan Kuminga",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": "vs MIL",
-     "kickoff": "2026-11-03T01:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
-    },
-    {
      "slot": "PG",
      "name": "Ayo Dosunmu",
      "team": "MIN",
@@ -2378,6 +2352,20 @@
      "pos": "PG/SG",
      "opp": "vs UTAH",
      "kickoff": "2026-11-03T01:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Brandin Podziemski",
+     "team": "GS",
+     "pos": "PG/SG",
+     "opp": "vs PHX",
+     "kickoff": "2026-11-03T03:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
@@ -2451,11 +2439,11 @@
     },
     {
      "slot": "BN",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
-     "opp": "vs PHX",
-     "kickoff": "2026-11-03T03:00:00Z",
+     "name": "Jonathan Kuminga",
+     "team": "MIN",
+     "pos": "SF/PF",
+     "opp": "vs MIL",
+     "kickoff": "2026-11-03T01:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
@@ -2498,9 +2486,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Collin Gillespie (PG, PHX): 4 games left this week, 35.9% owned",
-     "Bobby Portis (PF/C, MIA): 4 games left this week, 17.2% owned",
-     "Jaxson Hayes (C, UTAH): 4 games left this week, 15.9% owned"
+     "Collin Gillespie (PG, PHX): 4 games left this week, 36.6% owned",
+     "Bobby Portis (PF/C, MIA): 4 games left this week, 17.3% owned",
+     "Jaxson Hayes (C, UTAH): 4 games left this week, 15.8% owned"
     ],
     "trades": null,
     "notes": [
@@ -2520,14 +2508,14 @@
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "PTS",
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "BLK",
@@ -2566,19 +2554,19 @@
       }
      ],
      "now": "0-0-8",
-     "proj": "2-4",
+     "proj": "3-3",
      "close": 2,
      "games_left": [
       47,
-      50
+      47
      ],
      "chase": [
       "FT% is close. Keep in the lineup: Devin Booker (4 games, .885 on 7.2 FTA/g) and Saddiq Bey (4 games, .875 on 4.0 FTA/g).",
-      "REB is close. Keep in the lineup: Walker Kessler (4 games, 9.9/g) and Jarrett Allen (4 games, 9.2/g)."
+      "PTS is close. Keep in the lineup: Devin Booker (4 games, 26.5/g) and Shai Gilgeous-Alexander (4 games, 26.0/g)."
      ],
      "adds": [
       "For FT%: Dennis Schroder (PG, CHA), 3 games left, .899 on 2.9 FTA/g",
-      "For REB: Day'Ron Sharpe (C, BKN), 4 games left, 7.7/g"
+      "For PTS: Collin Gillespie (PG, PHX), 4 games left, 11.9/g"
      ]
     },
     "assets": {
@@ -2593,7 +2581,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   },
   "Ball is Life": {
@@ -2632,10 +2620,16 @@
      "kickoff": "2026-11-03T01:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "ESPN: Day-To-Day",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Ball is questionable for Monday's game against Milwaukee due to a right wrist contusion.",
+      "at": "2026-11-02T19:10:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4432816/lamelo-ball"
+     }
     },
     {
      "slot": "SG",
@@ -2826,8 +2820,9 @@
     ],
     "trades": null,
     "notes": [
+     "LaMelo Ball (PG) is Questionable, plays Mon 7:00p [ESPN, Nov 2 1:10p: Ball is questionable for Monday's game against Milwaukee due to a right wrist contusion.]",
      "Peyton Watson (F) is Questionable, plays Mon 6:00p [ESPN, Nov 1 3:57p: Watson (hamstring) is questionable to play in Monday's game against Oklahoma City.]",
-     "8 of 9 starters play tonight"
+     "7 of 9 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2907,7 +2902,7 @@
      ]
     },
     "assets": null,
-    "built": "Mon 9:36a"
+    "built": "Mon 4:13p"
    }
   }
  }
