@@ -111,6 +111,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 - **Read-only on fantasy sites.** Never add, drop, trade or bid automatically. The only automatic action is
   a Yahoo lineup swap via the API, if write access ever exists. Everything else is a push saying exactly
   what to do.
+- **Guillotine claims:** entered only from a list Michael approves in chat, then read back.
 - **Git:** always merge, never rebase (`git pull --no-rebase --no-edit`); the repo has subtree merges.
 - **Laptop tasks:** use Michael's Chrome through Claude in Chrome (`ops/BROWSER.md`), never the built-in
   browser. Never type passwords.
