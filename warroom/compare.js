@@ -45,11 +45,11 @@
     const cards = claims.map(c => {
       const m = model[c.add], notes = [];
       // claims sharing a drop form a ladder: the highest bid that wins takes the drop and the rest fail. That's
-      // usually deliberate (try for one stud, fall back to the next); only a tie at the same bid has an unclear order.
+      // usually deliberate (try for one stud, fall back to the next); ties at the same bid go by his claim order in Sleeper.
       const shared = c.drop && byDrop[c.drop].length > 1 ? byDrop[c.drop].filter(n => n !== c.n) : [];
       if (shared.length) notes.push(`<span class="m">Ladder with claim ${shared.join(', ')} (same drop): at most one of them goes through.</span>`);
       const tie = shared.filter(n => claims[n - 1].bid === c.bid);
-      if (tie.length) notes.push(`<span class="w">Same drop and same $${c.bid} bid as claim ${tie.join(', ')}: which one Sleeper tries first isn't clear.</span>`);
+      if (tie.length) notes.push(`<span class="m">Same $${c.bid} bid as claim ${tie.join(', ')} on this drop: your claim order in Sleeper decides which goes first.</span>`);
       if (starters.has(c.drop)) notes.push('<span class="m">The drop is in your projected lineup this week (Sleeper): set your lineup if this claim hits.</span>');
       let modelLine = '<span class="m">Not on the model\'s list (it adds too little, or the model doesn\'t rate him).</span>', atYours = '';
       if (m) {
