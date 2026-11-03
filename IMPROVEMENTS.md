@@ -39,10 +39,27 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** —
 - **Decision:** —
 
+### Q-003 · Price ladder isn't split by position or season stage
+- **Status:** proposed
+- **Area:** War Room v2 (`warroom/build.py` `ladder`, `model.js` `winChance`)
+- **Rank:** 2
+- **Added:** 2026-11-03 (Nov 3 slider audit); evidence from the first model-health run the same day
+- **Evidence:** The ladder splits past claims only by estimate size ($10+ vs under). Overall it is well calibrated
+  (leave one waiver run out, 165 claims: a bid at its 50% price would have won 55%, at its 80% price 82%), but not by position:
+  RBs won only 37% at the 50% price and 67% at the 80% price (n=30; raw estimate missed by $20.4), while kickers won 94% and
+  100% (n=16: we'd overpay) and DEF 95% at the 80% price (n=22). Weeks 1-3 vs 4-7: 77% vs 86% at the 80% price; estimate miss
+  $13.1 vs $6.6. Source: health.json `sections.warroom.details.prices.by`. Per-position samples are 16-54 claims.
+- **Expected impact:** RB claims (the most expensive position) won at the stated odds instead of lost; no overbidding on K/DEF.
+- **Effort:** S
+- **Risk:** Low-Med (splits get thin: keep the "at least 12 claims or merge" rule; test leave-one-run-out before shipping)
+- **Measure:** `wr.ladder_cov50`, `wr.ladder_cov80` and their `by` splits (RB at 80% should reach about 0.8)
+- **Design:** —
+- **Decision:** —
+
 ### Q-011 · One guillotine model: the dashboard and War Room v2 still give different numbers
 - **Status:** proposed
 - **Area:** `shq/guillotine.py` (dashboard, Today tab, cut-risk push) vs `warroom/` (War Room v2, bids.json, Tuesday checks)
-- **Rank:** 2
+- **Rank:** 3
 - **Added:** 2026-11-03 (claude-audit item 1, option 4)
 - **Evidence:** On Nov 3 the two models disagree for the same week 9: MoneyManChas cut risk 17.0% (dashboard) vs 21.5% (v2),
   robert8063 14.3% vs 12.6%, my projection 119.1 vs 118.8. They use different swings (dashboard per-player position SDs,
@@ -54,22 +71,6 @@ Measure (the health.json check that should move), Design, Decision.
 - **Effort:** M (dashboard reads bids.json for odds and bids; keeps its live Sunday locking until Q-002 lands)
 - **Risk:** Med (the cut-risk push and Today tab change source)
 - **Measure:** `gd.v2_skill` vs `gd.dash_skill` (which predicted cuts better as shown), `gd.dash_price_mae` vs `rec.est_mae`
-- **Design:** —
-- **Decision:** —
-
-### Q-003 · Price ladder isn't split by position or season stage
-- **Status:** measuring
-- **Area:** War Room v2 (`warroom/build.py` `ladder`, `model.js` `winChance`)
-- **Rank:** 3
-- **Added:** 2026-11-03 (Nov 3 slider audit)
-- **Evidence:** The ladder splits past claims only by estimate size ($10+ vs under). The audit found one estimate missed by
-  about $15 and stars went for about 1.65× it; early-season claims (every team rich, weeks 1-3: McCaffrey $150, James Cook
-  $156) may not price like late ones. health.json `sections.warroom.details.prices.by` now reports, leave-one-run-out, how
-  often bids at the ladder's 50% / 80% price would have won, per position and per half of the season.
-- **Expected impact:** truer win chances for RBs vs WRs vs QBs and as budgets shrink, so fewer overpays and fewer lost claims.
-- **Effort:** S
-- **Risk:** Low-Med (splits get thin: keep the "at least 12 claims or merge" rule)
-- **Measure:** `wr.ladder_cov50`, `wr.ladder_cov80` and their `by` splits
 - **Design:** —
 - **Decision:** —
 
