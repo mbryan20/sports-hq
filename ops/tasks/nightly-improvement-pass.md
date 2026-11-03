@@ -2,7 +2,7 @@
 taskId: sports-hq-nightly-improvement-pass
 title: "Sports HQ: nightly improvement pass"
 cron: "40 3 * * *"   # 3:40am CT daily, after the model-health job (2:50am CT, backup 4:50am CT; it is dispatched below if late)
-status: PROPOSED 2026-11-03, not created. Claude Ops creates it (scheduled task, Auto mode). Notify step waits on Michael's approval-channel choice (ops/approvals.md).
+status: CREATED 2026-11-03 by Claude Ops (Auto mode). Notify step waits on Michael's approval-channel choice (ops/approvals.md).
 ---
 
 Nightly improvement pass for Michael's Sports HQ (repo C:\Claude\sports-hq; site https://mbryan20.github.io/sports-hq/; README.md and ROADMAP.md explain every part). Goal: keep IMPROVEMENTS.md, the improvement queue, complete, evidenced and ranked, and have designs ready for the top items so Michael can approve them quickly. You NEVER change code, workflows, tests, baselines (state/health_baselines.json), scheduled tasks or settings; you only edit IMPROVEMENTS.md and files under ops/designs/. Read-only on every fantasy and pool site; no browser is needed tonight.
