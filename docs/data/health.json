@@ -1,0 +1,921 @@
+{
+ "generated": "2026-11-03T16:57:35Z",
+ "summary": {
+  "ok": 9,
+  "watch": 0,
+  "drift": 0,
+  "weak": 1,
+  "waiting": 10,
+  "info": 3,
+  "errors": 0
+ },
+ "flags": [
+  {
+   "section": "warroom",
+   "id": "wr.cut_skill",
+   "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
+   "value": -0.017,
+   "n": 8,
+   "unit": "%",
+   "baseline": -0.017,
+   "baseline_set": "2026-11-03",
+   "tolerance": 0.05,
+   "status": "weak",
+   "floor": 0.0
+  }
+ ],
+ "sections": [
+  {
+   "id": "warroom",
+   "title": "War Room v2 (guillotine bids)",
+   "status": "weak",
+   "checks": [
+    {
+     "id": "wr.proj_mae",
+     "label": "Team-score miss with Sleeper projections (1 week ahead)",
+     "value": 16.6,
+     "n": 81,
+     "unit": "pts",
+     "baseline": 16.6,
+     "baseline_set": "2026-11-03",
+     "tolerance": 2.0,
+     "status": "ok"
+    },
+    {
+     "id": "wr.blend_mae",
+     "label": "Team-score miss with the old season/last-3 blend",
+     "value": 19.7,
+     "n": 81,
+     "unit": "pts",
+     "status": "info"
+    },
+    {
+     "id": "wr.proj_edge",
+     "label": "Sleeper projections' edge over the blend",
+     "value": 3.1,
+     "n": 81,
+     "unit": "pts",
+     "baseline": 3.1,
+     "baseline_set": "2026-11-03",
+     "tolerance": 2.0,
+     "status": "ok"
+    },
+    {
+     "id": "wr.swing",
+     "label": "Score swing (spread of real scores around projections)",
+     "value": 22.1,
+     "n": 116,
+     "unit": "pts",
+     "status": "info"
+    },
+    {
+     "id": "wr.swing_k2",
+     "label": "Score swing 2 weeks ahead",
+     "value": null,
+     "n": 0,
+     "unit": "pts",
+     "status": "waiting"
+    },
+    {
+     "id": "wr.swing_k3",
+     "label": "Score swing 3 weeks ahead",
+     "value": null,
+     "n": 0,
+     "unit": "pts",
+     "status": "waiting"
+    },
+    {
+     "id": "wr.swing_k4",
+     "label": "Score swing 4 weeks ahead",
+     "value": null,
+     "n": 0,
+     "unit": "pts",
+     "status": "waiting"
+    },
+    {
+     "id": "wr.cut_skill",
+     "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
+     "value": -0.017,
+     "n": 8,
+     "unit": "%",
+     "baseline": -0.017,
+     "baseline_set": "2026-11-03",
+     "tolerance": 0.05,
+     "status": "weak",
+     "floor": 0.0
+    },
+    {
+     "id": "wr.best_sd",
+     "label": "Swing that would have predicted the cuts best",
+     "value": 36,
+     "n": 8,
+     "unit": "pts",
+     "status": "info"
+    },
+    {
+     "id": "wr.price_est_mae",
+     "label": "Raw price estimate miss",
+     "value": 9.3,
+     "n": 165,
+     "unit": "$",
+     "baseline": 9.3,
+     "baseline_set": "2026-11-03",
+     "tolerance": 3.0,
+     "status": "ok"
+    },
+    {
+     "id": "wr.ladder_cov50",
+     "label": "Bids at the ladder's 50% price that won",
+     "value": 0.55,
+     "n": 165,
+     "unit": "%",
+     "target": 0.5,
+     "tolerance": 0.15,
+     "status": "ok"
+    },
+    {
+     "id": "wr.ladder_cov80",
+     "label": "Bids at the ladder's 80% price that won",
+     "value": 0.82,
+     "n": 165,
+     "unit": "%",
+     "target": 0.8,
+     "tolerance": 0.12,
+     "status": "ok"
+    }
+   ],
+   "details": {
+    "projection": {
+     "weeks": "3-8",
+     "n": 81,
+     "sleeper_mae": 16.6,
+     "blend_mae": 19.7,
+     "sleeper_bias": -0.5,
+     "edge": 3.1
+    },
+    "swing": {
+     "sd": 22.1,
+     "n": 116,
+     "by_weeks_ahead": {}
+    },
+    "cuts_by_swing": {
+     "14": {
+      "n": 8,
+      "logloss": 3.042,
+      "coin_toss": 2.661,
+      "skill": -0.143,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.14
+     },
+     "18": {
+      "n": 8,
+      "logloss": 2.814,
+      "coin_toss": 2.661,
+      "skill": -0.057,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.123
+     },
+     "22": {
+      "n": 8,
+      "logloss": 2.708,
+      "coin_toss": 2.661,
+      "skill": -0.017,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.111
+     },
+     "27": {
+      "n": 8,
+      "logloss": 2.644,
+      "coin_toss": 2.661,
+      "skill": 0.007,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.102
+     },
+     "32": {
+      "n": 8,
+      "logloss": 2.614,
+      "coin_toss": 2.661,
+      "skill": 0.018,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.096
+     },
+     "36": {
+      "n": 8,
+      "logloss": 2.601,
+      "coin_toss": 2.661,
+      "skill": 0.023,
+      "cut_team_rank": 7.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10
+      ],
+      "cut_team_chance": 0.092
+     }
+    },
+    "prices": {
+     "n": 165,
+     "cov50": 0.55,
+     "cov80": 0.82,
+     "est_mae": 9.3,
+     "by": {
+      "pos DEF": {
+       "n": 22,
+       "cov50": 0.55,
+       "cov80": 0.95,
+       "est_mae": 2.1
+      },
+      "pos K": {
+       "n": 16,
+       "cov50": 0.94,
+       "cov80": 1.0,
+       "est_mae": 2.8
+      },
+      "pos QB": {
+       "n": 21,
+       "cov50": 0.67,
+       "cov80": 0.9,
+       "est_mae": 11.3
+      },
+      "pos RB": {
+       "n": 30,
+       "cov50": 0.37,
+       "cov80": 0.67,
+       "est_mae": 20.4
+      },
+      "pos TE": {
+       "n": 22,
+       "cov50": 0.55,
+       "cov80": 0.86,
+       "est_mae": 6.2
+      },
+      "pos WR": {
+       "n": 54,
+       "cov50": 0.48,
+       "cov80": 0.76,
+       "est_mae": 8.6
+      },
+      "legs 1-3": {
+       "n": 69,
+       "cov50": 0.52,
+       "cov80": 0.77,
+       "est_mae": 13.1
+      },
+      "legs 4-7": {
+       "n": 96,
+       "cov50": 0.56,
+       "cov80": 0.86,
+       "est_mae": 6.6
+      },
+      "estimate $10+": {
+       "n": 48,
+       "cov50": 0.5,
+       "cov80": 0.79,
+       "est_mae": 19.7
+      },
+      "estimate under $10": {
+       "n": 117,
+       "cov50": 0.56,
+       "cov80": 0.84,
+       "est_mae": 5.1
+      }
+     }
+    }
+   },
+   "notes": [
+    "Cut odds at the measured 22-pt swing scored worse than a coin toss over 8 weeks (the real cut team ranked [14, 11, 9, 1, 1, 11, 1, 10] by predicted risk); a 36-pt swing would have scored best.",
+    "Far-week projections: waiting for weeks played after Nov 3 (the page has carried Sleeper's projections since then)."
+   ]
+  },
+  {
+   "id": "recs",
+   "title": "Our guillotine bids vs what happened",
+   "status": "waiting",
+   "checks": [
+    {
+     "id": "rec.would_win",
+     "label": "Our recommended bids that would have won",
+     "value": null,
+     "n": 0,
+     "unit": "%",
+     "status": "waiting"
+    },
+    {
+     "id": "rec.win_brier",
+     "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
+     "value": null,
+     "n": 0,
+     "unit": "",
+     "status": "waiting"
+    },
+    {
+     "id": "rec.est_mae",
+     "label": "Likely-price miss vs what winners paid",
+     "value": null,
+     "n": 0,
+     "unit": "$",
+     "status": "waiting"
+    },
+    {
+     "id": "gd.dash_price_mae",
+     "label": "Dashboard likely-price miss vs what winners paid",
+     "value": null,
+     "n": 0,
+     "unit": "$",
+     "status": "waiting"
+    }
+   ],
+   "details": {
+    "runs": [],
+    "winners_paid": {
+     "1": [
+      {
+       "player": "Christian McCaffrey",
+       "pos": "RB",
+       "winner": "CodyRust",
+       "paid": 150,
+       "bids": 9,
+       "second": 101
+      },
+      {
+       "player": "Travis Etienne Jr.",
+       "pos": "RB",
+       "winner": "Aniasin1",
+       "paid": 67,
+       "bids": 11,
+       "second": 50
+      },
+      {
+       "player": "Davante Adams",
+       "pos": "WR",
+       "winner": "CodyRust",
+       "paid": 50,
+       "bids": 7,
+       "second": 28
+      },
+      {
+       "player": "DeVonta Smith",
+       "pos": "WR",
+       "winner": "Swegs4",
+       "paid": 44,
+       "bids": 11,
+       "second": 100
+      },
+      {
+       "player": "Caleb Douglas",
+       "pos": "WR",
+       "winner": "ScooterMcGavin24",
+       "paid": 16,
+       "bids": 8,
+       "second": 12
+      },
+      {
+       "player": "Kaelon Black",
+       "pos": "RB",
+       "winner": "Aniasin1",
+       "paid": 15,
+       "bids": 4,
+       "second": 20
+      }
+     ],
+     "2": [
+      {
+       "player": "James Cook III",
+       "pos": "RB",
+       "winner": "Heston80",
+       "paid": 156,
+       "bids": 14,
+       "second": 154
+      },
+      {
+       "player": "David Montgomery",
+       "pos": "RB",
+       "winner": "JHED1979",
+       "paid": 53,
+       "bids": 13,
+       "second": 48
+      },
+      {
+       "player": "George Pickens",
+       "pos": "WR",
+       "winner": "ScooterMcGavin24",
+       "paid": 52,
+       "bids": 13,
+       "second": 51
+      },
+      {
+       "player": "Kyler Murray",
+       "pos": "QB",
+       "winner": "EvanTheMan5",
+       "paid": 17,
+       "bids": 3,
+       "second": 9
+      },
+      {
+       "player": "Oronde Gadsden",
+       "pos": "TE",
+       "winner": "robert8063",
+       "paid": 17,
+       "bids": 3,
+       "second": 3
+      },
+      {
+       "player": "Mark Andrews",
+       "pos": "TE",
+       "winner": "PureBlueMafia",
+       "paid": 15,
+       "bids": 6,
+       "second": 11
+      }
+     ],
+     "3": [
+      {
+       "player": "Justin Jefferson",
+       "pos": "WR",
+       "winner": "SteelRob420",
+       "paid": 80,
+       "bids": 10,
+       "second": 59
+      },
+      {
+       "player": "Kyren Williams",
+       "pos": "RB",
+       "winner": "JHED1979",
+       "paid": 77,
+       "bids": 13,
+       "second": 75
+      },
+      {
+       "player": "Bucky Irving",
+       "pos": "RB",
+       "winner": "SteelRob420",
+       "paid": 55,
+       "bids": 9,
+       "second": 47
+      },
+      {
+       "player": "Stefon Diggs",
+       "pos": "WR",
+       "winner": "Aniasin1",
+       "paid": 48,
+       "bids": 10,
+       "second": 25
+      },
+      {
+       "player": "Ollie Gordon II",
+       "pos": "RB",
+       "winner": "damonhawk1",
+       "paid": 24,
+       "bids": 7,
+       "second": 20
+      },
+      {
+       "player": "Sam LaPorta",
+       "pos": "TE",
+       "winner": "robert8063",
+       "paid": 17,
+       "bids": 8,
+       "second": 17
+      }
+     ],
+     "4": [
+      {
+       "player": "Omarion Hampton",
+       "pos": "RB",
+       "winner": "Aniasin1",
+       "paid": 65,
+       "bids": 9,
+       "second": 40
+      },
+      {
+       "player": "George Pickens",
+       "pos": "WR",
+       "winner": "drewpepin1",
+       "paid": 61,
+       "bids": 11,
+       "second": 40
+      },
+      {
+       "player": "Bhayshul Tuten",
+       "pos": "RB",
+       "winner": "robert8063",
+       "paid": 56,
+       "bids": 10,
+       "second": 63
+      },
+      {
+       "player": "A.J. Brown",
+       "pos": "WR",
+       "winner": "Swegs4",
+       "paid": 31,
+       "bids": 7,
+       "second": 31
+      },
+      {
+       "player": "Harold Fannin Jr.",
+       "pos": "TE",
+       "winner": "kevfather187",
+       "paid": 30,
+       "bids": 10,
+       "second": 27
+      },
+      {
+       "player": "Khalil Shakir",
+       "pos": "WR",
+       "winner": "michaelbryan",
+       "paid": 5,
+       "bids": 3,
+       "second": 0
+      }
+     ],
+     "5": [
+      {
+       "player": "Chuba Hubbard",
+       "pos": "RB",
+       "winner": "michaelbryan",
+       "paid": 57,
+       "bids": 10,
+       "second": 40
+      },
+      {
+       "player": "Jordan Love",
+       "pos": "QB",
+       "winner": "michaelbryan",
+       "paid": 31,
+       "bids": 4,
+       "second": 16
+      },
+      {
+       "player": "Woody Marks",
+       "pos": "RB",
+       "winner": "michaelbryan",
+       "paid": 30,
+       "bids": 6,
+       "second": 19
+      },
+      {
+       "player": "Josh Downs",
+       "pos": "WR",
+       "winner": "damonhawk1",
+       "paid": 13,
+       "bids": 6,
+       "second": 15
+      },
+      {
+       "player": "DJ Moore",
+       "pos": "WR",
+       "winner": "SteelRob420",
+       "paid": 12,
+       "bids": 7,
+       "second": 12
+      },
+      {
+       "player": "Jalen Hurts",
+       "pos": "QB",
+       "winner": "Swegs4",
+       "paid": 11,
+       "bids": 3,
+       "second": 5
+      }
+     ],
+     "6": [
+      {
+       "player": "Jonathan Taylor",
+       "pos": "RB",
+       "winner": "drewpepin1",
+       "paid": 103,
+       "bids": 12,
+       "second": 71
+      },
+      {
+       "player": "Matthew Golden",
+       "pos": "WR",
+       "winner": "robert8063",
+       "paid": 47,
+       "bids": 11,
+       "second": 40
+      },
+      {
+       "player": "Rashee Rice",
+       "pos": "WR",
+       "winner": "GoodFellas77",
+       "paid": 23,
+       "bids": 7,
+       "second": 17
+      },
+      {
+       "player": "Parker Washington",
+       "pos": "WR",
+       "winner": "drewpepin1",
+       "paid": 21,
+       "bids": 6,
+       "second": 14
+      },
+      {
+       "player": "Michael Wilson",
+       "pos": "WR",
+       "winner": "damonhawk1",
+       "paid": 19,
+       "bids": 7,
+       "second": 17
+      },
+      {
+       "player": "Harold Fannin Jr.",
+       "pos": "TE",
+       "winner": "MoneyManChas",
+       "paid": 10,
+       "bids": 3,
+       "second": 2
+      }
+     ],
+     "7": [
+      {
+       "player": "James Cook III",
+       "pos": "RB",
+       "winner": "GoodFellas77",
+       "paid": 56,
+       "bids": 10,
+       "second": 55
+      },
+      {
+       "player": "Josh Allen",
+       "pos": "QB",
+       "winner": "Swegs4",
+       "paid": 45,
+       "bids": 9,
+       "second": 30
+      },
+      {
+       "player": "Chase Brown",
+       "pos": "RB",
+       "winner": "Swegs4",
+       "paid": 34,
+       "bids": 11,
+       "second": 27
+      },
+      {
+       "player": "Travis Etienne Jr.",
+       "pos": "RB",
+       "winner": "JHED1979",
+       "paid": 13,
+       "bids": 1,
+       "second": 0
+      },
+      {
+       "player": "Wan'Dale Robinson",
+       "pos": "WR",
+       "winner": "MoneyManChas",
+       "paid": 10,
+       "bids": 1,
+       "second": 0
+      },
+      {
+       "player": "Jalen Coker",
+       "pos": "WR",
+       "winner": "damonhawk1",
+       "paid": 9,
+       "bids": 7,
+       "second": 8
+      }
+     ],
+     "8": [
+      {
+       "player": "Josh Downs",
+       "pos": "WR",
+       "winner": "MoneyManChas",
+       "paid": 20,
+       "bids": 1,
+       "second": 0
+      },
+      {
+       "player": "Spencer Shrader",
+       "pos": "K",
+       "winner": "MoneyManChas",
+       "paid": 10,
+       "bids": 1,
+       "second": 0
+      }
+     ]
+    },
+    "v2_rows": [],
+    "dash_rows": [],
+    "would_win": null,
+    "n_rec": 0,
+    "brier": null,
+    "est_mae": null,
+    "n_est": 0,
+    "dash_est_mae": null,
+    "n_dash": 0,
+    "bargains_skipped": []
+   },
+   "notes": [
+    "No waiver run has processed since War Room v2's bids.json started (Oct 31); the first is Wed Nov 4, 2:15am CT."
+   ]
+  },
+  {
+   "id": "guillotine",
+   "title": "Guillotine cut odds as shown (dashboard vs War Room v2)",
+   "status": "waiting",
+   "checks": [
+    {
+     "id": "gd.v2_skill",
+     "label": "War Room v2 cut odds vs a coin toss (as shown before kickoff)",
+     "value": null,
+     "n": 0,
+     "unit": "%",
+     "status": "waiting"
+    },
+    {
+     "id": "gd.dash_skill",
+     "label": "Dashboard cut odds vs a coin toss (as shown before kickoff)",
+     "value": -0.653,
+     "n": 1,
+     "unit": "%",
+     "status": "waiting"
+    }
+   ],
+   "details": {
+    "v2": null,
+    "dashboard": {
+     "n": 1,
+     "logloss": 3.963,
+     "coin_toss": 2.398,
+     "skill": -0.653,
+     "cut_team_rank": 10.0,
+     "ranks": [
+      10
+     ],
+     "cut_team_chance": 0.019
+    },
+    "weeks": [
+     [
+      "dashboard",
+      8
+     ]
+    ]
+   },
+   "notes": []
+  },
+  {
+   "id": "radar",
+   "title": "NBA trend radar",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "radar.held",
+     "label": "Flagged free agents whose bigger role held",
+     "value": 1.0,
+     "n": 5,
+     "unit": "%",
+     "baseline": 1.0,
+     "baseline_set": "2026-11-03",
+     "tolerance": 0.15,
+     "status": "ok"
+    },
+    {
+     "id": "radar.edge",
+     "label": "Radar flags' value over the old suggestions (z per game)",
+     "value": 1.32,
+     "n": 5,
+     "unit": "z",
+     "baseline": 1.32,
+     "baseline_set": "2026-11-03",
+     "tolerance": 0.5,
+     "status": "ok"
+    }
+   ],
+   "details": {
+    "flagged": 5,
+    "held": 5,
+    "held_rate": 1.0,
+    "flag_value": -1.15,
+    "wire_value": -2.47,
+    "edge": 1.32,
+    "added_later": 0,
+    "any_flagged": 15,
+    "any_held": 11
+   },
+   "notes": []
+  },
+  {
+   "id": "picks",
+   "title": "Pool Picks",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "picks.brier_gap",
+     "label": "College model Brier minus the market's (0 = as good as the market)",
+     "value": 0.028,
+     "n": 444,
+     "unit": "",
+     "baseline": 0.028,
+     "baseline_set": "2026-11-03",
+     "tolerance": 0.01,
+     "status": "ok"
+    },
+    {
+     "id": "picks.stale_cover",
+     "label": "Stale-line (1.5+ pt) picks that covered, college",
+     "value": 0.616,
+     "n": 194,
+     "unit": "%",
+     "baseline": 0.616,
+     "baseline_set": "2026-11-03",
+     "tolerance": 0.05,
+     "status": "ok"
+    },
+    {
+     "id": "picks.card_ats",
+     "label": "Posted card picks that won against the spread",
+     "value": null,
+     "n": 0,
+     "unit": "%",
+     "status": "waiting"
+    }
+   ],
+   "details": {
+    "backtest_file": "2026_w1-8.json",
+    "backtest_n": 444,
+    "brier_model": 0.195,
+    "brier_market": 0.168,
+    "brier_gap": 0.028,
+    "stale_cover": 0.616,
+    "stale_n": 194,
+    "graded_weeks": [
+     8
+    ],
+    "card": {
+     "w": 0,
+     "l": 0,
+     "p": 0
+    },
+    "card_ats": null,
+    "card_n": 0,
+    "entered": {
+     "w": 14,
+     "l": 15,
+     "p": 0
+    },
+    "entered_rate": 0.483
+   },
+   "notes": [
+    "Backtest 2026_w1-8.json is re-run by the laptop (needs the CFBD key); this job reads it."
+   ]
+  }
+ ]
+}
