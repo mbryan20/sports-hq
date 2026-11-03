@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T00:47:00Z",
+ "updated": "2026-11-03T00:57:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -235,7 +235,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "Domo Arigato": {
@@ -249,20 +249,22 @@
    "opponent": "Take Mahomes Tonight",
    "opp_proj": 144.2,
    "roster_synced": null,
-   "proj": 110.4,
+   "proj": 95.2,
    "starters": [
     {
      "slot": "QB",
-     "name": "Caleb Williams",
-     "team": "CHI",
-     "pos": "QB",
-     "opp": "@SEA",
-     "kickoff": "2026-11-03T01:15:00Z",
+     "name": "Empty",
+     "team": null,
+     "pos": "",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 15.2,
+     "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "EMPTY"
+     ],
      "news": null
     },
     {
@@ -428,6 +430,26 @@
      "kickoff": "2026-11-01T18:00:00Z",
      "started": true,
      "proj": 6.1,
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Rodriguez registered 41 yards and a touchdown on six carries while reeling in his only target for 17 yards during Sunday's 42-7 win over the Colts.",
+      "at": "2026-11-02T04:23:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4362619/chris-rodriguez-jr"
+     }
+    },
+    {
+     "slot": "BN",
+     "name": "Caleb Williams",
+     "team": "CHI",
+     "pos": "QB",
+     "opp": "@SEA",
+     "kickoff": "2026-11-03T01:15:00Z",
+     "started": false,
+     "proj": 15.2,
      "status": null,
      "why": "",
      "flags": [],
@@ -645,9 +667,11 @@
     }
    ],
    "advice": {
-    "matchup": "110.4 vs 144.2 (Take Mahomes Tonight): projected to lose by 33.8",
+    "matchup": "95.2 vs 144.2 (Take Mahomes Tonight): projected to lose by 49.0",
     "danger": false,
-    "fixes": [],
+    "fixes": [
+     "QB (QB) empty slot \u2192 start Caleb Williams (15.2 proj)"
+    ],
     "moves": [],
     "adds": [
      "Add Treylon Burks (WR, WAS, 5.5/gm, value 730) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
@@ -711,12 +735,11 @@
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
     "notes": [
-     "1 starters play today, first locks Mon 7:15p",
      "FAAB left: $100"
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "Guillotine": {
@@ -1045,7 +1068,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 6:47p",
+    "built": "Mon 6:57p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1554,7 +1577,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "Stempak": {
@@ -1912,7 +1935,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "Bro-vid19": {
@@ -2235,7 +2258,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "3-Ball BB": {
@@ -2579,14 +2602,14 @@
       44
      ],
      "chase": [
-      "PTS is close. Keep in the lineup: Devin Booker (4 games, 26.5/g) and Shai Gilgeous-Alexander (3 games, 23.6/g).",
       "STL is close. Keep in the lineup: De'Aaron Fox (4 games, 1.5/g) and Jonathan Kuminga (4 games, 1.4/g).",
-      "FT% is close. Keep in the lineup: Devin Booker (4 games, .885 on 7.2 FTA/g) and Saddiq Bey (4 games, .875 on 4.0 FTA/g)."
+      "PTS is close. Keep in the lineup: Devin Booker (4 games, 26.5/g) and Shai Gilgeous-Alexander (3 games, 24.0/g).",
+      "3PM is close. Keep in the lineup: De'Andre Hunter (4 games, 2.5/g) and Devin Booker (4 games, 2.2/g)."
      ],
      "adds": [
-      "For PTS: Collin Gillespie (PG, PHX), 4 games left, 11.9/g",
-      "For STL: Jaxson Hayes (C, UTAH), 4 games left, 1.2/g",
-      "For FT%: Malik Monk (PG/SG, SAC), 4 games left, 1.000 on 1.2 FTA/g"
+      "For STL: Collin Gillespie (PG, PHX), 4 games left, 1.2/g",
+      "For PTS: Naji Marshall (SF/PF, DAL), 4 games left, 11.4/g",
+      "For 3PM: De'Anthony Melton (PG/SG, GS), 3 games left, 2.7/g"
      ]
     },
     "assets": {
@@ -2601,7 +2624,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   },
   "Ball is Life": {
@@ -2916,7 +2939,7 @@
      ]
     },
     "assets": null,
-    "built": "Mon 6:47p"
+    "built": "Mon 6:57p"
    }
   }
  }
