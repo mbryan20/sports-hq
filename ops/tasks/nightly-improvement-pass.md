@@ -8,6 +8,7 @@ status: PROPOSED 2026-11-03, not created. Claude Ops creates it (scheduled task,
 Nightly improvement pass for Michael's Sports HQ (repo C:\Claude\sports-hq; site https://mbryan20.github.io/sports-hq/; README.md and ROADMAP.md explain every part). Goal: keep IMPROVEMENTS.md, the improvement queue, complete, evidenced and ranked, and have designs ready for the top items so Michael can approve them quickly. You NEVER change code, workflows, tests, baselines (state/health_baselines.json), scheduled tasks or settings; you only edit IMPROVEMENTS.md and files under ops/designs/. Read-only on every fantasy and pool site; no browser is needed tonight.
 
 Setup (PowerShell): $env:Path=[Environment]::GetEnvironmentVariable('Path','Machine')+';'+[Environment]::GetEnvironmentVariable('Path','User'); $env:PYTHONIOENCODING='utf-8'; Set-Location C:\Claude\sports-hq; git pull --no-rebase --no-edit -q
+If any `git pull` (here or in step 8) fails because of local changes in the checkout, do not stash, reset, discard or commit them: report "Pull blocked by uncommitted changes: <files>" in the summary and stop.
 
 1. FRESH HEALTH. Read docs/data/health.json ("generated", UTC). If it is older than 20 hours: run `gh run list --workflow model-health.yml -L 3`; if none is queued or running, run `gh workflow run model-health.yml`; wait for it (`gh run watch <id> --exit-status`, up to 25 minutes), then `git pull --no-rebase --no-edit -q`. If it failed or is still stale, record "Model health job failed/late: <reason or run URL>" for the summary and continue with the file you have.
 
