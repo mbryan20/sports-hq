@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T01:07:00Z",
+ "updated": "2026-11-03T01:17:00Z",
  "week": 8,
  "leagues": {
   "Kosmonauts": {
@@ -210,7 +210,7 @@
      "pos": "RB",
      "opp": "vs CHI",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 7.6,
      "status": null,
      "why": "",
@@ -235,7 +235,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Domo Arigato": {
@@ -448,7 +448,7 @@
      "pos": "QB",
      "opp": "@SEA",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 15.2,
      "status": null,
      "why": "",
@@ -644,7 +644,7 @@
      "pos": "RB",
      "opp": "vs CHI",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.0,
      "status": null,
      "why": "",
@@ -670,7 +670,7 @@
     "matchup": "95.2 vs 144.2 (Take Mahomes Tonight): projected to lose by 49.0",
     "danger": false,
     "fixes": [
-     "QB (QB) empty slot \u2192 start Caleb Williams (15.2 proj)"
+     "QB (QB) empty slot \u2192 no healthy bench fit"
     ],
     "moves": [],
     "adds": [
@@ -739,7 +739,7 @@
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Guillotine": {
@@ -880,7 +880,7 @@
      "pos": "RB",
      "opp": "vs CHI",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 7.6,
      "status": null,
      "why": "",
@@ -1063,12 +1063,11 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "1 starters play today, first locks Mon 7:15p",
      "FAAB left: $59"
     ],
     "cats": null,
     "assets": null,
-    "built": "Mon 7:07p",
+    "built": "Mon 7:17p",
     "guillotine": {
      "week": 8,
      "sims": 5000,
@@ -1084,33 +1083,9 @@
       {
        "name": "drewpepin1",
        "proj": 92.6,
-       "cut": 0.961,
+       "cut": 1.0,
        "faab": 15,
        "bold": 1.0,
-       "me": false
-      },
-      {
-       "name": "CodyRust",
-       "proj": 114.8,
-       "cut": 0.019,
-       "faab": 0,
-       "bold": 0.75,
-       "me": false
-      },
-      {
-       "name": "robert8063",
-       "proj": 118.4,
-       "cut": 0.017,
-       "faab": 37,
-       "bold": 0.53,
-       "me": false
-      },
-      {
-       "name": "JHED1979",
-       "proj": 114.6,
-       "cut": 0.002,
-       "faab": 43,
-       "bold": 0.77,
        "me": false
       },
       {
@@ -1127,6 +1102,14 @@
        "cut": 0.0,
        "faab": 43,
        "bold": 0.98,
+       "me": false
+      },
+      {
+       "name": "robert8063",
+       "proj": 118.4,
+       "cut": 0.0,
+       "faab": 37,
+       "bold": 0.53,
        "me": false
       },
       {
@@ -1154,6 +1137,14 @@
        "me": false
       },
       {
+       "name": "JHED1979",
+       "proj": 114.6,
+       "cut": 0.0,
+       "faab": 43,
+       "bold": 0.77,
+       "me": false
+      },
+      {
        "name": "MoneyManChas",
        "proj": 136.9,
        "cut": 0.0,
@@ -1168,6 +1159,14 @@
        "faab": 59,
        "bold": 0.51,
        "me": true
+      },
+      {
+       "name": "CodyRust",
+       "proj": 114.8,
+       "cut": 0.0,
+       "faab": 0,
+       "bold": 0.75,
+       "me": false
       }
      ],
      "rich": [
@@ -1187,7 +1186,7 @@
      "bids": [],
      "freed": {
       "team": "drewpepin1",
-      "cut": 0.961,
+      "cut": 1.0,
       "players": []
      }
     }
@@ -1577,7 +1576,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Stempak": {
@@ -1656,7 +1655,7 @@
      "pos": "QB/OP",
      "opp": "@SEA",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 17.5,
      "status": null,
      "why": "",
@@ -1732,7 +1731,7 @@
      "pos": "K",
      "opp": "vs CHI",
      "kickoff": "2026-11-03T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 9.5,
      "status": null,
      "why": "",
@@ -1930,12 +1929,10 @@
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "2 starters play today, first locks Mon 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Bro-vid19": {
@@ -2258,7 +2255,7 @@
     "notes": [],
     "cats": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "3-Ball BB": {
@@ -2603,13 +2600,13 @@
      ],
      "chase": [
       "FT% is close. Keep in the lineup: Devin Booker (4 games, .885 on 7.2 FTA/g) and Saddiq Bey (3 games, .875 on 4.0 FTA/g).",
-      "PTS is close. Keep in the lineup: Devin Booker (4 games, 26.5/g) and Shai Gilgeous-Alexander (3 games, 24.7/g).",
-      "STL is close. Keep in the lineup: De'Aaron Fox (4 games, 1.5/g) and Jonathan Kuminga (3 games, 1.4/g)."
+      "STL is close. Keep in the lineup: De'Aaron Fox (4 games, 1.5/g) and Walker Kessler (4 games, 1.0/g).",
+      "PTS is close. Keep in the lineup: Devin Booker (4 games, 26.5/g) and Shai Gilgeous-Alexander (3 games, 24.7/g)."
      ],
      "adds": [
       "For FT%: De'Anthony Melton (PG/SG, GS), 3 games left, .919 on 1.9 FTA/g",
-      "For PTS: Collin Gillespie (PG, PHX), 4 games left, 11.9/g",
-      "For STL: Jaxson Hayes (C, UTAH), 4 games left, 1.2/g"
+      "For STL: Collin Gillespie (PG, PHX), 4 games left, 1.2/g",
+      "For PTS: Bobby Portis (PF/C, MIA), 4 games left, 10.0/g"
      ]
     },
     "assets": {
@@ -2624,7 +2621,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Ball is Life": {
@@ -2936,7 +2933,7 @@
      ]
     },
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   }
  }
