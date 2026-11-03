@@ -2,28 +2,38 @@
  "week": 8,
  "cfb_week": 9,
  "season": 2026,
- "edition": "sunday",
- "generated": "2026-11-02T05:42:45Z",
- "generated_label": "Sun Nov 1, 11:42p CT",
+ "edition": "final",
+ "generated": "2026-11-03T14:38:40Z",
+ "generated_label": "Tue Nov 3, 8:38a CT",
  "leagues": [
   {
    "name": "Kosmonauts",
    "sport": "nfl",
-   "line": "Your starters scored about 72.9; Yahoo's score isn't readable until the API is approved, so no W/L here",
-   "score": "~72.9",
-   "note": "Lineup as of the laptop's Yahoo read Sun 4:34p CT; points from Sleeper's stats with Kosmonauts scoring, so they can differ slightly from Yahoo's",
+   "line": "Your starters scored about 70.2; Yahoo's score isn't readable until the API is approved, so no W/L here",
+   "score": "~70.2",
+   "note": "Lineup as of the laptop's Yahoo read Tue 7:34a CT; points from Sleeper's stats with Kosmonauts scoring, so they can differ slightly from Yahoo's",
    "next": [
-    "Waiver: Add Baker Mayfield (QB, TB, 19.5/gm, value 281) for David Montgomery (RB, your RB3, 10.3/gm): fills in at QB in week 11, +23.1 pts over the next 4 weeks"
+    "Waiver: Add Baker Mayfield (QB, TB, 18.6/gm, value 192) for Zach Charbonnet (RB, your RB4, 9.1/gm): fills in at QB in week 11, +23.2 pts over the next 4 weeks"
    ],
    "injuries": [
     {
-     "text": "Amon-Ra St. Brown (Q): St. Brown secured seven of eight targets for 46 yards and rushed once for 10 yards in the Lions' 19-15 win...",
-     "source": "ESPN, Nov 1",
-     "url": "https://www.espn.com/nfl/player/_/id/4374302/amon-ra-st-brown"
+     "text": "Travis Etienne Jr. (IR, bench): Head coach Kellen Moore said that Etienne (hamstring) will be evaluated Monday before the Saints make a...",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/4239996/travis-etienne-jr"
+    },
+    {
+     "text": "Matthew Stafford (Q): Stafford left the locker room after Sunday's 24-9 win over the Chargers with a bag of ice wrapped on his...",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/12483/matthew-stafford"
+    },
+    {
+     "text": "Bhayshul Tuten (Q): Tuten was a non-participant at Monday's walkthrough due to ankle and foot injuries.",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/4882093/bhayshul-tuten"
     }
    ],
-   "bench": "Best lineup started",
-   "bench_pts": 0.0,
+   "bench": "2.7 pts left on the bench: Brenton Strange (6.5) over Tyler Warren (3.8) at TE",
+   "bench_pts": 2.7,
    "boom": [
     "Bhayshul Tuten 28.9 (proj 14.4)"
    ],
@@ -31,28 +41,28 @@
     "Zay Flowers 0.0 (proj 15.6)",
     "Matthew Stafford 11.3 (proj 19.6)"
    ],
-   "vs_proj": -32.7
+   "vs_proj": -35.5
   },
   {
    "name": "Domo Arigato",
    "sport": "nfl",
-   "result": "leading",
-   "line": "Leading 110.7-108.2 vs Take Mahomes Tonight; still to play for you: Caleb Williams (proj 15.2); for them: 1 (proj 12.4)",
-   "score": "110.7-108.2",
-   "standing": "10th of 12 (2-5; leader 5-2), before this week",
+   "result": "L",
+   "line": "Lost 110.7-126.8 vs Take Mahomes Tonight, by 16.1",
+   "score": "110.7-126.8",
+   "standing": "10th of 12 (2-6, no change; leader 6-2)",
    "next": [
-    "Waiver: Add Josh Cameron (WR, JAX, 4.4/gm, value 719) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
-    "Trade idea: offer TheParlay Jeremiyah Love (RB) for Harold Fannin Jr. (TE) + Emeka Egbuka (WR) (you +2.4/gm, them +2.1/gm)"
+    "Waiver: Add Gardner Minshew II (QB, ARI, 11.8/gm, value 891) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup QB, +3.9 pts over the next 4 weeks. Bid $1\u20133",
+    "Trade idea: offer TheParlay Zach Charbonnet (RB) for Gunnar Helm (TE) + Juwan Johnson (TE) (you +2.8/gm, them +2.8/gm)"
    ],
    "injuries": [
     {
-     "text": "Jeremiyah Love (Q): Love (ankle) was ruled out for Sunday's game against the Cowboys to begin the second half, Alex Weiner of...",
-     "source": "ESPN, Nov 1",
-     "url": "https://www.espn.com/nfl/player/_/id/4870808/jeremiyah-love"
+     "text": "Bhayshul Tuten (Q): Tuten was a non-participant at Monday's walkthrough due to ankle and foot injuries.",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/4882093/bhayshul-tuten"
     }
    ],
-   "bench": "17.5 pts left on the bench: Jalen Nailor (13.8) over Tetairoa McMillan (11.8) at WR",
-   "bench_pts": 17.5,
+   "bench": "19.5 pts left on the bench: Caleb Williams (14.0) over Rhamondre Stevenson (12.0) at SUPER_FLEX",
+   "bench_pts": 19.5,
    "boom": [
     "Bhayshul Tuten 29.9 (proj 15.1)",
     "Mike Gesicki 17.6 (proj 7.9)"
@@ -64,11 +74,11 @@
    "name": "Guillotine",
    "sport": "nfl",
    "result": "survived",
-   "line": "On track to survive, 3rd of 11 with projected 147.7, 55.1 over the lowest team (drewpepin1, projected 92.6); 1 of yours still to play",
-   "score": "147.7, cut line 92.6",
-   "standing": "3rd of 11 this week (last week 5th of 12)",
+   "line": "Survived, 4th of 11 with 144.5, 61.5 over the lowest team (drewpepin1, 83.0)",
+   "score": "144.5, cut line 83.0",
+   "standing": "4th of 11 this week (last week 5th of 12)",
    "chart": {
-    "title": "Week 8 scores (Monday players at projection)",
+    "title": "Week 8 scores",
     "bars": [
      {
       "label": "SteelRob420",
@@ -77,32 +87,32 @@
       "low": false
      },
      {
+      "label": "GoodFellas",
+      "value": 159.1,
+      "me": false,
+      "low": false
+     },
+     {
       "label": "Swegs4",
-      "value": 149.6,
+      "value": 145.3,
       "me": false,
       "low": false
      },
      {
       "label": "michaelbryan",
-      "value": 147.7,
+      "value": 144.5,
       "me": true,
       "low": false
      },
      {
-      "label": "GoodFellas",
-      "value": 143.0,
+      "label": "Off with his head",
+      "value": 141.2,
       "me": false,
       "low": false
      },
      {
       "label": "MoneyManChas",
       "value": 136.9,
-      "me": false,
-      "low": false
-     },
-     {
-      "label": "Off with his head",
-      "value": 136.2,
       "me": false,
       "low": false
      },
@@ -114,13 +124,13 @@
      },
      {
       "label": "robert8063",
-      "value": 118.4,
+      "value": 117.6,
       "me": false,
       "low": false
      },
      {
       "label": "CodyRust",
-      "value": 114.8,
+      "value": 115.2,
       "me": false,
       "low": false
      },
@@ -132,26 +142,21 @@
      },
      {
       "label": "drewpepin1",
-      "value": 92.6,
+      "value": 83.0,
       "me": false,
       "low": true
      }
     ]
    },
    "next": [
-    "Waiver: Add Bryce Young (QB, CAR, 20.9/gm, value 847) for J.K. Dobbins (RB, your RB5, 8.3/gm): starts at QB over Jordan Love, lineup +1.9/gm, +27.1 pts over the next 4 weeks",
-    "Trade idea: offer Off with his head Tee Higgins (WR) for Garrett Wilson (WR) + Brenton Strange (TE) (you +2.4/gm, them +0.6/gm)"
+    "Waiver: Add Jonathan Taylor (RB, IND, 17.5/gm, value 7,739) for J.K. Dobbins (RB, your RB6, 7.9/gm): starts at RB over Tre Tucker, lineup +9.2/gm, +36.9 pts over the next 4 weeks",
+    "Trade idea: offer Off with his head Chuba Hubbard (RB) for Luther Burden III (WR) + Isaiah Likely (TE) (you +2.0/gm, them +1.1/gm)"
    ],
    "injuries": [
     {
-     "text": "Carnell Tate (OUT, bench): Fantasy football buzz: Week 8's leading scorers through Sunday's 4 p.m. ET games",
-     "source": "ESPN, Nov 1",
+     "text": "Carnell Tate (OUT, bench): Tate (shoulder) will not play against the Bengals on Sunday but is expected to be back in action following...",
+     "source": "ESPN, Oct 31",
      "url": "https://www.espn.com/nfl/player/_/id/4871023/carnell-tate"
-    },
-    {
-     "text": "Breece Hall (OUT, bench): Hall (quadriceps) is inactive for Sunday's game against the Raiders.",
-     "source": "ESPN, Nov 1",
-     "url": "https://www.espn.com/nfl/player/_/id/4427366/breece-hall"
     },
     {
      "text": "Amon-Ra St. Brown (Q): St. Brown secured seven of eight targets for 46 yards and rushed once for 10 yards in the Lions' 19-15 win...",
@@ -168,24 +173,34 @@
    "bust": [
     "Tre Tucker 0.0 (proj 9.3)"
    ],
-   "vs_proj": 23.4
+   "vs_proj": 20.2
   },
   {
    "name": "3-Ball FB",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs Kevin Love Sosa; their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "4th of 10 (4-3; leader 6-1), before this week",
+   "result": "L",
+   "line": "Lost 90.2-169.4 vs Kevin Love Sosa, by 79.1",
+   "score": "90.2-169.4",
+   "standing": "5th of 10 (4-4, down 1; leader 7-1)",
    "next": [
-    "Byes in week 9: Jayden Daniels (OP)",
-    "Waiver: Add Tyler Higbee (TE, LAR, 9.9/gm, value 1,033) into your open roster spot: fills in at TE in weeks 8, 9, 10, +7.5 pts over the next 4 weeks",
-    "Trade idea: offer The MONSTARS Tre Tucker (WR) + Denzel Boston (WR) for Bryce Young (QB) (you +1.5/gm, them +0.7/gm)"
+    "Byes in week 9: Jayden Daniels (QB)",
+    "Waiver: Add Pat Freiermuth (TE, PIT, 9.2/gm, value 1,089) into your open roster spot: fills in at TE in week 10, +6.8 pts over the next 4 weeks",
+    "Trade idea: offer The Guppies Tyler Shough (QB) + Daniel Jones (QB) for Patrick Mahomes (QB) (you +3.4/gm, them +0.5/gm)"
    ],
    "injuries": [
     {
-     "text": "Christian Watson (Q): Watson said he suffered a broken rib in Thursday night's 27-19 win over the Panthers, Rob Demovsky of...",
-     "source": "ESPN, Oct 29",
+     "text": "Christian McCaffrey (Q): McCaffrey is dealing with a mild hamstring strain rather than a quadriceps injury, and the 49ers believe...",
+     "source": "ESPN, Oct 26",
+     "url": "https://www.espn.com/nfl/player/_/id/3117251/christian-mccaffrey"
+    },
+    {
+     "text": "Cam Skattebo (Q): Giants head coach John Harbaugh said that Skattebo (hamstring) is day-to-day and could end up being a...",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/4696981/cam-skattebo"
+    },
+    {
+     "text": "Christian Watson (Q): Packers passing game coordinator Jason Vrable said Monday that Watson (ribs) is sore but \"doing great,\" Matt...",
+     "source": "ESPN, Nov 2",
      "url": "https://www.espn.com/nfl/player/_/id/4248528/christian-watson"
     }
    ],
@@ -201,24 +216,24 @@
   {
    "name": "Stempak",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs Robert's Rowdy Team; still to play for you: Caleb Williams, Jason Myers, Patriots D/ST (proj 32.9); their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "4th of 8 (3-4; leader 6-1), before this week",
-   "note": "ESPN read by the laptop Sun 4:35p CT",
+   "result": "L",
+   "line": "Lost 146.9-160.8 vs Robert's Rowdy Team, by 13.8",
+   "score": "146.9-160.8",
+   "standing": "6th of 8 (3-5, down 2; leader 6-2)",
+   "note": "ESPN read by the laptop Tue 7:35a CT",
    "next": [
-    "Waiver: Add Sam Darnold (QB, SEA, 19.9/gm, value 1,656) for MarShawn Lloyd (RB, your RB7, 5.9/gm): starts at QB over Caleb Williams, lineup +0.1/gm, +25.3 pts over the next 4 weeks",
-    "Trade idea: offer Jonesing for more James Cook III (RB) + Rhamondre Stevenson (RB) for CeeDee Lamb (WR) (you +3.9/gm, them +1.9/gm)"
+    "Waiver: Add Sam Darnold (QB, SEA, 19.4/gm, value 2,451) for MarShawn Lloyd (RB, your RB7, 5.4/gm): fills in at QB in weeks 9, 10, +28.3 pts over the next 4 weeks",
+    "Trade idea: offer Jonesing for more James Cook III (RB) + Dalton Kincaid (TE) for CeeDee Lamb (WR) (you +3.3/gm, them +3.0/gm)"
    ],
    "injuries": [
     {
-     "text": "Christian Watson (Q): Watson said he suffered a broken rib in Thursday night's 27-19 win over the Panthers, Rob Demovsky of...",
-     "source": "ESPN, Oct 29",
+     "text": "Christian Watson (Q): Packers passing game coordinator Jason Vrable said Monday that Watson (ribs) is sore but \"doing great,\" Matt...",
+     "source": "ESPN, Nov 2",
      "url": "https://www.espn.com/nfl/player/_/id/4248528/christian-watson"
     }
    ],
-   "bench": "12.3 pts left on the bench: Josh Downs (12.3) over Zay Flowers (0.0) at WR",
-   "bench_pts": 12.3,
+   "bench": "20.5 pts left on the bench: Jaylen Waddle (14.9) over Zay Flowers (0.0) at WR",
+   "bench_pts": 20.5,
    "boom": [
     "Dalton Kincaid 18.6 (proj 8.9)"
    ],
@@ -226,60 +241,63 @@
     "Zay Flowers 0.0 (proj 20.1)",
     "Javonte Williams 6.7 (proj 20.5)"
    ],
-   "vs_proj": -25.4
+   "vs_proj": -31.4
   },
   {
    "name": "Bro-vid19",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs Party Puka; still to play for you: Travis Kelce (proj 9.3); their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "3rd of 12 (5-2; leader 6-1), before this week",
-   "note": "ESPN read by the laptop Sun 4:35p CT",
+   "result": "W",
+   "line": "Won 157.4-132.9 vs Party Puka, by 24.4",
+   "score": "157.4-132.9",
+   "standing": "2nd of 12 (6-2, up 1; leader 7-1)",
+   "note": "ESPN read by the laptop Tue 7:35a CT",
    "next": [
-    "Byes in week 9: Jaylen Warren (RB), Chris Boswell (K)",
-    "Trade idea: offer Inglorious Staffords Ja'Marr Chase (WR) + Brenton Strange (TE) for Kenneth Walker III (RB) (you +2.4/gm, them +0.5/gm)"
+    "Fix: Chris Boswell (K) on BYE \u2192 no bench fit; best FA Spencer Shrader (IND) [ESPN, Nov 2]",
+    "Fix: Move Rashid Shaheed out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Oct 31]",
+    "Waiver: Add Spencer Shrader (K, IND, 10.9 proj this week), drop Chris Boswell (0.0 proj)",
+    "Trade idea: offer Inglorious Staffords Ja'Marr Chase (WR) + David Montgomery (RB) for Kenneth Walker III (RB) (you +2.7/gm, them +1.2/gm)"
    ],
-   "injuries": [],
+   "injuries": [
+    {
+     "text": "David Montgomery (Q): Texans head coach DeMeco Ryans said Monday that he has \"no significant update\" on the status of Montgomery...",
+     "source": "ESPN, Nov 2",
+     "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
+    }
+   ],
    "bench": "9.7 pts left on the bench: Brenton Strange (7.5) over Drake London (1.8) at WR",
    "bench_pts": 9.7,
    "boom": [
     "Joe Burrow 39.5 (proj 22.9)",
-    "Jaguars D/ST 21.5 (proj 7.4)"
+    "Jaguars D/ST 21.0 (proj 7.4)"
    ],
    "bust": [
     "Drake London 1.8 (proj 17.9)",
     "Jordan Mason 2.0 (proj 9.5)"
    ],
-   "vs_proj": 15.9
+   "vs_proj": 17.8
   },
   {
    "name": "3-Ball BB",
    "sport": "nba",
-   "result": "leading",
-   "line": "Leading 7-1 vs Deep in the MUFF, Sunday's games still counting",
-   "score": "7-1-0",
-   "standing": "6th of 10 (3-5; leader 8-0)",
+   "result": "W",
+   "line": "Won 7-1 vs Deep in the MUFF (matchup 2)",
+   "score": "7-1",
+   "standing": "5th of 10 (10-6, up 1; leader 14-2)",
    "next": [
-    "Waiver: Derrick Jones Jr. (SF/PF, LAC): 1 games left this week, 16.2% owned"
+    "Waiver: Collin Gillespie (PG, PHX): 3 games left this week, 37.1% owned",
+    "Categories: PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (3 games, 28.4/g) and Devin Booker (3 games, 23.0/g)."
    ],
-   "injuries": [
-    {
-     "text": "Kingston Flemings (SUSP): Flemings (suspension) won't play in Monday's game against Indiana, Andrew Schlecht of The Athletic reports.",
-     "source": "ESPN, Nov 1",
-     "url": "https://www.espn.com/nba/player/_/id/5149077/kingston-flemings"
-    }
-   ]
+   "injuries": []
   },
   {
    "name": "Ball is Life",
    "sport": "nba",
-   "result": "leading",
-   "line": "Leading 5-3 vs Flagg Train, Sunday's games still counting",
-   "score": "5-3-0",
-   "standing": null,
+   "result": "W",
+   "line": "Won 4-3-1 vs Flagg Train (matchup 2)",
+   "score": "4-3-1",
+   "standing": "6th of 12 (4-3-1; leader 8-0)",
    "next": [
-    "Waiver: Nikola Vucevic (C, ORL): 1 games left this week, 40.9% owned"
+    "Waiver: Quentin Grimes (SG/SF, LAL): 3 games left this week, 33.5% owned"
    ],
    "injuries": []
   }
@@ -493,24 +511,24 @@
  },
  "warroom": {
   "lines": [
-   "Week 7 cut: Heston80 (confirmed).",
-   "You next week (week 8): 2% cut risk, projected 140.2, about 6 weeks left, 12% to win it.",
-   "Most at risk: MoneyManChas 36%, GoodFellas77 15%, SteelRob420 10%.",
-   "Bids before waivers Wed 2:15a CT ($59 left): Jayden Daniels (QB) free add; Kyle Monangai (RB) free add; Bryce Young (QB) free add."
+   "Week 8 cut: drewpepin1 (confirmed).",
+   "You next week (week 9): 2% cut risk, projected 141.4, about 5.2 weeks left, 11% to win it.",
+   "Most at risk: MoneyManChas 49%, SteelRob420 12%, robert8063 9%.",
+   "Bids before waivers Wed 2:15a CT ($59 left): Kyle Monangai (RB) free add; Tyler Allgeier (RB) free add; Jayden Daniels (QB) free add."
   ],
-  "source": "War Room v2, Week 7 final; Heston80 cut in week 7 (confirmed); moves through Sun 11:47a CT"
+  "source": "War Room v2, Week 8 final; drewpepin1 cut in week 8 (confirmed); moves through Mon 11:56p CT"
  },
  "numbers": [
-  "Projections: your starters beat them in 3 of 6 football leagues (-57.1 pts in all, finished games only).",
+  "Projections: your starters beat them in 3 of 6 football leagues (-67.2 pts in all, finished games only).",
   "CFP 2026 points pool: card picks were rated to win 1.1 of 2; they won 1.",
   "Yahoo pick'em (Kosmos, 14): card picks were rated to win 18.0 of 25; they won 18.",
   "BTO Beat the Odds: card picks were rated to win 1.7 of 3; they won 3.",
   "Stale-line scanner: no flags this week."
  ],
  "headline": [
-  "Head-to-head: 0-0, plus 6 still open (Domo Arigato leading, 3-Ball FB trailing, Stempak trailing, Bro-vid19 trailing, 3-Ball BB leading, Ball is Life leading).",
-  "Guillotine: on track to survive, 3rd of 11 with projected 147.7, 55.1 over the lowest team (drewpepin1, projected 92.6).",
+  "Head-to-head: 3-3.",
+  "Guillotine: survived, 4th of 11 with 144.5, 61.5 over the lowest team (drewpepin1, 83.0).",
   "Picks card: CFP 1-1, Yahoo 18-7, BTO 3-0 (card as posted; your entries are graded Tuesday night).",
-  "Most left on a bench: 19.1 in 3-Ball FB."
+  "Most left on a bench: 20.5 in Stempak."
  ]
 }
