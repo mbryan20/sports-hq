@@ -2,7 +2,7 @@
 title: "Guillotine bid strategy (v2)"
 kind: claude.ai cloud routine attached to the mbryan20/sports-hq repo (read-only)
 routine_id: trig_01SSdrwq7mFaMPruMyzSxLJ9
-cron: "CRON_TZ=America/Chicago 0 6 * * 2"   # Tue 6:00am CT only, no Monday-night run yet; reads the Mon 10:40pm/11:20pm CT War Room v2 build
+cron: "CRON_TZ=America/Chicago 0 6 * * 2"   # Tue 6:00am CT only, no Monday-night run yet; reads the Tue 5:40am CT War Room v2 build
 model: Fable 5.1
 connectors: Google Drive, Google Docs
 status: CREATED 2026-10-31; prompt updated 2026-11-03 (model bid/drop as given, Win % column, bid options). Writes the Doc "Guillotine bid strategy (v2)" and sends no push; the 7:11am bid check sends the push.
