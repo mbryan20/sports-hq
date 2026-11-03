@@ -57,6 +57,13 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - Alerts if a laptop job's data goes stale (>30h) and on any failed run.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
+- Model health (`model-health.yml` → `shq/health.py`, nightly 2:50am CT, backup 4:50am): re-tests every model against what
+  happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
+  2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
+  waiver run out, by position and season stage); our bids vs the waiver results (would they have won, what winners paid);
+  the cut odds the dashboard and v2 showed before kickoff; the NBA radar backtest; Pool Picks' stored backtest and graded
+  cards. Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
+  or weak when it doesn't beat the simple alternative. No push; the nightly improvement pass reads it.
 
 **Laptop (Claude scheduled tasks in the desktop app; they read sign-in sites in Michael's Chrome — see `ops/BROWSER.md`)**
 
@@ -72,6 +79,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Tue 7:30am guillotine bid check | Tue 7:11am | The AI strategy Doc's bids when it was updated today after 5am CT (else War Room v2's `bids.json`, else the old War Room) vs pending Sleeper bids → push the exact changes by ~7:30am |
 | Sports HQ: Tue 7:30pm guillotine bid safety net | Tue ~7:35pm | Same sources and check against your pending claims and roster; pushes only if a "Bid" player is unclaimed or underbid, a claim is on a Priced out/Skip player, the top free add is missing, or claims exceed FAAB (coin flips never count) |
 | Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
+| Sports HQ: nightly improvement pass (proposed, `ops/tasks/nightly-improvement-pass.md`) | daily 3:40am | reads health.json, FEEDBACK.md, reviews and the queue; adds and ranks IMPROVEMENTS.md items with evidence, drafts designs for the top 3 (`ops/designs/`); never changes code |
 | Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
 
 **Cloud (claude.ai routine, read-only on the repo):** "Guillotine bid strategy (v2)", Tue 6:00am CT, Fable 5.1
@@ -91,6 +99,8 @@ Add an entry to `LEAGUES` in `shq/config.py` (platform sleeper / espn). ESPN pri
 ## Improving it
 - `IDEAS.md`: drop ideas there anytime (phone: edit on github.com). Open decisions live there too.
 - `FEEDBACK.md`: what the site's 👍 / 👎 / 💬 Feedback buttons send (a pre-filled GitHub issue, logged by `feedback.yml`).
+- `IMPROVEMENTS.md`: the improvement queue. Every item has evidence, expected impact, effort, risk, the health check that
+  should move, a design and Michael's decision. Filled nightly from `docs/data/health.json`; how he approves: `ops/approvals.md`.
 - Monthly review (1st of each month): audits reliability, freshness and usefulness, writes
   `reviews/YYYY-MM.md`, pushes the top 3 improvements. Nothing changes without Michael's OK.
 

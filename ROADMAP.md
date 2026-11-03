@@ -14,7 +14,8 @@ including at work, where claude.ai is blocked. For each league it should tell hi
 - pick'em cards
 
 It runs on its own (GitHub Actions, no AI in scheduled jobs). The laptop's Claude tasks only read sites
-that need a sign-in. It is an ongoing project, improved through the monthly review and ideas he adds.
+that need a sign-in. It is an ongoing project, improved through the nightly model-health job and improvement pass
+(IMPROVEMENTS.md, approved by Michael), the monthly review and ideas he adds.
 
 ## Where things stand (update this table when something ships)
 | Area | Status |
@@ -45,6 +46,7 @@ that need a sign-in. It is an ongoing project, improved through the monthly revi
 | Kosmonauts FA adds | live 2026-10-28 (laptop sync reads Yahoo's top 15 available per position; `shq/save_roster.py`) |
 | Dashboard main page = layout A (Scoreboard tiles) + ▦ layout menu to switch to B Command center, C Deck, D Game day | live 2026-10-31 (Michael picked A). `docs/index.html` is A; B/C/D in `docs/lab/<letter>/`; shared `docs/lib/core.js` + `core.css`; old list view (`app.js`, `style.css`) removed |
 | Feedback buttons (👍/👎 per tile, 💬 Feedback) → FEEDBACK.md | live 2026-10-31: a pre-filled GitHub issue, logged by `.github/workflows/feedback.yml` (`shq/feedback.py`), works without claude.ai |
+| Continuous improvement: nightly model health (`model-health.yml`, `shq/health.py` → `docs/data/health.json`), improvement queue (`IMPROVEMENTS.md`), nightly AI pass | health job live 2026-11-03; queue seeded (13 items); nightly pass prompt drafted (`ops/tasks/nightly-improvement-pass.md`, Claude Ops to create); approval channel waits on Michael (`ops/approvals.md`); site scorecard is Q-013 |
 | Baseball | Feb 2027 (task `sports-hq-baseball-kickoff`) |
 | Older claude.ai routines (auto-swaps, bids, helpers) | Michael to decide: keep, merge or retire (IDEAS.md) |
 

@@ -2,7 +2,7 @@
 
 Every Sports HQ laptop task's prompt, kept in the repo so it can be reviewed and recreated.
 `monthly-review.md` (1st of each month, 10am CT) and `baseball-kickoff.md` (once, Feb 1 2027) are created
-as scheduled tasks. If you edit a prompt here, update the task too (Scheduled in the Claude app sidebar).
+as scheduled tasks. `nightly-improvement-pass.md` (daily 3:40am CT) is proposed, not yet created (Claude Ops creates tasks). If you edit a prompt here, update the task too (Scheduled in the Claude app sidebar).
 The `pool-picks-*.md` files are the Pool Picks tasks (Tue postmortem, Wed draft, Thu BTO final, Fri final, Sat refresh,
 manual sign-in check); since 2026-11-02 the card runs also read saved picks and the Decisions log, run a second opinion and
 send the standalone push (picks/RUNBOOK.md "Every card run").
