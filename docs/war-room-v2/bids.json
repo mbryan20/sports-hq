@@ -8,9 +8,9 @@
   "team": "drewpepin1",
   "week": 8,
   "confirmed": true,
-  "freed_status": "cleared"
+  "freed_status": "on waivers"
  },
- "waivers_open": false,
+ "waivers_open": true,
  "next_waiver_run": "2026-11-04T08:15:00Z",
  "waivers": "Wed 2:15a CT",
  "my_team": "michaelbryan",
@@ -131,7 +131,158 @@
    "win_odds": 0.243
   }
  ],
- "freed_players": [],
+ "freed_players": [
+  {
+   "sleeper_id": "11603",
+   "name": "AJ Barner",
+   "pos": "TE",
+   "team": "SEA",
+   "injury": null,
+   "ir": false,
+   "season_avg": 4.7,
+   "last3_avg": 4.3
+  },
+  {
+   "sleeper_id": "13298",
+   "name": "KC Concepcion",
+   "pos": "WR",
+   "team": "CLE",
+   "injury": null,
+   "ir": false,
+   "season_avg": 6.6,
+   "last3_avg": 10.1
+  },
+  {
+   "sleeper_id": "2747",
+   "name": "Jason Myers",
+   "pos": "K",
+   "team": "SEA",
+   "injury": null,
+   "ir": false,
+   "season_avg": 8.5,
+   "last3_avg": 5.7
+  },
+  {
+   "sleeper_id": "3257",
+   "name": "Jacoby Brissett",
+   "pos": "QB",
+   "team": "ARI",
+   "injury": null,
+   "ir": false,
+   "season_avg": 14.7,
+   "last3_avg": 9.6
+  },
+  {
+   "sleeper_id": "4881",
+   "name": "Lamar Jackson",
+   "pos": "QB",
+   "team": "BAL",
+   "injury": null,
+   "ir": false,
+   "season_avg": 16,
+   "last3_avg": 13.1
+  },
+  {
+   "sleeper_id": "5045",
+   "name": "Courtland Sutton",
+   "pos": "WR",
+   "team": "DEN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 4.8,
+   "last3_avg": 5.4
+  },
+  {
+   "sleeper_id": "5967",
+   "name": "Tony Pollard",
+   "pos": "RB",
+   "team": "TEN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 13.7,
+   "last3_avg": 23.3
+  },
+  {
+   "sleeper_id": "6813",
+   "name": "Jonathan Taylor",
+   "pos": "RB",
+   "team": "IND",
+   "injury": null,
+   "ir": false,
+   "season_avg": 16.7,
+   "last3_avg": 14.3
+  },
+  {
+   "sleeper_id": "7588",
+   "name": "Javonte Williams",
+   "pos": "RB",
+   "team": "DAL",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.9,
+   "last3_avg": 13.2
+  },
+  {
+   "sleeper_id": "8137",
+   "name": "George Pickens",
+   "pos": "WR",
+   "team": "DAL",
+   "injury": null,
+   "ir": false,
+   "season_avg": 10.6,
+   "last3_avg": 9.9
+  },
+  {
+   "sleeper_id": "9487",
+   "name": "Parker Washington",
+   "pos": "WR",
+   "team": "JAX",
+   "injury": null,
+   "ir": false,
+   "season_avg": 11.7,
+   "last3_avg": 13
+  },
+  {
+   "sleeper_id": "9493",
+   "name": "Puka Nacua",
+   "pos": "WR",
+   "team": "LAR",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18.4,
+   "last3_avg": 16.1
+  },
+  {
+   "sleeper_id": "9757",
+   "name": "Kendre Miller",
+   "pos": "RB",
+   "team": "NO",
+   "injury": null,
+   "ir": false,
+   "season_avg": 5.7,
+   "last3_avg": 7.1
+  },
+  {
+   "sleeper_id": "9758",
+   "name": "C.J. Stroud",
+   "pos": "QB",
+   "team": "HOU",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18.5,
+   "last3_avg": 20.5
+  },
+  {
+   "sleeper_id": "CIN",
+   "name": "CIN DEF",
+   "pos": "DEF",
+   "team": "CIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 7.6,
+   "last3_avg": 7.7
+  }
+ ],
  "my_roster": [
   {
    "slot": "QB",
@@ -324,15 +475,28 @@
    "ir": false,
    "season_avg": 13.7,
    "last3_avg": 23.3,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 0,
    "gain_rest_of_season": 79.6,
    "extra_weeks_alive": 1.26,
    "extra_win_odds": 0.165,
-   "est_price": 0,
-   "your_max": 0,
-   "call": "Add free",
-   "likely_rival_bids": []
+   "est_price": 34,
+   "your_max": 25,
+   "call": "Coin flip",
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 33
+    },
+    {
+     "team": "SteelRob420",
+     "bid": 33
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 27
+    }
+   ]
   },
   {
    "sleeper_id": "9493",
@@ -343,15 +507,60 @@
    "ir": false,
    "season_avg": 18.4,
    "last3_avg": 16.1,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 8.5,
    "gain_rest_of_season": 69.8,
    "extra_weeks_alive": 0.97,
    "extra_win_odds": 0.127,
-   "est_price": 0,
-   "your_max": 0,
-   "call": "Add free",
-   "likely_rival_bids": []
+   "est_price": 30,
+   "your_max": 19,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "SteelRob420",
+     "bid": 29
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 28
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 24
+    }
+   ]
+  },
+  {
+   "sleeper_id": "7588",
+   "name": "Javonte Williams",
+   "pos": "RB",
+   "team": "DAL",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.9,
+   "last3_avg": 13.2,
+   "source": "freed",
+   "gain_next_week": 5.8,
+   "gain_rest_of_season": 48.2,
+   "extra_weeks_alive": 0.76,
+   "extra_win_odds": 0.08,
+   "est_price": 35,
+   "your_max": 15,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "SteelRob420",
+     "bid": 34
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 30
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 29
+    }
+   ]
   },
   {
    "sleeper_id": "6813",
@@ -362,11 +571,43 @@
    "ir": false,
    "season_avg": 16.7,
    "last3_avg": 14.3,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 6.7,
    "gain_rest_of_season": 54,
    "extra_weeks_alive": 0.63,
    "extra_win_odds": 0.084,
+   "est_price": 41,
+   "your_max": 13,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 40
+    },
+    {
+     "team": "SteelRob420",
+     "bid": 40
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 32
+    }
+   ]
+  },
+  {
+   "sleeper_id": "12534",
+   "name": "Kyle Monangai",
+   "pos": "RB",
+   "team": "CHI",
+   "injury": "Out",
+   "ir": false,
+   "season_avg": 14.2,
+   "last3_avg": 12.5,
+   "source": "free agent",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 33.8,
+   "extra_weeks_alive": 0.58,
+   "extra_win_odds": 0.066,
    "est_price": 0,
    "your_max": 0,
    "call": "Add free",
@@ -381,11 +622,43 @@
    "ir": false,
    "season_avg": 11.7,
    "last3_avg": 13,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 3.6,
    "gain_rest_of_season": 34,
    "extra_weeks_alive": 0.53,
    "extra_win_odds": 0.055,
+   "est_price": 22,
+   "your_max": 11,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "JHED1979",
+     "bid": 21
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 19
+    },
+    {
+     "team": "MoneyManChas",
+     "bid": 19
+    }
+   ]
+  },
+  {
+   "sleeper_id": "8132",
+   "name": "Tyler Allgeier",
+   "pos": "RB",
+   "team": "ARI",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.2,
+   "last3_avg": 15.1,
+   "source": "free agent",
+   "gain_next_week": 3.4,
+   "gain_rest_of_season": 28.9,
+   "extra_weeks_alive": 0.47,
+   "extra_win_odds": 0.048,
    "est_price": 0,
    "your_max": 0,
    "call": "Add free",
@@ -430,6 +703,44 @@
    "likely_rival_bids": []
   },
   {
+   "sleeper_id": "2133",
+   "name": "Davante Adams",
+   "pos": "WR",
+   "team": "LAR",
+   "injury": null,
+   "ir": true,
+   "season_avg": 14.5,
+   "last3_avg": 10.1,
+   "source": "free agent",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 19.4,
+   "extra_weeks_alive": 0.29,
+   "extra_win_odds": 0.041,
+   "est_price": 0,
+   "your_max": 0,
+   "call": "Add free",
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "TEN",
+   "name": "TEN DEF",
+   "pos": "DEF",
+   "team": "TEN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 6.1,
+   "last3_avg": 10.3,
+   "source": "free agent",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 16.9,
+   "extra_weeks_alive": 0.29,
+   "extra_win_odds": 0.028,
+   "est_price": 0,
+   "your_max": 0,
+   "call": "Add free",
+   "likely_rival_bids": []
+  },
+  {
    "sleeper_id": "9758",
    "name": "C.J. Stroud",
    "pos": "QB",
@@ -438,9 +749,37 @@
    "ir": false,
    "season_avg": 18.5,
    "last3_avg": 20.5,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 0,
    "gain_rest_of_season": 19.5,
+   "extra_weeks_alive": 0.28,
+   "extra_win_odds": 0.015,
+   "est_price": 15,
+   "your_max": 6,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "MoneyManChas",
+     "bid": 14
+    },
+    {
+     "team": "SteelRob420",
+     "bid": 9
+    }
+   ]
+  },
+  {
+   "sleeper_id": "8161",
+   "name": "Malik Willis",
+   "pos": "QB",
+   "team": "MIA",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.2,
+   "last3_avg": 20.9,
+   "source": "free agent",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 18,
    "extra_weeks_alive": 0.28,
    "extra_win_odds": 0.015,
    "est_price": 0,
@@ -457,34 +796,52 @@
    "ir": false,
    "season_avg": 7.6,
    "last3_avg": 7.7,
-   "source": "free agent",
+   "source": "freed",
    "gain_next_week": 1,
    "gain_rest_of_season": 15.5,
    "extra_weeks_alive": 0.27,
    "extra_win_odds": 0.026,
-   "est_price": 0,
-   "your_max": 0,
-   "call": "Add free",
-   "likely_rival_bids": []
+   "est_price": 3,
+   "your_max": 5,
+   "call": "Bid",
+   "likely_rival_bids": [
+    {
+     "team": "SteelRob420",
+     "bid": 2
+    },
+    {
+     "team": "JHED1979",
+     "bid": 2
+    },
+    {
+     "team": "Swegs4",
+     "bid": 1
+    }
+   ]
   },
   {
-   "sleeper_id": "9479",
-   "name": "Darnell Washington",
-   "pos": "TE",
-   "team": "PIT",
+   "sleeper_id": "4881",
+   "name": "Lamar Jackson",
+   "pos": "QB",
+   "team": "BAL",
    "injury": null,
    "ir": false,
-   "season_avg": 6.6,
-   "last3_avg": 9.4,
-   "source": "free agent",
+   "season_avg": 16,
+   "last3_avg": 13.1,
+   "source": "freed",
    "gain_next_week": 0,
-   "gain_rest_of_season": 8,
-   "extra_weeks_alive": 0.26,
+   "gain_rest_of_season": 14.6,
+   "extra_weeks_alive": 0.27,
    "extra_win_odds": 0.015,
-   "est_price": 0,
-   "your_max": 0,
-   "call": "Add free",
-   "likely_rival_bids": []
+   "est_price": 3,
+   "your_max": 5,
+   "call": "Bid",
+   "likely_rival_bids": [
+    {
+     "team": "MoneyManChas",
+     "bid": 2
+    }
+   ]
   },
   {
    "sleeper_id": "6650",
@@ -506,19 +863,51 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "8172",
-   "name": "Greg Dulcich",
-   "pos": "TE",
-   "team": "MIA",
+   "sleeper_id": "8137",
+   "name": "George Pickens",
+   "pos": "WR",
+   "team": "DAL",
    "injury": null,
    "ir": false,
-   "season_avg": 6.4,
-   "last3_avg": 8.4,
-   "source": "free agent",
-   "gain_next_week": 0,
-   "gain_rest_of_season": 7.4,
+   "season_avg": 10.6,
+   "last3_avg": 9.9,
+   "source": "freed",
+   "gain_next_week": 1.5,
+   "gain_rest_of_season": 13.8,
    "extra_weeks_alive": 0.24,
-   "extra_win_odds": 0.013,
+   "extra_win_odds": 0.025,
+   "est_price": 12,
+   "your_max": 5,
+   "call": "Priced out",
+   "likely_rival_bids": [
+    {
+     "team": "JHED1979",
+     "bid": 11
+    },
+    {
+     "team": "GoodFellas77",
+     "bid": 8
+    },
+    {
+     "team": "MoneyManChas",
+     "bid": 8
+    }
+   ]
+  },
+  {
+   "sleeper_id": "11625",
+   "name": "Adonai Mitchell",
+   "pos": "WR",
+   "team": "NYJ",
+   "injury": null,
+   "ir": false,
+   "season_avg": 10.1,
+   "last3_avg": 11,
+   "source": "free agent",
+   "gain_next_week": 1.8,
+   "gain_rest_of_season": 14.5,
+   "extra_weeks_alive": 0.17,
+   "extra_win_odds": 0.022,
    "est_price": 0,
    "your_max": 0,
    "call": "Add free",
