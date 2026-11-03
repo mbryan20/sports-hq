@@ -256,6 +256,12 @@ def build(now, nfl=None, fetch=get_json, players=None):
         "calib": calibration_cases(weekly, proj, keep, hist, before, budget, W0, last,
                                    pending=played if cut and cut.get("freed_status") != "cleared" else None),
         "asof": asof, "data_as_of": iso_ms(last_tx), "waivers": ct_label(next_waivers(now)) + " CT",
+        # names for anyone a claim might name (for the side-by-side bookmark, compare.js): kept players plus
+        # everyone Sleeper projects to score next week; public player info only
+        "names": {s: [(db.get(s) or {}).get("full_name") or keep.get(s, {}).get("n") or s,
+                      (db.get(s) or {}).get("position") or keep.get(s, {}).get("p") or "",
+                      (db.get(s) or {}).get("team") or keep.get(s, {}).get("t") or ""]
+                  for s in set(keep) | {s for s, v in proj.get(W0, {}).items() if v > 0} | {p for r in rosters for p in r.get("players") or []}},
         "next_waiver_run": iso(next_waivers(now)),
     }
 

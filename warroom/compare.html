@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>War Room: compare with my claims</title>
+<style>
+:root{--bg:#f3f5f7;--panel:#fff;--ink:#18212b;--muted:#5d6b7a;--line:#d9dfe6;--accent:#b07a12}
+@media (prefers-color-scheme:dark){:root{--bg:#11161c;--panel:#18202a;--ink:#e6ebf0;--muted:#97a5b4;--line:#2b3643;--accent:#e7b04f}}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:21px;margin:8px 0 4px}h2{font-size:16px;margin:20px 0 6px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
+.m{color:var(--muted);font-size:13.5px}
+a.bm{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--accent);color:#111;font-weight:700;text-decoration:none}
+textarea{width:100%;box-sizing:border-box;font:12px ui-monospace,Menlo,monospace;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+button{font:inherit;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+ol{padding-left:20px}li{margin:4px 0}code{font-size:13px}
+</style>
+</head>
+<body>
+<main>
+<a href="./">&larr; War Room v2</a>
+<h1>Compare the War Room with your Sleeper claims</h1>
+<p class="m">A bookmark you tap while you're on sleeper.com. It shows each pending claim next to the model's numbers: your bid and drop, the model's bid,
+likely price, value and your exact chance of winning at your bid. It flags drops used twice, bids above value, drops of a starter, and the
+model's suggestions you haven't claimed.</p>
+<div class="panel m"><b>Private and read-only.</b> Your claims are only visible to you, so they can't go on this public site. The bookmark reads them inside your own
+signed-in sleeper.com tab and shows them there. Nothing is saved or sent anywhere, and it never changes a claim.</div>
+
+<h2>The bookmark</h2>
+<p><a class="bm" id="bm" href="#">War Room vs my claims</a></p>
+<textarea id="code" rows="3" readonly></textarea>
+<p><button id="copy">Copy the code</button> <span class="m" id="copied"></span></p>
+
+<h2>Set it up on a computer (Chrome)</h2>
+<ol>
+<li>Show the bookmarks bar: press <b>Ctrl+Shift+B</b> (Mac: <b>Cmd+Shift+B</b>).</li>
+<li>Drag the orange <b>War Room vs my claims</b> button above onto the bookmarks bar.</li>
+<li>Open <code>https://sleeper.com</code> (signed in) and click <b>War Room vs my claims</b> on the bookmarks bar. A dark panel opens with your claims; <b>Close</b> is top right.</li>
+</ol>
+
+<h2>Set it up on a phone</h2>
+<p class="m">Phone browsers can't drag a bookmark, so you save any page as a bookmark and paste the code in as its address. It works in the browser at sleeper.com, not in the Sleeper app.</p>
+<ol>
+<li>Tap <b>Copy the code</b> above.</li>
+<li>Bookmark this page (iPhone Safari: Share &rarr; Add Bookmark; Android Chrome: the star in the &#8942; menu).</li>
+<li>Edit that bookmark: name it <b>War Room vs my claims</b> and replace its address with the copied code. Save.</li>
+<li>Open <code>https://sleeper.com</code> in the same browser, signed in. Then open the bookmark (Safari: Bookmarks; Android Chrome: type <b>War Room</b> in the address bar and tap the bookmark suggestion).</li>
+</ol>
+</main>
+<script>
+const code = "javascript:(()=>{const s=document.createElement('script');s.src='https://mbryan20.github.io/sports-hq/war-room-v2/compare.js?'+Date.now();document.body.appendChild(s)})()";
+document.getElementById('bm').href = code;
+document.getElementById('code').value = code;
+document.getElementById('bm').onclick = e => { e.preventDefault(); document.getElementById('copied').textContent = 'Drag this button to your bookmarks bar instead of clicking it.'; };
+document.getElementById('copy').onclick = async () => {
+  const t = document.getElementById('code');
+  try { await navigator.clipboard.writeText(code); } catch (e) { t.select(); document.execCommand('copy'); }
+  document.getElementById('copied').textContent = 'Copied.';
+};
+</script>
+</body>
+</html>

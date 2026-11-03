@@ -249,6 +249,8 @@ function exportBids() {
     est_price: r.freed ? r.price : 0, price_80: r.freed ? r.price80 : 0, value: r.freed ? r.value : 0,
     bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(money.spend, r.value) : 0,
     call: r.call, why: r.why || null,
+    // chance of winning at every bid from $0 to your FAAB (index = bid), for the side-by-side bookmark
+    win_curve: r.freed && r.est ? Array.from({ length: D.teams[ME].faab + 1 }, (_, b) => Math.round(winChance(b, r.est) * 100) / 100) : null,
     bid_options: (r.options || []).map(o => ({ bid: o.bid, win_chance: r3(o.chance), avg_payoff: r1(o.payoff), recommended: o.bid === r.bid,
       over_spendable: o.bid > money.spend })),
     likely_rival_bids: (r.th || []).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) }));
@@ -273,7 +275,7 @@ function exportBids() {
     my_roster: (() => { const L = lineup(roster(ME), W0), on = new Set(L.st.map(x => x.s));
       return L.st.filter(x => x.s).map(x => ({ slot: x.slot, ...player(x.s), proj_next_week: r1(x.v) }))
         .concat(roster(ME).filter(s => D.P[s] && !on.has(s)).map(s => ({ slot: 'BN', ...player(s), proj_next_week: r1(proj(s, W0)) }))); })(),
-    bids,
+    bids, names: D.names || {},
   };
 }
 

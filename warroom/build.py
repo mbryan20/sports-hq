@@ -61,7 +61,9 @@ def main():
             .replace("__DATA__", blob.replace("</", r"<\/"))
             .replace("__MODEL__", (HERE / "model.js").read_text(encoding="utf-8"))
             .replace("__JS__", (HERE / "app.js").read_text(encoding="utf-8")))
-    changed = [name for name, text in (("index.html", page), ("bids.json", bids)) if write_if_changed(OUT / name, text)]
+    files = (("index.html", page), ("bids.json", bids), ("compare.js", (HERE / "compare.js").read_text(encoding="utf-8")),
+             ("compare.html", (HERE / "compare.html").read_text(encoding="utf-8")))
+    changed = [name for name, text in files if write_if_changed(OUT / name, text)]
     summary = json.loads(bids)
     print(f"{data['asof']} | week {data['week']} | swing {data['sd']} | ladder {len((data['ladder'] or {}).get('lo', []))}+"
           f"{len((data['ladder'] or {}).get('hi', []))} claims | $/win point {summary['budget']['dollars_per_win_point']} | "
