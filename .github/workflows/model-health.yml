@@ -1,0 +1,48 @@
+name: Model health
+
+# Nightly re-test of every model against what actually happened (shq/health.py): War Room v2's projections,
+# score swing, cut odds and price ladder; our bid recommendations vs the waiver results; the dashboard's
+# guillotine odds; the NBA trend radar; Pool Picks. Writes docs/data/health.json and, for new checks,
+# state/health_baselines.json. No AI, no paid APIs, read-only on every site. It sends no push: the nightly
+# improvement pass (ops/tasks/nightly-improvement-pass.md) reads health.json and the run list.
+# Actions cron is UTC; times are Central Standard Time (UTC-6, from Nov 1; one hour later in CT after Mar 14).
+# GitHub drops some scheduled runs, so there are two slots; a second run the same night just refreshes the file.
+on:
+  schedule:
+    - cron: "50 8 * * *"           # 2:50am CT, after Wednesday's 2:15am waiver run and War Room v2's 2:40am build
+    - cron: "50 10 * * *"          # 4:50am CT, backup slot
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: model-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0             # the checks read what the site showed before each kickoff and waiver run from git history
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"         # the price-ladder check runs War Room v2's own model.js
+      - run: pip install -r requirements.txt
+      - name: Re-test every model
+        run: python -m shq.health --print
+      - name: Commit (merge, never rebase)
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/health.json state/health_baselines.json
+          git commit -q -m "Model health: $(date -u +%FT%TZ)" || { echo "nothing changed"; exit 0; }
+          for i in 1 2 3 4 5; do git pull -q --no-rebase --no-edit && git push -q && exit 0; sleep 5; done
+          exit 1
