@@ -18,8 +18,8 @@
  "reserve": 5,
  "budget": {
   "spendable": 54,
-  "recommended_bids_total": 44,
-  "dollars_per_win_point": 13.6
+  "recommended_bids_total": 54,
+  "dollars_per_win_point": 15
  },
  "settings": {
   "projections": "Sleeper weekly",
@@ -29,7 +29,7 @@
   "rival_aggression": 1,
   "value": "win odds (winner takes all)",
   "sims": 20000,
-  "price_ladder_claims": 180
+  "price_ladder_claims": 165
  },
  "me": {
   "cut_risk_next_week": 0.16,
@@ -537,14 +537,44 @@
    "drop_id": "8134",
    "extra_weeks_alive": 0.92,
    "extra_win_odds": 0.034,
-   "est_price": 19,
-   "price_80": 46,
-   "value": 46,
+   "est_price": 28,
+   "price_80": 51,
+   "value": 51,
    "bid": 14,
-   "win_chance": 0.472,
-   "your_max": 46,
+   "win_chance": 0.417,
+   "your_max": 51,
    "call": "Coin flip",
    "why": null,
+   "bid_options": [
+    {
+     "bid": 6,
+     "win_chance": 0.25,
+     "avg_payoff": 11.3,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 14,
+     "win_chance": 0.417,
+     "avg_payoff": 15.4,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 28,
+     "win_chance": 0.5,
+     "avg_payoff": 11.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 51,
+     "win_chance": 0.813,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    }
+   ],
    "likely_rival_bids": [
     {
      "team": "damonhawk1",
@@ -578,14 +608,44 @@
    "drop_id": "6806",
    "extra_weeks_alive": 0.95,
    "extra_win_odds": 0.029,
-   "est_price": 24,
-   "price_80": 56,
-   "value": 39,
-   "bid": 11,
-   "win_chance": 0.396,
-   "your_max": 39,
+   "est_price": 35,
+   "price_80": 62,
+   "value": 44,
+   "bid": 17,
+   "win_chance": 0.417,
+   "your_max": 44,
    "call": "Coin flip",
    "why": null,
+   "bid_options": [
+    {
+     "bid": 7,
+     "win_chance": 0.25,
+     "avg_payoff": 9.3,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 17,
+     "win_chance": 0.417,
+     "avg_payoff": 11.3,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 35,
+     "win_chance": 0.521,
+     "avg_payoff": 4.7,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 44,
+     "win_chance": 0.625,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    }
+   ],
    "likely_rival_bids": [
     {
      "team": "damonhawk1",
@@ -619,14 +679,44 @@
    "drop_id": "8155",
    "extra_weeks_alive": 0.92,
    "extra_win_odds": 0.027,
-   "est_price": 24,
-   "price_80": 56,
-   "value": 36,
+   "est_price": 35,
+   "price_80": 62,
+   "value": 40,
    "bid": 11,
-   "win_chance": 0.396,
-   "your_max": 36,
+   "win_chance": 0.333,
+   "your_max": 40,
    "call": "Coin flip",
    "why": "drop changed: a better claim uses the first choice",
+   "bid_options": [
+    {
+     "bid": 7,
+     "win_chance": 0.25,
+     "avg_payoff": 8.3,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 11,
+     "win_chance": 0.333,
+     "avg_payoff": 9.7,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 35,
+     "win_chance": 0.521,
+     "avg_payoff": 2.6,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 40,
+     "win_chance": 0.563,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    }
+   ],
    "likely_rival_bids": [
     {
      "team": "damonhawk1",
@@ -660,14 +750,51 @@
    "drop_id": "12474",
    "extra_weeks_alive": 0.65,
    "extra_win_odds": 0.021,
-   "est_price": 17,
-   "price_80": 40,
-   "value": 28,
-   "bid": 7,
-   "win_chance": 0.377,
-   "your_max": 28,
+   "est_price": 24,
+   "price_80": 43,
+   "value": 31,
+   "bid": 12,
+   "win_chance": 0.417,
+   "your_max": 31,
    "call": "Coin flip",
    "why": "drop changed: a better claim uses the first choice",
+   "bid_options": [
+    {
+     "bid": 5,
+     "win_chance": 0.25,
+     "avg_payoff": 6.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 12,
+     "win_chance": 0.417,
+     "avg_payoff": 7.9,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 24,
+     "win_chance": 0.5,
+     "avg_payoff": 3.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 31,
+     "win_chance": 0.625,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 43,
+     "win_chance": 0.813,
+     "avg_payoff": -9.7,
+     "recommended": false,
+     "over_spendable": false
+    }
+   ],
    "likely_rival_bids": [
     {
      "team": "SteelRob420",
@@ -709,6 +836,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -737,6 +865,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -765,6 +894,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -793,6 +923,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -821,6 +952,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -849,6 +981,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -877,6 +1010,7 @@
    "your_max": 0,
    "call": "Add free",
    "why": "free agent",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -897,14 +1031,44 @@
    "drop_id": "10213",
    "extra_weeks_alive": 0.24,
    "extra_win_odds": 0.004,
-   "est_price": 6,
-   "price_80": 14,
-   "value": 5,
-   "bid": 1,
-   "win_chance": 0.283,
-   "your_max": 5,
-   "call": "Coin flip",
-   "why": "drop changed: a better claim uses the first choice",
+   "est_price": 8,
+   "price_80": 15,
+   "value": 6,
+   "bid": 0,
+   "win_chance": 0.292,
+   "your_max": 6,
+   "call": "Skip",
+   "why": "your other bids use the budget",
+   "bid_options": [
+    {
+     "bid": 2,
+     "win_chance": 0.292,
+     "avg_payoff": 1.2,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 6,
+     "win_chance": 0.458,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 8,
+     "win_chance": 0.5,
+     "avg_payoff": -1,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 15,
+     "win_chance": 0.813,
+     "avg_payoff": -7.3,
+     "recommended": false,
+     "over_spendable": false
+    }
+   ],
    "likely_rival_bids": [
     {
      "team": "JHED1979",
@@ -946,6 +1110,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -974,6 +1139,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -998,10 +1164,11 @@
    "price_80": 2,
    "value": 4,
    "bid": 0,
-   "win_chance": 0.772,
+   "win_chance": 0.769,
    "your_max": 4,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -1024,12 +1191,13 @@
    "extra_win_odds": 0.003,
    "est_price": 0,
    "price_80": 2,
-   "value": 3,
+   "value": 4,
    "bid": 0,
-   "win_chance": 0.772,
-   "your_max": 3,
+   "win_chance": 0.769,
+   "your_max": 4,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -1058,6 +1226,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -1080,12 +1249,13 @@
    "extra_win_odds": 0.002,
    "est_price": 0,
    "price_80": 3,
-   "value": 2,
+   "value": 3,
    "bid": 0,
-   "win_chance": 0.646,
-   "your_max": 2,
+   "win_chance": 0.632,
+   "your_max": 3,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": [
     {
      "team": "robert8063",
@@ -1098,6 +1268,40 @@
     {
      "team": "MoneyManChas",
      "bid": 1
+    }
+   ]
+  },
+  {
+   "sleeper_id": "9758",
+   "name": "C.J. Stroud",
+   "pos": "QB",
+   "team": "HOU",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18.5,
+   "last3_avg": 20.5,
+   "proj_next_week": 17.9,
+   "bye_week": null,
+   "source": "freed",
+   "gain_next_week": -0.2,
+   "gain_rest_of_season": 20.2,
+   "drop": "Tre Tucker",
+   "drop_id": "10213",
+   "extra_weeks_alive": 0.27,
+   "extra_win_odds": 0.002,
+   "est_price": 8,
+   "price_80": 15,
+   "value": 3,
+   "bid": 0,
+   "win_chance": 0.208,
+   "your_max": 3,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "MoneyManChas",
+     "bid": 9
     }
    ]
   },
@@ -1123,10 +1327,11 @@
    "price_80": 3,
    "value": 2,
    "bid": 0,
-   "win_chance": 0.646,
+   "win_chance": 0.632,
    "your_max": 2,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": [
     {
      "team": "SteelRob420",
@@ -1139,39 +1344,6 @@
     {
      "team": "Swegs4",
      "bid": 0
-    }
-   ]
-  },
-  {
-   "sleeper_id": "9758",
-   "name": "C.J. Stroud",
-   "pos": "QB",
-   "team": "HOU",
-   "injury": null,
-   "ir": false,
-   "season_avg": 18.5,
-   "last3_avg": 20.5,
-   "proj_next_week": 17.9,
-   "bye_week": null,
-   "source": "freed",
-   "gain_next_week": -0.2,
-   "gain_rest_of_season": 20.2,
-   "drop": "Braelon Allen",
-   "drop_id": "11576",
-   "extra_weeks_alive": 0.23,
-   "extra_win_odds": 0.001,
-   "est_price": 6,
-   "price_80": 14,
-   "value": 1,
-   "bid": 0,
-   "win_chance": 0.245,
-   "your_max": 1,
-   "call": "Skip",
-   "why": "adds too little to matter",
-   "likely_rival_bids": [
-    {
-     "team": "MoneyManChas",
-     "bid": 9
     }
    ]
   },
@@ -1197,10 +1369,11 @@
    "price_80": 4,
    "value": 1,
    "bid": 0,
-   "win_chance": 0.583,
+   "win_chance": 0.564,
    "your_max": 1,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": [
     {
      "team": "SteelRob420",
@@ -1234,6 +1407,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -1262,6 +1436,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   },
   {
@@ -1290,6 +1465,7 @@
    "your_max": 0,
    "call": "Skip",
    "why": "adds too little to matter",
+   "bid_options": [],
    "likely_rival_bids": []
   }
  ]

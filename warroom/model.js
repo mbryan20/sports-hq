@@ -131,6 +131,16 @@ function priceFor(chance, est, cap = 999) {
   return null;
 }
 
+// Bids worth comparing for one player: the best-value bid, the bids that won about 25%, 50% and 80% of
+// comparable past claims, and his full value. Each with its win chance and average payoff
+// (= chance x (value - bid): what that bid is worth to you on average; negative means overpaying).
+function bidOptions(r, value, spend) {
+  const faab = D.teams[ME].faab;      // the 80% price is shown even above what you can spend, up to your FAAB
+  const amts = new Set([r.bid, priceFor(.25, r.est), priceFor(.5, r.est), priceFor(.8, r.est, faab), Math.min(value, spend)]
+    .filter(b => b !== null && b > 0 && b <= faab));
+  return [...amts].sort((a, b) => a - b).map(b => { const p = winChance(b, r.est); return { bid: b, chance: p, payoff: p * (value - b) }; });
+}
+
 let BASE = null;
 function computeBase() {
   PJ = {};
@@ -199,9 +209,11 @@ function decideAll(rows) {
     let best = { b: 0, ev: 0, p: winChance(0, r.est) };
     for (let b = 1; b <= cap; b++) { const p = winChance(b, r.est), ev = p * (value - b); if (ev > best.ev + 1e-9) best = { b, ev, p }; }
     const small = value < 1 || r.dWin < MIN_WIN, call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : best.p >= .5 ? 'Bid' : 'Coin flip';
-    return Object.assign(r, { call, bid: call === 'Bid' || call === 'Coin flip' ? best.b : 0, chance: best.p, value, ev: best.ev,
+    Object.assign(r, { call, bid: call === 'Bid' || call === 'Coin flip' ? best.b : 0, chance: best.p, value, ev: best.ev,
       price: priceFor(.5, r.est) ?? r.est, price80: priceFor(.8, r.est) ?? r.est,
       why: small ? 'adds too little to matter' : best.ev <= 0 ? 'likely price is above his value to you' : '' });
+    r.options = small ? [] : bidOptions(r, value, spend);
+    return r;
   };
   rows.filter(r => !r.added && r.dW !== undefined).forEach(price);
   // All your bids must fit your FAAB minus the reserve, and each claim needs its own drop (Sleeper fails a claim
@@ -237,6 +249,8 @@ function exportBids() {
     est_price: r.freed ? r.price : 0, price_80: r.freed ? r.price80 : 0, value: r.freed ? r.value : 0,
     bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(money.spend, r.value) : 0,
     call: r.call, why: r.why || null,
+    bid_options: (r.options || []).map(o => ({ bid: o.bid, win_chance: r3(o.chance), avg_payoff: r1(o.payoff), recommended: o.bid === r.bid,
+      over_spendable: o.bid > money.spend })),
     likely_rival_bids: (r.th || []).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) }));
   const sim = BASE.sim;
   return {

@@ -252,7 +252,9 @@ def build(now, nfl=None, fetch=get_json, players=None):
         "last_week": last,
         "sd": dict(zip(("measured", "n"), measure_sd(weekly, proj, lambda s: (db.get(s) or {}).get("position") or keep.get(s, {}).get("p"))),
                    growth=SD_GROWTH),
-        "calib": calibration_cases(weekly, proj, keep, hist, before, budget, W0, last),
+        # a cut whose waiver run hasn't processed has no outcomes yet: its players aren't "unclaimed"
+        "calib": calibration_cases(weekly, proj, keep, hist, before, budget, W0, last,
+                                   pending=played if cut and cut.get("freed_status") != "cleared" else None),
         "asof": asof, "data_as_of": iso_ms(last_tx), "waivers": ct_label(next_waivers(now)) + " CT",
         "next_waiver_run": iso(next_waivers(now)),
     }
@@ -281,13 +283,15 @@ def freed_status(cut, chop, txs, now):
     return "on waivers"
 
 
-def calibration_cases(weekly, proj, P, hist, before, budget, W0, last):
+def calibration_cases(weekly, proj, P, hist, before, budget, W0, last, pending=None):
     """The league as it stood at each past waiver run (rosters at the end of week L, FAAB going into leg L,
     projections for the following weeks), with what every claimed or freed player actually went for.
     build.py runs the page's own rival-bid model on these to learn how its estimates compare with real
     winning bids (the price ladder)."""
     cases = []
     for L in sorted(weekly):
+        if L == pending:      # this cut's waiver run hasn't happened: nobody has had the chance to claim yet
+            continue
         alive = [m for m in weekly[L] if m.get("players")]
         if len(alive) < 3:
             continue

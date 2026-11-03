@@ -15,7 +15,7 @@ function riskPill(p) { return p >= .25 ? `<span class="pill p-bad">${pct(p)}</sp
 function renderBids() {
   const rows = candidates(), money = decideAll(rows);
   const out = rows.filter(r => r.added || r.dW !== undefined).sort((a, b) => (b.added - a.added) || (b.dWin - a.dWin) || (b.dW - a.dW));
-  let html = `<thead><tr><th>Player</th><th>Source</th><th>Bye</th><th class="n">Wk ${W0} gain</th><th class="n">Season gain</th><th class="n">+Win odds</th><th>Drop</th><th>Likely rival bids</th><th class="n">Likely price<br>50% / 80%</th><th class="n">Value</th><th class="n">Your bid<br>(win chance)</th><th>Call</th><th></th></tr></thead><tbody>`;
+  let html = `<thead><tr><th>Player</th><th>Source</th><th>Bye</th><th class="n">Wk ${W0} gain</th><th class="n">Season gain</th><th class="n">+Win odds</th><th>Drop</th><th>Likely rival bids</th><th class="n">Value</th><th>Bid options<br><span class="sub">bid · win chance · avg payoff</span></th><th>Call</th><th></th></tr></thead><tbody>`;
   let top = null;
   for (const r of out) {
     const p = D.P[r.s];
@@ -29,8 +29,8 @@ function renderBids() {
     const bye = p.bye.length ? 'Wk ' + p.bye[0] : 'done';
     html += `<tr><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
       + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) : '—'}</td><td class="wrap">${thtxt}</td>`
-      + `<td class="n">${r.freed ? '$' + r.price + ' / $' + r.price80 : '$0'}</td><td class="n">${r.freed ? '$' + r.value : '—'}</td>`
-      + `<td class="n">${r.bid > 0 ? '$' + r.bid + ' (' + pct(r.chance) + ')' : r.freed ? '—' : '$0'}</td><td>${call}${r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : ''}</td><td>${btn}</td></tr>`;
+      + `<td class="n">${r.freed ? '$' + r.value : '—'}</td>`
+      + `<td class="opts">${r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && r.bid > 0 ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && r.bid > 0 ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0'}</td><td>${call}${r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : ''}</td><td>${btn}</td></tr>`;
   }
   $('cand').innerHTML = html + '</tbody>';
   $('budgetline').textContent = money.dpp ? `Value rate: $${fmt(money.dpp)} per point of win odds${S.dpp > 0 ? '' : ' (auto)'}. Bids below total $${money.used} of the $${money.spend} you can spend.` : 'No players on waivers right now: free adds only.';

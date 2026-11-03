@@ -77,6 +77,7 @@ svg text{fill:var(--muted);font-family:var(--mono);font-size:10px}
 .sw{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px}
 select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.opts div{white-space:nowrap;font-variant-numeric:tabular-nums}.opts .best{font-weight:600;color:var(--good)}
 </style>
 </head>
 <body>
@@ -125,7 +126,7 @@ select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);
           <h2>Who to bid on this week</h2>
           <p class="sub" style="margin:0 0 10px">Freed by the week <span class="pw">?</span> cut (<span id="cutname"></span>), plus the best free agents. Sorted by how much each player raises your odds of winning the league, after the drop he needs. <span id="budgetline"></span></p>
           <div class="scroll"><table id="cand"></table></div>
-          <p class="note">Likely price = the bid that would have won about half (and about 80%) of comparable claims in this league. Your bid = the amount with the best chance of winning times what's left of his value, so it's often below the likely price: the aim is to spend wisely, not to win every claim. Each claim has its own drop. Free agents cost $0 once waivers clear. This page simulates 6,000 seasons so the controls respond quickly; the bids file the Tuesday checks read uses 20,000, so amounts can differ by a dollar or two.</p>
+          <p class="note"><b>Bid options</b> lists the amounts worth comparing for each player on waivers: the bids that won about 25%, 50% and 80% of comparable claims in this league, his full value to you, and the recommended bid (★). For each: the chance it wins, and the average payoff = chance × (his value − the bid), i.e. what that bid is worth to you on average. Bidding more wins more often but leaves less of his value; a negative payoff means overpaying. ★ is the amount with the highest average payoff, so it's often below the likely price: the aim is to spend wisely, not to win every claim. Each claim has its own drop. Free agents cost $0 once waivers clear. This page simulates 6,000 seasons so the controls respond quickly; the bids file the Tuesday checks read uses 20,000, so amounts can differ by a dollar or two.</p>
         </div>
         <div class="two">
           <div class="panel"><h2>Your week <span class="wk">?</span> lineup</h2><div class="scroll"><table id="mylineup"></table></div><p class="note" id="mynote"></p></div>

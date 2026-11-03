@@ -135,6 +135,8 @@ class FreedStatus(unittest.TestCase):
         wed_1am = dt.datetime(2026, 10, 28, 6, 0, tzinfo=dt.timezone.utc)
         d = model.build(wed_1am, self.nfl(), self.fetch([]), players={})
         self.assertEqual(d["cut"]["freed_status"], "on waivers")
+        # the price calibration must not read this week's still-unclaimed players as "went for $0"
+        self.assertNotIn(7, [c["leg"] for c in d["calib"]])
 
     def test_old_claim_of_a_freed_player_does_not_clear_waivers(self):
         # Nov 2-3: the cut team had won Jonathan Taylor in week 6; that old claim must not count as this
