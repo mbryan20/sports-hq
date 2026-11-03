@@ -31,8 +31,10 @@
     const g = await fetch('https://sleeper.com/graphql', { method: 'POST', headers: { 'content-type': 'application/json', authorization: token },
       body: JSON.stringify({ operationName: 'league_transactions_filtered', variables: {}, query: q }) }).then(r => r.json());
     if (g.errors || !g.data) throw 'Sleeper didn\'t return your claims (' + esc(JSON.stringify(g.errors || g).slice(0, 160)) + '). Are you signed in?';
-    const claims = g.data.league_transactions_filtered.filter(t => t.type === 'waiver').sort((a, b) => a.created - b.created)
-      .map((t, i) => ({ n: i + 1, add: Object.keys(t.adds || {})[0], drop: Object.keys(t.drops || {})[0] || null, bid: (t.settings || {}).waiver_bid || 0 }));
+    // highest bid first, like Sleeper's Waiver Claims list (FAAB claims process in bid order); ties by entry time
+    const claims = g.data.league_transactions_filtered.filter(t => t.type === 'waiver')
+      .map(t => ({ add: Object.keys(t.adds || {})[0], drop: Object.keys(t.drops || {})[0] || null, bid: (t.settings || {}).waiver_bid || 0, created: t.created }))
+      .sort((a, b) => b.bid - a.bid || a.created - b.created).map((c, i) => ({ ...c, n: i + 1 }));
     const model = Object.fromEntries(M.bids.map(b => [b.sleeper_id, b]));
     const names = M.names || {};
     const nm = id => { if (!id) return '—'; const x = names[id]; return x ? `${esc(x[0])} <span class="m">${esc(x[1])} ${esc(x[2] || '')}</span>` : `player ${esc(id)}`; };
@@ -69,7 +71,7 @@
       <div class="m">Model data: ${esc(M.data_as_of)}. ${waivers}</div>
       <div style="margin:8px 0"><b>${claims.length}</b> pending claims · bids total <b>$${total}</b> · FAAB <b>$${faab}</b>${total > faab ? ' <span class="m">(fine if they can\'t all win; claims you can\'t afford when they process just fail)</span>' : ''}
       · model's bids total $${M.budget.recommended_bids_total} of $${M.budget.spendable} spendable</div>
-      <div class="m">Listed in the order you entered them. If you reordered claims in Sleeper, its own list order is what counts.</div>
+      <div class="m">Highest bid first, like Sleeper's Waiver Claims list.</div>
       <h3>Your claims</h3>${cards || '<p class="m">No pending claims.</p>'}
       ${missing.length ? `<h3>Model suggests, not in your claims</h3>` + missing.map(b => `<div class="c">${nm(b.sleeper_id)} · model bid <b>$${b.bid}</b> (${pct(b.win_chance)}) · drop ${esc(b.drop || '—')}</div>`).join('') : ''}
       <p class="m">Read-only: nothing here changes your claims or is saved anywhere.</p>`);
