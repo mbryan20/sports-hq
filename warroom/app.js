@@ -12,30 +12,84 @@ function heatCell(v, lo, hi) {
 }
 function riskPill(p) { return p >= .25 ? `<span class="pill p-bad">${pct(p)}</span>` : p >= .1 ? `<span class="pill p-warn">${pct(p)}</span>` : `<span class="pill p-good">${pct(p)}</span>`; }
 
+// ---------- bids: sort / filter / phone cards ----------
+// Remembered per device (localStorage can be blocked: everything still works without it).
+const VIEW = (() => { const v = { pos: '', show: 'all', sort: 'dwin' }; try { Object.assign(v, JSON.parse(localStorage.getItem('wr2-view') || '{}')); } catch (e) {} return v; })();
+const saveView = () => { try { localStorage.setItem('wr2-view', JSON.stringify(VIEW)); } catch (e) {} };
+const SORTS = {
+  dwin: ['Win odds added', r => r.dWin], bid: ['Your bid', r => r.bid || 0], price: ['Likely price', r => r.freed ? r.price : -1],
+  chance: ['Win chance', r => r.bid > 0 ? r.chance : -1], value: ['Value to you', r => r.freed ? r.value : -1],
+  season: ['Season gain', r => r.gR], name: ['Name', r => D.P[r.s].n],
+};
+const CLAIMS = new Set(['Bid', 'Coin flip', 'Add free']);
+let BIDROWS = [], MONEY = null;
+
 function renderBids() {
   const rows = candidates(), money = decideAll(rows);
-  const out = rows.filter(r => r.added || r.dW !== undefined).sort((a, b) => (b.added - a.added) || (b.dWin - a.dWin) || (b.dW - a.dW));
-  let html = `<thead><tr><th>Player</th><th>Source</th><th>Bye</th><th class="n">Wk ${W0} gain</th><th class="n">Season gain</th><th class="n">+Win odds</th><th>Drop</th><th>Likely rival bids</th><th class="n">Value</th><th>Bid options<br><span class="sub">bid · win chance · avg payoff</span></th><th>Call</th><th></th></tr></thead><tbody>`;
+  BIDROWS = rows.filter(r => r.added || r.dW !== undefined); MONEY = money;
   let top = null;
+  for (const r of BIDROWS) if (r.freed && r.bid > 0 && (!top || r.ev > top.ev)) top = r;
+  $('budgetline').textContent = money.dpp ? `Value rate: $${fmt(money.dpp)} per point of win odds${S.dpp > 0 ? '' : ' (auto)'}. Bids total $${money.used} of the $${money.spend} you can spend.` : 'No players on waivers right now: free adds only.';
+  drawBids();
+  return top;
+}
+
+function bidBar() {
+  const n = p => BIDROWS.filter(r => D.P[r.s].p === p).length;
+  const chips = [['', 'All'], ...['QB', 'RB', 'WR', 'TE', 'K', 'DEF'].map(p => [p, p])].filter(([p]) => !p || n(p))
+    .map(([p, lab]) => `<button class="chip" data-pos="${p}" aria-pressed="${VIEW.pos === p}">${lab}${p ? ' <span>' + n(p) + '</span>' : ''}</button>`).join('');
+  const opt = (o, cur) => Object.entries(o).map(([k, v]) => `<option value="${k}"${k === cur ? ' selected' : ''}>${v}</option>`).join('');
+  return `<div class="chips" role="group" aria-label="Position">${chips}</div>
+    <label class="sub">Show <select id="bshow">${opt({ all: 'All players', freed: 'On waivers', fa: 'Free agents', claims: 'Claims only' }, VIEW.show)}</select></label>
+    <label class="sub">Sort <select id="bsort">${opt(Object.fromEntries(Object.entries(SORTS).map(([k, v]) => [k, v[0]])), VIEW.sort)}</select></label>`;
+}
+
+function drawBids() {
+  const rows = BIDROWS, money = MONEY;
+  // how many recommended moves would drop the same player (a claim whose drop is gone fails in Sleeper)
+  const dropUse = {};
+  for (const r of rows) if (!r.added && CLAIMS.has(r.call) && r.drop) dropUse[r.drop] = (dropUse[r.drop] || 0) + 1;
+  const key = SORTS[VIEW.sort] ? SORTS[VIEW.sort][1] : SORTS.dwin[1];
+  const out = rows.filter(r => (!VIEW.pos || D.P[r.s].p === VIEW.pos)
+      && (VIEW.show === 'all' || (VIEW.show === 'freed' && r.freed) || (VIEW.show === 'fa' && !r.freed) || (VIEW.show === 'claims' && (r.added || CLAIMS.has(r.call)))))
+    .sort((a, b) => (b.added - a.added) || (VIEW.sort === 'name' ? key(a).localeCompare(key(b)) : key(b) - key(a)) || (b.dWin - a.dWin));
+  $('bidbar').innerHTML = bidBar();
+  const pill = c => `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[c] || 'p-mute'}">${c}</span>`;
+  const drop = r => r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) + (dropUse[r.drop] > 1 && CLAIMS.has(r.call) ? ` <span class="pill p-warn" title="More than one move here drops this player">used ${dropUse[r.drop]}×</span>` : '') : '—';
+  const opts = r => r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && r.bid > 0 ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && r.bid > 0 ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0';
+  const rivals = r => (r.th || []).slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
+  const tag = p => `<b>${esc(p.n)}</b> <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`;
+  const btn = r => `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
+  const why = r => r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : '';
+  const bye = p => p.bye.length ? 'Wk ' + p.bye[0] : 'done';
+  const th = (k, lab, cls = '') => `<th class="${cls}${k ? ' sortable' : ''}"${k ? ` data-sort="${k}" aria-sort="${VIEW.sort === k ? 'descending' : 'none'}"` : ''}>${lab}${VIEW.sort === k ? ' ▾' : ''}</th>`;
+  let html = `<thead><tr>${th('name', 'Player')}<th>Source</th><th>Bye</th><th class="n">Wk ${W0} gain</th>${th('season', 'Season gain', 'n')}${th('dwin', '+Win odds', 'n')}<th>Drop</th><th>Likely rival bids</th>${th('value', 'Value', 'n')}${th('bid', 'Bid options<br><span class="sub">bid · win chance · avg payoff</span>')}<th>Call</th><th></th></tr></thead><tbody>`;
+  let cards = '';
   for (const r of out) {
     const p = D.P[r.s];
-    const tag = `<b>${esc(p.n)}</b> <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`;
-    const btn = `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
-    if (r.added) { html += `<tr class="me"><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td colspan="10" class="sub">On your roster in this model</td><td>${btn}</td></tr>`; continue; }
-    const call = `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[r.call] || 'p-mute'}">${r.call}</span>`;
-    if (r.freed && r.bid > 0 && (!top || r.ev > top.ev)) top = r;
-    const th = r.th || [];
-    const thtxt = th.slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
-    const bye = p.bye.length ? 'Wk ' + p.bye[0] : 'done';
-    html += `<tr><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
-      + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) : '—'}</td><td class="wrap">${thtxt}</td>`
-      + `<td class="n">${r.freed ? '$' + r.value : '—'}</td>`
-      + `<td class="opts">${r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && r.bid > 0 ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && r.bid > 0 ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0'}</td><td>${call}${r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : ''}</td><td>${btn}</td></tr>`;
+    if (r.added) {
+      html += `<tr class="me"><td>${tag(p)}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td colspan="9" class="sub">On your roster in this model</td><td>${btn(r)}</td></tr>`;
+      cards += `<div class="card me"><div class="top">${tag(p)}${btn(r)}</div><div class="sub">On your roster in this model</div></div>`;
+      continue;
+    }
+    html += `<tr><td>${tag(p)}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye(p)}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
+      + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${drop(r)}</td><td class="wrap">${rivals(r)}</td>`
+      + `<td class="n">${r.freed ? '$' + r.value : '—'}</td><td class="opts">${opts(r)}</td><td>${pill(r.call)}${why(r)}</td><td>${btn(r)}</td></tr>`;
+    cards += `<div class="card"><div class="top"><div>${tag(p)}<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div></div>${pill(r.call)}</div>`
+      + `<div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
+      + (r.freed && r.bid > 0 ? `<div class="bidline">Bid <b>$${r.bid}</b> (${pct(r.chance)} to win)</div>` : '')
+      + `<div class="sub">Drop: ${drop(r)}</div>`
+      + (r.freed ? `<div class="opts">${opts(r)}</div><div class="sub">Rivals: ${rivals(r)}</div>` : '')
+      + `${why(r)}<div class="foot">${btn(r)}</div></div>`;
   }
   $('cand').innerHTML = html + '</tbody>';
-  $('budgetline').textContent = money.dpp ? `Value rate: $${fmt(money.dpp)} per point of win odds${S.dpp > 0 ? '' : ' (auto)'}. Bids below total $${money.used} of the $${money.spend} you can spend.` : 'No players on waivers right now: free adds only.';
-  $('cand').querySelectorAll('button.add').forEach(b => b.onclick = () => { const s = b.dataset.s; S.adds.has(s) ? S.adds.delete(s) : S.adds.add(s); rerender(); });
-  return top;
+  $('cards').innerHTML = cards || '<p class="sub">No players match.</p>';
+  $('bidcount').textContent = `${out.length} of ${rows.length} players`;
+  document.querySelectorAll('#cand button.add, #cards button.add').forEach(b => b.onclick = () => { const s = b.dataset.s; S.adds.has(s) ? S.adds.delete(s) : S.adds.add(s); rerender(); });
+  document.querySelectorAll('#bidbar .chip').forEach(b => b.onclick = () => { VIEW.pos = b.dataset.pos; saveView(); drawBids(); });
+  $('bshow').onchange = e => { VIEW.show = e.target.value; saveView(); drawBids(); };
+  $('bsort').onchange = e => { VIEW.sort = e.target.value; saveView(); drawBids(); };
+  document.querySelectorAll('#cand th.sortable').forEach(t => t.onclick = () => { VIEW.sort = t.dataset.sort; saveView(); drawBids(); });
 }
 
 function renderLineup() {
