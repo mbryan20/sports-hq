@@ -218,7 +218,10 @@ def freed_status(cut, chop, txs, now):
     for t in txs:
         if t.get("type") != "waiver" or t.get("status") not in ("complete", "failed"):
             continue
-        if (chopped_at and (t.get("status_updated") or 0) > chopped_at) or freed & set(t.get("adds") or {}):
+        # only a run AFTER this cut counts: older claims of the same players (Jonathan Taylor was claimed in
+        # week 6) once flipped the Nov 2 cut to "cleared" while Sleeper still had everyone on waivers
+        after = (t.get("status_updated") or 0) > chopped_at if chopped_at else (t.get("leg") or 0) > cut["week"]
+        if after and (chopped_at or freed & set(t.get("adds") or {})):
             return "cleared"
     if chopped_at:
         run = next_waivers(dt.datetime.fromtimestamp(chopped_at / 1000, dt.timezone.utc))

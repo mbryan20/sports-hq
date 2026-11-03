@@ -136,6 +136,15 @@ class FreedStatus(unittest.TestCase):
         d = model.build(wed_1am, self.nfl(), self.fetch([]), players={})
         self.assertEqual(d["cut"]["freed_status"], "on waivers")
 
+    def test_old_claim_of_a_freed_player_does_not_clear_waivers(self):
+        # Nov 2-3: the cut team had won Jonathan Taylor in week 6; that old claim must not count as this
+        # cut's waiver run (bids.json said "cleared" while Sleeper showed everyone on waivers until Wed)
+        old = claim(3, "x2", 12, "complete", 5, 5)
+        old["status_updated"] = CHOPPED_AT - 14 * 24 * 3600 * 1000
+        wed_1am = dt.datetime(2026, 10, 28, 6, 0, tzinfo=dt.timezone.utc)
+        d = model.build(wed_1am, self.nfl(), self.fetch([old]), players={})
+        self.assertEqual(d["cut"]["freed_status"], "on waivers")
+
     def test_cleared_once_claims_processed_after_the_chop(self):
         run = claim(2, "x2", 4, "complete", 7, 7)
         run["status_updated"] = CHOPPED_AT + 15 * 3600 * 1000

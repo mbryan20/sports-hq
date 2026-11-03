@@ -26,7 +26,8 @@ Setup (PowerShell): $env:Path=[Environment]::GetEnvironmentVariable('Path','Mach
    - Roster: fetch https://api.sleeper.app/v1/league/1385516543386845184/rosters (PowerShell Invoke-RestMethod is fine here) and take the players list of the roster whose owner is Michael (roster_id 14; confirm via owner_id 605584791680663552).
 
 3. WHAT'S STILL MISSING (only these count; "Coin flip" players never count):
-   - WAIVERS CLOSED: if bids.json has waivers_open = false, there are no bids to place. Only the "Add free" check and the "consider cancelling" check apply. Never ask for a claim.
+   - CHECK WAIVERS YOURSELF FIRST (Nov 3 fix: the model wrongly said "cleared" while Sleeper still showed the cut team's players on waivers): fetch https://api.sleeper.app/v1/league/1385516543386845184/transactions/<week> for the current and previous week. If the latest "chopped" transaction has NO "waiver" transaction (status complete or failed) after it, waivers ARE OPEN: ignore waivers_open / freed_status "cleared" and check his bids normally. Only if a waiver transaction has completed after the chop does the rule below apply.
+   - WAIVERS CLOSED: if bids.json has waivers_open = false and the check above confirms a waiver run has completed since the chop, there are no bids to place. Only the "Add free" check and the "consider cancelling" check apply. Never ask for a claim.
    - A "Bid" player with no pending claim, or a claim more than $1 below the suggested bid → "add claim: X $B (drop <weakest>)" or "raise X $A → $B".
    - A pending claim on a player called "Priced out" or "Skip" → "X: priced out (est $P), consider cancelling".
    - The top "Add free" player (highest extra_weeks_alive) not on his roster → "add now, $0: X (drop <weakest>)".
