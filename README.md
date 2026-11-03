@@ -79,7 +79,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: Tue 7:30am guillotine bid check | Tue 7:11am | The AI strategy Doc's bids when it was updated today after 5am CT (else War Room v2's `bids.json`, else the old War Room) vs pending Sleeper bids → push the exact changes by ~7:30am |
 | Sports HQ: Tue 7:30pm guillotine bid safety net | Tue ~7:35pm | Same sources and check against your pending claims and roster; pushes only if a "Bid" player is unclaimed or underbid, a claim is on a Priced out/Skip player, the top free add is missing, or claims exceed FAAB (coin flips never count) |
 | Sports HQ: monthly review | 1st, 10am | audit + ranked improvements, pushes the top 3 |
-| Sports HQ: nightly improvement pass (proposed, `ops/tasks/nightly-improvement-pass.md`) | daily 3:40am | reads health.json, FEEDBACK.md, reviews and the queue; adds and ranks IMPROVEMENTS.md items with evidence, drafts designs for the top 3 (`ops/designs/`); never changes code |
+| Sports HQ: nightly improvement pass (`ops/tasks/nightly-improvement-pass.md`) | daily 3:40am | reads health.json, FEEDBACK.md, reviews and the queue; adds and ranks IMPROVEMENTS.md items with evidence, drafts designs for the top 3 (`ops/designs/`); never changes code |
 | Sports HQ: add baseball (Feb reminder) | Feb 1 2027, once | baseball plan + reminder |
 
 **Cloud (claude.ai routine, read-only on the repo):** "Guillotine bid strategy (v2)", Tue 6:00am CT, Fable 5.1
