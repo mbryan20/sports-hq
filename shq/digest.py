@@ -5,6 +5,7 @@ Each item is {"league", "text", "urgent"}. The digest pushes only when at least 
 otherwise it just updates the Today tab."""
 import datetime as dt
 
+from . import radar
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
 from .status import OUTISH
@@ -156,7 +157,7 @@ def picks_items(cards, now):
 def build(leagues, now, cards=None):
     items = []
     for lg in leagues:
-        items += league_items(lg, now)
+        items += league_items(lg, now) + radar.digest_items(lg)   # NBA: rising players, shrinking roles (shq/radar.py)
     return items + picks_items(cards, now)
 
 

@@ -199,6 +199,15 @@
        <p class="basis">Games left this week (best lineup each day): you ${c.games_left[0]}, them ${c.games_left[1]}</p>`)
       + sec("Chase", ul(c.chase)) + sec("Category adds", ul(c.adds));
   }
+  // NBA trend radar (shq/radar.py): rising free agents and bench players, shrinking roles, injured starters' minutes
+  function radarHTML(r) {
+    if (!r) return "";
+    const src = i => i.links?.length ? `<div class="sub-wrap">${i.links.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(" · ")}</div>` : "";
+    const list = (title, xs) => xs?.length ? `<div class="subhead">${title}</div><ul class="tips">${xs.map(i => `<li>${esc(i.text)}${src(i)}</li>`).join("")}</ul>` : "";
+    const body = list("Rising", r.rising) + list("Your shrinking roles", r.shrinking) + list("Injured: who gets the minutes", r.injuries);
+    return sec("Trend radar", (body || `<ul class="tips"><li class="ok">No clear role change among free agents or your bench.</li></ul>`)
+      + `<p class="basis">${r.need?.length ? `Ranked for ${esc(r.need.join(", "))}. ` : ""}${esc(r.basis)}</p>`, { count: r.rising?.length || "" });
+  }
   function tradesHTML(t) {
     if (!t || !(t.offers?.length || t.lines?.length)) return "";
     const offer = o => {
@@ -221,7 +230,7 @@
     const stale = lg.stale ? `<p class="note"><b>Showing last good data</b>: the latest refresh failed.</p>` : "";
     const fixes = L.fixes.length ? ul(L.fixes, "fix") : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
-      + guillotineHTML(L.g) + catsHTML(L.c) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
+      + guillotineHTML(L.g) + catsHTML(L.c) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
       + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" }) + tradesHTML(a.trades)
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });

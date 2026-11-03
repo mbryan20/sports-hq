@@ -7,7 +7,7 @@ import re
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, notify, wrapup
+from . import advice, digest, espn, guillotine, notify, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -73,6 +73,18 @@ def better_news(league):
             continue
         if fresh:
             p["news"] = {**n, **fresh}
+
+
+def radar_push(league, view_json, notes):
+    """NBA trend radar: a push for a rising free agent in a category I need (shq/radar.py). Never fails the run."""
+    if getattr(league, "sport", "nfl") != "nba":
+        return
+    try:
+        sent = radar.send_alerts(league, view_json.get("advice"))
+        if sent:
+            notes.append(f"radar push: {sent}")
+    except Exception:
+        traceback.print_exc()
 
 
 def guillotine_odds(league, ctx, now):
@@ -232,6 +244,7 @@ def main():
             better_news(lg)
             leagues.append(lg)
             league_views[name] = league_view(lg, now)
+            radar_push(lg, league_views[name], notes)
             prev = prev_views.get(name) or {}
             if cfg["platform"] == "yahoo" and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",

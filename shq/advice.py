@@ -6,10 +6,11 @@
     adds     top free agents on rest-of-season value, who to drop, FAAB bid (shq/waivers.py)
     trades   trade finder lines + up to 3 fair offers that help both lineups (shq/trades.py)
     assets   3-Ball dynasty picks and minor leaguers from the league sheet (shq/dynasty.py)
+    radar    NBA: rising free agents and bench players, my shrinking roles, injured starters' minutes (shq/radar.py)
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, trades, values, waivers
+from . import categories, digest, dynasty, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -105,6 +106,15 @@ def trade_block(league):
     return league._trades
 
 
+def trend_radar(league, cats):
+    """Best-effort like the rest of the advice: a failed ESPN pool read leaves the tab without the radar."""
+    try:
+        return radar.block(league, cats)
+    except Exception:
+        traceback.print_exc()
+        return None
+
+
 def build(league, now):
     standing = digest.standing_item(league)
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
@@ -112,6 +122,9 @@ def build(league, now):
     faab = getattr(league, "faab", None)
     if faab is not None:
         notes.append(f"FAAB left: ${faab}")
+    nba = getattr(league, "sport", "nfl") == "nba"
+    cats = categories.build(league) if nba else None
+    league.radar = trend_radar(league, cats) if nba else None
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),
@@ -120,7 +133,8 @@ def build(league, now):
         "adds": adds(league)[:3],
         "trades": trade_block(league),
         "notes": notes,
-        "cats": categories.build(league) if getattr(league, "sport", "nfl") == "nba" else None,
+        "cats": cats,
+        "radar": league.radar,
         "assets": dynasty.block(league.sport, now) if getattr(league, "assets", False) else None,
         "built": ct_label(now),
     }
