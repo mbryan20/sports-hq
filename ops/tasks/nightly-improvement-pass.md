@@ -33,7 +33,7 @@ If any `git pull` (here or in step 8) fails because of local changes in the chec
 
 7. DECISIONS. Read each item's Decision line. Michael records "approved <date>", "held <date>: <reason>" or "rejected <date>: <reason>" there (or the approval channel in ops/approvals.md does it for him). Set Status to match (approved / held / rejected). Do not start builds: list approved items in the summary so the intake chat can start a session for each.
 
-8. COMMIT (only IMPROVEMENTS.md and ops/designs): git add IMPROVEMENTS.md ops/designs; git commit -m "Nightly improvement pass YYYY-MM-DD: +<new> items, <designed> designs"; git pull --no-rebase --no-edit; git push. Never rebase. Never commit the ntfy topic or any secret.
+8. COMMIT (only IMPROVEMENTS.md and ops/designs): git add IMPROVEMENTS.md ops/designs; git commit -m "Nightly improvement pass YYYY-MM-DD: +<new> items, <designed> designs"; git pull --no-rebase --no-edit; git push. Never rebase. If that pull fails because of local changes, do not stash, reset, discard or commit them: report "Pull blocked by uncommitted changes: <files>" and stop. Never commit the ntfy topic or any secret.
 
 9. NOTIFY: follow the channel recorded under "Chosen" in ops/approvals.md. Until a channel is chosen there, send no push and no email.
 
