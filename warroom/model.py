@@ -37,6 +37,47 @@ def sleeper_week_stats(week, scoring, fetch=get_json):
     return out
 
 
+def sleeper_projections(week, scoring, fetch=get_json):
+    """{sleeper_id: league-scored projected points} for one week (Sleeper's own weekly projections, which
+    already zero out byes and players ruled out)."""
+    params = [("season_type", "regular")] + [("position[]", p) for p in sleeper.POSITIONS]
+    return {r["player_id"]: score(r.get("stats"), scoring) for r in fetch(f"https://api.sleeper.app/projections/nfl/{SEASON}/{week}", params) or []
+            if r.get("player_id")}
+
+
+SLOTS = [("QB",), ("RB",), ("RB",), ("WR",), ("WR",), ("WR",), ("TE",), ("K",), ("DEF",), ("RB", "WR", "TE"), ("RB", "WR", "TE")]
+SD_GROWTH = 1.25   # extra points of swing per week further ahead (measured 23 -> 27 over 1-4 weeks out, Nov 2026)
+
+
+def best_lineup(players, value, pos):
+    pool = sorted(((value(s), s) for s in players if pos(s)), reverse=True)
+    used, tot = set(), 0.0
+    for ok in SLOTS:
+        for v, s in pool:
+            if s not in used and pos(s) in ok:
+                used.add(s)
+                tot += v
+                break
+    return tot
+
+
+def measure_sd(matchups, projections, pos):
+    """How far real team scores land from their projected best lineup, after removing each week's league-wide
+    shift (only differences between teams decide a cut). Returns (sd, team-weeks used)."""
+    misses = []
+    for w, ms in matchups.items():
+        if w not in projections:
+            continue
+        rows = [(m["points"] or 0) - best_lineup(m["players"], lambda s: projections[w].get(s, 0.0), pos)
+                for m in ms or [] if m.get("players")]
+        if len(rows) >= 2:
+            mean = sum(rows) / len(rows)
+            misses += [x - mean for x in rows]
+    if len(misses) < 20:
+        return None, len(misses)
+    return round((sum(x * x for x in misses) / len(misses)) ** 0.5, 1), len(misses)
+
+
 def played_week(lg, nfl):
     last = int((lg.get("settings") or {}).get("last_scored_leg") or 0)
     nxt = last + 1
@@ -109,8 +150,9 @@ def build(now, nfl=None, fetch=get_json, players=None):
     elim = {r["roster_id"]: (r.get("settings") or {}).get("eliminated") for r in rosters}
     me = next(r["roster_id"] for r in rosters if r["owner_id"] == me_uid)
 
-    # this week's scores and the cut
-    matchups = fetch(f"{BASE}/league/{LEAGUE_ID}/matchups/{played}") if played else []
+    # this week's scores and the cut (every past week's matchups also feed the swing and price calibration)
+    weekly = {w: fetch(f"{BASE}/league/{LEAGUE_ID}/matchups/{w}") or [] for w in range(1, played + 1)}
+    matchups = weekly.get(played, [])
     alive_then = [m for m in matchups or [] if not elim.get(m["roster_id"]) or elim[m["roster_id"]] >= played]
     final = played <= int(settings.get("last_scored_leg") or 0)
     scores, note = {}, None
@@ -157,13 +199,15 @@ def build(now, nfl=None, fetch=get_json, players=None):
             print(f"budget check: {rname[r['roster_id']]} bids won ${spent.get(r['roster_id'], 0)}, Sleeper says ${used} used")
 
     # players: weekly points 1..played; nflverse first, Sleeper's own stats for a week nflverse lacks
-    W0 = played + 1
+    W0, last = played + 1, played + len(alive) - 1      # one cut a week until one team is left
+    proj = {w: sleeper_projections(w, lg["scoring_settings"], fetch) for w in range(1, max(last, played) + 1)}
     fill = {w: sleeper_week_stats(w, lg["scoring_settings"], fetch) for w in range(1, played + 1) if w not in nfl.stats_weeks()}
     owner = {p: int(t) for t, v in teams.items() for p in v["roster"]}
     # `own` marks players on surviving teams only (the cut team's players are free to bid on)
     own = {p: r for p, r in owner.items() if not cut or r != cut["roster"]}
     universe = set(owner) | {h["sid"] for h in hist} | {sid for sid, r in nfl.ids.items() if r.get("gsis_id") in nfl.pts}
     universe |= {t for t in nfl.defpts}
+    universe |= {s for s, v in proj.get(W0, {}).items() if v >= 6}     # projected starters with no points yet
     inj_week = W0 if nfl.injuries.get(W0) else W0 - 1
     P = {}
     for sid in universe:
@@ -179,7 +223,8 @@ def build(now, nfl=None, fetch=get_json, players=None):
         if g in nfl.cur:
             team, status = nfl.cur[g][1], nfl.cur[g][2]
         played_w = [v for v in w if v is not None]
-        if not played_w and sid not in owner:
+        pw = [round(proj[wk].get(sid, 0.0), 2) for wk in range(W0, last + 1)] if any(sid in proj.get(wk, {}) for wk in range(W0, last + 1)) else None
+        if not played_w and sid not in owner and not (pw and max(pw) >= 6):
             continue
         rec = [v for v in reversed(w) if v is not None][:3]
         inj = nfl.injuries.get(inj_week, {}).get(g, ("", ""))
@@ -189,7 +234,10 @@ def build(now, nfl=None, fetch=get_json, players=None):
                   "a": round(sum(played_w) / len(played_w), 2) if played_w else 0,
                   "r": round(sum(rec) / len(rec), 2) if rec else 0, "st": status, "inj": inj[0], "ip": inj[1],
                   "bye": [b for b in nfl.bye.get(team, []) if b >= W0], "own": own.get(sid, 0)}
-    keep = {k: v for k, v in P.items() if v["own"] or v["a"] >= 4 or (v["p"] in ("DEF", "K") and v["a"] >= 5)}
+        if pw:
+            P[sid]["pw"] = pw          # Sleeper's projection for each week W0..last
+    keep = {k: v for k, v in P.items() if v["own"] or v["a"] >= 4 or (v["p"] in ("DEF", "K") and v["a"] >= 5)
+            or max(v.get("pw") or [0]) >= 5}
     for h in hist:
         h["n"], h["p"] = (P[h["sid"]]["n"], P[h["sid"]]["p"]) if h["sid"] in P else (nfl.player(h["sid"], db)["name"], "?")
 
@@ -201,7 +249,10 @@ def build(now, nfl=None, fetch=get_json, players=None):
     return {
         "league": lg.get("name"), "P": keep, "teams": teams, "dead": dead, "hist": hist, "budget": before,
         "bye": {t: v for t, v in nfl.bye.items()}, "me": me, "cut": cut, "week": W0,
-        "last_week": played + len(alive) - 1,   # one cut a week until one team is left
+        "last_week": last,
+        "sd": dict(zip(("measured", "n"), measure_sd(weekly, proj, lambda s: (db.get(s) or {}).get("position") or keep.get(s, {}).get("p"))),
+                   growth=SD_GROWTH),
+        "calib": calibration_cases(weekly, proj, keep, hist, before, budget, W0, last),
         "asof": asof, "data_as_of": iso_ms(last_tx), "waivers": ct_label(next_waivers(now)) + " CT",
         "next_waiver_run": iso(next_waivers(now)),
     }
@@ -228,6 +279,45 @@ def freed_status(cut, chop, txs, now):
         if now > run + dt.timedelta(hours=1):
             return "cleared"
     return "on waivers"
+
+
+def calibration_cases(weekly, proj, P, hist, before, budget, W0, last):
+    """The league as it stood at each past waiver run (rosters at the end of week L, FAAB going into leg L,
+    projections for the following weeks), with what every claimed or freed player actually went for.
+    build.py runs the page's own rival-bid model on these to learn how its estimates compare with real
+    winning bids (the price ladder)."""
+    cases = []
+    for L in sorted(weekly):
+        alive = [m for m in weekly[L] if m.get("players")]
+        if len(alive) < 3:
+            continue
+        cut = min(alive, key=lambda m: m["points"] or 0)["roster_id"]
+        freed = set(next(m["players"] for m in alive if m["roster_id"] == cut))
+        claims = [h for h in hist if h["leg"] == L]
+        if not claims:
+            continue
+        horizon = list(range(L + 1, min(L + 4, last) + 1))
+        Pl = {}
+        for s, p in P.items():
+            w = p["w"][:L]
+            pts = [x for x in w if x is not None]
+            q = {**p, "w": w, "g": len(pts), "a": sum(pts) / len(pts) if pts else 0, "r": sum(pts[-3:]) / len(pts[-3:]) if pts else 0,
+                 "inj": "", "st": "ACT", "own": 0, "pw": [round(proj.get(wk, {}).get(s, 0.0), 2) for wk in horizon]}
+            Pl[s] = q
+        teams = {}
+        for m in alive:
+            r = str(m["roster_id"])
+            teams[r] = {"n": r, "faab": before.get(r, {}).get(L, budget), "roster": list(m["players"])}
+            if m["roster_id"] != cut:
+                for s in m["players"]:
+                    if s in Pl:
+                        Pl[s]["own"] = m["roster_id"]
+        sold = {h["sid"]: h["bid"] for h in claims}
+        targets = [(s, sold.get(s, 0)) for s in set(sold) | freed if s in Pl]   # unclaimed freed players went for $0
+        cases.append({"leg": L, "targets": targets, "D": {
+            "P": Pl, "teams": teams, "dead": {}, "hist": [h for h in hist if h["leg"] < L], "me": 0, "week": L + 1,
+            "last_week": horizon[-1] if horizon else L + 1, "cut": {"roster": cut, "week": L, "confirmed": True, "freed_status": "on waivers"}}})
+    return cases
 
 
 def iso_ms(ms):

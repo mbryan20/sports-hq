@@ -96,24 +96,18 @@ select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);
   <div class="grid">
     <aside class="rail" aria-label="Model controls">
       <h3>Model controls</h3>
-      <div class="ctl"><label for="blend">Projection basis <output id="blendO"></output></label>
-        <input id="blend" type="range" min="0" max="100" step="5" value="50">
-        <small>0 = full-season average, 100 = last 3 games only.</small></div>
       <div class="ctl"><label for="sd">Weekly score swing (SD) <output id="sdO"></output></label>
-        <input id="sd" type="range" min="8" max="35" step="1" value="21">
-        <small>Teams' scores in this league have varied about 21 pts around their own average.</small></div>
+        <input id="sd" type="range" min="10" max="40" step="0.1" value="22">
+        <small>How far a team's real score lands from its projection. Default = measured from this league's games so far; it grows a little for weeks further out.</small></div>
       <div class="ctl"><label for="aggr">Rival aggression <output id="aggrO"></output></label>
-        <input id="aggr" type="range" min="50" max="150" step="5" value="100">
-        <small>100% = a rival who needs a stud bids like their own boldest past bid (as % of budget). Lesser players and weaker needs scale that down.</small></div>
+        <input id="aggr" type="range" min="50" max="200" step="5" value="100">
+        <small>Scales the model's raw guess of the top rival bid before it is checked against how past claims really went. Leave at 100% unless you know rivals are unusually rich or quiet this week.</small></div>
       <div class="ctl"><label for="reserve">Keep in reserve <output id="reserveO"></output></label>
-        <input id="reserve" type="range" min="0" max="50" step="1" value="10">
-        <small>Money held back for later weeks. Money left at the end is worth nothing.</small></div>
-      <div class="ctl"><label for="dpw">$ per extra week survived <output id="dpwO"></output></label>
-        <input id="dpw" type="range" min="2" max="60" step="1" value="20">
-        <small>What one extra expected week alive is worth to you. Sets the value-based max bid.</small></div>
-      <div class="ctl"><label for="sims">Simulations <output id="simsO"></output></label>
-        <input id="sims" type="range" min="500" max="5000" step="500" value="2000">
-        <small>More = steadier numbers, slower.</small></div>
+        <input id="reserve" type="range" min="0" max="30" step="1" value="5">
+        <small>Held back from ALL bids together, for an emergency replacement. Cheap players here go for $0–5 and free agents are $0 after Wednesday. $0 in the last 3 weeks.</small></div>
+      <div class="ctl"><label for="dpp">$ per point of win odds <output id="dppO"></output></label>
+        <input id="dpp" type="range" min="0" max="40" step="0.5" value="0">
+        <small>What 1 percentage point of winning the league is worth in FAAB (winner takes all). 0 = auto: the rate at which your money would run out on deals like this week's over the weeks you're expected to survive.</small></div>
       <p class="note" style="margin:0">Players you mark <b>+ Add</b> join your roster in every projection and simulation.</p>
     </aside>
 
@@ -129,9 +123,9 @@ select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);
       <section class="view" id="v-bids">
         <div class="panel">
           <h2>Who to bid on this week</h2>
-          <p class="sub" style="margin:0 0 10px">Freed by the week <span class="pw">?</span> cut (<span id="cutname"></span>), plus the best free agents. Sorted by how much each player raises your expected weeks survived.</p>
+          <p class="sub" style="margin:0 0 10px">Freed by the week <span class="pw">?</span> cut (<span id="cutname"></span>), plus the best free agents. Sorted by how much each player raises your odds of winning the league, after the drop he needs. <span id="budgetline"></span></p>
           <div class="scroll"><table id="cand"></table></div>
-          <p class="note">Est. price = the highest bid the model expects from a rival who would start this player, scaled by that rival's own boldest past bid as a share of their budget. Free agents can be added for $0 once waivers clear.</p>
+          <p class="note">Likely price = the bid that would have won about half (and about 80%) of comparable claims in this league. Your bid = the amount with the best chance of winning times what's left of his value, so it's often below the likely price: the aim is to spend wisely, not to win every claim. Each claim has its own drop. Free agents cost $0 once waivers clear. This page simulates 6,000 seasons so the controls respond quickly; the bids file the Tuesday checks read uses 20,000, so amounts can differ by a dollar or two.</p>
         </div>
         <div class="two">
           <div class="panel"><h2>Your week <span class="wk">?</span> lineup</h2><div class="scroll"><table id="mylineup"></table></div><p class="note" id="mynote"></p></div>
@@ -174,10 +168,11 @@ select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);
       <section class="view" id="v-method" hidden>
         <div class="panel" style="max-width:80ch">
           <h2>How it works</h2>
-          <p><b>Data.</b> League rosters, weekly scores, budgets and every waiver bid (won and lost) come from Sleeper. Player points come from nflverse weekly stats through the last finished week, scored 0.5 PPR (Sleeper's own stats fill in a week nflverse hasn't posted yet). This copy rebuilds itself on GitHub several times a day straight from Sleeper's API. The bye schedule and Out/IR status come from nflverse rosters and injury reports.</p>
-          <p><b>Projections.</b> Each player's weekly projection blends his season average with his last 3 games (the slider). A player is set to 0 on his bye, 0 for the coming week if ruled Out (half-ish if Doubtful or Questionable), and 0 for 4 weeks if on IR. Each team's weekly score is its best legal lineup: QB, 2 RB, 3 WR, TE, 2 FLEX, K, DEF.</p>
-          <p><b>Elimination.</b> Each simulated week adds random noise (the swing slider) to every team's projection and cuts the lowest. Your expected weeks survived and odds of winning come from thousands of simulated seasons.</p>
-          <p><b>Bids.</b> A player's value to you is how many extra weeks he adds to your expected survival, times the $ per week you set. The price estimate checks each rival: if the player would start for them, they are assumed to bid up to their boldest past share of budget (times the aggression slider), capped by what they have left.</p>
+          <p><b>Data.</b> League rosters, weekly scores, budgets and every waiver bid (won and lost) come from Sleeper's API. Past player points come from nflverse (Sleeper's own stats fill in a week nflverse hasn't posted). Rebuilt on GitHub several times a day.</p>
+          <p><b>Projections.</b> Sleeper's weekly projections for every remaining week, scored with this league's settings. They already put a player at 0 on his bye and when he's ruled out, so bye weeks (upcoming or already taken) count in every number here. Tested on this league's weeks 3–8, they missed real team scores by about 16 points a week, against about 20 for any mix of season and recent averages. Each team's weekly score is its best legal lineup: QB, 2 RB, 3 WR, TE, 2 FLEX, K, DEF.</p>
+          <p><b>Elimination.</b> Each simulated week adds random noise (the swing) to every team's projection and cuts the lowest. The swing is measured from how far real scores landed from projections, and grows by about 1¼ points per week further out. Odds come from thousands of simulated seasons. A point in a near week counts more than one late in the season, because you have to survive the near week to use the late one.</p>
+          <p><b>Value.</b> The league is winner-take-all, so a player is worth the odds of winning he adds, after dropping your least useful player. That is turned into dollars at the "$ per point of win odds" rate.</p>
+          <p><b>Bids.</b> The model guesses the top rival bid (rivals who'd start him, scaled by their boldest past bid as a share of budget). That guess is checked against every past claim to get the chance a given bid wins. Your bid is the amount with the best chance &times; (value &minus; bid). All bids together stay under FAAB minus the reserve, and no two share a drop.</p>
           <p><b>Limits.</b> These are simple projections from real 2026 results, not expert rankings. They miss role changes, trades and matchups, and the sim doesn't re-assign freed players. Use them to compare options, not as exact numbers.</p>
         </div>
       </section>

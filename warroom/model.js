@@ -1,6 +1,14 @@
 // War Room model: projections, elimination sim, rival price model, bid candidates. No DOM, so the page
 // (app.js) and the GitHub build (export.js, under Node) run the same code and get the same numbers.
 // Expects a global D (app_data.json from warroom/model.py).
+//
+// Settings were tested against this league's own history (Nov 3 2026, see warroom/README.md):
+// - Projections: Sleeper's weekly projections (team-score misses ~16 pts vs ~20 for any blend of past points).
+// - Score swing: measured from how far real team scores landed from projections (D.sd), growing per week ahead.
+// - Prices: the rival-bid estimate is turned into a chance of winning at each bid from how past claims went
+//   (D.ladder), because one point estimate missed by ~$15 and stars went for ~1.65x it.
+// - Value: the league is winner-take-all, so a player is worth the win odds he adds, priced at the $ per
+//   win-odds point at which your FAAB would run out over the weeks you're expected to stay alive.
 const ME = String(D.me), CUT = D.cut ? String(D.cut.roster) : null;
 const W0 = D.week, LAST = D.last_week;                       // next week to play, last cut week
 const WEEKS = []; for (let w = W0; w <= LAST; w++) WEEKS.push(w);
@@ -8,19 +16,22 @@ const NEAR = WEEKS.slice(0, 4);                              // the weeks a riva
 const ALIVE = Object.keys(D.teams).filter(t => t !== CUT);
 const POSMEAN = (() => { const m = {}; for (const p of ['K','DEF']) { const v = Object.values(D.P).filter(x => x.p === p && x.own && x.g >= 3).map(x => x.a); m[p] = v.reduce((a, b) => a + b, 0) / Math.max(1, v.length); } return m; })();
 const POSCAP = (() => { const m = {}; for (const h of D.hist) for (const [r, b] of h.bids) m[h.p] = Math.max(m[h.p] || 0, b); return m; })();
-const S = { blend:.5, sd:21, aggr:1, reserve:10, dpw:20, sims:2000, adds:new Set() };
+const SD_MEASURED = (D.sd && D.sd.measured) || 23, SD_GROWTH = (D.sd && D.sd.growth) || 0;
+const S = { sd: SD_MEASURED, aggr: 1, reserve: LAST - W0 < 3 ? 0 : 5, dpp: 0, sims: 6000, adds: new Set() };   // dpp 0 = auto
 const tname = t => (D.teams[t] ? D.teams[t].n : (D.dead[t] || ('R'+t)));
 const pname = s => D.P[s] ? D.P[s].n : s;
+const MIN_WIN = 0.003;    // win odds a move must add to be worth a claim: below this the simulation can't tell it from noise
 
 // ---------- projections ----------
 let PJ = {};
 function proj(s, w) {
   const k = s + ':' + w; if (k in PJ) return PJ[k];
   const p = D.P[s]; let v = 0;
-  if (p && p.g > 0) {
-    v = S.blend * p.r + (1 - S.blend) * p.a;
-    if (p.g < 3) v *= 0.85;                      // thin sample: shade down
-    if (p.p === 'K' || p.p === 'DEF') v = 0.5 * v + 0.5 * POSMEAN[p.p];   // K/DEF are noisy: pull halfway to the average
+  if (p && p.pw) v = p.pw[w - W0] || 0;              // Sleeper's projection (byes and players ruled out are already 0)
+  else if (p && p.g > 0) {                           // no Sleeper projection: fall back to recent points
+    v = 0.5 * p.r + 0.5 * p.a;
+    if (p.g < 3) v *= 0.85;
+    if (p.p === 'K' || p.p === 'DEF') v = 0.5 * v + 0.5 * POSMEAN[p.p];
     if (p.bye.includes(w)) v = 0;
     if (p.st === 'RES' && w < W0 + 4) v = 0;
     if (w === W0) { if (p.inj === 'Out') v = 0; else if (p.inj === 'Doubtful') v *= .3; else if (p.inj === 'Questionable') v *= .85; }
@@ -37,15 +48,27 @@ function lineup(roster, w) {
   }
   return { tot, st };
 }
-function roster(t, extra) {
+function roster(t, extra, drop) {
   let r = D.teams[t].roster.slice();
   if (t === ME) r = r.concat([...S.adds]);
   if (extra) r = r.concat(extra);
+  if (drop) r = r.filter(s => s !== drop);
   return r;
 }
-function teamProj(t, extra) { const o = {}; for (const w of WEEKS) o[w] = lineup(roster(t, extra), w).tot; return o; }
+function teamProj(t, extra, drop) { const o = {}; for (const w of WEEKS) o[w] = lineup(roster(t, extra, drop), w).tot; return o; }
+// rosters are full, so every add is also a drop: the player whose loss costs the fewest projected points
+function bestDrop(t, s, skip) {
+  let best = null, bestTot = -1e9;
+  for (const d of roster(t)) {
+    if (d === s || S.adds.has(d) || (skip && skip.has(d))) continue;
+    const tot = WEEKS.reduce((a, w) => a + lineup(roster(t, [s], d), w).tot, 0);
+    if (tot > bestTot) { bestTot = tot; best = d; }
+  }
+  return best;
+}
 
 // ---------- simulation ----------
+const swing = w => S.sd + SD_GROWTH * (w - W0);              // further-out weeks are less certain
 function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function simulate(projs, n) {
   const R = rng(20261027), teams = Object.keys(projs);
@@ -56,8 +79,8 @@ function simulate(projs, n) {
     let alive = teams.slice();
     for (const w of WEEKS) {
       if (alive.length < 2) break;
-      let lo = null, lv = 1e9;
-      for (const t of alive) { const x = projs[t][w] + S.sd * gauss(); if (x < lv) { lv = x; lo = t; } }
+      let lo = null, lv = 1e9; const sd = swing(w);
+      for (const t of alive) { const x = projs[t][w] + sd * gauss(); if (x < lv) { lv = x; lo = t; } }
       cut[lo][w]++; alive = alive.filter(t => t !== lo);
     }
     if (alive.length === 1) win[alive[0]]++;
@@ -84,13 +107,28 @@ function threats(s) {
     if (g < 1 || faab <= 0) continue;
     const need = Math.min(1, g / 6);
     const p = D.P[s].p, cap = (p === 'K' || p === 'DEF') ? Math.round((POSCAP[p] || 5) * S.aggr) : 1e9;
-    const base = NEAR.reduce((a, w) => a + proj(s, w), 0) / NEAR.length || (S.blend * D.P[s].r + (1 - S.blend) * D.P[s].a);
+    const base = NEAR.reduce((a, w) => a + proj(s, w), 0) / NEAR.length || (0.5 * D.P[s].r + 0.5 * D.P[s].a);
     const q = p === 'QB' ? (base - 14) / 12 : (base - 6) / 10;           // player quality: 0 = replacement, 1 = stud
     const quality = Math.max(0.1, Math.min(1, q));
     const bid = Math.min(faab, cap, Math.round(faab * MAXPCT[t] / 100 * need * quality * S.aggr));
     out.push({ t, g, bid });
   }
   return out.sort((a, b) => b.bid - a.bid);
+}
+// the model's raw estimate: one more than the boldest rival it expects (calibrated by the ladder below)
+const rawEstimate = th => (th.length ? th[0].bid : 0) + 1;
+// chance that a bid of b beats every rival, from how past winning bids compared with the model's estimate
+// for the same claim (D.ladder: sorted ratios winning bid / estimate; "hi" for estimates of $10+)
+function winChance(b, est) {
+  const xs = D.ladder ? (est >= 10 && D.ladder.hi.length ? D.ladder.hi : D.ladder.lo) : null;
+  if (!xs || !xs.length) return b >= est ? 0.5 : 0;
+  let c = 0;
+  for (const x of xs) if (x * est < b || (b === 0 && x === 0)) c++;
+  return c / xs.length;
+}
+function priceFor(chance, est, cap = 999) {
+  for (let b = 0; b <= cap; b++) if (winChance(b, est) >= chance) return b;
+  return null;
 }
 
 let BASE = null;
@@ -111,58 +149,95 @@ function freedPlayers() {
 function candidates() {
   const freed = freedPlayers();
   const owned = new Set(); for (const t of ALIVE) D.teams[t].roster.forEach(s => owned.add(s));
-  const fa = Object.keys(D.P).filter(s => !owned.has(s) && !freed.includes(s) && D.P[s].own === 0 && D.P[s].g >= 2)
+  const fa = Object.keys(D.P).filter(s => !owned.has(s) && !freed.includes(s) && D.P[s].own === 0 && (D.P[s].g >= 2 || D.P[s].pw))
     .map(s => [s, WEEKS.reduce((a, w) => a + proj(s, w), 0)]).sort((a, b) => b[1] - a[1]).slice(0, 60).map(x => x[0]);
-  const myBase = roster(ME);
+  const myBase = roster(ME), myBaseTot = WEEKS.map(w => lineup(myBase, w).tot);
   const rows = [];
   const quick = Math.max(500, Math.round(S.sims / 2));
-  // baseline at the same sim count for a fair comparison
-  const baseQ = simulate(BASE.projs, quick)[ME];
+  const baseQ = BASE.quick = simulate(BASE.projs, quick)[ME];    // same sim count and seed for a fair comparison
   for (const s of freed.concat(fa)) {
     if (S.adds.has(s)) { rows.push({ s, freed: freed.includes(s), added: true }); continue; }
-    const g1 = lineup(myBase.concat([s]), W0).tot - lineup(myBase, W0).tot;
-    let gR = 0; for (const w of WEEKS) gR += (lineup(myBase.concat([s]), w).tot - lineup(myBase, w).tot);
+    const drop = bestDrop(ME, s), mine = roster(ME, [s], drop);
+    const g1 = lineup(mine, W0).tot - myBaseTot[0];
+    let gR = 0; WEEKS.forEach((w, i) => gR += lineup(mine, w).tot - myBaseTot[i]);
     if (gR < 0.5 && !freed.includes(s)) continue;
-    rows.push({ s, freed: freed.includes(s), g1, gR });
+    rows.push({ s, freed: freed.includes(s), g1, gR, drop });
   }
-  // simulate the most promising
   const perPos = {};
-  const pick = rows.filter(r => !r.added).sort((a, b) => b.gR - a.gR).filter(r => { if (r.freed) return true; const p = D.P[r.s].p; perPos[p] = (perPos[p] || 0) + 1; return perPos[p] <= 2; }).slice(0, 18);
+  const pick = rows.filter(r => !r.added).sort((a, b) => b.gR - a.gR).filter(r => { if (r.freed) return true; const p = D.P[r.s].p; perPos[p] = (perPos[p] || 0) + 1; return perPos[p] <= 3; }).slice(0, 24);
   rows.splice(0, rows.length, ...rows.filter(r => r.added), ...pick);
-  pick.forEach(r => {
-    const projs = Object.assign({}, BASE.projs, { [ME]: teamProj(ME, [r.s]) });
-    const sm = simulate(projs, quick)[ME];
-    r.dW = sm.expWeeks - baseQ.expWeeks; r.dWin = sm.pWin - baseQ.pWin;
-  });
+  pick.forEach(r => { gains(r); if (r.freed) { r.th = threats(r.s); r.est = rawEstimate(r.th); } });
   return rows;
 }
-
-// price, value-based max and the call for one candidate row (freed players go through FAAB waivers;
-// a plain free agent costs $0 once waivers clear)
-function decide(r) {
-  const cap = Math.max(0, D.teams[ME].faab - S.reserve);
-  if (!r.freed) return { th: [], price: 0, mx: 0, call: r.dW >= .05 ? 'Add free' : 'Skip' };
-  const th = threats(r.s), price = th.length ? th[0].bid + 1 : 1;
-  let mx = Math.min(cap, Math.max(0, Math.round(r.dW * S.dpw))), call;
-  if (r.dW < 0.05) { call = 'Skip'; mx = 0; }
-  else if (mx >= price) call = 'Bid';
-  else if (mx >= price * .7) call = 'Coin flip';
-  else call = 'Priced out';
-  return { th, price, mx, call };
+// extra expected weeks and win odds from adding r.s and dropping r.drop
+function gains(r) {
+  const sm = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, [r.s], r.drop) }), Math.max(500, Math.round(S.sims / 2)))[ME];
+  r.dW = sm.expWeeks - BASE.quick.expWeeks; r.dWin = sm.pWin - BASE.quick.pWin;
 }
 
-// Everything the AI write-up and the Tuesday bid check need, at the default slider settings.
+// $ per point of win odds at which your FAAB runs out: line up this week's freed players by win odds per $
+// (at the price that wins ~80% of the time), assume a similar crop at every waiver run you're expected to
+// see, and take the ratio of the deal where the money would run out. S.dpp overrides it.
+function autoDpp(rows) {
+  const spend = Math.max(0, D.teams[ME].faab - S.reserve), runs = Math.max(1, Math.round(BASE.sim[ME].expWeeks));
+  const deals = rows.filter(r => r.freed && r.dWin > 0.0005).map(r => ({ v: r.dWin * 100, c: Math.max(1, priceFor(.8, r.est) || r.est) }))
+    .sort((a, b) => b.v / b.c - a.v / a.c);
+  let used = 0, rate = null;
+  for (const d of deals) { rate = d.c / d.v; used += runs * d.c; if (used >= spend) break; }
+  return rate;
+}
+const dollarsPerPoint = rows => S.dpp > 0 ? S.dpp : autoDpp(rows);
+
+// The call for every candidate. Freed players (on waivers): value = win odds added x $ per point; the bid is the
+// amount with the best (chance of winning) x (value - bid); then all bids together must fit FAAB minus reserve.
+function decideAll(rows) {
+  const faab = D.teams[ME].faab, spend = Math.max(0, faab - S.reserve), dpp = dollarsPerPoint(rows);
+  const price = r => {        // value, best bid and call for one candidate at its current drop
+    if (!r.freed) return Object.assign(r, { call: r.dWin >= MIN_WIN ? 'Add free' : 'Skip', bid: 0, value: 0, price: 0, price80: 0, chance: null,
+      why: r.dWin >= MIN_WIN ? 'free agent' : 'adds too little to matter' });
+    const value = dpp ? Math.floor(r.dWin * 100 * dpp) : 0, cap = Math.min(spend, value);
+    let best = { b: 0, ev: 0, p: winChance(0, r.est) };
+    for (let b = 1; b <= cap; b++) { const p = winChance(b, r.est), ev = p * (value - b); if (ev > best.ev + 1e-9) best = { b, ev, p }; }
+    const small = value < 1 || r.dWin < MIN_WIN, call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : best.p >= .5 ? 'Bid' : 'Coin flip';
+    return Object.assign(r, { call, bid: call === 'Bid' || call === 'Coin flip' ? best.b : 0, chance: best.p, value, ev: best.ev,
+      price: priceFor(.5, r.est) ?? r.est, price80: priceFor(.8, r.est) ?? r.est,
+      why: small ? 'adds too little to matter' : best.ev <= 0 ? 'likely price is above his value to you' : '' });
+  };
+  rows.filter(r => !r.added && r.dW !== undefined).forEach(price);
+  // All your bids must fit your FAAB minus the reserve, and each claim needs its own drop (Sleeper fails a claim
+  // whose drop is already gone). The most valuable claims choose first; a later claim moves to its next-best
+  // drop and is re-valued, since that drop may cost more.
+  let used = 0; const drops = new Set();
+  for (const r of rows.filter(r => r.bid > 0).sort((a, b) => b.ev - a.ev)) {
+    if (drops.has(r.drop)) {
+      r.drop = bestDrop(ME, r.s, drops);
+      if (!r.drop) { Object.assign(r, { call: 'Skip', bid: 0, why: 'no roster spot left to drop' }); continue; }
+      gains(r); price(r);
+      if (!r.bid) continue;
+      r.why = 'drop changed: a better claim uses the first choice';
+    }
+    if (used + r.bid > spend) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
+    used += r.bid; drops.add(r.drop);
+  }
+  return { dpp, spend, used };
+}
+
+// Everything the AI write-up and the Tuesday checks need, at the default settings.
 function exportBids() {
   S.adds = new Set(); computeBase();
   const r1 = x => Math.round(x * 10) / 10, r3 = x => Math.round(x * 1000) / 1000;
-  const player = s => { const p = D.P[s]; return { sleeper_id: s, name: p.n, pos: p.p, team: p.t, injury: p.inj || null, ir: p.st === 'RES', season_avg: r1(p.a), last3_avg: r1(p.r) }; };
-  const bids = candidates().filter(r => r.dW !== undefined).sort((a, b) => b.dW - a.dW).map(r => {
-    const d = decide(r);
-    return { ...player(r.s), source: r.freed ? (D.cut.freed_status === 'projected' ? 'freed (projected)' : 'freed') : 'free agent', gain_next_week: r1(r.g1), gain_rest_of_season: r1(r.gR),
-             extra_weeks_alive: Math.round(r.dW * 100) / 100, extra_win_odds: r3(r.dWin),
-             est_price: r.freed ? d.price : 0, your_max: r.freed ? d.mx : 0, call: d.call,
-             likely_rival_bids: d.th.slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) };
-  });
+  const player = s => { const p = D.P[s]; return { sleeper_id: s, name: p.n, pos: p.p, team: p.t, injury: p.inj || null, ir: p.st === 'RES', season_avg: r1(p.a), last3_avg: r1(p.r),
+    proj_next_week: r1(proj(s, W0)), bye_week: p.bye[0] || null }; };
+  const rows = candidates(), money = decideAll(rows);
+  const bids = rows.filter(r => r.dW !== undefined).sort((a, b) => b.dWin - a.dWin || b.dW - a.dW).map(r => ({
+    ...player(r.s), source: r.freed ? (D.cut.freed_status === 'projected' ? 'freed (projected)' : 'freed') : 'free agent',
+    gain_next_week: r1(r.g1), gain_rest_of_season: r1(r.gR), drop: r.drop && D.P[r.drop] ? D.P[r.drop].n : null, drop_id: r.drop || null,
+    extra_weeks_alive: Math.round(r.dW * 100) / 100, extra_win_odds: r3(r.dWin),
+    // est_price: the bid that would have won about half of comparable past claims; price_80: about 80%
+    est_price: r.freed ? r.price : 0, price_80: r.freed ? r.price80 : 0, value: r.freed ? r.value : 0,
+    bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(money.spend, r.value) : 0,
+    call: r.call, why: r.why || null,
+    likely_rival_bids: (r.th || []).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) }));
   const sim = BASE.sim;
   return {
     league: D.league, data_as_of: D.asof, last_sleeper_move: D.data_as_of, week: W0, last_week: LAST,
@@ -171,7 +246,10 @@ function exportBids() {
     // everywhere except projected-freed rows, which are planning numbers for after the cut
     waivers_open: !!D.cut && D.cut.freed_status === 'on waivers', next_waiver_run: D.next_waiver_run,
     waivers: D.waivers, my_team: tname(ME), my_faab: D.teams[ME].faab, reserve: S.reserve,
-    settings: { blend_recent: S.blend, score_sd: S.sd, rival_aggression: S.aggr, dollars_per_week: S.dpw, sims: S.sims },
+    budget: { spendable: money.spend, recommended_bids_total: money.used, dollars_per_win_point: money.dpp ? r1(money.dpp) : null },
+    settings: { projections: 'Sleeper weekly', score_sd: S.sd, score_sd_measured_from: D.sd ? D.sd.n : null, sd_growth_per_week: SD_GROWTH,
+                rival_aggression: S.aggr, value: 'win odds (winner takes all)', sims: S.sims,
+                price_ladder_claims: D.ladder ? D.ladder.lo.length + D.ladder.hi.length : 0 },
     me: { cut_risk_next_week: r3(sim[ME].pCut[W0]), expected_weeks_left: r1(sim[ME].expWeeks), win_odds: r3(sim[ME].pWin),
           projected_next_week: r1(BASE.projs[ME][W0]) },
     cut_risks: ALIVE.slice().sort((a, b) => sim[b].pCut[W0] - sim[a].pCut[W0]).map(t => ({
@@ -184,3 +262,6 @@ function exportBids() {
     bids,
   };
 }
+
+// Calibration helper for build.py: the raw estimate for each past claim, rebuilt as of that waiver run.
+function rawEstimates(sids) { PJ = {}; return sids.map(s => rawEstimate(threats(s))); }

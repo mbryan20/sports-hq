@@ -13,22 +13,27 @@ function heatCell(v, lo, hi) {
 function riskPill(p) { return p >= .25 ? `<span class="pill p-bad">${pct(p)}</span>` : p >= .1 ? `<span class="pill p-warn">${pct(p)}</span>` : `<span class="pill p-good">${pct(p)}</span>`; }
 
 function renderBids() {
-  const rows = candidates();
-  const out = rows.filter(r => r.added || r.dW !== undefined).sort((a, b) => (b.added - a.added) || (b.dW - a.dW));
-  let html = `<thead><tr><th>Player</th><th>Source</th><th class="n">Wk ${W0} gain</th><th class="n">Season gain</th><th class="n">+Weeks alive</th><th class="n">+Win odds</th><th>Likely rival bids</th><th class="n">Est. price</th><th class="n">Your max</th><th>Call</th><th></th></tr></thead><tbody>`;
+  const rows = candidates(), money = decideAll(rows);
+  const out = rows.filter(r => r.added || r.dW !== undefined).sort((a, b) => (b.added - a.added) || (b.dWin - a.dWin) || (b.dW - a.dW));
+  let html = `<thead><tr><th>Player</th><th>Source</th><th>Bye</th><th class="n">Wk ${W0} gain</th><th class="n">Season gain</th><th class="n">+Win odds</th><th>Drop</th><th>Likely rival bids</th><th class="n">Likely price<br>50% / 80%</th><th class="n">Value</th><th class="n">Your bid<br>(win chance)</th><th>Call</th><th></th></tr></thead><tbody>`;
   let top = null;
   for (const r of out) {
     const p = D.P[r.s];
     const tag = `<b>${esc(p.n)}</b> <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`;
     const btn = `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
-    if (r.added) { html += `<tr class="me"><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td colspan="8" class="sub">On your roster in this model</td><td>${btn}</td></tr>`; continue; }
-    const { th, price, mx, call: c } = decide(r);
-    const call = `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[c] || 'p-mute'}">${c}</span>`;
-    if (!top && r.freed && r.dW >= .05) top = { r, price, mx, th };
+    if (r.added) { html += `<tr class="me"><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td colspan="10" class="sub">On your roster in this model</td><td>${btn}</td></tr>`; continue; }
+    const call = `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[r.call] || 'p-mute'}">${r.call}</span>`;
+    if (r.freed && r.bid > 0 && (!top || r.ev > top.ev)) top = r;
+    const th = r.th || [];
     const thtxt = th.slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
-    html += `<tr><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td><td class="n">${r.dW >= 0 ? '+' : ''}${fmt(r.dW, 2)}</td><td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="wrap">${thtxt}</td><td class="n">${r.freed ? '$' + price : '$0'}</td><td class="n">${r.freed ? '$' + mx : '$0'}</td><td>${call}</td><td>${btn}</td></tr>`;
+    const bye = p.bye.length ? 'Wk ' + p.bye[0] : 'done';
+    html += `<tr><td>${tag}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
+      + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) : '—'}</td><td class="wrap">${thtxt}</td>`
+      + `<td class="n">${r.freed ? '$' + r.price + ' / $' + r.price80 : '$0'}</td><td class="n">${r.freed ? '$' + r.value : '—'}</td>`
+      + `<td class="n">${r.bid > 0 ? '$' + r.bid + ' (' + pct(r.chance) + ')' : r.freed ? '—' : '$0'}</td><td>${call}${r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : ''}</td><td>${btn}</td></tr>`;
   }
   $('cand').innerHTML = html + '</tbody>';
+  $('budgetline').textContent = money.dpp ? `Value rate: $${fmt(money.dpp)} per point of win odds${S.dpp > 0 ? '' : ' (auto)'}. Bids below total $${money.used} of the $${money.spend} you can spend.` : 'No players on waivers right now: free adds only.';
   $('cand').querySelectorAll('button.add').forEach(b => b.onclick = () => { const s = b.dataset.s; S.adds.has(s) ? S.adds.delete(s) : S.adds.add(s); rerender(); });
   return top;
 }
@@ -124,21 +129,25 @@ function renderHeader(top) {
   const order = ALIVE.slice().sort((a, b) => BASE.sim[b].pCut[W0] - BASE.sim[a].pCut[W0]).slice(0, 3);
   let t = `<p><b>Week ${W0} cut watch:</b> ${order.map(x => `${esc(tname(x))}${x === ME ? ' (you)' : ''} ${pct(BASE.sim[x].pCut[W0])}`).join(' · ')}.</p>`;
   if (top) {
-    const p = D.P[top.r.s];
-    t += `<p><b>Top freed target:</b> ${esc(p.n)} (${p.p} ${p.t}) adds ${fmt(top.r.dW, 2)} expected weeks alive. Est. price $${top.price}; your value-based max $${top.mx}${top.mx < top.price ? ' (below the expected price)' : ''}.</p>`;
+    const p = D.P[top.s];
+    t += `<p><b>Best claim:</b> ${esc(p.n)} (${p.p} ${p.t}) adds ${fmt(top.dWin * 100, 1)} points of win odds after dropping ${top.drop && D.P[top.drop] ? esc(D.P[top.drop].n) : 'your weakest player'}. Bid $${top.bid} (wins about ${pct(top.chance)} of the time); he's worth $${top.value} to you and usually goes for $${top.price}–$${top.price80}.</p>`;
   }
   $('headline').innerHTML = t;
 }
 
 // ---------- wiring ----------
-const ctl = [['blend', v => S.blend = v / 100, v => v + '% recent'], ['sd', v => S.sd = +v, v => v + ' pts'], ['aggr', v => S.aggr = v / 100, v => v + '%'], ['reserve', v => S.reserve = +v, v => '$' + v], ['dpw', v => S.dpw = +v, v => '$' + v], ['sims', v => S.sims = +v, v => v]];
+// [id, setter, label, starting value from the model's defaults]
+const ctl = [['sd', v => S.sd = +v, v => v + ' pts' + (+v === SD_MEASURED ? ' (measured)' : ''), SD_MEASURED],
+  ['aggr', v => S.aggr = v / 100, v => v + '%', 100], ['reserve', v => S.reserve = +v, v => '$' + v, S.reserve],
+  ['dpp', v => S.dpp = +v, v => +v > 0 ? '$' + v : 'auto', 0]];
 let timer = null;
 function rerender() {
   computeBase();
   const top = renderBids(); renderLineup(); renderSurv(); renderForecast(); renderRivals(); renderMarket(); renderHeader(top);
 }
-for (const [id, set, lab] of ctl) {
+for (const [id, set, lab, start] of ctl) {
   const el = $(id), o = $(id + 'O');
+  el.value = start;
   const upd = () => { set(el.value); o.textContent = lab(el.value); };
   upd();
   el.addEventListener('input', () => { o.textContent = lab(el.value); clearTimeout(timer); timer = setTimeout(() => { upd(); rerender(); }, 180); });

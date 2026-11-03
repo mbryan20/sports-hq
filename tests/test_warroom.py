@@ -174,11 +174,61 @@ class FreedStatus(unittest.TestCase):
             x1 = next(b for b in out["bids"] if b["sleeper_id"] == "x1")
             if is_open:
                 self.assertEqual(x1["source"], "freed")
+                drops = [b["drop_id"] for b in out["bids"] if b["bid"] > 0]
+                self.assertEqual(len(drops), len(set(drops)))            # Sleeper can't use one drop for two claims
+                self.assertLessEqual(sum(b["bid"] for b in out["bids"]), out["budget"]["spendable"])
                 self.assertEqual(out["freed_players"][0]["sleeper_id"], "x1")
             else:
                 self.assertEqual((x1["source"], x1["est_price"], x1["your_max"]), ("free agent", 0, 0))
                 self.assertIn(x1["call"], ("Add free", "Skip"))
                 self.assertEqual(out["freed_players"], [])
+
+
+
+class Calibration(unittest.TestCase):
+    """The settings the model measures from league history instead of guessing (tested Nov 3 2026)."""
+    def test_swing_is_the_spread_of_misses_after_each_weeks_shift(self):
+        pos = lambda s: "QB"
+        proj = {w: {"a": 20, "b": 20, "c": 20} for w in (1, 2)}
+        # every team misses by the same amount in a week: that's a league-wide shift, not swing
+        same = {w: [{"players": [s], "points": 30} for s in "abc"] for w in (1, 2)}
+        self.assertEqual(model.measure_sd(same, proj, pos)[1], 6)          # too few team-weeks to trust
+        many = {w: [{"players": ["a"], "points": 20 + d} for d in (-10, 10)] for w in range(1, 12)}
+        sd, n = model.measure_sd(many, {w: {"a": 20} for w in range(1, 12)}, pos)
+        self.assertEqual((sd, n), (10.0, 22))
+
+    def test_price_ladder_splits_big_estimates(self):
+        from warroom.build import ladder
+        cases = [{"targets": [["a", 0], ["b", 10], ["c", 40]] + [[f"x{i}", 30] for i in range(12)]}]
+        got = [{"est": [1, 5, 20] + [20] * 12}]
+        lad = ladder(cases, got)
+        self.assertEqual(lad["lo"], [0.0, 2.0])
+        self.assertEqual(len(lad["hi"]), 13)
+        self.assertEqual(lad["hi"][-1], 2.0)
+        self.assertEqual(ladder(cases[:1], [{"est": [1, 5, 20] + [5] * 12}])["hi"], [])   # under 12 big ones: one ladder
+
+
+class BidRules(unittest.TestCase):
+    """Win chance from the ladder, and the bid that balances it against value (run through Node)."""
+    def run_js(self, D, expr):
+        node = os.environ.get("NODE") or shutil.which("node")
+        if not node:
+            self.skipTest("node not installed")
+        js = ("const fs=require('fs'),vm=require('vm');const ctx=vm.createContext({D:JSON.parse(fs.readFileSync(process.argv[1],'utf8')),Math,JSON,Object,Set,String});"
+              "vm.runInContext(fs.readFileSync('warroom/model.js','utf8'),ctx);console.log(JSON.stringify(vm.runInContext(process.argv[2],ctx)))")
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
+            json.dump(D, f)
+        try:
+            return json.loads(subprocess.run([node, "-e", js, f.name, expr], check=True, capture_output=True, text=True).stdout)
+        finally:
+            os.unlink(f.name)
+
+    def test_win_chance_and_price(self):
+        D = {"me": 1, "week": 9, "last_week": 10, "teams": {"1": {"n": "me", "faab": 50, "roster": []}}, "P": {}, "hist": [], "dead": {},
+             "cut": None, "ladder": {"lo": [0, 0, 0.5, 1, 1, 2, 3, 4], "hi": []}}
+        # estimate $10: past claims went for 0, 0, 5, 10, 10, 20, 30, 40
+        self.assertEqual(self.run_js(D, "[winChance(0, 10), winChance(1, 10), winChance(11, 10), winChance(41, 10)]"), [0.25, 0.25, 0.625, 1])
+        self.assertEqual(self.run_js(D, "[priceFor(.5, 10), priceFor(.8, 10)]"), [11, 31])
 
 
 if __name__ == "__main__":
