@@ -44,9 +44,13 @@
     claims.forEach(c => { if (c.drop) (byDrop[c.drop] = byDrop[c.drop] || []).push(c.n); });
     const cards = claims.map(c => {
       const m = model[c.add], notes = [];
+      // claims sharing a drop form a ladder: the highest bid that wins takes the drop and the rest fail. That's
+      // usually deliberate (try for one stud, fall back to the next); only a tie at the same bid has an unclear order.
       const shared = c.drop && byDrop[c.drop].length > 1 ? byDrop[c.drop].filter(n => n !== c.n) : [];
-      if (shared.length) notes.push(`<span class="w">Same drop as claim ${shared.join(', ')}: only the first of these to win can go through.</span>`);
-      if (starters.has(c.drop)) notes.push('<span class="b">Drops one of your starters this week.</span>');
+      if (shared.length) notes.push(`<span class="m">Ladder with claim ${shared.join(', ')} (same drop): at most one of them goes through.</span>`);
+      const tie = shared.filter(n => claims[n - 1].bid === c.bid);
+      if (tie.length) notes.push(`<span class="w">Same drop and same $${c.bid} bid as claim ${tie.join(', ')}: which one Sleeper tries first isn't clear.</span>`);
+      if (starters.has(c.drop)) notes.push('<span class="m">The drop is in your projected lineup this week (Sleeper): set your lineup if this claim hits.</span>');
       let modelLine = '<span class="m">Not on the model\'s list (it adds too little, or the model doesn\'t rate him).</span>', atYours = '';
       if (m) {
         const curve = m.win_curve || [], ch = curve.length ? curve[Math.min(c.bid, curve.length - 1)] : null;
@@ -64,6 +68,8 @@
       return `<div class="c"><div class="h"><div>${c.n}. ${nm(c.add)}</div><div><b>$${c.bid}</b></div></div>
         <div class="m">Drop: ${nm(c.drop)}</div><div>${modelLine}</div>${atYours ? `<div>${atYours}</div>` : ''}${notes.map(n => `<div>${n}</div>`).join('')}</div>`;
     }).join('');
+    const ladders = Object.entries(byDrop).filter(([, ns]) => ns.length > 1).map(([d, ns]) =>
+      `<div class="c">Drop ${nm(d)}: ${ns.map(n => `${nm(claims[n - 1].add).replace(/ <span.*$/, '')} $${claims[n - 1].bid}`).join(' &rarr; ')}</div>`).join('');
     const claimed = new Set(claims.map(c => c.add));
     const missing = M.bids.filter(b => b.bid > 0 && !claimed.has(b.sleeper_id));
     const waivers = M.waivers_open ? `Waivers run ${esc(M.waivers)}.` : '<span class="w">No players are on waivers right now; claims wait for the next cut.</span>';
@@ -72,6 +78,7 @@
       <div style="margin:8px 0"><b>${claims.length}</b> pending claims · bids total <b>$${total}</b> · FAAB <b>$${faab}</b>${total > faab ? ' <span class="m">(fine if they can\'t all win; claims you can\'t afford when they process just fail)</span>' : ''}
       · model's bids total $${M.budget.recommended_bids_total} of $${M.budget.spendable} spendable</div>
       <div class="m">Highest bid first, like Sleeper's Waiver Claims list.</div>
+      ${ladders ? `<h3>Ladders (one drop each: at most one claim per line goes through)</h3>${ladders}` : ''}
       <h3>Your claims</h3>${cards || '<p class="m">No pending claims.</p>'}
       ${missing.length ? `<h3>Model suggests, not in your claims</h3>` + missing.map(b => `<div class="c">${nm(b.sleeper_id)} · model bid <b>$${b.bid}</b> (${pct(b.win_chance)}) · drop ${esc(b.drop || '—')}</div>`).join('') : ''}
       <p class="m">Read-only: nothing here changes your claims or is saved anywhere.</p>`);
