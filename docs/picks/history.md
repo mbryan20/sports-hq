@@ -52,3 +52,28 @@ No cards were posted for this week (Pool Picks started Mon Oct 26), so there is 
 - CFP all-in on Boise State -13.5 won, but the call was good for standings reasons, not because it won: at 5,952 vs a 23,000 money line, max variance was the only path, so it would have been right even as a loss.
 - Card vs entries: no card yet, so no read on where Michael's judgment adds value. One process flag: Ole Miss was his side in both BTO and Yahoo (against the Yahoo favorite), so one game drove two losses; that's correlated exposure, worth sizing as one bet.
 - Lesson: check whose page you're reading. Yahoo's `/college/3659/9/` is Michael's team ID, not a week number (other numbers show other members' picks), and Yahoo week = CFBD week. Runbook, grader label and slate file corrected; the grader also now grades all-caps college teams (LSU, BYU, USC) instead of treating them as NFL.
+
+## Week 9 (CFBD 9, Oct 29-Nov 2) — graded Tue Nov 3, 2026
+Entries were read read-only from all three sites in Michael's Chrome; all were signed in. Cards graded are the last posted before each pool locked (BTO final Thu Oct 29; CFP and Yahoo Sat 8am refresh).
+
+**Records (card vs entered)**
+- BTO: card 3-0, net +$2,620 (MIN +7.5 LP 4 $1,300 ★; Georgia -11.5 $660; Oregon -3.5 $660). Entered 2-1, net +$700: DET -2 (LP 1.5, $500 ★) won 19-15; Northwestern +4.5 (LP 1, $800) lost 26-34; Wake Forest -11 (LP 1.5, $1,000) won 51-7. He wagered $2,300 of $2,620.
+- CFP: card 1-1, net 0; entered the same (Utah -6.5 for 5,952 won 49-25; Auburn +13.5 for 5,952 lost).
+- Yahoo: card 18-7; entered 15-10. TB1: Ohio St. 31-24 USC (actual 18-30), Wisconsin 16-20 Iowa (actual 0-30). TB2: most Notre Dame, fewest Rutgers (both wrong).
+
+**Standings**
+- BTO: $3,320, #20 of 49, Three Bet (min $1,660 in week 10). Playoff line (#12) $4,250; leader $10,700. The card's picks would have made $5,240, above the line.
+- CFP: 11,904 pts, #25 of 55 with points. Money line (#12) 22,000; leader 122,500. Rebuy window closes 11am Nov 7.
+- Yahoo: 135 pts, 8th of 14 (tied with 7th). Leader 144, 3rd 141.
+
+**Differences (judged on pre-kickoff information)**
+- BTO MIN@DET, card MIN +7.5 (LP 4) vs entered DET -2 (LP 1.5): both won. Opposite sides of the Big Game, each buying through 3 against a market of DET -3. The card's was the stronger ticket: it also crossed 7, so it lost only to DET by 8+, while DET -2 needed a 3+ point win. Card better on process; same result.
+- BTO Northwestern@Oregon, card Oregon -3.5 vs entered Northwestern +4.5: Michael's call was better. The market moved about 2 points toward Northwestern after the pool posted, so +3.5 (+4.5 with LP) was the stale-number side, the edge that covered about 61% in the backtest. The card's own Saturday CFP note dropped Oregon for that reason ("its edge was stats only"). Oregon won by 8, so the better call lost. Not confirmed: whether the move had happened before BTO's Friday 8pm lock.
+- BTO, card only Georgia -11.5 (won 27-8) and entry only Wake Forest -11 (won 51-7): both reasonable. The card listed Wake Forest -12.5 as "also worth a look" at 53%; Michael's 1.5 LP improved that number.
+- Yahoo Northwestern@Oregon, card Oregon vs entered Northwestern: the card was better. Straight-up the market had Oregon about 62%, and 7 of the 10 active group members also took Northwestern, so the pick was less likely to win and gave no separation from the group. The BTO spread edge on Northwestern +4.5 doesn't make Northwestern the straight-up winner.
+- Yahoo Illinois@Maryland, card Illinois vs entered Maryland, and Washington St.@SDSU, card SDSU vs entered Washington St.: a wash. The card listed both under "Value of taking the other side": each was about a 47% winner, worth a combined +0.2 points of season win chance (4.0% → 4.3% with both). Michael was the only member on Maryland. Both lost by 6 or fewer (20-17, 26-20).
+
+**Process vs outcome**
+- Good decision that lost: Northwestern +4.5 in BTO was on the stale-number side of a 2-point move and lost when Oregon won by 8. Auburn +13.5 in CFP (2 points better than market) also lost. Neither result says the stale-line read was wrong.
+- Card vs entries: the card would have been 3 Yahoo points and $1,920 better. Most of the gap is Northwestern in Yahoo plus the two card-endorsed contrarian picks (Maryland, Washington St.), which are legitimate season-win plays that lost close games. The repeatable value Michael added was the Northwestern spread read. No evidence yet that his Yahoo straight-up departures add value.
+- Lesson: one game in two pools needs two separate decisions, a spread side and a straight-up winner. For the second week running (Ole Miss in week 8, Northwestern in week 9), his BTO side became his Yahoo pick, so one game cost him in both pools.

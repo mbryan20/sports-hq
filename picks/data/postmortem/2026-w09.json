@@ -1,0 +1,513 @@
+{
+ "week": 9,
+ "pools": {
+  "bto": {
+   "card": {
+    "picks": [
+     {
+      "key": "MIN@DET",
+      "game": "MIN @ DET \u2605",
+      "pick": "MIN +7.5 (LP 4)",
+      "wager": "$1,300",
+      "result": 1.0
+     },
+     {
+      "key": "Florida@Georgia",
+      "game": "Florida @ Georgia",
+      "pick": "Georgia -11.5",
+      "wager": "$660",
+      "result": 1.0
+     },
+     {
+      "key": "Northwestern@Oregon",
+      "game": "Northwestern @ Oregon",
+      "pick": "Oregon -3.5",
+      "wager": "$660",
+      "result": 1.0
+     }
+    ],
+    "record": "3-0",
+    "net": 2620.0
+   },
+   "entered": {
+    "picks": [
+     {
+      "key": "MIN@DET",
+      "game": "MIN @ DET \u2605",
+      "pick": "DET -2",
+      "wager": "$500",
+      "result": 1.0
+     },
+     {
+      "key": "Northwestern@Oregon",
+      "game": "Northwestern @ Oregon",
+      "pick": "Northwestern +4.5",
+      "wager": "$800",
+      "result": 0.0
+     },
+     {
+      "key": "Virginia@Wake Forest",
+      "game": "Virginia @ Wake Forest",
+      "pick": "Wake Forest -11",
+      "wager": "$1,000",
+      "result": 1.0
+     }
+    ],
+    "record": "2-1",
+    "net": 700.0
+   },
+   "differences": [
+    {
+     "key": "MIN@DET",
+     "card": "MIN +7.5 (LP 4)",
+     "entered": "DET -2",
+     "card_result": 1.0,
+     "entry_result": 1.0
+    },
+    {
+     "key": "Northwestern@Oregon",
+     "card": "Oregon -3.5",
+     "entered": "Northwestern +4.5",
+     "card_result": 1.0,
+     "entry_result": 0.0
+    }
+   ]
+  },
+  "cfp": {
+   "card": {
+    "picks": [
+     {
+      "key": "Utah@Cincinnati",
+      "game": "Utah @ Cincinnati",
+      "pick": "Utah -6.5",
+      "wager": "5,952",
+      "result": 1.0
+     },
+     {
+      "key": "Auburn@Ole Miss",
+      "game": "Auburn @ Ole Miss",
+      "pick": "Auburn +13.5",
+      "wager": "5,952",
+      "result": 0.0
+     }
+    ],
+    "record": "1-1",
+    "net": 0.0
+   },
+   "entered": {
+    "picks": [
+     {
+      "key": "Utah@Cincinnati",
+      "game": "Utah @ Cincinnati",
+      "pick": "Utah -6.5",
+      "wager": "5,952",
+      "result": 1.0
+     },
+     {
+      "key": "Auburn@Ole Miss",
+      "game": "Auburn @ Ole Miss",
+      "pick": "Auburn +13.5",
+      "wager": "5,952",
+      "result": 0.0
+     }
+    ],
+    "record": "1-1",
+    "net": 0.0
+   },
+   "differences": []
+  },
+  "yahoo": {
+   "card": {
+    "picks": [
+     {
+      "key": "Baylor@UCF",
+      "game": "Baylor @ UCF",
+      "pick": "UCF",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Boston Coll.@Duke",
+      "game": "Boston Coll. @ Duke",
+      "pick": "Duke",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Illinois@Maryland",
+      "game": "Illinois @ Maryland",
+      "pick": "Illinois",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Wisconsin@Iowa",
+      "game": "Wisconsin @ Iowa",
+      "pick": "Iowa",
+      "wager": "TB1 13-23",
+      "result": 1.0
+     },
+     {
+      "key": "Arizona@Texas Tech",
+      "game": "Arizona @ Texas Tech",
+      "pick": "Texas Tech",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Notre Dame@Navy",
+      "game": "Notre Dame @ Navy",
+      "pick": "Notre Dame",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Michigan@Rutgers",
+      "game": "Michigan @ Rutgers",
+      "pick": "Michigan",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Connecticut@Air Force",
+      "game": "Connecticut @ Air Force",
+      "pick": "Connecticut",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Minnesota@Indiana",
+      "game": "Minnesota @ Indiana",
+      "pick": "Indiana",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Northwestern@Oregon",
+      "game": "Northwestern @ Oregon",
+      "pick": "Oregon",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Florida@Georgia",
+      "game": "Florida @ Georgia",
+      "pick": "Georgia",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Kansas@TCU",
+      "game": "Kansas @ TCU",
+      "pick": "TCU",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Virginia@Wake Forest",
+      "game": "Virginia @ Wake Forest",
+      "pick": "Wake Forest",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Utah@Cincinnati",
+      "game": "Utah @ Cincinnati",
+      "pick": "Utah",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "New Mexico@San Jose St.",
+      "game": "New Mexico @ San Jose St.",
+      "pick": "New Mexico",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Clemson@Florida St.",
+      "game": "Clemson @ Florida St.",
+      "pick": "Florida St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Oklahoma St.@Iowa St.",
+      "game": "Oklahoma St. @ Iowa St.",
+      "pick": "Oklahoma St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Washington St.@SDSU",
+      "game": "Washington St. @ SDSU",
+      "pick": "SDSU",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Miami (FL)@N. Carolina",
+      "game": "Miami (FL) @ N. Carolina",
+      "pick": "Miami (FL)",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Georgia Tech@Pittsburgh",
+      "game": "Georgia Tech @ Pittsburgh",
+      "pick": "Pittsburgh",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Ohio St.@USC",
+      "game": "Ohio St. @ USC",
+      "pick": "Ohio St.",
+      "wager": "TB1 31-23",
+      "result": 0.0
+     },
+     {
+      "key": "Mississippi St.@Texas",
+      "game": "Mississippi St. @ Texas",
+      "pick": "Texas",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Washington@Nebraska",
+      "game": "Washington @ Nebraska",
+      "pick": "Nebraska",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Army@Memphis",
+      "game": "Army @ Memphis",
+      "pick": "Memphis",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Oregon St.@Fresno St.",
+      "game": "Oregon St. @ Fresno St.",
+      "pick": "Oregon St.",
+      "wager": "",
+      "result": 0.0
+     }
+    ],
+    "record": "18-7",
+    "net": 0.0
+   },
+   "entered": {
+    "picks": [
+     {
+      "key": "Baylor@UCF",
+      "game": "Baylor @ UCF",
+      "pick": "UCF",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Boston Coll.@Duke",
+      "game": "Boston Coll. @ Duke",
+      "pick": "Duke",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Illinois@Maryland",
+      "game": "Illinois @ Maryland",
+      "pick": "Maryland",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Wisconsin@Iowa",
+      "game": "Wisconsin @ Iowa",
+      "pick": "Iowa",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Arizona@Texas Tech",
+      "game": "Arizona @ Texas Tech",
+      "pick": "Texas Tech",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Notre Dame@Navy",
+      "game": "Notre Dame @ Navy",
+      "pick": "Notre Dame",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Michigan@Rutgers",
+      "game": "Michigan @ Rutgers",
+      "pick": "Michigan",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Connecticut@Air Force",
+      "game": "Connecticut @ Air Force",
+      "pick": "Connecticut",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Minnesota@Indiana",
+      "game": "Minnesota @ Indiana",
+      "pick": "Indiana",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Northwestern@Oregon",
+      "game": "Northwestern @ Oregon",
+      "pick": "Northwestern",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Florida@Georgia",
+      "game": "Florida @ Georgia",
+      "pick": "Georgia",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Kansas@TCU",
+      "game": "Kansas @ TCU",
+      "pick": "TCU",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Virginia@Wake Forest",
+      "game": "Virginia @ Wake Forest",
+      "pick": "Wake Forest",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Utah@Cincinnati",
+      "game": "Utah @ Cincinnati",
+      "pick": "Utah",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "New Mexico@San Jose St.",
+      "game": "New Mexico @ San Jose St.",
+      "pick": "New Mexico",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Clemson@Florida St.",
+      "game": "Clemson @ Florida St.",
+      "pick": "Florida St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Oklahoma St.@Iowa St.",
+      "game": "Oklahoma St. @ Iowa St.",
+      "pick": "Oklahoma St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Washington St.@SDSU",
+      "game": "Washington St. @ SDSU",
+      "pick": "Washington St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Miami (FL)@N. Carolina",
+      "game": "Miami (FL) @ N. Carolina",
+      "pick": "Miami (FL)",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Georgia Tech@Pittsburgh",
+      "game": "Georgia Tech @ Pittsburgh",
+      "pick": "Pittsburgh",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Ohio St.@USC",
+      "game": "Ohio St. @ USC",
+      "pick": "Ohio St.",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Mississippi St.@Texas",
+      "game": "Mississippi St. @ Texas",
+      "pick": "Texas",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Washington@Nebraska",
+      "game": "Washington @ Nebraska",
+      "pick": "Nebraska",
+      "wager": "",
+      "result": 0.0
+     },
+     {
+      "key": "Army@Memphis",
+      "game": "Army @ Memphis",
+      "pick": "Memphis",
+      "wager": "",
+      "result": 1.0
+     },
+     {
+      "key": "Oregon St.@Fresno St.",
+      "game": "Oregon St. @ Fresno St.",
+      "pick": "Oregon St.",
+      "wager": "",
+      "result": 0.0
+     }
+    ],
+    "record": "15-10",
+    "net": 0.0
+   },
+   "differences": [
+    {
+     "key": "Illinois@Maryland",
+     "card": "Illinois",
+     "entered": "Maryland",
+     "card_result": 1.0,
+     "entry_result": 0.0
+    },
+    {
+     "key": "Northwestern@Oregon",
+     "card": "Oregon",
+     "entered": "Northwestern",
+     "card_result": 1.0,
+     "entry_result": 0.0
+    },
+    {
+     "key": "Washington St.@SDSU",
+     "card": "SDSU",
+     "entered": "Washington St.",
+     "card_result": 1.0,
+     "entry_result": 0.0
+    }
+   ]
+  }
+ },
+ "entries_read": true,
+ "standings": {
+  "bto": "$3,320 (Week 9 +$700, 2-1), #20 of 49, Three Bet; playoff line (#12) $4,250; leader $10,700",
+  "cfp": "11,904 pts (Week 9 net 0, 1-1), #25 of 55 with points (95 paid + 21 rebuys); money line (#12) 22,000; leader 122,500",
+  "yahoo": "135 pts (Week 9 15-10), 8th of 14 (tied with 7th); leader 144, 3rd 141"
+ }
+}
