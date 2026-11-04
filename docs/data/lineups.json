@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T20:57:00Z",
+ "updated": "2026-11-04T21:07:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -169,15 +169,15 @@
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
      "started": false,
-     "proj": 8.7,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
+     "proj": 0,
+     "status": "OUT",
+     "why": "Sleeper: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
-      "note": "Montgomery (groin) wasn't present for the portion of Wednesday's practice open to the media, Jonathan M. Alexander of the Houston Chronicle reports.",
-      "at": "2026-11-04T19:09:00Z",
+      "note": "While Montgomery (groin) has made some progress, coach DeMeco Ryans noted Wednesday that the running back will remain out for Sunday's game against the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-04T20:52:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -224,7 +224,7 @@
     "adds": [
      "Add Baker Mayfield (QB, TB, 19.0/gm, value 202) for Brenton Strange (TE, your TE2, 8.8/gm): fills in at QB in week 11, +21.8 pts over the next 4 weeks",
      "Add Ladd McConkey (WR, LAC, 10.0/gm, value 1,359) for Deebo Samuel Sr. (WR, your WR3, 8.8/gm): better backup WR, +0.6 pts over the next 4 weeks",
-     "Add Zach Charbonnet (RB, SEA, 9.1/gm, value 1,198) for Travis Etienne Jr. (RB, your RB4, 7.5/gm): better backup RB"
+     "Add Zach Charbonnet (RB, SEA, 9.1/gm, value 1,198) for David Montgomery (RB, your RB3, 10.1/gm): better backup RB"
     ],
     "trades": {
      "lines": [
@@ -236,7 +236,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "Domo Arigato": {
@@ -703,7 +703,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "Guillotine": {
@@ -717,7 +717,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 132.7,
+   "proj": 133.5,
    "starters": [
     {
      "slot": "QB",
@@ -825,7 +825,7 @@
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
      "started": false,
-     "proj": 9.7,
+     "proj": 10.5,
      "status": null,
      "why": "",
      "flags": [],
@@ -948,14 +948,14 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 10 this week, +17.0 pts vs the lowest other team, 10% chance of being cut",
+    "matchup": "Projected 7 of 10 this week, +17.8 pts vs the lowest other team, 10% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Juwan Johnson (TE, NO, 8.7/gm, value 295) for Khalil Shakir (WR, your WR5, 7.3/gm): starts at TE over Greg Dulcich, lineup +2.7/gm, +10.3 pts over the next 4 weeks",
+     "Add Dallas Goedert (TE, PHI, 8.7/gm, value 607) for Khalil Shakir (WR, your WR5, 7.3/gm): starts at TE over Greg Dulcich, lineup +2.7/gm, +7.1 pts over the next 4 weeks",
      "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.8 proj)",
-     "Add Bryce Young (QB, CAR, 21.5/gm, value 381) for Breece Hall (RB, your RB5, 8.3/gm): starts at QB over Jayden Daniels, lineup +0.1/gm, +3.3 pts over the next 4 weeks"
+     "Add Bryce Young (QB, CAR, 21.5/gm, value 381) for Breece Hall (RB, your RB5, 8.3/gm): starts at QB over Jayden Daniels, lineup +0.1/gm, +3.2 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1020,23 +1020,23 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 2:57p",
+    "built": "Wed 3:07p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
      "rank": 7,
-     "gap": 17.0,
-     "proj": 132.7,
-     "cut": 0.099,
-     "survive": 0.901,
+     "gap": 17.8,
+     "proj": 133.5,
+     "cut": 0.095,
+     "survive": 0.905,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "Aniasin1",
        "proj": 115.7,
-       "cut": 0.259,
+       "cut": 0.261,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -1044,7 +1044,7 @@
       {
        "name": "MoneyManChas",
        "proj": 115.7,
-       "cut": 0.258,
+       "cut": 0.259,
        "faab": 150,
        "bold": 0.2,
        "me": false
@@ -1052,23 +1052,23 @@
       {
        "name": "robert8063",
        "proj": 128.5,
-       "cut": 0.134,
+       "cut": 0.135,
        "faab": 26,
        "bold": 0.57,
        "me": false
       },
       {
        "name": "michaelbryan",
-       "proj": 132.7,
-       "cut": 0.099,
+       "proj": 133.5,
+       "cut": 0.095,
        "faab": 10,
        "bold": 0.58,
        "me": true
       },
       {
        "name": "CodyRust",
-       "proj": 137.2,
-       "cut": 0.07,
+       "proj": 138.0,
+       "cut": 0.067,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -1076,25 +1076,25 @@
       {
        "name": "GoodFellas",
        "proj": 144.6,
-       "cut": 0.04,
+       "cut": 0.041,
        "faab": 20,
        "bold": 0.74,
        "me": false
       },
       {
-       "name": "JHED1979",
-       "proj": 145.5,
-       "cut": 0.04,
-       "faab": 22,
-       "bold": 0.77,
+       "name": "Off with his head",
+       "proj": 145.8,
+       "cut": 0.041,
+       "faab": 95,
+       "bold": 0.42,
        "me": false
       },
       {
-       "name": "Off with his head",
-       "proj": 145.8,
+       "name": "JHED1979",
+       "proj": 145.0,
        "cut": 0.04,
-       "faab": 95,
-       "bold": 0.42,
+       "faab": 22,
+       "bold": 0.77,
        "me": false
       },
       {
@@ -1108,7 +1108,7 @@
       {
        "name": "SteelRob420",
        "proj": 152.1,
-       "cut": 0.025,
+       "cut": 0.026,
        "faab": 16,
        "bold": 0.98,
        "me": false
@@ -1130,30 +1130,12 @@
      ],
      "bids": [
       {
-       "name": "Juwan Johnson",
-       "pos": "TE",
-       "team": "NO",
-       "proj": 8.2,
-       "gain": 1.7,
-       "cut_with": 0.089,
-       "price": 2,
-       "max": 0,
-       "call": "priced out",
-       "rivals": [
-        {
-         "name": "robert8063",
-         "bid": 1
-        }
-       ],
-       "freed_from": null
-      },
-      {
        "name": "Dallas Goedert",
        "pos": "TE",
        "team": "PHI",
        "proj": 8.1,
        "gain": 1.6,
-       "cut_with": 0.089,
+       "cut_with": 0.086,
        "price": 2,
        "max": 0,
        "call": "priced out",
@@ -1171,7 +1153,7 @@
        "team": "NO",
        "proj": 8.1,
        "gain": 1.3,
-       "cut_with": 0.091,
+       "cut_with": 0.087,
        "price": 3,
        "max": 0,
        "call": "priced out",
@@ -1189,7 +1171,7 @@
        "team": "SF",
        "proj": 7.8,
        "gain": 1.0,
-       "cut_with": 0.093,
+       "cut_with": 0.089,
        "price": 3,
        "max": 0,
        "call": "priced out",
@@ -1204,7 +1186,7 @@
      ],
      "freed": {
       "team": "Aniasin1",
-      "cut": 0.259,
+      "cut": 0.261,
       "players": [
        {
         "name": "Brock Bowers",
@@ -1212,7 +1194,7 @@
         "team": "LV",
         "proj": 15.3,
         "gain": 8.8,
-        "cut_with": 0.055,
+        "cut_with": 0.052,
         "price": 38,
         "max": 0,
         "call": "priced out",
@@ -1238,7 +1220,7 @@
         "team": "BUF",
         "proj": 24.5,
         "gain": 3.7,
-        "cut_with": 0.079,
+        "cut_with": 0.075,
         "price": 13,
         "max": 0,
         "call": "priced out",
@@ -1264,7 +1246,7 @@
         "team": "CIN",
         "proj": 8.6,
         "gain": 2.1,
-        "cut_with": 0.087,
+        "cut_with": 0.084,
         "price": 3,
         "max": 0,
         "call": "priced out",
@@ -1365,8 +1347,8 @@
       "Q"
      ],
      "news": {
-      "note": "McCaffrey is dealing with a mild hamstring strain rather than a quadriceps injury, and the 49ers believe he'll be ready following the team's Week 8 bye, David Lombardi of SF Standard reports.",
-      "at": "2026-10-26T22:12:00Z",
+      "note": "McCaffrey (hamstring) will not participate in Wednesday's practice, Cam Inman of Bay Area News Group reports.",
+      "at": "2026-11-04T20:51:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/3117251/christian-mccaffrey"
      }
     },
@@ -1694,7 +1676,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "Stempak": {
@@ -1895,14 +1877,14 @@
      "kickoff": "2026-11-08T21:05:00Z",
      "started": false,
      "proj": 12.1,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "status": "OUT",
+     "why": "ESPN: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
-      "note": "Montgomery (groin) wasn't present for the portion of Wednesday's practice open to the media, Jonathan M. Alexander of the Houston Chronicle reports.",
-      "at": "2026-11-04T19:09:00Z",
+      "note": "While Montgomery (groin) has made some progress, coach DeMeco Ryans noted Wednesday that the running back will remain out for Sunday's game against the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-04T20:52:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -2048,7 +2030,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "Bro-vid19": {
@@ -2135,14 +2117,14 @@
      "kickoff": "2026-11-08T21:05:00Z",
      "started": false,
      "proj": 11.9,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "status": "OUT",
+     "why": "ESPN: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
-      "note": "Montgomery (groin) wasn't present for the portion of Wednesday's practice open to the media, Jonathan M. Alexander of the Houston Chronicle reports.",
-      "at": "2026-11-04T19:09:00Z",
+      "note": "While Montgomery (groin) has made some progress, coach DeMeco Ryans noted Wednesday that the running back will remain out for Sunday's game against the Chargers, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "at": "2026-11-04T20:52:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -2306,9 +2288,10 @@
     }
    ],
    "advice": {
-    "matchup": "135.7 projected vs Future so Bright my Rice Hurts",
+    "matchup": "123.8 projected vs Future so Bright my Rice Hurts",
     "danger": false,
     "fixes": [
+     "David Montgomery (RB) OUT (ESPN: Out) \u2192 start Kimani Vidal (8.8 proj) [ESPN, Nov 4 2:52p: While Montgomery (groin) has made some progress, coach DeMeco Ryans noted Wednesday that the running back will remain out for Sunday's game against the\u2026]",
      "Move Rashid Shaheed out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 3 12:55p: Seahawks head coach Mike Macdonald said Tuesday that Shaheed (knee) has a chance to play Sunday against the Cardinals, Brady Henderson of ESPN.com reports.]"
     ],
     "moves": [],
@@ -2380,7 +2363,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "3-Ball BB": {
@@ -2906,7 +2889,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   },
   "Ball is Life": {
@@ -3376,7 +3359,7 @@
      "basis": "ESPN game logs through Nov 2; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "assets": null,
-    "built": "Wed 2:57p"
+    "built": "Wed 3:07p"
    }
   }
  }
