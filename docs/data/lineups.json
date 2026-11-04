@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T22:37:00Z",
+ "updated": "2026-11-04T22:47:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -12,8 +12,8 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-11-04T13:35:10Z",
-   "proj": 97.6,
+   "roster_synced": "2026-11-04T22:35:16Z",
+   "proj": 106.0,
    "starters": [
     {
      "slot": "QB",
@@ -93,7 +93,7 @@
      "started": false,
      "proj": 16.8,
      "status": "Q",
-     "why": "Sleeper: Questionable",
+     "why": "Yahoo: Questionable",
      "flags": [
       "Q"
      ],
@@ -126,6 +126,20 @@
      "kickoff": "2026-11-08T18:00:00Z",
      "started": false,
      "proj": 9.8,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
+    },
+    {
+     "slot": "DEF",
+     "name": "Chiefs",
+     "team": "KC",
+     "pos": "DEF",
+     "opp": "vs NYJ",
+     "kickoff": "2026-11-08T18:00:00Z",
+     "started": false,
+     "proj": 8.4,
      "status": null,
      "why": "",
      "flags": [],
@@ -177,7 +191,7 @@
      "started": false,
      "proj": 0,
      "status": "OUT",
-     "why": "Sleeper: Out",
+     "why": "Yahoo: Out",
      "flags": [
       "OUT"
      ],
@@ -206,24 +220,10 @@
       "at": "2026-11-04T20:59:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/3126486/deebo-samuel-sr"
      }
-    },
-    {
-     "slot": "BN",
-     "name": "Chiefs",
-     "team": "KC",
-     "pos": "DEF",
-     "opp": "vs NYJ",
-     "kickoff": "2026-11-08T18:00:00Z",
-     "started": false,
-     "proj": 8.4,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
     }
    ],
    "advice": {
-    "matchup": "97.6 projected",
+    "matchup": "106.0 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -242,7 +242,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "Domo Arigato": {
@@ -715,7 +715,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "Guillotine": {
@@ -1038,7 +1038,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 4:37p",
+    "built": "Wed 4:47p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1706,7 +1706,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "Stempak": {
@@ -2066,7 +2066,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "Bro-vid19": {
@@ -2405,7 +2405,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "3-Ball BB": {
@@ -2931,7 +2931,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   },
   "Ball is Life": {
@@ -3401,7 +3401,7 @@
      "basis": "ESPN game logs through Nov 2; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "assets": null,
-    "built": "Wed 4:37p"
+    "built": "Wed 4:47p"
    }
   }
  }
