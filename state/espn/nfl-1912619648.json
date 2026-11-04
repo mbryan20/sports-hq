@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-04T13:35:56.544Z",
+ "captured": "2026-11-04T22:35:53.718Z",
  "sport": "nfl",
  "league_id": 1912619648,
  "season": 2026,
@@ -74,7 +74,7 @@
     21
    ],
    "pos": 3,
-   "injury": "ACTIVE",
+   "injury": "QUESTIONABLE",
    "proj": 20.6,
    "owned": 99.9,
    "slot": 4
@@ -128,7 +128,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 19.4,
-   "owned": 90,
+   "owned": 90.1,
    "slot": 0
   },
   {
@@ -181,9 +181,9 @@
     21
    ],
    "pos": 2,
-   "injury": "QUESTIONABLE",
-   "proj": 12.1,
-   "owned": 79,
+   "injury": "OUT",
+   "proj": 0,
+   "owned": 79.1,
    "slot": 20
   },
   {
@@ -202,7 +202,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 11.2,
-   "owned": 86.6,
+   "owned": 86.9,
    "slot": 20
   },
   {
@@ -220,8 +220,8 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 11.9,
-   "owned": 92.5,
-   "slot": 20
+   "owned": 92.4,
+   "slot": 23
   },
   {
    "id": 4248528,
@@ -277,7 +277,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 8.6,
-   "owned": 76.9,
+   "owned": 77.1,
    "slot": 6
   },
   {
@@ -295,7 +295,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 7.3,
-   "owned": 47.9,
+   "owned": 47.1,
    "slot": 20
   },
   {
@@ -314,7 +314,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 8.6,
-   "owned": 62.4,
+   "owned": 62.2,
    "slot": 20
   },
   {
@@ -332,25 +332,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 16.7,
-   "owned": 86.5,
-   "slot": 23
-  },
-  {
-   "id": 4429023,
-   "name": "MarShawn Lloyd",
-   "pro_team": 9,
-   "eligible": [
-    2,
-    3,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 2,
-   "injury": "ACTIVE",
-   "proj": 3.9,
-   "owned": 36.4,
+   "owned": 86.8,
    "slot": 20
   },
   {
@@ -380,8 +362,24 @@
    "pos": 16,
    "injury": null,
    "proj": 7.8,
-   "owned": 95.6,
+   "owned": 96,
    "slot": 16
+  },
+  {
+   "id": 4242512,
+   "name": "Malik Willis",
+   "pro_team": 15,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "ACTIVE",
+   "proj": 20.1,
+   "owned": 16.6,
+   "slot": 20
   }
  ],
  "free_agents": [
@@ -400,8 +398,8 @@
    ],
    "pos": 3,
    "injury": "QUESTIONABLE",
-   "proj": 13.2,
-   "owned": 94.7
+   "proj": 0,
+   "owned": 94.6
   },
   {
    "id": 16800,
@@ -419,7 +417,7 @@
    "pos": 3,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 90.7
+   "owned": 90.6
   },
   {
    "id": 4431299,
@@ -437,7 +435,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 10.1,
-   "owned": 83.6
+   "owned": 83.7
   },
   {
    "id": 4683062,
@@ -455,7 +453,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 9.3,
-   "owned": 70.1
+   "owned": 69.5
   },
   {
    "id": 4429059,
@@ -471,22 +469,8 @@
    ],
    "pos": 2,
    "injury": "ACTIVE",
-   "proj": 8.4,
-   "owned": 67.7
-  },
-  {
-   "id": -16017,
-   "name": "Patriots D/ST",
-   "pro_team": 17,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 5.2,
-   "owned": 67.5
+   "proj": 14.8,
+   "owned": 68.8
   },
   {
    "id": 4686361,
@@ -500,7 +484,7 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": 8.2,
-   "owned": 67.1
+   "owned": 66.9
   },
   {
    "id": 4432708,
@@ -517,8 +501,8 @@
    ],
    "pos": 3,
    "injury": "ACTIVE",
-   "proj": 7,
-   "owned": 66.5
+   "proj": 7.5,
+   "owned": 66
   },
   {
    "id": 4432710,
@@ -535,7 +519,21 @@
    "pos": 2,
    "injury": "QUESTIONABLE",
    "proj": 6.1,
-   "owned": 66.4
+   "owned": 65.6
+  },
+  {
+   "id": -16017,
+   "name": "Patriots D/ST",
+   "pro_team": 17,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 5.2,
+   "owned": 65.3
   },
   {
    "id": 3116365,
@@ -552,7 +550,60 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 6.3,
-   "owned": 63.9
+   "owned": 62.8
+  },
+  {
+   "id": 3128429,
+   "name": "Courtland Sutton",
+   "pro_team": 7,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 8.9,
+   "owned": 60.5
+  },
+  {
+   "id": 4373678,
+   "name": "Khalil Shakir",
+   "pro_team": 2,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 9.2,
+   "owned": 60.3
+  },
+  {
+   "id": 3054850,
+   "name": "Alvin Kamara",
+   "pro_team": 18,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "QUESTIONABLE",
+   "proj": 11.3,
+   "owned": 60
   },
   {
    "id": 4723820,
@@ -571,43 +622,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 9.3,
-   "owned": 61.8
-  },
-  {
-   "id": 3128429,
-   "name": "Courtland Sutton",
-   "pro_team": 7,
-   "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 8.9,
-   "owned": 60.9
-  },
-  {
-   "id": 4373678,
-   "name": "Khalil Shakir",
-   "pro_team": 2,
-   "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 9.2,
-   "owned": 60.4
+   "owned": 59.7
   },
   {
    "id": 4870653,
@@ -625,8 +640,8 @@
    ],
    "pos": 3,
    "injury": "ACTIVE",
-   "proj": 10.9,
-   "owned": 59.6
+   "proj": 11.2,
+   "owned": 59.4
   },
   {
    "id": 4569559,
@@ -644,7 +659,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 10,
-   "owned": 58.8
+   "owned": 58.7
   },
   {
    "id": 3055899,
@@ -658,38 +673,7 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": 9.2,
-   "owned": 58.6
-  },
-  {
-   "id": 3054850,
-   "name": "Alvin Kamara",
-   "pro_team": 18,
-   "eligible": [
-    2,
-    3,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 2,
-   "injury": "ACTIVE",
-   "proj": 11.3,
    "owned": 58.2
-  },
-  {
-   "id": -16005,
-   "name": "Browns D/ST",
-   "pro_team": 5,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 6.3,
-   "owned": 56
   },
   {
    "id": -16012,
@@ -703,25 +687,21 @@
    "pos": 16,
    "injury": null,
    "proj": 6.2,
-   "owned": 54.7
+   "owned": 56
   },
   {
-   "id": 3116165,
-   "name": "Chris Godwin Jr.",
-   "pro_team": 27,
+   "id": -16005,
+   "name": "Browns D/ST",
+   "pro_team": 5,
    "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
+    16,
     20,
     21
    ],
-   "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 8.1,
-   "owned": 53.4
+   "pos": 16,
+   "injury": null,
+   "proj": 6.3,
+   "owned": 55
   },
   {
    "id": 4870795,
@@ -739,8 +719,26 @@
    ],
    "pos": 3,
    "injury": "ACTIVE",
-   "proj": 10.5,
-   "owned": 52.9
+   "proj": 10.3,
+   "owned": 53.3
+  },
+  {
+   "id": 3116165,
+   "name": "Chris Godwin Jr.",
+   "pro_team": 27,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 8.1,
+   "owned": 52.4
   },
   {
    "id": 4371733,
@@ -757,21 +755,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": 8.4,
-   "owned": 51.3
-  },
-  {
-   "id": -16004,
-   "name": "Bengals D/ST",
-   "pro_team": 4,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 4.3,
-   "owned": 49.9
+   "owned": 51.6
   },
   {
    "id": 4430539,
@@ -788,21 +772,35 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 9.3,
-   "owned": 49
+   "owned": 48.7
   },
   {
-   "id": 4697745,
-   "name": "Tyler Loop",
-   "pro_team": 33,
+   "id": 4689936,
+   "name": "Jake Bates",
+   "pro_team": 8,
    "eligible": [
     17,
     20,
     21
    ],
    "pos": 5,
-   "injury": "INJURY_RESERVE",
-   "proj": 0,
-   "owned": 47.3
+   "injury": "ACTIVE",
+   "proj": 9.6,
+   "owned": 46.6
+  },
+  {
+   "id": -16004,
+   "name": "Bengals D/ST",
+   "pro_team": 4,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 4.3,
+   "owned": 45.5
   },
   {
    "id": 4361411,
@@ -819,7 +817,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": 0,
-   "owned": 45.8
+   "owned": 44.9
   },
   {
    "id": 4242355,
@@ -836,21 +834,7 @@
    "pos": 4,
    "injury": "QUESTIONABLE",
    "proj": 5.3,
-   "owned": 45
-  },
-  {
-   "id": 4689936,
-   "name": "Jake Bates",
-   "pro_team": 8,
-   "eligible": [
-    17,
-    20,
-    21
-   ],
-   "pos": 5,
-   "injury": "ACTIVE",
-   "proj": 9.6,
-   "owned": 44.4
+   "owned": 44.3
   },
   {
    "id": 4035687,
@@ -868,7 +852,21 @@
    "pos": 3,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 42.1
+   "owned": 41.8
+  },
+  {
+   "id": 4697745,
+   "name": "Tyler Loop",
+   "pro_team": 33,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 41.7
   },
   {
    "id": 4432773,
@@ -889,24 +887,6 @@
    "owned": 40.1
   },
   {
-   "id": 3121422,
-   "name": "Terry McLaurin",
-   "pro_team": 28,
-   "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 3,
-   "injury": "INJURY_RESERVE",
-   "proj": 0,
-   "owned": 39.1
-  },
-  {
    "id": 4569603,
    "name": "Malik Washington",
    "pro_team": 15,
@@ -922,7 +902,25 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 9.8,
-   "owned": 38.9
+   "owned": 39.1
+  },
+  {
+   "id": 3121422,
+   "name": "Terry McLaurin",
+   "pro_team": 28,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "INJURY_RESERVE",
+   "proj": 0,
+   "owned": 38.5
   },
   {
    "id": 8439,
@@ -937,7 +935,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 0,
-   "owned": 38.7
+   "owned": 37.3
   },
   {
    "id": 4880281,
@@ -956,21 +954,7 @@
    "pos": 3,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 36.3
-  },
-  {
-   "id": 4034949,
-   "name": "Eddy Pineiro",
-   "pro_team": 25,
-   "eligible": [
-    17,
-    20,
-    21
-   ],
-   "pos": 5,
-   "injury": "ACTIVE",
-   "proj": 8.4,
-   "owned": 36.3
+   "owned": 36.9
   },
   {
    "id": -16025,
@@ -984,7 +968,38 @@
    "pos": 16,
    "injury": null,
    "proj": 5.7,
+   "owned": 36.6
+  },
+  {
+   "id": 4034949,
+   "name": "Eddy Pineiro",
+   "pro_team": 25,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 8.4,
    "owned": 36.1
+  },
+  {
+   "id": 4429023,
+   "name": "MarShawn Lloyd",
+   "pro_team": 9,
+   "eligible": [
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 3.9,
+   "owned": 35.6
   },
   {
    "id": -16021,
@@ -997,8 +1012,8 @@
    ],
    "pos": 16,
    "injury": null,
-   "proj": 5.1,
-   "owned": 34.9
+   "proj": 5,
+   "owned": 34.7
   },
   {
    "id": 4678008,
@@ -1015,21 +1030,7 @@
    "pos": 2,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 34.7
-  },
-  {
-   "id": -16028,
-   "name": "Commanders D/ST",
-   "pro_team": 28,
-   "eligible": [
-    16,
-    20,
-    21
-   ],
-   "pos": 16,
-   "injury": null,
-   "proj": 4.5,
-   "owned": 33.8
+   "owned": 34.5
   },
   {
    "id": 4038941,
@@ -1044,7 +1045,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": 14.4,
-   "owned": 33.7
+   "owned": 33.4
   },
   {
    "id": 4040715,
@@ -1059,7 +1060,7 @@
    "pos": 1,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 33.2
+   "owned": 32.8
   },
   {
    "id": -16008,
@@ -1072,8 +1073,23 @@
    ],
    "pos": 16,
    "injury": null,
-   "proj": 5.9,
-   "owned": 30.7
+   "proj": 6,
+   "owned": 32.2
+  },
+  {
+   "id": 3912547,
+   "name": "Sam Darnold",
+   "pro_team": 26,
+   "eligible": [
+    0,
+    7,
+    20,
+    21
+   ],
+   "pos": 1,
+   "injury": "OUT",
+   "proj": 0,
+   "owned": 31.6
   },
   {
    "id": 4429160,
@@ -1090,7 +1106,71 @@
    "pos": 2,
    "injury": "INJURY_RESERVE",
    "proj": 0,
-   "owned": 29.7
+   "owned": 29.6
+  },
+  {
+   "id": -16028,
+   "name": "Commanders D/ST",
+   "pro_team": 28,
+   "eligible": [
+    16,
+    20,
+    21
+   ],
+   "pos": 16,
+   "injury": null,
+   "proj": 4.5,
+   "owned": 29
+  },
+  {
+   "id": 4597500,
+   "name": "Adonai Mitchell",
+   "pro_team": 20,
+   "eligible": [
+    3,
+    4,
+    5,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 3,
+   "injury": "ACTIVE",
+   "proj": 9.8,
+   "owned": 28.8
+  },
+  {
+   "id": 4686658,
+   "name": "Mike Washington Jr.",
+   "pro_team": 13,
+   "eligible": [
+    25,
+    2,
+    3,
+    23,
+    7,
+    20,
+    21
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": 7,
+   "owned": 28.4
+  },
+  {
+   "id": 4363538,
+   "name": "Chad Ryland",
+   "pro_team": 22,
+   "eligible": [
+    17,
+    20,
+    21
+   ],
+   "pos": 5,
+   "injury": "ACTIVE",
+   "proj": 9.5,
+   "owned": 28.4
   },
   {
    "id": 4869645,
@@ -1109,21 +1189,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": 9.5,
-   "owned": 28.1
-  },
-  {
-   "id": 4363538,
-   "name": "Chad Ryland",
-   "pro_team": 22,
-   "eligible": [
-    17,
-    20,
-    21
-   ],
-   "pos": 5,
-   "injury": "ACTIVE",
-   "proj": 9.5,
-   "owned": 27.9
+   "owned": 27.7
   },
   {
    "id": 4241474,
@@ -1140,82 +1206,7 @@
    "pos": 2,
    "injury": "QUESTIONABLE",
    "proj": 6.1,
-   "owned": 27.3
-  },
-  {
-   "id": 4685415,
-   "name": "Travis Hunter",
-   "pro_team": 30,
-   "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
-    20,
-    21,
-    12,
-    14,
-    15
-   ],
-   "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 4.3,
-   "owned": 27
-  },
-  {
-   "id": 4686658,
-   "name": "Mike Washington Jr.",
-   "pro_team": 13,
-   "eligible": [
-    25,
-    2,
-    3,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 2,
-   "injury": "ACTIVE",
-   "proj": 7.2,
-   "owned": 25.9
-  },
-  {
-   "id": 4696044,
-   "name": "Kaelon Black",
-   "pro_team": 25,
-   "eligible": [
-    25,
-    2,
-    3,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 2,
-   "injury": "ACTIVE",
-   "proj": 8.3,
-   "owned": 25.6
-  },
-  {
-   "id": 4635008,
-   "name": "Keon Coleman",
-   "pro_team": 2,
-   "eligible": [
-    3,
-    4,
-    5,
-    23,
-    7,
-    20,
-    21
-   ],
-   "pos": 3,
-   "injury": "ACTIVE",
-   "proj": 4.7,
-   "owned": 25.4
+   "owned": 26.9
   }
  ],
  "teams": [
@@ -1326,9 +1317,9 @@
       21
      ],
      "pos": 3,
-     "injury": "ACTIVE",
+     "injury": "QUESTIONABLE",
      "proj": 12.7,
-     "owned": 98.5,
+     "owned": 98.4,
      "slot": 4
     },
     {
@@ -1364,7 +1355,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 96.4,
+     "owned": 96.3,
      "slot": 20
     },
     {
@@ -1380,7 +1371,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 17.7,
-     "owned": 66,
+     "owned": 65.8,
      "slot": 20
     },
     {
@@ -1399,8 +1390,8 @@
      "pos": 3,
      "injury": "QUESTIONABLE",
      "proj": 13.1,
-     "owned": 89.9,
-     "slot": 20
+     "owned": 90,
+     "slot": 23
     },
     {
      "id": 4360569,
@@ -1417,7 +1408,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 7.8,
-     "owned": 63.5,
+     "owned": 62.2,
      "slot": 20
     },
     {
@@ -1433,7 +1424,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 17.7,
-     "owned": 62.1,
+     "owned": 62.3,
      "slot": 0
     },
     {
@@ -1451,7 +1442,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 51.5,
+     "owned": 47.1,
      "slot": 20
     },
     {
@@ -1468,9 +1459,9 @@
      ],
      "pos": 2,
      "injury": "ACTIVE",
-     "proj": 11.1,
+     "proj": 10.9,
      "owned": 72.8,
-     "slot": 23
+     "slot": 20
     },
     {
      "id": 4685261,
@@ -1489,7 +1480,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 69.6,
+     "owned": 68,
      "slot": 20
     },
     {
@@ -1504,7 +1495,7 @@
      "pos": 16,
      "injury": null,
      "proj": 8.6,
-     "owned": 84.7,
+     "owned": 85.9,
      "slot": 16
     },
     {
@@ -1519,7 +1510,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 8.8,
-     "owned": 43.7,
+     "owned": 44.1,
      "slot": 17
     },
     {
@@ -1538,7 +1529,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 10.2,
-     "owned": 43,
+     "owned": 43.7,
      "slot": 20
     }
    ]
@@ -1560,7 +1551,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 22.9,
-     "owned": 95.2,
+     "owned": 95.1,
      "slot": 0
     },
     {
@@ -1578,7 +1569,7 @@
      ],
      "pos": 3,
      "injury": "ACTIVE",
-     "proj": 22.5,
+     "proj": 22.1,
      "owned": 99.9,
      "slot": 4
     },
@@ -1630,9 +1621,9 @@
       21
      ],
      "pos": 3,
-     "injury": "ACTIVE",
+     "injury": "QUESTIONABLE",
      "proj": 13.9,
-     "owned": 95.4,
+     "owned": 95.5,
      "slot": 23
     },
     {
@@ -1650,7 +1641,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 8.9,
-     "owned": 87.6,
+     "owned": 87,
      "slot": 2
     },
     {
@@ -1685,8 +1676,8 @@
      ],
      "pos": 4,
      "injury": "ACTIVE",
-     "proj": 11.3,
-     "owned": 87.7,
+     "proj": 11.5,
+     "owned": 88.4,
      "slot": 20
     },
     {
@@ -1705,7 +1696,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 14,
-     "owned": 92.5,
+     "owned": 92.7,
      "slot": 23
     },
     {
@@ -1739,7 +1730,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 89.6,
+     "owned": 89.2,
      "slot": 4
     },
     {
@@ -1756,9 +1747,9 @@
       21
      ],
      "pos": 3,
-     "injury": "QUESTIONABLE",
+     "injury": "ACTIVE",
      "proj": 10.7,
-     "owned": 68.5,
+     "owned": 68.2,
      "slot": 20
     },
     {
@@ -1776,7 +1767,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": 10.7,
-     "owned": 80.1,
+     "owned": 80.2,
      "slot": 6
     },
     {
@@ -1795,7 +1786,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 54.5,
+     "owned": 54.2,
      "slot": 20
     },
     {
@@ -1813,7 +1804,7 @@
      "pos": 2,
      "injury": "INJURY_RESERVE",
      "proj": 0,
-     "owned": 42.2,
+     "owned": 41.9,
      "slot": 21
     },
     {
@@ -1829,7 +1820,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 21.1,
-     "owned": 21,
+     "owned": 24,
      "slot": 20
     },
     {
@@ -1844,7 +1835,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 10.5,
-     "owned": 69.6,
+     "owned": 71.4,
      "slot": 17
     },
     {
@@ -1858,8 +1849,8 @@
      ],
      "pos": 16,
      "injury": null,
-     "proj": 5.2,
-     "owned": 87.8,
+     "proj": 5.3,
+     "owned": 85.6,
      "slot": 16
     },
     {
@@ -1878,7 +1869,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 10.8,
-     "owned": 85.6,
+     "owned": 85.8,
      "slot": 20
     },
     {
@@ -1896,7 +1887,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 65,
+     "owned": 64.6,
      "slot": 20
     }
    ]
@@ -1918,7 +1909,7 @@
      "pos": 1,
      "injury": "OUT",
      "proj": 0,
-     "owned": 92.6,
+     "owned": 90.6,
      "slot": 20
     },
     {
@@ -1953,8 +1944,8 @@
      ],
      "pos": 2,
      "injury": "ACTIVE",
-     "proj": 14.7,
-     "owned": 99.6,
+     "proj": 14.9,
+     "owned": 99.5,
      "slot": 2
     },
     {
@@ -1971,7 +1962,7 @@
       21
      ],
      "pos": 3,
-     "injury": "ACTIVE",
+     "injury": "QUESTIONABLE",
      "proj": 13.1,
      "owned": 98.7,
      "slot": 4
@@ -1992,7 +1983,7 @@
      "pos": 3,
      "injury": "QUESTIONABLE",
      "proj": 0,
-     "owned": 96.4,
+     "owned": 96.2,
      "slot": 20
     },
     {
@@ -2008,7 +1999,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 23.8,
-     "owned": 90.8,
+     "owned": 91.1,
      "slot": 0
     },
     {
@@ -2025,8 +2016,8 @@
      ],
      "pos": 2,
      "injury": "ACTIVE",
-     "proj": 14.1,
-     "owned": 93.8,
+     "proj": 14.4,
+     "owned": 93.9,
      "slot": 23
     },
     {
@@ -2045,7 +2036,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 17.2,
-     "owned": 95,
+     "owned": 95.2,
      "slot": 4
     },
     {
@@ -2063,7 +2054,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": 12.7,
-     "owned": 95,
+     "owned": 95.1,
      "slot": 23
     },
     {
@@ -2078,7 +2069,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 10.6,
-     "owned": 97.2,
+     "owned": 97.5,
      "slot": 17
     },
     {
@@ -2093,7 +2084,7 @@
      "pos": 16,
      "injury": null,
      "proj": 6.5,
-     "owned": 85,
+     "owned": 85.9,
      "slot": 16
     },
     {
@@ -2111,7 +2102,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 8.3,
-     "owned": 74.4,
+     "owned": 73.4,
      "slot": 20
     },
     {
@@ -2130,7 +2121,7 @@
      "pos": 3,
      "injury": "INJURY_RESERVE",
      "proj": 0,
-     "owned": 49.5,
+     "owned": 49.2,
      "slot": 21
     },
     {
@@ -2149,7 +2140,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 10.8,
-     "owned": 71.7,
+     "owned": 71.9,
      "slot": 20
     },
     {
@@ -2183,7 +2174,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 16.7,
-     "owned": 94.1,
+     "owned": 94.3,
      "slot": 2
     },
     {
@@ -2198,7 +2189,7 @@
      "pos": 16,
      "injury": null,
      "proj": 4.4,
-     "owned": 30.4,
+     "owned": 30.6,
      "slot": 20
     },
     {
@@ -2216,7 +2207,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 9.1,
-     "owned": 83.8,
+     "owned": 83.7,
      "slot": 20
     },
     {
@@ -2232,7 +2223,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 18.9,
-     "owned": 16.6,
+     "owned": 16.2,
      "slot": 20
     }
    ]
@@ -2295,7 +2286,7 @@
      "pos": 2,
      "injury": "INJURY_RESERVE",
      "proj": 0,
-     "owned": 92.1,
+     "owned": 91,
      "slot": 21
     },
     {
@@ -2313,8 +2304,8 @@
      ],
      "pos": 2,
      "injury": "ACTIVE",
-     "proj": 11,
-     "owned": 69.4,
+     "proj": 10.9,
+     "owned": 70.6,
      "slot": 2
     },
     {
@@ -2330,7 +2321,7 @@
      "pos": 1,
      "injury": "QUESTIONABLE",
      "proj": 21,
-     "owned": 90.9,
+     "owned": 90.5,
      "slot": 0
     },
     {
@@ -2346,7 +2337,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 21.6,
-     "owned": 91.4,
+     "owned": 91.8,
      "slot": 0
     },
     {
@@ -2381,7 +2372,7 @@
       21
      ],
      "pos": 4,
-     "injury": "ACTIVE",
+     "injury": "QUESTIONABLE",
      "proj": 10.6,
      "owned": 92.2,
      "slot": 6
@@ -2401,7 +2392,7 @@
      "pos": 2,
      "injury": "QUESTIONABLE",
      "proj": 15.6,
-     "owned": 93.8,
+     "owned": 93.9,
      "slot": 2
     },
     {
@@ -2420,7 +2411,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 13.9,
-     "owned": 92.8,
+     "owned": 92.9,
      "slot": 23
     },
     {
@@ -2456,7 +2447,7 @@
      "pos": 2,
      "injury": "INJURY_RESERVE",
      "proj": 0,
-     "owned": 64.9,
+     "owned": 63.6,
      "slot": 21
     },
     {
@@ -2474,7 +2465,7 @@
      "pos": 2,
      "injury": "QUESTIONABLE",
      "proj": 8.6,
-     "owned": 74.9,
+     "owned": 74.8,
      "slot": 20
     },
     {
@@ -2493,7 +2484,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 12,
-     "owned": 89.8,
+     "owned": 89.6,
      "slot": 20
     },
     {
@@ -2508,7 +2499,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 10.7,
-     "owned": 92.5,
+     "owned": 92.1,
      "slot": 17
     },
     {
@@ -2526,7 +2517,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 10,
-     "owned": 80,
+     "owned": 79.9,
      "slot": 20
     },
     {
@@ -2542,7 +2533,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 16.4,
-     "owned": 28.6,
+     "owned": 27,
      "slot": 20
     },
     {
@@ -2557,7 +2548,7 @@
      "pos": 16,
      "injury": null,
      "proj": 6.4,
-     "owned": 45.1,
+     "owned": 51.9,
      "slot": 16
     },
     {
@@ -2575,7 +2566,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 9.4,
-     "owned": 60.1,
+     "owned": 63.2,
      "slot": 20
     }
    ]
@@ -2692,7 +2683,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 16.9,
-     "owned": 97.8,
+     "owned": 97.9,
      "slot": 4
     },
     {
@@ -2710,8 +2701,8 @@
       21
      ],
      "pos": 3,
-     "injury": "ACTIVE",
-     "proj": 12.3,
+     "injury": "QUESTIONABLE",
+     "proj": 12.5,
      "owned": 78.2,
      "slot": 20
     },
@@ -2731,7 +2722,7 @@
      "pos": 3,
      "injury": "INJURY_RESERVE",
      "proj": 0,
-     "owned": 47.5,
+     "owned": 47.1,
      "slot": 21
     },
     {
@@ -2748,8 +2739,8 @@
      ],
      "pos": 4,
      "injury": "ACTIVE",
-     "proj": 8.9,
-     "owned": 83.3,
+     "proj": 8.7,
+     "owned": 82.5,
      "slot": 20
     },
     {
@@ -2764,7 +2755,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 10.9,
-     "owned": 83.1,
+     "owned": 82.3,
      "slot": 17
     },
     {
@@ -2780,8 +2771,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 18.7,
-     "owned": 77.4,
-     "slot": 20
+     "owned": 76,
+     "slot": 0
     },
     {
      "id": 4428718,
@@ -2799,7 +2790,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 9.4,
-     "owned": 71.3,
+     "owned": 70.3,
      "slot": 20
     },
     {
@@ -2817,7 +2808,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 11.9,
-     "owned": 76.7,
+     "owned": 76.8,
      "slot": 20
     },
     {
@@ -2835,7 +2826,7 @@
      "pos": 2,
      "injury": "QUESTIONABLE",
      "proj": 13.8,
-     "owned": 92.4,
+     "owned": 92.7,
      "slot": 20
     },
     {
@@ -2854,7 +2845,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 14.5,
-     "owned": 70.7,
+     "owned": 74.5,
      "slot": 20
     },
     {
@@ -2869,24 +2860,8 @@
      ],
      "pos": 1,
      "injury": "ACTIVE",
-     "proj": 20,
-     "owned": 68.5,
-     "slot": 0
-    },
-    {
-     "id": 3912547,
-     "name": "Sam Darnold",
-     "pro_team": 26,
-     "eligible": [
-      0,
-      7,
-      20,
-      21
-     ],
-     "pos": 1,
-     "injury": "ACTIVE",
-     "proj": 20,
-     "owned": 32.4,
+     "proj": 20.1,
+     "owned": 68.8,
      "slot": 0
     },
     {
@@ -2904,7 +2879,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": 10.1,
-     "owned": 85,
+     "owned": 84.7,
      "slot": 6
     },
     {
@@ -2919,8 +2894,24 @@
      "pos": 16,
      "injury": null,
      "proj": 7.8,
-     "owned": 79.4,
+     "owned": 83.3,
      "slot": 16
+    },
+    {
+     "id": 4360698,
+     "name": "Joe Milton",
+     "pro_team": 21,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pos": 1,
+     "injury": "ACTIVE",
+     "proj": 15.4,
+     "owned": 2,
+     "slot": 20
     }
    ]
   },
@@ -3013,7 +3004,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 25.2,
-     "owned": 92.5,
+     "owned": 92.7,
      "slot": 0
     },
     {
@@ -3031,7 +3022,7 @@
      "pos": 2,
      "injury": "QUESTIONABLE",
      "proj": 11,
-     "owned": 95.8,
+     "owned": 95.7,
      "slot": 20
     },
     {
@@ -3102,7 +3093,7 @@
      "pos": 1,
      "injury": "QUESTIONABLE",
      "proj": 20.8,
-     "owned": 58.5,
+     "owned": 57.9,
      "slot": 20
     },
     {
@@ -3121,7 +3112,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": 12.6,
-     "owned": 95.9,
+     "owned": 95.8,
      "slot": 20
     },
     {
@@ -3136,7 +3127,7 @@
      "pos": 16,
      "injury": null,
      "proj": 0,
-     "owned": 92.6,
+     "owned": 90.4,
      "slot": 16
     },
     {
@@ -3154,7 +3145,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 18.2,
-     "owned": 95.8,
+     "owned": 95.9,
      "slot": 2
     },
     {
@@ -3172,7 +3163,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": 8.3,
-     "owned": 88.3,
+     "owned": 87.7,
      "slot": 20
     },
     {
@@ -3187,7 +3178,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 9.8,
-     "owned": 77.2,
+     "owned": 78.9,
      "slot": 17
     },
     {
@@ -3206,7 +3197,7 @@
      "pos": 3,
      "injury": "QUESTIONABLE",
      "proj": 12.2,
-     "owned": 74,
+     "owned": 75.1,
      "slot": 20
     },
     {
@@ -3223,8 +3214,8 @@
      ],
      "pos": 4,
      "injury": "QUESTIONABLE",
-     "proj": 9.6,
-     "owned": 68.1,
+     "proj": 9.5,
+     "owned": 66.6,
      "slot": 20
     },
     {
@@ -3280,7 +3271,7 @@
      ],
      "pos": 2,
      "injury": "ACTIVE",
-     "proj": 13.1,
+     "proj": 12.7,
      "owned": 97.8,
      "slot": 2
     },
@@ -3299,7 +3290,7 @@
      ],
      "pos": 3,
      "injury": "ACTIVE",
-     "proj": 13.9,
+     "proj": 13.8,
      "owned": 98.8,
      "slot": 23
     },
@@ -3316,7 +3307,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 26.6,
-     "owned": 98.3,
+     "owned": 98.4,
      "slot": 0
     },
     {
@@ -3335,7 +3326,7 @@
      "pos": 3,
      "injury": "QUESTIONABLE",
      "proj": 11.5,
-     "owned": 93.8,
+     "owned": 93.7,
      "slot": 20
     },
     {
@@ -3409,7 +3400,7 @@
      "pos": 3,
      "injury": "OUT",
      "proj": 0,
-     "owned": 84.6,
+     "owned": 84.2,
      "slot": 20
     },
     {
@@ -3428,7 +3419,7 @@
      "pos": 3,
      "injury": "QUESTIONABLE",
      "proj": 15.8,
-     "owned": 93,
+     "owned": 93.2,
      "slot": 20
     },
     {
@@ -3462,7 +3453,7 @@
      "pos": 16,
      "injury": null,
      "proj": 4.1,
-     "owned": 86.4,
+     "owned": 85.8,
      "slot": 16
     },
     {
@@ -3477,7 +3468,7 @@
      "pos": 16,
      "injury": null,
      "proj": 3.4,
-     "owned": 52,
+     "owned": 50.7,
      "slot": 20
     },
     {
@@ -3492,7 +3483,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 0,
-     "owned": 66.8,
+     "owned": 61.4,
      "slot": 17
     },
     {
@@ -3508,7 +3499,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 18.3,
-     "owned": 57.4,
+     "owned": 58.1,
      "slot": 0
     },
     {
@@ -3524,7 +3515,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": 14.3,
-     "owned": 24.8,
+     "owned": 24.3,
      "slot": 20
     },
     {
@@ -3542,7 +3533,7 @@
      ],
      "pos": 3,
      "injury": "ACTIVE",
-     "proj": 9.1,
+     "proj": 11.1,
      "owned": 51.6,
      "slot": 4
     },
@@ -3558,7 +3549,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": 9.3,
-     "owned": 31.5,
+     "owned": 33.8,
      "slot": 20
     }
    ]
@@ -4294,10 +4285,10 @@
   "9": {
    "period": 9,
    "pts": 0,
-   "proj": 174.92,
+   "proj": 170.11,
    "opp_id": 7,
    "opp_pts": 0,
-   "opp_proj": 140.01,
+   "opp_proj": 141.5,
    "players": [
     {
      "name": "Josh Allen",
@@ -4415,7 +4406,7 @@
       21
      ],
      "pts": 0,
-     "proj": 12.06
+     "proj": 0
     },
     {
      "name": "Jaylen Waddle",
@@ -4435,7 +4426,7 @@
     },
     {
      "name": "Rhamondre Stevenson",
-     "slot": 20,
+     "slot": 23,
      "pro_team": 17,
      "eligible": [
       2,
@@ -4446,7 +4437,7 @@
       21
      ],
      "pts": 0,
-     "proj": 11.94
+     "proj": 11.86
     },
     {
      "name": "Christian Watson",
@@ -4529,7 +4520,7 @@
     },
     {
      "name": "Ollie Gordon II",
-     "slot": 23,
+     "slot": 20,
      "pro_team": 15,
      "eligible": [
       2,
@@ -4541,21 +4532,6 @@
      ],
      "pts": 0,
      "proj": 16.68
-    },
-    {
-     "name": "MarShawn Lloyd",
-     "slot": 20,
-     "pro_team": 9,
-     "eligible": [
-      2,
-      3,
-      23,
-      7,
-      20,
-      21
-     ],
-     "pts": 0,
-     "proj": 3.88
     },
     {
      "name": "Jason Myers",
@@ -4580,6 +4556,19 @@
      ],
      "pts": 0,
      "proj": 7.85
+    },
+    {
+     "name": "Malik Willis",
+     "slot": 20,
+     "pro_team": 15,
+     "eligible": [
+      0,
+      7,
+      20,
+      21
+     ],
+     "pts": 0,
+     "proj": 20.06
     }
    ]
   }
