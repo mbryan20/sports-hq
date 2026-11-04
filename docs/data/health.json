@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-03T16:57:35Z",
+ "generated": "2026-11-04T16:37:43Z",
  "summary": {
-  "ok": 9,
+  "ok": 13,
   "watch": 0,
   "drift": 0,
   "weak": 1,
-  "waiting": 10,
-  "info": 3,
+  "waiting": 5,
+  "info": 4,
   "errors": 0
  },
  "flags": [
@@ -115,8 +115,8 @@
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 9.3,
-     "n": 165,
+     "value": 8.9,
+     "n": 187,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -126,8 +126,8 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.55,
-     "n": 165,
+     "value": 0.56,
+     "n": 187,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
@@ -136,8 +136,8 @@
     {
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
-     "value": 0.82,
-     "n": 165,
+     "value": 0.81,
+     "n": 187,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -269,70 +269,70 @@
      }
     },
     "prices": {
-     "n": 165,
-     "cov50": 0.55,
-     "cov80": 0.82,
-     "est_mae": 9.3,
+     "n": 187,
+     "cov50": 0.56,
+     "cov80": 0.81,
+     "est_mae": 8.9,
      "by": {
       "pos DEF": {
-       "n": 22,
-       "cov50": 0.55,
-       "cov80": 0.95,
+       "n": 24,
+       "cov50": 0.58,
+       "cov80": 0.96,
        "est_mae": 2.1
       },
       "pos K": {
-       "n": 16,
-       "cov50": 0.94,
-       "cov80": 1.0,
-       "est_mae": 2.8
+       "n": 20,
+       "cov50": 0.9,
+       "cov80": 0.95,
+       "est_mae": 2.9
       },
       "pos QB": {
-       "n": 21,
-       "cov50": 0.67,
-       "cov80": 0.9,
-       "est_mae": 11.3
+       "n": 23,
+       "cov50": 0.74,
+       "cov80": 0.91,
+       "est_mae": 10.6
       },
       "pos RB": {
-       "n": 30,
-       "cov50": 0.37,
-       "cov80": 0.67,
-       "est_mae": 20.4
+       "n": 35,
+       "cov50": 0.34,
+       "cov80": 0.63,
+       "est_mae": 19.1
       },
       "pos TE": {
-       "n": 22,
-       "cov50": 0.55,
-       "cov80": 0.86,
-       "est_mae": 6.2
+       "n": 24,
+       "cov50": 0.58,
+       "cov80": 0.88,
+       "est_mae": 5.8
       },
       "pos WR": {
-       "n": 54,
+       "n": 61,
        "cov50": 0.48,
-       "cov80": 0.76,
-       "est_mae": 8.6
+       "cov80": 0.75,
+       "est_mae": 8.4
       },
-      "legs 1-3": {
-       "n": 69,
-       "cov50": 0.52,
-       "cov80": 0.77,
-       "est_mae": 13.1
+      "legs 1-4": {
+       "n": 91,
+       "cov50": 0.53,
+       "cov80": 0.8,
+       "est_mae": 12.5
       },
-      "legs 4-7": {
+      "legs 5-8": {
        "n": 96,
-       "cov50": 0.56,
-       "cov80": 0.86,
-       "est_mae": 6.6
+       "cov50": 0.58,
+       "cov80": 0.82,
+       "est_mae": 5.6
       },
       "estimate $10+": {
-       "n": 48,
-       "cov50": 0.5,
+       "n": 53,
+       "cov50": 0.49,
        "cov80": 0.79,
-       "est_mae": 19.7
+       "est_mae": 18.9
       },
       "estimate under $10": {
-       "n": 117,
-       "cov50": 0.56,
-       "cov80": 0.84,
-       "est_mae": 5.1
+       "n": 134,
+       "cov50": 0.58,
+       "cov80": 0.82,
+       "est_mae": 5.0
       }
      }
     }
@@ -345,43 +345,54 @@
   {
    "id": "recs",
    "title": "Our guillotine bids vs what happened",
-   "status": "waiting",
+   "status": "ok",
    "checks": [
     {
      "id": "rec.would_win",
      "label": "Our recommended bids that would have won",
-     "value": null,
-     "n": 0,
+     "value": 0.2,
+     "n": 5,
      "unit": "%",
-     "status": "waiting"
+     "status": "info"
     },
     {
      "id": "rec.win_brier",
      "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
-     "value": null,
-     "n": 0,
+     "value": 0.125,
+     "n": 5,
      "unit": "",
-     "status": "waiting"
+     "baseline": 0.125,
+     "baseline_set": "2026-11-04",
+     "tolerance": 0.05,
+     "status": "ok"
     },
     {
      "id": "rec.est_mae",
      "label": "Likely-price miss vs what winners paid",
-     "value": null,
-     "n": 0,
+     "value": 8.3,
+     "n": 6,
      "unit": "$",
-     "status": "waiting"
+     "baseline": 8.3,
+     "baseline_set": "2026-11-04",
+     "tolerance": 4.0,
+     "status": "ok"
     },
     {
      "id": "gd.dash_price_mae",
      "label": "Dashboard likely-price miss vs what winners paid",
-     "value": null,
-     "n": 0,
+     "value": 12.4,
+     "n": 8,
      "unit": "$",
-     "status": "waiting"
+     "baseline": 12.4,
+     "baseline_set": "2026-11-04",
+     "tolerance": 4.0,
+     "status": "ok"
     }
    ],
    "details": {
-    "runs": [],
+    "runs": [
+     8
+    ],
     "winners_paid": {
      "1": [
       {
@@ -735,6 +746,38 @@
      ],
      "8": [
       {
+       "player": "Puka Nacua",
+       "pos": "WR",
+       "winner": "GoodFellas77",
+       "paid": 57,
+       "bids": 9,
+       "second": 45
+      },
+      {
+       "player": "Javonte Williams",
+       "pos": "RB",
+       "winner": "michaelbryan",
+       "paid": 34,
+       "bids": 10,
+       "second": 26
+      },
+      {
+       "player": "Jonathan Taylor",
+       "pos": "RB",
+       "winner": "SteelRob420",
+       "paid": 27,
+       "bids": 10,
+       "second": 34
+      },
+      {
+       "player": "Parker Washington",
+       "pos": "WR",
+       "winner": "JHED1979",
+       "paid": 21,
+       "bids": 5,
+       "second": 30
+      },
+      {
        "player": "Josh Downs",
        "pos": "WR",
        "winner": "MoneyManChas",
@@ -743,28 +786,323 @@
        "second": 0
       },
       {
-       "player": "Spencer Shrader",
-       "pos": "K",
-       "winner": "MoneyManChas",
-       "paid": 10,
-       "bids": 1,
-       "second": 0
+       "player": "Tony Pollard",
+       "pos": "RB",
+       "winner": "michaelbryan",
+       "paid": 15,
+       "bids": 5,
+       "second": 2
       }
      ]
     },
-    "v2_rows": [],
-    "dash_rows": [],
-    "would_win": null,
-    "n_rec": 0,
-    "brier": null,
-    "est_mae": null,
-    "n_est": 0,
-    "dash_est_mae": null,
-    "n_dash": 0,
-    "bargains_skipped": []
+    "v2_rows": [
+     {
+      "leg": 8,
+      "player": "Puka Nacua",
+      "call": "Coin flip",
+      "bid": 14,
+      "win_chance": 0.417,
+      "est_price": 27,
+      "value": 51,
+      "would_win": false,
+      "top_rival_bid": 57,
+      "winner": "GoodFellas77",
+      "paid": 57,
+      "my_bid": 34,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Javonte Williams",
+      "call": "Coin flip",
+      "bid": 15,
+      "win_chance": 0.396,
+      "est_price": 33,
+      "value": 44,
+      "would_win": false,
+      "top_rival_bid": 26,
+      "winner": "michaelbryan",
+      "paid": 34,
+      "my_bid": 34,
+      "i_won": true
+     },
+     {
+      "leg": 8,
+      "player": "Jonathan Taylor",
+      "call": "Coin flip",
+      "bid": 15,
+      "win_chance": 0.396,
+      "est_price": 33,
+      "value": 40,
+      "would_win": false,
+      "top_rival_bid": 27,
+      "winner": "SteelRob420",
+      "paid": 27,
+      "my_bid": 34,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Parker Washington",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.417,
+      "est_price": 22,
+      "value": 31,
+      "would_win": false,
+      "top_rival_bid": 21,
+      "winner": "JHED1979",
+      "paid": 21,
+      "my_bid": 30,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "George Pickens",
+      "call": "Coin flip",
+      "bid": 2,
+      "win_chance": 0.292,
+      "est_price": 8,
+      "value": 5,
+      "would_win": false,
+      "top_rival_bid": 12,
+      "winner": "Swegs4",
+      "paid": 12,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "AJ Barner",
+      "call": "Bid",
+      "bid": 1,
+      "win_chance": 0.769,
+      "est_price": 0,
+      "value": 5,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Tony Pollard",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.632,
+      "est_price": 0,
+      "value": 3,
+      "would_win": false,
+      "top_rival_bid": 2,
+      "winner": "michaelbryan",
+      "paid": 15,
+      "my_bid": 15,
+      "i_won": true
+     },
+     {
+      "leg": 8,
+      "player": "CIN DEF",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.632,
+      "est_price": 0,
+      "value": 2,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 8,
+      "player": "Lamar Jackson",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.769,
+      "est_price": 0,
+      "value": 2,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "C.J. Stroud",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.167,
+      "est_price": 8,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Jason Myers",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.564,
+      "est_price": 0,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     }
+    ],
+    "dash_rows": [
+     {
+      "leg": 8,
+      "player": "Puka Nacua",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 43,
+      "max": 37,
+      "would_win": false,
+      "top_rival_bid": 57,
+      "winner": "GoodFellas77",
+      "paid": 57,
+      "my_bid": 34,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Javonte Williams",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 43,
+      "max": 35,
+      "would_win": false,
+      "top_rival_bid": 26,
+      "winner": "michaelbryan",
+      "paid": 34,
+      "my_bid": 34,
+      "i_won": true
+     },
+     {
+      "leg": 8,
+      "player": "Jonathan Taylor",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 43,
+      "max": 31,
+      "would_win": false,
+      "top_rival_bid": 27,
+      "winner": "SteelRob420",
+      "paid": 27,
+      "my_bid": 34,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Parker Washington",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 15,
+      "max": 13,
+      "would_win": false,
+      "top_rival_bid": 21,
+      "winner": "JHED1979",
+      "paid": 21,
+      "my_bid": 30,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "George Pickens",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 11,
+      "max": 10,
+      "would_win": false,
+      "top_rival_bid": 12,
+      "winner": "Swegs4",
+      "paid": 12,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Brock Bowers",
+      "call": "bid",
+      "bid": 37,
+      "est_price": 37,
+      "max": 37,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Josh Allen",
+      "call": "bid",
+      "bid": 13,
+      "est_price": 13,
+      "max": 16,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 8,
+      "player": "Mike Gesicki",
+      "call": "bid",
+      "bid": 3,
+      "est_price": 3,
+      "max": 11,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     }
+    ],
+    "would_win": 0.2,
+    "n_rec": 5,
+    "brier": 0.125,
+    "est_mae": 8.3,
+    "n_est": 6,
+    "dash_est_mae": 12.4,
+    "n_dash": 8,
+    "bargains_skipped": [
+     {
+      "leg": 8,
+      "player": "Parker Washington",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.417,
+      "est_price": 22,
+      "value": 31,
+      "would_win": false,
+      "top_rival_bid": 21,
+      "winner": "JHED1979",
+      "paid": 21,
+      "my_bid": 30,
+      "i_won": false
+     }
+    ]
    },
    "notes": [
-    "No waiver run has processed since War Room v2's bids.json started (Oct 31); the first is Wed Nov 4, 2:15am CT."
+    "Week 8: Parker Washington went for $21 (JHED1979) although his value to you was $31 and the call was Skip."
    ]
   },
   {
@@ -830,7 +1168,7 @@
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": 1.32,
+     "value": 1.44,
      "n": 5,
      "unit": "z",
      "baseline": 1.32,
@@ -844,8 +1182,8 @@
     "held": 5,
     "held_rate": 1.0,
     "flag_value": -1.15,
-    "wire_value": -2.47,
-    "edge": 1.32,
+    "wire_value": -2.59,
+    "edge": 1.44,
     "added_later": 0,
     "any_flagged": 15,
     "any_held": 11
@@ -882,10 +1220,13 @@
     {
      "id": "picks.card_ats",
      "label": "Posted card picks that won against the spread",
-     "value": null,
-     "n": 0,
+     "value": 0.733,
+     "n": 30,
      "unit": "%",
-     "status": "waiting"
+     "baseline": 0.733,
+     "baseline_set": "2026-11-04",
+     "tolerance": 0.08,
+     "status": "ok"
     }
    ],
    "details": {
@@ -897,21 +1238,22 @@
     "stale_cover": 0.616,
     "stale_n": 194,
     "graded_weeks": [
-     8
+     8,
+     9
     ],
     "card": {
-     "w": 0,
-     "l": 0,
+     "w": 22,
+     "l": 8,
      "p": 0
     },
-    "card_ats": null,
-    "card_n": 0,
+    "card_ats": 0.733,
+    "card_n": 30,
     "entered": {
-     "w": 14,
-     "l": 15,
+     "w": 32,
+     "l": 27,
      "p": 0
     },
-    "entered_rate": 0.483
+    "entered_rate": 0.542
    },
    "notes": [
     "Backtest 2026_w1-8.json is re-run by the laptop (needs the CFBD key); this job reads it."
