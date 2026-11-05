@@ -70,7 +70,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-028 · B3: NBA pickups were ranked by % owned, not by what they do for my categories
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (168a299)
 - **Area:** `shq/nba_swaps.py` (new), `shq/nba_ages.py` (new), `shq/nba_values.py` (age), `shq/advice.py` `adds`, `shq/run.py`
   `nba_weekly_section`, `docs/players/index.html` (age in the detail row)
 - **Rank:** —
