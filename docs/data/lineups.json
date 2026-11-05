@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T02:27:00Z",
+ "updated": "2026-11-05T02:37:01Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -242,7 +242,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Domo Arigato": {
@@ -700,7 +700,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Guillotine": {
@@ -956,7 +956,7 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Dallas Goedert (TE, PHI, 8.8/gm, value 545) for Khalil Shakir (WR, your WR5, 7.3/gm): starts at TE over Greg Dulcich, lineup +2.8/gm, +7.4 pts over the next 4 weeks",
+     "Add Brenton Strange (TE, JAX, 8.8/gm, value 614) for Khalil Shakir (WR, your WR5, 7.3/gm): starts at TE over Greg Dulcich, lineup +2.8/gm, +10.7 pts over the next 4 weeks",
      "Add Bryce Young (QB, CAR, 21.6/gm, value 366) for Tony Pollard (RB, your RB5, 8.6/gm): starts at QB over Jayden Daniels, lineup +0.2/gm, +4.7 pts over the next 4 weeks",
      "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.8 proj)"
     ],
@@ -1023,7 +1023,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 8:27p",
+    "built": "Wed 8:37p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1139,6 +1139,24 @@
        "proj": 8.1,
        "gain": 1.6,
        "cut_with": 0.083,
+       "price": 2,
+       "max": 0,
+       "call": "priced out",
+       "rivals": [
+        {
+         "name": "robert8063",
+         "bid": 1
+        }
+       ],
+       "freed_from": null
+      },
+      {
+       "name": "Brenton Strange",
+       "pos": "TE",
+       "team": "JAX",
+       "proj": 7.9,
+       "gain": 1.4,
+       "cut_with": 0.084,
        "price": 2,
        "max": 0,
        "call": "priced out",
@@ -1697,7 +1715,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Stempak": {
@@ -2058,7 +2076,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Bro-vid19": {
@@ -2398,7 +2416,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "3-Ball BB": {
@@ -2553,7 +2571,7 @@
      "pos": "PG/SG",
      "opp": "vs DAL",
      "kickoff": "2026-11-05T02:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -2672,12 +2690,12 @@
     "moves": [],
     "adds": [
      "Collin Gillespie (PG, PHX): 3 games left this week, 37.0% owned",
-     "Alex Caruso (PG/SG, OKC): 3 games left this week, 19.8% owned",
-     "Bobby Portis (PF/C, MIA): 3 games left this week, 17.0% owned"
+     "Alex Caruso (PG/SG, OKC): 3 games left this week, 19.9% owned",
+     "Bobby Portis (PF/C, MIA): 3 games left this week, 17.1% owned"
     ],
     "trades": null,
     "notes": [
-     "2 of 10 starters play tonight"
+     "1 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -2721,7 +2739,7 @@
        "me": "10",
        "opp": "10",
        "now": "T",
-       "outlook": "close"
+       "outlook": "lose"
       },
       {
        "cat": "AST",
@@ -2739,18 +2757,16 @@
       }
      ],
      "now": "4-2-2",
-     "proj": "5-2",
-     "close": 1,
+     "proj": "5-3",
+     "close": 0,
      "games_left": [
-      32,
+      31,
       29
      ],
      "chase": [
-      "STL is close. Keep in the lineup: De'Aaron Fox (3 games, 1.4/g) and Walker Kessler (3 games, 1.1/g)."
+      "No category is within reach either way; nothing to chase."
      ],
-     "adds": [
-      "For STL: Collin Gillespie (PG, PHX), 2 games left, 2.8/g"
-     ]
+     "adds": []
     },
     "radar": {
      "rising": [
@@ -2805,7 +2821,7 @@
        "name": "De'Andre Hunter"
       },
       {
-       "text": "Jake LaRavia (PF, LAL), free agent, 8% owned, ESPN +/- -0.1: minutes 17 \u2192 26 in his last 3 games (Oct 30\u2013Nov 2) vs 5 before, played 4 of them, usage 8% \u2192 15%, started 3 of 3 (1 of 5 before). Fits STL (close). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "text": "Jake LaRavia (PF, LAL), free agent, 8% owned, ESPN +/- -0.1: minutes 17 \u2192 26 in his last 3 games (Oct 30\u2013Nov 2) vs 5 before, played 4 of them, usage 8% \u2192 15%, started 3 of 3 (1 of 5 before). Fits STL (losing). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
        "short": "Jake LaRavia (LAL, FA 8%): minutes 17 \u2192 26, usage 8% \u2192 15%, now starting; fits STL (ESPN game logs through Nov 2)",
        "links": [
         [
@@ -2819,7 +2835,7 @@
        "name": "Jake LaRavia"
       },
       {
-       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, ESPN +/- +0.2: minutes 21 \u2192 31 in his last 3 games (Oct 30\u2013Nov 2) vs 4 before. Fits STL (close), 3PM (losing). 2 games left this week, 3 next week.",
+       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, ESPN +/- +0.2: minutes 21 \u2192 31 in his last 3 games (Oct 30\u2013Nov 2) vs 4 before. Fits STL (losing), 3PM (losing). 2 games left this week, 3 next week.",
        "short": "Kobe Sanders (LAC, FA 1%): minutes 21 \u2192 31; fits STL, 3PM (ESPN game logs through Nov 2)",
        "links": [
         [
@@ -2833,7 +2849,7 @@
        "name": "Kobe Sanders"
       },
       {
-       "text": "Dean Wade (PF, PHI), free agent, 1% owned: minutes 18 \u2192 22 in his last 3 games (Oct 31\u2013Nov 4) vs 6 before, played 4 of them, usage 4% \u2192 9%. Fits STL (close). 2 games left this week, 3 next week.",
+       "text": "Dean Wade (PF, PHI), free agent, 1% owned: minutes 18 \u2192 22 in his last 3 games (Oct 31\u2013Nov 4) vs 6 before, played 4 of them, usage 4% \u2192 9%. Fits STL (losing). 2 games left this week, 3 next week.",
        "short": "Dean Wade (PHI, FA 1%): minutes 18 \u2192 22, usage 4% \u2192 9%; fits STL (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2847,7 +2863,7 @@
        "name": "Dean Wade"
       },
       {
-       "text": "Braden Smith (PG, IND), free agent, 0% owned, ESPN +/- +0.1: minutes 3 \u2192 18 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 2 of them, usage 9% \u2192 21%, started 2 of 3 (0 of 6 before), since Tyrese Haliburton went out [ESPN Oct 28: Out, Haliburton (hamstring) will miss at least the next two weeks of action, Shams Charania of\u2026]. Fits STL (close), AST (losing). 1 game left this week, 4 next week.",
+       "text": "Braden Smith (PG, IND), free agent, 0% owned, ESPN +/- +0.1: minutes 3 \u2192 18 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 2 of them, usage 9% \u2192 21%, started 2 of 3 (0 of 6 before), since Tyrese Haliburton went out [ESPN Oct 28: Out, Haliburton (hamstring) will miss at least the next two weeks of action, Shams Charania of\u2026]. Fits STL (losing), AST (losing). 1 game left this week, 4 next week.",
        "short": "Braden Smith (IND, FA 0%): minutes 3 \u2192 18, usage 9% \u2192 21%, now starting; fits STL, AST (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2941,7 +2957,7 @@
      ],
      "need": [
       "3PM (losing)",
-      "STL (close)",
+      "STL (losing)",
       "AST (losing)"
      ],
      "basis": "ESPN game logs through Nov 4; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
@@ -2958,7 +2974,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   },
   "Ball is Life": {
@@ -3157,10 +3173,16 @@
      "kickoff": "2026-11-05T00:30:00Z",
      "started": true,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "ESPN: Day-To-Day",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Sharpe registered 15 points (5-7 FG, 1-1 3Pt, 4-5 FT), 13 rebounds and four assists across 26 minutes in Sunday's 98-90 win over the Pacers.",
+      "at": "2026-11-05T02:29:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4432194/dayron-sharpe"
+     }
     },
     {
      "slot": "BN",
@@ -3227,7 +3249,7 @@
        "me": "13",
        "opp": "16",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "STL",
@@ -3252,16 +3274,18 @@
       }
      ],
      "now": "2-5-1",
-     "proj": "7-1",
-     "close": 0,
+     "proj": "7-0",
+     "close": 1,
      "games_left": [
       28,
-      22
+      20
      ],
      "chase": [
-      "No category is within reach either way; nothing to chase."
+      "3PM is close. Keep in the lineup: Austin Reaves (3 games, 2.5/g) and LaMelo Ball (2 games, 3.2/g)."
      ],
-     "adds": []
+     "adds": [
+      "For 3PM: Anfernee Simons (PG/SG, PHI), 2 games left, 2.8/g"
+     ]
     },
     "radar": {
      "rising": [
@@ -3298,7 +3322,7 @@
        "name": "Draymond Green"
       },
       {
-       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, ESPN +/- +0.2: minutes 21 \u2192 31 in his last 3 games (Oct 30\u2013Nov 2) vs 4 before. Fits 3PM (losing). 2 games left this week, 3 next week.",
+       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, ESPN +/- +0.2: minutes 21 \u2192 31 in his last 3 games (Oct 30\u2013Nov 2) vs 4 before. Fits 3PM (close). 2 games left this week, 3 next week.",
        "short": "Kobe Sanders (LAC, FA 1%): minutes 21 \u2192 31; fits 3PM (ESPN game logs through Nov 2)",
        "links": [
         [
@@ -3312,7 +3336,7 @@
        "name": "Kobe Sanders"
       },
       {
-       "text": "Meleek Thomas (SG, CLE), free agent, 4% owned, ESPN +/- +0.4: minutes 8 \u2192 20 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 2 of them, usage 22% \u2192 26%. Fits 3PM (losing). 2 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
+       "text": "Meleek Thomas (SG, CLE), free agent, 4% owned, ESPN +/- +0.4: minutes 8 \u2192 20 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 2 of them, usage 22% \u2192 26%. Fits 3PM (close). 2 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
        "short": "Meleek Thomas (CLE, FA 4%): minutes 8 \u2192 20, usage 22% \u2192 26%; fits 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3326,7 +3350,7 @@
        "name": "Meleek Thomas"
       },
       {
-       "text": "Kenrich Williams (SF, OKC), free agent, 0% owned: minutes 12 \u2192 21 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 13% \u2192 15%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (losing). 2 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
+       "text": "Kenrich Williams (SF, OKC), free agent, 0% owned: minutes 12 \u2192 21 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 13% \u2192 15%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (close). 2 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
        "short": "Kenrich Williams (OKC, FA 0%): minutes 12 \u2192 21, usage 13% \u2192 15%; fits 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3344,7 +3368,7 @@
        "name": "Kenrich Williams"
       },
       {
-       "text": "Caleb Martin (SG, DAL), free agent, 0% owned: minutes 0 \u2192 20 in his last 3 games (Oct 28\u2013Nov 2) vs 4 before, played 0 of them. Doesn't add much in the categories you need this week. 3 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
+       "text": "Caleb Martin (SG, DAL), free agent, 0% owned: minutes 0 \u2192 20 in his last 3 games (Oct 28\u2013Nov 2) vs 4 before, played 0 of them. Doesn't add much in the categories you need this week. 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
        "short": "Caleb Martin (DAL, FA 0%): minutes 0 \u2192 20 (ESPN game logs through Nov 2)",
        "links": [
         [
@@ -3429,12 +3453,12 @@
       }
      ],
      "need": [
-      "3PM (losing)"
+      "3PM (close)"
      ],
      "basis": "ESPN game logs through Nov 4; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "assets": null,
-    "built": "Wed 8:27p"
+    "built": "Wed 8:37p"
    }
   }
  }
