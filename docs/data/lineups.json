@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T22:07:00Z",
+ "updated": "2026-11-05T22:17:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-11-05T13:35:21Z",
-   "proj": 106.1,
+   "proj": 105.7,
    "starters": [
     {
      "slot": "QB",
@@ -51,7 +51,7 @@
      "opp": "@BAL",
      "kickoff": "2026-11-06T01:15:00Z",
      "started": false,
-     "proj": 12.8,
+     "proj": 12.4,
      "status": "Q",
      "why": "Yahoo: Questionable",
      "flags": [
@@ -217,7 +217,7 @@
     }
    ],
    "advice": {
-    "matchup": "106.1 projected",
+    "matchup": "105.7 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -239,7 +239,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "Domo Arigato": {
@@ -253,7 +253,7 @@
    "opponent": "CoachChrisSports",
    "opp_proj": 106.6,
    "roster_synced": null,
-   "proj": 122.9,
+   "proj": 122.5,
    "starters": [
     {
      "slot": "QB",
@@ -291,7 +291,7 @@
      "opp": "@BAL",
      "kickoff": "2026-11-06T01:15:00Z",
      "started": false,
-     "proj": 13.8,
+     "proj": 13.4,
      "status": "Q",
      "why": "Sleeper: Questionable",
      "flags": [
@@ -437,7 +437,7 @@
      "opp": "@BAL",
      "kickoff": "2026-11-06T01:15:00Z",
      "started": false,
-     "proj": 5.3,
+     "proj": 5.8,
      "status": null,
      "why": "",
      "flags": [],
@@ -452,10 +452,16 @@
      "kickoff": "2026-11-10T01:15:00Z",
      "started": false,
      "proj": 6.9,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "ESPN: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Coleman hauled in one catch for four yards on three targets in Sunday's 36-10 win against Baltimore.",
+      "at": "2026-11-03T01:18:01Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4635008/keon-coleman"
+     }
     },
     {
      "slot": "BN",
@@ -472,8 +478,8 @@
       "Q"
      ],
      "news": {
-      "note": "Wright (quadriceps) is taking part in practice Thursday, David Furones of the South Florida Sun Sentinel reports.",
-      "at": "2026-11-05T19:16:00Z",
+      "note": "Wright (quadriceps) was limited in Thursday's practice, Marcel Louis-Jacques of ESPN.com reports.",
+      "at": "2026-11-05T22:01:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4682745/jaylen-wright"
      }
     },
@@ -639,7 +645,7 @@
     }
    ],
    "advice": {
-    "matchup": "122.9 vs 106.6 (CoachChrisSports): projected to win by 16.3",
+    "matchup": "122.5 vs 106.6 (CoachChrisSports): projected to win by 15.9",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -715,7 +721,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "Guillotine": {
@@ -1039,7 +1045,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 4:07p",
+    "built": "Thu 4:17p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1047,15 +1053,15 @@
      "rank": 7,
      "gap": 21.1,
      "proj": 136.3,
-     "cut": 0.08,
-     "survive": 0.92,
+     "cut": 0.079,
+     "survive": 0.921,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "Aniasin1",
        "proj": 115.2,
-       "cut": 0.268,
+       "cut": 0.266,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -1063,15 +1069,15 @@
       {
        "name": "MoneyManChas",
        "proj": 116.7,
-       "cut": 0.249,
+       "cut": 0.248,
        "faab": 150,
        "bold": 0.2,
        "me": false
       },
       {
        "name": "robert8063",
-       "proj": 129.5,
-       "cut": 0.129,
+       "proj": 129.1,
+       "cut": 0.133,
        "faab": 26,
        "bold": 0.57,
        "me": false
@@ -1079,7 +1085,7 @@
       {
        "name": "michaelbryan",
        "proj": 136.3,
-       "cut": 0.08,
+       "cut": 0.079,
        "faab": 10,
        "bold": 0.58,
        "me": true
@@ -1094,8 +1100,8 @@
       },
       {
        "name": "GoodFellas",
-       "proj": 139.7,
-       "cut": 0.06,
+       "proj": 139.6,
+       "cut": 0.061,
        "faab": 20,
        "bold": 0.74,
        "me": false
@@ -1127,7 +1133,7 @@
       {
        "name": "SteelRob420",
        "proj": 152.0,
-       "cut": 0.026,
+       "cut": 0.025,
        "faab": 16,
        "bold": 0.98,
        "me": false
@@ -1205,7 +1211,7 @@
      ],
      "freed": {
       "team": "Aniasin1",
-      "cut": 0.268,
+      "cut": 0.266,
       "players": [
        {
         "name": "Brock Bowers",
@@ -1250,7 +1256,7 @@
          },
          {
           "name": "GoodFellas",
-          "bid": 2
+          "bid": 3
          }
         ],
         "freed_from": "Aniasin1"
@@ -1711,7 +1717,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "Stempak": {
@@ -1860,10 +1866,16 @@
      "kickoff": "2026-11-10T01:15:00Z",
      "started": false,
      "proj": 8.6,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "ESPN: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Bowen: Six players you can now trust in lineups, four that you cannot any longer",
+      "at": "2026-11-05T15:11:19Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4385690/dalton-kincaid"
+     }
     },
     {
      "slot": "K",
@@ -2072,7 +2084,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "Bro-vid19": {
@@ -2413,7 +2425,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "3-Ball BB": {
@@ -2861,7 +2873,7 @@
        "name": "Dean Wade"
       },
       {
-       "text": "Nolan Traore (PG, BKN), free agent, 5% owned, ESPN +/- +1.9: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 5 before, since Egor Demin went out [ESPN Oct 29: Out, The Nets exercised Demin's third-year team option for the 2027-28 season, Sharif\u2026]. Fits STL (close), 3PM (losing). 2 games left this week, 2 next week (back-to-back Sat\u2013Sun).",
+       "text": "Nolan Traore (PG, BKN), free agent, 5% owned, ESPN +/- +2.0: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 5 before, since Egor Demin went out [ESPN Oct 29: Out, The Nets exercised Demin's third-year team option for the 2027-28 season, Sharif\u2026]. Fits STL (close), 3PM (losing). 2 games left this week, 2 next week (back-to-back Sat\u2013Sun).",
        "short": "Nolan Traore (BKN, FA 5%): minutes 19 \u2192 27; fits STL, 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2879,7 +2891,7 @@
        "name": "Nolan Traore"
       },
       {
-       "text": "Jake LaRavia (PF, LAL), free agent, 8% owned, ESPN +/- -0.1: minutes 19 \u2192 24 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 10% \u2192 12%, started 3 of 3 (2 of 6 before). Fits STL (close). 2 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "text": "Jake LaRavia (PF, LAL), free agent, 8% owned, ESPN +/- -0.2: minutes 19 \u2192 24 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 10% \u2192 12%, started 3 of 3 (2 of 6 before). Fits STL (close). 2 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
        "short": "Jake LaRavia (LAL, FA 8%): minutes 19 \u2192 24, usage 10% \u2192 12%, now starting; fits STL (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2893,7 +2905,7 @@
        "name": "Jake LaRavia"
       },
       {
-       "text": "Karlo Matkovic (PF, NO), free agent, 4% owned, ESPN +/- -0.2: minutes 13 \u2192 23 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 4 of them, started 3 of 3 (1 of 5 before), since Yves Missi went out [ESPN Nov 5: Out, Missi (knee) is out for Friday's game against Minnesota.]. Fits STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
+       "text": "Karlo Matkovic (PF, NO), free agent, 4% owned, ESPN +/- -0.3: minutes 13 \u2192 23 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 4 of them, started 3 of 3 (1 of 5 before), since Yves Missi went out [ESPN Nov 5: Out, Missi (knee) is out for Friday's game against Minnesota.]. Fits STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
        "short": "Karlo Matkovic (NO, FA 4%): minutes 13 \u2192 23, now starting; fits STL, 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2996,7 +3008,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   },
   "Ball is Life": {
@@ -3410,7 +3422,7 @@
        "name": "Kenrich Williams"
       },
       {
-       "text": "Nolan Traore (PG, BKN), free agent, 5% owned, ESPN +/- +1.9: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 5 before, since Egor Demin went out [ESPN Oct 29: Out, The Nets exercised Demin's third-year team option for the 2027-28 season, Sharif\u2026]. Fits 3PM (losing). 2 games left this week, 2 next week (back-to-back Sat\u2013Sun).",
+       "text": "Nolan Traore (PG, BKN), free agent, 5% owned, ESPN +/- +2.0: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 5 before, since Egor Demin went out [ESPN Oct 29: Out, The Nets exercised Demin's third-year team option for the 2027-28 season, Sharif\u2026]. Fits 3PM (losing). 2 games left this week, 2 next week (back-to-back Sat\u2013Sun).",
        "short": "Nolan Traore (BKN, FA 5%): minutes 19 \u2192 27; fits 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3513,7 +3525,7 @@
      "basis": "ESPN game logs through Nov 4; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "assets": null,
-    "built": "Thu 4:07p"
+    "built": "Thu 4:17p"
    }
   }
  }
