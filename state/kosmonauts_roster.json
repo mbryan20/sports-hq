@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-05T13:35:21Z",
+ "captured": "2026-11-05T22:34:30Z",
  "players": [
   {
    "slot": "QB",
@@ -135,7 +135,7 @@
   },
   {
    "slot": "DEF",
-   "name": "Kansas City",
+   "name": "Chiefs",
    "yahoo_id": "100012",
    "key": null,
    "team": "KC",
@@ -161,18 +161,6 @@
   },
   {
    "slot": "FA",
-   "name": "Sam Darnold",
-   "yahoo_id": "30973",
-   "key": null,
-   "team": "SEA",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Justin Herbert",
    "yahoo_id": "32676",
    "key": null,
@@ -182,6 +170,18 @@
     "QB"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Sam Darnold",
+   "yahoo_id": "30973",
+   "key": null,
+   "team": "SEA",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -409,7 +409,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -425,18 +425,6 @@
   },
   {
    "slot": "FA",
-   "name": "MarShawn Lloyd",
-   "yahoo_id": "40971",
-   "key": null,
-   "team": "GB",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Kaelon Black",
    "yahoo_id": "42712",
    "key": null,
@@ -449,10 +437,10 @@
   },
   {
    "slot": "FA",
-   "name": "Emanuel Wilson",
-   "yahoo_id": "40707",
+   "name": "Chris Rodriguez Jr.",
+   "yahoo_id": "40231",
    "key": null,
-   "team": "SEA",
+   "team": "JAX",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -461,10 +449,22 @@
   },
   {
    "slot": "FA",
-   "name": "Chris Rodriguez Jr.",
-   "yahoo_id": "40231",
+   "name": "MarShawn Lloyd",
+   "yahoo_id": "40971",
    "key": null,
-   "team": "JAX",
+   "team": "GB",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Emanuel Wilson",
+   "yahoo_id": "40707",
+   "key": null,
+   "team": "SEA",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -617,18 +617,6 @@
   },
   {
    "slot": "FA",
-   "name": "Makai Lemon",
-   "yahoo_id": "42642",
-   "key": null,
-   "team": "PHI",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Courtland Sutton",
    "yahoo_id": "31010",
    "key": null,
@@ -641,10 +629,10 @@
   },
   {
    "slot": "FA",
-   "name": "Wan'Dale Robinson",
-   "yahoo_id": "33998",
+   "name": "Makai Lemon",
+   "yahoo_id": "42642",
    "key": null,
-   "team": "TEN",
+   "team": "PHI",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -665,15 +653,15 @@
   },
   {
    "slot": "FA",
-   "name": "Alec Pierce",
-   "yahoo_id": "34008",
+   "name": "Wan'Dale Robinson",
+   "yahoo_id": "33998",
    "key": null,
-   "team": "IND",
+   "team": "TEN",
    "pos": "WR",
    "eligible": [
     "WR"
    ],
-   "status": "IR"
+   "status": null
   },
   {
    "slot": "FA",
@@ -686,6 +674,18 @@
     "WR"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Alec Pierce",
+   "yahoo_id": "34008",
+   "key": null,
+   "team": "IND",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR"
   },
   {
    "slot": "FA",
@@ -881,18 +881,6 @@
   },
   {
    "slot": "FA",
-   "name": "Chase McLaughlin",
-   "yahoo_id": "32417",
-   "key": null,
-   "team": "TB",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Eddy Pineiro",
    "yahoo_id": "31482",
    "key": null,
@@ -905,10 +893,22 @@
   },
   {
    "slot": "FA",
-   "name": "Trey Smack",
-   "yahoo_id": "42838",
+   "name": "Tyler Loop",
+   "yahoo_id": "41988",
    "key": null,
-   "team": "GB",
+   "team": "BAL",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Cameron Dicker",
+   "yahoo_id": "34344",
+   "key": null,
+   "team": "LAC",
    "pos": "K",
    "eligible": [
     "K"
@@ -917,10 +917,10 @@
   },
   {
    "slot": "FA",
-   "name": "Cameron Dicker",
-   "yahoo_id": "34344",
+   "name": "Trey Smack",
+   "yahoo_id": "42838",
    "key": null,
-   "team": "LAC",
+   "team": "GB",
    "pos": "K",
    "eligible": [
     "K"
@@ -977,6 +977,18 @@
   },
   {
    "slot": "FA",
+   "name": "Brandon McManus",
+   "yahoo_id": "27120",
+   "key": null,
+   "team": "LAR",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Nick Folk",
    "yahoo_id": "8432",
    "key": null,
@@ -1001,15 +1013,15 @@
   },
   {
    "slot": "FA",
-   "name": "Brandon McManus",
-   "yahoo_id": "27120",
+   "name": "Jake Elliott",
+   "yahoo_id": "30266",
    "key": null,
-   "team": "LAR",
+   "team": "PHI",
    "pos": "K",
    "eligible": [
     "K"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -1025,18 +1037,6 @@
   },
   {
    "slot": "FA",
-   "name": "Jake Elliott",
-   "yahoo_id": "30266",
-   "key": null,
-   "team": "PHI",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Ryan Fitzgerald",
    "yahoo_id": "42262",
    "key": null,
@@ -1049,10 +1049,10 @@
   },
   {
    "slot": "FA",
-   "name": "Bengals",
-   "yahoo_id": "100004",
+   "name": "Bears",
+   "yahoo_id": "100003",
    "key": null,
-   "team": "CIN",
+   "team": "CHI",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1061,10 +1061,10 @@
   },
   {
    "slot": "FA",
-   "name": "Bears",
-   "yahoo_id": "100003",
+   "name": "Bengals",
+   "yahoo_id": "100004",
    "key": null,
-   "team": "CHI",
+   "team": "CIN",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-05T13:35:21Z"
+ "fa_captured": "2026-11-05T22:34:30Z"
 }
