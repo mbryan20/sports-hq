@@ -14,7 +14,7 @@ from . import model as M
 from .market import lines
 from .lines import overlay
 from .names import norm
-from .push import compose as push_compose
+from .push import compose as push_compose, _kick_dt
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
@@ -135,19 +135,59 @@ def anchored(W, g):
             np.maximum(np.rint(S["a"] + ta - S["a"].mean()), 0).astype(int))
 
 
-def research_why(S, g):
-    """Most material research item for the game, prefixed with the team it concerns."""
-    items = [a for a in S["why"] if abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)) >= 1]
+def yahoo_deadline(y):
+    """Yahoo games lock 5 minutes before kickoff; name the first lock from the slate's kicks ('Fri 11/06 6:00 PM' CT)."""
+    kicks = [k for k in (_kick_dt(g.get("kick")) for g in y.get("games", [])) if k]
+    if not kicks:
+        return "Games lock 5 min before kickoff"
+    k = min(kicks) - timedelta(minutes=5)
+    return f"Games lock 5 min before kickoff; first lock {k:%a} {k.hour % 12 or 12}:{k:%M}{'pm' if k.hour >= 12 else 'am'} CT"
+
+
+def favors(a, team):
+    """True when research item `a` helps `team`'s margin (off_pts < 0 hurts a.team, def_pts > 0 hurts it),
+    so a pick's reason never cites news that argues for the other side (Nov 4: 'Sayin out' as the Ohio St. reason)."""
+    edge = a.get("off_pts", 0) - a.get("def_pts", 0)
+    return (edge if norm(a["team"]) == norm(team) else -edge) > 0
+
+
+def research_why(S, g, team=None):
+    """Most material research item for the game that favors `team`, prefixed with the team it concerns."""
+    items = [a for a in S["why"] if abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)) >= 1
+             and (team is None or favors(a, team))]
+    if team is not None:
+        net = sum((1 if norm(a["team"]) == norm(team) else -1) * (a.get("off_pts", 0) - a.get("def_pts", 0)) for a in S["why"])
+        if net <= 0:
+            items = []  # the week's news on balance hurts the pick (Nov 4: Oregon's QB note cited for Ohio St. with Sayin out)
     if not items:
         return None, None
     a = max(items, key=lambda a: abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)))
     return short(f"{a['team']}: {a['reason']}"), a["source"]
 
 
-def ats_why(S):
-    """ATS reasons: unpriced research items only, most material first."""
-    items = [a for a in S["why"] if not a.get("priced")]
+def ats_why(S, team=None):
+    """ATS reasons: unpriced research items that favor `team`, most material first."""
+    items = [a for a in S["why"] if not a.get("priced") and (team is None or favors(a, team))]
     return sorted(items, key=lambda a: -(abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0))))
+
+
+def market_side_line(W, sg, g, side_home):
+    """The market's spread for the pool side (home line flipped for the away side), or None."""
+    if g is not None:
+        mk = (W.lines.get(g["id"]) or {}).get("home_spread")
+        if mk is not None and norm(sg["home"]) != norm(g["homeTeam"]):
+            mk = -mk
+    else:
+        mk = sg.get("market_home_spread")
+    return None if mk is None else (mk if side_home else -mk)
+
+
+def gap_why(line, mkt, p, lp=0):
+    """ATS fallback reason: the pool line vs the market, which is the edge when no news favors the side."""
+    tail = f"cover {p*100:.0f}%" + (" after line points" if lp else "")
+    if mkt is not None and mkt != line:
+        return short(f"Pool {line:+g} vs market {mkt:+g}; {tail}")
+    return short(f"Cover {p*100:.0f}% vs pool line at current market; top edge")
 
 
 def src_link(g, research):
@@ -244,7 +284,7 @@ def build_yahoo(W, slate):
         pm = r["pm"] if home_pick else 1 - r["pm"]
         pk = None if r["pk"] is None else (r["pk"] if home_pick else 1 - r["pk"])
         is_dog = i in chosen
-        rwhy, rsrc = research_why(S, g)
+        rwhy, rsrc = research_why(S, g, pick)
         if is_dog:
             why = short(f"Upset: {', '.join(r['signals'])}; group on favorite")
         elif rwhy:
@@ -269,7 +309,7 @@ def build_yahoo(W, slate):
     n_dogs = len(chosen)
     watch = upset_watch(rows, picks, chosen, pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
     return {
-        "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": "Each game locks at kickoff; first Fri 6:30pm CT",
+        "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": yahoo_deadline(y),
         "rows": out,
         "tiebreakers": [
             *[f"TB1 {k}: <b>{v['pick']}</b> (alt {v['alt']})" for k, v in tb1.items()],
@@ -409,14 +449,15 @@ def build_cfp_slate(W, slate):
     c = slate["cfp"]
     cands = []
     for sg in c["games"]:
-        g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g); S = {**S, "why": ats_why(S)}
+        g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g)
         home_line = sg["home_spread"]
         if norm(sg["home"]) != norm(g["homeTeam"]):
             m = -m
         ph = p_cover(m, home_line)
         sh = ph >= 0.5
+        S = {**S, "why": ats_why(S, sg["home"] if sh else sg["away"])}
         cands.append({"sg": sg, "g": g, "S": S, "home": sh, "p": ph if sh else 1 - ph, "mkt": W.lines.get(g["id"]),
-                      "line": home_line if sh else -home_line})
+                      "line": home_line if sh else -home_line, "mkt_line": market_side_line(W, sg, g, sh)})
     cands.sort(key=lambda x: -x["p"])
     best, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands],
                              weeks_left=c.get("weeks_left", 6), rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True))
@@ -425,13 +466,13 @@ def build_cfp_slate(W, slate):
     for x in cands[:nb]:
         team = x["sg"]["home"] if x["home"] else x["sg"]["away"]
         rows.append({"game": f"{x['sg']['away']} @ {x['sg']['home']}", "pick": f"{team} {x['line']:+g}", "model": x["p"], "market": 0.5,
-                     "wager": f"{stake:,}", "why": short(x["S"]["why"][0]["reason"]) if x["S"]["why"] else short(f"Cover {x['p']*100:.0f}% vs pool line at current market; top edge"),
+                     "wager": f"{stake:,}", "why": short(f"{x['S']['why'][0]['team']}: {x['S']['why'][0]['reason']}") if x["S"]["why"] else gap_why(x["line"], x["mkt_line"], x["p"]),
                      "source": src_link(x["g"], x["S"]["why"]), "key": f"{x['sg']['away']}@{x['sg']['home']}", "pick_team": team})
     alt = sorted(table, key=lambda r: -r["p_first"])[1]
 
     def side(x):
         team = x["sg"]["home"] if x["home"] else x["sg"]["away"]
-        why = short(x["S"]["why"][0]["reason"]) if x["S"]["why"] else "next-best edge vs pool line"
+        why = short(f"{x['S']['why'][0]['team']}: {x['S']['why'][0]['reason']}") if x["S"]["why"] else "next-best edge vs pool line"
         return f"{team} {x['line']:+g} (cover {x['p']*100:.0f}%): {why}"
 
     # the next-best sides, so a primary pick never hides options worth a look (each has a breakdown below)
@@ -463,15 +504,19 @@ def build_bto_slate(W, slate):
         if sg.get("locked"):
             continue
         if sg["league"] == "CFB":
-            g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g); why = ats_why(S); src = src_link(g, why)
+            g = W.find(sg["away"], sg["home"]); m, S = fair_margins(W, g)
             if norm(sg["home"]) != norm(g["homeTeam"]):
                 m = -m
         else:
+            g = None
             m, src, why = nfl_sim(sg, W.rng)
         for side_home in (True, False):
             line = sg["home_spread"] if side_home else -sg["home_spread"]
             mm = m if side_home else -m
-            cands.append({"sg": sg, "home": side_home, "margin": mm, "line": line, "p": p_cover(mm, line), "src": src, "why": why})
+            if sg["league"] == "CFB":
+                why = ats_why(S, sg["home"] if side_home else sg["away"]); src = src_link(g, why)
+            cands.append({"sg": sg, "home": side_home, "margin": mm, "line": line, "p": p_cover(mm, line), "src": src, "why": why,
+                          "mkt_line": market_side_line(W, sg, g, side_home)})
     big = max((c for c in cands if c["sg"].get("big")), key=lambda c: c["p"])
     others = sorted((c for c in cands if not c["sg"].get("big") and c["sg"] is not big["sg"]), key=lambda c: -c["p"])
     seen, pick = set(), [big]
@@ -488,7 +533,8 @@ def build_bto_slate(W, slate):
         team = c["sg"]["home"] if c["home"] else c["sg"]["away"]
         rows.append({"game": f"{c['sg']['away']} @ {c['sg']['home']}" + (" ★" if c["sg"].get("big") else ""),
                      "pick": f"{team} {c['line']+l:+g}" + (f" (LP {l:g})" if l else ""), "model": p, "market": 0.5,
-                     "wager": f"${s:,}", "why": short(c["why"][0]["reason"]) if c["why"] else short(f"Cover {p*100:.0f}% after line points; strongest edge"),
+                     "wager": f"${s:,}", "why": (short(f"{c['why'][0]['team']}: {c['why'][0]['reason']}") if "team" in c["why"][0] else short(c["why"][0]["reason"]))
+                     if c["why"] else gap_why(c["line"], c["mkt_line"], p, l),
                      "source": c["src"], "key": f"{c['sg']['away']}@{c['sg']['home']}", "pick_team": team})
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
             "notes": [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."]}

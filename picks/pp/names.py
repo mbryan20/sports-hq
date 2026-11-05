@@ -2,7 +2,8 @@
 import re, unicodedata
 
 ALIASES = {"miami (fl)": "miami", "n. carolina": "north carolina", "sdsu": "san diego state",
-           "connecticut": "uconn", "boston coll.": "boston college", "n. dak. st.": "north dakota state", "byu": "byu", "ole miss": "ole miss"}
+           "connecticut": "uconn", "boston coll.": "boston college", "n. dak. st.": "north dakota state", "byu": "byu", "ole miss": "ole miss",
+           "mississippi": "ole miss"}
 
 
 def norm(name):

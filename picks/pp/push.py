@@ -13,7 +13,7 @@ Inputs: data/cards.json (the card) and slates/<year>-wNN.json, where the laptop 
 Usage: py -m pp.push [--week NN] [--due bto,cfp,yahoo]   (prints the push; pp.publish sends it)
 """
 import argparse, json, re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from .names import norm
@@ -134,6 +134,23 @@ def compare_yahoo(card, saved, slate_games, now):
     return status, lines, unsaved
 
 
+def early_lock(card, saved, games, now):
+    """BTO games lock at kickoff, so a package touching a Thursday game must be edited before that kickoff,
+    not by the Friday deadline (Nov 4: Michael's saved JAX bet locked Thu 7:15pm)."""
+    if card["id"] != "bto":
+        return ""
+    keys = {r["key"] for r in card["rows"]} | {b["key"] for b in (saved or {}).get("bets") or []}
+    kicks = [(_kick_dt(g.get("kick")), g) for g in games if f"{g['away']}@{g['home']}" in keys and not g.get("locked")]
+    if now.weekday() > 4:
+        return ""  # Sat/Sun: this week's Friday deadline has passed
+    deadline = (now + timedelta(days=4 - now.weekday())).replace(hour=20, minute=0, second=0, microsecond=0)  # Fri 8pm
+    kicks = [(k, g) for k, g in kicks if k and now < k < deadline]
+    if not kicks:
+        return ""
+    k, g = min(kicks, key=lambda x: x[0])
+    return f". Edit by {k:%a} {k.hour % 12 or 12}:{k:%M}{'pm' if k.hour >= 12 else 'am'} ({g['away']}@{g['home']} locks then)"
+
+
 def pool_line(card, status, unsaved=()):
     pid = card["id"]
     head = f"{LABEL[pid]} ({LOCKS[pid]})" if pid in LOCKS else LABEL[pid]
@@ -179,7 +196,7 @@ def compose(cards, slate, due=None, now=None, final_call=False):
             status, ch = compare_ats(c, saved)
             unsaved = []
             if ch:
-                alerts.append(ch)
+                alerts.append(ch + early_lock(c, saved, (slate.get(pid) or {}).get("games") or [], now))
         if pid in due:
             line = pool_line(c, status, unsaved)
             if status == "unread" and c["rows"]:
