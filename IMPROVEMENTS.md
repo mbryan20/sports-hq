@@ -22,7 +22,7 @@ Measure (the health.json check that should move), Design, Decision.
 ## Open
 
 ### Q-026 · B1: NBA players had no value (every one showed "proj 0.0")
-- **Status:** shipped (COMMIT_B1)
+- **Status:** shipped (70ff3ff)
 - **Area:** `shq/nba_values.py` (new), `shq/radar.py` `fetch_pool`/`compact` (adds ESPN's season projection and games played),
   `shq/advice.py` `player_values`, `shq/run.py` (writes `docs/data/players.json`), `docs/lib/core.js` `prow`
 - **Rank:** —
