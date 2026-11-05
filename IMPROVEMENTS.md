@@ -21,6 +21,32 @@ Measure (the health.json check that should move), Design, Decision.
 
 ## Open
 
+### Q-026 · B1: NBA players had no value (every one showed "proj 0.0")
+- **Status:** shipped (COMMIT_B1)
+- **Area:** `shq/nba_values.py` (new), `shq/radar.py` `fetch_pool`/`compact` (adds ESPN's season projection and games played),
+  `shq/advice.py` `player_values`, `shq/run.py` (writes `docs/data/players.json`), `docs/lib/core.js` `prow`
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal `sports-hq-improvements-2026-11-05.md` (item B1)
+- **Evidence:** Nov 5 6am: every NBA player showed "proj 0.0" (category leagues have no points); ROADMAP listed "NBA trade
+  values and ROS waiver ranking: not covered"; pickups were ranked by % owned.
+- **Expected impact:** a real number and rank on every NBA player, rostered or free agent, in each league's own categories,
+  per game and for this week.
+- **Effort:** M
+- **Risk:** Low
+- **Measure:** — (one-off; later: does the value rank of players added beat the old % owned picks, like the radar backtest)
+- **Design:** value per game = the league's own scoring categories (read from the snapshot; both leagues are 8-cat today) as
+  z-scores against the top N players, N = teams × non-IR roster spots (170 in 3-Ball, 168 in Ball is Life); two passes (all
+  players, then the top N of pass one). Ratio cats count made above that group's rate times attempts; reversed cats (TO)
+  count negative. This week = (value − the value of player N, a waiver-level player) × games left this matchup not yet
+  tipped, 0 while out on ESPN's injury report. Stats: this season's per-game averages once a player has 5 games, ESPN's
+  season projection before that; each player carries `src` and games played, and the roster rows say "8 g" or "ESPN proj".
+  One ESPN read covers both leagues (the radar's ~1,000-player pool, now also asking for `10<season>`); Ball is Life's
+  owners come from its laptop snapshot. Choices: no blend of projection and season stats (the brief said 5 games); early in
+  the season that makes slow starters rank low (Mikal Bridges #261 on 6.2 pts, 33% FG through 8 games). If that looks
+  wrong in a few weeks, blend toward the projection by games played. `players.json` is written one player per line so the
+  10-minute data commits stay small diffs (~185 KB, top 300 per league plus everyone rostered).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

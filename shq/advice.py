@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_values, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -115,6 +115,20 @@ def trend_radar(league, cats):
         return None
 
 
+def player_values(league):
+    """NBA category value for every player (shq/nba_values.py), also put on my roster rows. Best-effort: without it
+    the tab keeps the category table and radar."""
+    try:
+        league.values = nba_values.build(league)
+    except Exception:
+        traceback.print_exc()
+        league.values = None
+    ids = nba_values.by_id(league.values)
+    for p in league.starters + league.bench + getattr(league, "ir_blocked", []):
+        p["val"] = nba_values.label(ids.get(str(p.get("key"))))
+    return league.values
+
+
 def build(league, now):
     standing = digest.standing_item(league)
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
@@ -125,6 +139,8 @@ def build(league, now):
     nba = getattr(league, "sport", "nfl") == "nba"
     cats = categories.build(league) if nba else None
     league.radar = trend_radar(league, cats) if nba else None
+    if nba:
+        player_values(league)
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),

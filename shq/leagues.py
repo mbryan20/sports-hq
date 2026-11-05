@@ -409,7 +409,7 @@ def view(league, advice=None):
             flags.append("NO TEAM")
         return {"slot": p["slot"], "name": p["name"], "team": p["team"], "pos": "/".join(p["positions"][:2]),
                 "opp": p["opp"], "kickoff": iso(p["kickoff"]), "started": p["started"], "proj": p["proj"],
-                "status": p["status"], "why": p["why"], "flags": flags,
+                "status": p["status"], "why": p["why"], "flags": flags, **({"val": p["val"]} if p.get("val") else {}),
                 "news": {**p["news"], "at": iso(p["news"]["at"])} if p.get("news") and p["status"] else None}
     return {
         "name": league.name, "platform": league.platform, "week": league.week,

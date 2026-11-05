@@ -26,6 +26,7 @@ from .status import OUTISH, norm
 
 SOURCE = next(c for c in LEAGUES if c["sport"] == "nba" and not c.get("private"))   # public 3-Ball BB
 POOL_FILE, POOL_MAX_AGE = CACHE / "nba_pool.json", 3000         # the pool only changes when games finish
+POOL_VERSION = 2                                                # 2: adds ESPN's season projection (shq/nba_values.py)
 OWNED = STATE / "nba_owned.json"                                # daily % rostered, for the market signal
 KEEP = [str(k) for k in (0, 1, 2, 3, 4, 5, 6, 11, 13, 14, 15, 16, 17, 18, 37, 38, 40, 41)]   # 40 MIN, 41 started
 
@@ -44,30 +45,33 @@ GAMELOG = "https://www.espn.com/nba/player/gamelog/_/id/{}"
 def fetch_pool(season=SOURCE["season"], league_id=SOURCE["league_id"]):
     """{espn id: compact player} for every NBA player ESPN carries, cached ~50 min."""
     hit = load_json(POOL_FILE)
-    if hit and hit.get("season") == season and time.time() - hit["t"] < POOL_MAX_AGE:
+    if hit and hit.get("season") == season and hit.get("v") == POOL_VERSION and time.time() - hit["t"] < POOL_MAX_AGE:
         return hit["players"]
     filt = {"players": {"filterStatus": {"value": ["FREEAGENT", "WAIVERS", "ONTEAM"]}, "limit": 1000,
                         "sortPercOwned": {"sortPriority": 1, "sortAsc": False},
-                        "filterStatsForTopScoringPeriodIds": {"value": 20, "additionalValue": [f"00{season}"]}}}
+                        "filterStatsForTopScoringPeriodIds": {"value": 20, "additionalValue": [f"00{season}", f"10{season}"]}}}
     raw = get_json(ef._url("nba", season, league_id), {"view": "kona_player_info"},
                    headers={"X-Fantasy-Filter": json.dumps(filt)})
     players = {str(e["player"]["id"]): compact(e["player"], season) for e in raw.get("players") or []}
     CACHE.mkdir(exist_ok=True)
-    POOL_FILE.write_text(json.dumps({"t": time.time(), "season": season, "players": players}), encoding="utf-8")
+    POOL_FILE.write_text(json.dumps({"t": time.time(), "v": POOL_VERSION, "season": season, "players": players}), encoding="utf-8")
     return players
 
 
 def compact(p, season):
-    """Name, team, ownership, season averages and this season's game logs [period, pro team, stats]."""
+    """Name, team, ownership, season averages, games played, ESPN's season projection (per game) and this season's
+    game logs [period, pro team, stats]."""
     pick = lambda st: {k: round(v, 2) for k, v in (st or {}).items() if k in KEEP and v}
-    season_avg = next((s.get("averageStats") for s in p.get("stats") or [] if s.get("id") == f"00{season}"), None)
+    avg = lambda sid: next((s.get("averageStats") for s in p.get("stats") or [] if s.get("id") == sid), None)
+    season_avg = avg(f"00{season}")
     games = sorted([s["scoringPeriodId"], s.get("proTeamId"), pick(s.get("stats"))] for s in p.get("stats") or []
                    if s.get("statSplitTypeId") == 5 and s.get("seasonId") == season and (s.get("stats") or {}).get("40"))
     own = p.get("ownership") or {}
     return {"name": p["fullName"], "team": p.get("proTeamId"), "pos": p.get("defaultPositionId"),
             "eligible": p.get("eligibleSlots") or [], "injury": p.get("injuryStatus"),
             "owned": round(own.get("percentOwned") or 0, 1), "change": round(own.get("percentChange") or 0, 1),
-            "season": pick(season_avg), "games": games}
+            "season": pick(season_avg), "gp": int((season_avg or {}).get("42") or 0),
+            "proj": pick(avg(f"10{season}")), "games": games}
 
 
 def track_ownership(pool, now):

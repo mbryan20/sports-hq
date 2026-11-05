@@ -7,7 +7,7 @@ import re
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, notify, radar, wrapup
+from . import advice, digest, espn, guillotine, nba_values, notify, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -297,6 +297,12 @@ def main():
     status["actions"] = actions
 
     save_json(DATA / "lineups.json", {"updated": iso(now), "week": ctx.week, "leagues": league_views})
+    try:   # NBA player values for the Players page (shq/nba_values.py)
+        nba_values.save(DATA / "players.json", {lg.name: getattr(lg, "values", None) for lg in leagues
+                                                 if getattr(lg, "sport", "nfl") == "nba"}, iso(now))
+    except Exception as e:
+        traceback.print_exc()
+        errors.append(f"players: {type(e).__name__}: {e}")
 
     today = load_json(DATA / "digest.json", {}) or {}
     if digest.due(now, parse_iso(today.get("generated"))) or os.environ.get("FORCE_DIGEST") == "1":

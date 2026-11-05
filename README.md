@@ -33,7 +33,9 @@ moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
 values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
 win/lose/close by the rest-of-week projection), which close categories to chase and with whom, and free agents
-strong in them (`shq/categories.py`), plus a **Trend radar** (`shq/radar.py`): free agents and bench players whose minutes, usage or starts just jumped (tied to the cited injury behind it and ranked by the categories I need), my players losing minutes, and who absorbs each injured starter's minutes, from ESPN game logs. Its top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
+strong in them (`shq/categories.py`), plus a **Trend radar** (`shq/radar.py`): free agents and bench players whose minutes, usage or starts just jumped (tied to the cited injury behind it and ranked by the categories I need), my players losing minutes, and who absorbs each injured starter's minutes, from ESPN game logs. Every NBA player also has a **category value** (`shq/nba_values.py`): value per game in that
+league's own categories, rank, and this week's value (games left), from this season's averages after 5 games and ESPN's
+projection before; it shows on each roster row and is written to `docs/data/players.json`. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.
