@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T20:47:00Z",
+ "updated": "2026-11-05T20:57:01Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -239,7 +239,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "Domo Arigato": {
@@ -715,7 +715,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "Guillotine": {
@@ -966,7 +966,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 7 of 10 this week, +22.3 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 7 of 10 this week, +20.6 pts vs the lowest other team, 8% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -1039,39 +1039,39 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 2:47p",
+    "built": "Thu 2:57p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
      "rank": 7,
-     "gap": 22.3,
+     "gap": 20.6,
      "proj": 136.0,
-     "cut": 0.077,
-     "survive": 0.923,
+     "cut": 0.081,
+     "survive": 0.919,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
-       "name": "MoneyManChas",
-       "proj": 113.7,
-       "cut": 0.279,
-       "faab": 150,
-       "bold": 0.2,
-       "me": false
-      },
-      {
        "name": "Aniasin1",
        "proj": 115.4,
-       "cut": 0.256,
+       "cut": 0.265,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
+       "name": "MoneyManChas",
+       "proj": 116.7,
+       "cut": 0.249,
+       "faab": 150,
+       "bold": 0.2,
+       "me": false
+      },
+      {
        "name": "robert8063",
        "proj": 129.5,
-       "cut": 0.124,
+       "cut": 0.13,
        "faab": 26,
        "bold": 0.57,
        "me": false
@@ -1079,7 +1079,7 @@
       {
        "name": "michaelbryan",
        "proj": 136.0,
-       "cut": 0.077,
+       "cut": 0.081,
        "faab": 10,
        "bold": 0.58,
        "me": true
@@ -1087,7 +1087,7 @@
       {
        "name": "CodyRust",
        "proj": 137.5,
-       "cut": 0.065,
+       "cut": 0.068,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -1095,7 +1095,7 @@
       {
        "name": "GoodFellas",
        "proj": 139.7,
-       "cut": 0.059,
+       "cut": 0.06,
        "faab": 20,
        "bold": 0.74,
        "me": false
@@ -1103,7 +1103,7 @@
       {
        "name": "Off with his head",
        "proj": 145.0,
-       "cut": 0.041,
+       "cut": 0.043,
        "faab": 95,
        "bold": 0.42,
        "me": false
@@ -1111,7 +1111,7 @@
       {
        "name": "JHED1979",
        "proj": 144.7,
-       "cut": 0.039,
+       "cut": 0.041,
        "faab": 22,
        "bold": 0.77,
        "me": false
@@ -1119,7 +1119,7 @@
       {
        "name": "Swegs4",
        "proj": 147.5,
-       "cut": 0.035,
+       "cut": 0.036,
        "faab": 8,
        "bold": 1.0,
        "me": false
@@ -1127,7 +1127,7 @@
       {
        "name": "SteelRob420",
        "proj": 152.0,
-       "cut": 0.025,
+       "cut": 0.026,
        "faab": 16,
        "bold": 0.98,
        "me": false
@@ -1154,15 +1154,11 @@
        "team": "PHI",
        "proj": 8.1,
        "gain": 1.6,
-       "cut_with": 0.069,
-       "price": 3,
+       "cut_with": 0.073,
+       "price": 2,
        "max": 0,
        "call": "priced out",
        "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 2
-        },
         {
          "name": "robert8063",
          "bid": 1
@@ -1176,7 +1172,7 @@
        "team": "NO",
        "proj": 8.1,
        "gain": 1.3,
-       "cut_with": 0.07,
+       "cut_with": 0.074,
        "price": 3,
        "max": 0,
        "call": "priced out",
@@ -1194,7 +1190,7 @@
        "team": "JAX",
        "proj": 7.8,
        "gain": 1.3,
-       "cut_with": 0.07,
+       "cut_with": 0.074,
        "price": 2,
        "max": 0,
        "call": "priced out",
@@ -1202,96 +1198,80 @@
         {
          "name": "robert8063",
          "bid": 1
-        },
-        {
-         "name": "MoneyManChas",
-         "bid": 1
         }
        ],
        "freed_from": null
       }
      ],
      "freed": {
-      "team": "MoneyManChas",
-      "cut": 0.279,
+      "team": "Aniasin1",
+      "cut": 0.265,
       "players": [
        {
-        "name": "Jonah Coleman",
-        "pos": "RB",
-        "team": "DEN",
-        "proj": 13.1,
-        "gain": 3.7,
-        "cut_with": 0.059,
-        "price": 11,
+        "name": "Brock Bowers",
+        "pos": "TE",
+        "team": "LV",
+        "proj": 15.2,
+        "gain": 8.7,
+        "cut_with": 0.044,
+        "price": 37,
         "max": 0,
         "call": "priced out",
         "rivals": [
          {
           "name": "Off with his head",
-          "bid": 10
+          "bid": 36
          },
          {
-          "name": "robert8063",
-          "bid": 10
+          "name": "MoneyManChas",
+          "bid": 34
          },
          {
           "name": "JHED1979",
-          "bid": 10
+          "bid": 16
          }
         ],
-        "freed_from": "MoneyManChas"
+        "freed_from": "Aniasin1"
        },
        {
-        "name": "Harold Fannin Jr.",
-        "pos": "TE",
-        "team": "CLE",
-        "proj": 9.3,
+        "name": "Josh Allen",
+        "pos": "QB",
+        "team": "BUF",
+        "proj": 24.2,
         "gain": 2.8,
-        "cut_with": 0.064,
-        "price": 4,
+        "cut_with": 0.067,
+        "price": 11,
         "max": 0,
         "call": "priced out",
         "rivals": [
          {
-          "name": "robert8063",
-          "bid": 3
+          "name": "MoneyManChas",
+          "bid": 10
          },
          {
           "name": "GoodFellas",
-          "bid": 1
-         },
-         {
-          "name": "JHED1979",
-          "bid": 1
+          "bid": 2
          }
         ],
-        "freed_from": "MoneyManChas"
+        "freed_from": "Aniasin1"
        },
        {
-        "name": "Saquon Barkley",
-        "pos": "RB",
-        "team": "PHI",
-        "proj": 12.0,
-        "gain": 2.6,
-        "cut_with": 0.064,
-        "price": 10,
+        "name": "Mike Gesicki",
+        "pos": "TE",
+        "team": "CIN",
+        "proj": 8.6,
+        "gain": 2.1,
+        "cut_with": 0.07,
+        "price": 3,
         "max": 0,
         "call": "priced out",
         "rivals": [
          {
           "name": "robert8063",
-          "bid": 9
-         },
-         {
-          "name": "JHED1979",
-          "bid": 7
-         },
-         {
-          "name": "GoodFellas",
-          "bid": 4
+          "bid": 2
          }
         ],
-        "freed_from": "MoneyManChas"
+        "freed_from": "Aniasin1"
        }
       ]
      }
@@ -1731,7 +1711,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "Stempak": {
@@ -2092,7 +2072,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "Bro-vid19": {
@@ -2433,7 +2413,7 @@
     "cats": null,
     "radar": null,
     "assets": null,
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "3-Ball BB": {
@@ -2831,7 +2811,7 @@
        "name": "Ayo Dosunmu"
       },
       {
-       "text": "Saddiq Bey (SF, NO), on your bench: start him: minutes 24 \u2192 30 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 21% \u2192 25%, since Yves Missi went out [ESPN Oct 30: Out, Missi (knee) won't play in Saturday's game against Atlanta.]. Fits PTS (close), STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
+       "text": "Saddiq Bey (SF, NO), on your bench: start him: minutes 24 \u2192 30 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 21% \u2192 25%, since Yves Missi went out [ESPN Nov 5: Out, Missi (knee) is out for Friday's game against Minnesota.]. Fits PTS (close), STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
        "short": "Saddiq Bey (NO, your bench): minutes 24 \u2192 30, usage 21% \u2192 25%; fits PTS, STL (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2839,7 +2819,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4397136"
         ],
         [
-         "ESPN Oct 30",
+         "ESPN Nov 5",
          "https://www.espn.com/nba/player/_/id/5061589/yves-missi"
         ]
        ],
@@ -2913,7 +2893,7 @@
        "name": "Jake LaRavia"
       },
       {
-       "text": "Karlo Matkovic (PF, NO), free agent, 4% owned, ESPN +/- -0.1: minutes 13 \u2192 23 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 4 of them, started 3 of 3 (1 of 5 before), since Yves Missi went out [ESPN Oct 30: Out, Missi (knee) won't play in Saturday's game against Atlanta.]. Fits STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
+       "text": "Karlo Matkovic (PF, NO), free agent, 4% owned, ESPN +/- -0.1: minutes 13 \u2192 23 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, played 4 of them, started 3 of 3 (1 of 5 before), since Yves Missi went out [ESPN Nov 5: Out, Missi (knee) is out for Friday's game against Minnesota.]. Fits STL (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Sun\u2013Mon).",
        "short": "Karlo Matkovic (NO, FA 4%): minutes 13 \u2192 23, now starting; fits STL, 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2921,7 +2901,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4997538"
         ],
         [
-         "ESPN Oct 30",
+         "ESPN Nov 5",
          "https://www.espn.com/nba/player/_/id/5061589/yves-missi"
         ]
        ],
@@ -3016,7 +2996,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   },
   "Ball is Life": {
@@ -3533,7 +3513,7 @@
      "basis": "ESPN game logs through Nov 4; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "assets": null,
-    "built": "Thu 2:47p"
+    "built": "Thu 2:57p"
    }
   }
  }
