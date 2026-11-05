@@ -48,7 +48,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
   pages), header links in `docs/index.html` and `docs/lab/b|c|d/`
 - **Rank:** —
