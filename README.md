@@ -20,7 +20,7 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | 3-Ball FB / 3-Ball BB | ESPN 3-Ball Dynasty (football, basketball) | ESPN API, public league (cloud) |
 | Stempak, Bro-vid19 | ESPN football, private | laptop snapshot with Michael's ESPN sign-in |
 | Ball is Life | ESPN "We playin basketball", 8-cat, private | laptop snapshot |
-| Weekly | start/sit + top 3 adds per league (basketball: games left, injuries) | Tuesday 7am CT |
+| Weekly | start/sit + top 3 adds per league (basketball: drop/add swaps on category value) | Tuesday 7am CT |
 | Wrap-up (`/wrapups/`, header link) | weekend wrap-up: every league's result, bench points, booms/busts, cited injuries, next week's moves, pools, War Room bids; a phone-sized PDF plus a web page, archived per week; push opens the PDF | cloud, Sunday night after the late games + final Tuesday 8am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
@@ -36,7 +36,10 @@ values; `shq/trades.py`), FAAB left. NBA category leagues also get a category ta
 win/lose/close by the rest-of-week projection), which close categories to chase and with whom, and free agents
 strong in them (`shq/categories.py`), plus a **Trend radar** (`shq/radar.py`): free agents and bench players whose minutes, usage or starts just jumped (tied to the cited injury behind it and ranked by the categories I need), my players losing minutes, and who absorbs each injured starter's minutes, from ESPN game logs. Every NBA player also has a **category value** (`shq/nba_values.py`): value per game in that
 league's own categories, rank, and this week's value (games left), from this season's averages after 5 games and ESPN's
-projection before; it shows on each roster row and is written to `docs/data/players.json`. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
+projection before; it shows on each roster row and is written to `docs/data/players.json`. Basketball **waiver adds are
+swaps** (`shq/nba_swaps.py`): "Drop X, add Y: +N this week (helps AST, 3PM)", up to 3, need-weighted by this week's
+categories, dead roster spots (no NBA team) first; dynasty never drops anyone 40%+ rostered or under 24 (ages from ESPN's
+team rosters, `shq/nba_ages.py`). The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.

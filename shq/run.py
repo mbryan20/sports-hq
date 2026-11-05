@@ -194,6 +194,9 @@ def nba_weekly_section(league):
     fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                  key=lambda t: (-t[0], -t[1]))[:3]
     adds = [f"Add {p['name']} ({'/'.join(p['positions'][:2])}, {p['team']}): {g} games left, {o}% owned" for g, o, p in fas]
+    swaps = getattr(league, "swaps", None)   # drop/add swaps on category value (shq/nba_swaps.py) when values exist
+    if swaps:
+        adds = swaps["lines"] or ["No free agent beats anyone on your roster by enough this week."]
     return {"name": league.name, "week": league.week, "start_sit": ss[:3],
             "adds": adds or ["No free agent data in the latest snapshot."]}
 

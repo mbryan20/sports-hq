@@ -13,10 +13,12 @@ Rank is by that value across the whole pool.
 This week: (value per game - a waiver-level player's) x games left this matchup that haven't tipped off, and 0 while
 he's out on ESPN's injury report. A waiver-level player is the one ranked just past what the league rosters."""
 import json
+import traceback
 from pathlib import Path
 
-from . import categories, radar
+from . import categories, nba_ages, radar
 from .common import load_json
+from .config import TZ
 from .espn_fantasy import NBA_STATS, RATIO, SLOT_NAMES
 
 MIN_GAMES = 5          # games before this season's averages replace ESPN's projection
@@ -112,7 +114,8 @@ def build(league, sc=None):
     """{"cats", "players": [...best first], "repl", "n", "basis"} for one NBA category league, or None when the
     pool read failed. Each player: id, name, team, pos, own ("me" / team name / None = free agent), src ("season" /
     "proj"), gp, min, v (value per game), rk, wk (this week), g [games left this week, next week], b2b, z (per cat,
-    in "cats" order), st (per-game stats in the same order), inj, dmin (minutes, last 3 games vs before), pct (% rostered)."""
+    in "cats" order), st (per-game stats in the same order), inj, dmin (minutes, last 3 games vs before), pct (% rostered),
+    age (years, None when ESPN's rosters don't list him)."""
     sc = sc or radar.scan_for(league)
     pool, roles = sc["pool"], sc.get("roles") or {}
     cats = league_cats(league)
@@ -128,6 +131,12 @@ def build(league, sc=None):
     order = sorted(vals, key=lambda i: -vals[i][0])
     repl = vals[order[min(n, len(order) - 1)]][0]
     own = owners(league)
+    try:
+        born = nba_ages.birth_dates()
+    except Exception:
+        traceback.print_exc()
+        born = {}
+    today = league.ctx.now.astimezone(TZ).date()
     out = []
     for rk, pid in enumerate(order, 1):
         if rk > KEEP and pid not in own:
@@ -146,6 +155,7 @@ def build(league, sc=None):
             "st": [shown(c, st) for c, _ in cats],
             "inj": entry.get("status") or (p.get("injury") if p.get("injury") not in (None, "ACTIVE") else None),
             "out": not healthy, "dmin": round(rl["dmin"], 1) if rl else None, "pct": p.get("owned", 0),
+            "age": nba_ages.age(born.get(pid), today),
         })
     return {"cats": [NBA_STATS[c] for c, _ in cats], "rev": [r for _, r in cats], "players": out, "repl": round(repl, 2),
             "n": n, "scale": {NBA_STATS[c]: [round(x, 4) if x is not None else None for x in scale[c]] for c, _ in cats},

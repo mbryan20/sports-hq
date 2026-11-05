@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_values, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_swaps, nba_values, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -65,6 +65,9 @@ def adds(league):
                              open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
                              budget=budget)
         return [waivers.line(a) for a in found] or ["No free agent improves your lineup, or beats a backup at his position, right now."]
+    if getattr(league, "sport", "nfl") == "nba" and getattr(league, "values", None):
+        league.swaps = nba_swaps.build(league, getattr(league, "cats", None))
+        return league.swaps["lines"] or ["No free agent beats anyone on your roster by enough this week."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
                      key=lambda t: (-t[0], -t[1]))[:3]
@@ -137,7 +140,7 @@ def build(league, now):
     if faab is not None:
         notes.append(f"FAAB left: ${faab}")
     nba = getattr(league, "sport", "nfl") == "nba"
-    cats = categories.build(league) if nba else None
+    cats = league.cats = categories.build(league) if nba else None
     league.radar = trend_radar(league, cats) if nba else None
     if nba:
         player_values(league)

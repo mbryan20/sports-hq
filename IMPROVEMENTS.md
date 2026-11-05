@@ -69,6 +69,30 @@ Measure (the health.json check that should move), Design, Decision.
   reach the page from the ▦ menu or the league page's Players button. Filters are kept per device (localStorage).
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-028 · B3: NBA pickups were ranked by % owned, not by what they do for my categories
+- **Status:** shipped (COMMIT_X)
+- **Area:** `shq/nba_swaps.py` (new), `shq/nba_ages.py` (new), `shq/nba_values.py` (age), `shq/advice.py` `adds`, `shq/run.py`
+  `nba_weekly_section`, `docs/players/index.html` (age in the detail row)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B3)
+- **Evidence:** Nov 5: "Collin Gillespie (PG, PHX): 2 games left this week, 38% owned" style lines, sorted by games then
+  % owned; Kevin Porter Jr. (no NBA team) sat on the 3-Ball bench unflagged.
+- **Expected impact:** 1-3 exact moves per basketball league that help this week's categories without hurting the season.
+- **Effort:** S
+- **Risk:** Low (ideas only)
+- **Measure:** — (one-off; could join the radar backtest later: did the suggested adds out-produce the drops?)
+- **Design:** a player's this-week worth = (need-weighted value per game − the waiver-level value) × games left, the same
+  "Wk" as the Players page with each category weighted by this week's outlook (close 1.5, lose 0.5, win 0.5, rescaled to
+  average 1; all 1 with no live matchup). Gain = add's worth − drop's. Choices: minimum gain +3 (at +2 Ball is Life got
+  near-even churn swaps, Draymond Green for Robert Williams III); the add may give up at most 1 value per game for the
+  rest of the season; no drops from IR slots (they free no spot) and no out adds; greedy pairing, each player once. A
+  player with no NBA team is a dead spot: listed first and always droppable. Dynasty (3-Ball): never drops anyone 40%+
+  rostered ESPN-wide or under 24. ESPN's fantasy pool has no ages, so `shq/nba_ages.py` reads the 30 public ESPN team
+  rosters (same player ids) once a day. On live data Nov 5: 3-Ball "Drop Kevin Porter Jr. (no NBA team, a dead roster
+  spot), add De'Anthony Melton: +3.4 this week (helps STL, 3PM)" and "Drop De'Andre Hunter, add Collin Gillespie: +10.1";
+  Kingston Flemings (rookie) is no longer offered as a drop. The Weekly tab uses the same lines.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

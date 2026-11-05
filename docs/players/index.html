@@ -138,7 +138,7 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
     const cats = `<table><tr><th></th>${L.cats.map(c => `<th>${esc(c)}</th>`).join("")}</tr>
       <tr><th>per game</th>${L.cats.map((c, i) => `<td>${statTxt(c, p.st[i])}</td>`).join("")}</tr>
       <tr><th>value (z)</th>${L.cats.map((c, i) => `<td class="${zc(p.z[i])}">${sgn(p.z[i])}</td>`).join("")}</tr></table>`;
-    return `<b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${esc(owner)}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
+    return `<b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)}${p.age ? ` · age ${Math.floor(p.age)}` : ""} · ${esc(owner)}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
       Value ${sgn(p.v)} per game (#${p.rk}) · this week ${sgn(p.wk)} (${p.g[0]} game${p.g[0] === 1 ? "" : "s"} left${p.out ? ", out" : ""}; ${p.g[1]} next week${p.b2b ? `, ${p.b2b} back-to-back${p.b2b > 1 ? "s" : ""}` : ""})<br>
       ${p.min} min${p.dmin != null ? ` (last 3 games ${sgn(p.dmin)} vs before)` : ""} · ${p.pct}% rostered on ESPN · from ${src}
       ${cats}<a href="https://www.espn.com/nba/player/gamelog/_/id/${esc(p.id)}" target="_blank" rel="noopener">ESPN game log</a>`;

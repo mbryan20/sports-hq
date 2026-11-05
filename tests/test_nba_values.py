@@ -9,7 +9,7 @@ from pathlib import Path
 
 os.environ["DRY_RUN"] = "1"
 
-from shq import advice, nba_values, radar
+from shq import advice, nba_ages, nba_values, radar
 from shq.leagues import EspnLeague
 
 NOW = dt.datetime(2026, 10, 28, 15, 0, tzinfo=dt.timezone.utc)      # Wed 10am CT, scoring period 9
@@ -69,12 +69,13 @@ def league():
 
 class Values(unittest.TestCase):
     def setUp(self):
-        self.saved = radar.fetch_pool, radar.track_ownership
+        self.saved = radar.fetch_pool, radar.track_ownership, nba_ages.birth_dates
         radar.fetch_pool = lambda *a, **k: POOL
         radar.track_ownership = lambda pool, now: {}
+        nba_ages.birth_dates = lambda: {"1": "2000-04-28"}
 
     def tearDown(self):
-        radar.fetch_pool, radar.track_ownership = self.saved
+        radar.fetch_pool, radar.track_ownership, nba_ages.birth_dates = self.saved
 
     def test_source_is_season_from_five_games_else_espn_projection(self):
         self.assertEqual(nba_values.per_game(POOL["1"])[1:], ("season", 8))
@@ -112,6 +113,7 @@ class Values(unittest.TestCase):
                          "out", "dmin", "pct"} <= set(by["1"]))
         self.assertEqual(len(by["1"]["z"]), len(b["cats"]))
         self.assertEqual(by["1"]["pos"], "PG/SG")
+        self.assertEqual((by["1"]["age"], by["2"]["age"]), (26.5, None))      # Oct 28 2026; no birth date = unknown
 
     def test_roster_rows_get_value_labels(self):
         lg = league()
