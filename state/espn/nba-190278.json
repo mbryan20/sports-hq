@@ -1,10 +1,10 @@
 {
- "captured": "2026-11-04T22:35:53.718Z",
+ "captured": "2026-11-05T13:35:59.437Z",
  "sport": "nba",
  "league_id": 190278,
  "season": 2027,
  "league_name": "We playin basketball",
- "scoring_period": 16,
+ "scoring_period": 17,
  "matchup_period": 3,
  "matchup_scoring_periods": [
   3
@@ -52,10 +52,10 @@
     13
    ],
    "pos": 4,
-   "injury": "DAY_TO_DAY",
+   "injury": "ACTIVE",
    "proj": null,
    "owned": 99.9,
-   "slot": 6
+   "slot": 3
   },
   {
    "id": 4432816,
@@ -73,7 +73,7 @@
    "injury": "ACTIVE",
    "proj": null,
    "owned": 99.6,
-   "slot": 0
+   "slot": 11
   },
   {
    "id": 4066457,
@@ -130,7 +130,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 91.7,
+   "owned": 91.4,
    "slot": 11
   },
   {
@@ -151,7 +151,7 @@
    "pos": 5,
    "injury": "OUT",
    "proj": null,
-   "owned": 64.6,
+   "owned": 64.2,
    "slot": 13
   },
   {
@@ -173,7 +173,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 88.4,
+   "owned": 88.5,
    "slot": 2
   },
   {
@@ -192,7 +192,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 86.7,
+   "owned": 86.8,
    "slot": 12
   },
   {
@@ -213,7 +213,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 57.1,
+   "owned": 56.3,
    "slot": 12
   },
   {
@@ -234,8 +234,8 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 23.6,
-   "slot": 12
+   "owned": 25.2,
+   "slot": 4
   },
   {
    "id": 4914336,
@@ -256,7 +256,7 @@
    "pos": 2,
    "injury": "OUT",
    "proj": null,
-   "owned": 6.9,
+   "owned": 6.8,
    "slot": 13
   },
   {
@@ -272,9 +272,9 @@
     13
    ],
    "pos": 5,
-   "injury": "ACTIVE",
+   "injury": "DAY_TO_DAY",
    "proj": null,
-   "owned": 11.3,
+   "owned": 11,
    "slot": 12
   },
   {
@@ -296,7 +296,7 @@
    "pos": 3,
    "injury": "OUT",
    "proj": null,
-   "owned": 44.5,
+   "owned": 43.6,
    "slot": 13
   },
   {
@@ -316,8 +316,8 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 69.1,
-   "slot": 11
+   "owned": 69.4,
+   "slot": 0
   },
   {
    "id": 4592829,
@@ -336,7 +336,7 @@
    "pos": 1,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 3.5,
+   "owned": 3.6,
    "slot": 12
   },
   {
@@ -354,8 +354,8 @@
    "pos": 5,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 15.3,
-   "slot": 4
+   "owned": 13.9,
+   "slot": 12
   },
   {
    "id": 3064482,
@@ -375,8 +375,8 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 17,
-   "slot": 3
+   "owned": 18.3,
+   "slot": 6
   }
  ],
  "free_agents": [
@@ -416,7 +416,46 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 32.6
+   "owned": 31.8
+  },
+  {
+   "id": 4683778,
+   "name": "Jared McCain",
+   "pro_team": 25,
+   "eligible": [
+    0,
+    1,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": null,
+   "owned": 29
+  },
+  {
+   "id": 4397189,
+   "name": "Jalen Smith",
+   "pro_team": 4,
+   "eligible": [
+    3,
+    4,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "pos": 4,
+   "injury": "DAY_TO_DAY",
+   "proj": null,
+   "owned": 18.3
   },
   {
    "id": 4351851,
@@ -435,7 +474,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 16.3
+   "owned": 15.1
   },
   {
    "id": 4066648,
@@ -456,7 +495,7 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 14.5
+   "owned": 14.9
   },
   {
    "id": 5112087,
@@ -477,27 +516,7 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 13.3
-  },
-  {
-   "id": 4432170,
-   "name": "Isaiah Jackson",
-   "pro_team": 12,
-   "eligible": [
-    3,
-    4,
-    6,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13
-   ],
-   "pos": 4,
-   "injury": "DAY_TO_DAY",
-   "proj": null,
-   "owned": 11.8
+   "owned": 12.2
   },
   {
    "id": 4066262,
@@ -516,64 +535,7 @@
    "pos": 2,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 11.7
-  },
-  {
-   "id": 4278355,
-   "name": "Obi Toppin",
-   "pro_team": 11,
-   "eligible": [
-    3,
-    6,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13
-   ],
-   "pos": 4,
-   "injury": "OUT",
-   "proj": null,
-   "owned": 11.2
-  },
-  {
-   "id": 4277956,
-   "name": "Jordan Poole",
-   "pro_team": 3,
-   "eligible": [
-    0,
-    1,
-    5,
-    7,
-    8,
-    11,
-    12,
-    13
-   ],
-   "pos": 2,
-   "injury": "OUT",
-   "proj": null,
-   "owned": 11.2
-  },
-  {
-   "id": 4431785,
-   "name": "Scotty Pippen Jr.",
-   "pro_team": 29,
-   "eligible": [
-    0,
-    1,
-    5,
-    7,
-    8,
-    11,
-    12,
-    13
-   ],
-   "pos": 1,
-   "injury": "OUT",
-   "proj": null,
-   "owned": 10.9
+   "owned": 11.6
   },
   {
    "id": 4278594,
@@ -594,17 +556,34 @@
    "pos": 3,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 10.8
+   "owned": 11.2
   },
   {
-   "id": 3134907,
-   "name": "Kyle Kuzma",
-   "pro_team": 15,
+   "id": 4277956,
+   "name": "Jordan Poole",
+   "pro_team": 3,
    "eligible": [
-    2,
+    0,
+    1,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+   ],
+   "pos": 2,
+   "injury": "ACTIVE",
+   "proj": null,
+   "owned": 11
+  },
+  {
+   "id": 4278355,
+   "name": "Obi Toppin",
+   "pro_team": 11,
+   "eligible": [
     3,
     6,
-    7,
     8,
     9,
     10,
@@ -615,7 +594,26 @@
    "pos": 4,
    "injury": "ACTIVE",
    "proj": null,
-   "owned": 10.5
+   "owned": 10.8
+  },
+  {
+   "id": 4431785,
+   "name": "Scotty Pippen Jr.",
+   "pro_team": 29,
+   "eligible": [
+    0,
+    1,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+   ],
+   "pos": 1,
+   "injury": "OUT",
+   "proj": null,
+   "owned": 10.7
   }
  ],
  "teams": [
@@ -643,7 +641,7 @@
      "injury": "OUT",
      "proj": null,
      "owned": 99.9,
-     "slot": 6
+     "slot": 3
     },
     {
      "id": 6583,
@@ -663,7 +661,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 99.5,
+     "owned": 99.6,
      "slot": 4
     },
     {
@@ -681,8 +679,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 99.3,
-     "slot": 11
+     "owned": 99.4,
+     "slot": 0
     },
     {
      "id": 4433255,
@@ -702,7 +700,7 @@
      "pos": 5,
      "injury": "OUT",
      "proj": null,
-     "owned": 81.1,
+     "owned": 80.8,
      "slot": 13
     },
     {
@@ -724,8 +722,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 92.7,
-     "slot": 12
+     "owned": 92.8,
+     "slot": 1
     },
     {
      "id": 4711294,
@@ -746,8 +744,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 64.5,
-     "slot": 3
+     "owned": 63.8,
+     "slot": 12
     },
     {
      "id": 3934719,
@@ -768,8 +766,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 85.4,
-     "slot": 2
+     "owned": 85.5,
+     "slot": 6
     },
     {
      "id": 4066354,
@@ -788,8 +786,8 @@
      "pos": 1,
      "injury": "DAY_TO_DAY",
      "proj": null,
-     "owned": 72.3,
-     "slot": 1
+     "owned": 71.3,
+     "slot": 11
     },
     {
      "id": 5175737,
@@ -810,8 +808,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 91.5,
-     "slot": 12
+     "owned": 92.1,
+     "slot": 2
     },
     {
      "id": 4594327,
@@ -832,7 +830,7 @@
      "pos": 4,
      "injury": "OUT",
      "proj": null,
-     "owned": 33.6,
+     "owned": 33.3,
      "slot": 13
     },
     {
@@ -852,7 +850,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 36.8,
+     "owned": 36.3,
      "slot": 12
     },
     {
@@ -872,7 +870,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 42.4,
+     "owned": 43.4,
      "slot": 5
     },
     {
@@ -892,8 +890,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 14.7,
-     "slot": 11
+     "owned": 13.8,
+     "slot": 12
     },
     {
      "id": 5238230,
@@ -929,7 +927,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 1.6,
+     "owned": 1.5,
      "slot": 12
     },
     {
@@ -949,7 +947,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 23.3,
+     "owned": 23,
      "slot": 12
     },
     {
@@ -969,8 +967,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 48.1,
-     "slot": 0
+     "owned": 47.8,
+     "slot": 11
     }
    ]
   },
@@ -1032,7 +1030,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 99.1,
+     "owned": 99.2,
      "slot": 3
     },
     {
@@ -1074,7 +1072,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 92.8,
+     "owned": 92.9,
      "slot": 5
     },
     {
@@ -1094,7 +1092,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 90.3,
+     "owned": 90.4,
      "slot": 1
     },
     {
@@ -1115,7 +1113,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 67.4,
+     "owned": 68.1,
      "slot": 11
     },
     {
@@ -1137,7 +1135,7 @@
      "pos": 3,
      "injury": "OUT",
      "proj": null,
-     "owned": 80.1,
+     "owned": 79.4,
      "slot": 12
     },
     {
@@ -1157,7 +1155,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 56.9,
+     "owned": 56.8,
      "slot": 12
     },
     {
@@ -1177,7 +1175,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 10.6,
+     "owned": 10.5,
      "slot": 6
     },
     {
@@ -1195,7 +1193,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 4.4,
+     "owned": 4.9,
      "slot": 12
     },
     {
@@ -1217,26 +1215,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 40,
+     "owned": 39.2,
      "slot": 2
-    },
-    {
-     "id": 3032979,
-     "name": "Dennis Schroder",
-     "pro_team": 30,
-     "eligible": [
-      0,
-      5,
-      8,
-      11,
-      12,
-      13
-     ],
-     "pos": 1,
-     "injury": "ACTIVE",
-     "proj": null,
-     "owned": 7.1,
-     "slot": 12
     },
     {
      "id": 4432165,
@@ -1293,7 +1273,27 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 0.9,
+     "owned": 1.1,
+     "slot": 12
+    },
+    {
+     "id": 5149077,
+     "name": "Kingston Flemings",
+     "pro_team": 1,
+     "eligible": [
+      1,
+      5,
+      7,
+      8,
+      11,
+      12,
+      13,
+      0
+     ],
+     "pos": 2,
+     "injury": "ACTIVE",
+     "proj": null,
+     "owned": 5,
      "slot": 12
     }
    ]
@@ -1358,7 +1358,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.7,
-     "slot": 12
+     "slot": 0
     },
     {
      "id": 4433136,
@@ -1375,7 +1375,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 92.7,
+     "owned": 92.8,
      "slot": 4
     },
     {
@@ -1395,10 +1395,10 @@
       13
      ],
      "pos": 3,
-     "injury": "ACTIVE",
+     "injury": "OUT",
      "proj": null,
-     "owned": 90.1,
-     "slot": 1
+     "owned": 89.6,
+     "slot": 13
     },
     {
      "id": 4566434,
@@ -1419,8 +1419,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 90.6,
-     "slot": 12
+     "owned": 90.8,
+     "slot": 2
     },
     {
      "id": 4065733,
@@ -1439,8 +1439,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 93.1,
-     "slot": 0
+     "owned": 93.4,
+     "slot": 1
     },
     {
      "id": 4395651,
@@ -1457,9 +1457,9 @@
       13
      ],
      "pos": 1,
-     "injury": "DAY_TO_DAY",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 65,
+     "owned": 63.9,
      "slot": 12
     },
     {
@@ -1477,7 +1477,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 48.7,
+     "owned": 48.6,
      "slot": 11
     },
     {
@@ -1499,7 +1499,7 @@
      "pos": 3,
      "injury": "OUT",
      "proj": null,
-     "owned": 65.9,
+     "owned": 66,
      "slot": 13
     },
     {
@@ -1521,8 +1521,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 81.6,
-     "slot": 2
+     "owned": 81.5,
+     "slot": 12
     },
     {
      "id": 3138196,
@@ -1541,9 +1541,9 @@
       13
      ],
      "pos": 3,
-     "injury": "DAY_TO_DAY",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 8.3,
+     "owned": 8.1,
      "slot": 3
     },
     {
@@ -1565,7 +1565,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 29.8,
+     "owned": 29.4,
      "slot": 6
     },
     {
@@ -1584,7 +1584,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 21.1,
+     "owned": 18.8,
      "slot": 5
     },
     {
@@ -1606,7 +1606,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 2.1,
+     "owned": 1.7,
      "slot": 12
     },
     {
@@ -1627,7 +1627,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 5.9,
+     "owned": 5.5,
      "slot": 12
     }
    ]
@@ -1671,7 +1671,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 94,
+     "owned": 93.7,
      "slot": 1
     },
     {
@@ -1693,7 +1693,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 89.4,
+     "owned": 89.5,
      "slot": 3
     },
     {
@@ -1711,7 +1711,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 94.5,
+     "owned": 94.7,
      "slot": 11
     },
     {
@@ -1733,7 +1733,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 79.1,
+     "owned": 78.5,
      "slot": 12
     },
     {
@@ -1755,7 +1755,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 83.3,
+     "owned": 82.3,
      "slot": 5
     },
     {
@@ -1773,7 +1773,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 75.1,
+     "owned": 75,
      "slot": 11
     },
     {
@@ -1793,7 +1793,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 78.8,
+     "owned": 78.9,
      "slot": 0
     },
     {
@@ -1815,7 +1815,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 81.5,
+     "owned": 81.8,
      "slot": 6
     },
     {
@@ -1837,7 +1837,7 @@
      "pos": 4,
      "injury": "OUT",
      "proj": null,
-     "owned": 44.9,
+     "owned": 44.7,
      "slot": 13
     },
     {
@@ -1857,7 +1857,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 49.9,
+     "owned": 49.6,
      "slot": 12
     },
     {
@@ -1879,7 +1879,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 16.6,
+     "owned": 16.9,
      "slot": 12
     },
     {
@@ -1901,7 +1901,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 41.7,
+     "owned": 41.8,
      "slot": 2
     },
     {
@@ -1923,7 +1923,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 24.1,
+     "owned": 24.2,
      "slot": 12
     },
     {
@@ -1945,7 +1945,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 7.7,
+     "owned": 7.2,
      "slot": 12
     }
    ]
@@ -1969,10 +1969,10 @@
       13
      ],
      "pos": 4,
-     "injury": "DAY_TO_DAY",
+     "injury": "OUT",
      "proj": null,
-     "owned": 99.4,
-     "slot": 3
+     "owned": 99.3,
+     "slot": 13
     },
     {
      "id": 4871144,
@@ -2050,7 +2050,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 95.5,
+     "owned": 95.6,
      "slot": 11
     },
     {
@@ -2070,8 +2070,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 88.4,
-     "slot": 11
+     "owned": 88.7,
+     "slot": 12
     },
     {
      "id": 6606,
@@ -2088,7 +2088,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 91.5,
+     "owned": 91.6,
      "slot": 0
     },
     {
@@ -2106,7 +2106,7 @@
      "pos": 1,
      "injury": "OUT",
      "proj": null,
-     "owned": 83.6,
+     "owned": 83.4,
      "slot": 13
     },
     {
@@ -2126,7 +2126,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 64.7,
+     "owned": 64.4,
      "slot": 12
     },
     {
@@ -2147,7 +2147,7 @@
      "pos": 5,
      "injury": "OUT",
      "proj": null,
-     "owned": 40.3,
+     "owned": 40,
      "slot": 13
     },
     {
@@ -2169,7 +2169,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 52.4,
+     "owned": 54.8,
      "slot": 12
     },
     {
@@ -2189,7 +2189,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 16.9,
+     "owned": 17.1,
      "slot": 12
     },
     {
@@ -2211,7 +2211,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 42.3,
+     "owned": 47.3,
      "slot": 1
     },
     {
@@ -2232,7 +2232,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 58,
+     "owned": 57.3,
      "slot": 12
     },
     {
@@ -2250,7 +2250,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 71.9,
+     "owned": 73.2,
      "slot": 5
     },
     {
@@ -2272,8 +2272,28 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 14.9,
-     "slot": 12
+     "owned": 15.8,
+     "slot": 11
+    },
+    {
+     "id": 2990969,
+     "name": "Georges Niang",
+     "pro_team": 9,
+     "eligible": [
+      3,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "pos": 4,
+     "injury": "ACTIVE",
+     "proj": null,
+     "owned": 1,
+     "slot": 3
     }
    ]
   },
@@ -2321,8 +2341,8 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 99.2,
-     "slot": 6
+     "owned": 99.3,
+     "slot": 3
     },
     {
      "id": 3078576,
@@ -2342,7 +2362,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 93.3,
-     "slot": 1
+     "slot": 11
     },
     {
      "id": 4278039,
@@ -2361,7 +2381,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 93.5,
+     "owned": 93.6,
      "slot": 0
     },
     {
@@ -2381,7 +2401,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 95.9,
+     "owned": 95.8,
      "slot": 11
     },
     {
@@ -2401,8 +2421,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 96.7,
-     "slot": 11
+     "owned": 96.5,
+     "slot": 1
     },
     {
      "id": 4017837,
@@ -2417,9 +2437,9 @@
       13
      ],
      "pos": 5,
-     "injury": "OUT",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 72.9,
+     "owned": 72.5,
      "slot": 13
     },
     {
@@ -2437,7 +2457,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 83.4,
+     "owned": 84,
      "slot": 5
     },
     {
@@ -2459,8 +2479,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 54.2,
-     "slot": 12
+     "owned": 54.6,
+     "slot": 2
     },
     {
      "id": 4683692,
@@ -2479,7 +2499,7 @@
      "pos": 2,
      "injury": "OUT",
      "proj": null,
-     "owned": 8.3,
+     "owned": 8.1,
      "slot": 13
     },
     {
@@ -2501,8 +2521,8 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 63.2,
-     "slot": 2
+     "owned": 63.8,
+     "slot": 12
     },
     {
      "id": 4278049,
@@ -2519,7 +2539,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 42.7,
+     "owned": 42.9,
      "slot": 4
     },
     {
@@ -2540,8 +2560,8 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 42.5,
-     "slot": 3
+     "owned": 41.9,
+     "slot": 6
     },
     {
      "id": 4432847,
@@ -2559,7 +2579,7 @@
      "pos": 2,
      "injury": "OUT",
      "proj": null,
-     "owned": 8.5,
+     "owned": 7.8,
      "slot": 12
     },
     {
@@ -2575,9 +2595,9 @@
       13
      ],
      "pos": 5,
-     "injury": "DAY_TO_DAY",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 3.2,
+     "owned": 3.1,
      "slot": 12
     },
     {
@@ -2599,7 +2619,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 11,
+     "owned": 10.6,
      "slot": 12
     },
     {
@@ -2619,7 +2639,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 17.3,
+     "owned": 15.1,
      "slot": 12
     }
    ]
@@ -2668,7 +2688,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.8,
-     "slot": 11
+     "slot": 5
     },
     {
      "id": 3149673,
@@ -2688,7 +2708,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 98.8,
-     "slot": 3
+     "slot": 6
     },
     {
      "id": 4593803,
@@ -2709,7 +2729,7 @@
      "pos": 4,
      "injury": "OUT",
      "proj": null,
-     "owned": 50,
+     "owned": 49.3,
      "slot": 13
     },
     {
@@ -2727,7 +2747,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 63.5,
+     "owned": 62.2,
      "slot": 4
     },
     {
@@ -2747,8 +2767,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 91,
-     "slot": 2
+     "owned": 90.9,
+     "slot": 11
     },
     {
      "id": 2991230,
@@ -2767,8 +2787,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 74,
-     "slot": 5
+     "owned": 73.8,
+     "slot": 11
     },
     {
      "id": 4437244,
@@ -2789,8 +2809,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 65.7,
-     "slot": 11
+     "owned": 67.5,
+     "slot": 1
     },
     {
      "id": 5175643,
@@ -2809,7 +2829,7 @@
      "pos": 1,
      "injury": "OUT",
      "proj": null,
-     "owned": 30.8,
+     "owned": 30.5,
      "slot": 12
     },
     {
@@ -2831,8 +2851,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 55.8,
-     "slot": 1
+     "owned": 56.7,
+     "slot": 12
     },
     {
      "id": 4351852,
@@ -2849,7 +2869,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 13.2,
+     "owned": 13,
      "slot": 12
     },
     {
@@ -2871,8 +2891,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 44,
-     "slot": 6
+     "owned": 42.6,
+     "slot": 12
     },
     {
      "id": 4601023,
@@ -2891,8 +2911,8 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 14.8,
-     "slot": 12
+     "owned": 18.1,
+     "slot": 3
     },
     {
      "id": 2991350,
@@ -2911,7 +2931,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 19.3,
+     "owned": 19.8,
      "slot": 12
     },
     {
@@ -2933,8 +2953,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 11.9,
-     "slot": 12
+     "owned": 13.9,
+     "slot": 2
     }
    ]
   },
@@ -3000,7 +3020,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.5,
-     "slot": 5
+     "slot": 11
     },
     {
      "id": 3917376,
@@ -3064,7 +3084,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 95.5,
+     "owned": 95.7,
      "slot": 4
     },
     {
@@ -3086,7 +3106,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 94,
+     "owned": 94.2,
      "slot": 2
     },
     {
@@ -3106,8 +3126,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 74.8,
-     "slot": 11
+     "owned": 75.1,
+     "slot": 12
     },
     {
      "id": 3133628,
@@ -3124,7 +3144,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 47.7,
+     "owned": 50.2,
      "slot": 12
     },
     {
@@ -3144,9 +3164,9 @@
       13
      ],
      "pos": 3,
-     "injury": "ACTIVE",
+     "injury": "OUT",
      "proj": null,
-     "owned": 63.9,
+     "owned": 62.5,
      "slot": 12
     },
     {
@@ -3186,7 +3206,7 @@
      "pos": 3,
      "injury": "OUT",
      "proj": null,
-     "owned": 29.5,
+     "owned": 29.4,
      "slot": 13
     },
     {
@@ -3206,7 +3226,7 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 41.8,
+     "owned": 40.7,
      "slot": 1
     },
     {
@@ -3226,7 +3246,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 5.4,
+     "owned": 4.9,
      "slot": 12
     },
     {
@@ -3248,8 +3268,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 11.4,
-     "slot": 12
+     "owned": 20.6,
+     "slot": 5
     }
    ]
   },
@@ -3277,7 +3297,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.9,
-     "slot": 11
+     "slot": 2
     },
     {
      "id": 3934672,
@@ -3312,7 +3332,7 @@
      "pos": 5,
      "injury": "OUT",
      "proj": null,
-     "owned": 93,
+     "owned": 92.9,
      "slot": 13
     },
     {
@@ -3331,7 +3351,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.4,
-     "slot": 0
+     "slot": 11
     },
     {
      "id": 4396971,
@@ -3351,7 +3371,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 90.6,
+     "owned": 90.7,
      "slot": 3
     },
     {
@@ -3387,9 +3407,9 @@
       13
      ],
      "pos": 5,
-     "injury": "ACTIVE",
+     "injury": "DAY_TO_DAY",
      "proj": null,
-     "owned": 90.5,
+     "owned": 90.1,
      "slot": 4
     },
     {
@@ -3409,8 +3429,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 86.1,
-     "slot": 2
+     "owned": 85.9,
+     "slot": 11
     },
     {
      "id": 4709138,
@@ -3429,8 +3449,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 75.8,
-     "slot": 12
+     "owned": 76.6,
+     "slot": 0
     },
     {
      "id": 4397002,
@@ -3449,8 +3469,8 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 75.6,
-     "slot": 1
+     "owned": 76.5,
+     "slot": 12
     },
     {
      "id": 4432848,
@@ -3471,7 +3491,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 61.3,
+     "owned": 61.1,
      "slot": 12
     },
     {
@@ -3487,9 +3507,9 @@
       13
      ],
      "pos": 5,
-     "injury": "DAY_TO_DAY",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 36,
+     "owned": 35.4,
      "slot": 12
     },
     {
@@ -3509,8 +3529,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 69.8,
-     "slot": 11
+     "owned": 70.2,
+     "slot": 12
     },
     {
      "id": 4397424,
@@ -3527,7 +3547,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 21.4,
+     "owned": 21.5,
      "slot": 12
     },
     {
@@ -3547,8 +3567,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 12.6,
-     "slot": 12
+     "owned": 14.8,
+     "slot": 1
     }
    ]
   },
@@ -3572,7 +3592,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.9,
-     "slot": 0
+     "slot": 11
     },
     {
      "id": 4684740,
@@ -3593,8 +3613,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 99.6,
-     "slot": 1
+     "owned": 99.4,
+     "slot": 6
     },
     {
      "id": 3136193,
@@ -3614,7 +3634,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.8,
-     "slot": 5
+     "slot": 0
     },
     {
      "id": 5105565,
@@ -3631,7 +3651,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 80.2,
+     "owned": 80.9,
      "slot": 11
     },
     {
@@ -3649,8 +3669,8 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 81.7,
-     "slot": 4
+     "owned": 82.1,
+     "slot": 12
     },
     {
      "id": 4397688,
@@ -3669,10 +3689,10 @@
       13
      ],
      "pos": 3,
-     "injury": "DAY_TO_DAY",
+     "injury": "OUT",
      "proj": null,
-     "owned": 83.5,
-     "slot": 2
+     "owned": 83,
+     "slot": 12
     },
     {
      "id": 4433627,
@@ -3691,8 +3711,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 87,
-     "slot": 11
+     "owned": 87.3,
+     "slot": 12
     },
     {
      "id": 4066383,
@@ -3713,8 +3733,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 79,
-     "slot": 6
+     "owned": 80.7,
+     "slot": 2
     },
     {
      "id": 3155526,
@@ -3735,8 +3755,8 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 35.6,
-     "slot": 12
+     "owned": 38.6,
+     "slot": 1
     },
     {
      "id": 4873138,
@@ -3757,7 +3777,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 65.1,
+     "owned": 63.8,
      "slot": 3
     },
     {
@@ -3775,8 +3795,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 36.9,
-     "slot": 12
+     "owned": 37.4,
+     "slot": 5
     },
     {
      "id": 4397136,
@@ -3797,7 +3817,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 18.8,
+     "owned": 20.1,
      "slot": 12
     },
     {
@@ -3833,7 +3853,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 23.4,
+     "owned": 23,
      "slot": 12
     },
     {
@@ -3851,8 +3871,8 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 52.3,
-     "slot": 12
+     "owned": 52.7,
+     "slot": 4
     }
    ]
   },
@@ -3878,7 +3898,7 @@
      "injury": "ACTIVE",
      "proj": null,
      "owned": 99.9,
-     "slot": 0
+     "slot": 12
     },
     {
      "id": 4396993,
@@ -3941,7 +3961,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 91.9,
+     "owned": 91.5,
      "slot": 5
     },
     {
@@ -3980,9 +4000,9 @@
       13
      ],
      "pos": 5,
-     "injury": "DAY_TO_DAY",
+     "injury": "ACTIVE",
      "proj": null,
-     "owned": 74.1,
+     "owned": 74.2,
      "slot": 12
     },
     {
@@ -4004,7 +4024,7 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 75.7,
+     "owned": 76,
      "slot": 6
     },
     {
@@ -4024,7 +4044,7 @@
      "pos": 2,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 54.5,
+     "owned": 54,
      "slot": 12
     },
     {
@@ -4045,7 +4065,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 83.8,
+     "owned": 84.1,
      "slot": 3
     },
     {
@@ -4067,7 +4087,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 40.3,
+     "owned": 38.3,
      "slot": 11
     },
     {
@@ -4087,8 +4107,8 @@
      "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 48.5,
-     "slot": 13
+     "owned": 51.4,
+     "slot": 1
     },
     {
      "id": 5061589,
@@ -4105,29 +4125,8 @@
      "pos": 5,
      "injury": "OUT",
      "proj": null,
-     "owned": 14.7,
+     "owned": 14.8,
      "slot": 13
-    },
-    {
-     "id": 4397189,
-     "name": "Jalen Smith",
-     "pro_team": 4,
-     "eligible": [
-      3,
-      4,
-      6,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13
-     ],
-     "pos": 4,
-     "injury": "DAY_TO_DAY",
-     "proj": null,
-     "owned": 19.6,
-     "slot": 12
     },
     {
      "id": 4431679,
@@ -4147,7 +4146,7 @@
      "pos": 4,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 27.5,
+     "owned": 27.1,
      "slot": 4
     },
     {
@@ -4166,7 +4165,7 @@
      "pos": 5,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 16.2,
+     "owned": 16.1,
      "slot": 12
     },
     {
@@ -4188,13 +4187,13 @@
      "pos": 3,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 9.6,
+     "owned": 9.4,
      "slot": 12
     },
     {
-     "id": 4683778,
-     "name": "Jared McCain",
-     "pro_team": 25,
+     "id": 4397040,
+     "name": "Brandon Williams",
+     "pro_team": 9,
      "eligible": [
       0,
       1,
@@ -4205,11 +4204,11 @@
       12,
       13
      ],
-     "pos": 2,
+     "pos": 1,
      "injury": "ACTIVE",
      "proj": null,
-     "owned": 30.3,
-     "slot": 1
+     "owned": 3,
+     "slot": 0
     }
    ]
   }
@@ -4326,20 +4325,20 @@
   [
    3,
    3,
-   3,
+   6,
    1,
-   4,
+   2,
    "",
-   1
+   0
   ],
   [
    3,
    6,
-   4,
+   5,
    10,
-   4,
+   2,
    "",
-   0
+   1
   ],
   [
    3,
@@ -4353,29 +4352,29 @@
   [
    3,
    14,
-   3,
+   2,
    12,
    5,
+   "",
+   1
+  ],
+  [
+   3,
+   8,
+   7,
+   13,
+   1,
    "",
    0
   ],
   [
    3,
-   8,
-   3,
-   13,
+   7,
+   4,
+   5,
    4,
    "",
-   1
-  ],
-  [
-   3,
-   7,
-   5,
-   5,
-   2,
-   "",
-   1
+   0
   ],
   [
    4,
@@ -5116,32 +5115,32 @@
    ]
   ],
   "mine": {
-   "0": 159,
-   "1": 6,
-   "2": 7,
-   "3": 33,
-   "6": 53,
-   "13": 57,
-   "14": 118,
-   "15": 32,
-   "16": 42,
-   "17": 13,
-   "19": 0.48305085,
-   "20": 0.76190476
+   "0": 304,
+   "1": 11,
+   "2": 16,
+   "3": 78,
+   "6": 121,
+   "13": 111,
+   "14": 230,
+   "15": 59,
+   "16": 74,
+   "17": 23,
+   "19": 0.4826087,
+   "20": 0.7972973
   },
   "opp": {
-   "0": 169,
-   "1": 8,
-   "2": 11,
-   "3": 33,
-   "6": 51,
-   "13": 58,
-   "14": 119,
-   "15": 37,
-   "16": 56,
-   "17": 16,
-   "19": 0.48739496,
-   "20": 0.66071429
+   "0": 327,
+   "1": 14,
+   "2": 20,
+   "3": 75,
+   "6": 100,
+   "13": 112,
+   "14": 240,
+   "15": 70,
+   "16": 103,
+   "17": 33,
+   "19": 0.46666667,
+   "20": 0.67961165
   },
   "opp_id": 7,
   "avg": {
@@ -5158,16 +5157,16 @@
     "17": 1.28
    },
    "6442": {
-    "0": 21.4,
-    "1": 0.6,
-    "2": 1.2,
-    "3": 4.8,
-    "6": 3.4,
-    "13": 7.8,
-    "14": 14.8,
-    "15": 2.6,
-    "16": 2.6,
-    "17": 3.2
+    "0": 22.67,
+    "1": 0.5,
+    "2": 1.17,
+    "3": 4.83,
+    "6": 4,
+    "13": 8,
+    "14": 16.83,
+    "15": 3.17,
+    "16": 3.5,
+    "17": 3.5
    },
    "6478": {
     "0": 3.14,
@@ -5181,15 +5180,15 @@
     "17": 0.43
    },
    "6585": {
-    "0": 5.57,
-    "1": 0.57,
-    "2": 0.14,
-    "3": 1.29,
-    "6": 7.57,
-    "13": 2.43,
-    "14": 5.43,
-    "15": 0.71,
-    "16": 1.43
+    "0": 5.63,
+    "1": 0.5,
+    "2": 0.13,
+    "3": 1.13,
+    "6": 7.75,
+    "13": 2.38,
+    "14": 5.5,
+    "15": 0.88,
+    "16": 1.5
    },
    "6589": {
     "0": 3.17,
@@ -5216,193 +5215,181 @@
     "17": 0.24
    },
    "2595516": {
-    "0": 20.29,
-    "2": 1.86,
-    "3": 1.71,
-    "6": 2.71,
-    "13": 5.43,
-    "14": 13,
-    "15": 7,
-    "16": 8.86,
-    "17": 2.43
+    "0": 19.25,
+    "2": 1.63,
+    "3": 1.63,
+    "6": 2.5,
+    "13": 5.13,
+    "14": 12.88,
+    "15": 6.88,
+    "16": 8.63,
+    "17": 2.13
    },
    "2991070": {
-    "0": 9.43,
-    "1": 1.29,
-    "2": 0.29,
-    "3": 2.14,
-    "6": 2.57,
-    "13": 3.14,
-    "14": 8.14,
-    "15": 1.71,
-    "16": 2.43,
-    "17": 1.43
-   },
-   "3032976": {
-    "0": 7.43,
-    "1": 0.57,
-    "2": 0.43,
-    "3": 1.43,
-    "6": 12,
-    "13": 2.43,
-    "14": 5.71,
-    "15": 2.57,
-    "16": 5.86
-   },
-   "3032977": {
-    "0": 28.43,
-    "1": 0.86,
-    "2": 0.86,
-    "3": 5.71,
-    "6": 12.29,
-    "13": 11.14,
-    "14": 19,
-    "15": 5.57,
-    "16": 9,
-    "17": 0.57
-   },
-   "3064290": {
-    "0": 11.5,
-    "1": 0.33,
-    "2": 1.17,
-    "3": 2.83,
-    "6": 6,
-    "13": 3.17,
-    "14": 8.83,
-    "15": 3.67,
-    "16": 4.33,
+    "0": 9.63,
+    "1": 1.13,
+    "2": 0.38,
+    "3": 2.13,
+    "6": 2.38,
+    "13": 3.25,
+    "14": 8.38,
+    "15": 1.63,
+    "16": 2.38,
     "17": 1.5
    },
-   "3064482": {
-    "0": 8.86,
-    "1": 0.71,
-    "2": 0.86,
-    "3": 1.71,
-    "6": 6.71,
-    "13": 3.29,
-    "14": 8.14,
-    "15": 0.57,
-    "16": 0.71,
-    "17": 1.71
+   "3032976": {
+    "0": 7.5,
+    "1": 1,
+    "2": 0.5,
+    "3": 1.5,
+    "6": 11.88,
+    "13": 2.5,
+    "14": 5.88,
+    "15": 2.5,
+    "16": 5.88
    },
-   "3102530": {
-    "0": 9.44,
-    "1": 0.7,
+   "3032977": {
+    "0": 28.25,
+    "1": 1.13,
     "2": 1,
-    "3": 3.41,
-    "6": 9.09,
-    "13": 3.66,
-    "14": 7.3,
-    "15": 1.67,
-    "16": 2.7,
-    "17": 0.45
+    "3": 5.75,
+    "6": 12.5,
+    "13": 10.75,
+    "14": 19.13,
+    "15": 6.25,
+    "16": 9.5,
+    "17": 0.5
+   },
+   "3064290": {
+    "0": 12.29,
+    "1": 0.43,
+    "2": 1.29,
+    "3": 2.43,
+    "6": 5.29,
+    "13": 3.71,
+    "14": 8.86,
+    "15": 3.43,
+    "16": 4,
+    "17": 1.43
+   },
+   "3064482": {
+    "0": 8.25,
+    "1": 0.63,
+    "2": 0.88,
+    "3": 2.13,
+    "6": 7.13,
+    "13": 3.13,
+    "14": 7.88,
+    "15": 0.5,
+    "16": 0.63,
+    "17": 1.5
    },
    "3112335": {
-    "0": 22,
-    "1": 1.33,
-    "2": 2,
-    "3": 9,
-    "6": 9.67,
-    "13": 8.5,
-    "14": 18,
-    "15": 3.83,
-    "16": 4.33,
-    "17": 1.17
+    "0": 23.43,
+    "1": 1.14,
+    "2": 2.14,
+    "3": 9.29,
+    "6": 9.71,
+    "13": 9.14,
+    "14": 18.14,
+    "15": 4.14,
+    "16": 4.71,
+    "17": 1
    },
    "3134907": {
-    "0": 10,
-    "2": 0.86,
-    "3": 2.86,
-    "6": 6.43,
-    "13": 4.14,
-    "14": 9.43,
-    "15": 0.43,
-    "16": 0.86,
-    "17": 1.29
+    "0": 9.5,
+    "2": 0.88,
+    "3": 3,
+    "6": 6.25,
+    "13": 3.88,
+    "14": 8.88,
+    "15": 0.5,
+    "16": 1,
+    "17": 1.25
    },
    "3147657": {
-    "0": 6.14,
-    "1": 0.43,
-    "2": 0.86,
-    "3": 1.71,
-    "6": 2.71,
-    "13": 2.29,
-    "14": 7.43,
-    "15": 0.57,
-    "16": 0.57,
+    "0": 6.25,
+    "1": 0.38,
+    "2": 0.88,
+    "3": 2,
+    "6": 2.88,
+    "13": 2.38,
+    "14": 7.13,
+    "15": 0.5,
+    "16": 0.5,
     "17": 1
    },
    "3908845": {
-    "0": 8.43,
-    "1": 1,
-    "2": 0.43,
-    "3": 0.57,
-    "6": 6.57,
-    "13": 3.57,
-    "14": 8.43,
-    "15": 0.29,
-    "16": 0.71,
-    "17": 1
+    "0": 9.38,
+    "1": 0.88,
+    "2": 0.38,
+    "3": 0.5,
+    "6": 5.88,
+    "13": 4,
+    "14": 8.5,
+    "15": 0.5,
+    "16": 0.88,
+    "17": 0.88
    },
    "4065732": {
-    "0": 12.86,
-    "1": 0.14,
-    "2": 0.29,
-    "3": 1.14,
-    "6": 5.14,
-    "13": 4.57,
-    "14": 10.43,
-    "15": 1.57,
-    "16": 2.71,
-    "17": 2.14
+    "0": 13,
+    "1": 0.13,
+    "2": 0.25,
+    "3": 1.25,
+    "6": 4.75,
+    "13": 4.5,
+    "14": 10.38,
+    "15": 2,
+    "16": 3.13,
+    "17": 2
    },
    "4066262": {
-    "0": 7.17,
-    "1": 0.17,
-    "2": 0.5,
-    "3": 3.5,
-    "6": 1.17,
-    "13": 2.5,
-    "14": 6.83,
-    "15": 1.17,
-    "16": 1.33,
-    "17": 1
+    "0": 8,
+    "1": 0.14,
+    "2": 0.43,
+    "3": 3.43,
+    "6": 1.29,
+    "13": 2.86,
+    "14": 8.14,
+    "15": 1,
+    "16": 1.14,
+    "17": 1.29
    },
    "4066336": {
-    "0": 16.5,
-    "1": 0.5,
-    "2": 0.67,
-    "3": 1.83,
-    "6": 6,
-    "13": 5,
-    "14": 13,
-    "15": 3.83,
-    "16": 4.33,
-    "17": 2.67
+    "0": 17.14,
+    "1": 0.71,
+    "2": 0.71,
+    "3": 2.14,
+    "6": 6.57,
+    "13": 5.14,
+    "14": 13.29,
+    "15": 3.86,
+    "16": 4.57,
+    "17": 3
    },
    "4066457": {
-    "0": 23.63,
-    "1": 0.5,
-    "2": 0.88,
-    "3": 5.13,
-    "6": 3.25,
-    "13": 7.75,
-    "14": 14.38,
-    "15": 5.63,
-    "16": 6.5,
-    "17": 2.5
+    "0": 23.33,
+    "1": 0.44,
+    "2": 0.78,
+    "3": 5,
+    "6": 3.22,
+    "13": 7.67,
+    "14": 14.44,
+    "15": 5.67,
+    "16": 6.44,
+    "17": 2.33
    },
    "4066648": {
-    "0": 13.4,
-    "1": 0.2,
+    "0": 14.67,
+    "1": 0.17,
     "2": 1,
-    "3": 0.6,
-    "6": 6,
-    "13": 4.8,
-    "14": 13,
-    "15": 1.4,
-    "16": 2.4,
-    "17": 2.4
+    "3": 1.67,
+    "6": 6.5,
+    "13": 5.17,
+    "14": 13.83,
+    "15": 2.17,
+    "16": 3.17,
+    "17": 2.17
    },
    "4277956": {
     "0": 13.23,
@@ -5429,144 +5416,156 @@
     "17": 1.9
    },
    "4278078": {
-    "0": 13.57,
-    "1": 0.86,
-    "2": 0.57,
-    "3": 1.14,
-    "6": 7.71,
-    "13": 4.57,
-    "14": 11.43,
-    "15": 2.57,
-    "16": 3.57,
-    "17": 1.86
+    "0": 14.5,
+    "1": 0.88,
+    "2": 0.5,
+    "3": 1.38,
+    "6": 8,
+    "13": 4.88,
+    "14": 12.25,
+    "15": 2.75,
+    "16": 3.75,
+    "17": 2
    },
    "4278129": {
-    "0": 5.43,
-    "1": 0.29,
-    "2": 0.14,
-    "3": 0.86,
-    "6": 4.57,
-    "13": 2.57,
-    "14": 3.86,
-    "15": 0.29,
-    "16": 0.57
+    "0": 5.38,
+    "1": 0.5,
+    "2": 0.13,
+    "3": 0.88,
+    "6": 4.5,
+    "13": 2.5,
+    "14": 3.63,
+    "15": 0.38,
+    "16": 0.75
    },
    "4278355": {
-    "0": 15.2,
-    "1": 0.4,
-    "2": 0.4,
-    "3": 1.2,
-    "6": 5.2,
-    "13": 5.6,
-    "14": 10.4,
-    "15": 1.8,
-    "16": 2.8,
-    "17": 2.2
+    "0": 14.5,
+    "1": 0.33,
+    "2": 0.33,
+    "3": 1.17,
+    "6": 5.17,
+    "13": 5.17,
+    "14": 9.67,
+    "15": 2.17,
+    "16": 3,
+    "17": 2
    },
    "4278594": {
-    "0": 11.44,
-    "1": 0.1,
-    "2": 0.9,
-    "3": 2.6,
-    "6": 4.1,
-    "13": 4.31,
-    "14": 8.6,
-    "15": 2.01,
-    "16": 2.6,
-    "17": 0.8
+    "0": 13.6,
+    "1": 0.2,
+    "2": 1.4,
+    "3": 5.4,
+    "6": 3.4,
+    "13": 5.8,
+    "14": 11.6,
+    "15": 0.8,
+    "16": 1.6,
+    "17": 1.2
    },
    "4351851": {
-    "0": 11.25,
-    "1": 0.25,
-    "2": 0.75,
-    "3": 1.25,
-    "6": 2,
-    "13": 3.75,
-    "14": 9.5,
-    "15": 1,
-    "16": 1.25,
-    "17": 2.75
+    "0": 10,
+    "1": 0.22,
+    "2": 0.67,
+    "3": 1.11,
+    "6": 1.89,
+    "13": 3.33,
+    "14": 8.56,
+    "15": 0.89,
+    "16": 1.11,
+    "17": 2.44
    },
    "4395625": {
-    "0": 20.71,
-    "1": 0.57,
-    "2": 0.57,
-    "3": 4,
-    "6": 6.14,
-    "13": 8.14,
-    "14": 16.57,
-    "15": 2.86,
-    "16": 4.86,
-    "17": 1.57
+    "0": 20.88,
+    "1": 0.5,
+    "2": 0.5,
+    "3": 3.88,
+    "6": 6,
+    "13": 8,
+    "14": 16.63,
+    "15": 3.13,
+    "16": 5.25,
+    "17": 1.75
    },
    "4395724": {
-    "0": 18,
-    "2": 1,
-    "3": 5.57,
-    "6": 3.86,
-    "13": 5.71,
-    "14": 14,
-    "15": 3.86,
-    "16": 4.57,
-    "17": 2.71
+    "0": 17.38,
+    "2": 1.13,
+    "3": 5.75,
+    "6": 3.5,
+    "13": 5.63,
+    "14": 13.75,
+    "15": 3.5,
+    "16": 4.13,
+    "17": 2.63
    },
    "4396907": {
-    "0": 20.14,
-    "2": 0.71,
-    "3": 6.57,
-    "6": 1.71,
-    "13": 7.14,
-    "14": 16.43,
-    "15": 3.57,
-    "16": 4.29,
-    "17": 2.29
+    "0": 20.88,
+    "2": 0.63,
+    "3": 6.63,
+    "6": 1.63,
+    "13": 7.5,
+    "14": 16.13,
+    "15": 3.38,
+    "16": 4,
+    "17": 2.5
    },
    "4397014": {
-    "0": 8.5,
-    "1": 0.13,
-    "2": 0.75,
-    "3": 2.88,
-    "6": 3.25,
-    "13": 2.63,
-    "14": 5.63,
-    "15": 2.5,
-    "16": 3.5,
-    "17": 0.75
+    "0": 8.22,
+    "1": 0.11,
+    "2": 0.78,
+    "3": 2.67,
+    "6": 3,
+    "13": 2.56,
+    "14": 5.56,
+    "15": 2.44,
+    "16": 3.33,
+    "17": 0.67
    },
    "4397077": {
-    "0": 8.17,
-    "1": 2,
-    "2": 1.17,
-    "3": 2,
-    "6": 6.33,
-    "13": 3.17,
-    "14": 5.67,
-    "15": 1.83,
-    "16": 2.67
+    "0": 7.29,
+    "1": 1.86,
+    "2": 1,
+    "3": 1.86,
+    "6": 6.43,
+    "13": 2.86,
+    "14": 5.14,
+    "15": 1.57,
+    "16": 2.29
+   },
+   "4397189": {
+    "0": 11,
+    "1": 0.88,
+    "2": 0.38,
+    "3": 1.75,
+    "6": 7.75,
+    "13": 4.25,
+    "14": 9,
+    "15": 1.13,
+    "16": 1.5,
+    "17": 1.38
    },
    "4431671": {
-    "0": 16.75,
-    "1": 0.75,
-    "2": 0.75,
-    "3": 3.5,
-    "6": 6,
-    "13": 7.13,
-    "14": 13.5,
-    "15": 1,
-    "16": 1.5,
-    "17": 1.5
+    "0": 16.44,
+    "1": 0.67,
+    "2": 0.89,
+    "3": 3.56,
+    "6": 6.22,
+    "13": 7.11,
+    "14": 13.56,
+    "15": 0.89,
+    "16": 1.33,
+    "17": 1.33
    },
    "4431767": {
-    "0": 15.17,
-    "1": 0.17,
-    "2": 2.33,
-    "3": 2.17,
-    "6": 4,
-    "13": 5.83,
-    "14": 11,
-    "15": 1.33,
-    "16": 1.67,
-    "17": 2.17
+    "0": 14.57,
+    "1": 0.14,
+    "2": 2.14,
+    "3": 2.29,
+    "6": 3.86,
+    "13": 5.57,
+    "14": 10.14,
+    "15": 1.43,
+    "16": 1.71,
+    "17": 2
    },
    "4431785": {
     "0": 6.4,
@@ -5581,51 +5580,52 @@
     "17": 0.4
    },
    "4432170": {
-    "0": 9.57,
-    "1": 0.86,
-    "2": 1.43,
-    "3": 2.29,
-    "6": 6.43,
-    "13": 4.14,
-    "14": 6.86,
-    "15": 1.14,
-    "16": 1.71,
-    "17": 0.14
+    "0": 8.63,
+    "1": 0.75,
+    "2": 1.38,
+    "3": 2.25,
+    "6": 6.13,
+    "13": 3.75,
+    "14": 6.5,
+    "15": 1,
+    "16": 1.75,
+    "17": 0.13
    },
    "4432194": {
-    "0": 7.43,
-    "1": 1,
-    "2": 0.57,
-    "3": 1.86,
-    "6": 7.43,
-    "13": 2.71,
-    "14": 5.57,
-    "15": 1.57,
-    "16": 2.43,
-    "17": 0.43
+    "0": 7.25,
+    "1": 1.13,
+    "2": 0.63,
+    "3": 2.63,
+    "6": 7.13,
+    "13": 2.63,
+    "14": 5.25,
+    "15": 1.63,
+    "16": 2.5,
+    "17": 0.38
    },
    "4432816": {
-    "0": 16.88,
-    "2": 1.75,
-    "3": 5.88,
-    "6": 3.63,
-    "13": 5.88,
-    "14": 13.75,
-    "15": 1.88,
-    "16": 2.5,
-    "17": 3.25
+    "0": 17.22,
+    "1": 0.11,
+    "2": 1.89,
+    "3": 5.89,
+    "6": 3.44,
+    "13": 5.89,
+    "14": 13.44,
+    "15": 2.11,
+    "16": 2.78,
+    "17": 3.33
    },
    "4433192": {
-    "0": 10.38,
-    "1": 1.38,
-    "2": 1,
-    "3": 1.25,
-    "6": 5.88,
-    "13": 3.88,
-    "14": 8.25,
-    "15": 1.75,
-    "16": 1.88,
-    "17": 0.88
+    "0": 10.22,
+    "1": 1.22,
+    "2": 1.11,
+    "3": 1.22,
+    "6": 5.89,
+    "13": 3.89,
+    "14": 8.44,
+    "15": 1.56,
+    "16": 1.67,
+    "17": 0.89
    },
    "4576087": {
     "0": 10.83,
@@ -5640,86 +5640,87 @@
     "17": 0.67
    },
    "4592691": {
-    "0": 6,
+    "0": 6.38,
     "1": 1,
-    "2": 1.71,
-    "3": 1.43,
-    "6": 3.57,
-    "13": 2.29,
-    "14": 4.14,
-    "15": 0.29,
-    "16": 0.57,
-    "17": 1.14
+    "2": 1.63,
+    "3": 1.5,
+    "6": 3.38,
+    "13": 2.38,
+    "14": 4,
+    "15": 0.38,
+    "16": 0.75,
+    "17": 1.25
    },
    "4592829": {
-    "0": 10.13,
-    "1": 0.38,
-    "2": 1.38,
-    "3": 2.75,
-    "6": 3,
-    "13": 3.5,
-    "14": 7.63,
-    "15": 2.25,
-    "16": 2.5,
-    "17": 0.88
+    "0": 10.44,
+    "1": 0.33,
+    "2": 1.44,
+    "3": 2.67,
+    "6": 3.44,
+    "13": 3.56,
+    "14": 7.78,
+    "15": 2.22,
+    "16": 2.44,
+    "17": 1.11
    },
    "4683634": {
-    "0": 7.14,
-    "2": 0.43,
-    "3": 1.71,
-    "6": 2,
-    "13": 2.57,
-    "14": 5.86,
-    "15": 1.29,
-    "16": 1.43,
-    "17": 0.71
+    "0": 6.5,
+    "2": 0.38,
+    "3": 1.63,
+    "6": 2.38,
+    "13": 2.38,
+    "14": 5.88,
+    "15": 1.13,
+    "16": 1.25,
+    "17": 0.63
    },
-   "4683678": {
-    "0": 8.67,
-    "2": 0.83,
-    "3": 1.5,
-    "6": 2.33,
-    "13": 3,
-    "14": 8.83,
-    "15": 1.83,
-    "16": 2,
-    "17": 0.83
+   "4683778": {
+    "0": 10.13,
+    "1": 0.13,
+    "2": 0.63,
+    "3": 1.88,
+    "6": 3,
+    "13": 3.63,
+    "14": 10.75,
+    "15": 1.38,
+    "16": 1.63,
+    "17": 1.5
    },
    "4869342": {
-    "0": 9.75,
-    "1": 0.38,
-    "2": 3,
-    "3": 4.25,
-    "6": 5.5,
-    "13": 4.25,
-    "14": 9.13,
-    "15": 1.13,
-    "16": 2,
-    "17": 0.13
+    "0": 9.56,
+    "1": 0.33,
+    "2": 2.67,
+    "3": 4.67,
+    "6": 6.67,
+    "13": 4.22,
+    "14": 9.56,
+    "15": 1,
+    "16": 1.78,
+    "17": 0.11
    },
    "4871145": {
-    "0": 9.14,
-    "1": 0.43,
-    "2": 0.57,
-    "3": 7.86,
-    "6": 5.14,
-    "13": 3.43,
-    "14": 9.29,
-    "15": 1.29,
-    "16": 1.86,
+    "0": 9.25,
+    "1": 0.38,
+    "2": 0.5,
+    "3": 7.63,
+    "6": 4.63,
+    "13": 3.5,
+    "14": 9,
+    "15": 1.25,
+    "16": 1.88,
     "17": 1
    },
    "4900671": {
-    "0": 17,
-    "1": 0.57,
-    "2": 1.57,
-    "3": 3.43,
-    "6": 3.57,
-    "13": 6.71,
-    "14": 13.43,
-    "15": 3,
-    "16": 3.14,
-    "17": 0.57
+    "0": 17.75,
+    "1": 0.5,
+    "2": 1.5,
+    "3": 3.5,
+    "6": 4,
+    "13": 7,
+    "14": 13.88,
+    "15": 3.13,
+    "16": 3.5,
+    "17": 0.63
    },
    "4914336": {
     "0": 16.81,
@@ -5734,30 +5735,66 @@
     "17": 1.7
    },
    "5112087": {
-    "0": 12.71,
-    "2": 1.14,
-    "3": 1.29,
-    "6": 3.57,
-    "13": 4.71,
-    "14": 8.57,
-    "15": 1.29,
-    "16": 1.86,
-    "17": 2
+    "0": 11.13,
+    "1": 0.13,
+    "2": 1,
+    "3": 1.5,
+    "6": 3.25,
+    "13": 4.13,
+    "14": 7.88,
+    "15": 1.13,
+    "16": 1.63,
+    "17": 1.75
    },
    "5124612": {
-    "0": 12.71,
-    "1": 0.57,
-    "2": 1.14,
+    "0": 12.5,
+    "1": 0.5,
+    "2": 1.13,
     "3": 3,
-    "6": 7.14,
+    "6": 7,
     "13": 5,
-    "14": 11.29,
-    "15": 1,
-    "16": 1.57,
-    "17": 1.71
+    "14": 11.25,
+    "15": 0.88,
+    "16": 1.38,
+    "17": 1.63
    }
   },
   "fa_more": [
+   {
+    "id": 4432170,
+    "name": "Isaiah Jackson",
+    "pro_team": 12,
+    "injury": "ACTIVE",
+    "eligible": [
+     3,
+     4,
+     6,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ]
+   },
+   {
+    "id": 3134907,
+    "name": "Kyle Kuzma",
+    "pro_team": 15,
+    "injury": "ACTIVE",
+    "eligible": [
+     2,
+     3,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ]
+   },
    {
     "id": 4278129,
     "name": "Deandre Ayton",
@@ -5845,36 +5882,6 @@
      6,
      7,
      8,
-     9,
-     10,
-     11,
-     12,
-     13
-    ]
-   },
-   {
-    "id": 4683678,
-    "name": "Scoot Henderson",
-    "pro_team": 22,
-    "injury": "ACTIVE",
-    "eligible": [
-     0,
-     1,
-     5,
-     7,
-     8,
-     11,
-     12,
-     13
-    ]
-   },
-   {
-    "id": 3102530,
-    "name": "Jusuf Nurkic",
-    "pro_team": 26,
-    "injury": "OUT",
-    "eligible": [
-     4,
      9,
      10,
      11,
