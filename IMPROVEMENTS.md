@@ -47,6 +47,28 @@ Measure (the health.json check that should move), Design, Decision.
   10-minute data commits stay small diffs (~185 KB, top 300 per league plus everyone rostered).
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
+- **Status:** shipped (COMMIT_X)
+- **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
+  pages), header links in `docs/index.html` and `docs/lab/b|c|d/`
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B2)
+- **Evidence:** Nov 5: Michael still sifts players on FantasyPros; HQ had no player list to sort or filter.
+- **Expected impact:** the FantasyPros sift inside HQ for both basketball leagues.
+- **Effort:** M
+- **Risk:** Low
+- **Measure:** — (one-off; Michael's feedback on the page)
+- **Design:** one static page over `docs/data/players.json` (Q-026), loaded only on this page through `SHQ.loadFile` so the
+  dashboard stays light. League tabs; filters: available / mine / other teams, position, health (healthy / injured), minutes
+  rising or falling (last 3 games vs before, ±5, the radar's threshold), games this week ≥ and next week ≥, and "Helps in"
+  category buttons. Choices: "Helps in" keeps players whose summed value in the chosen categories is above zero and sorts by
+  that (a "Fit" column); requiring +0.3 in every chosen category left 0 free agents for AST + 3PM in Ball is Life. Every
+  column sorts. Desktop shows each category's per-game number shaded by its value; on a phone (≤760px) the table drops to
+  rank, name (with a category heat strip and the minutes arrow), value, this week and games, and a tap opens the full line
+  with an ESPN game-log link. The header "Players" pill is hidden at phone width (it wrapped the header to two rows); phones
+  reach the page from the ▦ menu or the league page's Players button. Filters are kept per device (localStorage).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

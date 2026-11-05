@@ -38,12 +38,13 @@
   const n0 = v => Number(v).toLocaleString("en-US");
   const signed = v => (v > 0 ? "+" : "") + v;
   S.slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  S.PLAYERS_SPORTS = ["nba"];   // leagues with a Players page (players/, data/players.json)
 
   // ---------- data: the only place that fetches ----------
+  // one data file on demand (the Players page's players.json is too big to load on every page)
+  S.loadFile = f => fetch(S.url(`data/${f}.json?t=${Date.now()}`), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
   S.load = async function () {
-    const t = Date.now();
-    const get = f => fetch(S.url(`data/${f}.json?t=${t}`), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
-    const got = await Promise.all(FILES.map(get));
+    const got = await Promise.all(FILES.map(S.loadFile));
     FILES.forEach((f, i) => { if (got[i]) S.data[f] = got[i]; });
     return S.data;
   };
@@ -227,7 +228,8 @@
     const L = S.leagues(d).find(x => x.name === name);
     if (!L) return `<p class="note">No data yet.</p>`;
     const lg = L.lg, a = L.a;
-    const fb = S.fbButtons(`${name} detail`);
+    const fb = (S.PLAYERS_SPORTS.includes(lg.sport) ? `<a class="pill" href="${esc(S.url("players/"))}#${S.slug(name)}">Players</a> ` : "")
+      + S.fbButtons(`${name} detail`);
     if (lg.pending) return `<div class="detail"><div class="dhead"><h2>${esc(name)}</h2>${fb}</div><p class="note">${esc(lg.message)}<br>This fills in automatically.</p></div>`;
     const src = lg.roster_synced ? `roster read ${kick(lg.roster_synced)}` : lg.snapshot ? `ESPN read ${kick(lg.snapshot)}` : "";
     const stale = lg.stale ? `<p class="note"><b>Showing last good data</b>: the latest refresh failed.</p>` : "";
@@ -351,7 +353,7 @@
       m.innerHTML = `<div class="lm-h">Layout</div>` + LAYOUTS.map(l => `<a role="menuitemradio" aria-checked="${l.id === view()}" href="${esc(S.url(l.path))}">
           <span class="lm-letter">${l.id.toUpperCase()}</span><span class="lm-tx"><b>${esc(l.name)}</b>${l.id === "a" ? `<span class="lm-def">main page</span>` : ""}<span class="lm-d">${esc(l.desc)}</span></span>
           <span class="lm-tick" aria-hidden="true">${l.id === view() ? "✓" : ""}</span></a>`).join("")
-        + `<div class="lm-f"><a href="${esc(S.url("war-room/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
+        + `<div class="lm-f"><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
       document.body.appendChild(m);
     }
     const r = btn.getBoundingClientRect(), w = Math.min(360, innerWidth - 24);

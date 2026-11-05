@@ -107,6 +107,11 @@ class Values(unittest.TestCase):
         self.assertEqual((by["5"]["wk"], by["5"]["out"], by["5"]["inj"]), (0.0, True, "Out"))
         self.assertEqual(by["2"]["st"][:2], [20, 3])
         self.assertEqual(by["2"]["st"][2], 0.625)
+        # what the Players page (docs/players/index.html) reads
+        self.assertTrue({"id", "name", "team", "pos", "own", "src", "gp", "min", "v", "rk", "wk", "g", "b2b", "z", "st", "inj",
+                         "out", "dmin", "pct"} <= set(by["1"]))
+        self.assertEqual(len(by["1"]["z"]), len(b["cats"]))
+        self.assertEqual(by["1"]["pos"], "PG/SG")
 
     def test_roster_rows_get_value_labels(self):
         lg = league()
