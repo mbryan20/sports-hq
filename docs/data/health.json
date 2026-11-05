@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-04T18:16:05Z",
+ "generated": "2026-11-05T16:53:22Z",
  "summary": {
-  "ok": 13,
+  "ok": 11,
   "watch": 0,
-  "drift": 0,
+  "drift": 2,
   "weak": 1,
   "waiting": 5,
   "info": 4,
@@ -22,6 +22,30 @@
    "tolerance": 0.05,
    "status": "weak",
    "floor": 0.0
+  },
+  {
+   "section": "radar",
+   "id": "radar.held",
+   "label": "Flagged free agents whose bigger role held",
+   "value": 0.77,
+   "n": 22,
+   "unit": "%",
+   "baseline": 1.0,
+   "baseline_set": "2026-11-03",
+   "tolerance": 0.15,
+   "status": "drift"
+  },
+  {
+   "section": "radar",
+   "id": "radar.edge",
+   "label": "Radar flags' value over the old suggestions (z per game)",
+   "value": 0.15,
+   "n": 22,
+   "unit": "z",
+   "baseline": 1.32,
+   "baseline_set": "2026-11-03",
+   "tolerance": 0.5,
+   "status": "drift"
   }
  ],
  "sections": [
@@ -126,7 +150,7 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.56,
+     "value": 0.55,
      "n": 187,
      "unit": "%",
      "target": 0.5,
@@ -270,7 +294,7 @@
     },
     "prices": {
      "n": 187,
-     "cov50": 0.56,
+     "cov50": 0.55,
      "cov80": 0.81,
      "est_mae": 8.9,
      "by": {
@@ -290,13 +314,13 @@
        "n": 23,
        "cov50": 0.74,
        "cov80": 0.87,
-       "est_mae": 10.6
+       "est_mae": 10.5
       },
       "pos RB": {
        "n": 35,
        "cov50": 0.34,
        "cov80": 0.63,
-       "est_mae": 19.1
+       "est_mae": 19.0
       },
       "pos TE": {
        "n": 24,
@@ -306,7 +330,7 @@
       },
       "pos WR": {
        "n": 61,
-       "cov50": 0.48,
+       "cov50": 0.46,
        "cov80": 0.75,
        "est_mae": 8.4
       },
@@ -318,15 +342,15 @@
       },
       "legs 5-8": {
        "n": 96,
-       "cov50": 0.58,
+       "cov50": 0.57,
        "cov80": 0.81,
-       "est_mae": 5.6
+       "est_mae": 5.5
       },
       "estimate $10+": {
        "n": 53,
-       "cov50": 0.49,
+       "cov50": 0.47,
        "cov80": 0.79,
-       "est_mae": 18.9
+       "est_mae": 18.8
       },
       "estimate under $10": {
        "n": 134,
@@ -1152,41 +1176,41 @@
   {
    "id": "radar",
    "title": "NBA trend radar",
-   "status": "ok",
+   "status": "drift",
    "checks": [
     {
      "id": "radar.held",
      "label": "Flagged free agents whose bigger role held",
-     "value": 1.0,
-     "n": 5,
+     "value": 0.77,
+     "n": 22,
      "unit": "%",
      "baseline": 1.0,
      "baseline_set": "2026-11-03",
      "tolerance": 0.15,
-     "status": "ok"
+     "status": "drift"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": 1.44,
-     "n": 5,
+     "value": 0.15,
+     "n": 22,
      "unit": "z",
      "baseline": 1.32,
      "baseline_set": "2026-11-03",
      "tolerance": 0.5,
-     "status": "ok"
+     "status": "drift"
     }
    ],
    "details": {
-    "flagged": 5,
-    "held": 5,
-    "held_rate": 1.0,
-    "flag_value": -1.15,
-    "wire_value": -2.59,
-    "edge": 1.44,
+    "flagged": 22,
+    "held": 17,
+    "held_rate": 0.77,
+    "flag_value": -2.51,
+    "wire_value": -2.66,
+    "edge": 0.15,
     "added_later": 0,
-    "any_flagged": 15,
-    "any_held": 11
+    "any_flagged": 62,
+    "any_held": 42
    },
    "notes": []
   },
