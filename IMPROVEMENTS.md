@@ -138,7 +138,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-031 · B4: no games grid or streaming plan for the basketball leagues
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (c3b56e7)
 - **Area:** `shq/nba_games.py` (new), `shq/advice.py` (`games` block), `docs/lib/core.js` (`gamesHTML`, "Games & streamers")
 - **Rank:** —
 - **Added:** 2026-11-05 from the claude-audit proposal (item B4)
