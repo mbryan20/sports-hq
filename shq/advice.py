@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -132,6 +132,15 @@ def player_values(league):
     return league.values
 
 
+def football_players(league):
+    """Football Players page rows (shq/nfl_players.py), kept on the league for run.py; best-effort."""
+    try:
+        league.players_block = nfl_players.build(league)
+    except Exception:
+        traceback.print_exc()
+        league.players_block = None
+
+
 def games_plan(league, cats):
     """NBA games grid and streamers (shq/nba_games.py); best-effort like the rest of the advice."""
     try:
@@ -153,6 +162,8 @@ def build(league, now):
     league.radar = trend_radar(league, cats) if nba else None
     if nba:
         player_values(league)
+    else:
+        football_players(league)
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),

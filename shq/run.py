@@ -325,9 +325,11 @@ def main():
     status["actions"] = actions
 
     save_json(DATA / "lineups.json", {"updated": iso(now), "week": ctx.week, "leagues": league_views})
-    try:   # NBA player values for the Players page (shq/nba_values.py)
+    try:   # the Players page: NBA category values (shq/nba_values.py), football ranks (shq/nfl_players.py)
         nba_values.save(DATA / "players.json", {lg.name: getattr(lg, "values", None) for lg in leagues
                                                  if getattr(lg, "sport", "nfl") == "nba"}, iso(now))
+        nba_values.save(DATA / "players_nfl.json", {lg.name: getattr(lg, "players_block", None) for lg in leagues
+                                                     if getattr(lg, "sport", "nfl") == "nfl"}, iso(now))
     except Exception as e:
         traceback.print_exc()
         errors.append(f"players: {type(e).__name__}: {e}")

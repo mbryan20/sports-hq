@@ -224,6 +224,31 @@ Measure (the health.json check that should move), Design, Decision.
   both gave +11.7 dynasty, +7.3 now, +6.9 fit). The age curve isn't fitted to data; the tray says so.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-035 · F1: no player list for the football leagues either
+- **Status:** shipped (COMMIT_X)
+- **Area:** `shq/nfl_players.py` (new), `shq/advice.py` (`football_players`), `shq/run.py` (writes `docs/data/players_nfl.json`),
+  `shq/espn_fantasy.py` (public football leagues read 50 free agents, was 12), `docs/players/index.html` (football view),
+  `docs/lib/core.js` (Players button on football league pages)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item F1)
+- **Evidence:** football rankings by position still came from FantasyPros; HQ had only waiver adds and trade ideas.
+- **Expected impact:** rest-of-season and weekly ranks by position for every football league without leaving HQ.
+- **Effort:** M
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** per league, every rostered player (mine, each other team) plus the best FA_KEEP (150) free agents. ROS = Sleeper's
+  projections for the next 4 weeks scored with the league's settings, per game played (`values.ros_ppg`, the same numbers
+  the waiver adds and trade finder use; QB/RB/WR/TE). This week = the league's own projection (ESPN for ESPN leagues,
+  Sleeper for Sleeper leagues and Kosmonauts), as on the lineup tab. Ranks are by position among those players; K/DEF rank
+  on this week only. FantasyCalc dynasty or redraft value and the next 4 weeks are shown too. Choices: a separate data
+  file (`players_nfl.json`, ~350 KB before Pages' gzip) so the basketball view stays light; the same page with football
+  tabs after the basketball ones and football-specific columns (no category filters or trade tray; football trades
+  already have the trade finder); Kosmonauts is marked partial (other rosters need the Yahoo API); 3-Ball FB's public
+  read now asks ESPN for 50 free agents like the laptop snapshot, so its free-agent ranks aren't 12 players deep.
+  Also fixed while building this: the NBA row label had been stored as "val", which football rows use for FantasyCalc
+  (football league pages' roster rows broke for about an hour on Nov 5); it is "cv" now (commit 5821d51).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

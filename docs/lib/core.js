@@ -38,7 +38,7 @@
   const n0 = v => Number(v).toLocaleString("en-US");
   const signed = v => (v > 0 ? "+" : "") + v;
   S.slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  S.PLAYERS_SPORTS = ["nba"];   // leagues with a Players page (players/, data/players.json)
+  S.PLAYERS_SPORTS = ["nba", "nfl"];   // leagues on the Players page (players/; data/players.json, players_nfl.json)
 
   // ---------- data: the only place that fetches ----------
   // one data file on demand (the Players page's players.json is too big to load on every page)

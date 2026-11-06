@@ -13,7 +13,8 @@
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="stylesheet" href="../lib/core.css">
 <style>
-/* Players: every player in a league, sortable and filterable (data/players.json, shq/nba_values.py). Dense on purpose:
+/* Players: every player in a league, sortable and filterable. Basketball: data/players.json (shq/nba_values.py);
+   football: data/players_nfl.json (shq/nfl_players.py). Dense on purpose:
    it replaces sifting players on FantasyPros. Phone: the table keeps the key columns and a category heat strip; tap a
    row for the full stat line. */
 main { padding: 10px 12px 80px; max-width: 1400px; margin: 0 auto; }
@@ -69,6 +70,8 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
 .basis { font-size: 11.5px; color: var(--muted); margin: 10px 2px; line-height: 1.45; }
 /* trade mode (B6): tap + on rows, the verdict sits in a tray at the bottom */
 .tabs .trade { margin-left: auto; }
+.tabs .sep { width: 100%; height: 0; }
+.nx { color: var(--muted); font-size: 11.5px; }
 .tbtn { border: 1px solid var(--line); background: var(--card2); border-radius: 6px; width: 24px; height: 22px; font-weight: 800; padding: 0; line-height: 1; }
 .tbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 .tray { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--card); border-top: 2px solid var(--accent);
@@ -201,6 +204,59 @@ body.trading main { padding-bottom: 46vh; }
       <div class="row2"><span class="muted">${give.length && get.length ? "" : "Pick at least one player on each side."}</span>
         <span>${give.length && get.length ? `<button class="pill" data-tmore>${st.more ? "Less" : "Details"}</button> ` : ""}<button class="pill" data-tclear>Clear</button> <button class="pill" data-trade>Done</button></span></div></div></div>`;
   }
+  // ---------- tabs: basketball leagues, then football ----------
+  function tabsHTML() {
+    const names = leagues(), kind = n => data.leagues[n].kind || "nba";
+    return names.map((n, i) => (i && kind(n) !== kind(names[i - 1]) ? `<span class="sep"></span>` : "")
+      + `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
+  }
+  // ---------- football: rest-of-season and this-week ranks by position (shq/nfl_players.py) ----------
+  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "fc", "name"];
+  function renderNFL(L) {
+    document.body.classList.remove("trading");
+    document.documentElement.style.setProperty("--top", (document.querySelector(".topbar")?.offsetHeight || 52) + "px");
+    if (!NFL_SORT.includes(st.sort)) { st.sort = "ros"; st.dir = -1; }
+    const pos = NFL_POS.includes(st.pos) ? st.pos : "", q = st.q.trim().toLowerCase();
+    const all = L.players.filter(p =>
+      (st.who === "all" || (st.who === "fa" ? !p.own : st.who === "mine" ? p.own === "me" : p.own && p.own !== "me")) &&
+      (!pos || p.pos === pos) && (!st.health || (st.health === "ok" ? !p.inj : !!p.inj)) &&
+      (!q || p.name.toLowerCase().includes(q) || (p.team || "").toLowerCase() === q));
+    const val = (p, k) => k === "name" ? p.name : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
+    all.sort((a, b) => { const x = val(a, st.sort), y = val(b, st.sort);
+      return typeof x === "string" ? st.dir * x.localeCompare(y) : st.dir * ((x ?? -1e9) - (y ?? -1e9)); });
+    const shown = all.slice(0, st.limit), wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
+    const ncol = 6 + (wide ? 2 : 0);
+    const opt = (v, t, cur) => `<option value="${v}"${String(cur) === String(v) ? " selected" : ""}>${t}</option>`;
+    const n1 = x => x == null ? "–" : Number(x).toFixed(1);
+    const rk = (p, k) => p[k + "_rk"] ? `${p.pos}${p[k + "_rk"]}` : "–";
+    const filters = `<div class="filters">
+      <input type="search" data-f="q" placeholder="Name or team (DAL)" value="${esc(st.q)}" aria-label="Search">
+      <select data-f="who" aria-label="Who">${opt("all", "Everyone", st.who)}${opt("fa", "Available", st.who)}${opt("mine", "Mine", st.who)}${opt("taken", "Other teams", st.who)}</select>
+      <select data-f="pos" aria-label="Position">${opt("", "All pos", pos)}${NFL_POS.map(x => opt(x, x, pos)).join("")}</select>
+      <select data-f="health" aria-label="Health">${opt("", "Any health", st.health)}${opt("ok", "No injury tag", st.health)}${opt("inj", "Injury tag", st.health)}</select></div>`;
+    const head = `<tr>${th("ros", "Rk", "", "Rest-of-season rank at his position")}${th("name", "Player", "l")}
+      ${th("ros", "ROS", "", "Rest of season: projected points per game (next 4 weeks, byes skipped)")}${th("proj", "Wk", "", "This week's projection")}
+      <th title="This week's rank at his position">Wk rk</th>${W(th("fc", "Value", "", "FantasyCalc value"))}${W(`<th class="l" title="Next 4 weeks' projections">Next 4</th>`)}</tr>`;
+    const body = shown.map(p => {
+      const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}`;
+      const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${rk(p, "ros")}</td>
+        <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${/OUT|IR|D/.test(p.inj) ? "bad" : "q"}">${esc(p.inj)}</span>` : ""}</div><div class="sb">${sub}</div></td>
+        <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td>
+        ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td><td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
+      const more = st.open[p.id] ? `<tr class="more"><td colspan="${ncol}"><b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${p.own === "me" ? "yours" : p.own ? esc(p.own) : "free agent"}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
+        Rest of season ${n1(p.ros)} per game (${rk(p, "ros")}) · this week ${p.opp === "BYE" ? "bye" : `${n1(p.proj)} (${rk(p, "proj")})`}${p.opp && p.opp !== "BYE" ? `, ${esc(p.opp)} ${esc(S.kick(p.kick))}` : ""}<br>
+        Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td></tr>` : "";
+      return tr + more;
+    }).join("");
+    main.innerHTML = `<div class="tabs">${tabsHTML()}</div>${filters}
+      <div class="summary"><span>${all.length} player${all.length === 1 ? "" : "s"}${all.length > shown.length ? `, showing ${shown.length}` : ""} · week ${L.week} · tap a row for his full line</span>
+        <span>Built ${esc(S.kick(data.nflUpdated || data.updated))}</span></div>
+      <table class="tbl"><thead>${head}</thead><tbody>${body || `<tr><td colspan="${ncol}" class="l muted">No player matches these filters.</td></tr>`}</tbody></table>
+      ${all.length > shown.length ? `<button class="pill showmore" data-more>Show ${Math.min(150, all.length - shown.length)} more</button>` : ""}
+      <p class="basis">${esc(L.basis)} Ideas only: nothing is sent.</p>`;
+    const sel = main.querySelector(`[data-f="q"]`);
+    if (focusQ) { sel.focus(); sel.setSelectionRange(sel.value.length, sel.value.length); focusQ = false; }
+  }
   function th(k, label, cls = "", title = "") {
     const s = st.sort === k ? ` aria-sort="${st.dir < 0 ? "descending" : "ascending"}"` : "";
     return `<th class="${cls}" data-sort="${k}"${s}${title ? ` title="${esc(title)}"` : ""}>${label}</th>`;
@@ -208,6 +264,7 @@ body.trading main { padding-bottom: 46vh; }
   function render() {
     if (!data?.leagues || !leagues().length) { main.innerHTML = `<p class="note">No player values yet. They fill in on the next cloud run.</p>`; return; }
     const L = cur();
+    if (L.kind === "nfl") return renderNFL(L);
     document.documentElement.style.setProperty("--top", (document.querySelector(".topbar")?.offsetHeight || 52) + "px");
     if (st.sort === "fit" && !st.cats.length) st.sort = "v";
     if (/^c\d+$/.test(st.sort) && +st.sort.slice(1) >= L.cats.length) st.sort = "v";
@@ -215,8 +272,7 @@ body.trading main { padding-bottom: 46vh; }
     all.sort((a, b) => { const x = sortVal(L, a, st.sort), y = sortVal(L, b, st.sort);
       return typeof x === "string" ? dir * x.localeCompare(y) : dir * ((x ?? -1e9) - (y ?? -1e9)) || a.rk - b.rk; });
     const shown = all.slice(0, st.limit);
-    const tabs = leagues().map(n => `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("")
-      + `<button class="trade" data-trade aria-pressed="${st.trade}">⇄ Trade check</button>`;
+    const tabs = tabsHTML() + `<button class="trade" data-trade aria-pressed="${st.trade}">⇄ Trade check</button>`;
     document.body.classList.toggle("trading", st.trade);
     const opt = (v, t, cur) => `<option value="${v}"${String(cur) === String(v) ? " selected" : ""}>${t}</option>`;
     const filters = `<div class="filters">
@@ -265,7 +321,7 @@ body.trading main { padding-bottom: 46vh; }
   main.addEventListener("click", e => {
     const t = e.target;
     const lg = t.closest("[data-lg]");
-    if (lg) { st.lg = lg.dataset.lg; st.cats = []; st.give = []; st.get = []; st.limit = 150; history.replaceState(null, "", "#" + S.slug(st.lg)); save(); return render(); }
+    if (lg) { st.lg = lg.dataset.lg; st.cats = []; st.give = []; st.get = []; st.limit = 150; st.pos = ""; history.replaceState(null, "", "#" + S.slug(st.lg)); save(); return render(); }
     if (t.closest("[data-trade]")) { st.trade = !st.trade; save(); return render(); }
     if (t.closest("[data-tclear]")) { st.give = []; st.get = []; save(); return render(); }
     if (t.closest("[data-tmore]")) { st.more = !st.more; save(); return render(); }
@@ -292,7 +348,12 @@ body.trading main { padding-bottom: 46vh; }
   main.addEventListener("input", e => { if (e.target.dataset.f === "q") { st.q = e.target.value; focusQ = true; save(); render(); } });
   addEventListener("hashchange", () => data && render());
   matchMedia("(max-width: 760px)").addEventListener("change", () => data && render());
-  S.start(async () => { data = await S.loadFile("players") || data; render(); });
+  S.start(async () => {
+    const [nba, nfl] = await Promise.all([S.loadFile("players"), S.loadFile("players_nfl")]);
+    if (nba || nfl) data = { updated: nba?.updated || nfl?.updated, nflUpdated: nfl?.updated,
+                             leagues: { ...(nba?.leagues || {}), ...(nfl?.leagues || {}) } };
+    render();
+  });
 })();
 </script>
 </body>

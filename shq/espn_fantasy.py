@@ -178,7 +178,7 @@ def compact(raw, sport, team_id, free_agents=None):
 def fetch_public(sport, season, league_id, team_id):
     url = _url(sport, season, league_id)
     raw = get_json(url, [("view", v) for v in VIEWS])
-    filt = {"players": {**FA_FILTER["players"], "limit": FA_POOL if sport == "nba" else 12}}
+    filt = {"players": {**FA_FILTER["players"], "limit": FA_POOL if sport == "nba" else 50}}   # football: as the laptop snapshot
     fas = get_json(url, {"view": "kona_player_info", "scoringPeriodId": raw["scoringPeriodId"]},
                    headers={"X-Fantasy-Filter": json.dumps(filt)}).get("players", [])
     return compact(raw, sport, team_id, fas)
