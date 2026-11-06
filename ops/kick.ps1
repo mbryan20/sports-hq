@@ -12,30 +12,45 @@
 # session must never run -SaveToken, open the token file or print GH_TOKEN.
 #
 # Every run writes exactly one line to %LOCALAPPDATA%\sports-hq-kick.log (last 500 kept): started / skipped / FAILED.
-# If that file can't be written, the line goes to %TEMP%\sports-hq-kick.log instead, so a failure is never silent.
+# If that file can't be written, the line goes to %TEMP%\sports-hq-kick.log, else to the repo's .cache\sports-hq-kick.log
+# (gitignored), so a failure is never silent.
 param(
   [string]$Workflow = "run.yml",
   [int]$FreshMinutes = 0,
   [switch]$SaveToken,
   [string]$Gh = "C:\Program Files\GitHub CLI\gh.exe",
-  [string]$Log = (Join-Path $env:LOCALAPPDATA "sports-hq-kick.log"),
-  [string]$TokenFile = (Join-Path $env:LOCALAPPDATA "sports-hq-kick.token")
+  [string]$Log = "",
+  [string]$TokenFile = ""
 )
 # no "Stop": in Windows PowerShell 5.1 a native program's stderr turns into errors whose handling differs by host, so
 # every gh call is checked by its exit code instead
 $ErrorActionPreference = "Continue"
 $repo = "mbryan20/sports-hq"
 $help = "see ops/designs/Q-014.md, 'Sign-in for the scheduled tasks'"
+# a scheduled task's environment can lack LOCALAPPDATA (suspected Nov 5: runs left no line at all), so find the folder
+# without it, and nothing below can fail before the log works
+$local = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [Environment]::GetFolderPath("LocalApplicationData") }
+if (-not $local -and $env:USERPROFILE) { $local = Join-Path $env:USERPROFILE "AppData\Local" }
+if (-not $Log) { $Log = if ($local) { Join-Path $local "sports-hq-kick.log" } else { "" } }
+if (-not $TokenFile) { $TokenFile = if ($local) { Join-Path $local "sports-hq-kick.token" } else { "" } }
+# last resorts: TEMP, then the repo's own gitignored .cache folder next to this script
+$fallbacks = @($env:TEMP, (Join-Path (Split-Path $PSScriptRoot -Parent) ".cache")) | Where-Object { $_ } |
+  ForEach-Object { Join-Path $_ "sports-hq-kick.log" }
 if (-not (Test-Path $Gh)) { $Gh = "gh" }
 
 function Write-Log([string]$msg) {
   $line = "{0:yyyy-MM-dd HH:mm:ss} {1}: {2}" -f (Get-Date), $Workflow, (($msg -replace "\s+", " ").Trim())
-  try {
-    $old = @()
-    if (Test-Path $Log) { $old = @(Get-Content $Log -Tail 499 -ErrorAction Stop) }
-    Set-Content -Path $Log -Value ($old + $line) -Encoding utf8 -ErrorAction Stop
-  } catch {
-    try { Add-Content -Path (Join-Path $env:TEMP "sports-hq-kick.log") -Value "$line (main log $Log failed: $($_.Exception.Message))" -ErrorAction Stop } catch {}
+  $why = "no log folder (LOCALAPPDATA and USERPROFILE empty)"
+  if ($Log) {
+    try {
+      $old = @()
+      if (Test-Path $Log) { $old = @(Get-Content $Log -Tail 499 -ErrorAction Stop) }
+      Set-Content -Path $Log -Value ($old + $line) -Encoding utf8 -ErrorAction Stop
+      return
+    } catch { $why = "main log $Log failed: $($_.Exception.Message)" }
+  }
+  foreach ($f in $fallbacks) {
+    try { Add-Content -Path $f -Value "$line ($why)" -ErrorAction Stop; return } catch {}
   }
 }
 
@@ -57,7 +72,7 @@ if ($SaveToken) {
   exit 0
 }
 
-if (Test-Path $TokenFile) {
+if ($TokenFile -and (Test-Path $TokenFile)) {
   try {
     $sec = (Get-Content $TokenFile -Raw -ErrorAction Stop).Trim() | ConvertTo-SecureString -ErrorAction Stop
     $env:GH_TOKEN = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec))

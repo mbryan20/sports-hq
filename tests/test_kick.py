@@ -34,11 +34,11 @@ class Kick(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
-    def run_kick(self, gh_text, *args, log=None, gh_path=None, path=None):
+    def run_kick(self, gh_text, *args, log=None, gh_path=None, path=None, drop=()):
         gh = gh_path or self.tmp / "gh.ps1"
         if gh_text is not None:
             gh.write_text(gh_text, encoding="ascii")
-        env = {k: v for k, v in os.environ.items() if k not in ("GH_TOKEN", "GITHUB_TOKEN")}
+        env = {k: v for k, v in os.environ.items() if k not in ("GH_TOKEN", "GITHUB_TOKEN", *drop)}
         env["TEMP"] = env["TMP"] = str(self.tmp)
         if path:
             env["PATH"] = path
@@ -61,6 +61,12 @@ class Kick(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertRegex(text.strip().splitlines()[-1], r"run\.yml: skipped: data committed [2-4] min ago$")
         self.assertEqual(len(text.strip().splitlines()), 2)                    # one line per run
+
+    def test_missing_localappdata_still_logs(self):
+        # Nov 5: a scheduled run left no line at all; an empty LOCALAPPDATA killed the old script's parameter defaults
+        code, text = self.run_kick(NOT_SIGNED_IN, drop=("LOCALAPPDATA",))
+        self.assertEqual(code, 2)
+        self.assertIn("FAILED: gh is not signed in", text)
 
     def test_gh_missing_is_logged(self):
         code, text = self.run_kick(None, gh_path=self.tmp / "nothere.exe", path=str(self.tmp))
