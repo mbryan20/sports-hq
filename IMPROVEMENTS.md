@@ -158,7 +158,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-032 · B5: no NBA lineup push before tip-off when a move is needed
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (3ae3a74)
 - **Area:** `shq/nba_lineup.py` (new), `shq/run.py` (send before the injury watch), `shq/advice.py` `_moves` (NBA "Lineup
   moves"), `shq/digest.py` (`_fix` ranks by value; NBA lineup items no longer urgent)
 - **Rank:** —
