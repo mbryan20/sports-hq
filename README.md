@@ -64,7 +64,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   most one a day for both basketball leagues, from 3h before the first affected tip-off, only when a starter has no game,
   is out or the slot is empty and a bench player who plays today can fill it, or a bench player who plays today is worth
   1+ value per game more than a playing starter. The same moves show as "Lineup moves" on the tabs.
-- **Laptop kick** (Windows Task Scheduler, `ops/kick.ps1`, no AI; the two tasks still need creating, Nov 5): GitHub runs scheduled jobs hours late, so the laptop
+- **Laptop kick** (Windows Task Scheduler, `ops/kick.ps1`, no AI; tasks created, waiting on Michael's one-repo token, `ops/designs/Q-014.md` "Sign-in"): GitHub runs scheduled jobs hours late, so the laptop
   starts `run.yml` at 7:02am CT and hourly to 11:02pm (skipped when data was committed in the last 20 min) and
   `model-health.yml` at 2:55am. A dispatched run gets its own concurrency group, so it is never dropped; a run that finds
   another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. Tasks and how

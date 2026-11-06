@@ -94,9 +94,12 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
-- **Status:** partial (d2bfcb7): the repo side is live and tested (a hand-run kick started at once beside the game-day
-  loop and did one pass, Nov 5 6:04pm). The two Windows tasks are not created yet: creating them was refused by this
-  session's permission check, so Michael (or Claude Ops) runs the commands in `ops/designs/Q-014.md` "The exact tasks"
+- **Status:** partial (d2bfcb7; logging fix d5482ef): the repo side is live and tested, and Claude Ops created both Windows
+  tasks on Nov 5. They start nothing yet: gh's login (kept in Windows Credential Manager) isn't reachable from Task
+  Scheduler, so every scheduled run now logs "FAILED: gh is not signed in here...". The fix is sign-in option A in
+  `ops/designs/Q-014.md` "Sign-in for the scheduled tasks": Michael creates a one-repo, Actions-only GitHub token and saves
+  it encrypted with `kick.ps1 -SaveToken` (steps there; no Claude session handles the token). Options B-E and their
+  security tradeoffs are in the same section.
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
   digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
@@ -326,7 +329,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** partial (d2bfcb7, built as Q-029; the Windows tasks still need creating, see Q-029)
+- **Status:** partial (d2bfcb7, built as Q-029; the tasks exist but need the sign-in in Q-029)
 - **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
 - **Rank:** 5
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
