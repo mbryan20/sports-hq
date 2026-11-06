@@ -201,7 +201,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-034 · B6: no way to check an NBA trade in category terms
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (90dd05c)
 - **Area:** `shq/nba_trade.py` (new), `shq/advice.py` (`player_values` adds the trade fields), `docs/players/index.html` ("⇄ Trade
   check" mode and tray), `docs/data/players.json` (`above`, `dyn`, `trade`)
 - **Rank:** —
