@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T21:47:00Z",
+ "updated": "2026-11-06T21:57:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -198,10 +198,10 @@
      "kickoff": "2026-11-08T21:25:00Z",
      "started": false,
      "proj": 0,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
+     "status": "OUT",
+     "why": "ESPN: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
       "note": "Samuel (hamstring) didn't participate in the early portion of Friday's practice, Nick Wagoner of ESPN.com reports.",
@@ -231,7 +231,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "Domo Arigato": {
@@ -243,7 +243,7 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "CoachChrisSports",
-   "opp_proj": 137.8,
+   "opp_proj": 138.1,
    "roster_synced": null,
    "proj": 111.6,
    "starters": [
@@ -609,7 +609,7 @@
      "opp": "vs ARI",
      "kickoff": "2026-11-08T21:25:00Z",
      "started": false,
-     "proj": 9.8,
+     "proj": 10.0,
      "status": null,
      "why": "",
      "flags": [],
@@ -631,7 +631,7 @@
     }
    ],
    "advice": {
-    "matchup": "111.6 vs 137.8 (CoachChrisSports): projected to lose by 26.2",
+    "matchup": "111.6 vs 138.1 (CoachChrisSports): projected to lose by 26.5",
     "danger": false,
     "fixes": [
      "Garrett Wilson (WR) OUT (Sleeper: Out) \u2192 start Tre Tucker (10.9 proj) [ESPN, Nov 6 10:16a: Wilson (concussion) is out for Sunday's game against the Chiefs, Brian Costello of the New York Post reports.]"
@@ -693,7 +693,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "Guillotine": {
@@ -944,7 +944,7 @@
     "moves": [],
     "adds": [
      "Add Brenton Strange (TE, JAX, 8.5/gm, value 490) for Khalil Shakir (WR, your WR5, 8.4/gm): fills in at TE in week 10, +7.5 pts over the next 4 weeks",
-     "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.8 proj)",
+     "Add New Orleans Saints (DEF, NO, 8.2 proj this week), drop Cincinnati Bengals (6.8 proj)",
      "Add Bryce Young (QB, CAR, 21.9/gm, value 344) for Breece Hall (RB, your RB6, 8.7/gm): better backup QB, +2 pts over the next 4 weeks"
     ],
     "trades": {
@@ -982,7 +982,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:47p",
+    "built": "Fri 3:57p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -998,23 +998,23 @@
       {
        "name": "MoneyManChas",
        "proj": 116.8,
-       "cut": 0.253,
+       "cut": 0.254,
        "faab": 150,
        "bold": 0.2,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 117.5,
-       "cut": 0.233,
+       "proj": 117.6,
+       "cut": 0.234,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "robert8063",
-       "proj": 126.6,
-       "cut": 0.144,
+       "proj": 127.0,
+       "cut": 0.141,
        "faab": 26,
        "bold": 0.57,
        "me": false
@@ -1028,20 +1028,20 @@
        "me": false
       },
       {
-       "name": "GoodFellas",
-       "proj": 135.6,
-       "cut": 0.071,
-       "faab": 20,
-       "bold": 0.74,
-       "me": false
-      },
-      {
        "name": "michaelbryan",
        "proj": 137.9,
        "cut": 0.071,
        "faab": 10,
        "bold": 0.58,
        "me": true
+      },
+      {
+       "name": "GoodFellas",
+       "proj": 135.7,
+       "cut": 0.071,
+       "faab": 20,
+       "bold": 0.74,
+       "me": false
       },
       {
        "name": "JHED1979",
@@ -1054,7 +1054,7 @@
       {
        "name": "Swegs4",
        "proj": 148.0,
-       "cut": 0.035,
+       "cut": 0.036,
        "faab": 8,
        "bold": 1.0,
        "me": false
@@ -1095,16 +1095,16 @@
        "name": "New Orleans Saints",
        "pos": "DEF",
        "team": "NO",
-       "proj": 8.1,
-       "gain": 1.3,
+       "proj": 8.2,
+       "gain": 1.4,
        "cut_with": 0.064,
-       "price": 3,
+       "price": 4,
        "max": 0,
        "call": "priced out",
        "rivals": [
         {
          "name": "MoneyManChas",
-         "bid": 2
+         "bid": 3
         }
        ],
        "freed_from": null
@@ -1112,7 +1112,7 @@
      ],
      "freed": {
       "team": "MoneyManChas",
-      "cut": 0.253,
+      "cut": 0.254,
       "players": [
        {
         "name": "Jonah Coleman",
@@ -1172,7 +1172,7 @@
         "team": "WAS",
         "proj": 10.6,
         "gain": 1.4,
-        "cut_with": 0.063,
+        "cut_with": 0.064,
         "price": 5,
         "max": 0,
         "call": "priced out",
@@ -1186,7 +1186,7 @@
           "bid": 3
          },
          {
-          "name": "GoodFellas",
+          "name": "Swegs4",
           "bid": 1
          }
         ],
@@ -1513,8 +1513,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Burks (foot) was a non-participant at Thursday's practice.",
-      "at": "2026-11-06T00:26:00Z",
+      "note": "Burks (foot) has been ruled out for Sunday's game against the Rams.",
+      "at": "2026-11-06T21:31:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -1618,7 +1618,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "Stempak": {
@@ -1772,11 +1772,7 @@
      "flags": [
       "Q"
      ],
-     "news": {
-      "note": "Kincaid (chest) is no longer in a red non-contact jersey at Friday's practice, Sal Capaccio of WGR Sports Radio 550 Buffalo reports.",
-      "at": "2026-11-06T19:43:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4385690/dalton-kincaid"
-     }
+     "news": null
     },
     {
      "slot": "K",
@@ -1987,7 +1983,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "Bro-vid19": {
@@ -2250,7 +2246,7 @@
     "fixes": [
      "Garrett Wilson (WR) OUT (ESPN: Out) \u2192 start KC Concepcion (11.1 proj) [ESPN, Nov 6 10:16a: Wilson (concussion) is out for Sunday's game against the Chiefs, Brian Costello of the New York Post reports.]",
      "David Montgomery (RB) OUT (ESPN: OUT) \u2192 start Kimani Vidal (8.8 proj) [ESPN, Nov 4 2:52p: Texans head coach DeMeco Ryans said Wednesday that Montgomery (groin) has made some progress but is still viewed as week-to-week and will remain out for\u2026]",
-     "Move Rashid Shaheed out of IR: ESPN lists him OUT, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 5 6:25p: Shaheed (knee) didn't participate at the Seahawks' practice Thursday, John Boyle of the team's official site reports.]"
+     "Move Rashid Shaheed out of IR: ESPN lists him OUT, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 6 3:38p: Shaheed (knee) is listed as out for Sunday's game against the Cardinals, Gregg Bell of 933 KJR reports.]"
     ],
     "moves": [],
     "adds": [
@@ -2322,7 +2318,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "3-Ball BB": {
@@ -3114,7 +3110,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   },
   "Ball is Life": {
@@ -3810,7 +3806,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Fri 3:47p"
+    "built": "Fri 3:57p"
    }
   }
  }
