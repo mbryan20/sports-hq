@@ -293,7 +293,9 @@ def build_yahoo(W, slate):
             why = short(f"Stats {pm*100:.0f}% win; wind {S['wx']['wind']:.0f} mph lowers scoring")
         else:
             gap = (pm - (pk or pm)) * 100
-            if abs(gap) < 8:
+            if pm < 0.5:  # stats lean the other way; the favorite stays (Nov 5: Northwestern at 49% read "agrees")
+                why = f"Stats {pm*100:.0f}%" + (f" vs market {pk*100:.0f}%" if pk is not None else "") + "; favorite kept"
+            elif abs(gap) < 8:
                 why = f"Stats {pm*100:.0f}% agrees with market"
             elif gap > 0:
                 why = f"Stats {pm*100:.0f}%, stronger than market {pk*100:.0f}%"
@@ -389,7 +391,7 @@ def group_value(rows, picks, fav_home, p_true, pub_home, y):
                    f"{(1 - g['pub_dog'] if g['my_dog'] else g['pub_dog']) * 100:.0f}% of Yahoo players on {side}")
     if combo > 0:
         n_pos = sum(1 for v in vals if v > 0)
-        out.append(f"All {n_pos} of those together: {base * 100:.1f}% → {base * 100 + combo:.1f}%.")
+        out.append(f"All {n_pos} switches that help (top {len(shown)} above) together: {base * 100:.1f}% → {base * 100 + combo:.1f}%.")
     else:
         out.append("No other side raises your chance this week: the card's picks are the best for the season.")
     return out
@@ -510,6 +512,8 @@ def build_bto_slate(W, slate):
         else:
             g = None
             m, src, why = nfl_sim(sg, W.rng)
+            if why and why[0].get("source"):
+                src = why[0]["source"]  # link the article behind the row's reason, not the scoreboard
         for side_home in (True, False):
             line = sg["home_spread"] if side_home else -sg["home_spread"]
             mm = m if side_home else -m
@@ -727,7 +731,7 @@ def write(cards, meta, games):
 
 def rerender(week=None):
     """Rebuild the breakdowns and the page around the posted cards (picks, wagers and stage unchanged)."""
-    d = json.loads((ROOT / "data/cards.json").read_text())
+    d = json.loads((ROOT / "data/cards.json").read_text(encoding="utf-8"))
     cards, meta = d["cards"], d["meta"]
     week = week or meta.get("week") or current_week()
     W = Week(week)
