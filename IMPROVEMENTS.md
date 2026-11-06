@@ -179,7 +179,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-033 · B7: "proj 0.0" everywhere in the category leagues
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (83fdf01)
 - **Area:** `docs/lib/core.js` (`S.leagues` pending outlook, `scoreHTML`; roster rows since Q-026), `docs/lab/b`, `docs/lab/d`,
   `shq/leagues.py` (`view` proj, `EspnLeague.best_fa`), `shq/swap.py` (`strength`, `strength_text`), `shq/run.py` (injury-watch
   push text), `shq/digest.py` (`_fix`), `shq/advice.py` (free agents get values too)
