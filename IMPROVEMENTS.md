@@ -117,7 +117,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-030 · R2: a BTO bet on the Thursday game gets no final check before it locks
-- **Status:** shipped (COMMIT_X); the scheduled task itself is created by the Claude Ops session from the prompt
+- **Status:** shipped (fd1551f); the scheduled task itself is created by the Claude Ops session from the prompt
 - **Area:** `picks/pp/thu_check.py` (new), `ops/tasks/pool-picks-thu-bto-check.md` (new task prompt), `tests/test_thu_check.py`
 - **Rank:** —
 - **Added:** 2026-11-05 from the claude-audit proposal (item R2)
