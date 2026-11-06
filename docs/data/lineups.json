@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T00:27:00Z",
+ "updated": "2026-11-06T00:35:52Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -240,7 +240,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   },
   "Domo Arigato": {
@@ -684,7 +684,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   },
   "Guillotine": {
@@ -1003,7 +1003,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 6:27p",
+    "built": "Thu 6:35p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1672,7 +1672,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   },
   "Stempak": {
@@ -2040,7 +2040,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   },
   "Bro-vid19": {
@@ -2297,7 +2297,86 @@
      "news": null
     }
    ],
-   "advice": null
+   "advice": {
+    "matchup": "123.9 projected vs Future so Bright my Rice Hurts",
+    "danger": false,
+    "fixes": [
+     "David Montgomery (RB) OUT (ESPN: OUT) \u2192 start Kimani Vidal (8.8 proj) [ESPN, Nov 4 2:52p: Texans head coach DeMeco Ryans said Wednesday that Montgomery (groin) has made some progress but is still viewed as week-to-week and will remain out for\u2026]",
+     "Move Rashid Shaheed out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 4 8:39p: Shaheed (knee) did not practice Wednesday, John Boyle of the Seahawks' official site reports.]"
+    ],
+    "moves": [],
+    "adds": [
+     "Add Bryce Young (QB, CAR, 18.2/gm, value 578) for Kimani Vidal (RB, your RB5, 7.7/gm): better backup QB, +3.2 pts over the next 4 weeks",
+     "Add Dominic Zvada (K, NYG, 10.5 proj this week), drop Andre Szmyt (9.1 proj)"
+    ],
+    "trades": {
+     "lines": [
+      "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 9th of 12)",
+      "Surplus: Juwan Johnson (TE), 10.7/gm on your bench, would start for 6 of 11 teams",
+      "Surplus: Brenton Strange (TE), 10.7/gm on your bench, would start for 6 of 11 teams",
+      "Trade deadline: Dec 2."
+     ],
+     "offers": [
+      {
+       "team": "Inglorious Staffords",
+       "give": [
+        "Ja'Marr Chase (WR)"
+       ],
+       "get": [
+        "Kenneth Walker III (RB)"
+       ],
+       "give_value": 8793,
+       "get_value": 9379,
+       "my_gain": 2.9,
+       "their_gain": 0.9,
+       "cut": false,
+       "why": "Kenneth Walker III starts for you; Ja'Marr Chase starts for them over Cooper Kupp (7.2/gm)"
+      },
+      {
+       "team": "Inglorious Staffords",
+       "give": [
+        "Drake London (WR)",
+        "Juwan Johnson (TE)"
+       ],
+       "get": [
+        "Bucky Irving (RB)"
+       ],
+       "give_value": 4999,
+       "get_value": 5019,
+       "my_gain": 2.1,
+       "their_gain": 2.4,
+       "cut": false,
+       "why": "Bucky Irving starts for you; Drake London and Juwan Johnson start for them over Cooper Kupp (7.2/gm)"
+      },
+      {
+       "team": "Henry \"not charles\" Barkley",
+       "give": [
+        "Jaylen Warren (RB)"
+       ],
+       "get": [
+        "Saquon Barkley (RB)",
+        "Ollie Gordon II (RB)"
+       ],
+       "give_value": 4451,
+       "get_value": 4484,
+       "my_gain": 1.2,
+       "their_gain": 1.0,
+       "cut": true,
+       "why": "Saquon Barkley and Ollie Gordon II start for you; Jaylen Warren starts for them"
+      }
+     ],
+     "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
+    },
+    "notes": [
+     "1 starters play today, first locks Thu 7:15p",
+     "(roster as of the laptop read Thu 4:35p; check it's still current)"
+    ],
+    "cats": null,
+    "radar": null,
+    "games": null,
+    "assets": null,
+    "built": "Thu 6:35p"
+   }
   },
   "3-Ball BB": {
    "name": "3-Ball BB",
@@ -3115,7 +3194,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   },
   "Ball is Life": {
@@ -3853,7 +3932,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Thu 6:27p"
+    "built": "Thu 6:35p"
    }
   }
  }
