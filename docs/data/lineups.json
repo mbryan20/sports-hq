@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T01:37:01Z",
+ "updated": "2026-11-06T01:47:01Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -222,9 +222,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Geno Smith (QB, NYJ, 19.2/gm, value 148) for Brenton Strange (TE, your TE2, 8.5/gm): fills in at QB in weeks 11, 12, +23 pts over the next 4 weeks",
-     "Add Ladd McConkey (WR, LAC, 10.6/gm, value 1,139) for Deebo Samuel Sr. (WR, your WR3, 6.5/gm): better backup WR, +2 pts over the next 4 weeks",
-     "Add Zach Charbonnet (RB, SEA, 9.1/gm, value 864) for David Montgomery (RB, your RB4, 7.5/gm): better backup RB, +0.5 pts over the next 4 weeks"
+     "Add Baker Mayfield (QB, TB, 19.0/gm, value 168) for Brenton Strange (TE, your TE2, 8.8/gm): fills in at QB in week 11, +21.8 pts over the next 4 weeks",
+     "Add Ladd McConkey (WR, LAC, 10.1/gm, value 1,161) for Deebo Samuel Sr. (WR, your WR3, 6.5/gm): better backup WR, +1.7 pts over the next 4 weeks",
+     "Add Zach Charbonnet (RB, SEA, 9.0/gm, value 886) for David Montgomery (RB, your RB3, 7.6/gm): better backup RB, +0.4 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -237,7 +237,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "Domo Arigato": {
@@ -290,10 +290,16 @@
      "kickoff": "2026-11-06T01:15:00Z",
      "started": true,
      "proj": 13.4,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Tuten (ankle/foot) is officially listed as active for Thursday night's game against the Ravens.",
+      "at": "2026-11-05T23:50:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4882093/bhayshul-tuten"
+     }
     },
     {
      "slot": "WR",
@@ -644,13 +650,13 @@
      "Start Wil Lutz (7.4) over Jake Elliott (6.4) at K, +1.0"
     ],
     "adds": [
-     "Add Drew Lock (QB, SEA, 5.6/gm, value 1,079) into your open roster spot: fills in at QB in week 9, +3.7 pts over the next 4 weeks. Bid $1\u20133",
-     "Add Treylon Burks (WR, WAS, 6.1/gm, value 770) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
+     "Add Joe Fagnano (QB, BAL, 5.8/gm, value 837) into your open roster spot: fills in at QB in week 10, +5 pts over the next 4 weeks. Bid $1\u20133",
+     "Add Drew Lock (QB, SEA, 5.6/gm, value 1,116) for Jalen Nailor (WR, your WR9, 3.3/gm): fills in at QB in week 9, +3 pts over the next 4 weeks. Bid $1\u20133",
      "Add Drew Stevens (K, WAS, 8.4 proj this week), drop Jake Elliott (6.4 proj). Bid $0\u20131"
     ],
     "trades": {
      "lines": [
-      "Weak spot: TE (Mike Gesicki 9.9/gm, 11th of 12)",
+      "Weak spot: TE (Mike Gesicki 8.7/gm, 11th of 12)",
       "Trade deadline: week 10."
      ],
      "offers": [
@@ -663,12 +669,44 @@
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2757,
-       "get_value": 2967,
-       "my_gain": 1.5,
-       "their_gain": 2.7,
+       "give_value": 2808,
+       "get_value": 2984,
+       "my_gain": 2.3,
+       "their_gain": 2.6,
        "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Zach Charbonnet starts for them over Tyjae Spears (6.5/gm)"
+       "why": "Harold Fannin Jr. starts for you; Zach Charbonnet starts for them over Tyjae Spears (7.1/gm)"
+      },
+      {
+       "team": "Thank Goff!!",
+       "give": [
+        "Caleb Williams (QB)"
+       ],
+       "get": [
+        "Bo Nix (QB)",
+        "James Cook III (RB)"
+       ],
+       "give_value": 7763,
+       "get_value": 7689,
+       "my_gain": 1.2,
+       "their_gain": 0.5,
+       "cut": true,
+       "why": "James Cook III and Bo Nix start for you; Caleb Williams starts for them"
+      },
+      {
+       "team": "Free Higgins",
+       "give": [
+        "Tyler Shough (QB)"
+       ],
+       "get": [
+        "T.J. Hockenson (TE)",
+        "Malik Willis (QB)"
+       ],
+       "give_value": 3655,
+       "get_value": 3299,
+       "my_gain": 1.1,
+       "their_gain": 0.6,
+       "cut": true,
+       "why": "T.J. Hockenson and Malik Willis start for you; Tyler Shough starts for them"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -680,7 +718,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "Guillotine": {
@@ -918,10 +956,16 @@
      "kickoff": "2026-11-08T18:00:00Z",
      "started": false,
      "proj": 7.4,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "news": {
+      "note": "Hall (quadriceps) was a full participant in Thursday's practice.",
+      "at": "2026-11-05T21:08:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4427366/breece-hall"
+     }
     }
    ],
    "advice": {
@@ -930,64 +974,64 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Brenton Strange (TE, JAX, 8.5/gm, value 538) for Khalil Shakir (WR, your WR5, 8.4/gm): starts at TE over Greg Dulcich, lineup +2.4/gm, +8.6 pts over the next 4 weeks",
-     "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.8 proj)",
-     "Add Bryce Young (QB, CAR, 21.9/gm, value 578) for Breece Hall (RB, your RB6, 8.3/gm): better backup QB, +2.1 pts over the next 4 weeks"
+     "Add Brenton Strange (TE, JAX, 8.8/gm, value 541) for Khalil Shakir (WR, your WR5, 7.3/gm): starts at TE over Greg Dulcich, lineup +2.8/gm, +10.6 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 21.6/gm, value 553) for Tony Pollard (RB, your RB5, 8.6/gm): fills in at QB in weeks 10, 11, +4.7 pts over the next 4 weeks",
+     "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.8 proj)"
     ],
     "trades": {
      "lines": [
-      "Weak spot: QB (Jayden Daniels 23.6/gm, 8th of 10)",
-      "Weak spot: TE (Greg Dulcich 6.1/gm, 10th of 10)",
-      "Surplus: Tre Tucker (WR), 8.8/gm on your bench, would start for 6 of 9 teams",
+      "Weak spot: QB (Jayden Daniels 21.6/gm, 9th of 10)",
+      "Weak spot: TE (Greg Dulcich 6.0/gm, 10th of 10)",
+      "Surplus: Tre Tucker (WR), 8.5/gm on your bench, would start for 5 of 9 teams",
       "Trade deadline: week 11."
      ],
      "offers": [
-      {
-       "team": "Aniasin1",
-       "give": [
-        "Tee Higgins (WR)",
-        "Woody Marks (RB)"
-       ],
-       "get": [
-        "Brock Bowers (TE)"
-       ],
-       "give_value": 6139,
-       "get_value": 6686,
-       "my_gain": 3.5,
-       "their_gain": 0.9,
-       "cut": false,
-       "why": "Brock Bowers starts for you; Tee Higgins and Woody Marks start for them over Rico Dowdle (7.4/gm)"
-      },
-      {
-       "team": "CodyRust",
-       "give": [
-        "Carnell Tate (WR)",
-        "Tony Pollard (RB)"
-       ],
-       "get": [
-        "George Kittle (TE)"
-       ],
-       "give_value": 3437,
-       "get_value": 3626,
-       "my_gain": 2.2,
-       "their_gain": 1.3,
-       "cut": false,
-       "why": "George Kittle starts for you; Carnell Tate and Tony Pollard start for them over KC Concepcion Jr. (8.3/gm)"
-      },
       {
        "team": "Swegs4",
        "give": [
         "Javonte Williams (RB)"
        ],
        "get": [
-        "Trey McBride (TE)"
+        "Tyler Warren (TE)",
+        "Chase Brown (RB)"
        ],
-       "give_value": 5781,
-       "get_value": 6336,
-       "my_gain": 1.3,
-       "their_gain": 1.7,
+       "give_value": 5486,
+       "get_value": 5644,
+       "my_gain": 1.4,
+       "their_gain": 2.4,
+       "cut": true,
+       "why": "Chase Brown and Tyler Warren start for you; Javonte Williams starts for them"
+      },
+      {
+       "team": "JHED1979",
+       "give": [
+        "Tre Tucker (WR)",
+        "Woody Marks (RB)"
+       ],
+       "get": [
+        "Dalton Kincaid (TE)"
+       ],
+       "give_value": 1170,
+       "get_value": 1125,
+       "my_gain": 1.9,
+       "their_gain": 0.7,
        "cut": false,
-       "why": "Trey McBride starts for you; Javonte Williams starts for them"
+       "why": "Dalton Kincaid starts for you; Woody Marks starts for them"
+      },
+      {
+       "team": "Aniasin1",
+       "give": [
+        "Amon-Ra St. Brown (WR)"
+       ],
+       "get": [
+        "Brock Bowers (TE)"
+       ],
+       "give_value": 7375,
+       "get_value": 6674,
+       "my_gain": 0.5,
+       "their_gain": 2.0,
+       "cut": false,
+       "why": "Brock Bowers starts for you; Amon-Ra St. Brown starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -999,7 +1043,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 7:37p",
+    "built": "Thu 7:47p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1570,14 +1614,14 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.7/gm, value 1,124) for Kaytron Allen (RB, your RB8, 1.2/gm): fills in at TE in week 10, +7.4 pts over the next 4 weeks"
+     "Add Pat Freiermuth (TE, PIT, 9.2/gm, value 1,138) for Kaytron Allen (RB, your RB8, 1.2/gm): fills in at TE in week 10, +6.8 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
-      "Weak spot: WR (Denzel Boston 10.6/gm, 7th of 10)",
-      "Weak spot: TE (Dallas Goedert 11.0/gm, 9th of 10)",
+      "Weak spot: WR (Denzel Boston 10.7/gm, 7th of 10)",
+      "Weak spot: TE (Dallas Goedert 10.6/gm, 10th of 10)",
       "Surplus: Xavier Worthy (WR), 10.6/gm on your bench, would start for 5 of 9 teams",
-      "Surplus: Tre Tucker (WR), 10.5/gm on your bench, would start for 5 of 9 teams",
+      "Surplus: Tre Tucker (WR), 10.2/gm on your bench, would start for 5 of 9 teams",
       "Trade deadline: Dec 18."
      ],
      "offers": [
@@ -1588,46 +1632,46 @@
         "Xavier Worthy (WR)"
        ],
        "get": [
-        "Zay Flowers (WR)"
+        "Ashton Jeanty (RB)"
        ],
-       "give_value": 4618,
-       "get_value": 4170,
-       "my_gain": 2.7,
-       "their_gain": 0.6,
+       "give_value": 4580,
+       "get_value": 4748,
+       "my_gain": 2.3,
+       "their_gain": 0.9,
        "cut": false,
-       "why": "Zay Flowers starts for you; Tyler Shough and Xavier Worthy start for them over Woody Marks (10.0/gm)"
+       "why": "Ashton Jeanty starts for you; Tyler Shough and Xavier Worthy start for them over Keenan Allen (10.1/gm)"
       },
       {
-       "team": "Team Duke",
+       "team": "The MONSTARS",
        "give": [
-        "Kenneth Walker III (RB)"
+        "Cam Skattebo (RB)",
+        "Denzel Boston (WR)"
        ],
        "get": [
-        "Bucky Irving (RB)",
-        "Garrett Wilson (WR)"
+        "Bhayshul Tuten (RB)"
        ],
-       "give_value": 6514,
-       "get_value": 6927,
-       "my_gain": 2.5,
-       "their_gain": 0.6,
-       "cut": true,
-       "why": "Bucky Irving and Garrett Wilson start for you; Kenneth Walker III starts for them"
+       "give_value": 4057,
+       "get_value": 3768,
+       "my_gain": 2.3,
+       "their_gain": 0.5,
+       "cut": false,
+       "why": "Bhayshul Tuten starts for you; Cam Skattebo and Denzel Boston start for them over Kyle Monangai (7.8/gm)"
       },
       {
        "team": "The Guppies",
        "give": [
         "Daniel Jones (QB)",
-        "Kenyon Sadiq (TE)"
+        "Tre Tucker (WR)"
        ],
        "get": [
-        "Jameson Williams (WR)"
+        "DeVonta Smith (WR)"
        ],
-       "give_value": 3256,
-       "get_value": 2961,
-       "my_gain": 1.7,
-       "their_gain": 1.0,
+       "give_value": 2506,
+       "get_value": 2768,
+       "my_gain": 2.0,
+       "their_gain": 1.2,
        "cut": false,
-       "why": "Jameson Williams starts for you; Daniel Jones starts for them"
+       "why": "DeVonta Smith starts for you; Daniel Jones and Tre Tucker start for them over Keenan Allen (10.1/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -1648,7 +1692,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "Stempak": {
@@ -1951,31 +1995,46 @@
      "Start Ollie Gordon II (16.7) over Rhamondre Stevenson (11.9) at FLEX, +4.8"
     ],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 18.0/gm, value 1,631) for David Montgomery (RB, your RB6, 8.3/gm): fills in at QB in week 10, +4.6 pts over the next 4 weeks",
-     "Add Brenton Strange (TE, JAX, 10.7/gm, value 585) for Juwan Johnson (TE, your TE2, 10.7/gm): fills in at TE in week 12",
-     "Add Rome Odunze (WR, CHI, 11.9/gm, value 758) for Josh Downs (WR, your WR5, 10.2/gm): better backup WR"
+     "Add Aaron Rodgers (QB, PIT, 17.0/gm, value 1,623) for David Montgomery (RB, your RB6, 8.3/gm): fills in at QB in week 10, +4.6 pts over the next 4 weeks",
+     "Add A.J. Brown (WR, NE, 14.3/gm, value 1,859) for Josh Downs (WR, your WR5, 10.3/gm): fills in at WR in week 10"
     ],
     "trades": {
      "lines": [
-      "Weak spot: TE (Dalton Kincaid 10.8/gm, 8th of 8)",
+      "Weak spot: TE (Juwan Johnson 10.8/gm, 7th of 8)",
+      "Surplus: Ollie Gordon II (RB), 13.0/gm on your bench, would start for 4 of 7 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
       {
        "team": "Jonesing for more",
        "give": [
-        "Javonte Williams (RB)"
+        "James Cook III (RB)"
        ],
        "get": [
-        "George Kittle (TE)",
-        "Jalen Coker (WR)"
+        "Luther Burden III (WR)",
+        "George Kittle (TE)"
        ],
-       "give_value": 4755,
-       "get_value": 4511,
-       "my_gain": 2.4,
-       "their_gain": 1.0,
+       "give_value": 6035,
+       "get_value": 6143,
+       "my_gain": 2.6,
+       "their_gain": 5.7,
        "cut": true,
-       "why": "George Kittle and Jalen Coker start for you; Javonte Williams starts for them over Tyler Allgeier (13.7/gm)"
+       "why": "George Kittle and Luther Burden III start for you; James Cook III starts for them over Tyler Allgeier (8.2/gm)"
+      },
+      {
+       "team": "Jonesing for more",
+       "give": [
+        "Ollie Gordon II (RB)"
+       ],
+       "get": [
+        "Travis Kelce (TE)"
+       ],
+       "give_value": 1250,
+       "get_value": 1384,
+       "my_gain": 2.4,
+       "their_gain": 4.8,
+       "cut": false,
+       "why": "Travis Kelce starts for you; Ollie Gordon II starts for them over Tyler Allgeier (8.2/gm)"
       },
       {
        "team": "Robert's Rowdy Team",
@@ -1986,27 +2045,12 @@
        "get": [
         "Jaxon Smith-Njigba (WR)"
        ],
-       "give_value": 9969,
-       "get_value": 10637,
-       "my_gain": 2.0,
-       "their_gain": 0.8,
+       "give_value": 9817,
+       "get_value": 10630,
+       "my_gain": 1.9,
+       "their_gain": 0.9,
        "cut": false,
-       "why": "Jaxon Smith-Njigba starts for you; Amon-Ra St. Brown and Chase Brown start for them over Woody Marks (10.0/gm)"
-      },
-      {
-       "team": "Robert's Rowdy Team",
-       "give": [
-        "Ollie Gordon II (RB)"
-       ],
-       "get": [
-        "Harold Fannin Jr. (TE)"
-       ],
-       "give_value": 1162,
-       "get_value": 1205,
-       "my_gain": 0.6,
-       "their_gain": 2.0,
-       "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Ollie Gordon II starts for them over Woody Marks (10.0/gm)"
+       "why": "Jaxon Smith-Njigba starts for you; Amon-Ra St. Brown and Chase Brown start for them over Omarion Hampton (10.2/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2016,7 +2060,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "Bro-vid19": {
@@ -2282,63 +2326,64 @@
     ],
     "moves": [],
     "adds": [
-     "Add Bryce Young (QB, CAR, 18.2/gm, value 578) for Kimani Vidal (RB, your RB5, 7.7/gm): better backup QB, +3.2 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 17.9/gm, value 553) for Kimani Vidal (RB, your RB5, 6.7/gm): fills in at QB in week 10, +3.7 pts over the next 4 weeks",
      "Add Dominic Zvada (K, NYG, 10.5 proj this week), drop Andre Szmyt (9.1 proj)"
     ],
     "trades": {
      "lines": [
-      "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 9th of 12)",
-      "Surplus: Juwan Johnson (TE), 10.7/gm on your bench, would start for 6 of 11 teams",
-      "Surplus: Brenton Strange (TE), 10.7/gm on your bench, would start for 6 of 11 teams",
+      "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 10th of 12)",
+      "Surplus: Brenton Strange (TE), 10.9/gm on your bench, would start for 7 of 11 teams",
+      "Surplus: Juwan Johnson (TE), 10.8/gm on your bench, would start for 7 of 11 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
       {
        "team": "Inglorious Staffords",
        "give": [
-        "Ja'Marr Chase (WR)"
+        "Ja'Marr Chase (WR)",
+        "Juwan Johnson (TE)"
        ],
        "get": [
         "Kenneth Walker III (RB)"
        ],
-       "give_value": 8793,
-       "get_value": 9379,
-       "my_gain": 2.9,
+       "give_value": 9027,
+       "get_value": 9494,
+       "my_gain": 3.9,
        "their_gain": 0.9,
        "cut": false,
-       "why": "Kenneth Walker III starts for you; Ja'Marr Chase starts for them over Cooper Kupp (7.2/gm)"
+       "why": "Kenneth Walker III starts for you; Ja'Marr Chase and Juwan Johnson start for them over Cooper Kupp (7.2/gm)"
       },
       {
        "team": "Inglorious Staffords",
        "give": [
         "Drake London (WR)",
-        "Juwan Johnson (TE)"
+        "Brenton Strange (TE)"
        ],
        "get": [
         "Bucky Irving (RB)"
        ],
-       "give_value": 4999,
-       "get_value": 5019,
-       "my_gain": 2.1,
+       "give_value": 5416,
+       "get_value": 5016,
+       "my_gain": 2.4,
        "their_gain": 2.4,
        "cut": false,
-       "why": "Bucky Irving starts for you; Drake London and Juwan Johnson start for them over Cooper Kupp (7.2/gm)"
+       "why": "Bucky Irving starts for you; Drake London and Brenton Strange start for them over Cooper Kupp (7.2/gm)"
       },
       {
-       "team": "Henry \"not charles\" Barkley",
+       "team": "Future so Bright my Rice Hurts",
        "give": [
-        "Jaylen Warren (RB)"
+        "Nico Collins (WR)",
+        "Aaron Jones Sr. (RB)"
        ],
        "get": [
-        "Saquon Barkley (RB)",
-        "Ollie Gordon II (RB)"
+        "Chuba Hubbard (RB)"
        ],
-       "give_value": 4451,
-       "get_value": 4484,
-       "my_gain": 1.2,
-       "their_gain": 1.0,
-       "cut": true,
-       "why": "Saquon Barkley and Ollie Gordon II start for you; Jaylen Warren starts for them"
+       "give_value": 5013,
+       "get_value": 4900,
+       "my_gain": 1.4,
+       "their_gain": 1.2,
+       "cut": false,
+       "why": "Chuba Hubbard starts for you; Nico Collins and Aaron Jones Sr. start for them over Courtland Sutton (8.3/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2350,7 +2395,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "3-Ball BB": {
@@ -3169,7 +3214,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   },
   "Ball is Life": {
@@ -3907,7 +3952,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Thu 7:37p"
+    "built": "Thu 7:47p"
    }
   }
  }
