@@ -137,6 +137,26 @@ Measure (the health.json check that should move), Design, Decision.
   1660) and picks by team and line; an unreadable site still pushes a "check before <lock>" line.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-031 · B4: no games grid or streaming plan for the basketball leagues
+- **Status:** shipped (COMMIT_X)
+- **Area:** `shq/nba_games.py` (new), `shq/advice.py` (`games` block), `docs/lib/core.js` (`gamesHTML`, "Games & streamers")
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B4)
+- **Evidence:** the tabs showed games left only per player and in the category table; no team schedule view, no next week,
+  no streaming plan (FantasyPros / Hashtag-style grids done by hand).
+- **Expected impact:** a Monday plan (next week's 4-game teams and back-to-backs) and mid-week streamer picks in one place.
+- **Effort:** S
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** from ESPN's pro schedule (`league.sched`): per team, games still to tip off for the rest of this matchup week
+  and all of next week, grouped by count ("3 games: …"), back-to-backs marked ². My games left vs my opponent's come from
+  the category table (best lineup each day); next week counts my roster's games capped by starting spots each day.
+  Streamers: the 3 free agents with the highest need-weighted "Wk" (`nba_swaps.worth`, Q-028) this week (next week once
+  this one has no games left), with their game days and the categories they help. Choices: grouped team lists instead
+  of a 30-row × 14-day grid (fits a phone, reads in seconds); the section is collapsed by default with the streamer count
+  on it. Nov 5 live: 3-Ball 29 games left vs 29, next week 52; 14 teams play 4 next week.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

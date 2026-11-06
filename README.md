@@ -39,7 +39,8 @@ league's own categories, rank, and this week's value (games left), from this sea
 projection before; it shows on each roster row and is written to `docs/data/players.json`. Basketball **waiver adds are
 swaps** (`shq/nba_swaps.py`): "Drop X, add Y: +N this week (helps AST, 3PM)", up to 3, need-weighted by this week's
 categories, dead roster spots (no NBA team) first; dynasty never drops anyone 40%+ rostered or under 24 (ages from ESPN's
-team rosters, `shq/nba_ages.py`). The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
+team rosters, `shq/nba_ages.py`). **Games & streamers** (`shq/nba_games.py`): games per NBA team for the rest of this week
+and next week with back-to-backs, my games left vs my opponent's and next week's, and the top 3 streamers. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.

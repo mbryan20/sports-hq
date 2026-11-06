@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_swaps, nba_values, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_games, nba_swaps, nba_values, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -132,6 +132,15 @@ def player_values(league):
     return league.values
 
 
+def games_plan(league, cats):
+    """NBA games grid and streamers (shq/nba_games.py); best-effort like the rest of the advice."""
+    try:
+        return nba_games.build(league, cats)
+    except Exception:
+        traceback.print_exc()
+        return None
+
+
 def build(league, now):
     standing = digest.standing_item(league)
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
@@ -154,6 +163,7 @@ def build(league, now):
         "notes": notes,
         "cats": cats,
         "radar": league.radar,
+        "games": games_plan(league, cats) if nba else None,
         "assets": dynasty.block(league.sport, now) if getattr(league, "assets", False) else None,
         "built": ct_label(now),
     }

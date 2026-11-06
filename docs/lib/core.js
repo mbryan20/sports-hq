@@ -203,6 +203,17 @@
        <p class="basis">Games left this week (best lineup each day): you ${c.games_left[0]}, them ${c.games_left[1]}</p>`)
       + sec("Chase", ul(c.chase)) + sec("Category adds", ul(c.adds));
   }
+  // NBA games grid and streamers (shq/nba_games.py)
+  function gamesHTML(g) {
+    if (!g) return "";
+    const m = g.mine || {};
+    const week = (w, title) => w?.groups?.length ? `<div class="subhead">${title}${w.span ? " · " + esc(w.span) : ""}</div><ul class="tips">${
+      w.groups.map(([n, ts]) => `<li><b>${n} game${n === 1 ? "" : "s"}:</b> ${esc(ts.map(t => w.b2b.includes(t) ? t + "²" : t).join(", "))}</li>`).join("")}</ul>` : "";
+    const mine = `<ul class="tips"><li>Games left this week: <b>you ${m.now ?? "?"}</b>${m.opp != null ? `, them ${m.opp}` : ""}${m.next != null ? ` · next week: you ${m.next}` : ""}</li></ul>`;
+    return sec("Games &amp; streamers", mine + (g.streamers?.length ? `<div class="subhead">Streamers</div>${ul(g.streamers)}` : "")
+      + week(g.now, "Rest of this week") + week(g.next, "Next week")
+      + `<p class="basis">² = back-to-back. ${esc(g.basis)} Ideas only: nothing is sent.</p>`, { open: false, count: g.streamers?.length || "" });
+  }
   // NBA trend radar (shq/radar.py): rising free agents and bench players, shrinking roles, injured starters' minutes
   function radarHTML(r) {
     if (!r) return "";
@@ -235,7 +246,7 @@
     const stale = lg.stale ? `<p class="note"><b>Showing last good data</b>: the latest refresh failed.</p>` : "";
     const fixes = L.fixes.length ? ul(L.fixes, "fix") : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
-      + guillotineHTML(L.g) + catsHTML(L.c) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
+      + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
       + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" }) + tradesHTML(a.trades)
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });
