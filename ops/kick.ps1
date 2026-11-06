@@ -6,12 +6,15 @@
 #   kick.ps1 -Workflow model-health.yml            # always start it
 #   kick.ps1 -SaveToken                            # Michael only, once: store the scheduled tasks' GitHub token (below)
 #
-# Sign-in: gh's own login lives in Windows Credential Manager, which gh can't reach from Task Scheduler (Nov 5). So when
-# %LOCALAPPDATA%\sports-hq-kick.token exists (written by -SaveToken, encrypted for Michael's Windows account with DPAPI),
-# the token is decrypted into GH_TOKEN for this process and its gh calls only. It is never printed or logged. A Claude
-# session must never run -SaveToken, open the token file or print GH_TOKEN.
+# Sign-in: the Claude desktop app is a packaged app, so a gh login made inside it lives in the app's private copy of
+# %APPDATA% and doesn't exist for Task Scheduler (Nov 5). Michael signs in outside the app, in his own PowerShell window:
+# either gh's normal login, or a one-repo token saved with -SaveToken. When %LOCALAPPDATA%\sports-hq-kick.token exists
+# (encrypted for Michael's Windows account with DPAPI), the token is decrypted into GH_TOKEN for this process and its gh
+# calls only. It is never printed or logged. A Claude session must never run -SaveToken, open the token file or print
+# GH_TOKEN.
 #
 # Every run writes exactly one line to %LOCALAPPDATA%\sports-hq-kick.log (last 500 kept): started / skipped / FAILED.
+# Read it from Michael's own PowerShell window or a scheduled task: a Claude app shell sees the app's private copy.
 # If that file can't be written, the line goes to %TEMP%\sports-hq-kick.log, else to the repo's .cache\sports-hq-kick.log
 # (gitignored), so a failure is never silent.
 param(
@@ -27,8 +30,8 @@ param(
 $ErrorActionPreference = "Continue"
 $repo = "mbryan20/sports-hq"
 $help = "see ops/designs/Q-014.md, 'Sign-in for the scheduled tasks'"
-# a scheduled task's environment can lack LOCALAPPDATA (suspected Nov 5: runs left no line at all), so find the folder
-# without it, and nothing below can fail before the log works
+# don't trust LOCALAPPDATA to be set (defensive: nothing below may fail before the log works). Nov 5's "missing" lines
+# weren't missing: they were in the real folder, which a Claude app shell doesn't see
 $local = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [Environment]::GetFolderPath("LocalApplicationData") }
 if (-not $local -and $env:USERPROFILE) { $local = Join-Path $env:USERPROFILE "AppData\Local" }
 if (-not $Log) { $Log = if ($local) { Join-Path $local "sports-hq-kick.log" } else { "" } }

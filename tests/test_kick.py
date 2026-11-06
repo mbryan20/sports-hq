@@ -63,7 +63,7 @@ class Kick(unittest.TestCase):
         self.assertEqual(len(text.strip().splitlines()), 2)                    # one line per run
 
     def test_missing_localappdata_still_logs(self):
-        # Nov 5: a scheduled run left no line at all; an empty LOCALAPPDATA killed the old script's parameter defaults
+        # defensive: with LOCALAPPDATA empty the first version's parameter defaults failed before anything was logged
         code, text = self.run_kick(NOT_SIGNED_IN, drop=("LOCALAPPDATA",))
         self.assertEqual(code, 2)
         self.assertIn("FAILED: gh is not signed in", text)

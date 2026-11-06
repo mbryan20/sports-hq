@@ -94,14 +94,14 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
-- **Status:** partial (d2bfcb7; logging fix d5482ef): the repo side is live and tested, and Claude Ops created both Windows
-  tasks on Nov 5. They start nothing yet: gh's login (kept in Windows Credential Manager) isn't reachable from Task
-  Scheduler, and their `conhost.exe --headless` action never ran the script there (result 0, no log line anywhere; Nov 5
-  6:39pm and 6:41pm). Two fixes, both in `ops/designs/Q-014.md`: (1) "Fix the existing tasks": start PowerShell directly
-  (one `Set-ScheduledTask` per task); every run then logs started / skipped / FAILED. (2) Sign-in option A in
-  `ops/designs/Q-014.md` "Sign-in for the scheduled tasks": Michael creates a one-repo, Actions-only GitHub token and saves
-  it encrypted with `kick.ps1 -SaveToken` (steps there; no Claude session handles the token). Options B-E and their
-  security tradeoffs are in the same section.
+- **Status:** partial (d2bfcb7; logging d5482ef, c590724): the repo side is live and tested, and Claude Ops created both
+  Windows tasks on Nov 5; they run (conhost works) and log every run. They start nothing yet because gh is signed in only
+  inside the Claude desktop app: it's a packaged app, so its `%APPDATA%`/`%LOCALAPPDATA%` writes (gh's `hosts.yml`, and the
+  kick log as seen from its shells) live in a private copy under `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache`,
+  which Task Scheduler can't see (root cause found by Claude Ops; an earlier note here blamed conhost, wrongly). Fix: Michael
+  signs in outside the app, in his own Windows PowerShell window: option A (recommended), a one-repo Actions-only token saved
+  with `kick.ps1 -SaveToken`, or option A2, `gh auth login --hostname github.com --git-protocol https --web`. Steps and
+  tradeoffs: `ops/designs/Q-014.md` "Sign-in for the scheduled tasks". Check the log only from outside the app.
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
   digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
@@ -331,7 +331,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** partial (d2bfcb7, built as Q-029; the tasks exist but need the sign-in in Q-029)
+- **Status:** partial (d2bfcb7, built as Q-029; the tasks run but need gh signed in outside the Claude app, see Q-029)
 - **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
 - **Rank:** 5
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
