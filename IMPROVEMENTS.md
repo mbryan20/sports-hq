@@ -21,32 +21,6 @@ Measure (the health.json check that should move), Design, Decision.
 
 ## Open
 
-### Q-026 · B1: NBA players had no value (every one showed "proj 0.0")
-- **Status:** shipped (70ff3ff)
-- **Area:** `shq/nba_values.py` (new), `shq/radar.py` `fetch_pool`/`compact` (adds ESPN's season projection and games played),
-  `shq/advice.py` `player_values`, `shq/run.py` (writes `docs/data/players.json`), `docs/lib/core.js` `prow`
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal `sports-hq-improvements-2026-11-05.md` (item B1)
-- **Evidence:** Nov 5 6am: every NBA player showed "proj 0.0" (category leagues have no points); ROADMAP listed "NBA trade
-  values and ROS waiver ranking: not covered"; pickups were ranked by % owned.
-- **Expected impact:** a real number and rank on every NBA player, rostered or free agent, in each league's own categories,
-  per game and for this week.
-- **Effort:** M
-- **Risk:** Low
-- **Measure:** — (one-off; later: does the value rank of players added beat the old % owned picks, like the radar backtest)
-- **Design:** value per game = the league's own scoring categories (read from the snapshot; both leagues are 8-cat today) as
-  z-scores against the top N players, N = teams × non-IR roster spots (170 in 3-Ball, 168 in Ball is Life); two passes (all
-  players, then the top N of pass one). Ratio cats count made above that group's rate times attempts; reversed cats (TO)
-  count negative. This week = (value − the value of player N, a waiver-level player) × games left this matchup not yet
-  tipped, 0 while out on ESPN's injury report. Stats: this season's per-game averages once a player has 5 games, ESPN's
-  season projection before that; each player carries `src` and games played, and the roster rows say "8 g" or "ESPN proj".
-  One ESPN read covers both leagues (the radar's ~1,000-player pool, now also asking for `10<season>`); Ball is Life's
-  owners come from its laptop snapshot. Choices: no blend of projection and season stats (the brief said 5 games); early in
-  the season that makes slow starters rank low (Mikal Bridges #261 on 6.2 pts, 33% FG through 8 games). If that looks
-  wrong in a few weeks, blend toward the projection by games played. `players.json` is written one player per line so the
-  10-minute data commits stay small diffs (~185 KB, top 300 per league plus everyone rostered).
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
@@ -54,6 +28,8 @@ Measure (the health.json check that should move), Design, Decision.
 - **Rank:** —
 - **Added:** 2026-11-05 from the claude-audit proposal (item B2)
 - **Evidence:** Nov 5: Michael still sifts players on FantasyPros; HQ had no player list to sort or filter.
+  Nov 6 nightly pass: still shipped; its data is in place (see Q-026), the Measure is Michael's feedback and FEEDBACK.md has
+  none on the Players page yet.
 - **Expected impact:** the FantasyPros sift inside HQ for both basketball leagues.
 - **Effort:** M
 - **Risk:** Low
@@ -67,30 +43,6 @@ Measure (the health.json check that should move), Design, Decision.
   rank, name (with a category heat strip and the minutes arrow), value, this week and games, and a tap opens the full line
   with an ESPN game-log link. The header "Players" pill is hidden at phone width (it wrapped the header to two rows); phones
   reach the page from the ▦ menu or the league page's Players button. Filters are kept per device (localStorage).
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
-### Q-028 · B3: NBA pickups were ranked by % owned, not by what they do for my categories
-- **Status:** shipped (168a299)
-- **Area:** `shq/nba_swaps.py` (new), `shq/nba_ages.py` (new), `shq/nba_values.py` (age), `shq/advice.py` `adds`, `shq/run.py`
-  `nba_weekly_section`, `docs/players/index.html` (age in the detail row)
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal (item B3)
-- **Evidence:** Nov 5: "Collin Gillespie (PG, PHX): 2 games left this week, 38% owned" style lines, sorted by games then
-  % owned; Kevin Porter Jr. (no NBA team) sat on the 3-Ball bench unflagged.
-- **Expected impact:** 1-3 exact moves per basketball league that help this week's categories without hurting the season.
-- **Effort:** S
-- **Risk:** Low (ideas only)
-- **Measure:** — (one-off; could join the radar backtest later: did the suggested adds out-produce the drops?)
-- **Design:** a player's this-week worth = (need-weighted value per game − the waiver-level value) × games left, the same
-  "Wk" as the Players page with each category weighted by this week's outlook (close 1.5, lose 0.5, win 0.5, rescaled to
-  average 1; all 1 with no live matchup). Gain = add's worth − drop's. Choices: minimum gain +3 (at +2 Ball is Life got
-  near-even churn swaps, Draymond Green for Robert Williams III); the add may give up at most 1 value per game for the
-  rest of the season; no drops from IR slots (they free no spot) and no out adds; greedy pairing, each player once. A
-  player with no NBA team is a dead spot: listed first and always droppable. Dynasty (3-Ball): never drops anyone 40%+
-  rostered ESPN-wide or under 24. ESPN's fantasy pool has no ages, so `shq/nba_ages.py` reads the 30 public ESPN team
-  rosters (same player ids) once a day. On live data Nov 5: 3-Ball "Drop Kevin Porter Jr. (no NBA team, a dead roster
-  spot), add De'Anthony Melton: +3.4 this week (helps STL, 3PM)" and "Drop De'Andre Hunter, add Collin Gillespie: +10.1";
-  Kingston Flemings (rookie) is no longer offered as a drop. The Weekly tab uses the same lines.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
@@ -109,7 +61,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Added:** 2026-11-05 from the claude-audit proposal (item R1); evidence in Q-014
 - **Evidence:** Q-014: the 8am digest built at 11:06am Nov 4; model health ran 7.5 hours late; manual dispatches dropped.
   Nov 5 evening, while building this: a dispatch made at 5:48pm CT sat "pending" behind a game-day loop that started at
-  2:29pm (the old single concurrency group).
+  2:29pm (the old single concurrency group). Nov 6 nightly pass: on Thu Nov 5 (before this was built) no Sports HQ data
+  commit landed between 6:11am and 2:30pm CT (12:11Z, then 20:30Z: 8h19m, so no 8am digest on time); model health's 2:50am
+  and 4:50am CT slots ran at 10:53am and 12:19pm CT (8h03m and 7h29m late); tonight's 2:50am slot had not run by 3:45am CT,
+  so the 2:55am laptop kick still starts nothing (gh not signed in outside the app). The first real test is the first
+  weekday 8am after Michael signs gh in outside the app.
 - **Expected impact:** the digest out by about 8:05am CT and data at most about an hour old whenever the laptop is on.
 - **Effort:** S
 - **Risk:** Low (two loops at once could double a swap push in the same minute; a run only loops when no other run has
@@ -123,6 +79,28 @@ Measure (the health.json check that should move), Design, Decision.
   laptop kick covers a game night GitHub skipped; health kicked at 2:55am.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
+- **Status:** partial (d2bfcb7, built as Q-029; the tasks run but need gh signed in outside the Claude app, see Q-029)
+- **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
+- **Rank:** — (approved and being built as Q-029; no longer ranked)
+- **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
+- **Evidence:** `reviews/2026-11.md` (Reliability): 26 "cancelled" Sports HQ runs never started because `concurrency:
+  cancel-in-progress: false` keeps one waiting run, and 7 manual dispatches were dropped (Oct 25, 28, 30). On 3 of 8 weekday
+  mornings no run fired between 8am and late morning; Mon Oct 26's 6h22m gap meant no 8am digest. Still open Nov 4: run.yml
+  has the same single concurrency group, and no `ops/tasks/*.md` ends with `gh workflow run run.yml`. Same pattern tonight:
+  `model-health.yml`'s 2:50am CT cron (`50 8 * * *`) had not run by 3:53am CT; its only run ever is the Nov 3 manual dispatch.
+  Nov 5: it happened again on Wed Nov 4. No Sports HQ run between 2:59am and 11:06am CT (data commits 08:59Z, then 17:06Z:
+  8h07m), so the 8am digest was about 3 hours late; Nov 3 00:00Z - Nov 5 10:00Z, 17 runs started (2 more cancelled) in 58
+  hours. `model-health.yml`'s two slots (2:50am, 4:50am CT) ran at 10:37am and 12:15pm CT (7h47m and 7h25m late), and
+  tonight's 2:50am slot again had not run by 3:53am CT. Nov 6: same again on Thu Nov 5 (see Q-029: 8h19m data gap over 8am;
+  model health 8h03m and 7h29m late).
+- **Expected impact:** the 8am digest and Tuesday Weekly tab on time; a "force" button press never vanishes.
+- **Effort:** S-M
+- **Risk:** Low
+- **Measure:** — (one-off: data-commit gaps 8am-1pm on weekdays, and dropped dispatches, in the next monthly review)
+- **Design:** `ops/designs/Q-014.md`
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-030 · R2: a BTO bet on the Thursday game gets no final check before it locks
 - **Status:** shipped (fd1551f); the scheduled task itself is created by the Claude Ops session from the prompt
 - **Area:** `picks/pp/thu_check.py` (new), `ops/tasks/pool-picks-thu-bto-check.md` (new task prompt), `tests/test_thu_check.py`
@@ -131,6 +109,8 @@ Measure (the health.json check that should move), Design, Decision.
 - **Evidence:** the BTO "final" card runs Thu 8pm, after the Thursday NFL game kicks off (7:15pm); BTO locks each game at
   kickoff (Nov 4: Michael's saved JAX bet locked Thu 7:15pm, `pp/push.py` `early_lock`). Nov 5 dry run on real data: saved
   bets (read Wed 9:20pm) differ from the draft card on all 5 games, JAX @ BAL locking 7:15pm.
+  Nov 6 nightly pass: still shipped; it shipped Thu 6:06pm CT, after that week's 4pm slot, so the first real run is Thu
+  Nov 12 (not checked tonight: that the Claude Ops task exists).
 - **Expected impact:** a push before the Thursday lock whenever the saved bets and the card disagree; silence otherwise.
 - **Effort:** S
 - **Risk:** Low (read-only; pushes only on a difference or an unreadable site)
@@ -144,26 +124,6 @@ Measure (the health.json check that should move), Design, Decision.
   1660) and picks by team and line; an unreadable site still pushes a "check before <lock>" line.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
-### Q-031 · B4: no games grid or streaming plan for the basketball leagues
-- **Status:** shipped (c3b56e7)
-- **Area:** `shq/nba_games.py` (new), `shq/advice.py` (`games` block), `docs/lib/core.js` (`gamesHTML`, "Games & streamers")
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal (item B4)
-- **Evidence:** the tabs showed games left only per player and in the category table; no team schedule view, no next week,
-  no streaming plan (FantasyPros / Hashtag-style grids done by hand).
-- **Expected impact:** a Monday plan (next week's 4-game teams and back-to-backs) and mid-week streamer picks in one place.
-- **Effort:** S
-- **Risk:** Low
-- **Measure:** — (one-off)
-- **Design:** from ESPN's pro schedule (`league.sched`): per team, games still to tip off for the rest of this matchup week
-  and all of next week, grouped by count ("3 games: …"), back-to-backs marked ². My games left vs my opponent's come from
-  the category table (best lineup each day); next week counts my roster's games capped by starting spots each day.
-  Streamers: the 3 free agents with the highest need-weighted "Wk" (`nba_swaps.worth`, Q-028) this week (next week once
-  this one has no games left), with their game days and the categories they help. Choices: grouped team lists instead
-  of a 30-row × 14-day grid (fits a phone, reads in seconds); the section is collapsed by default with the streamer count
-  on it. Nov 5 live: 3-Ball 29 games left vs 29, next week 52; 14 teams play 4 next week.
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
 ### Q-032 · B5: no NBA lineup push before tip-off when a move is needed
 - **Status:** shipped (3ae3a74)
 - **Area:** `shq/nba_lineup.py` (new), `shq/run.py` (send before the injury watch), `shq/advice.py` `_moves` (NBA "Lineup
@@ -172,6 +132,8 @@ Measure (the health.json check that should move), Design, Decision.
 - **Added:** 2026-11-05 from the claude-audit proposal (item B5)
 - **Evidence:** the 8am digest flagged "no game today → start X" for NBA, but nothing pushed later in the day when injury
   news lands; the NBA tabs had no lineup moves at all (`_moves` returned [] for NBA); bench picks were by points (0.0).
+  Nov 6 nightly pass: still shipped. Today's data has the moves (3-Ball 3 "Start X over Y: no game today", Ball is Life 2),
+  but whether the push went out can't be checked: no push log yet (Q-015).
 - **Expected impact:** one phone push on days a basketball lineup change is needed, before it locks; nothing on other days.
 - **Effort:** S
 - **Risk:** Low (read-only; at most one push a day)
@@ -183,77 +145,6 @@ Measure (the health.json check that should move), Design, Decision.
   only with a move. Choices: the 8am digest still lists NBA lineup fixes but no longer pushes them (one lineup push a day, and
   the pre-tip one sees the latest injury news); an out starter in the push is marked as sent for the injury watch, so it
   isn't pushed twice. Nov 5 live: no moves (no bench player had a game that night).
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
-### Q-033 · B7: "proj 0.0" everywhere in the category leagues
-- **Status:** shipped (83fdf01)
-- **Area:** `docs/lib/core.js` (`S.leagues` pending outlook, `scoreHTML`; roster rows since Q-026), `docs/lab/b`, `docs/lab/d`,
-  `shq/leagues.py` (`view` proj, `EspnLeague.best_fa`), `shq/swap.py` (`strength`, `strength_text`), `shq/run.py` (injury-watch
-  push text), `shq/digest.py` (`_fix`), `shq/advice.py` (free agents get values too)
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal (item B7)
-- **Evidence:** Nov 5: every NBA player showed "proj 0.0"; the injury watch's NBA swap push read "start X (0.0 proj)" and
-  picked the bench player by a projection that is always 0 (in practice the first one listed); a tile without this week's
-  category table showed "0.0 projected".
-- **Expected impact:** less noise; every number on a basketball page means something.
-- **Effort:** S
-- **Risk:** Low
-- **Measure:** — (one-off)
-- **Design:** roster rows show the value rank and "Value #33 · +1.9/g · this week +10.6 · 6 g" (Q-026). Tiles and league pages
-  show the category outlook, or "Category outlook fills in with this week's matchup data · vs <opponent>" until the table
-  exists; `view()` writes `proj: null` for NBA. Every NBA ranking that used points now uses category value (`swap.strength`:
-  value per game when a player has one, else points): the injury watch's bench pick, the digest's "start X", the best free
-  agent; their text says "value +1.9/g, #33". Layout D shows "#33". Choice: the Players page and the category table are the
-  outlook; no new per-player outlook number was added. Fix the same evening: the NBA label was first stored as "val", which football rows already use for the
-  FantasyCalc value, so football league pages' roster rows could not render and `swap.strength` failed on football rows; it is
-  "cv" now, with a test.
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
-### Q-034 · B6: no way to check an NBA trade in category terms
-- **Status:** shipped (90dd05c)
-- **Area:** `shq/nba_trade.py` (new), `shq/advice.py` (`player_values` adds the trade fields), `docs/players/index.html` ("⇄ Trade
-  check" mode and tray), `docs/data/players.json` (`above`, `dyn`, `trade`)
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal (item B6)
-- **Evidence:** ROADMAP: "NBA trade values … not covered: no free value API"; trades were judged by hand or on FantasyPros.
-- **Expected impact:** pick players, get a verdict in each league's own categories, with dynasty age built in for 3-Ball.
-- **Effort:** M
-- **Risk:** Low (ideas only; the age curve is a rule of thumb and says so)
-- **Measure:** — (one-off)
-- **Design:** each player's value per game above a waiver-level player, floored at 0 (someone below that level would be dropped
-  for a waiver player, so an n-for-1 is judged fairly; a player with no NBA team counts 0). Fit = that gain plus (weight − 1) ×
-  the per-category change, weights from where my top 10 rank among the teams' top 10 by category (bottom third 1.5, top third
-  0.5, else 1, rescaled to average 1). 3-Ball (dynasty): value above waiver level × an age multiplier (1.5 at 20, 1.3 at 22,
-  1.1 at 24, 1.0 at 25-28, then 0.9, 0.8 … 0.4 at 34+) plus 0.6 per year under 23, and the verdict uses it; ages from ESPN's
-  team rosters (`shq/nba_ages.py`). Verdict: accept / decline, "coin flip" within 0.5. Choices: built into the Players page
-  (tap + on any rostered player, a tray at the bottom) rather than a separate page, so the filters help find targets; the
-  JavaScript verdict mirrors `nba_trade.trade()`, which carries the tests (live check Nov 5: SGA for Wembanyama in 3-Ball,
-  both gave +11.7 dynasty, +7.3 now, +6.9 fit). The age curve isn't fitted to data; the tray says so.
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
-
-### Q-035 · F1: no player list for the football leagues either
-- **Status:** shipped (ea3c058)
-- **Area:** `shq/nfl_players.py` (new), `shq/advice.py` (`football_players`), `shq/run.py` (writes `docs/data/players_nfl.json`),
-  `shq/espn_fantasy.py` (public football leagues read 50 free agents, was 12), `docs/players/index.html` (football view),
-  `docs/lib/core.js` (Players button on football league pages)
-- **Rank:** —
-- **Added:** 2026-11-05 from the claude-audit proposal (item F1)
-- **Evidence:** football rankings by position still came from FantasyPros; HQ had only waiver adds and trade ideas.
-- **Expected impact:** rest-of-season and weekly ranks by position for every football league without leaving HQ.
-- **Effort:** M
-- **Risk:** Low
-- **Measure:** — (one-off)
-- **Design:** per league, every rostered player (mine, each other team) plus the best FA_KEEP (150) free agents. ROS = Sleeper's
-  projections for the next 4 weeks scored with the league's settings, per game played (`values.ros_ppg`, the same numbers
-  the waiver adds and trade finder use; QB/RB/WR/TE). This week = the league's own projection (ESPN for ESPN leagues,
-  Sleeper for Sleeper leagues and Kosmonauts), as on the lineup tab. Ranks are by position among those players; K/DEF rank
-  on this week only. FantasyCalc dynasty or redraft value and the next 4 weeks are shown too. Choices: a separate data
-  file (`players_nfl.json`, ~350 KB before Pages' gzip) so the basketball view stays light; the same page with football
-  tabs after the basketball ones and football-specific columns (no category filters or trade tray; football trades
-  already have the trade finder); Kosmonauts is marked partial (other rosters need the Yahoo API); 3-Ball FB's public
-  read now asks ESPN for 50 free agents like the laptop snapshot, so its free-agent ranks aren't 12 players deep.
-  Also fixed while building this: the NBA row label had been stored as "val", which football rows use for FantasyCalc
-  (football league pages' roster rows broke for about an hour on Nov 5); it is "cv" now (commit 5821d51).
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
@@ -289,6 +180,9 @@ Measure (the health.json check that should move), Design, Decision.
   $19.1); K 90% at the 50% price (n=20); DEF 96% at the 80% price (n=24); WR 75% at the 80% price (n=61). Legs 1-4 vs 5-8:
   80% vs 81% at the 80% price, estimate miss $12.5 vs $5.6, so the season-stage gap is now in the estimate, not the coverage.
   Overall still on target (`wr.ladder_cov50` 0.56, `wr.ladder_cov80` 0.81).
+  Nov 5 health run (same 187 claims, no new waiver run): RB 34% at the 50% price and 66% at the 80% price (n=35, estimate
+  miss $18.9); WR 48% / 75% (n=61); K 90% / 95% (n=20); DEF 58% / 96% (n=24); legs 5-8 estimate miss $5.5 vs $12.5 for 1-4.
+  The week 9 waiver run (after Mon Nov 9's game) adds the next claims.
 - **Expected impact:** RB claims (the most expensive position) won at the stated odds instead of lost; no overbidding on K/DEF.
 - **Effort:** S
 - **Risk:** Low-Med (splits get thin: keep the "at least 12 claims or merge" rule; test leave-one-run-out before shipping)
@@ -330,26 +224,32 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-015.md`
 - **Decision:** —
 
-### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** partial (d2bfcb7, built as Q-029; the tasks run but need gh signed in outside the Claude app, see Q-029)
-- **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
+### Q-036 · NBA radar flags barely beat the waiver wire now (`radar.held`, `radar.edge` drift)
+- **Status:** designed
+- **Area:** `shq/radar.py` (`block`, `fit_score`, `send_alerts`), `shq/radar_backtest.py` (`run`, the comparison list),
+  `shq/health.py` `radar_health`
 - **Rank:** 5
-- **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
-- **Evidence:** `reviews/2026-11.md` (Reliability): 26 "cancelled" Sports HQ runs never started because `concurrency:
-  cancel-in-progress: false` keeps one waiting run, and 7 manual dispatches were dropped (Oct 25, 28, 30). On 3 of 8 weekday
-  mornings no run fired between 8am and late morning; Mon Oct 26's 6h22m gap meant no 8am digest. Still open Nov 4: run.yml
-  has the same single concurrency group, and no `ops/tasks/*.md` ends with `gh workflow run run.yml`. Same pattern tonight:
-  `model-health.yml`'s 2:50am CT cron (`50 8 * * *`) had not run by 3:53am CT; its only run ever is the Nov 3 manual dispatch.
-  Nov 5: it happened again on Wed Nov 4. No Sports HQ run between 2:59am and 11:06am CT (data commits 08:59Z, then 17:06Z:
-  8h07m), so the 8am digest was about 3 hours late; Nov 3 00:00Z - Nov 5 10:00Z, 17 runs started (2 more cancelled) in 58
-  hours. `model-health.yml`'s two slots (2:50am, 4:50am CT) ran at 10:37am and 12:15pm CT (7h47m and 7h25m late), and
-  tonight's 2:50am slot again had not run by 3:53am CT.
-- **Expected impact:** the 8am digest and Tuesday Weekly tab on time; a "force" button press never vanishes.
-- **Effort:** S-M
-- **Risk:** Low
-- **Measure:** — (one-off: data-commit gaps 8am-1pm on weekdays, and dropped dispatches, in the next monthly review)
-- **Design:** `ops/designs/Q-014.md`
-- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+- **Added:** 2026-11-06 by the nightly pass, from health.json flags `radar.held` and `radar.edge` (both drift since the
+  Nov 5 16:53Z run) plus a read-only replay of `radar_backtest.run` tonight
+- **Evidence:** health.json (Nov 5 18:19Z): `radar.held` 0.77 (17 of 22 flagged free agents kept the bigger role) vs
+  baseline 1.0 (n=5, set Nov 3), tolerance 0.15; `radar.edge` 0.15 z per game (flags −2.51 vs the old suggestions −2.66)
+  vs baseline 1.32 (n=5), tolerance 0.5, floor 0.0 (still above the floor, so drift, not weak). The Nov 4 runs had 1.0 and
+  1.44 on 5 flags; the jump to 22 flags is new mornings with games after them. Tonight's replay (games through period 17):
+  25 free agents flagged on 47 mornings, flags −2.53, the old suggestion −3.62, average free agent −5.43, so the edge
+  already swung to +0.91 in a day: at this n the check is noisy. The pattern underneath: the flag is minutes only, and 16
+  of the 25 projected under −3 z per game in the league's categories even at their new minutes (Larry Nance Jr. −3.62,
+  then −8.78 after); that projected value correlates 0.31 with value after. On the later mornings (periods 13-14), the 14
+  flag-mornings projected at −3 or better averaged −0.04 after, the 23 below −3 averaged −3.62 (all 37: −2.27). In-sample:
+  the earlier mornings (periods 11-12) had only 2 such flags, too few to pick a cutoff. Two more gaps: the comparison list is still "the 3 most-owned free agents"
+  (`radar_backtest.run`), which Q-028 (168a299) replaced on the site with value-ranked swaps; and only 3-Ball is checked.
+- **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
+  when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
+  actually suggests now.
+- **Effort:** S
+- **Risk:** Low (ideas and at most one push a day per league; a gate can hide a one-category specialist, see the design)
+- **Measure:** `radar.edge` (≥ 0.5 z per game with ≥ 10 flags, out of sample), `radar.held` (≥ 0.75)
+- **Design:** `ops/designs/Q-036.md`
+- **Decision:** —
 
 ### Q-017 · Four git steps still rebase (rule: merge, never rebase)
 - **Status:** designed
@@ -378,6 +278,7 @@ Measure (the health.json check that should move), Design, Decision.
   for every remaining week since Nov 3, so the health job now scores what the page showed 2, 3 and 4 weeks before each week.
   First numbers after week 10 (2 weeks ahead), week 11 (3), week 12 (4). Nov 4: `wr.swing_k2`-`k4` still waiting (n=0).
   Nov 5: still n=0; the first 2-weeks-ahead number arrives with the health run after week 10 ends (Tue Nov 17).
+  Nov 6: still n=0 (Nov 5 run); enough data for `wr.swing_k2` Nov 17, `k3` Nov 24, `k4` Dec 1.
 - **Expected impact:** the right rest-of-season uncertainty, which drives win odds and so every value.
 - **Effort:** S (change `SD_GROWTH` once measured)
 - **Risk:** Low
@@ -393,6 +294,9 @@ Measure (the health.json check that should move), Design, Decision.
 - **Evidence:** health.json is published at `/data/health.json` but nothing shows it. Michael only learned about the Nov 3
   War Room findings because he asked. Nov 5: `docs/lib/core.js` still loads only lineups, weekly, status, digest and
   pick_lines (`FILES`, line 9); the Nov 4 health run (13 ok, 1 weak, 5 waiting, 4 info) is visible nowhere on the site.
+  Nov 6: the Nov 5 run turned two NBA radar checks to drift (11 ok, 2 drift, 1 weak, 5 waiting, 4 info; Q-036), and
+  nothing on the site or in a push says so; the new Players page (Q-027) is loaded through `SHQ.loadFile`, which this
+  card could reuse for `health.json`.
 - **Expected impact:** a glance at which models are trustworthy this week (ok / watch / drift / weak per model, tap for the checks).
 - **Effort:** S
 - **Risk:** Low
@@ -401,7 +305,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-024 · The picks health check scores Yahoo straight-up picks against a spread break-even
-- **Status:** proposed
+- **Status:** designed
 - **Area:** `shq/health.py` `picks_health` and the `picks.card_ats` floor (line 71); `picks/data/postmortem/*.json`
 - **Rank:** 9
 - **Added:** 2026-11-05 by the nightly pass (own finding from health.json `sections.picks` and
@@ -417,11 +321,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Effort:** S
 - **Risk:** Low (health job only; the `picks.card_ats` baseline resets)
 - **Measure:** — (one-off: separate spread and straight-up checks, each with its own floor)
-- **Design:** —
+- **Design:** `ops/designs/Q-024.md`
 - **Decision:** —
 
 ### Q-016 · "Likely out" news doesn't trigger a push while ESPN still says Questionable
-- **Status:** proposed
+- **Status:** designed
 - **Area:** injury watch (`shq/run.py` swap pushes, `status.confirm`), ROADMAP injury rule
 - **Rank:** 10
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #5 and IDEAS.md "Proposed by monthly review"
@@ -435,7 +339,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Effort:** M
 - **Risk:** Med (changes the injury rule; needs Michael's call; false alarms if the note is speculative)
 - **Measure:** — (one-off, once Q-015's push log exists: likely-out pushes vs who actually played)
-- **Design:** —
+- **Design:** `ops/designs/Q-016.md`
 - **Decision:** —
 
 ### Q-012 · Cut odds are no better than a coin toss
@@ -450,6 +354,7 @@ Measure (the health.json check that should move), Design, Decision.
   a small sample, and the 22-pt swing is measured on the same weeks (in-sample). Nov 4: still the only health flag
   (`wr.cut_skill` −0.017, floor 0.0, n=8, status weak); week 9's cut (after Mon Nov 9's game) adds a 9th case.
   Nov 5: unchanged (same run); `gd.v2_skill` still waiting (n=0), `gd.dash_skill` −0.653 (n=1).
+  Nov 6: unchanged in the Nov 5 run (−0.017, n=8, best swing 36); the 9th cut lands after Mon Nov 9's game.
 - **Expected impact:** cut risk and win odds drive every bid value. If cuts are mostly upsets, both models are too sure who is
   safe, so win-odds gains (and bids) are spread too wide between players. Better-calibrated odds = better $ values.
 - **Effort:** S to test, M to change
@@ -537,7 +442,7 @@ Measure (the health.json check that should move), Design, Decision.
   hit 48.9% (n=274). Against: weeks 6-8 alone lean slightly the other way (best weight 0.087 ± 0.236; disagreements hit 54.5%,
   n=77). NFL already went to 0 (`picks/pp/nfl.py:76`); college stays at 0.1 (`cards.py:105`, ROADMAP "MODEL_W stays 0.1").
   Nov 5: `picks.card_ats` now reports 0.733 (n=30), but 25 of those 30 are Yahoo straight-up picks (Q-024), so it can't
-  judge this yet.
+  judge this yet. Nov 6: unchanged (Nov 5 run).
 - **Expected impact:** small: college card centers move by a tenth of the model-market gap (a 5-pt gap = 0.5 pt), which
   only matters near a pool line's half point.
 - **Effort:** S
@@ -692,3 +597,164 @@ Measure (the health.json check that should move), Design, Decision.
 
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
+
+### Q-035 · F1: no player list for the football leagues either
+- **Status:** verified (ea3c058)
+- **Area:** `shq/nfl_players.py` (new), `shq/advice.py` (`football_players`), `shq/run.py` (writes `docs/data/players_nfl.json`),
+  `shq/espn_fantasy.py` (public football leagues read 50 free agents, was 12), `docs/players/index.html` (football view),
+  `docs/lib/core.js` (Players button on football league pages)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item F1)
+- **Evidence:** football rankings by position still came from FantasyPros; HQ had only waiver adds and trade ideas.
+  Verified 2026-11-06 (nightly pass, `docs/data/players_nfl.json` of 09:17Z): all 6 football leagues, each player with
+  `ros_rk` and `proj_rk`: Domo Arigato 509 players, Guillotine 301, 3-Ball FB 278, Bro-vid19 250, Stempak 195, Kosmonauts 97
+  (marked partial, as designed).
+- **Expected impact:** rest-of-season and weekly ranks by position for every football league without leaving HQ.
+- **Effort:** M
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** per league, every rostered player (mine, each other team) plus the best FA_KEEP (150) free agents. ROS = Sleeper's
+  projections for the next 4 weeks scored with the league's settings, per game played (`values.ros_ppg`, the same numbers
+  the waiver adds and trade finder use; QB/RB/WR/TE). This week = the league's own projection (ESPN for ESPN leagues,
+  Sleeper for Sleeper leagues and Kosmonauts), as on the lineup tab. Ranks are by position among those players; K/DEF rank
+  on this week only. FantasyCalc dynasty or redraft value and the next 4 weeks are shown too. Choices: a separate data
+  file (`players_nfl.json`, ~350 KB before Pages' gzip) so the basketball view stays light; the same page with football
+  tabs after the basketball ones and football-specific columns (no category filters or trade tray; football trades
+  already have the trade finder); Kosmonauts is marked partial (other rosters need the Yahoo API); 3-Ball FB's public
+  read now asks ESPN for 50 free agents like the laptop snapshot, so its free-agent ranks aren't 12 players deep.
+  Also fixed while building this: the NBA row label had been stored as "val", which football rows use for FantasyCalc
+  (football league pages' roster rows broke for about an hour on Nov 5); it is "cv" now (commit 5821d51).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
+### Q-034 · B6: no way to check an NBA trade in category terms
+- **Status:** verified (90dd05c)
+- **Area:** `shq/nba_trade.py` (new), `shq/advice.py` (`player_values` adds the trade fields), `docs/players/index.html` ("⇄ Trade
+  check" mode and tray), `docs/data/players.json` (`above`, `dyn`, `trade`)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B6)
+- **Evidence:** ROADMAP: "NBA trade values … not covered: no free value API"; trades were judged by hand or on FantasyPros.
+  Verified 2026-11-06 (nightly pass, `players.json` of 09:17Z): both leagues carry the `trade` block and every player has
+  `above` (value over waiver level); 3-Ball players also carry `dyn` (dynasty value with age). Not checked: the tray on a
+  phone screen.
+- **Expected impact:** pick players, get a verdict in each league's own categories, with dynasty age built in for 3-Ball.
+- **Effort:** M
+- **Risk:** Low (ideas only; the age curve is a rule of thumb and says so)
+- **Measure:** — (one-off)
+- **Design:** each player's value per game above a waiver-level player, floored at 0 (someone below that level would be dropped
+  for a waiver player, so an n-for-1 is judged fairly; a player with no NBA team counts 0). Fit = that gain plus (weight − 1) ×
+  the per-category change, weights from where my top 10 rank among the teams' top 10 by category (bottom third 1.5, top third
+  0.5, else 1, rescaled to average 1). 3-Ball (dynasty): value above waiver level × an age multiplier (1.5 at 20, 1.3 at 22,
+  1.1 at 24, 1.0 at 25-28, then 0.9, 0.8 … 0.4 at 34+) plus 0.6 per year under 23, and the verdict uses it; ages from ESPN's
+  team rosters (`shq/nba_ages.py`). Verdict: accept / decline, "coin flip" within 0.5. Choices: built into the Players page
+  (tap + on any rostered player, a tray at the bottom) rather than a separate page, so the filters help find targets; the
+  JavaScript verdict mirrors `nba_trade.trade()`, which carries the tests (live check Nov 5: SGA for Wembanyama in 3-Ball,
+  both gave +11.7 dynasty, +7.3 now, +6.9 fit). The age curve isn't fitted to data; the tray says so.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
+### Q-033 · B7: "proj 0.0" everywhere in the category leagues
+- **Status:** verified (83fdf01)
+- **Area:** `docs/lib/core.js` (`S.leagues` pending outlook, `scoreHTML`; roster rows since Q-026), `docs/lab/b`, `docs/lab/d`,
+  `shq/leagues.py` (`view` proj, `EspnLeague.best_fa`), `shq/swap.py` (`strength`, `strength_text`), `shq/run.py` (injury-watch
+  push text), `shq/digest.py` (`_fix`), `shq/advice.py` (free agents get values too)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B7)
+- **Evidence:** Nov 5: every NBA player showed "proj 0.0"; the injury watch's NBA swap push read "start X (0.0 proj)" and
+  picked the bench player by a projection that is always 0 (in practice the first one listed); a tile without this week's
+  category table showed "0.0 projected".
+  Verified 2026-11-06 (nightly pass, data of 09:17Z): no "proj 0.0" / "0.0 proj" text in any basketball line of
+  `lineups.json`, `weekly.json` or `digest.json` (the only two hits are football: "170.0 projected" and a K drop, Chris
+  Boswell 0.0 proj). NBA roster rows still carry `proj: 0.0` in the data, but `core.js` `prow` shows the value rank when a
+  row has `cv` and a blank for 0, and NBA tiles take the category branch (`core.js:78-80`). Not checked on a phone screen.
+- **Expected impact:** less noise; every number on a basketball page means something.
+- **Effort:** S
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** roster rows show the value rank and "Value #33 · +1.9/g · this week +10.6 · 6 g" (Q-026). Tiles and league pages
+  show the category outlook, or "Category outlook fills in with this week's matchup data · vs <opponent>" until the table
+  exists; `view()` writes `proj: null` for NBA. Every NBA ranking that used points now uses category value (`swap.strength`:
+  value per game when a player has one, else points): the injury watch's bench pick, the digest's "start X", the best free
+  agent; their text says "value +1.9/g, #33". Layout D shows "#33". Choice: the Players page and the category table are the
+  outlook; no new per-player outlook number was added. Fix the same evening: the NBA label was first stored as "val", which football rows already use for the
+  FantasyCalc value, so football league pages' roster rows could not render and `swap.strength` failed on football rows; it is
+  "cv" now, with a test.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
+### Q-031 · B4: no games grid or streaming plan for the basketball leagues
+- **Status:** verified (c3b56e7)
+- **Area:** `shq/nba_games.py` (new), `shq/advice.py` (`games` block), `docs/lib/core.js` (`gamesHTML`, "Games & streamers")
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B4)
+- **Evidence:** the tabs showed games left only per player and in the category table; no team schedule view, no next week,
+  no streaming plan (FantasyPros / Hashtag-style grids done by hand).
+  Verified 2026-11-06 (nightly pass, `lineups.json` of 09:17Z): both basketball leagues carry the `games` block: this
+  week Fri Nov 6-Sun Nov 8 (16 teams with 2 games, 7 back-to-backs), next week Mon Nov 9-Sun Nov 15 (14 teams with 4);
+  3-Ball 25 games left vs 26, 52 next week; Ball is Life 21 vs 18, 42 next week; 3 streamers each.
+- **Expected impact:** a Monday plan (next week's 4-game teams and back-to-backs) and mid-week streamer picks in one place.
+- **Effort:** S
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** from ESPN's pro schedule (`league.sched`): per team, games still to tip off for the rest of this matchup week
+  and all of next week, grouped by count ("3 games: …"), back-to-backs marked ². My games left vs my opponent's come from
+  the category table (best lineup each day); next week counts my roster's games capped by starting spots each day.
+  Streamers: the 3 free agents with the highest need-weighted "Wk" (`nba_swaps.worth`, Q-028) this week (next week once
+  this one has no games left), with their game days and the categories they help. Choices: grouped team lists instead
+  of a 30-row × 14-day grid (fits a phone, reads in seconds); the section is collapsed by default with the streamer count
+  on it. Nov 5 live: 3-Ball 29 games left vs 29, next week 52; 14 teams play 4 next week.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
+### Q-028 · B3: NBA pickups were ranked by % owned, not by what they do for my categories
+- **Status:** verified (168a299)
+- **Area:** `shq/nba_swaps.py` (new), `shq/nba_ages.py` (new), `shq/nba_values.py` (age), `shq/advice.py` `adds`, `shq/run.py`
+  `nba_weekly_section`, `docs/players/index.html` (age in the detail row)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B3)
+- **Evidence:** Nov 5: "Collin Gillespie (PG, PHX): 2 games left this week, 38% owned" style lines, sorted by games then
+  % owned; Kevin Porter Jr. (no NBA team) sat on the 3-Ball bench unflagged.
+  Verified 2026-11-06 (nightly pass, `docs/data/lineups.json` of 09:17Z): 3-Ball has 2 exact swaps ("Drop Kevin Porter Jr.
+  (no NBA team, a dead roster spot), add Alex Caruso … +1.2 this week (helps FG%)"; "Drop De'Andre Hunter …, add Derrick
+  Jones Jr. … +7.1 this week (helps FT%, STL, BLK). Dynasty: De'Andre Hunter is 29."); Ball is Life says "No free agent beats
+  anyone on your roster by enough this week." (the +3 minimum). Whether the adds out-produce the drops isn't measured yet.
+- **Expected impact:** 1-3 exact moves per basketball league that help this week's categories without hurting the season.
+- **Effort:** S
+- **Risk:** Low (ideas only)
+- **Measure:** — (one-off; could join the radar backtest later: did the suggested adds out-produce the drops?)
+- **Design:** a player's this-week worth = (need-weighted value per game − the waiver-level value) × games left, the same
+  "Wk" as the Players page with each category weighted by this week's outlook (close 1.5, lose 0.5, win 0.5, rescaled to
+  average 1; all 1 with no live matchup). Gain = add's worth − drop's. Choices: minimum gain +3 (at +2 Ball is Life got
+  near-even churn swaps, Draymond Green for Robert Williams III); the add may give up at most 1 value per game for the
+  rest of the season; no drops from IR slots (they free no spot) and no out adds; greedy pairing, each player once. A
+  player with no NBA team is a dead spot: listed first and always droppable. Dynasty (3-Ball): never drops anyone 40%+
+  rostered ESPN-wide or under 24. ESPN's fantasy pool has no ages, so `shq/nba_ages.py` reads the 30 public ESPN team
+  rosters (same player ids) once a day. On live data Nov 5: 3-Ball "Drop Kevin Porter Jr. (no NBA team, a dead roster
+  spot), add De'Anthony Melton: +3.4 this week (helps STL, 3PM)" and "Drop De'Andre Hunter, add Collin Gillespie: +10.1";
+  Kingston Flemings (rookie) is no longer offered as a drop. The Weekly tab uses the same lines.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
+### Q-026 · B1: NBA players had no value (every one showed "proj 0.0")
+- **Status:** verified (70ff3ff)
+- **Area:** `shq/nba_values.py` (new), `shq/radar.py` `fetch_pool`/`compact` (adds ESPN's season projection and games played),
+  `shq/advice.py` `player_values`, `shq/run.py` (writes `docs/data/players.json`), `docs/lib/core.js` `prow`
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal `sports-hq-improvements-2026-11-05.md` (item B1)
+- **Evidence:** Nov 5 6am: every NBA player showed "proj 0.0" (category leagues have no points); ROADMAP listed "NBA trade
+  values and ROS waiver ranking: not covered"; pickups were ranked by % owned.
+  Verified 2026-11-06 (nightly pass, `docs/data/players.json` of 09:17Z): 3-Ball BB 310 players and Ball is Life 303, every
+  one with a value (0 missing, 0 at exactly 0); 251 / 244 on this season's stats, 59 / 59 on ESPN's projection; my rosters
+  20 and 17 players.
+- **Expected impact:** a real number and rank on every NBA player, rostered or free agent, in each league's own categories,
+  per game and for this week.
+- **Effort:** M
+- **Risk:** Low
+- **Measure:** — (one-off; later: does the value rank of players added beat the old % owned picks, like the radar backtest)
+- **Design:** value per game = the league's own scoring categories (read from the snapshot; both leagues are 8-cat today) as
+  z-scores against the top N players, N = teams × non-IR roster spots (170 in 3-Ball, 168 in Ball is Life); two passes (all
+  players, then the top N of pass one). Ratio cats count made above that group's rate times attempts; reversed cats (TO)
+  count negative. This week = (value − the value of player N, a waiver-level player) × games left this matchup not yet
+  tipped, 0 while out on ESPN's injury report. Stats: this season's per-game averages once a player has 5 games, ESPN's
+  season projection before that; each player carries `src` and games played, and the roster rows say "8 g" or "ESPN proj".
+  One ESPN read covers both leagues (the radar's ~1,000-player pool, now also asking for `10<season>`); Ball is Life's
+  owners come from its laptop snapshot. Choices: no blend of projection and season stats (the brief said 5 games); early in
+  the season that makes slow starters rank low (Mikal Bridges #261 on 6.2 pts, 33% FG through 8 games). If that looks
+  wrong in a few weeks, blend toward the projection by games played. `players.json` is written one player per line so the
+  10-minute data commits stay small diffs (~185 KB, top 300 per league plus everyone rostered).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
