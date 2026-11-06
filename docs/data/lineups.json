@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T21:07:00Z",
+ "updated": "2026-11-06T21:17:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -231,7 +231,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "Domo Arigato": {
@@ -693,7 +693,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "Guillotine": {
@@ -982,7 +982,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:07p",
+    "built": "Fri 3:17p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1310,7 +1310,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "why": "ESPN: DOUBTFUL, but ESPN says Questionable: unconfirmed",
      "flags": [
       "Q"
      ],
@@ -1507,10 +1507,10 @@
      "kickoff": "2026-11-08T18:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "status": "OUT",
+     "why": "ESPN: OUT",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
       "note": "Burks (foot) was a non-participant at Thursday's practice.",
@@ -1602,7 +1602,9 @@
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
-    "notes": [],
+    "notes": [
+     "Cam Skattebo (FLEX): ESPN: DOUBTFUL, but ESPN says Questionable: unconfirmed. Check before benching [ESPN, Nov 6 12:30p: Head coach John Harbaugh said Skattebo (hamstring) didn't practice Friday, but the Giants are \"keeping the door open\" for the running back to play Sunday at\u2026]"
+    ],
     "cats": null,
     "radar": null,
     "games": null,
@@ -1618,7 +1620,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "Stempak": {
@@ -1987,7 +1989,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "Bro-vid19": {
@@ -2322,7 +2324,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "3-Ball BB": {
@@ -2535,16 +2537,22 @@
      "kickoff": "2026-11-07T03:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "Q",
+     "why": "ESPN: DAY_TO_DAY",
+     "flags": [
+      "Q"
+     ],
      "cv": {
       "v": -6.59,
       "rk": 271,
       "wk": -6.3,
       "src": "8 g"
      },
-     "news": null
+     "news": {
+      "note": "Hunter is questionable for Friday against the Spurs due to an illness.",
+      "at": "2026-11-06T21:07:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4065732/deandre-hunter"
+     }
     }
    ],
    "bench": [
@@ -2708,12 +2716,13 @@
     "moves": [],
     "adds": [
      "Drop Kevin Porter Jr. (no NBA team, a dead roster spot), add Alex Caruso (PG/SG, OKC, 2 games this week, value -2.1/g, 20% rostered): +1.2 this week (helps FG%).",
-     "Drop De'Andre Hunter (2 games this week, value -6.6/g), add Derrick Jones Jr. (SF/PF, LAC, 1 game this week, value -1.3/g, 10% rostered): +7.1 this week (helps FT%, STL, BLK). Dynasty: De'Andre Hunter is 29."
+     "Drop De'Andre Hunter (2 games this week, Day-To-Day, value -6.6/g), add Derrick Jones Jr. (SF/PF, LAC, 1 game this week, value -1.3/g, 10% rostered): +7.1 this week (helps FT%, STL, BLK). Dynasty: De'Andre Hunter is 29."
     ],
     "trades": null,
     "notes": [
      "Jarrett Allen (UT) is Questionable, plays Fri 6:30p [ESPN, Nov 5 4:13p: Allen (knee) is questionable for Friday's game against Philadelphia.]",
-     "8 of 10 starters play tonight"
+     "De'Andre Hunter (F) is Questionable, plays Fri 9:00p [ESPN, Nov 6 3:07p: Hunter is questionable for Friday against the Spurs due to an illness.]",
+     "7 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -3107,7 +3116,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   },
   "Ball is Life": {
@@ -3803,7 +3812,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Fri 3:07p"
+    "built": "Fri 3:17p"
    }
   }
  }
