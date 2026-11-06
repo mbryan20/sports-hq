@@ -157,6 +157,27 @@ Measure (the health.json check that should move), Design, Decision.
   on it. Nov 5 live: 3-Ball 29 games left vs 29, next week 52; 14 teams play 4 next week.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-032 · B5: no NBA lineup push before tip-off when a move is needed
+- **Status:** shipped (COMMIT_X)
+- **Area:** `shq/nba_lineup.py` (new), `shq/run.py` (send before the injury watch), `shq/advice.py` `_moves` (NBA "Lineup
+  moves"), `shq/digest.py` (`_fix` ranks by value; NBA lineup items no longer urgent)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B5)
+- **Evidence:** the 8am digest flagged "no game today → start X" for NBA, but nothing pushed later in the day when injury
+  news lands; the NBA tabs had no lineup moves at all (`_moves` returned [] for NBA); bench picks were by points (0.0).
+- **Expected impact:** one phone push on days a basketball lineup change is needed, before it locks; nothing on other days.
+- **Effort:** S
+- **Risk:** Low (read-only; at most one push a day)
+- **Measure:** — (one-off: pushes per week, and days a move was needed with no push)
+- **Design:** moves for today: (1) a starter with no game, out (ESPN-confirmed status) or an empty slot, filled by the best
+  bench player who plays today and fits the slot (`swap.eligible`), by category value; (2) a playing bench player who beats
+  a playing starter by 1+ value per game. Push: one a day for both leagues (`push_once("nba-lineup:<date>")`), on the first
+  run within 3 hours of the earliest affected tip-off (the hourly laptop kick and the 2h watch loop both land there), and
+  only with a move. Choices: the 8am digest still lists NBA lineup fixes but no longer pushes them (one lineup push a day, and
+  the pre-tip one sees the latest injury news); an out starter in the push is marked as sent for the injury watch, so it
+  isn't pushed twice. Nov 5 live: no moves (no bench player had a game that night).
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

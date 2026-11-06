@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_games, nba_swaps, nba_values, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_values, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -39,9 +39,9 @@ def _dead(p):
     return bool(p.get("empty") or p["bye"] or p["status"] in digest.DEAD)
 
 
-def _moves(league):
+def _moves(league, now):
     if getattr(league, "sport", "nfl") == "nba":
-        return []
+        return nba_lineup.lines(league, now)
     return [f"Start {b['name']} ({b['proj']}) over {s['name']} ({s['proj']}) at {s['slot']}, +{round(gain, 1)}"
             for s, b, gain in start_sit(league.starters, league.bench) if not _dead(s)]
 
@@ -157,7 +157,7 @@ def build(league, now):
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),
         "fixes": [i["text"] for i in items if i["urgent"]],
-        "moves": _moves(league)[:3],
+        "moves": _moves(league, now)[:3],
         "adds": adds(league)[:3],
         "trades": trade_block(league),
         "notes": notes,

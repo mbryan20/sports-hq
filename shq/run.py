@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, nba_values, notify, radar, wrapup
+from . import advice, digest, espn, guillotine, nba_lineup, nba_values, notify, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -307,6 +307,12 @@ def main():
     lead = dt.timedelta(hours=WATCH_LEAD_HOURS)
     status["watch_active"] = any(k - lead <= now < k for k in kicks)
     status["jobs"] = job_health(now)
+    try:   # NBA: one lineup push a day before the first tip, only when a move is needed (shq/nba_lineup.py)
+        sent = nba_lineup.send([lg for lg in leagues if getattr(lg, "sport", "nfl") == "nba"], now)
+        if sent:
+            notes.append(f"nba lineup push: {sent}")
+    except Exception:
+        traceback.print_exc()
     actions = []
     if status["watch_active"]:
         for lg in leagues:

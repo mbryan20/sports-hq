@@ -55,7 +55,8 @@ def cite(p, limit=160):
 def _fix(league, starter, used, now):
     bench = [b for b in league.bench if b["id"] not in used and playable(b, now)
              and eligible(starter["slot"], b["positions"])]
-    pick = max(bench, key=lambda b: (b["proj"], b.get("owned", 0)), default=None)
+    # NBA category leagues have no points: rank by category value (shq/nba_values.py) when the run has it
+    pick = max(bench, key=lambda b: ((b.get("val") or {}).get("v", b["proj"]), b.get("owned", 0)), default=None)
     if pick:
         used.add(pick["id"])
         return f"start {pick['name']}" + (f" ({pick['proj']} proj)" if pick["proj"] else ""), True
@@ -74,11 +75,12 @@ def league_items(league, now):
         why = _problem(s, nba)
         if why:
             fix, from_bench = _fix(league, s, used, now)
-            # NBA lineups reset daily and off nights are routine: push only when the bench can cover it
+            # NBA lineups reset daily and off nights are routine: list it only when the bench can cover it. NBA lineup
+            # fixes aren't urgent here: shq/nba_lineup.py pushes them once a day before the first tip-off
             if nba and s["bye"] and not from_bench:
                 continue
             label = s["name"] if not s.get("empty") else s["slot"]
-            items.append({"league": league.name, "urgent": from_bench or not nba,
+            items.append({"league": league.name, "urgent": not nba,
                           "text": f"{label} ({s['slot']}) {why} → {fix}" + cite(s)})
         elif s.get("conflict"):
             # sources disagree on whether he plays: say so, never bench him on it

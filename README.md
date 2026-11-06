@@ -59,8 +59,11 @@ The footer shows the last cloud run and when each laptop job last delivered.
   the PDF link (3-min ntfy delay so Pages has published it). Run one by hand: Actions → Sports HQ run → `force_wrapup`, or
   locally `py -m shq.wrapup --week N --edition final [--push]`.
 - Daily digest (`shq/digest.py`): first run after 8am CT fills the Today tab; pushes once only if something
-  needs fixing (dead starter or empty slot, NBA starter with no game while the bench can cover, guillotine
-  bottom 3, Friday picks deadlines). Late runs (after 1pm) update the tab without pushing.
+  needs fixing (dead starter or empty slot, guillotine bottom 3, Friday picks deadlines). Late runs (after 1pm) update the
+  tab without pushing. NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
+  most one a day for both basketball leagues, from 3h before the first affected tip-off, only when a starter has no game,
+  is out or the slot is empty and a bench player who plays today can fill it, or a bench player who plays today is worth
+  1+ value per game more than a playing starter. The same moves show as "Lineup moves" on the tabs.
 - **Laptop kick** (Windows Task Scheduler, `ops/kick.ps1`, no AI): GitHub runs scheduled jobs hours late, so the laptop
   starts `run.yml` at 7:02am CT and hourly to 11:02pm (skipped when data was committed in the last 20 min) and
   `model-health.yml` at 2:55am. A dispatched run gets its own concurrency group, so it is never dropped; a run that finds

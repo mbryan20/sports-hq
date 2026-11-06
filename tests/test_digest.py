@@ -56,7 +56,8 @@ class Digest(unittest.TestCase):
         self.assertFalse(any(i["urgent"] for i in items))
         lg.bench.append(p("Bench G", "BN", ["SG", "G"], kickoff=tonight))
         items = digest.league_items(lg, NOW)
-        self.assertTrue(any(i["urgent"] and "start Bench G" in i["text"] for i in items))
+        # listed, but not urgent: shq/nba_lineup.py pushes NBA lineup fixes once a day before the first tip (Q-032)
+        self.assertTrue(any(not i["urgent"] and "start Bench G" in i["text"] for i in items))
 
     def test_guillotine_danger(self):
         lg = League([], [])
