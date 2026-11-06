@@ -9,7 +9,7 @@ from . import radar
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
 from .status import OUTISH
-from .swap import eligible, playable
+from .swap import eligible, playable, strength, strength_text
 
 DEAD = OUTISH | {"D"}
 DANGER_CUT = 0.20   # guillotine elimination chance that counts as urgent
@@ -56,10 +56,10 @@ def _fix(league, starter, used, now):
     bench = [b for b in league.bench if b["id"] not in used and playable(b, now)
              and eligible(starter["slot"], b["positions"])]
     # NBA category leagues have no points: rank by category value (shq/nba_values.py) when the run has it
-    pick = max(bench, key=lambda b: ((b.get("val") or {}).get("v", b["proj"]), b.get("owned", 0)), default=None)
+    pick = max(bench, key=lambda b: (strength(b), b.get("owned", 0)), default=None)
     if pick:
         used.add(pick["id"])
-        return f"start {pick['name']}" + (f" ({pick['proj']} proj)" if pick["proj"] else ""), True
+        return f"start {pick['name']}" + (f" ({strength_text(pick)})" if pick["proj"] or pick.get("val") else ""), True
     fa = league.best_fa(starter["positions"] or [starter["slot"]], now) if league.free_agents else None
     if fa:
         return f"no bench fit; best FA {fa['name']} ({fa['team']})", False

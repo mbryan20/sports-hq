@@ -178,6 +178,28 @@ Measure (the health.json check that should move), Design, Decision.
   isn't pushed twice. Nov 5 live: no moves (no bench player had a game that night).
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-033 · B7: "proj 0.0" everywhere in the category leagues
+- **Status:** shipped (COMMIT_X)
+- **Area:** `docs/lib/core.js` (`S.leagues` pending outlook, `scoreHTML`; roster rows since Q-026), `docs/lab/b`, `docs/lab/d`,
+  `shq/leagues.py` (`view` proj, `EspnLeague.best_fa`), `shq/swap.py` (`strength`, `strength_text`), `shq/run.py` (injury-watch
+  push text), `shq/digest.py` (`_fix`), `shq/advice.py` (free agents get values too)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B7)
+- **Evidence:** Nov 5: every NBA player showed "proj 0.0"; the injury watch's NBA swap push read "start X (0.0 proj)" and
+  picked the bench player by a projection that is always 0 (in practice the first one listed); a tile without this week's
+  category table showed "0.0 projected".
+- **Expected impact:** less noise; every number on a basketball page means something.
+- **Effort:** S
+- **Risk:** Low
+- **Measure:** — (one-off)
+- **Design:** roster rows show the value rank and "Value #33 · +1.9/g · this week +10.6 · 6 g" (Q-026). Tiles and league pages
+  show the category outlook, or "Category outlook fills in with this week's matchup data · vs <opponent>" until the table
+  exists; `view()` writes `proj: null` for NBA. Every NBA ranking that used points now uses category value (`swap.strength`:
+  value per game when a player has one, else points): the injury watch's bench pick, the digest's "start X", the best free
+  agent; their text says "value +1.9/g, #33". Layout D shows "#33". Choice: the Players page and the category table are the
+  outlook; no new per-player outlook number was added.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

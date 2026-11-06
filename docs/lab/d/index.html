@@ -92,7 +92,7 @@ function slotHTML(s) {
   return `<div class="kslot${s.started ? " locked" : ""}"><div class="when"><div class="t">${esc(SHQ.time(s.at))}</div><div class="sp">${esc((s.sport || "").toUpperCase())}</div></div>
     <div class="games${hrs > 0 && hrs < 3 ? " soon" : ""}"><div class="top"><span>${ps.length} starter${ps.length > 1 ? "s" : ""}${s.started ? " · locked" : ""}</span>${s.sport === "nfl" && total ? `<span>${total.toFixed(1)} proj riding</span>` : ""}</div>
     ${ps.map(p => `<div class="pl"><div class="nm">${esc(p.name)}${p.flags?.length ? `<span class="chips">${p.flags.map(SHQ.chip).join("")}</span>` : ""} <span class="muted" style="font-weight:500;font-size:12.5px">${esc([p.team, p.opp].filter(Boolean).join(" "))}</span></div>
-      <div class="pr">${p.proj ? p.proj.toFixed(1) : ""}</div>
+      <div class="pr">${p.val ? `#${p.val.rk}` : p.proj ? p.proj.toFixed(1) : ""}</div>
       <div class="tags">${p.leagues.map(l => `<span data-lg="${esc(l.league)}">${esc(l.league)} · ${esc(l.slot)}</span>`).join("")}</div>
       ${p.news ? `<div class="news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN</a>: ${esc(p.news.note)}</div>` : ""}</div>`).join("")}</div></div>`;
 }

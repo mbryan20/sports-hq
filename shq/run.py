@@ -17,7 +17,7 @@ from .leagues import (Context, EspnLeague, LeagueOver, SavedYahooLeague, Sleeper
                       YahooLeague, view)
 from .notify import push, push_once
 from .status import OUTISH
-from .swap import plan_injury_swaps
+from .swap import plan_injury_swaps, strength_text
 from .yahoo import YahooPending, YahooWriteDenied
 
 
@@ -132,13 +132,13 @@ def injury_watch(league, now):
                 league.can_write = False
         if inn:
             push_once(key + ":swap", f"{league.name}: make this swap",
-                      f"Bench {label(out)} → start {inn['name']} ({inn['proj']} proj) at {slot}. Locks {locks}.",
+                      f"Bench {label(out)} → start {inn['name']} ({strength_text(inn)}) at {slot}. Locks {locks}.",
                       priority=4, tags=["rotating_light"])
             actions.append(f"suggested {out['name']} -> {inn['name']}")
         else:
             fa = league.best_fa(out["positions"], now)
             if fa:
-                tip = f"Best FA: {fa['name']} ({fa['team']}, {fa['proj']} proj) — add/drop manually."
+                tip = f"Best FA: {fa['name']} ({fa['team']}, {strength_text(fa)}) — add/drop manually."
             else:
                 tip = "No playable FA found."
             push_once(key + ":fa", f"{league.name}: no healthy bench {slot}",

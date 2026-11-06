@@ -76,6 +76,8 @@
       let score;
       if (g) score = { kind: "guillotine", survive: g.survive, cut: g.cut, rank: g.rank, n: g.n, proj: g.proj };
       else if (lg.sport === "nba" && c) score = { kind: "cats", now: c.now, proj: c.proj, close: c.close };
+      // category leagues have no points: never a "0.0 projected", just a note until the category table fills in
+      else if (lg.sport === "nba") score = { kind: "cats", pending: true, now: "–", proj: "–", close: 0 };
       else score = { kind: "points", me: lg.proj, opp: lg.opp_proj };
       const losing = score.kind === "points" && score.opp != null && score.me < score.opp;
       const state = lg.pending ? "pending"
@@ -141,6 +143,7 @@
     if (L.lg.pending) return `<div class="score-line muted">${esc(L.lg.message || "Waiting for data")}</div>`;
     if (s.kind === "guillotine") return `<div class="score-line"><span class="num ${s.cut > 0.2 ? "bad" : "good"}">${pct(s.survive)}</span><span class="lbl">survive · rank ${s.rank}/${s.n}</span></div>
       <div class="meter"><i style="width:${Math.round(s.survive * 100)}%" class="${s.cut > 0.2 ? "bad" : "good"}"></i></div>`;
+    if (s.kind === "cats" && s.pending) return `<div class="score-line"><span class="lbl">Category outlook fills in with this week's matchup data${L.opponent ? " · vs " + esc(L.opponent) : ""}</span></div>`;
     if (s.kind === "cats") {
       const [w, l] = String(s.now).split("-").map(Number);
       return `<div class="score-line"><span class="num">${esc(s.now)}</span><span class="lbl">cats now · on course ${esc(s.proj)}${s.close ? ` · ${s.close} close` : ""}</span></div>

@@ -127,7 +127,7 @@ def player_values(league):
         traceback.print_exc()
         league.values = None
     ids = nba_values.by_id(league.values)
-    for p in league.starters + league.bench + getattr(league, "ir_blocked", []):
+    for p in league.starters + league.bench + getattr(league, "ir_blocked", []) + list(league.free_agents):
         p["val"] = nba_values.label(ids.get(str(p.get("key"))))
     return league.values
 

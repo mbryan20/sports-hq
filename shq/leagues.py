@@ -385,9 +385,9 @@ class EspnLeague:
         return {p["kickoff"] for p in self.starters + self.bench if p["kickoff"]}
 
     def best_fa(self, positions, now):
-        from .swap import playable
+        from .swap import playable, strength
         cands = [p for p in self.free_agents if set(p["positions"]) & set(positions) and playable(p, now)]
-        return max(cands, key=lambda p: (p["proj"], p["owned"]), default=None)
+        return max(cands, key=lambda p: (strength(p), p["owned"]), default=None)
 
 
 def ct_date(d):
@@ -418,7 +418,8 @@ def view(league, advice=None):
         "league": getattr(league, "league_name", None),
         "opponent": league.opponent, "opp_proj": league.opp_proj,
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
-        "proj": round(sum(p["proj"] for p in league.starters), 1),
+        # category leagues have no points: no team projection (the page shows the category outlook instead)
+        "proj": None if getattr(league, "sport", "nfl") == "nba" else round(sum(p["proj"] for p in league.starters), 1),
         "starters": [row(p) for p in league.starters], "bench": [row(p) for p in league.bench],
         "advice": advice,
     }

@@ -30,6 +30,17 @@ def in_watch(p, now, lead_hours):
     return k is not None and not p["started"] and k - dt.timedelta(hours=lead_hours) <= now < k
 
 
+def strength(p):
+    """Points projection, or the category value per game in NBA category leagues (no points there; shq/nba_values.py)."""
+    return (p.get("val") or {}).get("v", p["proj"])
+
+
+def strength_text(p):
+    """'12.3 proj', or 'value +1.9/g, #33' for an NBA player with a category value."""
+    v = p.get("val")
+    return f"value {v['v']:+.1f}/g, #{v['rk']}" if v else f"{p['proj']} proj"
+
+
 def plan_injury_swaps(starters, bench, now, lead_hours=2):
     """For each OUT/IR/inactive starter inside its pre-kickoff window, pick the best healthy bench
     player who can legally fill that slot. Returns [{out, in (or None), slot}]."""
@@ -39,7 +50,7 @@ def plan_injury_swaps(starters, bench, now, lead_hours=2):
             continue
         options = [b for b in bench
                    if b["id"] not in used and playable(b, now) and eligible(s["slot"], b["positions"])]
-        pick = max(options, key=lambda b: b["proj"], default=None)
+        pick = max(options, key=strength, default=None)
         if pick:
             used.add(pick["id"])
         plan.append({"out": s, "in": pick, "slot": s["slot"]})

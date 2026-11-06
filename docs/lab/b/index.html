@@ -86,7 +86,7 @@ let view = decodeURIComponent((location.hash.match(/^#v=(.+)$/) || [])[1] || "")
 let filter = "all";
 const short = L => L.score.kind === "guillotine" ? `${SHQ.pct(L.score.survive)} safe` : L.score.kind === "cats" ? L.score.now
   : L.score.opp != null ? `${L.score.me.toFixed(1)}–${L.score.opp.toFixed(1)}` : (L.score.me ?? 0).toFixed(1);
-const share = L => L.score.kind === "guillotine" ? L.score.survive : L.score.kind === "cats"
+const share = L => L.score.pending ? null : L.score.kind === "guillotine" ? L.score.survive : L.score.kind === "cats"
   ? (([w, l]) => w / Math.max(1, w + l))(String(L.score.now).split("-").map(Number))
   : L.score.opp != null ? L.score.me / Math.max(1, L.score.me + L.score.opp) : null;
 

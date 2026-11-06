@@ -124,6 +124,12 @@ class Values(unittest.TestCase):
         from shq.leagues import view
         row = next(r for r in view(lg)["starters"] if r["name"] == "Volume Shooter")
         self.assertEqual(row["val"]["rk"], vs["val"]["rk"])
+        # B7 (Q-033): no points projection anywhere for a category league
+        self.assertIsNone(view(lg)["proj"])
+        from shq.swap import strength, strength_text
+        self.assertEqual(strength(vs), vs["val"]["v"])
+        self.assertRegex(strength_text(vs), r"^value [+-]\d+\.\d/g, #\d+$")
+        self.assertEqual(strength_text({"proj": 12.3}), "12.3 proj")
 
     def test_save_keeps_a_missing_league_and_writes_a_player_per_line(self):
         with tempfile.TemporaryDirectory() as tmp:
