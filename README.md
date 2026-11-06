@@ -83,6 +83,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
 | Sports HQ: daily laptop sync | 7:30am, 4:30pm (before the 8am digest) | Kosmonauts roster + free agents (Yahoo), private ESPN snapshots, War Room copy |
 | Sports HQ: Picks Tue 8pm postmortem | Tue | grade last week's cards and entries |
 | Sports HQ: Picks Wed 9pm drafts | Wed | draft cards for BTO, CFP, Yahoo |
+| Sports HQ: Picks Thu 4pm BTO check (`ops/tasks/pool-picks-thu-bto-check.md`; prompt ready, task created by Claude Ops) | Thu 4pm | only in weeks with a Thursday BTO game: saved BTO bets vs the published card (`py -m pp.thu_check`), push only if they differ, with "yours → card" lines and the lock time |
 | Sports HQ: Picks Thu 8pm BTO final | Thu | BTO final + Yahoo Friday/TB2 |
 | Sports HQ: Picks Fri 9pm CFP + Yahoo final | Fri | CFP + Yahoo final |
 | Sports HQ: Picks Sat 8am injury refresh | Sat | changed picks to the top in red |

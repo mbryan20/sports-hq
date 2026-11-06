@@ -116,6 +116,27 @@ Measure (the health.json check that should move), Design, Decision.
   laptop kick covers a game night GitHub skipped; health kicked at 2:55am.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-030 · R2: a BTO bet on the Thursday game gets no final check before it locks
+- **Status:** shipped (COMMIT_X); the scheduled task itself is created by the Claude Ops session from the prompt
+- **Area:** `picks/pp/thu_check.py` (new), `ops/tasks/pool-picks-thu-bto-check.md` (new task prompt), `tests/test_thu_check.py`
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item R2)
+- **Evidence:** the BTO "final" card runs Thu 8pm, after the Thursday NFL game kicks off (7:15pm); BTO locks each game at
+  kickoff (Nov 4: Michael's saved JAX bet locked Thu 7:15pm, `pp/push.py` `early_lock`). Nov 5 dry run on real data: saved
+  bets (read Wed 9:20pm) differ from the draft card on all 5 games, JAX @ BAL locking 7:15pm.
+- **Expected impact:** a push before the Thursday lock whenever the saved bets and the card disagree; silence otherwise.
+- **Effort:** S
+- **Risk:** Low (read-only; pushes only on a difference or an unreadable site)
+- **Measure:** — (one-off)
+- **Design:** the task runs Thu 4pm CT. `py -m pp.thu_check --needed` exits 3 when this week's BTO slate has no Thursday game
+  still to play, so most weeks it stops before opening Chrome. Otherwise it reads the saved bets read-only (RUNBOOK
+  "Every card run" A), writes them to a temp file outside the repo (no commit, so the main checkout stays clean for the
+  8pm run), and `--saved <file> --push` compares them with `picks/data/published/<year>-wNN-bto.json` (the latest posted
+  card: Wednesday's draft at 4pm). Choices: one "yours → card" line per game rather than `push.compare_ats`'s single
+  package line (the brief asked for exact lines); the Thursday game's line first; wagers compared as numbers ("$1,660" =
+  1660) and picks by team and line; an unreadable site still pushes a "check before <lock>" line.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy
