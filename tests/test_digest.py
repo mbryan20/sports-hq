@@ -78,5 +78,18 @@ class Digest(unittest.TestCase):
         self.assertFalse(a["danger"])
 
 
+class LaptopKick(unittest.TestCase):
+    """Q-029: a laptop-dispatched run can run beside a cron run, so the digest checks origin/main before building."""
+    def test_digest_built_elsewhere_today_is_not_built_again(self):
+        from shq import run
+        ten_min_ago = NOW - dt.timedelta(minutes=10)
+        yesterday = NOW - dt.timedelta(days=1)
+        self.assertFalse(run.digest_due(NOW, yesterday, lambda: ten_min_ago))   # the other run already built it
+        self.assertTrue(run.digest_due(NOW, yesterday, lambda: yesterday))
+        self.assertTrue(run.digest_due(NOW, None, lambda: None))                # origin unreadable: build as before
+        self.assertFalse(run.digest_due(NOW, ten_min_ago, lambda: self.fail("origin read when not due")))
+        self.assertFalse(run.digest_due(NOW.replace(hour=12), yesterday, lambda: None))   # 7am CDT: not yet due
+
+
 if __name__ == "__main__":
     unittest.main()

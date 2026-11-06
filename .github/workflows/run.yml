@@ -42,9 +42,13 @@ on:
 
 permissions:
   contents: write
+  actions: read     # the Run step checks whether another Sports HQ run is already looping
 
+# Scheduled runs share one group (one running, one waiting). Each manual or laptop dispatch (ops/kick.ps1, Q-029) gets its
+# own group so it starts at once instead of being replaced by the next queued cron; when another run is already looping
+# it does one pass and stops.
 concurrency:
-  group: sports-hq-run
+  group: sports-hq-run-${{ github.event_name == 'workflow_dispatch' && github.run_id || 'cron' }}
   cancel-in-progress: false
 
 jobs:
@@ -80,12 +84,16 @@ jobs:
           FORCE_WRAPUP: ${{ inputs.force_wrapup && '1' || '0' }}
           TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GH_TOKEN: ${{ github.token }}
         # GitHub drops many scheduled triggers under load, so one run that starts carries the
         # whole window: pass, commit, then keep going every 10 min while shq.run says a watch
         # window is open or opens within 3h, up to ~5h45m (job limit is 6h).
         run: |
           set +e
           end=$((SECONDS + 345*60)); failed=0
+          # another Sports HQ run has been going 10+ min, so it is looping (a one-pass run ends in ~5): one pass, no second loop
+          others=$(gh run list --workflow run.yml --status in_progress --json databaseId,createdAt --jq             "[.[] | select(.databaseId != ${{ github.run_id }} and (.createdAt | fromdateiso8601) < (now - 600))] | length" 2>/dev/null || echo 0)
+          [ "${others:-0}" -gt 0 ] && echo "another run is looping: one pass only"
           while :; do
             if ! python -m shq.run; then
               [ $failed -eq 0 ] && curl -s -H "Title: Sports HQ job failed" -H "Priority: 4" -H "Tags: x"                 -H "Click: $RUN_URL" -d "A Sports HQ pass failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC" >/dev/null
@@ -95,6 +103,7 @@ jobs:
             (cd picks && python -m pp.lines --if-due) || echo "pick line scan failed"
             bash .github/commit_data.sh || failed=1
             export FORCE_WEEKLY=0 FORCE_DIGEST=0 FORCE_WRAPUP=0 TEST_PUSH=0
+            [ "${others:-0}" -gt 0 ] && break
             python -m shq.run --keep-watching || break
             [ $((SECONDS + 660)) -ge $end ] && break
             # wake at :07/:17/:27… so a pass lands 3 min before kickoffs on :00/:05/:30 marks

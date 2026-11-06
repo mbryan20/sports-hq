@@ -2,8 +2,10 @@
 pre-kickoff window, post the daily digest at 8am CT, build the Weekly tab on Tuesday 7am CT, publish the weekend
 wrap-up (Sunday night, final Tuesday 8am). Exits non-zero on any real error so the workflow's failure step pushes an alert."""
 import datetime as dt
+import json
 import os
 import re
+import subprocess
 import sys
 import traceback
 
@@ -201,6 +203,23 @@ def nba_weekly_section(league):
             "adds": adds or ["No free agent data in the latest snapshot."]}
 
 
+def origin_digest():
+    """When origin/main's digest.json was generated, or None: another run (a laptop kick beside a cron run, Q-029) may
+    have built today's digest after this checkout."""
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "main"], cwd=ROOT, timeout=60, check=True, capture_output=True)
+        out = subprocess.run(["git", "show", "origin/main:docs/data/digest.json"], cwd=ROOT, timeout=30, check=True,
+                             capture_output=True, text=True, encoding="utf-8").stdout
+        return parse_iso(json.loads(out).get("generated"))
+    except Exception:
+        return None
+
+
+def digest_due(now, local_generated, origin=origin_digest):
+    """Today's digest is due here unless this checkout or origin/main already has it (no second 8am push)."""
+    return digest.due(now, local_generated) and digest.due(now, origin())
+
+
 def job_health(now):
     """When each laptop job last delivered, from what it committed. The cloud alerts on staleness."""
     jobs = []
@@ -308,13 +327,18 @@ def main():
         errors.append(f"players: {type(e).__name__}: {e}")
 
     today = load_json(DATA / "digest.json", {}) or {}
-    if digest.due(now, parse_iso(today.get("generated"))) or os.environ.get("FORCE_DIGEST") == "1":
+    forced = os.environ.get("FORCE_DIGEST") == "1"
+    if forced or digest_due(now, parse_iso(today.get("generated")), origin_digest):
         try:
             items = digest.build(leagues, now, load_json(ROOT / "picks" / "data" / "cards.json", {}))
             title, msg = digest.message(items)
             save_json(DATA / "digest.json", {"generated": iso(now), "title": title, "items": items})
             if any(i["urgent"] for i in items) and digest.push_window(now):
-                push(title, msg, priority=3, tags=["sunrise"])
+                day = now.astimezone(TZ).date().isoformat()
+                if forced:
+                    push(title, msg, priority=3, tags=["sunrise"])
+                else:
+                    push_once(f"digest:{day}", title, msg, priority=3, tags=["sunrise"])
         except Exception as e:
             traceback.print_exc()
             errors.append(f"digest: {type(e).__name__}: {e}")

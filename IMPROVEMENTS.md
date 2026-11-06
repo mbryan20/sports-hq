@@ -93,6 +93,29 @@ Measure (the health.json check that should move), Design, Decision.
   Kingston Flemings (rookie) is no longer offered as a drop. The Weekly tab uses the same lines.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
+- **Status:** shipped (COMMIT_X)
+- **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
+  `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
+  digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item R1); evidence in Q-014
+- **Evidence:** Q-014: the 8am digest built at 11:06am Nov 4; model health ran 7.5 hours late; manual dispatches dropped.
+  Nov 5 evening, while building this: a dispatch made at 5:48pm CT sat "pending" behind a game-day loop that started at
+  2:29pm (the old single concurrency group).
+- **Expected impact:** the digest out by about 8:05am CT and data at most about an hour old whenever the laptop is on.
+- **Effort:** S
+- **Risk:** Low (two loops at once could double a swap push in the same minute; a run only loops when no other run has
+  been going 10+ minutes)
+- **Measure:** — (one-off: every weekday a data commit 8:00-8:15am CT for two weeks; zero cancelled `workflow_dispatch` runs;
+  `%LOCALAPPDATA%\sports-hq-kick.log` shows the kicks)
+- **Design:** `ops/designs/Q-014.md`, "As built". Choices against the draft: Task Scheduler instead of a line in the Claude
+  sync prompt (the proposal said "no Claude usage", and it works when a Claude task fails); kicks at 7:02 (Tuesday's 7am
+  Weekly) and hourly from 8:02 (the digest needs 8:00 or later, so the draft's 7:35 would not have built it), skipped when
+  `status.json` was committed in the last 20 minutes; a dispatched run still loops when no other run is looping, so a
+  laptop kick covers a game night GitHub skipped; health kicked at 2:55am.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy
@@ -168,7 +191,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** designed
+- **Status:** shipped (COMMIT_X, built as Q-029)
 - **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
 - **Rank:** 5
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
@@ -186,7 +209,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Risk:** Low
 - **Measure:** — (one-off: data-commit gaps 8am-1pm on weekdays, and dropped dispatches, in the next monthly review)
 - **Design:** `ops/designs/Q-014.md`
-- **Decision:** —
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-017 · Four git steps still rebase (rule: merge, never rebase)
 - **Status:** designed
