@@ -128,7 +128,7 @@ def player_values(league):
         league.values = None
     ids = nba_values.by_id(league.values)
     for p in league.starters + league.bench + getattr(league, "ir_blocked", []) + list(league.free_agents):
-        p["val"] = nba_values.label(ids.get(str(p.get("key"))))
+        p["cv"] = nba_values.label(ids.get(str(p.get("key"))))   # "cv": football's "val" is a FantasyCalc number
     return league.values
 
 

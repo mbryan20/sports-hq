@@ -197,7 +197,9 @@ Measure (the health.json check that should move), Design, Decision.
   exists; `view()` writes `proj: null` for NBA. Every NBA ranking that used points now uses category value (`swap.strength`:
   value per game when a player has one, else points): the injury watch's bench pick, the digest's "start X", the best free
   agent; their text says "value +1.9/g, #33". Layout D shows "#33". Choice: the Players page and the category table are the
-  outlook; no new per-player outlook number was added.
+  outlook; no new per-player outlook number was added. Fix the same evening: the NBA label was first stored as "val", which football rows already use for the
+  FantasyCalc value, so football league pages' roster rows could not render and `swap.strength` failed on football rows; it is
+  "cv" now, with a test.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-034 · B6: no way to check an NBA trade in category terms

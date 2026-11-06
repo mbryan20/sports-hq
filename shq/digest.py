@@ -59,7 +59,7 @@ def _fix(league, starter, used, now):
     pick = max(bench, key=lambda b: (strength(b), b.get("owned", 0)), default=None)
     if pick:
         used.add(pick["id"])
-        return f"start {pick['name']}" + (f" ({strength_text(pick)})" if pick["proj"] or pick.get("val") else ""), True
+        return f"start {pick['name']}" + (f" ({strength_text(pick)})" if pick["proj"] or pick.get("cv") else ""), True
     fa = league.best_fa(starter["positions"] or [starter["slot"]], now) if league.free_agents else None
     if fa:
         return f"no bench fit; best FA {fa['name']} ({fa['team']})", False

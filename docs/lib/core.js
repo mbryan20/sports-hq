@@ -176,7 +176,7 @@
     // the dated ESPN injury-report note behind any status, linked to his ESPN player card
     const news = p.news ? `<div class="sub news"><a href="${esc(p.news.url)}" target="_blank" rel="noopener">ESPN${p.news.at ? " " + esc(newsDate(p.news.at)) : ""}</a>: ${esc(p.news.note)}</div>` : "";
     // NBA category leagues: value per game and rank (shq/nba_values.py) instead of a points projection
-    const v = p.val;
+    const v = p.cv;   // NBA only (football rows don't have it)
     const val = v ? `<div class="sub">Value #${v.rk} · ${signed(v.v.toFixed(1))}/g · this week ${signed(v.wk.toFixed(1))} · ${esc(v.src)}</div>` : "";
     return `<div class="prow${p.started ? " locked" : ""}"><div class="slot">${esc(p.slot === "SUPER_FLEX" ? "SF" : p.slot)}</div>
       <div class="who"><div class="pname">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div>${val}${news}</div>

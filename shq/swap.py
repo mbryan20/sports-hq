@@ -32,12 +32,12 @@ def in_watch(p, now, lead_hours):
 
 def strength(p):
     """Points projection, or the category value per game in NBA category leagues (no points there; shq/nba_values.py)."""
-    return (p.get("val") or {}).get("v", p["proj"])
+    return (p.get("cv") or {}).get("v", p["proj"])
 
 
 def strength_text(p):
     """'12.3 proj', or 'value +1.9/g, #33' for an NBA player with a category value."""
-    v = p.get("val")
+    v = p.get("cv")
     return f"value {v['v']:+.1f}/g, #{v['rk']}" if v else f"{p['proj']} proj"
 
 

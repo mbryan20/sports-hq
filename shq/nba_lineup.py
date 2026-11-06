@@ -21,7 +21,7 @@ LEAD = dt.timedelta(hours=3)    # send from 3h before the first affected tip-off
 
 
 def value(p):
-    return (p.get("val") or {}).get("v", -99.0)
+    return (p.get("cv") or {}).get("v", -99.0)
 
 
 def _today(p, now):

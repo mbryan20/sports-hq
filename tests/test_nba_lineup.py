@@ -18,7 +18,7 @@ LATE = dt.datetime(2026, 11, 6, 2, 0, tzinfo=UTC)             # Thu 8:00pm CST
 def p(name, slot, positions, v, *, kickoff=TIP, bye=False, status=None):
     return {"id": f"espn{name}", "name": name, "slot": slot, "positions": positions, "status": status, "why": "",
             "kickoff": None if bye else kickoff, "started": False, "bye": bye, "proj": 0.0, "team": "BOS", "opp": "vs NY",
-            "val": {"v": v, "rk": 50, "wk": 0, "src": "8 g"}}
+            "cv": {"v": v, "rk": 50, "wk": 0, "src": "8 g"}}
 
 
 class League:
@@ -54,7 +54,7 @@ class Lineup(unittest.TestCase):
     def test_no_move_without_an_edge(self):
         lg = League([p("Starter", "F", ["SF", "F"], 1.0)], [p("Bench", "BN", ["SF", "F"], 1.5)])
         self.assertEqual(nba_lineup.moves(lg, NOON), [])                   # +0.5 is under MIN_EDGE
-        lg.bench[0]["val"]["v"] = 2.5
+        lg.bench[0]["cv"]["v"] = 2.5
         self.assertEqual(len(nba_lineup.moves(lg, NOON)), 1)
 
     def test_one_push_a_day_inside_the_window_and_out_starters_not_repeated(self):

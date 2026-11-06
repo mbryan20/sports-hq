@@ -119,17 +119,20 @@ class Values(unittest.TestCase):
         lg = league()
         advice.player_values(lg)
         vs = next(p for p in lg.starters if p["name"] == "Volume Shooter")
-        self.assertEqual(set(vs["val"]), {"v", "rk", "wk", "src"})
-        self.assertEqual(vs["val"]["src"], "8 g")
+        self.assertEqual(set(vs["cv"]), {"v", "rk", "wk", "src"})
+        self.assertEqual(vs["cv"]["src"], "8 g")
         from shq.leagues import view
         row = next(r for r in view(lg)["starters"] if r["name"] == "Volume Shooter")
-        self.assertEqual(row["val"]["rk"], vs["val"]["rk"])
+        self.assertEqual(row["cv"]["rk"], vs["cv"]["rk"])
         # B7 (Q-033): no points projection anywhere for a category league
         self.assertIsNone(view(lg)["proj"])
         from shq.swap import strength, strength_text
-        self.assertEqual(strength(vs), vs["val"]["v"])
+        self.assertEqual(strength(vs), vs["cv"]["v"])
         self.assertRegex(strength_text(vs), r"^value [+-]\d+\.\d/g, #\d+$")
         self.assertEqual(strength_text({"proj": 12.3}), "12.3 proj")
+        # football rows carry "val" = a FantasyCalc number: never read as a category value
+        self.assertEqual(strength({"val": 5234, "proj": 12.0}), 12.0)
+        self.assertEqual(strength_text({"val": 5234, "proj": 12.0}), "12.0 proj")
 
     def test_save_keeps_a_missing_league_and_writes_a_player_per_line(self):
         with tempfile.TemporaryDirectory() as tmp:
