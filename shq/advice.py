@@ -10,7 +10,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_values, radar, trades, values, waivers
+from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -122,7 +122,7 @@ def player_values(league):
     """NBA category value for every player (shq/nba_values.py), also put on my roster rows. Best-effort: without it
     the tab keeps the category table and radar."""
     try:
-        league.values = nba_values.build(league)
+        league.values = nba_trade.annotate(nba_values.build(league), bool(getattr(league, "dynasty", False)))
     except Exception:
         traceback.print_exc()
         league.values = None

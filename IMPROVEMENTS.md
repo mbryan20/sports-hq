@@ -200,6 +200,28 @@ Measure (the health.json check that should move), Design, Decision.
   outlook; no new per-player outlook number was added.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
+### Q-034 · B6: no way to check an NBA trade in category terms
+- **Status:** shipped (COMMIT_X)
+- **Area:** `shq/nba_trade.py` (new), `shq/advice.py` (`player_values` adds the trade fields), `docs/players/index.html` ("⇄ Trade
+  check" mode and tray), `docs/data/players.json` (`above`, `dyn`, `trade`)
+- **Rank:** —
+- **Added:** 2026-11-05 from the claude-audit proposal (item B6)
+- **Evidence:** ROADMAP: "NBA trade values … not covered: no free value API"; trades were judged by hand or on FantasyPros.
+- **Expected impact:** pick players, get a verdict in each league's own categories, with dynasty age built in for 3-Ball.
+- **Effort:** M
+- **Risk:** Low (ideas only; the age curve is a rule of thumb and says so)
+- **Measure:** — (one-off)
+- **Design:** each player's value per game above a waiver-level player, floored at 0 (someone below that level would be dropped
+  for a waiver player, so an n-for-1 is judged fairly; a player with no NBA team counts 0). Fit = that gain plus (weight − 1) ×
+  the per-category change, weights from where my top 10 rank among the teams' top 10 by category (bottom third 1.5, top third
+  0.5, else 1, rescaled to average 1). 3-Ball (dynasty): value above waiver level × an age multiplier (1.5 at 20, 1.3 at 22,
+  1.1 at 24, 1.0 at 25-28, then 0.9, 0.8 … 0.4 at 34+) plus 0.6 per year under 23, and the verdict uses it; ages from ESPN's
+  team rosters (`shq/nba_ages.py`). Verdict: accept / decline, "coin flip" within 0.5. Choices: built into the Players page
+  (tap + on any rostered player, a tray at the bottom) rather than a separate page, so the filters help find targets; the
+  JavaScript verdict mirrors `nba_trade.trade()`, which carries the tests (live check Nov 5: SGA for Wembanyama in 3-Ball,
+  both gave +11.7 dynasty, +7.3 now, +6.9 fit). The age curve isn't fitted to data; the tray says so.
+- **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
+
 ### Q-022 · Old claude.ai helpers still give lineup and bid advice (and auto-swap) alongside Sports HQ
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy

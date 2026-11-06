@@ -67,6 +67,23 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
 .more table th { color: var(--muted); font-weight: 700; font-size: 11px; }
 .showmore { display: block; margin: 10px auto; }
 .basis { font-size: 11.5px; color: var(--muted); margin: 10px 2px; line-height: 1.45; }
+/* trade mode (B6): tap + on rows, the verdict sits in a tray at the bottom */
+.tabs .trade { margin-left: auto; }
+.tbtn { border: 1px solid var(--line); background: var(--card2); border-radius: 6px; width: 24px; height: 22px; font-weight: 800; padding: 0; line-height: 1; }
+.tbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tray { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--card); border-top: 2px solid var(--accent);
+  box-shadow: 0 -8px 24px rgba(0,0,0,.25); padding: 8px 12px calc(10px + env(safe-area-inset-bottom)); max-height: 60vh; overflow-y: auto; font-size: 13px; }
+.tray .in { max-width: 1400px; margin: 0 auto; }
+.tray .side { margin: 2px 0; } .tray .side b { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
+.tray .pk { display: inline-block; border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; margin: 2px 4px 2px 0; background: var(--card2); }
+.tray .pk button { border: none; background: none; color: var(--muted); padding: 0 0 0 4px; }
+.tray .vd { font-weight: 800; font-size: 14px; margin: 4px 0 2px; } .vd.accept { color: var(--good); } .vd.decline { color: var(--bad); } .vd.close { color: var(--warn); }
+.tray .scroll { overflow-x: auto; }
+.tray table { border-collapse: collapse; font-variant-numeric: tabular-nums; margin: 4px 0; }
+.tray td, .tray th { padding: 1px 7px 1px 0; text-align: right; font-size: 12px; } .tray th { color: var(--muted); font-size: 11px; }
+.tray .row2 { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+body.trading .fbfab { display: none; }
+body.trading main { padding-bottom: 46vh; }
 @media (max-width: 420px) { body .brand .tag { display: inline !important; font-size: 13px; } }
 @media (max-width: 760px) { .tbl td, .tbl th { padding-left: 3px; padding-right: 3px; } }
 </style>
@@ -88,8 +105,8 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
   const KEY = "players-state";
   let data = null, st = load();
   function load() {
-    try { return { who: "all", pos: "", health: "", trend: "", g0: 0, g1: 0, cats: [], q: "", sort: "v", dir: -1, lg: "", ...JSON.parse(S.get(KEY) || "{}"), open: {}, limit: 150 }; }
-    catch { return { who: "all", pos: "", health: "", trend: "", g0: 0, g1: 0, cats: [], q: "", sort: "v", dir: -1, lg: "", open: {}, limit: 150 }; }
+    try { return { who: "all", pos: "", health: "", trend: "", g0: 0, g1: 0, cats: [], q: "", sort: "v", dir: -1, lg: "", trade: false, give: [], get: [], more: false, ...JSON.parse(S.get(KEY) || "{}"), open: {}, limit: 150 }; }
+    catch { return { who: "all", pos: "", health: "", trend: "", g0: 0, g1: 0, cats: [], q: "", sort: "v", dir: -1, lg: "", trade: false, give: [], get: [], more: false, open: {}, limit: 150 }; }
   }
   const save = () => { const { open, limit, ...keep } = st; S.set(KEY, JSON.stringify(keep)); };
   const sgn = (x, d = 1) => x == null ? "" : (x > 0 ? "+" : "") + Number(x).toFixed(d);
@@ -143,6 +160,47 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
       ${p.min} min${p.dmin != null ? ` (last 3 games ${sgn(p.dmin)} vs before)` : ""} · ${p.pct}% rostered on ESPN · from ${src}
       ${cats}<a href="https://www.espn.com/nba/player/gamelog/_/id/${esc(p.id)}" target="_blank" rel="noopener">ESPN game log</a>`;
   }
+  // ---------- trade checker: the same verdict as shq/nba_trade.py trade() ----------
+  function tradeCalc(L, give, get) {
+    const t = L.trade || { weights: [], dynasty: false };
+    const sum = (xs, f) => xs.reduce((a, p) => a + f(p), 0);
+    const now = sum(get, p => p.above || 0) - sum(give, p => p.above || 0);
+    const cats = L.cats.map((c, i) => sum(get.filter(p => p.above > 0), p => p.z[i]) - sum(give.filter(p => p.above > 0), p => p.z[i]));
+    const w = t.weights?.length ? t.weights : cats.map(() => 1);
+    const fit = now + cats.reduce((a, c, i) => a + (w[i] - 1) * c, 0);
+    const dyn = t.dynasty ? sum(get, p => p.dyn || 0) - sum(give, p => p.dyn || 0) : null;
+    const score = dyn ?? fit;
+    return { now, fit, dyn, cats, verdict: Math.abs(score) < 0.5 ? "close" : score > 0 ? "accept" : "decline" };
+  }
+  function trayHTML(L) {
+    const ids = Object.fromEntries(L.players.map(p => [p.id, p]));
+    const give = st.give.map(i => ids[i]).filter(Boolean), get = st.get.map(i => ids[i]).filter(Boolean);
+    const dynasty = !!L.trade?.dynasty;
+    const chip = p => `<span class="pk">${esc(p.name)} <span class="muted">${sgn(dynasty ? p.dyn : p.above)}</span><button data-pick="${esc(p.id)}" aria-label="Remove">✕</button></span>`;
+    const side = (label, xs, hint) => `<div class="side"><b>${label}</b>${xs.length ? xs.map(chip).join("") : `<span class="muted">${hint}</span>`}</div>`;
+    let body = "";
+    if (give.length && get.length) {
+      const r = tradeCalc(L, give, get), n = Object.keys(L.trade?.profiles || {}).length, rk = L.trade?.ranks || [];
+      const word = { accept: "Accept", decline: "Decline", close: "Coin flip" }[r.verdict];
+      const head = dynasty ? `${word} for dynasty: ${sgn(r.dyn)} (now ${sgn(r.now)}/g, fit ${sgn(r.fit)})` : `${word}: ${sgn(r.now)} value/g, fit to your needs ${sgn(r.fit)}`;
+      const order = L.cats.map((c, i) => i).sort((a, b) => r.cats[b] - r.cats[a]);
+      const named = i => `${esc(L.cats[i])} ${sgn(r.cats[i])}${rk[i] ? ` (you're ${rk[i]} of ${n})` : ""}`;
+      const up = order.filter(i => r.cats[i] >= 0.3).slice(0, 3).map(named), down = order.filter(i => r.cats[i] <= -0.3).reverse().slice(0, 3).map(named);
+      const spots = get.length - give.length;
+      const table = `<div class="scroll"><table><tr><th></th>${L.cats.map(c => `<th>${esc(c)}</th>`).join("")}</tr>
+        <tr><th>change</th>${r.cats.map(c => `<td class="${zc(c)}">${sgn(c)}</td>`).join("")}</tr>
+        <tr><th>your rank</th>${rk.map(x => `<td>${x}</td>`).join("")}</tr></table></div>`;
+      const spotTxt = spots ? `; ${Math.abs(spots)} roster spot${Math.abs(spots) > 1 ? "s" : ""} ${spots > 0 ? "to open (drop your worst, about 0)" : "freed for a waiver pickup (about 0)"}` : "";
+      const dynTxt = dynasty ? " Dynasty: value on a rough age curve (under 24 grows, 29 and up fades) plus a prospect bonus under 23; not fitted to data." : "";
+      body = `<div class="vd ${r.verdict}">${esc(head)}</div>
+        <div>${up.length ? "Helps " + up.join(", ") : "Helps no category much"}${down.length ? " · hurts " + down.join(", ") : ""}</div>
+        ${st.more ? table + `<p class="basis">Value per game above a waiver-level player (one below that would be dropped anyway, so he counts 0)${spotTxt}. Fit weighs your weakest categories more and ones you already win less.${dynTxt} Ideas only: nothing is sent.</p>` : ""}`;
+    }
+    return `<div class="tray"><div class="in">
+      ${side("Give", give, "tap + on your players")}${side("Get", get, "tap + on theirs")}${body}
+      <div class="row2"><span class="muted">${give.length && get.length ? "" : "Pick at least one player on each side."}</span>
+        <span>${give.length && get.length ? `<button class="pill" data-tmore>${st.more ? "Less" : "Details"}</button> ` : ""}<button class="pill" data-tclear>Clear</button> <button class="pill" data-trade>Done</button></span></div></div></div>`;
+  }
   function th(k, label, cls = "", title = "") {
     const s = st.sort === k ? ` aria-sort="${st.dir < 0 ? "descending" : "ascending"}"` : "";
     return `<th class="${cls}" data-sort="${k}"${s}${title ? ` title="${esc(title)}"` : ""}>${label}</th>`;
@@ -157,7 +215,9 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
     all.sort((a, b) => { const x = sortVal(L, a, st.sort), y = sortVal(L, b, st.sort);
       return typeof x === "string" ? dir * x.localeCompare(y) : dir * ((x ?? -1e9) - (y ?? -1e9)) || a.rk - b.rk; });
     const shown = all.slice(0, st.limit);
-    const tabs = leagues().map(n => `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
+    const tabs = leagues().map(n => `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("")
+      + `<button class="trade" data-trade aria-pressed="${st.trade}">⇄ Trade check</button>`;
+    document.body.classList.toggle("trading", st.trade);
     const opt = (v, t, cur) => `<option value="${v}"${String(cur) === String(v) ? " selected" : ""}>${t}</option>`;
     const filters = `<div class="filters">
       <input type="search" data-f="q" placeholder="Name or team (PHX)" value="${esc(st.q)}" aria-label="Search">
@@ -177,9 +237,11 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
       ${th("v", "Val", "", "Value per game (z-scores, league categories)")}${th("wk", "Wk", "", "This week: value above a waiver-level player × games left")}
       ${th("g0", "G", "", "Games left this week · next week")}${W(th("min", "Min", "", "Minutes per game; ▲▼ last 3 games vs before"))}${catCols}
       ${W(th("pct", "Ros%", "", "% rostered on ESPN"))}</tr>`;
+    const inDeal = p => st.give.includes(p.id) || st.get.includes(p.id);
+    const pickBtn = p => `<button class="tbtn" data-pick="${esc(p.id)}" aria-pressed="${inDeal(p)}" aria-label="Add to the trade">${inDeal(p) ? "✓" : "+"}</button>`;
     const body = shown.map(p => {
       const strip = wide ? "" : `<span class="strip">${L.cats.map((c, i) => `<i class="${zc(p.z[i])}" title="${esc(c)} ${sgn(p.z[i])}"></i>`).join("")}</span>`;
-      const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${p.rk}</td>
+      const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${st.trade && p.own ? pickBtn(p) : p.rk}</td>
         <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${p.out ? "bad" : "q"}">${esc(p.inj === "Day-To-Day" ? "DTD" : p.inj)}</span>` : ""}</div>
           <div class="sb">${esc(p.pos)} · ${esc(p.team)}${p.src === "proj" ? " · proj" : ""} ${wide ? "" : trendTxt(p)}</div>${strip}</td>
         ${st.cats.length ? `<td class="v">${sgn(fit(L, p))}</td>` : ""}
@@ -195,7 +257,7 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
       <table class="tbl"><thead>${head}</thead><tbody>${body || `<tr><td colspan="${ncol}" class="l muted">No player matches these filters.</td></tr>`}</tbody></table>
       ${all.length > shown.length ? `<button class="pill showmore" data-more>Show ${Math.min(150, all.length - shown.length)} more</button>` : ""}
       <p class="basis">${esc(L.basis)} Cells are shaded by value: green helps, red hurts. Ratio categories (FG%, FT%) count attempts too.
-        Ideas only: nothing is sent to ESPN.</p>`;
+        Ideas only: nothing is sent to ESPN.</p>${st.trade ? trayHTML(L) : ""}`;
     const sel = main.querySelector(`[data-f="q"]`);
     if (focusQ) { sel.focus(); sel.setSelectionRange(sel.value.length, sel.value.length); focusQ = false; }
   }
@@ -203,7 +265,16 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
   main.addEventListener("click", e => {
     const t = e.target;
     const lg = t.closest("[data-lg]");
-    if (lg) { st.lg = lg.dataset.lg; st.cats = []; st.limit = 150; history.replaceState(null, "", "#" + S.slug(st.lg)); save(); return render(); }
+    if (lg) { st.lg = lg.dataset.lg; st.cats = []; st.give = []; st.get = []; st.limit = 150; history.replaceState(null, "", "#" + S.slug(st.lg)); save(); return render(); }
+    if (t.closest("[data-trade]")) { st.trade = !st.trade; save(); return render(); }
+    if (t.closest("[data-tclear]")) { st.give = []; st.get = []; save(); return render(); }
+    if (t.closest("[data-tmore]")) { st.more = !st.more; save(); return render(); }
+    const pk = t.closest("[data-pick]");
+    if (pk) {
+      const id = pk.dataset.pick, p = cur().players.find(x => x.id === id), side = p?.own === "me" ? "give" : "get";
+      st[side] = st[side].includes(id) ? st[side].filter(x => x !== id) : [...st[side], id];
+      save(); return render();
+    }
     const c = t.closest("[data-cat]");
     if (c) { const k = c.dataset.cat; st.cats = !k ? [] : st.cats.includes(k) ? st.cats.filter(x => x !== k) : [...st.cats, k];
       if (st.cats.length) { st.sort = "fit"; st.dir = -1; } save(); return render(); }
