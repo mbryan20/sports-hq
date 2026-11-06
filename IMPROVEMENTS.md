@@ -225,7 +225,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-035 · F1: no player list for the football leagues either
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (ea3c058)
 - **Area:** `shq/nfl_players.py` (new), `shq/advice.py` (`football_players`), `shq/run.py` (writes `docs/data/players_nfl.json`),
   `shq/espn_fantasy.py` (public football leagues read 50 free agents, was 12), `docs/players/index.html` (football view),
   `docs/lib/core.js` (Players button on football league pages)
