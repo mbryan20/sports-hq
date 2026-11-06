@@ -94,7 +94,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-05 (Michael, via Claude Ops)
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
-- **Status:** shipped (COMMIT_X)
+- **Status:** shipped (d2bfcb7)
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
   digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
@@ -191,7 +191,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** shipped (COMMIT_X, built as Q-029)
+- **Status:** shipped (d2bfcb7, built as Q-029)
 - **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
 - **Rank:** 5
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
