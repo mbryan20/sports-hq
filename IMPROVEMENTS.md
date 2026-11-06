@@ -96,7 +96,9 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
 - **Status:** partial (d2bfcb7; logging fix d5482ef): the repo side is live and tested, and Claude Ops created both Windows
   tasks on Nov 5. They start nothing yet: gh's login (kept in Windows Credential Manager) isn't reachable from Task
-  Scheduler, so every scheduled run now logs "FAILED: gh is not signed in here...". The fix is sign-in option A in
+  Scheduler, and their `conhost.exe --headless` action never ran the script there (result 0, no log line anywhere; Nov 5
+  6:39pm and 6:41pm). Two fixes, both in `ops/designs/Q-014.md`: (1) "Fix the existing tasks": start PowerShell directly
+  (one `Set-ScheduledTask` per task); every run then logs started / skipped / FAILED. (2) Sign-in option A in
   `ops/designs/Q-014.md` "Sign-in for the scheduled tasks": Michael creates a one-repo, Actions-only GitHub token and saves
   it encrypted with `kick.ps1 -SaveToken` (steps there; no Claude session handles the token). Options B-E and their
   security tradeoffs are in the same section.
