@@ -1,25 +1,25 @@
 {
  "meta": {
-  "stage": "final",
-  "stage_label": "FINAL",
+  "stage": "refresh",
+  "stage_label": "SAT REFRESH",
   "week_label": "Week of Nov 5 - Nov 9, 2026 (Yahoo Week 10, BTO Week 10, NFL Week 9)",
   "week": 10,
-  "generated": "Fri Nov 06, 09:10 PM CT",
-  "generated_iso": "2026-11-07T03:10:32.542645+00:00",
+  "generated": "Sat Nov 07, 08:06 AM CT",
+  "generated_iso": "2026-11-07T14:06:07.001235+00:00",
   "calibration": [
    "Backtest 2026 wks 1-8 (444 games): picks rated 60-70% hit 65%, 70-80% hit 70%, 80-90% hit 83%, 90%+ hit 86%.",
    "Straight-up: model 70% vs market 75%; model trails early weeks, near market by wks 6-8.",
-   "Market lines: ESPN DraftKings Fri 09:10 PM CT for 52 games; CFBD consensus for the rest."
+   "Market lines: ESPN DraftKings Sat 08:05 AM CT for 51 games; CFBD consensus for the rest."
   ],
   "alerts": [
-   "CHANGE: CFP: yours Notre Dame -7.5 11,904 \u2192 card Iowa +2.5 11,904 (Pool Iowa +2.5; market now Iowa -2.5 after Chiles news; cover 62%)",
+   "CHANGE: CFP: yours Notre Dame -7.5 11,904 \u2192 card Iowa +2.5 11,904 (Pool +2.5 vs market -2.5; cover 62%)",
    "CHANGE: Yahoo: yours Northwestern \u2192 card Iowa (Northwestern: QB Chiles not expected to play (ESPN); Marchiol starts)"
   ],
-  "breakdowns": "Fri 09:15 PM CT",
+  "breakdowns": "Sat 08:10 AM CT",
   "checked": {
-   "text": "Checked: formats per pool (CFP ATS at posted spread, Yahoo straight-up 25/25, TB1 x2, TB2 set); CFP 11,904 = 100% of balance, built before Sat 11am lock; Yahoo Friday games and TB2 left as posted Thu; BTO locked, Thursday card shown for the record (3 bets, Big Game, $3,320, $10 multiples, 2x rule, 4 LP); every difference from saved picks has a CHANGE line (CFP, Yahoo Iowa); no decision departures; no conditional picks; reasons <=12 words with sources",
-   "stage": "final",
-   "at": "Fri 09:15 PM CT",
+   "text": "Checked: formats per pool, CFP 100% of 11,904 at the posted line, BTO card math and lock (kept as posted Thu), Yahoo 25 picks + TB1/TB2 vs saved, CHANGE lines for CFP and Yahoo Iowa, decisions log, no hedging, reasons <=12 words with links; not fixed: Missouri win % shows 52 (stats) and 48 (blend) in two Yahoo notes",
+   "stage": "refresh",
+   "at": "Sat 08:10 AM CT",
    "auto_passed": 18,
    "auto_total": 18,
    "auto_fails": []
@@ -29,7 +29,7 @@
   {
    "id": "yahoo",
    "title": "Yahoo pick'em (Kosmos, 14)",
-   "deadline": "Games lock 5 min before kickoff; first lock Fri 5:55pm CT",
+   "deadline": "Games lock 5 min before kickoff; next lock Sat 10:55am CT. TB1 locks Sat 6:30pm CT",
    "rows": [
     {
      "game": "Virginia Tech @ SMU",
@@ -92,7 +92,7 @@
      "kick": "Sat 11/07 11:00 AM",
      "pick": "Florida St.",
      "model": 0.6106,
-     "market": 0.6805555555555556,
+     "market": 0.6750312469954812,
      "wager": "",
      "why": "Stats 61% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858289",
@@ -120,7 +120,7 @@
      "kick": "Sat 11/07 11:00 AM",
      "pick": "UCLA",
      "model": 0.6095999999999999,
-     "market": 0.6369041816941222,
+     "market": 0.6224665518611736,
      "wager": "",
      "why": "Stats 61% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858512",
@@ -134,9 +134,9 @@
      "kick": "Sat 11/07 11:00 AM",
      "pick": "Utah",
      "model": 0.7506,
-     "market": 0.6224665518611737,
+     "market": 0.6309403437815976,
      "wager": "",
-     "why": "Stats 75%, stronger than market 62%",
+     "why": "Stats 75%, stronger than market 63%",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856849",
      "key": "BYU@Utah",
      "pick_team": "Utah",
@@ -148,9 +148,9 @@
      "kick": "Sat 11/07 11:00 AM",
      "pick": "N. Carolina",
      "model": 0.5126,
-     "market": 0.7220792588780236,
+     "market": 0.7135512302607419,
      "wager": "",
-     "why": "Stats 51% vs market 72%; favorite kept",
+     "why": "Stats 51% vs market 71%; favorite kept",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858292",
      "key": "N. Carolina@Connecticut",
      "pick_team": "N. Carolina",
@@ -246,7 +246,7 @@
      "kick": "Sat 11/07 2:45 PM",
      "pick": "Kansas",
      "model": 0.6708,
-     "market": 0.6037569709421778,
+     "market": 0.6164383561643836,
      "wager": "",
      "why": "Stats 67% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856850",
@@ -260,7 +260,7 @@
      "kick": "Sat 11/07 3:15 PM",
      "pick": "Wisconsin",
      "model": 0.864,
-     "market": 0.8761776581426649,
+     "market": 0.8800000000000001,
      "wager": "",
      "why": "Rutgers: Starting QB Lonergan out; weak backup Surace starts",
      "source": "https://sports.yahoo.com/articles/rutgers-football-vs-wisconsin-2026-011732210.html",
@@ -305,7 +305,7 @@
      "market": 0.551441114716549,
      "wager": "",
      "why": "Northwestern: QB Chiles not expected to play (ESPN); Marchiol starts",
-     "source": "https://sports.yahoo.com/articles/northwestern-starting-qb-aidan-chiles-183752501.html",
+     "source": "https://www.espn.com/college-football/story/_/id/50400881/sources-northwestern-qb-aidan-chiles-expected-vs-iowa",
      "key": "Iowa@Northwestern",
      "pick_team": "Iowa",
      "changed": false,
@@ -329,7 +329,7 @@
      "game": "Air Force @ Army",
      "kick": "Sat 11/07 6:30 PM",
      "pick": "Army",
-     "model": 0.6828,
+     "model": 0.6824,
      "market": 0.6092362344582594,
      "wager": "",
      "why": "Stats 68% agrees with market",
@@ -358,7 +358,7 @@
      "kick": "Sat 11/07 6:45 PM",
      "pick": "Florida",
      "model": 0.6201,
-     "market": 0.6690070210631895,
+     "market": 0.6574752261956054,
      "wager": "",
      "why": "Stats 62% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856739",
@@ -387,24 +387,24 @@
     "TB1 Georgia @ Mississippi: <b>Georgia 34, Mississippi 29</b> (alt Georgia 38, Mississippi 29)",
     "TB2 most points: <b>Houston</b> (15%), alt SMU (7%)",
     "TB2 fewest points: <b>Nevada</b> (16%), alt TCU (9%)",
-    "TB2 locks Fri, Nov 6 5:55 pm CST"
+    "TB2 locked Fri 5:55pm CT (kept as posted)"
    ],
    "notes": [
     "Underdogs: 0. Pool sim (10k): P(win week) 19.8% vs 19.8% all favorites; 0 dogs passed the 4-pt / 2-signal rule.",
-    "Group: you 135 pts, rank 8, leader 144.",
+    "Group: you 135 pts, rank 8, leader 144 (before Friday's games).",
     "Upset watch (favorites our numbers barely back; your call):",
     "Missouri over Texas (Sat 11/07 11:00 AM): our stats give Missouri 52%; betting odds 44%; 19% of Yahoo players on Missouri; Texas: Starting LT out; star edge Simmons questionable (<a href=\"https://sports.yahoo.com/articles/one-matchup-decide-texas-vs-195513140.html\">sports.yahoo.com, Nov 4</a>)",
     "Utah St. over Fresno St. (Sat 11/07 8:30 PM): our stats give Utah St. 49%; betting odds 48%; 6% of Yahoo players on Utah St.; line moved 1.25 toward dog",
-    "Connecticut over N. Carolina (Sat 11/07 11:00 AM): our stats give Connecticut 49%; betting odds 28%; 1% of Yahoo players on Connecticut; rebuilt roster: Connecticut (2%) returned almost none of last year&#x27;s production, so our stats lean on last season here; trust the betting odds",
+    "Connecticut over N. Carolina (Sat 11/07 11:00 AM): our stats give Connecticut 49%; betting odds 29%; 1% of Yahoo players on Connecticut; rebuilt roster: Connecticut (2%) returned almost none of last year&#x27;s production, so our stats lean on last season here; trust the betting odds",
     "Mississippi over Georgia (Sat 11/07 6:30 PM): our stats give Mississippi 48%; betting odds 39%; 13% of Yahoo players on Mississippi; Ole Miss: Star RB Lacy out second straight game (<a href=\"https://www.hottytoddy.com/2026/11/02/ole-miss-georgia-injury-update-lacy-ferrelli/\">hottytoddy.com, Nov 2</a>); Georgia: OLB Williams out; RB, WR, TE questionable (<a href=\"https://www.ajc.com/sports/2026/11/georgia-football-injury-report-ole-miss/\">ajc.com, Nov 4</a>)",
-    "Chance to win the group this season: 0.4% (you're #8, 9 back; simulated against each member's own pick habits over the last 9 weeks).",
+    "Chance to win the group this season: 0.6% (you're #8, 9 back; simulated against each member's own pick habits over the last 9 weeks).",
     "Value of taking the other side (open games):",
-    "Missouri instead of Texas (Sat 11/07 11:00 AM): +0.07 points of win chance (0.4% \u2192 0.4%); Missouri wins 48%, 19% of Yahoo players on Missouri",
-    "Penn St. instead of Washington (Sat 11/07 2:30 PM): +0.04 points of win chance (0.4% \u2192 0.4%); Penn St. wins 44%, 13% of Yahoo players on Penn St.",
-    "Mississippi instead of Georgia (Sat 11/07 6:30 PM): +0.04 points of win chance (0.4% \u2192 0.4%); Mississippi wins 44%, 13% of Yahoo players on Mississippi",
-    "Connecticut instead of N. Carolina (Sat 11/07 11:00 AM): +0.03 points of win chance (0.4% \u2192 0.4%); Connecticut wins 38%, 1% of Yahoo players on Connecticut",
-    "Utah St. instead of Fresno St. (Sat 11/07 8:30 PM): +0.02 points of win chance (0.4% \u2192 0.4%); Utah St. wins 49%, 6% of Yahoo players on Utah St.",
-    "All 7 switches that help (top 5 above) together: 0.4% \u2192 0.6%."
+    "Utah St. instead of Fresno St. (Sat 11/07 8:30 PM): +0.06 points of win chance (0.6% \u2192 0.7%); Utah St. wins 49%, 6% of Yahoo players on Utah St.",
+    "Missouri instead of Texas (Sat 11/07 11:00 AM): +0.04 points of win chance (0.6% \u2192 0.7%); Missouri wins 48%, 19% of Yahoo players on Missouri",
+    "NC State instead of Duke (Sat 11/07 11:30 AM): +0.04 points of win chance (0.6% \u2192 0.7%); NC State wins 42%, 6% of Yahoo players on NC State",
+    "Penn St. instead of Washington (Sat 11/07 2:30 PM): +0.04 points of win chance (0.6% \u2192 0.7%); Penn St. wins 44%, 13% of Yahoo players on Penn St.",
+    "Minnesota instead of UCLA (Sat 11/07 11:00 AM): +0.03 points of win chance (0.6% \u2192 0.7%); Minnesota wins 38%, 14% of Yahoo players on Minnesota",
+    "All 8 switches that help (top 5 above) together: 0.6% \u2192 0.8%."
    ]
   },
   {
@@ -418,7 +418,7 @@
      "model": 0.6214999999999999,
      "market": 0.5,
      "wager": "11,904",
-     "why": "Pool Iowa +2.5; market now Iowa -2.5 after Chiles news; cover 62%",
+     "why": "Pool +2.5 vs market -2.5; cover 62%",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858513",
      "key": "Iowa@Northwestern",
      "pick_team": "Iowa",
@@ -429,11 +429,11 @@
    "notes": [
     "Sizing sim (10k seasons): 1 bet(s), 100% of 11,904 \u2192 P(1st) 2.8%, P(top 3) 2.9%.",
     "Alternate: 1 bet(s) at 90% \u2192 P(1st) 2.7%.",
-    "All-in: a loss leaves 0 points, and rebuys close Sat 11am, before kickoff (your saved Notre Dame bet is also 100%).",
-    "Also worth a look: Miami +7.5 (cover 54%): Notre Dame: Starting MLB out, two DTs likely out, CB out",
-    "Also worth a look: Colorado State +17.5 (cover 53%): Boise State: Madsen confirmed out Friday; Cutforth starts",
+    "All-in: a loss leaves 0 points, and rebuys close at the 11am lock. The 90% option is nearly equal.",
+    "Also worth a look: Colorado State +17.5 (cover 55%): Boise State: Madsen confirmed out Friday; Cutforth starts (<a href=\"https://www.espn.com/college-football/story/_/id/50401030/sources-boise-state-qb-maddux-madsen-vs-colorado-state\">espn.com, Nov 6</a>)",
+    "Also worth a look: Miami +7.5 (cover 54%): Notre Dame: Starting MLB out, two DTs likely out, CB out (<a href=\"https://sports.yahoo.com/articles/notre-dames-defense-dealing-several-163000202.html\">sports.yahoo.com, Nov 3</a>)",
     "Also worth a look: Alabama +6.5 (cover 53%): next-best edge vs pool line",
-    "CFP FINAL tonight (pool locks Sat 11am CT); Sat 8am refresh re-checks injuries only."
+    "Sat 8am refresh: injuries re-checked; card pick unchanged (Iowa +2.5). Your saved Notre Dame -7.5 differs: change it before 11:00am CT."
    ]
   },
   {
@@ -700,7 +700,7 @@
      ],
      "o_havoc": [
       0.138,
-      50
+      51
      ],
      "d_havoc": [
       0.241,
@@ -798,7 +798,7 @@
      ],
      "o_havoc": [
       0.13,
-      36
+      37
      ],
      "d_havoc": [
       0.177,
@@ -814,7 +814,7 @@
      ],
      "pace": [
       64.375,
-      30
+      31
      ],
      "runrate": [
       0.49,
@@ -904,7 +904,7 @@
      ],
      "o_havoc": [
       0.146,
-      66
+      65
      ],
      "d_havoc": [
       0.198,
@@ -1006,11 +1006,11 @@
      ],
      "d_havoc": [
       0.136,
-      113
+      111
      ],
      "sp": [
       6.8,
-      48
+      47
      ],
      "talent": [
       704.01,
@@ -1108,7 +1108,7 @@
      ],
      "o_havoc": [
       0.129,
-      35
+      34
      ],
      "d_havoc": [
       0.255,
@@ -1116,7 +1116,7 @@
      ],
      "sp": [
       9.3,
-      37
+      36
      ],
      "talent": [
       568.19,
@@ -1206,7 +1206,7 @@
      ],
      "o_havoc": [
       0.158,
-      87
+      86
      ],
      "d_havoc": [
       0.153,
@@ -1222,7 +1222,7 @@
      ],
      "pace": [
       62.0,
-      60
+      58
      ],
      "runrate": [
       0.5436,
@@ -1320,7 +1320,7 @@
      ],
      "sp": [
       8.6,
-      41
+      42
      ],
      "talent": [
       730.79,
@@ -1426,7 +1426,7 @@
      ],
      "pace": [
       61.75,
-      64
+      62
      ],
      "runrate": [
       0.4346,
@@ -1520,11 +1520,11 @@
      ],
      "d_havoc": [
       0.148,
-      91
+      90
      ],
      "sp": [
       5.8,
-      53
+      54
      ],
      "talent": [
       800.2,
@@ -1630,7 +1630,7 @@
      ],
      "pace": [
       61.75,
-      63
+      64
      ],
      "runrate": [
       0.5609,
@@ -1736,7 +1736,7 @@
      ],
      "pace": [
       62.75,
-      50
+      51
      ],
      "runrate": [
       0.5224,
@@ -1818,7 +1818,7 @@
      ],
      "o_havoc": [
       0.154,
-      82
+      81
      ],
      "d_havoc": [
       0.195,
@@ -1834,11 +1834,11 @@
      ],
      "pace": [
       61.75,
-      62
+      63
      ],
      "runrate": [
       0.5,
-      74
+      75
      ]
     }
    },
@@ -1940,7 +1940,7 @@
      ],
      "pace": [
       64.125,
-      34
+      35
      ],
      "runrate": [
       0.5734,
@@ -2022,7 +2022,7 @@
      ],
      "o_havoc": [
       0.166,
-      104
+      101
      ],
      "d_havoc": [
       0.206,
@@ -2226,11 +2226,11 @@
      ],
      "o_havoc": [
       0.146,
-      65
+      66
      ],
      "d_havoc": [
       0.18,
-      33
+      31
      ],
      "sp": [
       18.0,
@@ -2332,7 +2332,7 @@
      ],
      "o_havoc": [
       0.14,
-      54
+      53
      ],
      "d_havoc": [
       0.117,
@@ -2434,7 +2434,7 @@
      ],
      "d_havoc": [
       0.148,
-      90
+      89
      ],
      "sp": [
       0.7,
@@ -2446,7 +2446,7 @@
      ],
      "pace": [
       59.75,
-      81
+      82
      ],
      "runrate": [
       0.5097,
@@ -2540,11 +2540,11 @@
      ],
      "d_havoc": [
       0.171,
-      42
+      45
      ],
      "sp": [
       6.8,
-      47
+      48
      ],
      "talent": [
       668.47,
@@ -2634,7 +2634,7 @@
      ],
      "o_havoc": [
       0.138,
-      49
+      50
      ],
      "d_havoc": [
       0.144,
@@ -2740,11 +2740,11 @@
      ],
      "o_havoc": [
       0.14,
-      53
+      54
      ],
      "d_havoc": [
       0.15,
-      84
+      83
      ],
      "sp": [
       9.7,
@@ -2756,11 +2756,11 @@
      ],
      "pace": [
       59.75,
-      82
+      81
      ],
      "runrate": [
       0.514,
-      60
+      59
      ]
     },
     "South Carolina": {
@@ -2838,7 +2838,7 @@
      ],
      "o_havoc": [
       0.143,
-      58
+      57
      ],
      "d_havoc": [
       0.137,
@@ -2858,7 +2858,7 @@
      ],
      "runrate": [
       0.5,
-      75
+      73
      ]
     }
    },
@@ -3148,15 +3148,15 @@
      ],
      "o_havoc": [
       0.125,
-      21
+      23
      ],
      "d_havoc": [
       0.18,
-      31
+      32
      ],
      "sp": [
       9.3,
-      36
+      37
      ],
      "talent": [
       774.04,
@@ -3164,7 +3164,7 @@
      ],
      "pace": [
       60.875,
-      73
+      74
      ],
      "runrate": [
       0.5011,
@@ -3262,7 +3262,7 @@
      ],
      "pace": [
       62.0,
-      59
+      57
      ],
      "runrate": [
       0.4038,
@@ -3352,7 +3352,7 @@
      ],
      "o_havoc": [
       0.17,
-      109
+      110
      ],
      "d_havoc": [
       0.179,
@@ -3450,7 +3450,7 @@
      ],
      "o_havoc": [
       0.144,
-      59
+      62
      ],
      "d_havoc": [
       0.222,
@@ -3458,7 +3458,7 @@
      ],
      "sp": [
       25.2,
-      3
+      4
      ],
      "talent": [
       931.76,
@@ -3466,7 +3466,7 @@
      ],
      "pace": [
       62.75,
-      51
+      53
      ],
      "runrate": [
       0.4969,
@@ -3560,7 +3560,7 @@
      ],
      "d_havoc": [
       0.164,
-      57
+      56
      ],
      "sp": [
       6.7,
@@ -3572,7 +3572,7 @@
      ],
      "pace": [
       58.25,
-      97
+      96
      ],
      "runrate": [
       0.5427,
@@ -3862,7 +3862,7 @@
      ],
      "d_havoc": [
       0.154,
-      74
+      73
      ],
      "sp": [
       12.2,
@@ -3968,7 +3968,7 @@
      ],
      "d_havoc": [
       0.143,
-      100
+      101
      ],
      "sp": [
       4.5,
@@ -4062,7 +4062,7 @@
      ],
      "o_havoc": [
       0.159,
-      91
+      90
      ],
      "d_havoc": [
       0.17,
@@ -4168,11 +4168,11 @@
      ],
      "o_havoc": [
       0.158,
-      86
+      87
      ],
      "d_havoc": [
       0.123,
-      125
+      126
      ],
      "sp": [
       -4.9,
@@ -4380,7 +4380,7 @@
      ],
      "sp": [
       10.9,
-      29
+      30
      ],
      "talent": [
       641.17,
@@ -4486,7 +4486,7 @@
      ],
      "pace": [
       58.125,
-      99
+      98
      ],
      "runrate": [
       0.468,
@@ -4576,11 +4576,11 @@
      ],
      "o_havoc": [
       0.124,
-      18
+      20
      ],
      "d_havoc": [
       0.189,
-      20
+      21
      ],
      "sp": [
       10.6,
@@ -4592,7 +4592,7 @@
      ],
      "pace": [
       62.0,
-      58
+      61
      ],
      "runrate": [
       0.499,
@@ -4882,7 +4882,7 @@
      ],
      "d_havoc": [
       0.163,
-      60
+      59
      ],
      "sp": [
       11.5,
@@ -4984,15 +4984,15 @@
      ],
      "o_havoc": [
       0.128,
-      33
+      31
      ],
      "d_havoc": [
       0.171,
-      45
+      42
      ],
      "sp": [
       12.4,
-      24
+      23
      ],
      "talent": [
       722.73,
@@ -5082,7 +5082,7 @@
      ],
      "o_havoc": [
       0.149,
-      71
+      72
      ],
      "d_havoc": [
       0.17,
@@ -5098,7 +5098,7 @@
      ],
      "pace": [
       62.0,
-      57
+      59
      ],
      "runrate": [
       0.5477,
@@ -5286,7 +5286,7 @@
      ],
      "o_havoc": [
       0.129,
-      34
+      35
      ],
      "d_havoc": [
       0.174,
@@ -5302,7 +5302,7 @@
      ],
      "pace": [
       65.0,
-      24
+      25
      ],
      "runrate": [
       0.4394,
@@ -5702,7 +5702,7 @@
      ],
      "sp": [
       25.2,
-      4
+      3
      ],
      "talent": [
       953.03,
@@ -5800,7 +5800,7 @@
      ],
      "o_havoc": [
       0.159,
-      90
+      91
      ],
      "d_havoc": [
       0.178,
@@ -5816,7 +5816,7 @@
      ],
      "pace": [
       59.0,
-      88
+      89
      ],
      "runrate": [
       0.4781,
@@ -6004,11 +6004,11 @@
      ],
      "o_havoc": [
       0.128,
-      29
+      30
      ],
      "d_havoc": [
       0.163,
-      59
+      60
      ],
      "sp": [
       2.6,
@@ -6106,11 +6106,11 @@
      ],
      "d_havoc": [
       0.152,
-      81
+      80
      ],
      "sp": [
       -9.2,
-      106
+      105
      ],
      "talent": [
       543.98,
@@ -6118,7 +6118,7 @@
      ],
      "pace": [
       62.0,
-      61
+      60
      ],
      "runrate": [
       0.4835,
@@ -6208,11 +6208,11 @@
      ],
      "o_havoc": [
       0.125,
-      23
+      21
      ],
      "d_havoc": [
       0.149,
-      86
+      88
      ],
      "sp": [
       0.0,
@@ -6310,7 +6310,7 @@
      ],
      "d_havoc": [
       0.166,
-      52
+      51
      ],
      "sp": [
       18.4,
@@ -6322,7 +6322,7 @@
      ],
      "pace": [
       65.0,
-      25
+      24
      ],
      "runrate": [
       0.5359,
