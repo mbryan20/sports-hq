@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T21:57:00Z",
+ "updated": "2026-11-07T22:07:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -225,7 +225,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "Domo Arigato": {
@@ -663,7 +663,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "Guillotine": {
@@ -968,7 +968,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 3:57p",
+    "built": "Sat 4:07p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1596,7 +1596,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "Stempak": {
@@ -1947,7 +1947,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "Bro-vid19": {
@@ -2257,7 +2257,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "3-Ball BB": {
@@ -2652,7 +2652,7 @@
     ],
     "trades": null,
     "notes": [
-     "Jarrett Allen (UT) OUT (ESPN: OUT) \u2192 no bench fit; best FA De'Anthony Melton (GS) [ESPN, Nov 7 12:11p: Allen (knee) is out for Saturday's game against the Knicks]",
+     "Jarrett Allen (UT) OUT (ESPN: OUT) \u2192 no bench fit; best FA Collin Gillespie (PHX) [ESPN, Nov 7 12:11p: Allen (knee) is out for Saturday's game against the Knicks]",
      "8 of 10 starters play tonight"
     ],
     "cats": {
@@ -2719,17 +2719,17 @@
      "close": 4,
      "games_left": [
       15,
-      16
+      15
      ],
      "chase": [
+      "FT% is close. Keep in the lineup: Devin Booker (1 games, .958 on 6.7 FTA/g) and Shai Gilgeous-Alexander (1 games, .855 on 6.9 FTA/g).",
       "BLK is close. Keep in the lineup: Walker Kessler (1 games, 2.4/g) and Shai Gilgeous-Alexander (1 games, 1.1/g).",
-      "STL is close. Keep in the lineup: De'Aaron Fox (1 games, 1.3/g) and Walker Kessler (1 games, 1.3/g).",
-      "FT% is close. Keep in the lineup: Devin Booker (1 games, .958 on 6.7 FTA/g) and Shai Gilgeous-Alexander (1 games, .855 on 6.9 FTA/g)."
+      "STL is close. Keep in the lineup: De'Aaron Fox (1 games, 1.3/g) and Walker Kessler (1 games, 1.3/g)."
      ],
      "adds": [
+      "For FT%: Jordan Poole (PG/SG, NO), 1 games left, .874 on 2.4 FTA/g",
       "For BLK: Day'Ron Sharpe (C, BKN), 2 games left, 1.1/g",
-      "For STL: Collin Gillespie (PG, PHX), 1 games left, 2.7/g",
-      "For FT%: Jordan Poole (PG/SG, NO), 1 games left, .874 on 2.4 FTA/g"
+      "For STL: Collin Gillespie (PG, PHX), 1 games left, 2.7/g"
      ]
     },
     "radar": {
@@ -2821,7 +2821,7 @@
        "name": "Malik Monk"
       },
       {
-       "text": "Quenton Jackson (PG, IND), free agent, 8% owned, +4.9 pts in 3 days: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, usage 17% \u2192 25%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), FT% (close). 1 game left this week, 4 next week.",
+       "text": "Quenton Jackson (PG, IND), free agent, 8% owned, +4.9 pts in 3 days: minutes 19 \u2192 27 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, usage 17% \u2192 25%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), FT% (close). 0 games left this week, 4 next week.",
        "short": "Quenton Jackson (IND, FA 8%): minutes 19 \u2192 27, usage 17% \u2192 25%; fits STL, FT% (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2834,12 +2834,12 @@
         ]
        ],
        "where": "fa",
-       "push": true,
+       "push": false,
        "id": "4592829",
        "name": "Quenton Jackson"
       },
       {
-       "text": "Braden Smith (PG, IND), free agent, 1% owned, ESPN +/- +0.2: minutes 3 \u2192 22 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 2 of them, usage 9% \u2192 21%, started 2 of 3 (0 of 6 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), AST (losing), BLK (close). 1 game left this week, 4 next week.",
+       "text": "Braden Smith (PG, IND), free agent, 1% owned, ESPN +/- +0.2: minutes 3 \u2192 22 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 2 of them, usage 9% \u2192 21%, started 2 of 3 (0 of 6 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), AST (losing), BLK (close). 0 games left this week, 4 next week.",
        "short": "Braden Smith (IND, FA 1%): minutes 3 \u2192 22, usage 9% \u2192 21%, now starting; fits STL, AST (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2852,7 +2852,7 @@
         ]
        ],
        "where": "fa",
-       "push": true,
+       "push": false,
        "id": "5105854",
        "name": "Braden Smith"
       }
@@ -2946,11 +2946,9 @@
          "CHI",
          "CLE",
          "DAL",
-         "DEN",
          "DET",
          "GS",
          "HOU",
-         "IND",
          "LAC",
          "LAL",
          "MIA",
@@ -2973,6 +2971,8 @@
         0,
         [
          "CHA",
+         "DEN",
+         "IND",
          "MEM",
          "TOR"
         ]
@@ -3052,7 +3052,7 @@
      },
      "mine": {
       "now": 15,
-      "opp": 16,
+      "opp": 15,
       "next": 49
      },
      "streamers": [
@@ -3074,7 +3074,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   },
   "Ball is Life": {
@@ -3255,7 +3255,7 @@
      "pos": "PG/SG",
      "opp": "vs DEN",
      "kickoff": "2026-11-07T22:00:00Z",
-     "started": false,
+     "started": true,
      "proj": 0.0,
      "status": null,
      "why": "",
@@ -3263,7 +3263,7 @@
      "cv": {
       "v": -2.42,
       "rk": 136,
-      "wk": 0.9,
+      "wk": 0.0,
       "src": "9 g"
      },
      "news": null
@@ -3409,13 +3409,13 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop John Collins (1 game this week, value -5.3/g), add Ziaire Williams (SG/SF, LAL, 1 game this week, value -1.9/g, 4% rostered): +3.4 this week (helps 3PM, STL, FT%)."
+     "No free agent beats anyone on your roster by enough this week."
     ],
     "trades": null,
     "notes": [
      "Draymond Green (F) is Questionable, plays Sat 7:30p [ESPN, Nov 6 4:21p: Green (elbow) is listed as questionable ahead of Saturday's game against Orlando.]",
      "Day'Ron Sharpe (C) is Questionable, plays Sat 6:30p [ESPN, Nov 4 8:29p: Sharpe registered 15 points (5-7 FG, 1-1 3Pt, 4-5 FT), 13 rebounds and four assists across 26 minutes in Sunday's 98-90 win over the Pacers.]",
-     "3 of 9 starters play tonight",
+     "2 of 9 starters play tonight",
      "Move Peyton Watson out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench"
     ],
     "cats": {
@@ -3446,7 +3446,7 @@
        "me": "15",
        "opp": "19",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "3PM",
@@ -3478,21 +3478,23 @@
       }
      ],
      "now": "6-2-0",
-     "proj": "6-2",
-     "close": 0,
+     "proj": "6-1",
+     "close": 1,
      "games_left": [
-      14,
-      12
+      13,
+      9
      ],
      "chase": [
-      "No category is within reach either way; nothing to chase."
+      "BLK is close. Keep in the lineup: Jaxson Hayes (1 games, 1.8/g) and Day'Ron Sharpe (1 games, 1.1/g)."
      ],
-     "adds": []
+     "adds": [
+      "For BLK: Jake LaRavia (SF/PF, LAL), 1 games left, 0.9/g"
+     ]
     },
     "radar": {
      "rising": [
       {
-       "text": "Jalen Slawson (SF, IND), free agent, 0% owned: minutes 10 \u2192 22 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 10% \u2192 15%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (losing). 1 game left this week, 4 next week.",
+       "text": "Jalen Slawson (SF, IND), free agent, 0% owned: minutes 10 \u2192 22 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 10% \u2192 15%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (close). 0 games left this week, 4 next week.",
        "short": "Jalen Slawson (IND, FA 0%): minutes 10 \u2192 22, usage 10% \u2192 15%; fits BLK (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3505,12 +3507,12 @@
         ]
        ],
        "where": "fa",
-       "push": true,
+       "push": false,
        "id": "4398207",
        "name": "Jalen Slawson"
       },
       {
-       "text": "Ronald Holland II (SF, DET), free agent, 1% owned, -0.1 pts in 3 days: minutes 14 \u2192 18 in his last 3 games (Oct 30\u2013Nov 4) vs 5 before, usage 16% \u2192 23%, since Jalen Duren went out [ESPN Oct 25: Out, Duren will be re-evaluated in two weeks due to a right hamstring strain, Eric Vincent of\u2026]. Fits BLK (losing). 1 game left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "text": "Ronald Holland II (SF, DET), free agent, 1% owned, -0.1 pts in 3 days: minutes 14 \u2192 18 in his last 3 games (Oct 30\u2013Nov 4) vs 5 before, usage 16% \u2192 23%, since Jalen Duren went out [ESPN Oct 25: Out, Duren will be re-evaluated in two weeks due to a right hamstring strain, Eric Vincent of\u2026]. Fits BLK (close). 1 game left this week, 3 next week (back-to-back Sun\u2013Mon).",
        "short": "Ronald Holland II (DET, FA 1%): minutes 14 \u2192 18, usage 16% \u2192 23%; fits BLK (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3528,7 +3530,7 @@
        "name": "Ronald Holland II"
       },
       {
-       "text": "Jay Huff (C, IND), free agent, 1% owned, -0.3 pts in 3 days: minutes 14 \u2192 24 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 14% \u2192 17%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (losing). 1 game left this week, 4 next week.",
+       "text": "Jay Huff (C, IND), free agent, 1% owned, -0.3 pts in 3 days: minutes 14 \u2192 24 in his last 3 games (Nov 1\u2013Nov 4) vs 6 before, played 5 of them, usage 14% \u2192 17%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (close). 0 games left this week, 4 next week.",
        "short": "Jay Huff (IND, FA 1%): minutes 14 \u2192 24, usage 14% \u2192 17%; fits BLK (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -3541,7 +3543,7 @@
         ]
        ],
        "where": "fa",
-       "push": true,
+       "push": false,
        "id": "4065731",
        "name": "Jay Huff"
       },
@@ -3625,7 +3627,7 @@
       }
      ],
      "need": [
-      "BLK (losing)",
+      "BLK (close)",
       "3PM (losing)"
      ],
      "basis": "ESPN game logs through Nov 6; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
@@ -3648,11 +3650,9 @@
          "CHI",
          "CLE",
          "DAL",
-         "DEN",
          "DET",
          "GS",
          "HOU",
-         "IND",
          "LAC",
          "LAL",
          "MIA",
@@ -3675,6 +3675,8 @@
         0,
         [
          "CHA",
+         "DEN",
+         "IND",
          "MEM",
          "TOR"
         ]
@@ -3753,19 +3755,19 @@
       ]
      },
      "mine": {
-      "now": 14,
-      "opp": 12,
+      "now": 13,
+      "opp": 9,
       "next": 42
      },
      "streamers": [
-      "Ziaire Williams (SG/SF, LAL, 4% rostered): 1 game this week (Su), +1.4 this week, helps STL, FG%",
-      "Danny Wolf (PF/C, BKN, 3% rostered): 2 games this week (Sa/Su, back-to-back), +0.7 this week",
-      "Jalen Smith (PF/C, CHI, 15% rostered): 1 game this week (Su), +0.5 this week, helps REB"
+      "Bilal Coulibaly (SG/SF, WSH, 7% rostered): 1 game this week (Sa), +1.8 this week, helps BLK, FG%, STL",
+      "Jalen Smith (PF/C, CHI, 15% rostered): 1 game this week (Su), +1.7 this week, helps REB",
+      "Danny Wolf (PF/C, BKN, 3% rostered): 2 games this week (Sa/Su, back-to-back), +1.5 this week"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sat 3:57p"
+    "built": "Sat 4:07p"
    }
   }
  }
