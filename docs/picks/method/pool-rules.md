@@ -18,7 +18,7 @@
 - Leaderboard ranks by balance.
 
 ## Yahoo College Football Pick'em — Kosmos 2026, group 3659 (14 members)
-- 25 games/week, straight-up winners. Each game locks at kickoff.
+- 25 games/week, straight-up winners. Each game locks 5 minutes before kickoff (Yahoo picks page: "Deadline: 5 minutes before each game").
 - TB1: exact scores of 2 designated games. TB2: team with most and fewest points among the 50 teams (locks before the week's first game).
 - Season runs Sep 1 – Dec 5.
 

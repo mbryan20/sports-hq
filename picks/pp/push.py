@@ -26,7 +26,7 @@ PICK_RE = re.compile(r"^(?P<team>.+?)\s+(?P<line>[+-]\d+(?:\.\d+)?)")
 LOCKS = {"bto": "locks Fri 8pm", "cfp": "locks Sat 11am"}
 LABEL = {"bto": "BTO", "cfp": "CFP", "yahoo": "Yahoo"}
 # which pools each run's push covers (the pools due before the next run)
-DUE = {2: ("bto", "cfp", "yahoo"), 3: ("bto", "cfp", "yahoo"), 4: ("bto", "yahoo"), 5: ("cfp", "yahoo"), 6: ("cfp", "yahoo")}
+DUE = {2: ("bto", "cfp", "yahoo"), 3: ("bto", "cfp", "yahoo"), 4: ("cfp", "yahoo"), 5: ("cfp", "yahoo"), 6: ("cfp", "yahoo")}  # Fri run is after BTO's 8pm lock
 
 
 def money(x):
@@ -167,12 +167,18 @@ def pool_line(card, status, unsaved=()):
     if close:
         parts.append("close calls: " + ", ".join(f"{r['game'].replace(' @ ', '@')}: {r['pick']}" for r in close[:6]))
     if tb1:
-        parts.append("TB1 " + ", ".join(tb1.values()))
+        parts.append("TB1 " + "; ".join(tb1.values()))
     if most:
         parts.append(f"TB2 most {most}, fewest {fewest}")
     if unsaved:
         parts.append(f"not saved yet: {', '.join(unsaved[:6])}" + (f" +{len(unsaved) - 6}" if len(unsaved) > 6 else ""))
     return f"{head}: " + "; ".join(parts)
+
+
+def ats_locked(pid, now):
+    """BTO locks Fri 8pm CT; after that (Fri night final, Sat refresh) a card-vs-saved difference can't be acted on,
+    so it isn't a CHANGE line (Nov 6: the Fri 9pm final re-showed Thursday's BTO card after the lock)."""
+    return pid == "bto" and (now.weekday() in (5, 6) or (now.weekday() == 4 and now.hour >= 20))
 
 
 def compose(cards, slate, due=None, now=None, final_call=False):
@@ -195,7 +201,7 @@ def compose(cards, slate, due=None, now=None, final_call=False):
         else:
             status, ch = compare_ats(c, saved)
             unsaved = []
-            if ch:
+            if ch and not ats_locked(pid, now):
                 alerts.append(ch + early_lock(c, saved, (slate.get(pid) or {}).get("games") or [], now))
         if pid in due:
             line = pool_line(c, status, unsaved)
