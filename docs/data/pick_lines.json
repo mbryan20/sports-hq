@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T03:55:54.260404-06:00",
+ "updated": "2026-11-07T10:19:46.278534-06:00",
  "week": 10,
  "alert_gap": 1.5,
  "rows": [
@@ -9,11 +9,13 @@
    "game": "Iowa @ Northwestern",
    "side": "Iowa",
    "pool_line": 2.5,
-   "market_line": -2.5,
-   "gap": 5.0,
-   "keys": [],
+   "market_line": -3.0,
+   "gap": 5.5,
+   "keys": [
+    3
+   ],
    "flag": true,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-08T00:30Z",
    "espn_id": "401858513",
    "closes": "2026-11-07T11:00:00-06:00"
@@ -24,11 +26,11 @@
    "game": "UCLA @ Minnesota",
    "side": "Minnesota",
    "pool_line": 5.5,
-   "market_line": 4.0,
-   "gap": 1.5,
+   "market_line": 3.5,
+   "gap": 2.0,
    "keys": [],
    "flag": true,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T17:00Z",
    "espn_id": "401858512",
    "closes": "2026-11-07T11:00:00-06:00"
@@ -36,18 +38,16 @@
   {
    "pool": "cfp",
    "league": "CFB",
-   "game": "Texas A&M @ South Carolina",
-   "side": "South Carolina",
-   "pool_line": -6.5,
-   "market_line": -7.0,
-   "gap": 0.5,
-   "keys": [
-    7
-   ],
+   "game": "Oklahoma @ Florida",
+   "side": "Oklahoma",
+   "pool_line": 6.5,
+   "market_line": 4.5,
+   "gap": 2.0,
+   "keys": [],
    "flag": true,
-   "book": "DraftKings",
-   "kick": "2026-11-07T20:00Z",
-   "espn_id": "401856744",
+   "book": "Draft Kings",
+   "kick": "2026-11-08T00:45Z",
+   "espn_id": "401856739",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -62,7 +62,7 @@
     7
    ],
    "flag": true,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-08T00:30Z",
    "espn_id": "401858291",
    "closes": "2026-11-07T11:00:00-06:00"
@@ -77,9 +77,24 @@
    "gap": 1.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T17:00Z",
    "espn_id": "401856849",
+   "closes": "2026-11-07T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
+   "game": "Merrimack @ Wake Forest",
+   "side": "Merrimack",
+   "pool_line": 47.5,
+   "market_line": 46.5,
+   "gap": 1.0,
+   "keys": [],
+   "flag": false,
+   "book": "Draft Kings",
+   "kick": "2026-11-07T20:30Z",
+   "espn_id": "401858290",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -92,39 +107,9 @@
    "gap": 1.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T23:00Z",
    "espn_id": "401860911",
-   "closes": "2026-11-07T11:00:00-06:00"
-  },
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "Kentucky @ Tennessee",
-   "side": "Kentucky",
-   "pool_line": 6.5,
-   "market_line": 5.5,
-   "gap": 1.0,
-   "keys": [],
-   "flag": false,
-   "book": "DraftKings",
-   "kick": "2026-11-07T23:15Z",
-   "espn_id": "401856745",
-   "closes": "2026-11-07T11:00:00-06:00"
-  },
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "Oklahoma @ Florida",
-   "side": "Oklahoma",
-   "pool_line": 6.5,
-   "market_line": 5.5,
-   "gap": 1.0,
-   "keys": [],
-   "flag": false,
-   "book": "DraftKings",
-   "kick": "2026-11-08T00:45Z",
-   "espn_id": "401856739",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -137,9 +122,24 @@
    "gap": 0.5,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T20:30Z",
    "espn_id": "401856740",
+   "closes": "2026-11-07T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
+   "game": "Kentucky @ Tennessee",
+   "side": "Kentucky",
+   "pool_line": 6.5,
+   "market_line": 6.0,
+   "gap": 0.5,
+   "keys": [],
+   "flag": false,
+   "book": "Draft Kings",
+   "kick": "2026-11-07T23:15Z",
+   "espn_id": "401856745",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -152,9 +152,24 @@
    "gap": 0.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T17:00Z",
    "espn_id": "401856743",
+   "closes": "2026-11-07T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
+   "game": "Texas A&M @ South Carolina",
+   "side": "Texas A&M",
+   "pool_line": 6.5,
+   "market_line": 6.5,
+   "gap": 0.0,
+   "keys": [],
+   "flag": false,
+   "book": "Draft Kings",
+   "kick": "2026-11-07T20:00Z",
+   "espn_id": "401856744",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -167,24 +182,9 @@
    "gap": 0.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T20:30Z",
    "espn_id": "401858514",
-   "closes": "2026-11-07T11:00:00-06:00"
-  },
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "Merrimack @ Wake Forest",
-   "side": "Merrimack",
-   "pool_line": 47.5,
-   "market_line": 47.5,
-   "gap": 0.0,
-   "keys": [],
-   "flag": false,
-   "book": "DraftKings",
-   "kick": "2026-11-07T20:30Z",
-   "espn_id": "401858290",
    "closes": "2026-11-07T11:00:00-06:00"
   },
   {
@@ -197,7 +197,7 @@
    "gap": 0.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-07T20:30Z",
    "espn_id": "401856851",
    "closes": "2026-11-07T11:00:00-06:00"
@@ -212,7 +212,7 @@
    "gap": 0.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-08T00:30Z",
    "espn_id": "401856741",
    "closes": "2026-11-07T11:00:00-06:00"
@@ -227,7 +227,7 @@
    "gap": 0.0,
    "keys": [],
    "flag": false,
-   "book": "DraftKings",
+   "book": "Draft Kings",
    "kick": "2026-11-08T02:30Z",
    "espn_id": "401856856",
    "closes": "2026-11-07T11:00:00-06:00"
