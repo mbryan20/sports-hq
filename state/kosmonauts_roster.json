@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-06T13:35:37Z",
+ "captured": "2026-11-07T13:34:55Z",
  "players": [
   {
    "slot": "QB",
@@ -111,15 +111,15 @@
   },
   {
    "slot": "BN",
-   "name": "Deebo Samuel Sr.",
-   "yahoo_id": "31868",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
    "key": null,
-   "team": "SF",
+   "team": "IND",
    "pos": "WR",
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "K",
@@ -248,7 +248,7 @@
    "name": "Jacoby Brissett",
    "yahoo_id": "29325",
    "key": null,
-   "team": "ARI",
+   "team": "BAL",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -301,7 +301,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -329,8 +329,8 @@
   },
   {
    "slot": "FA",
-   "name": "Zach Charbonnet",
-   "yahoo_id": "40075",
+   "name": "Jadarian Price",
+   "yahoo_id": "42654",
    "key": null,
    "team": "SEA",
    "pos": "RB",
@@ -341,8 +341,8 @@
   },
   {
    "slot": "FA",
-   "name": "Jadarian Price",
-   "yahoo_id": "42654",
+   "name": "Zach Charbonnet",
+   "yahoo_id": "40075",
    "key": null,
    "team": "SEA",
    "pos": "RB",
@@ -373,7 +373,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -385,7 +385,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -405,6 +405,18 @@
    "yahoo_id": "33538",
    "key": null,
    "team": "TB",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Devin Singletary",
+   "yahoo_id": "31906",
+   "key": null,
+   "team": "NYG",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -473,34 +485,22 @@
   },
   {
    "slot": "FA",
-   "name": "Emanuel Wilson",
-   "yahoo_id": "40707",
-   "key": null,
-   "team": "SEA",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Devin Singletary",
-   "yahoo_id": "31906",
-   "key": null,
-   "team": "NYG",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Kendre Miller",
    "yahoo_id": "40108",
    "key": null,
    "team": "NO",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Emanuel Wilson",
+   "yahoo_id": "40707",
+   "key": null,
+   "team": "SEA",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -557,6 +557,18 @@
   },
   {
    "slot": "FA",
+   "name": "Deebo Samuel Sr.",
+   "yahoo_id": "31868",
+   "key": null,
+   "team": "SF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Out"
+  },
+  {
+   "slot": "FA",
    "name": "Tre Tucker",
    "yahoo_id": "40114",
    "key": null,
@@ -597,18 +609,6 @@
    "yahoo_id": "42652",
    "key": null,
    "team": "NYJ",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
-   "key": null,
-   "team": "IND",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -917,10 +917,10 @@
   },
   {
    "slot": "FA",
-   "name": "Trey Smack",
-   "yahoo_id": "42838",
+   "name": "Harrison Butker",
+   "yahoo_id": "30346",
    "key": null,
-   "team": "GB",
+   "team": "KC",
    "pos": "K",
    "eligible": [
     "K"
@@ -929,10 +929,10 @@
   },
   {
    "slot": "FA",
-   "name": "Harrison Butker",
-   "yahoo_id": "30346",
+   "name": "Trey Smack",
+   "yahoo_id": "42838",
    "key": null,
-   "team": "KC",
+   "team": "GB",
    "pos": "K",
    "eligible": [
     "K"
@@ -1013,22 +1013,22 @@
   },
   {
    "slot": "FA",
-   "name": "Jake Elliott",
-   "yahoo_id": "30266",
-   "key": null,
-   "team": "PHI",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Chad Ryland",
    "yahoo_id": "40159",
    "key": null,
    "team": "ARI",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jake Elliott",
+   "yahoo_id": "30266",
+   "key": null,
+   "team": "PHI",
    "pos": "K",
    "eligible": [
     "K"
@@ -1169,6 +1169,18 @@
   },
   {
    "slot": "FA",
+   "name": "Giants",
+   "yahoo_id": "100019",
+   "key": null,
+   "team": "NYG",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Commanders",
    "yahoo_id": "100028",
    "key": null,
@@ -1185,18 +1197,6 @@
    "yahoo_id": "100002",
    "key": null,
    "team": "BUF",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Giants",
-   "yahoo_id": "100019",
-   "key": null,
-   "team": "NYG",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-06T13:35:37Z"
+ "fa_captured": "2026-11-07T13:34:55Z"
 }
