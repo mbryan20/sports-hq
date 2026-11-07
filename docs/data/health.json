@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-06T17:43:03Z",
+ "generated": "2026-11-07T15:13:13Z",
  "summary": {
-  "ok": 12,
+  "ok": 11,
   "watch": 0,
   "drift": 1,
-  "weak": 1,
+  "weak": 2,
   "waiting": 5,
   "info": 4,
   "errors": 0
@@ -27,13 +27,26 @@
    "section": "radar",
    "id": "radar.held",
    "label": "Flagged free agents whose bigger role held",
-   "value": 0.76,
-   "n": 25,
+   "value": 0.79,
+   "n": 29,
    "unit": "%",
    "baseline": 1.0,
    "baseline_set": "2026-11-03",
    "tolerance": 0.15,
    "status": "drift"
+  },
+  {
+   "section": "radar",
+   "id": "radar.edge",
+   "label": "Radar flags' value over the old suggestions (z per game)",
+   "value": -0.98,
+   "n": 29,
+   "unit": "z",
+   "baseline": 1.32,
+   "baseline_set": "2026-11-03",
+   "tolerance": 0.5,
+   "status": "weak",
+   "floor": 0.0
   }
  ],
  "sections": [
@@ -127,7 +140,7 @@
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 9.0,
+     "value": 8.9,
      "n": 187,
      "unit": "$",
      "baseline": 9.3,
@@ -284,13 +297,13 @@
      "n": 187,
      "cov50": 0.57,
      "cov80": 0.82,
-     "est_mae": 9.0,
+     "est_mae": 8.9,
      "by": {
       "pos DEF": {
        "n": 24,
        "cov50": 0.58,
        "cov80": 0.96,
-       "est_mae": 2.1
+       "est_mae": 2.2
       },
       "pos K": {
        "n": 20,
@@ -314,7 +327,7 @@
        "n": 24,
        "cov50": 0.62,
        "cov80": 0.88,
-       "est_mae": 6.1
+       "est_mae": 6.0
       },
       "pos WR": {
        "n": 61,
@@ -1169,8 +1182,8 @@
     {
      "id": "radar.held",
      "label": "Flagged free agents whose bigger role held",
-     "value": 0.76,
-     "n": 25,
+     "value": 0.79,
+     "n": 29,
      "unit": "%",
      "baseline": 1.0,
      "baseline_set": "2026-11-03",
@@ -1180,25 +1193,26 @@
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": 1.16,
-     "n": 25,
+     "value": -0.98,
+     "n": 29,
      "unit": "z",
      "baseline": 1.32,
      "baseline_set": "2026-11-03",
      "tolerance": 0.5,
-     "status": "ok"
+     "status": "weak",
+     "floor": 0.0
     }
    ],
    "details": {
-    "flagged": 25,
-    "held": 19,
-    "held_rate": 0.76,
-    "flag_value": -2.53,
-    "wire_value": -3.69,
-    "edge": 1.16,
-    "added_later": 0,
-    "any_flagged": 69,
-    "any_held": 47
+    "flagged": 29,
+    "held": 23,
+    "held_rate": 0.79,
+    "flag_value": -3.12,
+    "wire_value": -2.14,
+    "edge": -0.98,
+    "added_later": 1,
+    "any_flagged": 84,
+    "any_held": 59
    },
    "notes": []
   },
