@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T13:47:00Z",
+ "updated": "2026-11-08T13:57:01Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -228,7 +228,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "Domo Arigato": {
@@ -661,7 +661,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "Guillotine": {
@@ -968,7 +968,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 7:47a",
+    "built": "Sun 7:57a",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1637,7 +1637,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "Stempak": {
@@ -1646,7 +1646,7 @@
    "week": 9,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-07T22:36:01Z",
+   "snapshot": "2026-11-08T13:36:04Z",
    "league": "Stempak Family and Friends 2026",
    "opponent": "Cleveland Corgis",
    "opp_proj": null,
@@ -1991,7 +1991,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "Bro-vid19": {
@@ -2000,7 +2000,7 @@
    "week": 9,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-07T22:36:01Z",
+   "snapshot": "2026-11-08T13:36:04Z",
    "league": "Bro-vid19",
    "opponent": "Future so Bright my Rice Hurts",
    "opp_proj": null,
@@ -2304,7 +2304,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "3-Ball BB": {
@@ -3075,7 +3075,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   },
   "Ball is Life": {
@@ -3084,13 +3084,33 @@
    "week": 3,
    "sport": "nba",
    "format": null,
-   "snapshot": "2026-11-07T22:36:01Z",
+   "snapshot": "2026-11-08T13:36:04Z",
    "league": "We playin basketball",
    "opponent": "Giddey's Kiddies",
    "opp_proj": null,
    "roster_synced": null,
    "proj": null,
    "starters": [
+    {
+     "slot": "F",
+     "name": "Giannis Antetokounmpo",
+     "team": "MIA",
+     "pos": "PF/C",
+     "opp": "@SAC",
+     "kickoff": "2026-11-09T02:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 3.36,
+      "rk": 19,
+      "wk": 6.8,
+      "src": "9 g"
+     },
+     "news": null
+    },
     {
      "slot": "PG",
      "name": "LaMelo Ball",
@@ -3112,24 +3132,42 @@
      "news": null
     },
     {
-     "slot": "G",
-     "name": "Dyson Daniels",
-     "team": "ATL",
+     "slot": "SG",
+     "name": "Austin Reaves",
+     "team": "LAL",
      "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@DET",
+     "kickoff": "2026-11-08T23:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ],
+     "flags": [],
      "cv": {
-      "v": 0.73,
-      "rk": 55,
-      "wk": 0.0,
-      "src": "11 g"
+      "v": 2.84,
+      "rk": 26,
+      "wk": 6.2,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "G",
+     "name": "Darius Garland",
+     "team": "LAC",
+     "pos": "PG/G",
+     "opp": "vs NO",
+     "kickoff": "2026-11-09T02:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -0.78,
+      "rk": 91,
+      "wk": 2.6,
+      "src": "8 g"
      },
      "news": null
     },
@@ -3174,7 +3212,91 @@
      "news": null
     },
     {
-     "slot": "F",
+     "slot": "PF",
+     "name": "John Collins",
+     "team": "DET",
+     "pos": "PF/C",
+     "opp": "vs LAL",
+     "kickoff": "2026-11-08T23:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -5.18,
+      "rk": 221,
+      "wk": -1.8,
+      "src": "8 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Day'Ron Sharpe",
+     "team": "BKN",
+     "pos": "C/PF/C",
+     "opp": "@DAL",
+     "kickoff": "2026-11-09T00:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -2.84,
+      "rk": 147,
+      "wk": 0.6,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "C",
+     "name": "Jaxson Hayes",
+     "team": "UTAH",
+     "pos": "C/PF/C",
+     "opp": "@MIN",
+     "kickoff": "2026-11-09T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -1.76,
+      "rk": 117,
+      "wk": 1.7,
+      "src": "8 g"
+     },
+     "news": null
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Dyson Daniels",
+     "team": "ATL",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": 0.73,
+      "rk": 55,
+      "wk": 0.0,
+      "src": "11 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "BN",
      "name": "Draymond Green",
      "team": "GS",
      "pos": "PF/C",
@@ -3182,11 +3304,10 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: DAY_TO_DAY",
+     "status": null,
+     "why": "",
      "flags": [
-      "NO GAME",
-      "Q"
+      "NO GAME"
      ],
      "cv": {
       "v": -2.66,
@@ -3197,29 +3318,29 @@
      "news": null
     },
     {
-     "slot": "C",
-     "name": "Day'Ron Sharpe",
-     "team": "BKN",
-     "pos": "C/PF/C",
-     "opp": "@DAL",
-     "kickoff": "2026-11-09T00:30:00Z",
+     "slot": "BN",
+     "name": "Peyton Watson",
+     "team": "CLE",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: DAY_TO_DAY",
+     "status": null,
+     "why": "",
      "flags": [
-      "Q"
+      "NO GAME"
      ],
      "cv": {
       "v": -2.84,
-      "rk": 147,
-      "wk": 0.6,
-      "src": "9 g"
+      "rk": 146,
+      "wk": 0.0,
+      "src": "8 g"
      },
      "news": null
     },
     {
-     "slot": "UT",
+     "slot": "BN",
      "name": "Ajay Mitchell",
      "team": "OKC",
      "pos": "PG/SG",
@@ -3241,29 +3362,7 @@
      "news": null
     },
     {
-     "slot": "SG",
-     "name": "Quenton Jackson",
-     "team": "IND",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -2.94,
-      "rk": 150,
-      "wk": 0.0,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "PF",
+     "slot": "BN",
      "name": "Bobby Portis",
      "team": "MIA",
      "pos": "PF/C",
@@ -3283,184 +3382,75 @@
      "news": null
     }
    ],
-   "bench": [
-    {
-     "slot": "BN",
-     "name": "Giannis Antetokounmpo",
-     "team": "MIA",
-     "pos": "PF/C",
-     "opp": "@SAC",
-     "kickoff": "2026-11-09T02:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": 3.36,
-      "rk": 19,
-      "wk": 6.8,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Austin Reaves",
-     "team": "LAL",
-     "pos": "PG/SG",
-     "opp": "@DET",
-     "kickoff": "2026-11-08T23:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": 2.84,
-      "rk": 26,
-      "wk": 6.2,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Darius Garland",
-     "team": "LAC",
-     "pos": "PG/G",
-     "opp": "vs NO",
-     "kickoff": "2026-11-09T02:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -0.78,
-      "rk": 91,
-      "wk": 2.6,
-      "src": "8 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "John Collins",
-     "team": "DET",
-     "pos": "PF/C",
-     "opp": "vs LAL",
-     "kickoff": "2026-11-08T23:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -5.18,
-      "rk": 221,
-      "wk": -1.8,
-      "src": "8 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Jaxson Hayes",
-     "team": "UTAH",
-     "pos": "C/PF/C",
-     "opp": "@MIN",
-     "kickoff": "2026-11-09T00:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -1.76,
-      "rk": 117,
-      "wk": 1.7,
-      "src": "8 g"
-     },
-     "news": null
-    }
-   ],
    "advice": {
     "matchup": "vs Giddey's Kiddies",
     "danger": false,
     "fixes": [],
     "moves": [
-     "Start Austin Reaves (LAL @DET, Sun 5:00p) over Dyson Daniels at G: no game today",
-     "Start Giannis Antetokounmpo (MIA @SAC, Sun 8:00p) over Draymond Green at F: no game today",
-     "Start Darius Garland (LAC vs NO, Sun 8:00p) over Ajay Mitchell at UT: no game today"
+     "Start Bobby Portis (MIA @SAC, Sun 8:00p) over John Collins at PF: +1.1 value/g"
     ],
     "adds": [
      "Drop Bobby Portis (1 game this week, value -4.1/g), add Mo Bamba (C, UTAH, 1 game this week, value -2.8/g, 3% rostered): +4.1 this week (helps BLK, FG%)."
     ],
     "trades": null,
     "notes": [
-     "Dyson Daniels (G) no game today \u2192 start Austin Reaves (value +2.8/g, #26)",
-     "Draymond Green (F) no game today \u2192 start Giannis Antetokounmpo (value +3.4/g, #19)",
-     "Day'Ron Sharpe (C) is Questionable, plays Sun 6:30p",
-     "Ajay Mitchell (UT) no game today \u2192 start Darius Garland (value -0.8/g, #91)",
-     "4 of 9 starters play tonight",
-     "Move Peyton Watson out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench"
+     "9 of 9 starters play tonight"
     ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".822",
-       "opp": ".696",
+       "me": ".805",
+       "opp": ".712",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "REB",
-       "me": "175",
-       "opp": "141",
+       "me": "209",
+       "opp": "180",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "PTS",
-       "me": "471",
-       "opp": "434",
+       "me": "512",
+       "opp": "490",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "BLK",
-       "me": "15",
-       "opp": "19",
+       "me": "19",
+       "opp": "24",
        "now": "L",
        "outlook": "close"
       },
       {
        "cat": "3PM",
        "me": "37",
-       "opp": "47",
+       "opp": "49",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "STL",
-       "me": "29",
-       "opp": "24",
+       "me": "38",
+       "opp": "27",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "AST",
-       "me": "130",
-       "opp": "84",
+       "me": "164",
+       "opp": "98",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "FG%",
-       "me": ".493",
-       "opp": ".463",
+       "me": ".486",
+       "opp": ".438",
        "now": "W",
        "outlook": "win"
       }
@@ -3473,14 +3463,46 @@
       6
      ],
      "chase": [
-      "BLK is close. Keep in the lineup: Jaxson Hayes (1 games, 1.8/g) and Giannis Antetokounmpo (1 games, 1.0/g)."
+      "BLK is close. Keep in the lineup: Jaxson Hayes (1 games, 1.8/g) and Day'Ron Sharpe (1 games, 1.1/g)."
      ],
      "adds": [
-      "For BLK: Jake LaRavia (SF/PF, LAL), 1 games left, 0.9/g"
+      "For BLK: Jalen Smith (PF/C, CHI), 1 games left, 0.9/g"
      ]
     },
     "radar": {
      "rising": [
+      {
+       "text": "Draymond Green (PF, GS), on your bench: start him: minutes 20 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 5 of them. Fits BLK (close). 0 games left this week, 3 next week.",
+       "short": "Draymond Green (GS, your bench): minutes 20 \u2192 26; fits BLK (ESPN game logs through Nov 7)",
+       "links": [
+        [
+         "ESPN game log through Nov 7",
+         "https://www.espn.com/nba/player/gamelog/_/id/6589"
+        ]
+       ],
+       "where": "bench",
+       "push": false,
+       "id": "6589",
+       "name": "Draymond Green"
+      },
+      {
+       "text": "Ajay Mitchell (PG, OKC), on your bench: start him: minutes 27 \u2192 28 in his last 3 games (Nov 4\u2013Nov 7) vs 7 before, usage 25% \u2192 30%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Doesn't add much in the categories you need this week. 0 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
+       "short": "Ajay Mitchell (OKC, your bench): minutes 27 \u2192 28, usage 25% \u2192 30% (ESPN game logs through Nov 7)",
+       "links": [
+        [
+         "ESPN game log through Nov 7",
+         "https://www.espn.com/nba/player/gamelog/_/id/4900671"
+        ],
+        [
+         "ESPN Oct 30",
+         "https://www.espn.com/nba/player/_/id/4433255/chet-holmgren"
+        ]
+       ],
+       "where": "bench",
+       "push": false,
+       "id": "4900671",
+       "name": "Ajay Mitchell"
+      },
       {
        "text": "Ronald Holland II (SF, DET), free agent, 1% owned, -0.1 pts in 3 days: minutes 14 \u2192 18 in his last 3 games (Oct 30\u2013Nov 4) vs 5 before, usage 16% \u2192 23%, since Jalen Duren went out [ESPN Oct 25: Out, Duren will be re-evaluated in two weeks due to a right hamstring strain, Eric Vincent of\u2026]. Fits BLK (close). 1 game left this week, 3 next week (back-to-back Sun\u2013Mon).",
        "short": "Ronald Holland II (DET, FA 1%): minutes 14 \u2192 18, usage 16% \u2192 23%; fits BLK (ESPN game logs through Nov 4)",
@@ -3730,7 +3752,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sun 7:47a"
+    "built": "Sun 7:57a"
    }
   }
  }
