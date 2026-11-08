@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T14:27:00Z",
+ "updated": "2026-11-08T14:37:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -36,7 +36,7 @@
      "pos": "RB",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 14.0,
      "status": null,
      "why": "",
@@ -222,13 +222,13 @@
     },
     "notes": [
      "Amon-Ra St. Brown (WR) is Questionable, plays Sun 12:00p [ESPN, Nov 8 5:08a: St. Brown (ribs) is slated to play in Sunday's game at Miami, Tom Pelissero of Netflix reports.]",
-     "6 starters play today, first locks Sun 8:30a"
+     "5 starters play today, first locks Sun 12:00p"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "Domo Arigato": {
@@ -321,7 +321,7 @@
      "pos": "TE",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 10.1,
      "status": null,
      "why": "",
@@ -654,14 +654,14 @@
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
     "notes": [
-     "9 starters play today, first locks Sun 8:30a",
+     "8 starters play today, first locks Sun 12:00p",
      "FAAB left: $100"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "Guillotine": {
@@ -746,7 +746,7 @@
      "pos": "WR",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 13.8,
      "status": null,
      "why": "",
@@ -830,7 +830,7 @@
      "pos": "DEF",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 6.5,
      "status": null,
      "why": "",
@@ -906,13 +906,12 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 5 of 10 this week, +21.6 pts vs the lowest other team, 8% chance of being cut",
+    "matchup": "Projected 4 of 10 this week, +25.1 pts vs the lowest other team, 5% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
      "Add Brenton Strange (TE, JAX, 8.5/gm, value 334) for Khalil Shakir (WR, your WR5, 8.4/gm): fills in at TE in week 10, +7.5 pts over the next 4 weeks",
-     "Add New Orleans Saints (DEF, NO, 8.2 proj this week), drop Cincinnati Bengals (6.5 proj)",
      "Add Bryce Young (QB, CAR, 21.9/gm, value 445) for Breece Hall (RB, your RB6, 8.7/gm): better backup QB, +2 pts over the next 4 weeks"
     ],
     "trades": {
@@ -961,30 +960,30 @@
     },
     "notes": [
      "Amon-Ra St. Brown (WR) is Questionable, plays Sun 12:00p [ESPN, Nov 8 5:08a: St. Brown (ribs) is slated to play in Sunday's game at Miami, Tom Pelissero of Netflix reports.]",
-     "11 starters play today, first locks Sun 8:30a",
+     "9 starters play today, first locks Sun 12:00p",
      "FAAB left: $10"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 8:27a",
+    "built": "Sun 8:37a",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
-     "rank": 5,
-     "gap": 21.6,
-     "proj": 137.2,
-     "cut": 0.075,
-     "survive": 0.925,
+     "rank": 4,
+     "gap": 25.1,
+     "proj": 140.7,
+     "cut": 0.05,
+     "survive": 0.95,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "MoneyManChas",
        "proj": 115.6,
-       "cut": 0.266,
+       "cut": 0.279,
        "faab": 150,
        "bold": 0.2,
        "me": false
@@ -992,7 +991,7 @@
       {
        "name": "Aniasin1",
        "proj": 118.8,
-       "cut": 0.224,
+       "cut": 0.236,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -1000,7 +999,7 @@
       {
        "name": "robert8063",
        "proj": 125.9,
-       "cut": 0.15,
+       "cut": 0.154,
        "faab": 26,
        "bold": 0.57,
        "me": false
@@ -1008,18 +1007,10 @@
       {
        "name": "CodyRust",
        "proj": 131.7,
-       "cut": 0.092,
+       "cut": 0.099,
        "faab": 0,
        "bold": 0.75,
        "me": false
-      },
-      {
-       "name": "michaelbryan",
-       "proj": 137.2,
-       "cut": 0.075,
-       "faab": 10,
-       "bold": 0.58,
-       "me": true
       },
       {
        "name": "GoodFellas",
@@ -1030,9 +1021,17 @@
        "me": false
       },
       {
+       "name": "michaelbryan",
+       "proj": 140.7,
+       "cut": 0.05,
+       "faab": 10,
+       "bold": 0.58,
+       "me": true
+      },
+      {
        "name": "JHED1979",
        "proj": 137.1,
-       "cut": 0.05,
+       "cut": 0.049,
        "faab": 22,
        "bold": 0.77,
        "me": false
@@ -1040,7 +1039,7 @@
       {
        "name": "Swegs4",
        "proj": 147.0,
-       "cut": 0.038,
+       "cut": 0.03,
        "faab": 8,
        "bold": 1.0,
        "me": false
@@ -1048,7 +1047,7 @@
       {
        "name": "SteelRob420",
        "proj": 151.0,
-       "cut": 0.028,
+       "cut": 0.027,
        "faab": 16,
        "bold": 0.98,
        "me": false
@@ -1056,7 +1055,7 @@
       {
        "name": "Off with his head",
        "proj": 153.9,
-       "cut": 0.02,
+       "cut": 0.018,
        "faab": 95,
        "bold": 0.42,
        "me": false
@@ -1076,69 +1075,10 @@
        "faab": 26
       }
      ],
-     "bids": [
-      {
-       "name": "New Orleans Saints",
-       "pos": "DEF",
-       "team": "NO",
-       "proj": 8.2,
-       "gain": 1.7,
-       "cut_with": 0.066,
-       "price": 4,
-       "max": 0,
-       "call": "priced out",
-       "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 3
-        },
-        {
-         "name": "JHED1979",
-         "bid": 1
-        }
-       ],
-       "freed_from": null
-      },
-      {
-       "name": "Buffalo Bills",
-       "pos": "DEF",
-       "team": "BUF",
-       "proj": 7.9,
-       "gain": 1.4,
-       "cut_with": 0.068,
-       "price": 3,
-       "max": 0,
-       "call": "priced out",
-       "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 2
-        }
-       ],
-       "freed_from": null
-      },
-      {
-       "name": "New England Patriots",
-       "pos": "DEF",
-       "team": "NE",
-       "proj": 7.6,
-       "gain": 1.1,
-       "cut_with": 0.069,
-       "price": 2,
-       "max": 0,
-       "call": "priced out",
-       "rivals": [
-        {
-         "name": "MoneyManChas",
-         "bid": 1
-        }
-       ],
-       "freed_from": null
-      }
-     ],
+     "bids": [],
      "freed": {
       "team": "MoneyManChas",
-      "cut": 0.266,
+      "cut": 0.279,
       "players": [
        {
         "name": "Jonah Coleman",
@@ -1146,7 +1086,7 @@
         "team": "DEN",
         "proj": 13.4,
         "gain": 3.8,
-        "cut_with": 0.056,
+        "cut_with": 0.038,
         "price": 13,
         "max": 0,
         "call": "priced out",
@@ -1172,7 +1112,7 @@
         "team": "PHI",
         "proj": 12.0,
         "gain": 2.4,
-        "cut_with": 0.063,
+        "cut_with": 0.042,
         "price": 8,
         "max": 0,
         "call": "priced out",
@@ -1198,7 +1138,7 @@
         "team": "WAS",
         "proj": 10.5,
         "gain": 1.4,
-        "cut_with": 0.068,
+        "cut_with": 0.045,
         "price": 5,
         "max": 0,
         "call": "priced out",
@@ -1506,7 +1446,7 @@
      "opp": "vs DET",
      "kickoff": "2026-11-08T18:00:00Z",
      "started": false,
-     "proj": 0.0,
+     "proj": 4.9,
      "status": "Q",
      "why": "ESPN: QUESTIONABLE",
      "flags": [
@@ -1637,7 +1577,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "Stempak": {
@@ -1708,7 +1648,7 @@
      "pos": "RB/FLEX",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 16.8,
      "status": null,
      "why": "",
@@ -1985,13 +1925,13 @@
     },
     "notes": [
      "Amon-Ra St. Brown (WR) is Questionable, plays Sun 12:00p [ESPN, Nov 8 5:08a: St. Brown (ribs) is slated to play in Sunday's game at Miami, Tom Pelissero of Netflix reports.]",
-     "8 starters play today, first locks Sun 8:30a"
+     "7 starters play today, first locks Sun 12:00p"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "Bro-vid19": {
@@ -2014,7 +1954,7 @@
      "pos": "WR/FLEX",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 22.9,
      "status": null,
      "why": "",
@@ -2042,7 +1982,7 @@
      "pos": "WR/FLEX",
      "opp": "vs CIN",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 16.4,
      "status": null,
      "why": "",
@@ -2056,7 +1996,7 @@
      "pos": "QB/OP",
      "opp": "@ATL",
      "kickoff": "2026-11-08T14:30:00Z",
-     "started": false,
+     "started": true,
      "proj": 21.4,
      "status": null,
      "why": "",
@@ -2298,13 +2238,13 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "8 starters play today, first locks Sun 8:30a"
+     "5 starters play today, first locks Sun 12:00p"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "3-Ball BB": {
@@ -2692,7 +2632,7 @@
     ],
     "trades": null,
     "notes": [
-     "Devin Booker (UT) no game today \u2192 start Matisse Thybulle (value -2.6/g, #137)",
+     "Devin Booker (UT) no game today \u2192 start Matisse Thybulle",
      "7 of 10 starters play tonight"
     ],
     "cats": {
@@ -3071,7 +3011,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   },
   "Ball is Life": {
@@ -3748,7 +3688,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sun 8:27a"
+    "built": "Sun 8:37a"
    }
   }
  }
