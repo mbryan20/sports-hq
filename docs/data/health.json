@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T16:39:19Z",
+ "generated": "2026-11-08T14:21:40Z",
  "summary": {
   "ok": 11,
   "watch": 0,
@@ -27,8 +27,8 @@
    "section": "radar",
    "id": "radar.held",
    "label": "Flagged free agents whose bigger role held",
-   "value": 0.79,
-   "n": 29,
+   "value": 0.73,
+   "n": 37,
    "unit": "%",
    "baseline": 1.0,
    "baseline_set": "2026-11-03",
@@ -39,8 +39,8 @@
    "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestions (z per game)",
-   "value": -0.98,
-   "n": 29,
+   "value": -3.31,
+   "n": 37,
    "unit": "z",
    "baseline": 1.32,
    "baseline_set": "2026-11-03",
@@ -315,13 +315,13 @@
        "n": 23,
        "cov50": 0.7,
        "cov80": 0.87,
-       "est_mae": 10.8
+       "est_mae": 10.6
       },
       "pos RB": {
        "n": 35,
        "cov50": 0.37,
        "cov80": 0.69,
-       "est_mae": 18.8
+       "est_mae": 18.9
       },
       "pos TE": {
        "n": 24,
@@ -351,7 +351,7 @@
        "n": 55,
        "cov50": 0.51,
        "cov80": 0.82,
-       "est_mae": 18.4
+       "est_mae": 18.3
       },
       "estimate under $10": {
        "n": 132,
@@ -1182,8 +1182,8 @@
     {
      "id": "radar.held",
      "label": "Flagged free agents whose bigger role held",
-     "value": 0.79,
-     "n": 29,
+     "value": 0.73,
+     "n": 37,
      "unit": "%",
      "baseline": 1.0,
      "baseline_set": "2026-11-03",
@@ -1193,8 +1193,8 @@
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": -0.98,
-     "n": 29,
+     "value": -3.31,
+     "n": 37,
      "unit": "z",
      "baseline": 1.32,
      "baseline_set": "2026-11-03",
@@ -1204,15 +1204,15 @@
     }
    ],
    "details": {
-    "flagged": 29,
-    "held": 23,
-    "held_rate": 0.79,
-    "flag_value": -3.12,
-    "wire_value": -2.14,
-    "edge": -0.98,
+    "flagged": 37,
+    "held": 27,
+    "held_rate": 0.73,
+    "flag_value": -3.65,
+    "wire_value": -0.34,
+    "edge": -3.31,
     "added_later": 1,
-    "any_flagged": 84,
-    "any_held": 59
+    "any_flagged": 103,
+    "any_held": 68
    },
    "notes": []
   },
