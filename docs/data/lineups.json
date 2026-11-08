@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T01:37:00Z",
+ "updated": "2026-11-08T01:47:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -225,7 +225,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "Domo Arigato": {
@@ -657,7 +657,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "Guillotine": {
@@ -962,7 +962,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 7:37p",
+    "built": "Sat 7:47p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1625,7 +1625,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "Stempak": {
@@ -1976,7 +1976,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "Bro-vid19": {
@@ -2287,7 +2287,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "3-Ball BB": {
@@ -2652,11 +2652,10 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: Day-To-Day",
+     "status": null,
+     "why": "",
      "flags": [
-      "NO GAME",
-      "Q"
+      "NO GAME"
      ],
      "cv": {
       "v": -6.5,
@@ -2664,11 +2663,7 @@
       "wk": -3.1,
       "src": "8 g"
      },
-     "news": {
-      "note": "Hunter (illness) is listed as out for Friday's game against San Antonio.",
-      "at": "2026-11-07T15:05:00Z",
-      "url": "https://www.espn.com/nba/player/_/id/4065732/deandre-hunter"
-     }
+     "news": null
     }
    ],
    "advice": {
@@ -2678,7 +2673,7 @@
     "moves": [],
     "adds": [
      "Drop Kevin Porter Jr. (no NBA team, a dead roster spot), add Jaxson Hayes (C, UTAH, 1 game this week, value -1.7/g, 12% rostered): +4.4 this week (helps BLK, FG%).",
-     "Drop De'Andre Hunter (1 game this week, Day-To-Day, value -6.5/g), add Mo Bamba (C, UTAH, 1 game this week, value -2.8/g, 3% rostered): +7.1 this week (helps BLK, FT%, REB). Dynasty: De'Andre Hunter is 29."
+     "Drop De'Andre Hunter (1 game this week, DAY_TO_DAY, value -6.5/g), add Mo Bamba (C, UTAH, 1 game this week, value -2.8/g, 3% rostered): +7.1 this week (helps BLK, FT%, REB). Dynasty: De'Andre Hunter is 29."
     ],
     "trades": null,
     "notes": [
@@ -2796,7 +2791,7 @@
        "name": "Ayo Dosunmu"
       },
       {
-       "text": "De'Andre Hunter (SF, SAC), on your bench: start him: minutes 29 \u2192 35 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 16% \u2192 20%, since Keegan Murray went out [ESPN Oct 26: Out, Murray (ankle) will be re-evaluated in 10-to-14 days, NBA reporter Marc Stein reports.]. Fits 3PM (losing). 1 game left this week, 3 next week.",
+       "text": "De'Andre Hunter (SF, SAC), on your bench: start him: minutes 29 \u2192 35 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 16% \u2192 20%, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits 3PM (losing). 1 game left this week, 3 next week.",
        "short": "De'Andre Hunter (SAC, your bench): minutes 29 \u2192 35, usage 16% \u2192 20%; fits 3PM (ESPN game logs through Nov 4)",
        "links": [
         [
@@ -2804,7 +2799,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4065732"
         ],
         [
-         "ESPN Oct 26",
+         "ESPN Nov 7",
          "https://www.espn.com/nba/player/_/id/4594327/keegan-murray"
         ]
        ],
@@ -2814,7 +2809,7 @@
        "name": "De'Andre Hunter"
       },
       {
-       "text": "Malik Monk (SG, SAC), free agent, 12% owned, +0.1 pts in 3 days: minutes 10 \u2192 24 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 5 of them, since Keegan Murray went out [ESPN Oct 26: Out, Murray (ankle) will be re-evaluated in 10-to-14 days, NBA reporter Marc Stein reports.]. Fits AST (losing), FT% (close), 3PM (losing). 1 game left this week, 3 next week.",
+       "text": "Malik Monk (SG, SAC), free agent, 12% owned, +0.1 pts in 3 days: minutes 10 \u2192 24 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 5 of them, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits AST (losing), FT% (close), 3PM (losing). 1 game left this week, 3 next week.",
        "short": "Malik Monk (SAC, FA 12%): minutes 10 \u2192 24; fits AST, FT% (ESPN game logs through Nov 6)",
        "links": [
         [
@@ -2822,7 +2817,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4066262"
         ],
         [
-         "ESPN Oct 26",
+         "ESPN Nov 7",
          "https://www.espn.com/nba/player/_/id/4594327/keegan-murray"
         ]
        ],
@@ -3102,7 +3097,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   },
   "Ball is Life": {
@@ -3549,7 +3544,7 @@
        "name": "Jalen Slawson"
       },
       {
-       "text": "Leaky Black (SF, SAC), free agent, 0% owned, ESPN +/- +0.1: minutes 1 \u2192 29 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 1 of them, since Keegan Murray went out [ESPN Oct 26: Out, Murray (ankle) will be re-evaluated in 10-to-14 days, NBA reporter Marc Stein reports.]. Fits 3PM (losing). 1 game left this week, 3 next week.",
+       "text": "Leaky Black (SF, SAC), free agent, 0% owned, ESPN +/- +0.1: minutes 1 \u2192 29 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 1 of them, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits 3PM (losing). 1 game left this week, 3 next week.",
        "short": "Leaky Black (SAC, FA 0%): minutes 1 \u2192 29; fits 3PM (ESPN game logs through Nov 6)",
        "links": [
         [
@@ -3557,7 +3552,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4395650"
         ],
         [
-         "ESPN Oct 26",
+         "ESPN Nov 7",
          "https://www.espn.com/nba/player/_/id/4594327/keegan-murray"
         ]
        ],
@@ -3779,7 +3774,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sat 7:37p"
+    "built": "Sat 7:47p"
    }
   }
  }
