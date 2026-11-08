@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-08T13:35:26Z",
+ "captured": "2026-11-08T22:34:11Z",
  "players": [
   {
    "slot": "QB",
@@ -59,7 +59,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "TE",
@@ -221,10 +221,10 @@
   },
   {
    "slot": "FA",
-   "name": "Baker Mayfield",
-   "yahoo_id": "30971",
+   "name": "Michael Penix Jr.",
+   "yahoo_id": "40889",
    "key": null,
-   "team": "TB",
+   "team": "ATL",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -233,10 +233,10 @@
   },
   {
    "slot": "FA",
-   "name": "Michael Penix Jr.",
-   "yahoo_id": "40889",
+   "name": "Baker Mayfield",
+   "yahoo_id": "30971",
    "key": null,
-   "team": "ATL",
+   "team": "TB",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -325,7 +325,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -365,18 +365,6 @@
   },
   {
    "slot": "FA",
-   "name": "TreVeyon Henderson",
-   "yahoo_id": "41823",
-   "key": null,
-   "team": "NE",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Alvin Kamara",
    "yahoo_id": "30180",
    "key": null,
@@ -398,6 +386,18 @@
     "RB"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "TreVeyon Henderson",
+   "yahoo_id": "41823",
+   "key": null,
+   "team": "NE",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -469,7 +469,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -517,7 +517,7 @@
    "eligible": [
     "WR"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -601,7 +601,7 @@
    "eligible": [
     "WR"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -677,10 +677,10 @@
   },
   {
    "slot": "FA",
-   "name": "Jakobi Meyers",
-   "yahoo_id": "32231",
+   "name": "DeMario Douglas",
+   "yahoo_id": "40222",
    "key": null,
-   "team": "JAX",
+   "team": "NE",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -725,18 +725,6 @@
   },
   {
    "slot": "FA",
-   "name": "Jake Ferguson",
-   "yahoo_id": "34085",
-   "key": null,
-   "team": "DAL",
-   "pos": "TE",
-   "eligible": [
-    "TE"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Dalton Schultz",
    "yahoo_id": "31107",
    "key": null,
@@ -746,6 +734,18 @@
     "TE"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jake Ferguson",
+   "yahoo_id": "34085",
+   "key": null,
+   "team": "DAL",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -1049,7 +1049,7 @@
   },
   {
    "slot": "FA",
-   "name": "Bears",
+   "name": "Chicago",
    "yahoo_id": "100003",
    "key": null,
    "team": "CHI",
@@ -1061,19 +1061,7 @@
   },
   {
    "slot": "FA",
-   "name": "Bengals",
-   "yahoo_id": "100004",
-   "key": null,
-   "team": "CIN",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Lions",
+   "name": "Detroit",
    "yahoo_id": "100008",
    "key": null,
    "team": "DET",
@@ -1085,7 +1073,19 @@
   },
   {
    "slot": "FA",
-   "name": "Eagles",
+   "name": "Cincinnati",
+   "yahoo_id": "100004",
+   "key": null,
+   "team": "CIN",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Philadelphia",
    "yahoo_id": "100021",
    "key": null,
    "team": "PHI",
@@ -1097,7 +1097,7 @@
   },
   {
    "slot": "FA",
-   "name": "Ravens",
+   "name": "Baltimore",
    "yahoo_id": "100033",
    "key": null,
    "team": "BAL",
@@ -1109,7 +1109,7 @@
   },
   {
    "slot": "FA",
-   "name": "Browns",
+   "name": "Cleveland",
    "yahoo_id": "100005",
    "key": null,
    "team": "CLE",
@@ -1121,7 +1121,7 @@
   },
   {
    "slot": "FA",
-   "name": "49ers",
+   "name": "San Francisco",
    "yahoo_id": "100025",
    "key": null,
    "team": "SF",
@@ -1133,7 +1133,7 @@
   },
   {
    "slot": "FA",
-   "name": "Packers",
+   "name": "Green Bay",
    "yahoo_id": "100009",
    "key": null,
    "team": "GB",
@@ -1145,7 +1145,7 @@
   },
   {
    "slot": "FA",
-   "name": "Buccaneers",
+   "name": "Tampa Bay",
    "yahoo_id": "100027",
    "key": null,
    "team": "TB",
@@ -1157,7 +1157,7 @@
   },
   {
    "slot": "FA",
-   "name": "Giants",
+   "name": "New York",
    "yahoo_id": "100019",
    "key": null,
    "team": "NYG",
@@ -1169,19 +1169,7 @@
   },
   {
    "slot": "FA",
-   "name": "Cowboys",
-   "yahoo_id": "100006",
-   "key": null,
-   "team": "DAL",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Bills",
+   "name": "Buffalo",
    "yahoo_id": "100002",
    "key": null,
    "team": "BUF",
@@ -1193,7 +1181,19 @@
   },
   {
    "slot": "FA",
-   "name": "Commanders",
+   "name": "Dallas",
+   "yahoo_id": "100006",
+   "key": null,
+   "team": "DAL",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Washington",
    "yahoo_id": "100028",
    "key": null,
    "team": "WAS",
@@ -1205,7 +1205,7 @@
   },
   {
    "slot": "FA",
-   "name": "Panthers",
+   "name": "Carolina",
    "yahoo_id": "100029",
    "key": null,
    "team": "CAR",
@@ -1217,7 +1217,7 @@
   },
   {
    "slot": "FA",
-   "name": "Chargers",
+   "name": "Los Angeles",
    "yahoo_id": "100024",
    "key": null,
    "team": "LAC",
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-08T13:35:26Z"
+ "fa_captured": "2026-11-08T22:34:11Z"
 }
