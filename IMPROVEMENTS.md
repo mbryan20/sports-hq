@@ -47,8 +47,10 @@ Measure (the health.json check that should move), Design, Decision.
 
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
-- **Status:** shipped (d2bfcb7; logging d5482ef, c590724). Working since Nov 8: Michael saved the one-repo token (option A)
-  in his own PowerShell window, and the test kick started `model-health.yml` from the laptop at 8:21am CT. The cause of the
+- **Status:** shipped (d2bfcb7; logging d5482ef, c590724). Working since Nov 8: Michael saved a one-repo, Actions-only token
+  (option A) in his own PowerShell window; test kicks started `model-health.yml` from the laptop at 8:21am and 8:29am CT. The
+  first token was replaced the same morning (it showed in a chat screenshot, and the link's 366-day expiry hadn't applied);
+  the current one **expires Nov 8, 2027**, after which the kick log says "GitHub rejected the saved token". The cause of the
   earlier silence (the Claude app's private copy of AppData) and the sign-in options stay in `ops/designs/Q-014.md`.
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
@@ -85,7 +87,7 @@ Measure (the health.json check that should move), Design, Decision.
 
 
 ### Q-014 · Morning runs depend on GitHub's late crons, and manual dispatches get dropped
-- **Status:** partial (d2bfcb7, built as Q-029; the tasks run but need gh signed in outside the Claude app, see Q-029)
+- **Status:** shipped (d2bfcb7, built as Q-029; working since Nov 8)
 - **Area:** `.github/workflows/run.yml` (concurrency, lines 46-48), the 7:30am laptop daily sync prompt
 - **Rank:** — (approved and being built as Q-029; no longer ranked)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #3 and IDEAS.md "Proposed by monthly review"
