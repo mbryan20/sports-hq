@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T22:37:00Z",
+ "updated": "2026-11-08T22:47:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -12,7 +12,7 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-11-08T13:35:26Z",
+   "roster_synced": "2026-11-08T22:34:11Z",
    "proj": 104.8,
    "starters": [
     {
@@ -80,16 +80,10 @@
      "kickoff": "2026-11-08T18:00:00Z",
      "started": true,
      "proj": 16.8,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
-     "flags": [
-      "Q"
-     ],
-     "news": {
-      "note": "St. Brown brought in eight of 10 targets for 86 yards in the Lions' 19-9 win over the Dolphins on Sunday.",
-      "at": "2026-11-08T22:17:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4374302/amon-ra-st-brown"
-     }
+     "status": null,
+     "why": "",
+     "flags": [],
+     "news": null
     },
     {
      "slot": "TE",
@@ -225,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "Domo Arigato": {
@@ -681,7 +675,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "Guillotine": {
@@ -920,7 +914,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 5 of 10 this week, +46.4 pts vs the lowest other team, 0% chance of being cut",
+    "matchup": "Projected 6 of 10 this week, +47.3 pts vs the lowest other team, 0% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -978,14 +972,14 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 4:37p",
+    "built": "Sun 4:47p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
-     "rank": 5,
-     "gap": 46.4,
-     "proj": 129.6,
+     "rank": 6,
+     "gap": 47.3,
+     "proj": 130.5,
      "cut": 0.0,
      "survive": 1.0,
      "faab": 10,
@@ -1024,14 +1018,6 @@
        "me": false
       },
       {
-       "name": "robert8063",
-       "proj": 128.3,
-       "cut": 0.001,
-       "faab": 26,
-       "bold": 0.57,
-       "me": false
-      },
-      {
        "name": "GoodFellas",
        "proj": 138.9,
        "cut": 0.001,
@@ -1045,6 +1031,14 @@
        "cut": 0.0,
        "faab": 16,
        "bold": 0.98,
+       "me": false
+      },
+      {
+       "name": "robert8063",
+       "proj": 131.2,
+       "cut": 0.0,
+       "faab": 26,
+       "bold": 0.57,
        "me": false
       },
       {
@@ -1065,7 +1059,7 @@
       },
       {
        "name": "michaelbryan",
-       "proj": 129.6,
+       "proj": 130.5,
        "cut": 0.0,
        "faab": 10,
        "bold": 0.58,
@@ -1508,7 +1502,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "Stempak": {
@@ -1865,7 +1859,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "Bro-vid19": {
@@ -2175,7 +2169,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "3-Ball BB": {
@@ -2946,7 +2940,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   },
   "Ball is Life": {
@@ -3623,7 +3617,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sun 4:37p"
+    "built": "Sun 4:47p"
    }
   }
  }
