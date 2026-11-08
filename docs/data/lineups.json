@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T07:12:02Z",
+ "updated": "2026-11-08T09:39:18Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -228,7 +228,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "Domo Arigato": {
@@ -242,7 +242,7 @@
    "opponent": "CoachChrisSports",
    "opp_proj": 138.1,
    "roster_synced": null,
-   "proj": 120.8,
+   "proj": 120.9,
    "starters": [
     {
      "slot": "QB",
@@ -350,7 +350,7 @@
      "opp": "vs CLE",
      "kickoff": "2026-11-08T18:00:00Z",
      "started": false,
-     "proj": 15.1,
+     "proj": 15.2,
      "status": null,
      "why": "",
      "flags": [],
@@ -616,7 +616,7 @@
     }
    ],
    "advice": {
-    "matchup": "120.8 vs 138.1 (CoachChrisSports): projected to lose by 17.3",
+    "matchup": "120.9 vs 138.1 (CoachChrisSports): projected to lose by 17.2",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -661,7 +661,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "Guillotine": {
@@ -906,13 +906,13 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 4 of 10 this week, +21.6 pts vs the lowest other team, 7% chance of being cut",
+    "matchup": "Projected 4 of 10 this week, +21.7 pts vs the lowest other team, 7% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
      "Add Brenton Strange (TE, JAX, 8.5/gm, value 331) for Khalil Shakir (WR, your WR5, 8.4/gm): fills in at TE in week 10, +7.5 pts over the next 4 weeks",
-     "Add New Orleans Saints (DEF, NO, 8.1 proj this week), drop Cincinnati Bengals (6.5 proj)",
+     "Add New Orleans Saints (DEF, NO, 8.2 proj this week), drop Cincinnati Bengals (6.5 proj)",
      "Add Bryce Young (QB, CAR, 21.9/gm, value 425) for Breece Hall (RB, your RB6, 8.7/gm): better backup QB, +2 pts over the next 4 weeks"
     ],
     "trades": {
@@ -968,23 +968,23 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 1:12a",
+    "built": "Sun 3:39a",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
      "rank": 4,
-     "gap": 21.6,
+     "gap": 21.7,
      "proj": 137.3,
-     "cut": 0.074,
-     "survive": 0.926,
+     "cut": 0.073,
+     "survive": 0.927,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
        "name": "MoneyManChas",
-       "proj": 115.7,
-       "cut": 0.264,
+       "proj": 115.6,
+       "cut": 0.265,
        "faab": 150,
        "bold": 0.2,
        "me": false
@@ -1016,14 +1016,14 @@
       {
        "name": "michaelbryan",
        "proj": 137.3,
-       "cut": 0.074,
+       "cut": 0.073,
        "faab": 10,
        "bold": 0.58,
        "me": true
       },
       {
        "name": "GoodFellas",
-       "proj": 136.0,
+       "proj": 136.1,
        "cut": 0.069,
        "faab": 20,
        "bold": 0.74,
@@ -1031,8 +1031,8 @@
       },
       {
        "name": "JHED1979",
-       "proj": 137.1,
-       "cut": 0.05,
+       "proj": 137.2,
+       "cut": 0.049,
        "faab": 22,
        "bold": 0.77,
        "me": false
@@ -1081,16 +1081,20 @@
        "name": "New Orleans Saints",
        "pos": "DEF",
        "team": "NO",
-       "proj": 8.1,
-       "gain": 1.6,
-       "cut_with": 0.066,
-       "price": 3,
+       "proj": 8.2,
+       "gain": 1.7,
+       "cut_with": 0.065,
+       "price": 4,
        "max": 0,
        "call": "priced out",
        "rivals": [
         {
          "name": "MoneyManChas",
-         "bid": 2
+         "bid": 3
+        },
+        {
+         "name": "JHED1979",
+         "bid": 1
         }
        ],
        "freed_from": null
@@ -1119,7 +1123,7 @@
        "team": "NE",
        "proj": 7.6,
        "gain": 1.1,
-       "cut_with": 0.068,
+       "cut_with": 0.069,
        "price": 2,
        "max": 0,
        "call": "priced out",
@@ -1134,7 +1138,7 @@
      ],
      "freed": {
       "team": "MoneyManChas",
-      "cut": 0.264,
+      "cut": 0.265,
       "players": [
        {
         "name": "Jonah Coleman",
@@ -1633,7 +1637,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "Stempak": {
@@ -1987,7 +1991,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "Bro-vid19": {
@@ -2300,7 +2304,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "3-Ball BB": {
@@ -2321,6 +2325,26 @@
      "name": "Saddiq Bey",
      "team": "NO",
      "pos": "SF/PF",
+     "opp": "@LAC",
+     "kickoff": "2026-11-09T02:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -1.31,
+      "rk": 103,
+      "wk": 2.1,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2331,65 +2355,27 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -1.31,
-      "rk": 103,
-      "wk": 0.0,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "SF",
-     "name": "Mikal Bridges",
-     "team": "NY",
-     "pos": "SG/SF",
-     "opp": "@CLE",
-     "kickoff": "2026-11-08T01:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -6.27,
-      "rk": 259,
-      "wk": -0.0,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "UT",
-     "name": "Devin Booker",
-     "team": "PHX",
-     "pos": "PG/SG",
-     "opp": "vs HOU",
-     "kickoff": "2026-11-08T02:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
       "v": 2.87,
-      "rk": 25,
+      "rk": 26,
       "wk": 0.0,
       "src": "8 g"
      },
      "news": null
     },
     {
-     "slot": "PG",
+     "slot": "G",
      "name": "Shai Gilgeous-Alexander",
      "team": "OKC",
      "pos": "PG/G",
-     "opp": "vs WSH",
-     "kickoff": "2026-11-08T01:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "cv": {
       "v": 4.06,
       "rk": 15,
@@ -2399,83 +2385,119 @@
      "news": null
     },
     {
-     "slot": "UT",
-     "name": "Kingston Flemings",
-     "team": "ATL",
-     "pos": "SG/G",
-     "opp": "vs BKN",
-     "kickoff": "2026-11-08T00:30:00Z",
-     "started": true,
+     "slot": "SG",
+     "name": "Josh Giddey",
+     "team": "CHI",
+     "pos": "PG/SG",
+     "opp": "vs PHI",
+     "kickoff": "2026-11-08T20:30:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -4.33,
-      "rk": 195,
-      "wk": -0.0,
+      "v": -3.86,
+      "rk": 185,
+      "wk": -0.4,
+      "src": "8 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "SF",
+     "name": "Matas Buzelis",
+     "team": "CHI",
+     "pos": "SF/PF",
+     "opp": "vs PHI",
+     "kickoff": "2026-11-08T20:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -4.38,
+      "rk": 196,
+      "wk": -1.0,
+      "src": "8 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "C",
+     "name": "Walker Kessler",
+     "team": "LAL",
+     "pos": "C/PF/C",
+     "opp": "@DET",
+     "kickoff": "2026-11-08T23:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 3.07,
+      "rk": 21,
+      "wk": 6.5,
       "src": "10 g"
      },
      "news": null
     },
     {
      "slot": "PF",
-     "name": "Franz Wagner",
-     "team": "ORL",
+     "name": "Jonathan Kuminga",
+     "team": "MIN",
      "pos": "SF/PF",
-     "opp": "@GS",
-     "kickoff": "2026-11-08T01:30:00Z",
-     "started": true,
+     "opp": "vs UTAH",
+     "kickoff": "2026-11-09T00:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": 0.93,
-      "rk": 52,
-      "wk": 0.0,
-      "src": "9 g"
+      "v": -3.1,
+      "rk": 157,
+      "wk": 0.3,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "PG",
+     "name": "Ayo Dosunmu",
+     "team": "MIN",
+     "pos": "PG/SG",
+     "opp": "vs UTAH",
+     "kickoff": "2026-11-09T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 1.09,
+      "rk": 49,
+      "wk": 4.5,
+      "src": "10 g"
      },
      "news": null
     },
     {
      "slot": "UT",
-     "name": "Jarrett Allen",
-     "team": "CLE",
-     "pos": "C/PF/C",
-     "opp": "vs NY",
-     "kickoff": "2026-11-08T01:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": "OUT",
-     "why": "ESPN: OUT",
-     "flags": [
-      "OUT"
-     ],
-     "cv": {
-      "v": -1.31,
-      "rk": 104,
-      "wk": 0.0,
-      "src": "8 g"
-     },
-     "news": {
-      "note": "Allen (knee) is out for Saturday's game against the Knicks",
-      "at": "2026-11-07T18:11:00Z",
-      "url": "https://www.espn.com/nba/player/_/id/4066328/jarrett-allen"
-     }
-    },
-    {
-     "slot": "G",
      "name": "De'Aaron Fox",
      "team": "SA",
      "pos": "PG/SG",
-     "opp": "@POR",
-     "kickoff": "2026-11-08T03:00:00Z",
-     "started": true,
+     "opp": null,
+     "kickoff": null,
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "NO GAME"
+     ],
      "cv": {
       "v": 0.13,
       "rk": 70,
@@ -2485,47 +2507,49 @@
      "news": null
     },
     {
-     "slot": "SG",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
-     "opp": "vs ORL",
-     "kickoff": "2026-11-08T01:30:00Z",
-     "started": true,
+     "slot": "UT",
+     "name": "De'Andre Hunter",
+     "team": "SAC",
+     "pos": "SF/PF",
+     "opp": "vs MIA",
+     "kickoff": "2026-11-09T02:00:00Z",
+     "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.38,
-      "rk": 79,
-      "wk": 0.0,
-      "src": "8 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "C",
-     "name": "Khaman Maluach",
-     "team": "PHX",
-     "pos": "C/PF/C",
-     "opp": "vs HOU",
-     "kickoff": "2026-11-08T02:00:00Z",
-     "started": true,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -3.7,
-      "rk": 180,
-      "wk": -0.0,
+      "v": -6.57,
+      "rk": 270,
+      "wk": -3.1,
       "src": "8 g"
      },
      "news": null
     }
    ],
    "bench": [
+    {
+     "slot": "BN",
+     "name": "Mikal Bridges",
+     "team": "NY",
+     "pos": "SG/SF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": -6.27,
+      "rk": 259,
+      "wk": -0.0,
+      "src": "9 g"
+     },
+     "news": null
+    },
     {
      "slot": "BN",
      "name": "Kevin Porter Jr.",
@@ -2548,9 +2572,9 @@
     },
     {
      "slot": "BN",
-     "name": "Josh Giddey",
-     "team": "CHI",
-     "pos": "PG/SG",
+     "name": "Kingston Flemings",
+     "team": "ATL",
+     "pos": "SG/G",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2561,17 +2585,17 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -3.86,
-      "rk": 185,
+      "v": -4.33,
+      "rk": 195,
       "wk": -0.0,
-      "src": "8 g"
+      "src": "10 g"
      },
      "news": null
     },
     {
      "slot": "BN",
-     "name": "Matas Buzelis",
-     "team": "CHI",
+     "name": "Franz Wagner",
+     "team": "ORL",
      "pos": "SF/PF",
      "opp": null,
      "kickoff": null,
@@ -2583,17 +2607,66 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -4.38,
-      "rk": 196,
-      "wk": -0.0,
+      "v": 0.93,
+      "rk": 52,
+      "wk": 0.0,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Jarrett Allen",
+     "team": "CLE",
+     "pos": "C/PF/C",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": "OUT",
+     "why": "ESPN: OUT",
+     "flags": [
+      "NO GAME",
+      "OUT"
+     ],
+     "cv": {
+      "v": -1.31,
+      "rk": 104,
+      "wk": 0.0,
+      "src": "8 g"
+     },
+     "news": {
+      "note": "Allen (knee) is out for Saturday's game against the Knicks",
+      "at": "2026-11-07T18:11:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4066328/jarrett-allen"
+     }
+    },
+    {
+     "slot": "BN",
+     "name": "Brandin Podziemski",
+     "team": "GS",
+     "pos": "PG/SG",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": -0.38,
+      "rk": 80,
+      "wk": 0.0,
       "src": "8 g"
      },
      "news": null
     },
     {
      "slot": "BN",
-     "name": "Walker Kessler",
-     "team": "LAL",
+     "name": "Khaman Maluach",
+     "team": "PHX",
      "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
@@ -2605,74 +2678,8 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 3.07,
-      "rk": 22,
-      "wk": 0.0,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Jonathan Kuminga",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -3.1,
-      "rk": 157,
-      "wk": 0.0,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Ayo Dosunmu",
-     "team": "MIN",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": 1.09,
-      "rk": 49,
-      "wk": 0.0,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "De'Andre Hunter",
-     "team": "SAC",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -6.57,
-      "rk": 270,
+      "v": -3.7,
+      "rk": 180,
       "wk": -0.0,
       "src": "8 g"
      },
@@ -2685,135 +2692,123 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop Kevin Porter Jr. (no NBA team, a dead roster spot), add Spencer Jones (SF/PF, DEN, 3 games next week, value +0.1/g, 0% rostered): +10.7 next week (helps 3PM, BLK, FG%).",
-     "Drop De'Andre Hunter (3 games next week, value -6.6/g), add Derrick Jones Jr. (SF/PF, LAC, 3 games next week, value -1.2/g, 11% rostered): +16.3 next week (helps BLK, FT%, STL). Dynasty: De'Andre Hunter is 29."
+     "Drop Kevin Porter Jr. (no NBA team, a dead roster spot), add Matisse Thybulle (SF, LAL, 1 game this week, value -2.6/g, 4% rostered): +2.6 this week (helps STL).",
+     "Drop De'Andre Hunter (1 game this week, value -6.6/g), add Jaxson Hayes (C, UTAH, 1 game this week, value -1.7/g, 13% rostered): +6.8 this week (helps BLK, STL, FT%). Dynasty: De'Andre Hunter is 29."
     ],
     "trades": null,
-    "notes": [],
+    "notes": [
+     "7 of 10 starters play tonight"
+    ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".790",
-       "opp": ".797",
-       "now": "L",
-       "outlook": "lose"
+       "me": ".796",
+       "opp": ".777",
+       "now": "W",
+       "outlook": "close"
       },
       {
        "cat": "REB",
-       "me": "145",
-       "opp": "176",
+       "me": "183",
+       "opp": "227",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "PTS",
-       "me": "562",
-       "opp": "512",
+       "me": "696",
+       "opp": "632",
        "now": "W",
-       "outlook": "win"
+       "outlook": "close"
       },
       {
        "cat": "BLK",
-       "me": "16",
-       "opp": "18",
+       "me": "25",
+       "opp": "29",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "3PM",
-       "me": "47",
-       "opp": "60",
+       "me": "61",
+       "opp": "73",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "STL",
-       "me": "33",
-       "opp": "30",
-       "now": "W",
-       "outlook": "win"
+       "me": "42",
+       "opp": "44",
+       "now": "L",
+       "outlook": "close"
       },
       {
        "cat": "AST",
-       "me": "131",
-       "opp": "187",
+       "me": "166",
+       "opp": "242",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "FG%",
-       "me": ".487",
-       "opp": ".424",
+       "me": ".488",
+       "opp": ".419",
        "now": "W",
        "outlook": "win"
       }
      ],
      "now": "3-5-0",
-     "proj": "3-5",
-     "close": 0,
+     "proj": "1-3",
+     "close": 4,
      "games_left": [
-      0,
-      0
+      7,
+      6
      ],
-     "chase": [],
-     "adds": []
+     "chase": [
+      "FT% is close. Keep in the lineup: Saddiq Bey (1 games, .877 on 3.7 FTA/g) and Ayo Dosunmu (1 games, .857 on 2.1 FTA/g).",
+      "STL is close. Keep in the lineup: Walker Kessler (1 games, 1.3/g) and Jonathan Kuminga (1 games, 1.2/g).",
+      "BLK is close. Keep in the lineup: Walker Kessler (1 games, 2.4/g) and Jonathan Kuminga (1 games, 0.9/g)."
+     ],
+     "adds": [
+      "For FT%: Jordan Poole (PG/SG, NO), 1 games left, .874 on 2.4 FTA/g",
+      "For STL: Naji Marshall (SF/PF, DAL), 1 games left, 1.3/g",
+      "For BLK: Jaxson Hayes (C, UTAH), 1 games left, 1.8/g"
+     ]
     },
     "radar": {
      "rising": [
       {
-       "text": "Ayo Dosunmu (SG, MIN), on your bench: start him: minutes 29 \u2192 37 in his last 3 games (Nov 2\u2013Nov 6) vs 7 before, usage 20% \u2192 23%, since Anthony Edwards went out [ESPN Oct 29: Out, Edwards underwent a successful arthroscopic procedure on his right knee Thursday, the\u2026]. Fits FG%, PTS, AST. 0 games left this week, 3 next week.",
-       "short": "Ayo Dosunmu (MIN, your bench): minutes 29 \u2192 37, usage 20% \u2192 23%; fits FG%, PTS (ESPN game logs through Nov 6)",
+       "text": "Brandin Podziemski (SG, GS), on your bench: start him: minutes 24 \u2192 35 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 5 of them, usage 20% \u2192 16%. Fits 3PM (losing), AST (losing), STL (close). 0 games left this week, 3 next week.",
+       "short": "Brandin Podziemski (GS, your bench): minutes 24 \u2192 35; fits 3PM, AST (ESPN game logs through Nov 7)",
        "links": [
         [
-         "ESPN game log through Nov 6",
-         "https://www.espn.com/nba/player/gamelog/_/id/4397002"
-        ],
-        [
-         "ESPN Oct 29",
-         "https://www.espn.com/nba/player/_/id/4594268/anthony-edwards"
+         "ESPN game log through Nov 7",
+         "https://www.espn.com/nba/player/gamelog/_/id/4709138"
         ]
        ],
        "where": "bench",
        "push": false,
-       "id": "4397002",
-       "name": "Ayo Dosunmu"
+       "id": "4709138",
+       "name": "Brandin Podziemski"
       },
       {
-       "text": "Josh Giddey (PG, CHI), on your bench: start him: minutes 27 \u2192 28 in his last 3 games (Oct 30\u2013Nov 4) vs 5 before, usage 16% \u2192 21%. Fits AST. 0 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
-       "short": "Josh Giddey (CHI, your bench): minutes 27 \u2192 28, usage 16% \u2192 21%; fits AST (ESPN game logs through Nov 4)",
+       "text": "Kingston Flemings (SG, ATL), on your bench: start him: minutes 18 \u2192 25 in his last 3 games (Nov 4\u2013Nov 7) vs 8 before, played 7 of them, started 3 of 3 (0 of 8 before). Fits AST (losing). 0 games left this week, 3 next week.",
+       "short": "Kingston Flemings (ATL, your bench): minutes 18 \u2192 25, now starting; fits AST (ESPN game logs through Nov 7)",
        "links": [
         [
-         "ESPN game log through Nov 4",
-         "https://www.espn.com/nba/player/gamelog/_/id/4871145"
+         "ESPN game log through Nov 7",
+         "https://www.espn.com/nba/player/gamelog/_/id/5149077"
         ]
        ],
        "where": "bench",
        "push": false,
-       "id": "4871145",
-       "name": "Josh Giddey"
+       "id": "5149077",
+       "name": "Kingston Flemings"
       },
       {
-       "text": "De'Andre Hunter (SF, SAC), on your bench: start him: minutes 29 \u2192 35 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 16% \u2192 20%, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits 3PM. 0 games left this week, 3 next week.",
-       "short": "De'Andre Hunter (SAC, your bench): minutes 29 \u2192 35, usage 16% \u2192 20%; fits 3PM (ESPN game logs through Nov 4)",
-       "links": [
-        [
-         "ESPN game log through Nov 4",
-         "https://www.espn.com/nba/player/gamelog/_/id/4065732"
-        ],
-        [
-         "ESPN Nov 7",
-         "https://www.espn.com/nba/player/_/id/4594327/keegan-murray"
-        ]
-       ],
-       "where": "bench",
-       "push": false,
-       "id": "4065732",
-       "name": "De'Andre Hunter"
-      },
-      {
-       "text": "Leaky Black (SF, SAC), free agent, 0% owned, ESPN +/- +0.3: minutes 1 \u2192 29 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 1 of them, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits STL, 3PM. 0 games left this week, 3 next week.",
-       "short": "Leaky Black (SAC, FA 0%): minutes 1 \u2192 29; fits STL, 3PM (ESPN game logs through Nov 6)",
+       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- +0.4: minutes 1 \u2192 29 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 1 of them, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits STL (close), 3PM (losing). 1 game left this week, 3 next week.",
+       "short": "Leaky Black (SAC, FA 1%): minutes 1 \u2192 29; fits STL, 3PM (ESPN game logs through Nov 6)",
        "links": [
         [
          "ESPN game log through Nov 6",
@@ -2825,12 +2820,12 @@
         ]
        ],
        "where": "fa",
-       "push": false,
+       "push": true,
        "id": "4395650",
        "name": "Leaky Black"
       },
       {
-       "text": "Braden Smith (PG, IND), free agent, 1% owned, +0.2 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL, AST, BLK. 0 games left this week, 3 next week.",
+       "text": "Braden Smith (PG, IND), free agent, 1% owned, +0.1 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), AST (losing), BLK (close). 0 games left this week, 4 next week.",
        "short": "Braden Smith (IND, FA 1%): minutes 3 \u2192 26, usage 9% \u2192 20%, now starting; fits STL, AST (ESPN game logs through Nov 7)",
        "links": [
         [
@@ -2848,36 +2843,36 @@
        "name": "Braden Smith"
       },
       {
-       "text": "Karlo Matkovic (PF, NO), free agent, 4% owned, +0.0 pts in 3 days: minutes 14 \u2192 23 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 5 of them, usage 15% \u2192 22%, started 3 of 3 (2 of 6 before), since Yves Missi went out [ESPN Nov 5: Out, Missi (knee) is out for Friday's game against Minnesota.]. Fits FG%, 3PM, STL. 0 games left this week, 5 next week (back-to-back Sun\u2013Mon).",
-       "short": "Karlo Matkovic (NO, FA 4%): minutes 14 \u2192 23, usage 15% \u2192 22%, now starting; fits FG%, 3PM (ESPN game logs through Nov 6)",
+       "text": "Malik Monk (SG, SAC), free agent, 12% owned, +0.4 pts in 3 days: minutes 10 \u2192 24 in his last 3 games (Nov 2\u2013Nov 6) vs 6 before, played 5 of them, since Keegan Murray went out [ESPN Nov 7: Out, Murray (ankle) is questionable for Sunday's game against the Heat.]. Fits AST (losing), FT% (close), 3PM (losing). 1 game left this week, 3 next week.",
+       "short": "Malik Monk (SAC, FA 12%): minutes 10 \u2192 24; fits AST, FT% (ESPN game logs through Nov 6)",
        "links": [
         [
          "ESPN game log through Nov 6",
-         "https://www.espn.com/nba/player/gamelog/_/id/4997538"
+         "https://www.espn.com/nba/player/gamelog/_/id/4066262"
         ],
         [
-         "ESPN Nov 5",
-         "https://www.espn.com/nba/player/_/id/5061589/yves-missi"
+         "ESPN Nov 7",
+         "https://www.espn.com/nba/player/_/id/4594327/keegan-murray"
         ]
        ],
        "where": "fa",
-       "push": false,
-       "id": "4997538",
-       "name": "Karlo Matkovic"
+       "push": true,
+       "id": "4066262",
+       "name": "Malik Monk"
       },
       {
-       "text": "Oso Ighodaro (PF, PHX), free agent, 16% owned, -0.4 pts in 3 days: minutes 12 \u2192 23 in his last 3 games (Nov 4\u2013Nov 7) vs 5 before, played 3 of them, usage 18% \u2192 12%, started 2 of 3 (0 of 5 before). Fits FG%, BLK. 0 games left this week, 3 next week (back-to-back Mon\u2013Tue).",
-       "short": "Oso Ighodaro (PHX, FA 16%): minutes 12 \u2192 23, now starting; fits FG%, BLK (ESPN game logs through Nov 7)",
+       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, -0.3 pts in 3 days: minutes 22 \u2192 29 in his last 3 games (Nov 1\u2013Nov 4) vs 5 before, usage 15% \u2192 21%. Fits FT% (close), STL (close), 3PM (losing). 1 game left this week, 3 next week.",
+       "short": "Kobe Sanders (LAC, FA 1%): minutes 22 \u2192 29, usage 15% \u2192 21%; fits FT%, STL (ESPN game logs through Nov 4)",
        "links": [
         [
-         "ESPN game log through Nov 7",
-         "https://www.espn.com/nba/player/gamelog/_/id/4601023"
+         "ESPN game log through Nov 4",
+         "https://www.espn.com/nba/player/gamelog/_/id/4702352"
         ]
        ],
        "where": "fa",
-       "push": false,
-       "id": "4601023",
-       "name": "Oso Ighodaro"
+       "push": true,
+       "id": "4702352",
+       "name": "Kobe Sanders"
       }
      ],
      "shrinking": [
@@ -2931,53 +2926,57 @@
       }
      ],
      "need": [
-      "FT% (all)",
-      "REB (all)",
-      "PTS (all)",
-      "BLK (all)",
-      "3PM (all)",
-      "STL (all)",
-      "AST (all)",
-      "FG% (all)"
+      "FT% (close)",
+      "REB (losing)",
+      "PTS (close)",
+      "BLK (close)",
+      "3PM (losing)",
+      "STL (close)",
+      "AST (losing)"
      ],
      "basis": "ESPN game logs through Nov 7; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "games": {
      "now": {
-      "span": "Sat Nov 7\u2013Sat Nov 7",
+      "span": "Sun Nov 8\u2013Sun Nov 8",
       "groups": [
        [
-        0,
+        1,
         [
-         "ATL",
          "BKN",
          "BOS",
-         "CHA",
          "CHI",
-         "CLE",
          "DAL",
-         "DEN",
          "DET",
-         "GS",
-         "HOU",
-         "IND",
          "LAC",
          "LAL",
-         "MEM",
          "MIA",
          "MIL",
          "MIN",
          "NO",
+         "PHI",
+         "SAC",
+         "UTAH"
+        ]
+       ],
+       [
+        0,
+        [
+         "ATL",
+         "CHA",
+         "CLE",
+         "DEN",
+         "GS",
+         "HOU",
+         "IND",
+         "MEM",
          "NY",
          "OKC",
          "ORL",
-         "PHI",
          "PHX",
          "POR",
          "SA",
-         "SAC",
          "TOR",
-         "UTAH",
          "WSH"
         ]
        ]
@@ -2985,56 +2984,51 @@
       "b2b": []
      },
      "next": {
-      "span": "Sun Nov 8\u2013Sat Nov 14",
+      "span": "Mon Nov 9\u2013Sun Nov 15",
       "groups": [
-       [
-        5,
-        [
-         "NO"
-        ]
-       ],
        [
         4,
         [
-         "CHI",
          "CLE",
          "DAL",
-         "DET",
+         "HOU",
+         "IND",
          "MEM",
-         "MIA",
          "MIL",
-         "UTAH"
+         "NO",
+         "NY",
+         "OKC",
+         "PHX",
+         "SA",
+         "TOR",
+         "UTAH",
+         "WSH"
         ]
        ],
        [
         3,
         [
-         "BKN",
+         "ATL",
          "BOS",
+         "CHA",
+         "CHI",
          "DEN",
+         "DET",
          "GS",
-         "HOU",
-         "IND",
          "LAC",
          "LAL",
-         "MIN",
-         "NY",
-         "OKC",
+         "MIA",
          "ORL",
          "PHI",
-         "PHX",
          "POR",
-         "SA",
-         "SAC",
-         "TOR",
-         "WSH"
+         "SAC"
         ]
        ],
        [
         2,
         [
-         "ATL",
-         "CHA"
+         "BKN",
+         "MIN"
         ]
        ]
       ],
@@ -3043,8 +3037,6 @@
        "CHI",
        "CLE",
        "DAL",
-       "DET",
-       "LAL",
        "MEM",
        "MIA",
        "MIL",
@@ -3060,14 +3052,14 @@
       ]
      },
      "mine": {
-      "now": 0,
-      "opp": 0,
-      "next": 48
+      "now": 7,
+      "opp": 6,
+      "next": 49
      },
      "streamers": [
-      "Spencer Jones (SF/PF, DEN, 0% rostered): 3 games next week (Mo/We/Sa), +10.7 next week, helps 3PM, BLK, FG%",
-      "Derrick Jones Jr. (SF/PF, LAC, 11% rostered): 3 games next week (Su/Tu/Fr), +6.8 next week, helps 3PM, FG%",
-      "Jaxson Hayes (C, UTAH, 13% rostered): 4 games next week (Su/Tu/We/Fr, back-to-back), +6.7 next week, helps BLK, FG%"
+      "Matisse Thybulle (SF, LAL, 4% rostered): 1 game this week (Su), +2.6 this week, helps STL",
+      "Jaxson Hayes (C, UTAH, 13% rostered): 1 game this week (Su), +2.3 this week, helps BLK, FG%",
+      "Derrick Jones Jr. (SF/PF, LAC, 11% rostered): 1 game this week (Su), +2.1 this week, helps 3PM, FG%"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
@@ -3083,7 +3075,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   },
   "Ball is Life": {
@@ -3174,7 +3166,7 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.99,
+      "v": -0.98,
       "rk": 95,
       "wk": 2.4,
       "src": "9 g"
@@ -3219,8 +3211,8 @@
       "Q"
      ],
      "cv": {
-      "v": -2.76,
-      "rk": 142,
+      "v": -2.84,
+      "rk": 147,
       "wk": 0.6,
       "src": "9 g"
      },
@@ -3242,7 +3234,7 @@
      ],
      "cv": {
       "v": -0.4,
-      "rk": 77,
+      "rk": 78,
       "wk": 0.0,
       "src": "10 g"
      },
@@ -3327,7 +3319,7 @@
      "cv": {
       "v": 2.84,
       "rk": 26,
-      "wk": 6.3,
+      "wk": 6.2,
       "src": "10 g"
      },
      "news": null
@@ -3365,7 +3357,7 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -5.19,
+      "v": -5.18,
       "rk": 221,
       "wk": -1.8,
       "src": "8 g"
@@ -3738,7 +3730,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sun 1:12a"
+    "built": "Sun 3:39a"
    }
   }
  }
