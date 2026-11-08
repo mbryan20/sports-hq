@@ -47,14 +47,9 @@ Measure (the health.json check that should move), Design, Decision.
 
 
 ### Q-029 · R1: the laptop starts the GitHub jobs on time (builds Q-014)
-- **Status:** partial (d2bfcb7; logging d5482ef, c590724): the repo side is live and tested, and Claude Ops created both
-  Windows tasks on Nov 5; they run (conhost works) and log every run. They start nothing yet because gh is signed in only
-  inside the Claude desktop app: it's a packaged app, so its `%APPDATA%`/`%LOCALAPPDATA%` writes (gh's `hosts.yml`, and the
-  kick log as seen from its shells) live in a private copy under `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache`,
-  which Task Scheduler can't see (root cause found by Claude Ops; an earlier note here blamed conhost, wrongly). Fix: Michael
-  signs in outside the app, in his own Windows PowerShell window: option A (recommended), a one-repo Actions-only token saved
-  with `kick.ps1 -SaveToken`, or option A2, `gh auth login --hostname github.com --git-protocol https --web`. Steps and
-  tradeoffs: `ops/designs/Q-014.md` "Sign-in for the scheduled tasks". Check the log only from outside the app.
+- **Status:** shipped (d2bfcb7; logging d5482ef, c590724). Working since Nov 8: Michael saved the one-repo token (option A)
+  in his own PowerShell window, and the test kick started `model-health.yml` from the laptop at 8:21am CT. The cause of the
+  earlier silence (the Claude app's private copy of AppData) and the sign-in options stay in `ops/designs/Q-014.md`.
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
   digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
