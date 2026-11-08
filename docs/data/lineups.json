@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T20:57:23Z",
+ "updated": "2026-11-08T21:07:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -176,7 +176,7 @@
      "pos": "RB",
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
-     "started": false,
+     "started": true,
      "proj": 0,
      "status": "OUT",
      "why": "Yahoo: Out",
@@ -225,7 +225,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "Domo Arigato": {
@@ -650,7 +650,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "Guillotine": {
@@ -777,7 +777,7 @@
      "pos": "RB",
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
-     "started": false,
+     "started": true,
      "proj": 12.7,
      "status": null,
      "why": "",
@@ -805,7 +805,7 @@
      "pos": "K",
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
-     "started": false,
+     "started": true,
      "proj": 7.1,
      "status": null,
      "why": "",
@@ -895,7 +895,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 5 of 10 this week, +18.1 pts vs the lowest other team, 4% chance of being cut",
+    "matchup": "Projected 5 of 10 this week, +25.2 pts vs the lowest other team, 1% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -946,46 +946,54 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "3 starters play today, first locks Sun 3:05p",
+     "1 starters play today, first locks Sun 3:25p",
      "FAAB left: $10"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 2:57p",
+    "built": "Sun 3:07p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
      "n": 10,
      "rank": 5,
-     "gap": 18.1,
+     "gap": 25.2,
      "proj": 135.3,
-     "cut": 0.035,
-     "survive": 0.965,
+     "cut": 0.012,
+     "survive": 0.988,
      "faab": 10,
      "waivers": "Wed 2:15a",
      "teams": [
       {
+       "name": "CodyRust",
+       "proj": 110.1,
+       "cut": 0.36,
+       "faab": 0,
+       "bold": 0.75,
+       "me": false
+      },
+      {
        "name": "Off with his head",
        "proj": 117.2,
-       "cut": 0.267,
+       "cut": 0.2,
        "faab": 95,
        "bold": 0.42,
        "me": false
       },
       {
        "name": "MoneyManChas",
-       "proj": 118.0,
-       "cut": 0.243,
+       "proj": 122.0,
+       "cut": 0.147,
        "faab": 150,
        "bold": 0.2,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 119.8,
-       "cut": 0.2,
+       "proj": 119.5,
+       "cut": 0.141,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -993,31 +1001,15 @@
       {
        "name": "robert8063",
        "proj": 129.0,
-       "cut": 0.114,
+       "cut": 0.088,
        "faab": 26,
        "bold": 0.57,
        "me": false
       },
       {
-       "name": "CodyRust",
-       "proj": 132.9,
-       "cut": 0.092,
-       "faab": 0,
-       "bold": 0.75,
-       "me": false
-      },
-      {
-       "name": "michaelbryan",
-       "proj": 135.3,
-       "cut": 0.035,
-       "faab": 10,
-       "bold": 0.58,
-       "me": true
-      },
-      {
        "name": "GoodFellas",
-       "proj": 143.3,
-       "cut": 0.023,
+       "proj": 138.2,
+       "cut": 0.034,
        "faab": 20,
        "bold": 0.74,
        "me": false
@@ -1025,23 +1017,31 @@
       {
        "name": "JHED1979",
        "proj": 140.3,
-       "cut": 0.02,
+       "cut": 0.016,
        "faab": 22,
        "bold": 0.77,
        "me": false
       },
       {
+       "name": "michaelbryan",
+       "proj": 135.3,
+       "cut": 0.012,
+       "faab": 10,
+       "bold": 0.58,
+       "me": true
+      },
+      {
        "name": "SteelRob420",
-       "proj": 166.3,
-       "cut": 0.002,
+       "proj": 161.7,
+       "cut": 0.003,
        "faab": 16,
        "bold": 0.98,
        "me": false
       },
       {
        "name": "Swegs4",
-       "proj": 162.8,
-       "cut": 0.002,
+       "proj": 164.7,
+       "cut": 0.001,
        "faab": 8,
        "bold": 1.0,
        "me": false
@@ -1063,88 +1063,9 @@
      ],
      "bids": [],
      "freed": {
-      "team": "Off with his head",
-      "cut": 0.267,
-      "players": [
-       {
-        "name": "Luther Burden III",
-        "pos": "WR",
-        "team": "CHI",
-        "proj": 12.0,
-        "gain": 2.8,
-        "cut_with": 0.026,
-        "price": 15,
-        "max": 0,
-        "call": "priced out",
-        "rivals": [
-         {
-          "name": "MoneyManChas",
-          "bid": 14
-         },
-         {
-          "name": "JHED1979",
-          "bid": 7
-         },
-         {
-          "name": "robert8063",
-          "bid": 6
-         }
-        ],
-        "freed_from": "Off with his head"
-       },
-       {
-        "name": "Brock Bowers",
-        "pos": "TE",
-        "team": "LV",
-        "proj": 15.2,
-        "gain": 2.5,
-        "cut_with": 0.025,
-        "price": 35,
-        "max": 0,
-        "call": "priced out",
-        "rivals": [
-         {
-          "name": "MoneyManChas",
-          "bid": 34
-         },
-         {
-          "name": "JHED1979",
-          "bid": 16
-         },
-         {
-          "name": "robert8063",
-          "bid": 14
-         }
-        ],
-        "freed_from": "Off with his head"
-       },
-       {
-        "name": "Ladd McConkey",
-        "pos": "WR",
-        "team": "LAC",
-        "proj": 10.8,
-        "gain": 1.6,
-        "cut_with": 0.029,
-        "price": 9,
-        "max": 0,
-        "call": "priced out",
-        "rivals": [
-         {
-          "name": "MoneyManChas",
-          "bid": 8
-         },
-         {
-          "name": "JHED1979",
-          "bid": 4
-         },
-         {
-          "name": "robert8063",
-          "bid": 3
-         }
-        ],
-        "freed_from": "Off with his head"
-       }
-      ]
+      "team": "CodyRust",
+      "cut": 0.36,
+      "players": []
      }
     }
    }
@@ -1420,7 +1341,7 @@
      "started": true,
      "proj": 9.3,
      "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "why": "ESPN: OUT, but ESPN says Questionable: unconfirmed",
      "flags": [
       "Q"
      ],
@@ -1563,7 +1484,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "Stempak": {
@@ -1920,7 +1841,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "Bro-vid19": {
@@ -1957,7 +1878,7 @@
      "pos": "WR/FLEX",
      "opp": "@LAC",
      "kickoff": "2026-11-08T21:05:00Z",
-     "started": false,
+     "started": true,
      "proj": 13.8,
      "status": null,
      "why": "",
@@ -2055,7 +1976,7 @@
      "pos": "RB/FLEX",
      "opp": "vs HOU",
      "kickoff": "2026-11-08T21:05:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.8,
      "status": null,
      "why": "",
@@ -2225,14 +2146,12 @@
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "2 starters play today, first locks Sun 3:05p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "3-Ball BB": {
@@ -3003,7 +2922,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   },
   "Ball is Life": {
@@ -3680,7 +3599,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Sun 2:57p"
+    "built": "Sun 3:07p"
    }
   }
  }
