@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T23:07:00Z",
+ "updated": "2026-11-09T23:17:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -219,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "Domo Arigato": {
@@ -665,7 +665,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "Guillotine": {
@@ -962,7 +962,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 5:07p",
+    "built": "Mon 5:17p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1492,7 +1492,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "Stempak": {
@@ -1861,7 +1861,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "Bro-vid19": {
@@ -2187,7 +2187,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "3-Ball BB": {
@@ -2574,7 +2574,7 @@
     "trades": null,
     "notes": [
      "8 of 10 starters play tonight",
-     "Move Jarrett Allen out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 8 4:15p: Allen (knee) is questionable for Monday's game against Charlotte.]"
+     "Move Jarrett Allen out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench"
     ],
     "cats": {
      "rows": [
@@ -2768,16 +2768,12 @@
      ],
      "shrinking": [
       {
-       "text": "Jarrett Allen (C, CLE): minutes 28 \u2192 20 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 16% \u2192 24%; he's on ESPN's injury report [ESPN Nov 8: Day-To-Day, Allen (knee) is questionable for Monday's game against Charlotte.]. Check his minutes before you start him over a rising free agent.",
-       "short": "Jarrett Allen (CLE, yours): minutes 28 \u2192 20 [ESPN Nov 8: Day-To-Day, Allen (knee) is questionable for Monday's game against Charlotte.] (ESPN game logs through Nov 4)",
+       "text": "Jarrett Allen (C, CLE): minutes 28 \u2192 20 in his last 3 games (Oct 31\u2013Nov 4) vs 5 before, usage 16% \u2192 24%. Check his minutes before you start him over a rising free agent.",
+       "short": "Jarrett Allen (CLE, yours): minutes 28 \u2192 20 (ESPN game logs through Nov 4)",
        "links": [
         [
          "ESPN game log through Nov 4",
          "https://www.espn.com/nba/player/gamelog/_/id/4066328"
-        ],
-        [
-         "ESPN Nov 8",
-         "https://www.espn.com/nba/player/_/id/4066328/jarrett-allen"
         ]
        ]
       },
@@ -3000,7 +2996,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   },
   "Ball is Life": {
@@ -3219,10 +3215,11 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
+     "status": "Q",
+     "why": "ESPN: Day-To-Day",
      "flags": [
-      "NO GAME"
+      "NO GAME",
+      "Q"
      ],
      "cv": {
       "v": 2.91,
@@ -3230,7 +3227,11 @@
       "wk": 18.9,
       "src": "10 g"
      },
-     "news": null
+     "news": {
+      "note": "Antetokounmpo posted 29 points (14-23 FG, 0-1 3Pt, 1-7 FT), 14 rebounds, three assists, two blocks and two steals over 34 minutes during Sunday's 114-108 victory over the Kings.",
+      "at": "2026-11-09T23:04:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/3032977/giannis-antetokounmpo"
+     }
     },
     {
      "slot": "BN",
@@ -3697,7 +3698,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Mon 5:07p"
+    "built": "Mon 5:17p"
    }
   }
  }
