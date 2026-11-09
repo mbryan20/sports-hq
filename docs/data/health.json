@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T16:48:28Z",
+ "generated": "2026-11-09T08:55:26Z",
  "summary": {
   "ok": 11,
   "watch": 0,
@@ -27,8 +27,8 @@
    "section": "radar",
    "id": "radar.held",
    "label": "Flagged free agents whose bigger role held",
-   "value": 0.73,
-   "n": 37,
+   "value": 0.71,
+   "n": 42,
    "unit": "%",
    "baseline": 1.0,
    "baseline_set": "2026-11-03",
@@ -39,8 +39,8 @@
    "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestions (z per game)",
-   "value": -3.5,
-   "n": 37,
+   "value": -2.98,
+   "n": 42,
    "unit": "z",
    "baseline": 1.32,
    "baseline_set": "2026-11-03",
@@ -140,7 +140,7 @@
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 9.0,
+     "value": 8.9,
      "n": 187,
      "unit": "$",
      "baseline": 9.3,
@@ -151,7 +151,7 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.55,
+     "value": 0.56,
      "n": 187,
      "unit": "%",
      "target": 0.5,
@@ -295,9 +295,9 @@
     },
     "prices": {
      "n": 187,
-     "cov50": 0.55,
+     "cov50": 0.56,
      "cov80": 0.81,
-     "est_mae": 9.0,
+     "est_mae": 8.9,
      "by": {
       "pos DEF": {
        "n": 24,
@@ -315,23 +315,23 @@
        "n": 23,
        "cov50": 0.7,
        "cov80": 0.87,
-       "est_mae": 10.6
+       "est_mae": 10.7
       },
       "pos RB": {
        "n": 35,
        "cov50": 0.34,
        "cov80": 0.69,
-       "est_mae": 18.9
+       "est_mae": 18.7
       },
       "pos TE": {
        "n": 24,
-       "cov50": 0.58,
+       "cov50": 0.62,
        "cov80": 0.88,
        "est_mae": 6.1
       },
       "pos WR": {
        "n": 61,
-       "cov50": 0.48,
+       "cov50": 0.49,
        "cov80": 0.74,
        "est_mae": 8.5
       },
@@ -343,15 +343,15 @@
       },
       "legs 5-8": {
        "n": 96,
-       "cov50": 0.57,
+       "cov50": 0.59,
        "cov80": 0.82,
-       "est_mae": 5.7
+       "est_mae": 5.6
       },
       "estimate $10+": {
        "n": 54,
-       "cov50": 0.46,
+       "cov50": 0.5,
        "cov80": 0.81,
-       "est_mae": 18.6
+       "est_mae": 18.5
       },
       "estimate under $10": {
        "n": 133,
@@ -1182,8 +1182,8 @@
     {
      "id": "radar.held",
      "label": "Flagged free agents whose bigger role held",
-     "value": 0.73,
-     "n": 37,
+     "value": 0.71,
+     "n": 42,
      "unit": "%",
      "baseline": 1.0,
      "baseline_set": "2026-11-03",
@@ -1193,8 +1193,8 @@
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": -3.5,
-     "n": 37,
+     "value": -2.98,
+     "n": 42,
      "unit": "z",
      "baseline": 1.32,
      "baseline_set": "2026-11-03",
@@ -1204,15 +1204,15 @@
     }
    ],
    "details": {
-    "flagged": 37,
-    "held": 27,
-    "held_rate": 0.73,
-    "flag_value": -3.65,
-    "wire_value": -0.15,
-    "edge": -3.5,
+    "flagged": 42,
+    "held": 30,
+    "held_rate": 0.71,
+    "flag_value": -4.25,
+    "wire_value": -1.28,
+    "edge": -2.98,
     "added_later": 1,
-    "any_flagged": 103,
-    "any_held": 68
+    "any_flagged": 115,
+    "any_held": 73
    },
    "notes": []
   },
