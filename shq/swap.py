@@ -41,6 +41,29 @@ def strength_text(p):
     return f"value {v['v']:+.1f}/g, #{v['rk']}" if v else f"{p['proj']} proj"
 
 
+MIN_FILL = 1.0   # a points-league fill-in projected under this is no fix (Nov 10: "start Carson Wentz", projected 0)
+FA_EDGE = 5.0    # a free agent this many points better than the best bench fill-in is the real fix
+
+
+def slot_fa(slot, free_agents, now, skip=()):
+    """Best playable free agent who can legally fill `slot`, by this week's projection (flex and superflex slots
+    take every position they allow, so a dead QB in SUPER_FLEX/OP can be covered by a QB)."""
+    cands = [p for p in free_agents if p["id"] not in skip and p.get("positions")
+             and eligible(slot, p["positions"]) and playable(p, now)]
+    return max(cands, key=lambda p: (p["proj"], p.get("owned", 0)), default=None)
+
+
+def fa_over_bench(bench_pick, fa):
+    """Points leagues: True when adding `fa` is the better fix for a dead starter than `bench_pick` (None = no
+    bench fit): the bench option projects under MIN_FILL, or the free agent beats him by FA_EDGE or more.
+    Suggestion only: nothing here ever adds or drops."""
+    if fa is None:
+        return False
+    if bench_pick is None:
+        return True
+    return fa["proj"] > bench_pick["proj"] and (bench_pick["proj"] < MIN_FILL or fa["proj"] - bench_pick["proj"] >= FA_EDGE)
+
+
 def plan_injury_swaps(starters, bench, now, lead_hours=2):
     """For each OUT/IR/inactive starter inside its pre-kickoff window, pick the best healthy bench
     player who can legally fill that slot. Returns [{out, in (or None), slot}]."""
