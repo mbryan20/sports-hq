@@ -7,7 +7,9 @@ Built on the player values (shq/nba_values.py) and this week's category table (s
 - A swap's gain is the add's worth minus the drop's. Once the week has no games left it uses next week's games.
 - Never suggested: a drop from an IR slot (it frees no spot), an add who is out, a swap that costs more than SEASON_SLACK
   value per game for the rest of the season (one good week isn't worth a worse player), and in dynasty leagues a drop
-  rostered on DYNASTY_KEEP% or more of ESPN leagues or younger than DYNASTY_YOUNG. A dead roster spot (no NBA team) always goes first."""
+  rostered on DYNASTY_KEEP% or more of ESPN leagues or younger than DYNASTY_YOUNG. A dead roster spot (no NBA team) always goes first.
+- Never a drop either: a player of mine the trend radar has rising, unless his rise "may fade" (league.radar["keep"],
+  shq/radar.py, Q-047). The radar would say start him while this said drop him; the weekly plan uses these same swaps."""
 from .nba_values import by_id
 
 WEIGHT = {"close": 1.5, "lose": 0.5, "win": 0.5, "tie": 1.0}
@@ -60,7 +62,9 @@ def build(league, cats=None):
     ir = {str(p["id"]) for p in league.data["roster"] if p.get("slot") == 13}
     mine = [ids[str(p["id"])] for p in league.data["roster"] if str(p["id"]) in ids and str(p["id"]) not in ir]
     deads = [p for p in mine if dead(p)]
-    drops = [p for p in mine if dead(p) or not dynasty or (p["pct"] < DYNASTY_KEEP and (p.get("age") or 99) >= DYNASTY_YOUNG)]
+    keep = set((getattr(league, "radar", None) or {}).get("keep") or [])     # rising on the radar, not "may fade"
+    drops = [p for p in mine if dead(p) or (str(p["id"]) not in keep
+             and (not dynasty or (p["pct"] < DYNASTY_KEEP and (p.get("age") or 99) >= DYNASTY_YOUNG)))]
     adds = [p for p in block["players"] if not p["own"] and not p.get("out") and not dead(p)]
     pairs = []
     for d in drops:
@@ -85,7 +89,8 @@ def build(league, cats=None):
                if not any(s["drop"] is p for s in swaps)],
             "basis": f"Gain = each player's value above a waiver-level player × games {when}, categories weighted by this "
                      "week's need (close ones most). Never gives up more than "
-                     f"{SEASON_SLACK:g} value per game for the rest of the season"
+                     f"{SEASON_SLACK:g} value per game for the rest of the season; never drops a player the trend radar "
+                     "has rising unless it may fade"
                      + (f"; dynasty: never drops anyone {DYNASTY_KEEP}%+ rostered on ESPN or under {DYNASTY_YOUNG}" if dynasty else "")
                      + "."}
 

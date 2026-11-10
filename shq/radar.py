@@ -13,7 +13,15 @@ the floor (Basketball-Reference's formula, over the same games).
 
 scan() is league-free: who is rising, whose role is shrinking, who absorbs an injured starter's minutes.
 block() turns it into one league's lines: free agents and my bench rising, ranked by the categories I'm losing
-or that are close (shq/categories.py), my players losing minutes, and the cited injuries behind them."""
+or that are close (shq/categories.py), my players losing minutes, and the cited injuries behind them.
+
+One answer per player across the league tab (Q-047). The radar, Lineup moves, Waiver adds and the category chase used to
+disagree ("start him" here, "Drop him" two sections down). The rule:
+- A player of mine the radar has rising, and not "may fade", is never a drop: block()'s "keep" ids, which
+  shq/nba_swaps.py skips (and so the weekly plan, built from the same swaps).
+- My shrinking players ("shrink_ids") and anyone on my bench are never "Keep in the lineup" in the chase (shq/categories.py).
+- "Start him" for a rising bench player only when today's Lineup moves start him (agree(), after shq/nba_lineup.py has
+  run); otherwise "worth a start" / "consider starting him" with the reason there's no move today."""
 import json
 import time
 
@@ -156,6 +164,12 @@ def may_fade(rl, gone):
     """No key teammate's absence behind the jump and fewer than LASTED straight games of it (Q-045 backtest: those
     held 9 of 16, the rest 18 of 26)."""
     return not gone and rl["streak"] < LASTED
+
+
+def fades(rl, gone, out):
+    """The radar text's "may fade": may_fade(), or the teammate whose absence explains the jump is back off
+    ESPN's injury report. A rising player of mine who fades can be a drop; one who doesn't is kept (shq/nba_swaps.py)."""
+    return may_fade(rl, gone) or bool(gone and gone[0] not in out)
 
 
 def rank_key(rl, gone, out, fit, games=1):
@@ -310,12 +324,15 @@ def block(league, cats=None):
     rising_items.sort(key=lambda t: t[0])
     fas = [i for _, i in rising_items if i["where"] == "fa"][:4]
     bench = [i for _, i in rising_items if i["where"] == "bench"]
-    shrink = [shrink_item(league, sc, pid, roles[pid]) for pid, p in mine.items()
-              if pid in pool and shrinking(roles.get(pid)) and pid not in sc["out"]]
+    shrink_ids = [pid for pid in mine if pid in pool and shrinking(roles.get(pid)) and pid not in sc["out"]]
+    shrink = [shrink_item(league, sc, pid, roles[pid]) for pid in shrink_ids]
+    ir = {str(p["id"]) for p in league.data["roster"] if p.get("slot") == ef.BENCH["nba"][1]}
+    keep = sorted(pid for pid in mine if pid in pool and pid not in ir and rising(roles.get(pid)) and pid not in sc["out"]
+                  and not fades(roles[pid], absences(pool, pool[pid]["team"], [d for d, *_ in roles[pid]["games"]]), sc["out"]))
     injuries = injury_items(league, sc, taken, mine)
     last = max((rl["last"] for rl in roles.values() if rl), default=None)
     return {
-        "rising": bench + fas, "shrinking": shrink, "injuries": injuries,
+        "rising": bench + fas, "shrinking": shrink, "injuries": injuries, "keep": keep, "shrink_ids": shrink_ids,
         "need": [NBA_STATS[c] + f" ({o})" for c, o in need.items()],
         "basis": "ESPN game logs" + (f" through {_day(sc['dates'].get(last))}" if last in sc["dates"] else "")
                  + "; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores"
@@ -395,11 +412,11 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
     p, dates = sc["pool"][pid], sc["dates"]
     g_now, g_next, b2b = games
     pos = POS.get(p["pos"], "?")
-    tag = "on your bench: start him" if where == "bench" else f"free agent, {p['owned']:.0f}% owned{change_text(pid, p, hist)}"
+    tag = "on your bench" if where == "bench" else f"free agent, {p['owned']:.0f}% owned{change_text(pid, p, hist)}"   # agree() adds the verdict
     text = f"{p['name']} ({pos}, {team_abbrev(league.sched, p['team'])}), {tag}: {window_text(rl, dates)}"
     links = [[f"ESPN game log through {_day(dates.get(rl['last']))}", GAMELOG.format(pid)]]
-    fade = may_fade(rl, gone)
-    if fade:
+    fade = fades(rl, gone, sc["out"])
+    if may_fade(rl, gone):
         run = f" and {rl['streak']} straight game{'s' if rl['streak'] != 1 else ''} of it so far" if rl["streak"] else ""
         text += f"; no teammate's injury behind it{run}, so this may fade"
     if gone:
@@ -429,6 +446,38 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
              + ("; may fade" if fade else "")
              + f" (ESPN game logs through {_day(dates.get(rl['last']))})")
     return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"], "fade": fade}
+
+
+def agree(r, moves, bench, now):
+    """Give each rising bench player the same verdict as today's Lineup moves (the ones shown, shq/nba_lineup.py):
+    "start him today" only when a move starts him; otherwise why there's no move: no game today, his game has started,
+    he's questionable, or his season value doesn't beat a starter who plays today by nba_lineup.MIN_EDGE."""
+    if not r:
+        return r
+    from . import nba_lineup
+    from .swap import playable
+    starts = {str(m.get("start_key")) for m in moves}
+    rows = {str(b.get("key")): b for b in bench}
+    for i in r.get("rising") or []:
+        if i["where"] != "bench":
+            continue
+        b = rows.get(i["id"])
+        if i["id"] in starts:
+            verdict = "start him today (it's in Lineup moves)"
+        elif not b:
+            verdict = "consider starting him"
+        elif not nba_lineup._today(b, now):
+            verdict = "worth a start on his next game day (no game today)"
+        elif b["started"] or now >= b["kickoff"]:
+            verdict = "worth a start next game (today's game has started)"
+        elif not playable(b, now):
+            verdict = f"consider starting him if he plays ({b['status']} today)"
+        else:
+            verdict = (f"consider starting him (no lineup move today: his season value doesn't beat a starter who plays "
+                       f"today by {nba_lineup.MIN_EDGE:g}+ value/g)")
+        i["text"] = i["text"].replace(", on your bench:", f", on your bench, {verdict}:", 1)
+        i["verdict"] = verdict
+    return r
 
 
 def shrink_item(league, sc, pid, rl):

@@ -5,7 +5,11 @@ opponent, and per-game averages by player id for both rosters and the free agent
 come from the snapshot's "roster", "teams" and "free_agents". Projects the rest of the week
 (each day, the best healthy players with a game fill the starting slots), then says per category
 whether I'm on course to win, lose or it's close, which of my players have the most left to give in the
-close ones, and which free agents would help there."""
+close ones, and which free agents would help there.
+
+"Keep in the lineup" names only players who are in a starting slot now and whose role isn't shrinking on the trend radar
+(build()'s skip ids, from radar.block()'s "shrink_ids"; Q-047): a benched player or one losing minutes isn't one to
+keep starting."""
 from .config import TZ
 from .espn_fantasy import BENCH, NBA_STATS, RATIO, SLOT_NAMES
 from .status import OUTISH, worst
@@ -15,7 +19,8 @@ CLOSE_RATIO = {19: 0.015, 20: 0.03, 21: 0.02, 35: 0.15}  # FG%, FT%, 3P%, A/TO: 
 NBA_POS = ("PG", "SG", "SF", "PF", "C")
 
 
-def build(league):
+def build(league, skip=()):
+    """The week's category table. skip: my player ids (str) the chase must not tell me to keep starting (shrinking roles)."""
     m = (getattr(league, "data", None) or {}).get("matchup")
     if not m or not m.get("cats") or not _this_week(league):
         return None
@@ -45,7 +50,7 @@ def build(league):
         "proj": f"{outlooks.count('win')}-{outlooks.count('lose')}",
         "close": len(close),
         "games_left": [my_games, opp_games],
-        "chase": [] if done else [_chase(league, cat, reverse, mine, end_mine) for cat, reverse in close[:3]]
+        "chase": [] if done else [_chase(league, cat, reverse, _starting(mine, skip), end_mine) for cat, reverse in close[:3]]
                  or ["No category is within reach either way; nothing to chase."],
         "adds": [] if done else _adds(league, fas, close, end_mine),
     }
@@ -161,6 +166,12 @@ def _per_game(cat, p):
     return f"{p['avg'].get(str(cat), 0):.1f}/g"
 
 
+def _starting(mine, skip):
+    """[(player, games)] of mine in a starting slot now (not bench or IR) and not in skip."""
+    skip = {str(x) for x in skip or ()}
+    return [(p, g) for p, g in mine if p.get("slot") not in BENCH["nba"] and str(p["id"]) not in skip]
+
+
 def _chase(league, cat, reverse, mine, end):
     """A close category: my players with the most left to give there over their remaining games."""
     name = NBA_STATS[cat]
@@ -169,7 +180,7 @@ def _chase(league, cat, reverse, mine, end):
     who = " and ".join(f"{p['name']} ({g} games, {_per_game(cat, p)})" for v, p, g in ranked[:2] if v > 0)
     if reverse:
         return f"{name} is close: fewer games helps here" + (f"; most of yours come from {who}." if who else ".")
-    return f"{name} is close. Keep in the lineup: {who}." if who else f"{name} is close; no one on your roster has much left there."
+    return f"{name} is close. Keep in the lineup: {who}." if who else f"{name} is close; none of your starters has much left there."
 
 
 def _adds(league, fas, close, end):
