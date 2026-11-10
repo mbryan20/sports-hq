@@ -250,7 +250,7 @@ def sleeper_section(cfg, view, week, games, edition):
     lid, scoring = lg["league_id"], lg["scoring_settings"]
     rosters = sleeper.rosters(lid)
     names = {u["user_id"]: (u.get("metadata") or {}).get("team_name") or u.get("display_name") for u in users}
-    if cfg.get("format") == "guillotine":   # "Team name (username)", as on the league page and War Room (Q-047)
+    if cfg.get("format") == "guillotine":   # "Team name (username)", as on the league page and War Room (Q-048)
         names = {u["user_id"]: guillotine_mod.team_label(u) for u in users}
     team = {r["roster_id"]: _clean(names.get(r["owner_id"])) or f"Team {r['roster_id']}" for r in rosters}
     mine = next(r["roster_id"] for r in rosters if r["owner_id"] == uid)
@@ -644,7 +644,7 @@ def stale_lines(cfb_week, events):
 # ---------- war room ----------
 
 def warroom_section(names=None):
-    """`names` maps War Room v2's usernames to the league page's "Team name (username)" labels (Q-047)."""
+    """`names` maps War Room v2's usernames to the league page's "Team name (username)" labels (Q-048)."""
     b = load_json(ROOT / "docs" / "war-room-v2" / "bids.json")
     if not b:
         return None

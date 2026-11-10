@@ -1,4 +1,4 @@
-"""Q-047: the Weekly plan, the Today check and the league tiles agree with the live league page (fixtures, no network)."""
+"""Q-048: the Weekly plan, the Today check and the league tiles agree with the live league page (fixtures, no network)."""
 import datetime as dt
 import os
 import unittest

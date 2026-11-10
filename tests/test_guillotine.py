@@ -140,7 +140,7 @@ class Analyze(unittest.TestCase):
     def test_odds_rank_and_bids(self):
         out = g.analyze(self.lg, self.ctx, NOW, sims=2000, past=[], v2={})
         self.assertEqual((out["n"], out["rank"], out["faab"]), (3, 2, 60))
-        self.assertEqual(out["teams"][0]["name"], "Weak Sauce (Weak)")    # most at risk first; team name (username), Q-047
+        self.assertEqual(out["teams"][0]["name"], "Weak Sauce (Weak)")    # most at risk first; team name (username), Q-048
         self.assertGreater(out["teams"][0]["cut"], out["cut"])
         self.assertAlmostEqual(out["cut"] + out["survive"], 1.0)
         self.assertEqual([b["name"] for b in out["bids"]], ["fa"])  # fk adds nothing to my lineup

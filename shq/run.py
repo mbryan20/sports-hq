@@ -171,7 +171,7 @@ def start_sit_lines(league, fixes=None):
     """Weekly tab start/sit, rebuilt every run so an injury status is never days old. `fixes` is the league page's
     live fix list (advice["fixes"]): when given, its lines lead (a bye QB's "add <free agent> and start him", an IR
     starter's fix) and the start/sit upgrades cover only healthy starters, so the plan says what the league page says
-    (Q-047). All fixes are kept; upgrades fill up to 3 lines."""
+    (Q-048). All fixes are kept; upgrades fill up to 3 lines."""
     if getattr(league, "sport", "nfl") == "nba":
         return nba_weekly_section(league)["start_sit"]
     from .swap import start_sit
@@ -210,7 +210,7 @@ def add_key(line):
 
 
 def live_adds(sec, adv):
-    """Q-047: the Weekly plan's adds follow the league page's live list (advice["adds"], rebuilt every run). Tuesday's
+    """Q-048: the Weekly plan's adds follow the league page's live list (advice["adds"], rebuilt every run). Tuesday's
     7am list stays as `plan_adds`; `plan_changed` holds its lines whose add or drop the live list no longer makes."""
     if not adv or not adv.get("adds"):
         return
@@ -238,7 +238,7 @@ def refresh_weekly(weekly, leagues, views, now):
 
 def weekly_section(league, adv=None):
     """Tuesday's plan for one football league. `adv` is the league page's advice from this same run: its fixes lead
-    the start/sit and its adds are the plan's adds, so the two pages start the week identical (Q-047)."""
+    the start/sit and its adds are the plan's adds, so the two pages start the week identical (Q-048)."""
     from .swap import fa_adds
     ss = start_sit_lines(league, adv.get("fixes") if adv else None)
     if adv and adv.get("adds"):
@@ -293,7 +293,7 @@ def digest_due(now, local_generated, origin=origin_digest):
 
 
 def refresh_digest(today, leagues, now, cards=None):
-    """Q-047: after the day's 8am digest, every later run rebuilds its items in place from this run's leagues (the
+    """Q-048: after the day's 8am digest, every later run rebuilds its items in place from this run's leagues (the
     same digest.league_items the league pages' fixes come from), so the Today check never contradicts a league page.
     Leagues this run couldn't read keep their earlier items. Never pushes: the 8am push was the day's one, and the
     injury watch pushes a new OUT before kickoff. Returns the updated digest, or None when there's nothing to refresh
@@ -486,7 +486,7 @@ def main():
             traceback.print_exc()
             errors.append(f"digest: {type(e).__name__}: {e}")
     else:
-        try:   # later runs keep today's items in step with the league pages, without pushing (Q-047)
+        try:   # later runs keep today's items in step with the league pages, without pushing (Q-048)
             fresh = refresh_digest(today, leagues, now, load_json(ROOT / "picks" / "data" / "cards.json", {}))
             if fresh:
                 save_json(DATA / "digest.json", fresh)

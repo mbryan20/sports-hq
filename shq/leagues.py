@@ -441,7 +441,7 @@ def view(league, advice=None):
         "opponent": league.opponent, "opp_proj": league.opp_proj,
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
         # category leagues have no points: no team projection (the page shows the category outlook instead)
-        # starters who can't play (empty, bye, OUT/IR/Doubtful) count 0, same as the headline (shq/advice.py, Q-047)
+        # starters who can't play (empty, bye, OUT/IR/Doubtful) count 0, same as the headline (shq/advice.py, Q-048)
         "proj": None if getattr(league, "sport", "nfl") == "nba" else round(sum(
             p["proj"] for p in league.starters
             if not (p.get("empty") or p["bye"] or p["status"] in OUTISH | {"D"})), 1),

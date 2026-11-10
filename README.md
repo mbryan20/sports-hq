@@ -20,7 +20,7 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | 3-Ball FB / 3-Ball BB | ESPN 3-Ball Dynasty (football, basketball) | ESPN API, public league (cloud) |
 | Stempak, Bro-vid19 | ESPN football, private | laptop snapshot with Michael's ESPN sign-in |
 | Ball is Life | ESPN "We playin basketball", 8-cat, private | laptop snapshot |
-| Weekly | start/sit + top 3 adds per league (basketball: drop/add swaps on category value); every run after that its start/sit (the league page's fixes, then upgrades) and adds follow the league page, with Tuesday's moves it no longer makes noted (Q-047) | Tuesday 7am CT, refreshed every run |
+| Weekly | start/sit + top 3 adds per league (basketball: drop/add swaps on category value); every run after that its start/sit (the league page's fixes, then upgrades) and adds follow the league page, with Tuesday's moves it no longer makes noted (Q-048) | Tuesday 7am CT, refreshed every run |
 | Wrap-up (`/wrapups/`, header link) | weekend wrap-up: every league's result, bench points, booms/busts, cited injuries, next week's moves, pools, War Room bids; a phone-sized PDF plus a web page, archived per week; push opens the PDF | cloud, Sunday night after the late games + final Tuesday 8am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
@@ -65,7 +65,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   "add <free agent> (proj) and start him" (open roster spot, or the drop `shq/waivers.py` picks) when the best bench
   fill-in projects under 1 point or a free agent beats him by 5+; every fix shows the projection, 0 included. A digest whose first run is after 1pm
   fills the tab without pushing. Every later run that day rebuilds the items in place from the same live fixes the league
-  pages show ("updated <time>" on the tab), never pushing (Q-047). NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
+  pages show ("updated <time>" on the tab), never pushing (Q-048). NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
   most one a day for both basketball leagues, from 3h before the first affected tip-off, only when a starter has no game,
   is out or the slot is empty and a bench player who plays today can fill it, or a bench player who plays today is worth
   1+ value per game more than a playing starter. The same moves show as "Lineup moves" on the tabs.

@@ -64,7 +64,7 @@ def _e(s):
     return H.escape(str(s or ""))
 
 
-LABEL_MAX = 32   # "Team name (username)" labels (Q-047): the label column grows to fit instead of cutting at 16
+LABEL_MAX = 32   # "Team name (username)" labels (Q-048): the label column grows to fit instead of cutting at 16
 
 
 def _short(s, n=LABEL_MAX):

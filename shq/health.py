@@ -225,7 +225,7 @@ class League:
         # the dashboard names teams by team_name when one is set (shq/guillotine.py)
         self.team_name = {r["roster_id"]: ((by_uid.get(r["owner_id"]) or {}).get("metadata") or {}).get("team_name") or self.display[r["roster_id"]]
                           for r in self.rosters}
-        # since Q-047 the dashboard names them "Team name (username)" (guillotine.team_label)
+        # since Q-048 the dashboard names them "Team name (username)" (guillotine.team_label)
         from .guillotine import team_label
         self.label = {r["roster_id"]: team_label(by_uid.get(r["owner_id"])) or self.display[r["roster_id"]] for r in self.rosters}
         self.cut_week = {r["roster_id"]: (r.get("settings") or {}).get("eliminated") for r in self.rosters}

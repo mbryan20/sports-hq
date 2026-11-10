@@ -197,7 +197,7 @@ def v2_current(v2, week, now):
 def team_label(user):
     """One name per Sleeper team on every page: "Team name (username)" when the user set a team name that differs
     from the username, else whichever exists. War Room v2 names teams by username, this page used the team name
-    (Q-047: "Off with his head" here was "damonhawk1" there)."""
+    (Q-048: "Off with his head" here was "damonhawk1" there)."""
     user = user or {}
     team = " ".join(str((user.get("metadata") or {}).get("team_name") or "").split())
     name = " ".join(str(user.get("display_name") or "").split())

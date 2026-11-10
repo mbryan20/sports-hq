@@ -246,6 +246,41 @@ Measure (the health.json check that should move), Design, Decision.
   from Tuesday's build (`shq/run.py`, not touched here), so its Draymond line changes at the next weekly rebuild.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
+### Q-048 · Weekly plan, Today check and league tiles disagreed with the live league page
+- **Status:** shipped (be753c1)
+- **Area:** `shq/run.py` (`start_sit_lines(fixes)`, `weekly_section(adv)`, `refresh_weekly`, `live_adds`, `add_key`,
+  `refresh_digest`), `shq/leagues.py` (`view`'s `proj` sum only), `shq/guillotine.py` (`team_label`, `labels`, `v2_rows`
+  names + `sid`), `shq/wrapup.py` / `shq/wrapup_render.py` (guillotine names, chart label width), `shq/health.py`
+  (`rec_outcomes` reads `advice.guillotine.model`, `id_lookup`; `shown_cut_odds` knows the new labels), `docs/lib/core.js`
+  (Weekly "Tuesday's plan had" note, Today "updated"), `tests/test_live_sync.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops)
+- **Evidence:** live site Tue Nov 10 ~5pm CT: the Weekly plan's adds were the 7:02am list (Domo Boswell vs the league
+  page's Zvada; Guillotine Shough vs Jordan Love; Stempak Jordyn Tyson vs A.J. Brown/Davante Adams; 3-Ball BB Quenton
+  Jackson vs Isaiah Stewart; Ball is Life drop Draymond vs drop Dunn) and its start/sit left out Domo's QB and K bye
+  fixes and Stempak's Malik Willis IR fix. The 8am Today check was never updated (Elliott → "best FA Chris Boswell" vs
+  Zvada; Stevenson "Questionable: unconfirmed" vs OUT; "start Carson Wentz (11.8 proj)" vs add a free agent): the
+  README's "late runs update the tab" only meant a first build after 1pm. Stempak's tile said 172.7 vs a 156.7 headline
+  (Willis on IR, proj 16, counted in `lg.proj`). Guillotine teams were "Off with his head" on the league page,
+  "damonhawk1" in War Room v2's rival bids and wrap-up War Room lines, and the wrap-up chart cut names at 16 characters.
+- **Expected impact:** the Weekly plan keeps its Tuesday framing, but every run its start/sit is the league page's fixes
+  then healthy upgrades (up to 3 lines; fixes never cut) and its adds are the league page's adds; Tuesday's moves the live
+  list no longer makes (by added and dropped player, not numbers) show as "Tuesday's plan had: …". After the 8am digest,
+  each later run rebuilds today's items in place from the same `digest.league_items` the league pages use (title
+  recount, "updated <time>"), never pushing; leagues a run couldn't read keep their items. Tile totals count OUT/IR/
+  Doubtful/bye/empty starters as 0, like the headline. Guillotine teams read "Team name (username)" on the league page,
+  rival bids, trade offers and the wrap-up (chart labels fit up to 32 characters). Model health scores the old model's
+  bids again (they had been v2's own rows since Q-044), matched by Sleeper id, else by a Jr./III-blind name.
+- **Effort:** S
+- **Risk:** Low (display and plan text; no push added, the digest refresh never pushes)
+- **Measure:** — (one-off: weekly.json adds = lineups.json advice.adds per league; digest items = league fixes; tile
+  `proj` = headline). Health: `dash_rows` counts the model's rows again.
+- **Design:** `run.main` passes this run's `league_views` advice to the Tuesday build and to `refresh_weekly` (stale or
+  pending views are skipped, so that league keeps its last list); `plan_adds` is set once (`setdefault`). The digest
+  refresh runs only when the digest isn't due and `generated` is today (CT), and only rewrites the file when an item
+  changed. NBA weekly start/sit and the swap drop rules are unchanged (Q-047's area).
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
