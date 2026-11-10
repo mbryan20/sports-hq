@@ -61,7 +61,27 @@
   // ---------- summaries ----------
   const realAdds = list => (list || []).filter(t => !/^(No free agent|FA adds need)/i.test(t));
   const offerText = o => `Give ${o.give.join(" + ")} → get ${o.get.join(" + ")} (to ${o.team}, you +${o.my_gain}/gm)`;
-  const bidText = b => `${b.name} (${b.pos} ${b.team || "FA"}, +${b.gain} pts): ${b.call === "bid" ? `bid $${b.price}${b.max > b.price ? "–" + b.max : ""}` : `${b.call}: rivals may go $${b.price}, worth $${b.max} to you`}`;
+  // One guillotine bid line, call first. Rows from War Room v2 (b.v2: shq/guillotine.py v2_rows) carry its
+  // call, bid, drop, why and win chance; the dashboard model's own rows (the fallback) carry a likely price.
+  const bidText = S.bidText = b => {
+    const pts = b.gain > 0 ? `+${b.gain} pts` : b.gain_ros > 0 ? `+${b.gain_ros} pts rest of season` : "";
+    const who = `${b.name} (${[b.pos, b.pos === "DEF" ? "" : b.team || "FA"].filter(Boolean).join(" ")}${pts ? ", " + pts : ""}${b.injury ? ", " + b.injury : ""})`;
+    const money = b.price > 0 ? `bid $${b.price}` : "claim at $0";
+    if (b.v2) {
+      const head = { bid: money[0].toUpperCase() + money.slice(1), "coin flip": `Coin flip, ${money}`, "add free": "Add free",
+        "priced out": "Priced out", skip: "Skip" }[b.call] || b.call;
+      const extra = [b.drop && b.call !== "priced out" && b.call !== "skip" ? `drop ${b.drop}` : "",
+        b.win_chance != null && (b.call === "bid" || b.call === "coin flip") ? `${pct(b.win_chance)} to win` : "",
+        b.why && b.why !== "free agent" ? b.why : ""].filter(Boolean);
+      return `${head}: ${who}${extra.length ? " · " + extra.join(" · ") : ""}`;
+    }
+    if (b.call === "add free") return `Add free: ${who} · free agent, no bid needed`;
+    if (b.call === "bid") return `${b.price > 0 ? `Bid $${b.price}${b.max > b.price ? "–" + b.max : ""}` : `Claim at $0${b.max > 0 ? ` (up to $${b.max})` : ""}`}: ${who}`;
+    const limit = b.max > 0 ? `you'd stop at $${b.max}` : "over your reserve";
+    return `${b.call[0].toUpperCase() + b.call.slice(1)}: ${who} · rivals may go $${b.price}, ${limit}`;
+  };
+  // the bids worth acting on (priced-out players stay on the league page only)
+  const actBids = g => (g?.bids || []).filter(b => b.call !== "priced out" && b.call !== "skip");
   S.offerText = offerText;
 
   S.leagues = function (d = S.data) {
@@ -83,8 +103,9 @@
       const state = lg.pending ? "pending"
         : fixes.length || a.danger || (g && g.cut > 0.2) ? "bad"
         : moves.length || losing || chase.length ? "warn" : "ok";
+      const bid0 = actBids(g)[0];
       const top = fixes[0] ? { kind: "fix", text: fixes[0] } : moves[0] ? { kind: "move", text: moves[0] }
-        : g?.bids?.[0] ? { kind: "add", text: "Bid: " + bidText(g.bids[0]) } : chase[0] ? { kind: "move", text: chase[0] }
+        : bid0 ? { kind: "add", text: bidText(bid0) } : chase[0] ? { kind: "move", text: chase[0] }
         : adds[0] ? { kind: "add", text: adds[0] } : offers[0] ? { kind: "trade", text: offerText(offers[0]) } : null;
       out.push({
         name, lg, a, g, c, state, score, top, fixes, moves, adds, offers, chase,
@@ -127,8 +148,9 @@
       if (L.g && L.g.cut > 0.2) push("risk", `Cut risk ${pct(L.g.cut)}: rank ${L.g.rank} of ${L.g.n}`);
       L.moves.forEach(t => push("move", t));
       L.chase.forEach(t => push("move", t));
-      (L.g?.bids || []).forEach(b => push("add", "Bid: " + bidText(b)));
-      L.adds.slice(0, 2).forEach(t => push("add", t));
+      actBids(L.g).slice(0, 5).forEach(b => push("add", bidText(b)));
+      // War Room v2's calls cover the guillotine's adds (with its drops); the generic add ideas stay on the league page
+      if (!L.g?.bid_source?.url) L.adds.slice(0, 2).forEach(t => push("add", t));
       L.offers.slice(0, 1).forEach(o => push("trade", offerText(o)));
     }
     S.pickGaps(d).filter(r => r.big).forEach(r => items.push({ kind: "pick", league: "Picks", text: r.text + `. Closes ${kick(r.closes)}`, href: S.url("picks/") }));
@@ -189,12 +211,15 @@
 
   function guillotineHTML(g) {
     if (!g) return "";
-    const bid = b => `${bidText(b)}, cut risk ${pct(g.cut)} → ${pct(b.cut_with)}`;
+    const bid = b => bidText(b) + (b.cut_with != null ? `, cut risk ${pct(g.cut)} → ${pct(b.cut_with)}` : "");
+    const v2 = g.bid_source?.url;
     const risk = g.teams.filter(t => !t.me).slice(0, 3).map(t => `${t.name}: ${pct(t.cut)} cut risk (${t.proj.toFixed(1)} proj, $${t.faab} FAAB)`);
     const freed = g.freed?.players?.length ? `<div class="subhead">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div>${ul(g.freed.players.map(bid))}` : "";
     return sec(`Survival · week ${g.week}`, `<ul class="tips"><li class="${g.cut > 0.2 ? "bad" : "ok"}"><b>Survive ${pct(g.survive)}</b> · rank ${g.rank} of ${g.n} (${g.proj.toFixed(1)} proj) · cut risk ${pct(g.cut)}</li>${risk.map(li).join("")}</ul>`)
-      + sec(`Bids · waivers ${esc(g.waivers)} CT`, ul(g.bids.length ? g.bids.map(bid) : ["No free agent adds a point to your lineup."]) + freed
-        + `<p class="basis">You have $${g.faab} FAAB. Most left: ${esc(g.rich.map(r => `${r.name} $${r.faab}`).join(", "))}. Model: ${g.sims} simulated weeks, best lineups; it only recommends.</p>`);
+      + sec(`Bids · waivers ${esc(g.waivers)} CT`, ul(g.bids.length ? g.bids.map(bid) : [v2 ? "War Room v2 has no claims to make this week." : "No free agent adds a point to your lineup."]) + freed
+        + `<p class="basis">${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
+        + `You have $${g.faab} FAAB${g.reserve != null ? `, keeping $${g.reserve} in reserve` : ""}. Most left: ${esc(g.rich.map(r => `${r.name} $${r.faab}`).join(", "))}. `
+        + (v2 ? `Survival: ${g.sims} simulated weeks, best lineups. It only recommends.` : `War Room v2's bids aren't current, so these are the dashboard model's: ${g.sims} simulated weeks, best lineups; it only recommends.`) + `</p>`);
   }
   function catsHTML(c) {
     if (!c?.rows?.length) return "";
@@ -290,6 +315,29 @@
     });
     document.querySelectorAll("[data-foot]").forEach(f => { f.innerHTML = S.footHTML(); });
   }
+  // Picks cards are built only Wed 9pm, Thu 8pm, Fri 9pm and Sat 8am CT (picks/RUNBOOK.md), so a 30-hour rule turns
+  // them amber every Tue/Wed. Instead: amber only when the latest slot passed 3+ hours ago and no card was built
+  // since 2 hours before it (the same "fresh" window picks-backup.yml uses).
+  S.PICK_SLOTS = { 3: [21], 4: [20], 5: [21], 6: [8] };        // CT weekday (0 = Sunday) -> slot hours
+  const CTF = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric",
+    hour: "numeric", minute: "numeric", hourCycle: "h23" });
+  const ctParts = t => Object.fromEntries(CTF.formatToParts(new Date(t)).map(p => [p.type, p.value]));
+  const ctWall = (y, mo, d, h) => {                              // UTC ms of a Central wall-clock time
+    const guess = Date.UTC(y, mo - 1, d, h), p = ctParts(guess);
+    return guess - (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute) - guess);
+  };
+  S.picksStale = function (last, now = Date.now()) {
+    const t = ctParts(now), made = last ? new Date(last).getTime() : NaN;
+    for (let back = 0; back < 8; back++) {
+      const c = new Date(Date.UTC(+t.year, +t.month - 1, +t.day - back));
+      const hours = (S.PICK_SLOTS[c.getUTCDay()] || []).slice().sort((a, b) => b - a);
+      for (const h of hours) {
+        const slot = ctWall(c.getUTCFullYear(), c.getUTCMonth() + 1, c.getUTCDate(), h);
+        if (slot + 3 * 3600000 <= now) return !(made >= slot - 2 * 3600000);
+      }
+    }
+    return !(made > 0);
+  };
   S.footHTML = function () {
     const s = S.data.status;
     if (!s) return "";
@@ -298,8 +346,8 @@
     if (s.watch_active) bits.push("injury watch ON");
     const errs = (s.errors || []).map(e => `<div class="err">${esc(e)}</div>`).join("");
     const jobs = (s.jobs || []).map(j => {
-      const age = j.last ? (Date.now() - new Date(j.last)) / 3600000 : null;
-      return `<span class="${age === null || age > 30 ? "stale" : ""}">${esc(j.job.replace(/ \(laptop.*\)/, ""))}: ${j.last ? esc(ago(j.last)) : "not yet"}</span>`;
+      const stale = /^Picks cards/.test(j.job) ? S.picksStale(j.last) : !j.last || (Date.now() - new Date(j.last)) / 3600000 > 30;
+      return `<span class="${stale ? "stale" : ""}">${esc(j.job.replace(/ \(laptop.*\)/, ""))}: ${j.last ? esc(ago(j.last)) : "not yet"}</span>`;
     }).join("");
     return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>`;
   };
@@ -367,7 +415,7 @@
       m.innerHTML = `<div class="lm-h">Layout</div>` + LAYOUTS.map(l => `<a role="menuitemradio" aria-checked="${l.id === view()}" href="${esc(S.url(l.path))}">
           <span class="lm-letter">${l.id.toUpperCase()}</span><span class="lm-tx"><b>${esc(l.name)}</b>${l.id === "a" ? `<span class="lm-def">main page</span>` : ""}<span class="lm-d">${esc(l.desc)}</span></span>
           <span class="lm-tick" aria-hidden="true">${l.id === view() ? "✓" : ""}</span></a>`).join("")
-        + `<div class="lm-f"><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
+        + `<div class="lm-f"><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room-v2/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
       document.body.appendChild(m);
     }
     const r = btn.getBoundingClientRect(), w = Math.min(360, innerWidth - 24);

@@ -6,14 +6,24 @@ The Claude app's built-in browser (`mcp__Claude_Browser__*`) loses sign-ins when
 **never use it** for these tasks.
 
 ## Connect (do this first)
-1. If Chrome isn't running, start it (PowerShell):
-   `if (-not (Get-Process chrome -ErrorAction SilentlyContinue)) { Start-Process chrome; Start-Sleep 30 }`
+1. Make sure Michael's OWN Chrome is running (another Windows user's Chrome can be open in a second
+   session; it does not count). PowerShell:
+   `$me=(Get-Process -Id $PID).SessionId; if (Get-Process chrome -ErrorAction SilentlyContinue | Where-Object SessionId -eq $me) { 'running' } else { Start-Process chrome; 'started' }`
 2. Load the tools in ONE ToolSearch call:
    `select:mcp__claude-in-chrome__list_connected_browsers,mcp__claude-in-chrome__select_browser,mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__javascript_tool,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__find,mcp__claude-in-chrome__tabs_close_mcp`
-3. `list_connected_browsers`. If a browser is listed but not "inUse", `select_browser` with its deviceId
-   (prefer the local one). If none is listed or a tool says the extension isn't connected, retry up to
-   4 times, 30 seconds apart (restart Chrome with step 1 between tries). Still nothing → the task's failure
-   push with reason "Chrome extension not connected".
+3. TRY: `tabs_context_mcp` with `createIfEmpty: true`. If it returns tabs, you are connected: go to step 4.
+   Judge by tabs_context_mcp only (list_connected_browsers can return [] even when Chrome works).
+   If it says Claude in Chrome is not connected: call `list_connected_browsers`; if it lists a browser,
+   `select_browser` with its deviceId (prefer the local one) and TRY again at once.
+   Otherwise WAIT 60 SECONDS: in Bash run `sleep 60` with run_in_background: true, then make no other
+   tool call until its completion notice arrives (a foreground Start-Sleep is blocked; checking early
+   wastes a try). Then TRY again. 5 tries in all (about 5 minutes). Never close, kill or restart Chrome.
+   Still not connected: the task's failure push with reason "Chrome extension not connected after
+   5 tries over 5 minutes. Fix: close and reopen Chrome on the laptop", and end the report with one
+   line: FAILED: Chrome extension not connected after 5 tries.
+   (Nov 10: the Nov 6 and Nov 9 4:33pm syncs synced nothing after Claude app updates: the extension
+   reconnected minutes to hours later, the old check counted another user's Chrome, and its waits were
+   not real. Evidence: claude-audit overhaul/staged/BROWSER-retry.md.)
 4. `tabs_context_mcp` with `createIfEmpty: true`, and work only in the tab(s) of that group. Open extra
    pages with `navigate` (pass the tabId) or `tabs_create_mcp`. Never touch tabs outside the group.
 

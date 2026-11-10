@@ -117,6 +117,25 @@ class PageRows(unittest.TestCase):
         self.assertEqual(page.count("class='bdr' hidden"), 3)
         self.assertIn("<tr><td>Other</td>", page)                   # a row without a breakdown stays plain
         self.assertIn("breakdowns Sat", page)
+        self.assertNotIn("oldcard", page)                          # no build time: no banner
+
+    def test_old_card_banner_from_tuesday(self):
+        from datetime import datetime
+        from pp import cards as C
+        ct = C.CT
+        over = lambda iso: C.card_over({"generated_iso": iso})
+        sat = "2026-11-07T14:06:07.001235+00:00"                  # the Sat 8:06am CT refresh still up on Tue Nov 10
+        self.assertEqual(over(sat), datetime(2026, 11, 10, tzinfo=ct))
+        self.assertEqual(over("2026-11-12T03:00:00+00:00"), datetime(2026, 11, 17, tzinfo=ct))   # Wed 9pm CT draft
+        self.assertEqual(over("2026-11-10T18:00:00+00:00"), datetime(2026, 11, 17, tzinfo=ct))   # built on a Tuesday
+        self.assertEqual(over("2026-10-31T13:05:00+00:00"), datetime(2026, 11, 3, tzinfo=ct))    # across the DST change
+        self.assertIsNone(over(None))
+        meta = {"stage_label": "SAT REFRESH", "week_label": "Week of Nov 5 - Nov 9, 2026 (Yahoo Week 10)", "generated": "Sat",
+                "generated_iso": sat, "calibration": []}
+        page = C.render([], meta)
+        self.assertIn("data-over='2026-11-10T00:00:00-06:00' hidden", page)   # shown by the page's script once past
+        self.assertIn("Week of Nov 5 - Nov 9, 2026: these games are over", page)
+        self.assertIn("New drafts post Wednesday 9pm CT.", page)
 
 
 if __name__ == "__main__":

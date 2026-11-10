@@ -14,7 +14,8 @@ Models and checks:
   each waiver run): would the bid have won, what the winner paid, what the model expected.
 - Guillotine dashboard (`shq/guillotine.py`) vs War Room v2: the cut odds each showed before kickoff, scored
   against the real cut (from docs/data/lineups.json and docs/war-room-v2/bids.json history).
-- NBA trend radar (`shq/radar_backtest.py`): role held, value vs the site's old suggestions.
+- NBA trend radar (`shq/radar_backtest.py`, last 14 mornings): role held over the next 3 team games for the free agents
+  the site showed (and, info only, every flag), value vs the old suggestion ranked by that morning's % rostered.
 - Pool Picks: the stored walk-forward backtest (picks/backtest/) and the graded postmortems.
 
 Each check is compared with its baseline in state/health_baselines.json (a missing baseline is set from the
@@ -58,14 +59,19 @@ CHECKS = {
     "gd.v2_skill": ("War Room v2 cut odds vs a coin toss (as shown before kickoff)", "higher", 0.05, "%"),
     "gd.dash_skill": ("Dashboard cut odds vs a coin toss (as shown before kickoff)", "higher", 0.05, "%"),
     "gd.dash_price_mae": ("Dashboard likely-price miss vs what winners paid", "lower", 4.0, "$"),
-    "radar.held": ("Flagged free agents whose bigger role held", "higher", 0.15, "%"),
-    "radar.edge": ("Radar flags' value over the old suggestions (z per game)", "higher", 0.5, "z"),
+    "radar.held": ("Radar free agents shown on the site whose bigger role held (next 3 team games)", "higher", 0.15, "%"),
+    "radar.held_all": ("Every flagged free agent whose bigger role held, shown or not", None, 0, "%"),
+    "radar.edge": ("Radar flags' value over the old suggestion (z per game, next 3 team games)", "higher", 0.5, "z"),
     "picks.brier_gap": ("College model Brier minus the market's (0 = as good as the market)", "lower", 0.01, ""),
     "picks.stale_cover": ("Stale-line (1.5+ pt) picks that covered, college", "higher", 0.05, "%"),
     "picks.card_ats": ("Posted card picks that won against the spread", "higher", 0.08, "%"),
 }
 MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win": 1, "rec.win_brier": 5, "rec.est_mae": 5,
-         "gd.dash_price_mae": 5, "wr.ladder_cov50": 20, "wr.ladder_cov80": 20, "picks.card_ats": 10}
+         "gd.dash_price_mae": 5, "wr.ladder_cov50": 20, "wr.ladder_cov80": 20, "picks.card_ats": 10,
+         # radar: players, once each at his first flag. Shown is ~10 players per 14 mornings (4 listed a morning, mostly
+         # the same names), so 20 would never be reached; every flag and the edge get ~25-40.
+         "radar.held": 10, "radar.held_all": 20, "radar.edge": 20}
+# A stored baseline measured on fewer than MIN_N outcomes is re-set from the next measurement that has enough.
 # the simple alternative a check must beat whatever its baseline says: a value on the wrong side is "weak"
 FLOORS = {"wr.cut_skill": 0.0, "gd.v2_skill": 0.0, "gd.dash_skill": 0.0, "wr.proj_edge": 0.0, "radar.edge": 0.0,
           "picks.card_ats": 0.524}     # 52.4% wins against the spread breaks even at -110
@@ -85,8 +91,11 @@ def judge(cid, value, n, baselines, today):
         return {**row, "target": target[0], "tolerance": tol,
                 "status": "drift" if miss > tol else "watch" if miss > tol / 2 else "ok"}
     base = baselines.get(cid)
-    if base is None:
-        base = baselines[cid] = {"value": value, "n": n, "set": today, "source": "first nightly measurement"}
+    need = MIN_N.get(cid, 1)
+    if base is None or base.get("n", need) < need:      # a baseline with no recorded n is kept
+        source = ("first nightly measurement" if base is None else
+                  f"re-set: the {base['set']} baseline had n={base['n']}, under the {need} this check needs")
+        base = baselines[cid] = {"value": value, "n": n, "set": today, "source": source}
     worse = (value - base["value"]) if better == "lower" else (base["value"] - value)
     row = {**row, "baseline": base["value"], "baseline_set": base["set"], "tolerance": tol,
            "status": "drift" if worse > tol else "watch" if worse > tol / 2 else "ok"}
@@ -506,26 +515,12 @@ def shown_cut_odds(lg, bids_versions=None, dash_versions=None, load=git_json):
 
 
 # ---------- NBA trend radar ----------
-def radar_health():
-    from . import espn_fantasy as ef
-    from . import radar
+def radar_health(inputs=None):
+    """The radar backtest over the last 14 mornings (shq/radar_backtest.py summary): hit rate of the free agents the
+    site showed, of every flag, and every flag's value edge over the old suggestion (mornings with an ownership reading)."""
     from . import radar_backtest as rb
-    pool = radar.fetch_pool()
-    last = max(d for _, d in radar.team_games(pool))
-    raw = get_json(ef._url("nba", rb.LEAGUE["season"], rb.LEAGUE["league_id"]), [("view", "mRoster"), ("view", "mSettings")])
-    now_ids = {str(e["playerId"]) for t in raw["teams"] for e in (t.get("roster") or {}).get("entries", [])}
-    cats = [(i["statId"], bool(i.get("isReverseItem"))) for i in raw["settings"]["scoringSettings"]["scoringItems"]]
-    flags, wire, every, anyone = rb.run(pool, now_ids, rb.transactions(last + 1), cats, last)
-    first = {}
-    for f in flags:
-        first.setdefault(f["id"], f)
-    uniq = list(first.values())
-    held = [f for f in uniq if f["after"] >= f["base"] + 3]
-    fv, wv = mean([f["value"] for f in flags]), mean(wire)
-    return {"flagged": len(uniq), "held": len(held), "held_rate": r(len(held) / len(uniq), 2) if uniq else None,
-            "flag_value": r(fv, 2), "wire_value": r(wv, 2), "edge": r(fv - wv, 2) if fv is not None and wv is not None else None,
-            "added_later": sum(1 for f in uniq if f["added"]),
-            "any_flagged": len(anyone), "any_held": sum(a >= b + 3 for b, a in anyone.values())}
+    pool, now_ids, txns, cats, last, dates, owned = inputs or rb.inputs()
+    return rb.summary(rb.run(pool, now_ids, txns, cats, last, dates, owned))
 
 
 # ---------- Pool Picks ----------
@@ -659,7 +654,14 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
 
     def nba():
         h = radar_health()
-        return [j("radar.held", h["held_rate"], h["flagged"]), j("radar.edge", h["edge"], h["flagged"])], h, []
+        sh, fl = h["shown"], h["flags"]
+        checks = [j("radar.held", sh["held_rate"], sh["n"]), j("radar.held_all", fl["held_rate"], fl["n"]),
+                  j("radar.edge", fl["edge"], fl["edge_n"])]
+        notes = [f"{h['mornings']} mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games "
+                 f"(a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free "
+                 f"agents by that morning's % rostered, {h['wire_mornings']} mornings (state/nba_owned.json starts Nov 3); "
+                 f"shown flags alone {sh['edge']} (n={sh['edge_n']})."]
+        return checks, h, notes
 
     def pk():
         h = picks_health()

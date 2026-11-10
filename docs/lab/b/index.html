@@ -69,7 +69,7 @@
 <body data-layout="B · Command center" data-view="b">
 <header class="topbar"><div class="row1">
   <div class="brand"><h1>Sports HQ</h1><div data-picker></div></div>
-  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../players/">Players</a><a class="pill hide-sm" href="../../war-room/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a>
+  <div class="links"><a class="pill" href="../../picks/">Picks</a><a class="pill hide-sm" href="../../players/">Players</a><a class="pill hide-sm" href="../../war-room-v2/">War Room</a><a class="pill hide-sm" href="../../wrapups/">Wrap-up</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div></header>
 <div class="shell">
@@ -101,7 +101,7 @@ function rail(Ls, feed) {
     ${Ls.map(L => `<button data-v="${esc(L.name)}" ${cur(L.name)}>${SHQ.dot(L.state)}${esc(L.name)}${urgent(L.name) ? `<span class="n">${urgent(L.name)}</span>` : ""}</button>`).join("")}
     <hr><div class="grp">More</div>
     <button data-v="today" ${cur("today")}>Today</button><button data-v="weekly" ${cur("weekly")}>Weekly</button>
-    <a href="../../picks/">Picks ↗</a><a href="../../war-room/">War Room ↗</a><a href="../../wrapups/">Wrap-up ↗</a>`;
+    <a href="../../picks/">Picks ↗</a><a href="../../war-room-v2/">War Room ↗</a><a href="../../wrapups/">Wrap-up ↗</a>`;
 }
 
 function inbox(feed) {

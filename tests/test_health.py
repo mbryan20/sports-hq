@@ -39,6 +39,19 @@ class Judge(unittest.TestCase):
         self.assertEqual(health.judge("wr.ladder_cov80", 0.6, 5, {}, TODAY)["status"], "waiting")   # too few claims
         self.assertEqual(health.judge("rec.would_win", None, 0, {}, TODAY)["status"], "waiting")
 
+    def test_baseline_on_too_few_outcomes_is_re_set(self):
+        base = {"radar.edge": {"value": 1.32, "n": 5, "set": "2026-11-03"},
+                "radar.held": {"value": 0.7, "n": 10, "set": "2026-11-10"}}
+        self.assertEqual(health.judge("radar.edge", 0.3, 12, base, TODAY)["status"], "waiting")   # still too few: kept
+        self.assertEqual(base["radar.edge"]["value"], 1.32)
+        row = health.judge("radar.edge", 0.3, 25, base, TODAY)                                   # enough: re-set, not drift
+        self.assertEqual((row["status"], row["baseline"], row["baseline_set"]), ("ok", 0.3, TODAY))
+        self.assertIn("re-set: the 2026-11-03 baseline had n=5", base["radar.edge"]["source"])
+        self.assertEqual(health.judge("radar.edge", -0.1, 25, base, TODAY)["status"], "weak")     # floor still applies
+        self.assertEqual(health.judge("radar.held", 0.5, 12, base, TODAY)["status"], "drift")      # n=10 baseline kept
+        self.assertEqual(base["radar.held"]["set"], "2026-11-10")
+        self.assertEqual(health.judge("radar.held_all", 0.6, 40, base, TODAY)["status"], "info")
+
     def test_rollup(self):
         self.assertEqual(health.rollup([{"status": "ok"}, {"status": "weak"}]), "weak")
         self.assertEqual(health.rollup([{"status": "waiting"}]), "waiting")

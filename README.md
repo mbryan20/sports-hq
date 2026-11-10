@@ -29,7 +29,7 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
-guillotine survival odds and FAAB bid ranges (`shq/guillotine.py`), fixes for starters who can't play, start/sit
+guillotine survival odds (`shq/guillotine.py`) with War Room v2's bid calls from `bids.json` (its own pricing only when that file is stale), fixes for starters who can't play, start/sit
 moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
 values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
@@ -51,7 +51,8 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - Refreshes every league, builds the Lineup tabs, writes `docs/data/*.json`, commits each run.
 - Injury watch: from 2h before each kickoff/tip-off until it locks, every 10 min. Starter OUT/IR/inactive →
   Yahoo: swap via API (when write access exists) and confirm; everyone else: push the exact swap. No healthy
-  bench option → push the best free agent. Never adds or drops.
+  bench option, or (football) the best one projects under 1 point → push the best free agent for that slot; a free
+  agent 5+ points better than the bench option is named alongside the swap. Never adds or drops.
 - GitHub drops many scheduled triggers, so a run keeps looping every 10 min while a watch window is open or
   opens within 3h (up to ~5h45m per run; a loop that reaches that limit with the window still open starts the next
   run itself, Q-037). Times come from real kickoffs, so DST doesn't matter.
@@ -60,7 +61,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
   the PDF link (3-min ntfy delay so Pages has published it). Run one by hand: Actions → Sports HQ run → `force_wrapup`, or
   locally `py -m shq.wrapup --week N --edition final [--push]`.
 - Daily digest (`shq/digest.py`): first run after 8am CT fills the Today tab; pushes once only if something
-  needs fixing (dead starter or empty slot, guillotine bottom 3, Friday picks deadlines). Late runs (after 1pm) update the
+  needs fixing (dead starter or empty slot, guillotine bottom 3, Friday picks deadlines). A football fix says
+  "add <free agent> (proj) and start him" (open roster spot, or the drop `shq/waivers.py` picks) when the best bench
+  fill-in projects under 1 point or a free agent beats him by 5+; every fix shows the projection, 0 included. Late runs (after 1pm) update the
   tab without pushing. NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
   most one a day for both basketball leagues, from 3h before the first affected tip-off, only when a starter has no game,
   is out or the slot is empty and a bench player who plays today can fill it, or a bench player who plays today is worth

@@ -147,6 +147,18 @@ class SwapDryRun(unittest.TestCase):
         self.assertIn("Best FA: Waiver Wire WR", notify.sent[-1]["message"])
         self.assertEqual(lg.y.puts, [])  # nothing written: no add/drop
 
+    def test_start_sit_never_starts_an_unconfirmed_out(self):
+        # Nov 10, Domo Arigato: Sleeper said Out, ESPN's Out note was from last week -> shown as Q with conflict
+        p = lambda i, name, slot, proj, **kw: {"id": i, "name": name, "slot": slot, "positions": ["WR"], "status": None,
+                                               "bye": False, "started": False, "proj": proj, **kw}
+        starters = [p(1, "Tre Tucker", "WR", 9.9)]
+        wilson = p(2, "Garrett Wilson", "BN", 14.3, status="Q", conflict=True)
+        self.assertEqual(start_sit(starters, [wilson]), [])
+        healthy = p(3, "Healthy WR", "BN", 12.0)
+        self.assertEqual([b["name"] for _, b, _ in start_sit(starters, [wilson, healthy])], ["Healthy WR"])
+        wilson["conflict"] = False                                    # a plain Questionable can still be suggested
+        self.assertEqual([b["name"] for _, b, _ in start_sit(starters, [wilson])], ["Garrett Wilson"])
+
     def test_weekly_helpers(self):
         lg = self.league()
         self.assertTrue(start_sit(lg.starters, lg.bench))

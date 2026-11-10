@@ -10,12 +10,18 @@ Bids: for the free agents who most improve my lineup, the points and survival th
 public waiver history, scaled by how much the player helps him and how good he is) and the most he is
 worth to me. Waivers run Wednesday about
 2:15am CT; the cut team's players hit the pool after Monday night, so the likely cut team's best players
-are previewed too. Read-only: this only recommends, it never bids."""
+are previewed too. Read-only: this only recommends, it never bids.
+
+War Room v2 (warroom/, docs/war-room-v2/bids.json) is the source of truth for bids: when its bids.json is
+for this week and its waiver run hasn't passed, the bid list shows its calls (call, bid, drop, why, win
+chance) instead of this model's pricing. This model's own bids are only the fallback, and use the same
+reserve; plain free agents (not on waivers) are free adds there, not bids."""
 import datetime as dt
+import json
 import random
 
 from . import sleeper
-from .common import ct_label
+from .common import ROOT, ct_label
 from .config import TZ
 from .status import OUTISH
 from .swap import FLEX_SLOTS, eligible
@@ -24,10 +30,12 @@ SIMS = 5000
 # a ~120-point lineup swings about 27 points; Sleeper's own Chop page uses ~30% of the projection (~36)
 POS_SD = {"QB": 8.5, "RB": 8.5, "WR": 9.0, "TE": 7.0, "K": 5.0, "DEF": 6.5}
 BOLD = 0.25          # least share of FAAB left a rival spends on a player he badly needs (War Room floor is 20%)
-RESERVE = 10         # FAAB I keep back for emergencies (War Room default)
+RESERVE = 5          # FAAB I keep back: War Room v2's default (warroom/model.js); bids.json's own "reserve" wins
 KDEF_CAP = 3         # nobody pays real money for a kicker or defense
 WAIVER_WEEKDAY, WAIVER_HOUR, WAIVER_MINUTE = 2, 2, 15   # Wednesday 2:15am CT
 MIN_GAIN = 1.0       # points a week a player must add to my lineup to be worth a bid
+BIDS_V2 = ROOT / "docs" / "war-room-v2" / "bids.json"
+V2_GRACE = dt.timedelta(hours=1)   # after its waiver run, bids.json is stale until War Room v2 rebuilds
 
 
 def entry(p, ctx, points):
@@ -119,9 +127,9 @@ def rival_bid(faab, gain, pos, proj, bold=BOLD):
     return min(faab, KDEF_CAP if pos in ("K", "DEF") else faab, bid)
 
 
-def my_max(faab, gain, cut):
+def my_max(faab, gain, cut, reserve=RESERVE):
     """Value-based ceiling: a bigger share of spendable FAAB the more he adds, more when I'm in danger."""
-    spend = max(0, faab - min(RESERVE, faab))
+    spend = max(0, faab - min(reserve, faab))
     return min(spend, round(spend * min(0.6, gain / 15) * (1 + 2 * cut)))
 
 
@@ -145,14 +153,76 @@ class Team:
         return m - self.mean
 
 
+def on_waivers(past, now):
+    """Players a cut freed whose waiver run hasn't happened yet: those need a FAAB claim. Every other unrostered
+    player is a plain free agent (a free add). Same rule as War Room v2's freed_status."""
+    held = set()
+    for c in past or []:
+        if c.get("type") != "chopped":
+            continue
+        at = c.get("status_updated") or c.get("created") or 0
+        ran = any(t.get("type") == "waiver" and t.get("status") in ("complete", "failed")
+                  and (t.get("status_updated") or 0) > at for t in past)
+        if ran or (at and now > next_waivers(dt.datetime.fromtimestamp(at / 1000, dt.timezone.utc)) + V2_GRACE):
+            continue
+        held |= set(c.get("drops") or {})
+    return held
+
+
+def load_v2(path=None):
+    """War Room v2's bids.json, or None when it's missing or unreadable."""
+    try:
+        b = json.loads((path or BIDS_V2).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return b if isinstance(b, dict) else None
+
+
+def reserve_of(v2):
+    r = (v2 or {}).get("reserve")
+    return r if isinstance(r, int) and not isinstance(r, bool) and r >= 0 else RESERVE
+
+
+def v2_current(v2, week, now):
+    """bids.json is for this week and its waiver run hasn't passed (it rebuilds after each run)."""
+    if not v2 or v2.get("week") != week or not isinstance(v2.get("bids"), list):
+        return False
+    try:
+        run = dt.datetime.fromisoformat(str(v2.get("next_waiver_run")).replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return now <= (run if run.tzinfo else run.replace(tzinfo=dt.timezone.utc)) + V2_GRACE
+
+
+def v2_rows(v2):
+    """War Room v2's calls in its own order (most added win odds first), Skips left out. `price` is the bid
+    to place (health.py scores the dashboard's "bid" rows by it); a Bid of $0 is a $0 claim."""
+    rows = []
+    for x in v2.get("bids") or []:
+        call = str(x.get("call") or "").strip().lower()
+        if not call or call == "skip":
+            continue
+        bid = int(x.get("bid") or 0)
+        rows.append({
+            "name": x.get("name"), "pos": x.get("pos"), "team": x.get("team"), "proj": x.get("proj_next_week"),
+            "gain": round(x.get("gain_next_week") or 0, 1), "gain_ros": round(x.get("gain_rest_of_season") or 0, 1),
+            "call": call, "bid": bid, "price": bid, "max": x.get("your_max") or 0, "est_price": x.get("est_price"),
+            "drop": x.get("drop"), "why": x.get("why"), "win_chance": x.get("win_chance"),
+            "free": x.get("source") == "free agent", "source": x.get("source"), "injury": x.get("injury"),
+            "rivals": [{"name": r.get("team"), "bid": r.get("bid")} for r in (x.get("likely_rival_bids") or [])[:3]],
+            "v2": True})
+    return rows
+
+
 def history(league, week):
     lid = league.key.split(":", 1)[1]
     return [t for w in range(1, week + 1) for t in sleeper.transactions(lid, w) or []]
 
 
-def analyze(league, ctx, now, sims=SIMS, past=None):
+def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
     """Survival odds for every surviving team plus bid guidance for me. None if the league is down to one.
-    `past` is the league's transactions so far (fetched when None)."""
+    `past` is the league's transactions so far (fetched when None); `v2` is War Room v2's bids.json (read
+    from docs/war-room-v2/ when None; pass {} for none)."""
     from .leagues import make_player
     points = {}
     for m in league.matchups or []:
@@ -173,7 +243,10 @@ def analyze(league, ctx, now, sims=SIMS, past=None):
     if len(teams) < 2:
         return None
     me = next(i for i, t in enumerate(teams) if t.rid == league.my_roster_id)
-    bold = boldness(history(league, ctx.week) if past is None else past, budget)
+    past = history(league, ctx.week) if past is None else past
+    bold = boldness(past, budget)
+    v2 = load_v2() if v2 is None else v2
+    reserve, waiting = reserve_of(v2), on_waivers(past, now)
     stats = [(t.mean, t.sd) for t in teams]
     z = draws(len(teams), sims, f"{league.key}:{ctx.week}")
     odds = cut_odds(stats, z)
@@ -191,15 +264,18 @@ def analyze(league, ctx, now, sims=SIMS, past=None):
         m, s = lineup(mine.slots, mine.starters, {**mine.pool, e["id"]: e})
         cut_with = my_cut(m, s, z, me, low)
         pos = (p["positions"] or ["?"])[0]
+        row = {"name": p["name"], "pos": pos, "team": p["team"], "proj": p["proj"], "gain": round(gain, 1),
+               "cut_with": round(cut_with, 3), "freed_from": source.name if source else None}
+        if source is None and p["id"] not in waiting:
+            # a plain free agent: no waiver claim, so no bid and no rivals to outbid
+            return {**row, "price": 0, "max": 0, "call": "add free", "free": True, "rivals": []}
         rivals = sorted(({"name": t.name, "bid": rival_bid(t.faab, t.gain(e), pos, p["proj"], bold.get(t.rid, BOLD))}
                          for i, t in enumerate(teams) if i != me and t is not source), key=lambda r: -r["bid"])
         rivals = [r for r in rivals if r["bid"] > 0]
         price = rivals[0]["bid"] + 1 if rivals else 0
-        top = my_max(mine.faab, gain, odds[me])
+        top = my_max(mine.faab, gain, odds[me], reserve)
         call = ("bid" if price <= top else "coin flip" if price * 0.7 <= top else "priced out")
-        return {"name": p["name"], "pos": pos, "team": p["team"], "proj": p["proj"], "gain": round(gain, 1),
-                "cut_with": round(cut_with, 3), "price": price, "max": top, "call": call,
-                "rivals": rivals[:3], "freed_from": source.name if source else None}
+        return {**row, "price": price, "max": top, "call": call, "rivals": rivals[:3]}
 
     fas = [p for p in league.free_agents[:80] if not p["started"] and p["status"] not in OUTISH and not p["bye"]]
     bids = sorted(filter(None, (bid(p) for p in fas)), key=lambda b: -b["gain"])[:5]
@@ -215,10 +291,22 @@ def analyze(league, ctx, now, sims=SIMS, past=None):
                       key=lambda b: -b["gain"])[:3]
         freed = {"team": t.name, "cut": round(odds[risky], 3), "players": rows}
 
+    source, model = {"name": "dashboard model"}, None
+    try:
+        rows = v2_rows(v2) if v2_current(v2, ctx.week, now) else None
+    except (TypeError, ValueError, AttributeError):   # a malformed bids.json: keep the model's own bids
+        rows = None
+    if rows is not None:
+        # War Room v2 decides the bids; this model's own list stays alongside for comparison
+        source = {"name": "War Room v2", "url": "war-room-v2/", "as_of": v2.get("data_as_of"),
+                  "spendable": (v2.get("budget") or {}).get("spendable")}
+        model = {"bids": bids, "freed": freed}
+        bids, freed = rows, None
     return {
         "week": ctx.week, "sims": sims, "n": len(teams), "rank": rank, "gap": round(gap, 1),
         "proj": round(mine.mean, 1), "cut": round(odds[me], 3), "survive": round(1 - odds[me], 3),
-        "faab": mine.faab, "waivers": ct_label(next_waivers(now)),
+        "faab": mine.faab, "reserve": reserve, "waivers": ct_label(next_waivers(now)),
+        "bid_source": source, "model": model,
         "teams": [{"name": teams[i].name, "proj": round(teams[i].mean, 1), "cut": round(odds[i], 3),
                    "faab": teams[i].faab, "bold": round(bold.get(teams[i].rid, 0), 2), "me": i == me} for i in order],
         "rich": [{"name": t.name, "faab": t.faab} for t in sorted(teams, key=lambda t: -t.faab) if t is not mine][:3],

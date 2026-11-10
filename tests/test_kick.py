@@ -9,6 +9,7 @@ import threading
 import shutil
 import subprocess
 import tempfile
+import pathlib
 import unittest
 from pathlib import Path
 
@@ -177,6 +178,17 @@ class Kick(unittest.TestCase):
         self.assertFalse((self.tmp / "kick.alerted").exists())                  # not remembered: the next run tries again
         self.run_kick(NOT_SIGNED_IN)
         self.assertEqual(len(FakeNtfy.got), 1)
+
+
+class TaskSettingsDoc(unittest.TestCase):
+    """The registration block in ops/designs/Q-014.md must keep the kick tasks at normal priority (Nov 10: at the default
+    priority 7 PowerShell starved for memory and never ran kick.ps1 before the time limit)."""
+
+    def test_registration_uses_normal_priority_and_room_to_start(self):
+        doc = (pathlib.Path(__file__).resolve().parent.parent / "ops" / "designs" / "Q-014.md").read_text(encoding="utf-8")
+        line = next(ln for ln in doc.splitlines() if ln.startswith("$set = New-ScheduledTaskSettingsSet"))
+        self.assertIn("-Priority 4", line)
+        self.assertIn("New-TimeSpan -Minutes 15", line)
 
 
 if __name__ == "__main__":

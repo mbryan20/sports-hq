@@ -34,6 +34,8 @@ RECENT = 3            # the new-role window: his last 3 games
 STALE_DAYS = 10       # a run of games older than this isn't a current role
 MIN_JUMP, USG_JUMP = 5, 4
 KEY_MIN = 24          # an injured player this big frees minutes worth tracking
+BACK_SHARE = 0.5      # played under half his team's earlier games: back from an absence, not a riser
+LASTED = 4            # a jump with no injury behind it needs this many straight games, or it "may fade"
 PUSH_OWNED = 30       # push a rising free agent in a category I need while he's under this % rostered
 PUSH_STRENGTH = 8     # ...and his role jumped this much (strength())
 PUSH_HOURS = range(7, 22)
@@ -128,7 +130,13 @@ def role(p, tg, period):
     r, b = window(recent, tg), window(before, tg, len(team_before))
     if b["played"] < 2:
         b["usg"] = None   # one game is no usage baseline
+    streak = 0            # his latest games in a row at 3+ minutes over the baseline
+    for *_, st in reversed(games):
+        if st.get("40", 0) < b["min"] + 3:
+            break
+        streak += 1
     return {"recent": r, "base": b, "games": recent, "base_days": team_before, "last": games[-1][0],
+            "back": b["played"] < BACK_SHARE * b["n"], "streak": streak,
             "dmin": r["min"] - b["min"], "dusg": (r["usg"] - b["usg"]) if r["usg"] is not None and b["usg"] is not None else None,
             "started": r["gs"] >= 2 / 3 and b["gs"] <= 1 / 3, "benched": b["gs"] >= 2 / 3 and r["gs"] <= 1 / 3,
             "up": sum(st.get("40", 0) >= b["min"] + 3 for *_, st in recent),
@@ -136,10 +144,24 @@ def role(p, tg, period):
 
 
 def rising(rl):
-    if not rl or rl["recent"]["min"] < 18:
+    """A bigger role in his last 3 games. Not one when he missed most of the earlier games: that's a player back from
+    an absence, whose low baseline is the games he sat (Q-045: those flags held only on paper, at -7 to -11 z a game)."""
+    if not rl or rl["back"] or rl["recent"]["min"] < 18:
         return False
     usage = (rl["dusg"] or 0) >= USG_JUMP and rl["dmin"] >= -2
     return (rl["up"] >= 2 and (rl["dmin"] >= MIN_JUMP or rl["started"]) and rl["recent"]["min"] >= 20) or usage
+
+
+def may_fade(rl, gone):
+    """No key teammate's absence behind the jump and fewer than LASTED straight games of it (Q-045 backtest: those
+    held 9 of 16, the rest 18 of 26)."""
+    return not gone and rl["streak"] < LASTED
+
+
+def rank_key(rl, gone, out, fit, games=1):
+    """block()'s order for rising players, ascending: a jump caused by a key teammate who is out now (on ESPN's
+    injury report) first, then category fit times games left, then the size of the jump."""
+    return (0 if set(gone) & set(out) else 1, -fit * max(games, 1), -strength(rl))
 
 
 def shrinking(rl):
@@ -282,8 +304,10 @@ def block(league, cats=None):
             continue
         fit, helps = fit_score(sc, p, rl, need)
         g_now, g_next, b2b = schedule(league, p)
-        rising_items.append(((fit * max(g_now, 1), strength(rl)), riser_item(league, sc, pid, rl, where, helps, need, (g_now, g_next, b2b), hist)))
-    rising_items.sort(key=lambda t: (-t[0][0], -t[0][1]))
+        gone = absences(pool, p["team"], [d for d, *_ in rl["games"]])
+        rising_items.append((rank_key(rl, gone, sc["out"], fit, g_now),
+                             riser_item(league, sc, pid, rl, where, helps, need, (g_now, g_next, b2b), hist, gone)))
+    rising_items.sort(key=lambda t: t[0])
     fas = [i for _, i in rising_items if i["where"] == "fa"][:4]
     bench = [i for _, i in rising_items if i["where"] == "bench"]
     shrink = [shrink_item(league, sc, pid, roles[pid]) for pid, p in mine.items()
@@ -367,14 +391,17 @@ def injury_cite(sc, pid):
     return f" [ESPN {when}: {e['status']}" + (f", {note}" if note else "") + "]", [[f"ESPN {when or 'injury report'}", e["url"]]]
 
 
-def riser_item(league, sc, pid, rl, where, helps, need, games, hist):
+def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
     p, dates = sc["pool"][pid], sc["dates"]
     g_now, g_next, b2b = games
     pos = POS.get(p["pos"], "?")
     tag = "on your bench: start him" if where == "bench" else f"free agent, {p['owned']:.0f}% owned{change_text(pid, p, hist)}"
     text = f"{p['name']} ({pos}, {team_abbrev(league.sched, p['team'])}), {tag}: {window_text(rl, dates)}"
     links = [[f"ESPN game log through {_day(dates.get(rl['last']))}", GAMELOG.format(pid)]]
-    gone = absences(sc["pool"], p["team"], [d for d, *_ in rl["games"]])
+    fade = may_fade(rl, gone)
+    if fade:
+        run = f" and {rl['streak']} straight game{'s' if rl['streak'] != 1 else ''} of it so far" if rl["streak"] else ""
+        text += f"; no teammate's injury behind it{run}, so this may fade"
     if gone:
         x = gone[0]
         cite, more = injury_cite(sc, x)
@@ -399,8 +426,9 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist):
              + (f", usage {rl['base']['usg']:.0f}% → {rl['recent']['usg']:.0f}%" if (rl["dusg"] or 0) >= 2 else "")
              + (", now starting" if rl["started"] else "")
              + (f"; fits {', '.join(NBA_STATS[c] for c, _ in helps[:2])}" if helps else "")
+             + ("; may fade" if fade else "")
              + f" (ESPN game logs through {_day(dates.get(rl['last']))})")
-    return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"]}
+    return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"], "fade": fade}
 
 
 def shrink_item(league, sc, pid, rl):

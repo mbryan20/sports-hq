@@ -113,6 +113,26 @@ class Radar(unittest.TestCase):
                   + [[d, 2, st] for d, _, st in POOL["101"]["games"][5:]]}
         self.assertIsNone(radar.role(traded, tg, 9))                     # no games here before the 3 since his trade
 
+    def test_back_from_an_absence_is_not_a_riser(self):
+        tg = radar.team_games(POOL)
+        back = player("Atlanta Returner", 1, [g(2, 1, 28, fga=10)] + [g(d, 1, 30, fga=12, start=1) for d in (6, 7, 8)])
+        rl = radar.role(back, tg, 9)
+        self.assertEqual((rl["base"]["played"], rl["base"]["n"], rl["back"]), (1, 5, True))   # sat 4 of 5 earlier games
+        self.assertFalse(radar.rising(rl))
+        self.assertFalse(radar.role(POOL["101"], tg, 9)["back"])
+
+    def test_cause_ranks_first_and_an_unexplained_jump_may_fade(self):
+        tg = radar.team_games(POOL)
+        riser, guard = radar.role(POOL["101"], tg, 9), radar.role(POOL["200"], tg, 9)
+        self.assertEqual((riser["streak"], guard["streak"]), (3, 3))
+        self.assertFalse(radar.may_fade(riser, ["100"]))                  # Atlanta Star's absence explains it
+        self.assertTrue(radar.may_fade(guard, []))                        # no cause, 3 games of it so far
+        self.assertFalse(radar.may_fade({**guard, "streak": 4}, []))
+        out = {"100"}
+        self.assertLess(radar.rank_key(riser, ["100"], out, 0.1), radar.rank_key(guard, [], out, 9.0))   # cause beats fit
+        self.assertGreater(radar.rank_key(riser, ["100"], set(), 0.1), radar.rank_key(guard, [], set(), 9.0))
+        self.assertLess(radar.rank_key(guard, [], set(), 2.0, games=3), radar.rank_key(riser, [], set(), 5.0, games=1))
+
     def test_injured_starter_and_who_absorbs_his_minutes(self):
         gains = radar.with_without(POOL, radar.team_games(POOL), "100")
         self.assertEqual(gains[0][1], "101")
@@ -123,7 +143,12 @@ class Radar(unittest.TestCase):
         r = radar.block(lg, CATS)
         self.assertEqual(r["need"], ["AST (losing)", "3PM (close)"])      # TO is reversed: never "needed"
         self.assertEqual([i["where"] for i in r["rising"]], ["bench", "fa"])
+        self.assertIn("no teammate's injury behind it and 3 straight games of it so far, so this may fade", r["rising"][0]["text"])
+        self.assertTrue(r["rising"][0]["fade"])
+        self.assertIn("; may fade (ESPN game logs", r["rising"][0]["short"])
         fa = r["rising"][1]
+        self.assertFalse(fa["fade"])
+        self.assertNotIn("may fade", fa["text"])
         self.assertIn("Atlanta Riser (PG, ATL), free agent, 8% owned", fa["text"])
         self.assertIn("minutes 12 → 32 in his last 3 games", fa["text"])
         self.assertIn("since Atlanta Star went out [ESPN Oct 25: Out, Star (ankle) will miss two weeks.]", fa["text"])
@@ -179,19 +204,37 @@ class Backtest(unittest.TestCase):
         from shq import radar_backtest as bt
         txns = [(3, "ADD", "101"), (7, "ADD", "101"), (7, "DROP", "300"), (8, "DROP", "102")]
         self.assertEqual(bt.rostered_at({"101", "201"}, txns, 7), {"201", "300", "102"})   # adds from 7 on undone, later drops restored
-        more = lambda pid, mins, **kw: {**POOL[pid], "games": POOL[pid]["games"] + [g(d, 1, mins, start=1, **kw) for d in (9, 10)]}
-        pool = {**POOL, "101": more("101", 30, fga=12, **{"3": 6, "17": 2}), "102": more("102", 30, fga=10),
-                "103": more("103", 180, fga=50)}
-        old, bt.FIRST = bt.FIRST, 9
+        more = lambda pid, mins, days=(9, 10, 11), **kw: {**POOL[pid], "games": POOL[pid]["games"]
+                                                         + [g(d, 1, mins, start=1, **kw) for d in days]}
+        steady = lambda name, pts, owned: player(name, 1, [g(d, 1, 10, fga=3, **{"0": pts}) for d in range(1, 12)], owned=owned)
+        pool = {**POOL, "101": more("101", 30, days=(9, 10), fga=12, **{"0": 20}), "102": more("102", 30, fga=10),
+                "103": more("103", 180, fga=50),
+                "104": steady("Most Owned Today", 2, 60.0), "105": steady("Most Owned That Morning", 20, 1.0)}
+        rostered = {"102", "103", "200", "201", "202"}
+        dates = {d: dt.date(2026, 10, 27) + dt.timedelta(days=d) for d in (9, 10, 11)}           # period 9 = Nov 5
+        owned = {"2026-11-05": {"105": 50.0, "101": 8.0}}                                       # 104 was under 0.5%
+        cats = [(0, False)]
+        old = bt.FIRST, bt.WIRE
+        bt.FIRST, bt.WIRE = 9, 1
         try:
-            flags, wire, every, anyone = bt.run(pool, {"102", "103"}, [(10, "ADD", "101")], [(3, False), (17, False)], 10)
+            res = bt.run(pool, rostered, [(10, "ADD", "101")], cats, 11, dates, owned)
+            s = bt.summary(res)
         finally:
-            bt.FIRST = old
-        # flagged the morning of period 9 from games 1-8 only, then judged on games 9-10; a team added him on 10
-        (f,) = flags
-        self.assertEqual((f["day"], f["id"], round(f["base"]), round(f["flag"]), f["after"], f["added"]), (9, "101", 12, 32, 30, 10))
-        self.assertIn("101", anyone)
+            bt.FIRST, bt.WIRE = old
+        # flagged the morning of period 9 from games 1-8 only, then judged on the team's next 3 games (9-11), the one he
+        # missed counting as 0 minutes; later mornings have too few games after them to score
+        self.assertEqual(res["mornings"], [9, 10, 11])
+        (f,) = res["log"]
+        self.assertEqual((f["day"], f["id"], round(f["base"]), round(f["flag"]), f["after"], f["played"], f["held"], f["added"]),
+                         (9, "101", 12, 32, 20, 2, True, 10))
+        self.assertEqual((f["cause"], f["fade"], f["shown"]), ("Atlanta Star", False, True))
+        # the old suggestion is the free agent most owned that morning (105), not today (104)
+        sc = {"z": radar.z_scales(pool, radar.team_games(pool))}
+        self.assertEqual(res["wire"], [(9, bt.value(sc, cats, pool["105"]["games"][8:11]))])
+        self.assertEqual((s["shown"]["n"], s["shown"]["held_rate"], s["flags"]["edge_n"], s["wire_mornings"]), (1, 1.0, 1, 1))
+        self.assertEqual(s["flags"]["edge"], round(f["value"] - res["wire"][0][1], 2))
         self.assertEqual(bt.before(pool, 6)["101"]["games"][-1][0], 5)
+        self.assertEqual(bt.day_date({14: dt.date(2026, 11, 2), 16: dt.date(2026, 11, 4)}, 15), dt.date(2026, 11, 3))
 
 
 if __name__ == "__main__":

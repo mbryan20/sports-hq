@@ -91,6 +91,13 @@ class Standings(unittest.TestCase):
         self.assertIn("still to play for you: Mon (proj 12.0); they're done", text)
         self.assertEqual(wrapup.h2h_line(90, 80, "Rival", [], opp_known=False)[0], "leading")
 
+    def test_margin_matches_the_shown_scores(self):
+        # week 9: ESPN's 182.76-7.04 showed "182.8-7.0 ... by 175.7"; 166.46-141.54 showed "166.5-141.5 ... by 24.9"
+        self.assertEqual(wrapup.h2h_line(182.76, 7.04, "Rival", [])[1], "Won 182.8-7.0 vs Rival, by 175.8")
+        self.assertEqual(wrapup.h2h_line(166.46, 141.54, "Rival", [])[1], "Won 166.5-141.5 vs Rival, by 25.0")
+        self.assertEqual(wrapup.h2h_line(141.54, 166.46, "Rival", [])[1], "Lost 141.5-166.5 vs Rival, by 25.0")
+        self.assertEqual(wrapup.h2h_line(100.04, 100.0, "Rival", [])[1], "Won 100.0-100.0 vs Rival, by less than 0.1")
+
 
 class Pools(unittest.TestCase):
     EVENTS = {"401": {"state": "post", "home_score": "24", "away_score": "20"},
@@ -196,6 +203,27 @@ class Render(unittest.TestCase):
         page = wrapup_render.archive([{"week": 8, "cfb_week": 9, "edition": "final", "html": "2026-w08.html", "pdf": "2026-w08.pdf",
                                        "headline": ["H2H 2-1."]}])
         self.assertIn('href="2026-w08.pdf"', page)
+
+    # week 9's real headline: 254 characters, which the old [:220] cut to "...Most left"
+    W9 = ["Head-to-head: 4-1-1.", "Guillotine: survived, 5th of 10 with 133.0, 36.7 over the lowest team (MoneyManChas, 96.3).",
+          "Picks card: Yahoo 16-9, CFP 1-0, BTO 1-2 (card as posted; your entries are graded Tuesday night).",
+          "Most left on a bench: 15.6 in Domo Arigato."]
+
+    def test_short_version_ends_on_a_whole_sentence(self):
+        s = wrapup_render.short(" ".join(self.W9))
+        self.assertLessEqual(len(s), 220)
+        self.assertTrue(s.endswith("graded Tuesday night)."), s)
+        self.assertNotIn("Most left", s)
+        page = wrapup_render.archive([{"week": 9, "cfb_week": 10, "edition": "final", "html": "a.html", "headline": self.W9}])
+        self.assertNotIn("Most left<", page)
+        self.assertIn("Tuesday night).</td>", page)
+
+    def test_short_version_falls_back_to_a_whole_word(self):
+        s = wrapup_render.short("word " * 60)                    # one 300-character "sentence" with no full stop
+        self.assertLessEqual(len(s), 220)
+        self.assertTrue(s.endswith("word…"), s)
+        self.assertEqual(wrapup_render.short("Short. Enough."), "Short. Enough.")
+        self.assertEqual(wrapup_render.short("A" * 230 + "."), "A" * 219 + "…")   # one giant word: hard cut, still marked
 
     def test_push_opens_the_pdf(self):
         notify.sent.clear()

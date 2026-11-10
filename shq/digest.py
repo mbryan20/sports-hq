@@ -4,12 +4,13 @@ Each item is {"league", "text", "urgent"}. The digest pushes only when at least 
 (a starter who can't play, an empty slot, a guillotine danger zone, Friday picks deadlines);
 otherwise it just updates the Today tab."""
 import datetime as dt
+import traceback
 
-from . import radar
+from . import radar, waivers
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
 from .status import OUTISH
-from .swap import eligible, playable, strength, strength_text
+from .swap import eligible, fa_over_bench, playable, q_tag, slot_fa, strength, strength_text
 
 DEAD = OUTISH | {"D"}
 DANGER_CUT = 0.20   # guillotine elimination chance that counts as urgent
@@ -52,29 +53,79 @@ def cite(p, limit=160):
     return f" [ESPN{', ' + when if when else ''}: {note}]"
 
 
-def _fix(league, starter, used, now):
+def free_agents(league):
+    """The league's free agents, or [] when they can't be read (a failed read never blocks the lineup fixes)."""
+    try:
+        return list(league.free_agents or [])
+    except Exception:
+        traceback.print_exc()
+        return []
+
+
+def _fix(league, starter, used, now, spots):
+    """(fix text, from_bench). `used` holds bench and free-agent ids already named for another slot; `spots` is
+    [open roster spots left], spent by each free-agent suggestion. Football: a bench fill-in projected under
+    MIN_FILL, or one a free agent beats by FA_EDGE+, becomes "add <FA> and start him" (Nov 10: "start Carson
+    Wentz" while he projected 0 and Drew Lock 15.7). Suggestions only: nothing is ever added or dropped."""
     bench = [b for b in league.bench if b["id"] not in used and playable(b, now)
              and eligible(starter["slot"], b["positions"])]
     # NBA category leagues have no points: rank by category value (shq/nba_values.py) when the run has it
     pick = max(bench, key=lambda b: (strength(b), b.get("owned", 0)), default=None)
-    if pick:
-        used.add(pick["id"])
-        return f"start {pick['name']}" + (f" ({strength_text(pick)})" if pick["proj"] or pick.get("cv") else ""), True
-    fa = league.best_fa(starter["positions"] or [starter["slot"]], now) if league.free_agents else None
-    if fa:
-        return f"no bench fit; best FA {fa['name']} ({fa['team']})", False
-    return "no healthy bench fit", False
+    if getattr(league, "sport", "nfl") == "nba":   # category leagues: no points to compare, so no FA threshold
+        if pick:
+            used.add(pick["id"])
+            return f"start {pick['name']}" + (f" ({strength_text(pick)})" if pick["proj"] or pick.get("cv") else ""), True
+        fa = league.best_fa(starter["positions"] or [starter["slot"]], now) if league.free_agents else None
+        if fa:
+            return f"no bench fit; best FA {fa['name']} ({fa['team']})", False
+        return "no healthy bench fit", False
+    fa = slot_fa(starter["slot"], free_agents(league), now, skip=used)
+    if not fa_over_bench(pick, fa):
+        if pick:
+            used.add(pick["id"])
+            return f"start {pick['name']} ({strength_text(pick)})", True
+        return "no healthy bench fit", False
+    used.add(fa["id"])
+    room = _room(league, fa, used, spots)
+    text = f"add {fa['name']}{q_tag(fa)} ({fa.get('team') or 'FA'}, {fa['proj']} proj){room or ''} and start him"
+    if pick and pick["proj"] > 0:
+        text += f" (or start {pick['name']}, {strength_text(pick)})"
+    elif pick:
+        text += f" ({pick['name']} projects {pick['proj']})"
+    if room is None:
+        text += "; needs a roster spot"
+    return ("" if pick else "no bench fit: ") + text, False
+
+
+def _room(league, fa, used, spots):
+    """Where the add goes: an open roster spot, else the drop shq/waivers.py would pick for him (needs the
+    FantasyCalc values), else None (no drop named)."""
+    if spots[0] > 0:
+        spots[0] -= 1
+        return " into your open roster spot"
+    drop = None
+    if getattr(league, "_valued", False) and "ppg" in fa and getattr(league, "slots", None):
+        try:
+            found = waivers.adds(league.starters, [b for b in league.bench if b["id"] not in used], [fa], league.slots,
+                                 dynasty=bool(getattr(league, "dynasty", False)), limit=1)
+            drop = found[0]["drop"] if found else None
+        except Exception:
+            traceback.print_exc()
+    if drop:
+        used.add(drop["id"])
+        return f", drop {drop['name']} ({drop['proj']} proj),"
+    return None
 
 
 def league_items(league, now):
     nba = getattr(league, "sport", "nfl") == "nba"
-    items, used = [], set()
+    items, used, spots = [], set(), [getattr(league, "open_spots", 0) or 0]
     for s in league.starters:
         if s["started"]:
             continue
         why = _problem(s, nba)
         if why:
-            fix, from_bench = _fix(league, s, used, now)
+            fix, from_bench = _fix(league, s, used, now, spots)
             # NBA lineups reset daily and off nights are routine: list it only when the bench can cover it. NBA lineup
             # fixes aren't urgent here: shq/nba_lineup.py pushes them once a day before the first tip-off
             if nba and s["bye"] and not from_bench:

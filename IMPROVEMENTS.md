@@ -122,6 +122,104 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `bestDrop`: a K/DEF add skips RB/WR/TE drops worth 8+ (season average or the next 4 weeks' projection); after pricing, a paid K/DEF claim is Skip when a same-position free agent is Add free with at least its season gain.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
+### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
+- **Status:** shipped (e508112). Follow-up Nov 10 evening: a Questionable free agent (not an unconfirmed Out) is named, marked "(Q)", when he projects 5+ more than the best healthy one (Drew Lock 18.7 Q vs Kyle McCord 12.4); `swap.slot_fa`, test `test_questionable_free_agent_named_when_far_better`.
+- **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
+  pushes), `shq/swap.py` (`slot_fa`, `fa_over_bench`, `MIN_FILL` 1.0, `FA_EDGE` 5.0), `shq/advice.py` (values loaded before
+  the fixes so a fix can name the waivers drop)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (bug on the Domo Arigato league card, reported via Claude Ops)
+- **Evidence:** lineups.json, Tue Nov 10 4:37pm CT: Domo Arigato fix "Caleb Williams (QB) on BYE → start Carson Wentz", with
+  no projection shown; Wentz projected 0 this week and the next 4 (a backup after Cousins' trade to MIN), while the same
+  card's adds named Drew Lock (SEA, 15.7 this week). `_fix` took any playable bench player whatever his projection and
+  printed the projection only when above 0; the injury watch had the same "any playable bench player" rule.
+- **Expected impact:** a football fix never tells Michael to start a 0-point player when a usable free agent exists: it
+  says "add <FA> (proj) into your open roster spot / drop <X> and start him", keeps the bench option as a fallback only
+  above 0, and always shows the projection. Superflex/OP slots look at every eligible position (QBs included); a QB slot
+  only at QBs. NBA category leagues unchanged. Suggestions only: nothing is ever added or dropped.
+- **Effort:** S
+- **Risk:** Low (text only, plus the injury watch no longer swaps in a sub-1-point player when a free agent is available)
+- **Measure:** — (one-off: no urgent fix line "start <name> (0 proj)" while a free agent projected 1+ fits that slot)
+- **Design:** a bench fill-in under 1 point, or one a playable, slot-eligible free agent beats by 5+ points, gives way to
+  "add <FA> and start him"; the room comes from an open roster spot, else the drop `shq/waivers.py` picks for that free
+  agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
+### Q-043 · Traded players and new starters get zero or old-team rest-of-season numbers after the trade deadline
+- **Status:** shipped (ce89445)
+- **Area:** `shq/values.py` (`_slim` keeps each projection's team, `ros_weeks`/`ros_ppg` fill, `per_game`, `ir_games_left`,
+  `live_team`, `annotate`; ROS cache format 2), `shq/leagues.py` (`make_player`, `EspnLeague._live_team`/`_player`),
+  `shq/nfl_players.py` (basis text), `tests/test_trade_deadline.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (audit of the Tue Nov 10 NFL trade deadline: Downs IND→KC, Allen IND→SF,
+  Cousins LV→MIN, Mendoza LV's starter, Malik Willis to IR)
+- **Evidence:** `docs/data/players_nfl.json` 22:47Z: Sleeper's weeks 11-12 projections still carried the old teams and week 13
+  (IND/LV bye) had no row for the new teams, so Allen read [6.0, 9.4, 9.3, 0.0] = 6.2/gm (Domo), Cousins [13.8, 16.4, 16.7, 0.0],
+  Mendoza [10.9, 0.0, 0.0, None] = 3.6/gm (3-Ball), Downs (shown KC) got IND's week-13 bye from the 6h players file, and
+  Willis (IR) was projected 14-19 a week. Kosmonauts advised "Add Carnell Tate … for Keenan Allen (4.9/gm): fills in at WR in
+  week 13". Stempak/Bro-vid19 (ESPN snapshot) still showed Cousins "LV vs SEA" at 21:05Z (really MIN @ GB, 18:00Z).
+- **Expected impact:** rest-of-season, next-4-weeks, waiver and trade numbers follow a player's current team and role on the
+  day of a move, not when Sleeper next rebuilds its later weeks; lineups lock on the right kickoff after a trade.
+- **Effort:** M
+- **Risk:** Low (a healthy player Sleeper deliberately stopped projecting would now get his live number; out/IR players don't)
+- **Measure:** — (one-off: no healthy skill player with a live projection shows a 0 in `next` on a week his team plays)
+- **Design:** a week whose projection is missing or was made for another team takes the player's live per-game number (this
+  week's Sleeper projection when it's for his current team, else the average of his up-to-date weeks, else 0 as before),
+  never for OUT/IR/PUP/SUSP players. Team and bye come from Sleeper's live projections, then the players file, then the
+  platform; a Yahoo or ESPN snapshot team that differs from Sleeper's live team gives way for opponent, kickoff and bye. A
+  confirmed IR tag (status.confirm) scores 0 for the games left on the 4-game minimum, placement estimated from ESPN's
+  injury entry date (unknown date: all 4). Tests: `tests/test_trade_deadline.py`.
+
+### Q-044 · The Guillotine league page said every TE was "priced out" while War Room v2 said free add or $1
+- **Status:** shipped (aac5193)
+- **Area:** `shq/guillotine.py` (`load_v2`, `v2_current`, `v2_rows`, `on_waivers`, `RESERVE` 10 → 5), `docs/lib/core.js`
+  (`bidText`, bid section, home tile and inbox lines), `tests/test_guillotine.py` (`WarRoomV2`)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (contradiction reported via Claude Ops)
+- **Evidence:** lineups.json, Tue Nov 10 2026: every TE (Freiermuth, Fannin, Strange, Hockenson, Higbee) "priced out:
+  rivals may go $4, worth $0 to you", shown on the tile/inbox as "Bid: Pat Freiermuth … priced out"; bids.json the same
+  day: Freiermuth and Brenton Strange "Add free", Harold Fannin "Bid $1". Cause: `RESERVE = 10` (all of Michael's $10, so
+  `my_max` was always $0) against v2's `reserve: 5`, and the model priced plain free agents as waiver bids.
+- **Expected impact:** one set of bid calls everywhere: the league page, home tile and inbox show War Room v2's call, bid,
+  drop, why and win chance (link to /war-room-v2/) whenever bids.json is for this week and its waiver run hasn't passed.
+  The old model is only the fallback: v2's reserve (from bids.json, else 5), plain free agents are "Add free" (only a
+  fresh cut's players, before their Wednesday run, need a claim), and a priced-out line says "over your reserve" instead
+  of "worth $0". A $0 Bid reads "Claim at $0". Priced-out rows stay on the league page only; with v2 current the generic
+  guillotine add ideas stay off the inbox.
+- **Effort:** S
+- **Risk:** Low (display and fallback only; War Room v2 untouched)
+- **Measure:** — (one-off: no Guillotine bid line in lineups.json contradicts bids.json's call for the same player).
+  Note for `shq/health.py`: from this week the dashboard's `bids` mirror v2 (`bid_source` says which); the model's own
+  rows are kept under `advice.guillotine.model` if the dashboard-vs-v2 comparison should keep scoring them.
+- **Design:** `analyze()` reads `docs/war-room-v2/bids.json`; current = same `week` and `now` ≤ `next_waiver_run` + 1h.
+  Rows keep v2's order, drop Skips, and keep `call` (lowercase), `bid` (= `price`), `drop`, `why`, `win_chance`,
+  `your_max` (as `max`). A malformed file falls back. Free agent vs waivers in the fallback follows v2's `freed_status`
+  (players in a `chopped` transaction, until a waiver run after it or an hour past that Wednesday's run).
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
+### Q-046 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
+- **Status:** shipped (ae9cd9f)
+- **Area:** `shq/wrapup_render.py` (`short`), `shq/wrapup.py` (`margin`, `h2h_line`), `docs/wrapups/` (index, weeks 8-9
+  re-rendered from saved JSON), `picks/pp/cards.py` (`card_over`, `old_card_html`), `docs/picks/index.html` (banner added
+  to the live page), `docs/lib/core.js` (`SHQ.picksStale`), `docs/lib/core.css` (`.pill`, `.fb button`),
+  `docs/index.html` (Players tile)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (site review via Claude Ops)
+- **Evidence:** wrap-up archive rows ended "…Most left" / "…Yahoo en" (`[:220]`); week 9 read "182.8-7.0 … by 175.7"
+  and "166.5-141.5 … by 25.1" (margin from raw 182.76-7.04); /picks/ on Tue Nov 10 still showed Saturday's "SAT REFRESH"
+  card with "next lock Sat 10:55am CT" and no label; footer "Picks cards: 3d ago" amber every Tue/Wed (30-hour rule on a
+  Wed-Sat job); 👍/👎 22px and header pills 28px tall; Players/War Room/Wrap-up header links hidden under 420px.
+- **Expected impact:** archive short versions end on a whole sentence; margins match the scores shown; an old picks card
+  says so ("Last week's card … New drafts post Wednesday 9pm CT") from the Tuesday after it was built; the footer is amber
+  only when a Wed 9pm / Thu 8pm / Fri 9pm / Sat 8am CT build was missed (3h grace, fresh from 2h before the slot, like
+  picks-backup.yml); tap targets at least 36px; Players one tap from the home page (War Room and Wrap-up tiles already were).
+- **Effort:** S
+- **Risk:** Low (display only; week 8 margins also corrected: 79.2, 13.9, 24.5)
+- **Measure:** — (one-off)
+- **Design:** tests: `tests/test_wrapup.py` (short version, margins), `tests/test_pick_breakdowns.py` (`card_over`, banner),
+  `tests/test_core_js.py` (`SHQ.picksStale`, Node; skipped without Node). Checked at 375px and desktop, light and dark.
+- **Decision:** bug fixes requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
@@ -320,6 +418,9 @@ Measure (the health.json check that should move), Design, Decision.
   n=48), weak for the third run; `radar.held` 0.71 (34 of 48); across all flagged player-mornings 76 of 126 held; 5
   flags were added by someone later (was 1). Edge by run: +0.15, +1.16, −0.98, −2.98, −2.96 as n went 22 → 25 → 29 →
   42 → 48: it has settled near −3 rather than bounced back. Ranked 1 (was 2).
+  Nov 10 (Q-045): most of that was the metric (today's ownership in the comparison list, open-ended "after", every
+  player-morning counted). On the fixed metric, before Q-045's model fixes: every flag held 0.64 (n=42), edge −0.29
+  (n=29); after: shown 0.70 (n=10), every flag 0.63 (n=38), edge +0.34 (n=25). This item's value gate is still unbuilt.
 - **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
   when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
   actually suggests now.
@@ -329,6 +430,44 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-036.md`
 - **Decision:** —
 
+
+### Q-045 · NBA radar health warnings came mostly from the metric; fix the backtest, then two small model fixes
+- **Status:** shipped (74ba172)
+- **Area:** `shq/radar_backtest.py` (`run`, `summary`, `report`, `inputs`), `shq/health.py` (`judge`, `MIN_N`, `radar_health`,
+  new info check `radar.held_all`), `shq/radar.py` (`role`, `rising`, `may_fade`, `rank_key`, `block`, `riser_item`),
+  `state/health_baselines.json` (`radar.held`, `radar.edge` re-set), `reviews/2026-11-10-nba-radar-backtest.md`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (from Claude Ops' diagnosis of the Q-036 warnings)
+- **Evidence:** health.json Nov 10: `radar.held` 0.71 (drift) and `radar.edge` −2.96 (weak), both against baselines set Nov 3
+  on n=5; the radar code hadn't changed since. The metric had three faults: (1) the "old suggestion" it compared with was
+  ranked by today's % rostered, so later breakouts leaked into it; (2) "held" used every game after the flag (DNPs
+  dropped) and counted each player-morning (178 for 48 players); (3) it scored every flag, while the site shows 4 a
+  morning. Re-scored on the same data (logs through Nov 9, last 14 mornings with games, each free agent once at his first
+  flag, his team's next 3 games, a missed game = 0 min, old suggestion by that morning's `state/nba_owned.json` reading):
+  every flag held 27 of 42 (0.64), the 4 shown a morning 7 of 11 (0.64), edge −0.29 z per game (n=29, Nov 4-6 mornings).
+  Model fixes tried on that backtest (before → after): (6) a "riser" who played under half his team's earlier games is
+  back from an absence, not a riser: removes Marcus Smart, Oso Ighodaro, Caleb Martin, Kobe Brown (−7 to −11 z a game;
+  three "held" only because their baseline was the games they sat): every flag 27/42 → 24/38, edge −0.29 → +0.34 (n=25),
+  value −4.24 → −3.86. Shipped. (5) rank flags caused by an injured key teammate first, and label a jump with no cause
+  and under 4 straight games "may fade" (those held 9 of 16, the rest 18 of 26): shown 7/11 → 7/10 (0.64 → 0.70), shown
+  value −3.63 → −2.75. Shipped. (7) usage-only flags need 24+ recent minutes or a teammate's absence: removed 4 flags
+  (2 held), edge −0.29 → −0.43, with 6: held 0.62 and edge +0.23, both worse than 6 alone. Not shipped. A
+  "may fade last" order changed nothing in this sample, so may-fade is a label only.
+  Not confirmed: the replay stands in "on ESPN's injury report" with "missed all 3 of his recent games" (old reports
+  aren't kept), and ranks by fit over all 3-Ball categories without games left. Samples are small (10 shown, 25 for edge).
+- **Expected impact:** the radar checks stop warning about a measuring error and track what the site shows; slightly
+  fewer, better-ordered rising lines on both basketball tabs (no players just back from an absence; injury-driven jumps
+  on top; unexplained short jumps say "may fade").
+- **Effort:** S-M
+- **Risk:** Low (ideas and at most one push a day per league; push rules unchanged)
+- **Measure:** `radar.held` (shown, baseline 0.70, n=10, MIN_N 10), `radar.edge` (every flag, baseline +0.34, n=25, MIN_N 20,
+  floor 0), `radar.held_all` (info, 0.63, n=38). `judge` now re-sets any stored baseline with n under the check's MIN_N.
+- **Design:** as above. The window is the last 14 mornings with games (a period with no NBA games, e.g. Nov 3, repeats
+  the morning before). MIN_N for the shown check is 10, not 20: the site shows ~10 different free agents per 14 mornings,
+  so 20 would leave it waiting for good. Edge is judged on every flag (n=25); the shown-only edge (+2.22 on n=4) is in the
+  notes. Q-036's value gate is not built; re-judge it on the new metric. Undo: `git revert` the commit (restores the old
+  `state/health_baselines.json` radar rows too).
+- **Decision:** built 2026-11-10 on Claude Ops' build request (the session that ran the diagnosis)
 
 ### Q-018 · The What to do card contradicts itself
 - **Status:** designed
