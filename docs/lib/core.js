@@ -291,15 +291,18 @@
     if (!g?.items) return `<p class="note">The daily check posts at 8am CT.</p>`;
     const items = g.items.length ? g.items : [{ league: "All leagues", text: "Every lineup looks set.", urgent: false }];
     const old = !S.digestToday(d);
-    return `<div class="meta">${esc(g.title)} · ${esc(kick(g.generated))}${old ? " · <b>not from today</b>" : ""}</div><ul class="tips">${
+    const upd = g.updated && !old ? ` · updated ${kick(g.updated)} to match the league pages` : "";
+    return `<div class="meta">${esc(g.title)} · ${esc(kick(g.generated))}${esc(upd)}${old ? " · <b>not from today</b>" : ""}</div><ul class="tips">${
       items.map(i => `<li class="${i.urgent ? "hotli" : ""}"><b>${esc(i.league)}:</b> ${esc(i.text)}</li>`).join("")}</ul>`;
   };
   S.weeklyHTML = function (d = S.data) {
     const w = d.weekly;
     if (!w?.leagues?.length) return `<p class="note">The weekly plan posts Tuesdays at 7am CT.</p>`;
-    const upd = w.start_sit_updated ? ` · start/sit updated ${kick(w.start_sit_updated)}` : "";
+    const upd = w.start_sit_updated ? ` · start/sit and adds updated ${kick(w.start_sit_updated)}` : "";
+    // adds follow the league page (Q-047); Tuesday's lines it no longer makes are noted under them
+    const was = l => l.plan_changed?.length ? `<div class="note">Tuesday's plan had: ${l.plan_changed.map(esc).join(" · ")}</div>` : "";
     return `<div class="meta">Week ${w.week} · generated ${esc(kick(w.generated))}${esc(upd)}</div><div class="wgrid">` +
-      w.leagues.map(l => `<div class="wcard"><h3>${esc(l.name)}</h3><div class="subhead">Start / sit</div>${ul(l.start_sit)}<div class="subhead">Top FA adds</div>${ul(l.adds)}</div>`).join("") + "</div>";
+      w.leagues.map(l => `<div class="wcard"><h3>${esc(l.name)}</h3><div class="subhead">Start / sit</div>${ul(l.start_sit)}<div class="subhead">Top FA adds</div>${ul(l.adds)}${was(l)}</div>`).join("") + "</div>";
   };
 
   // ---------- status pill + footer ----------

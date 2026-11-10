@@ -140,15 +140,15 @@ class Analyze(unittest.TestCase):
     def test_odds_rank_and_bids(self):
         out = g.analyze(self.lg, self.ctx, NOW, sims=2000, past=[], v2={})
         self.assertEqual((out["n"], out["rank"], out["faab"]), (3, 2, 60))
-        self.assertEqual(out["teams"][0]["name"], "Weak Sauce")    # most at risk first
+        self.assertEqual(out["teams"][0]["name"], "Weak Sauce (Weak)")    # most at risk first; team name (username), Q-047
         self.assertGreater(out["teams"][0]["cut"], out["cut"])
         self.assertAlmostEqual(out["cut"] + out["survive"], 1.0)
         self.assertEqual([b["name"] for b in out["bids"]], ["fa"])  # fk adds nothing to my lineup
         b = out["bids"][0]
         self.assertEqual(b["gain"], 5.0)                           # 14 replaces the 9-point FLEX
         self.assertLess(b["cut_with"], out["cut"])
-        self.assertEqual(out["freed"]["team"], "Weak Sauce")
-        self.assertEqual([r["name"] for r in out["rich"]], ["Rich", "Weak Sauce"])
+        self.assertEqual(out["freed"]["team"], "Weak Sauce (Weak)")
+        self.assertEqual([r["name"] for r in out["rich"]], ["Rich", "Weak Sauce (Weak)"])
         self.assertEqual(out["waivers"], "Wed 2:15a")
 
     def test_final_games_use_real_points(self):

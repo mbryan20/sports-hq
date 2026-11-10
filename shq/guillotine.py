@@ -194,9 +194,28 @@ def v2_current(v2, week, now):
     return now <= (run if run.tzinfo else run.replace(tzinfo=dt.timezone.utc)) + V2_GRACE
 
 
-def v2_rows(v2):
+def team_label(user):
+    """One name per Sleeper team on every page: "Team name (username)" when the user set a team name that differs
+    from the username, else whichever exists. War Room v2 names teams by username, this page used the team name
+    (Q-047: "Off with his head" here was "damonhawk1" there)."""
+    user = user or {}
+    team = " ".join(str((user.get("metadata") or {}).get("team_name") or "").split())
+    name = " ".join(str(user.get("display_name") or "").split())
+    if team and name and team.lower() != name.lower():
+        return f"{team} ({name})"
+    return team or name or None
+
+
+def labels(users):
+    """{username: label} for War Room v2's username-keyed rows."""
+    return {u["display_name"]: team_label(u) for u in users or [] if u.get("display_name")}
+
+
+def v2_rows(v2, names=None):
     """War Room v2's calls in its own order (most added win odds first), Skips left out. `price` is the bid
-    to place (health.py scores the dashboard's "bid" rows by it); a Bid of $0 is a $0 claim."""
+    to place (health.py scores the dashboard's "bid" rows by it); a Bid of $0 is a $0 claim. `names` maps v2's
+    usernames to team labels; `sid` is the Sleeper id."""
+    names = names or {}
     rows = []
     for x in v2.get("bids") or []:
         call = str(x.get("call") or "").strip().lower()
@@ -209,8 +228,9 @@ def v2_rows(v2):
             "call": call, "bid": bid, "price": bid, "max": x.get("your_max") or 0, "est_price": x.get("est_price"),
             "drop": x.get("drop"), "why": x.get("why"), "win_chance": x.get("win_chance"),
             "free": x.get("source") == "free agent", "source": x.get("source"), "injury": x.get("injury"),
-            "rivals": [{"name": r.get("team"), "bid": r.get("bid")} for r in (x.get("likely_rival_bids") or [])[:3]],
-            "v2": True})
+            "rivals": [{"name": names.get(r.get("team"), r.get("team")), "bid": r.get("bid")}
+                       for r in (x.get("likely_rival_bids") or [])[:3]],
+            "sid": x.get("sleeper_id"), "v2": True})
     return rows
 
 
@@ -227,7 +247,11 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
     points = {}
     for m in league.matchups or []:
         points.update(m.get("players_points") or {})
-    names = {u["user_id"]: (u.get("metadata") or {}).get("team_name") or u.get("display_name") or "?" for u in league.users}
+    names = {u["user_id"]: team_label(u) or "?" for u in league.users}
+    # the trade finder's team list (shq/leagues.py) names teams the old way: give it the same labels
+    old = {(u.get("metadata") or {}).get("team_name") or u.get("display_name"): team_label(u) for u in league.users}
+    for o in getattr(league, "others", None) or []:
+        o["name"] = old.get(o.get("name")) or o.get("name")
     budget = league.faab_budget or 0
     teams = []
     for r in league.rosters:
@@ -264,7 +288,7 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
         m, s = lineup(mine.slots, mine.starters, {**mine.pool, e["id"]: e})
         cut_with = my_cut(m, s, z, me, low)
         pos = (p["positions"] or ["?"])[0]
-        row = {"name": p["name"], "pos": pos, "team": p["team"], "proj": p["proj"], "gain": round(gain, 1),
+        row = {"name": p["name"], "sid": p["id"], "pos": pos, "team": p["team"], "proj": p["proj"], "gain": round(gain, 1),
                "cut_with": round(cut_with, 3), "freed_from": source.name if source else None}
         if source is None and p["id"] not in waiting:
             # a plain free agent: no waiver claim, so no bid and no rivals to outbid
@@ -293,7 +317,7 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
 
     source, model = {"name": "dashboard model"}, None
     try:
-        rows = v2_rows(v2) if v2_current(v2, ctx.week, now) else None
+        rows = v2_rows(v2, labels(league.users)) if v2_current(v2, ctx.week, now) else None
     except (TypeError, ValueError, AttributeError):   # a malformed bids.json: keep the model's own bids
         rows = None
     if rows is not None:
@@ -306,7 +330,7 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
         "week": ctx.week, "sims": sims, "n": len(teams), "rank": rank, "gap": round(gap, 1),
         "proj": round(mine.mean, 1), "cut": round(odds[me], 3), "survive": round(1 - odds[me], 3),
         "faab": mine.faab, "reserve": reserve, "waivers": ct_label(next_waivers(now)),
-        "bid_source": source, "model": model,
+        "bid_source": source, "model": model, "labels": labels(league.users),
         "teams": [{"name": teams[i].name, "proj": round(teams[i].mean, 1), "cut": round(odds[i], 3),
                    "faab": teams[i].faab, "bold": round(bold.get(teams[i].rid, 0), 2), "me": i == me} for i in order],
         "rich": [{"name": t.name, "faab": t.faab} for t in sorted(teams, key=lambda t: -t.faab) if t is not mine][:3],

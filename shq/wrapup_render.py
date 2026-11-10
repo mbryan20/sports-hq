@@ -64,9 +64,19 @@ def _e(s):
     return H.escape(str(s or ""))
 
 
+LABEL_MAX = 32   # "Team name (username)" labels (Q-047): the label column grows to fit instead of cutting at 16
+
+
+def _short(s, n=LABEL_MAX):
+    s = str(s or "")
+    return s if len(s) <= n else s[:n - 1].rstrip() + "…"
+
+
 def _chart_svg(c):
     bars = c["bars"]
-    w, row, lab = 360, 20, 112   # drawn at about phone width, so 12px text stays 12px
+    longest = max((len(_short(b["label"])) for b in bars), default=0)
+    # drawn at about phone width, so 12px text stays 12px (~6.3px a character)
+    w, row, lab = 360, 20, int(min(200, max(112, 6.3 * longest + 12)))
     top = max(b["value"] for b in bars) or 1
     h = row * len(bars) + 6
     out = [f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{_e(c["title"])}">']
@@ -78,7 +88,7 @@ def _chart_svg(c):
         weight = ' font-weight="700"' if b["me"] else ""
         out.append(f'<g><title>{_e(name)}: {b["value"]:.1f}</title>'
                    f'<text x="{lab - 8}" y="{y + 14}" text-anchor="end" font-size="12" fill="var(--ink)"'
-                   f'{weight}>{_e(b["label"][:16])}</text>'
+                   f'{weight}>{_e(_short(b["label"]))}</text>'
                    f'<rect x="{lab}" y="{y + 3}" width="{bw:.1f}" height="{row - 6}" rx="4" fill="{fill}"/>'
                    f'<text x="{lab + bw + 6:.1f}" y="{y + 14}" font-size="11" fill="var(--muted)">{b["value"]:.1f}</text></g>')
     out.append("</svg>")
@@ -329,7 +339,9 @@ def _chart_drawing(ch, width, Drawing, Rect, String, c):
     """Horizontal bars, one per team: me in the accent color, the lowest (cut) team in the alert color, the rest gray,
     each directly labeled (single series: no legend)."""
     bars = ch["bars"]
-    row, lab, val = 10.5, 74, 26
+    longest = max((len(_short(b["label"])) for b in bars), default=0)
+    row, val = 10.5, 26
+    lab = min(width * 0.42, max(74, 3.4 * longest + 6))   # 6.6pt Helvetica: ~3.4pt a character
     top = max(b["value"] for b in bars) or 1
     h = row * len(bars) + 2
     d = Drawing(width, h)
@@ -337,7 +349,7 @@ def _chart_drawing(ch, width, Drawing, Rect, String, c):
         y = h - (i + 1) * row
         bw = max(1.5, (width - lab - val) * b["value"] / top)
         fill = ACCENT if b["me"] else CUT if b["low"] else BAR
-        name = _t(b["label"])[:18]
+        name = _t(_short(b["label"]))
         d.add(String(lab - 4, y + 2.4, name, fontName="Helvetica-Bold" if b["me"] else "Helvetica", fontSize=6.6,
                      fillColor=c(INK), textAnchor="end"))
         d.add(Rect(lab, y + 1.2, bw, row - 2.6, rx=2, ry=2, fillColor=c(fill), strokeColor=None))

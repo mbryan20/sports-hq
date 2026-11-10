@@ -167,21 +167,83 @@ def weekly_due(now, last_generated):
     return last_generated is None or last_generated < anchor
 
 
-def start_sit_lines(league):
-    """Weekly tab start/sit, rebuilt every run so an injury status is never days old."""
+def start_sit_lines(league, fixes=None):
+    """Weekly tab start/sit, rebuilt every run so an injury status is never days old. `fixes` is the league page's
+    live fix list (advice["fixes"]): when given, its lines lead (a bye QB's "add <free agent> and start him", an IR
+    starter's fix) and the start/sit upgrades cover only healthy starters, so the plan says what the league page says
+    (Q-047). All fixes are kept; upgrades fill up to 3 lines."""
     if getattr(league, "sport", "nfl") == "nba":
         return nba_weekly_section(league)["start_sit"]
     from .swap import start_sit
+    if fixes is not None:
+        moves = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({s['proj']}) at {s['slot']}"
+                 for s, b, _ in start_sit(league.starters, league.bench) if not advice._dead(s)]
+        ss = list(fixes) + moves[:max(0, 3 - len(fixes))]
+        live = round(sum(p["proj"] for p in league.starters if not advice._dead(p)), 1)
+        return ss or [f"Lineup is optimal by projections ({live} pts)."]
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
           + (digest.cite(s) if s["status"] and not s["bye"] else "")
           for s, b, _ in start_sit(league.starters, league.bench)]
-    return ss or [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
+    return ss[:3] or [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
 
 
-def weekly_section(league):
+def _advice(view):
+    """A league view's live "what to do" block, or None when this run couldn't build it (stale or pending league)."""
+    if not view or view.get("stale") or view.get("pending"):
+        return None
+    return view.get("advice") or None
+
+
+ADD_RE = re.compile(r"^(?:Drop (?P<drop1>.+?) \(.*?\), add |Add )?(?P<add>.+?) \(")
+DROP_RE = re.compile(r"\) (?:for|over) (?P<drop>.+?) \(|, drop (?P<drop2>.+?) \(")
+
+
+def add_key(line):
+    """(player added, player dropped) named by a Weekly/league-page add line, so Tuesday's plan can be compared with
+    the live list without the numbers (values, projections) that move every run. Unparsed lines key on their text."""
+    m = ADD_RE.match(line or "")
+    if not m:
+        return (line, None)
+    d = DROP_RE.search(line[m.end():])
+    drop = m.group("drop1") or (d and (d.group("drop") or d.group("drop2")))
+    return (m.group("add").strip(), (drop or "").strip() or None)
+
+
+def live_adds(sec, adv):
+    """Q-047: the Weekly plan's adds follow the league page's live list (advice["adds"], rebuilt every run). Tuesday's
+    7am list stays as `plan_adds`; `plan_changed` holds its lines whose add or drop the live list no longer makes."""
+    if not adv or not adv.get("adds"):
+        return
+    sec.setdefault("plan_adds", list(sec.get("adds") or []))
+    sec["adds"] = list(adv["adds"][:3])
+    now_keys = {add_key(a) for a in sec["adds"]}
+    sec["plan_changed"] = [a for a in sec["plan_adds"] if add_key(a) not in now_keys
+                           and not a.startswith("No free agent")]
+
+
+def refresh_weekly(weekly, leagues, views, now):
+    """Every run between Tuesday plans: start/sit from the live fixes and upgrades, adds from the live league page."""
+    by_name = {lg.name: lg for lg in leagues}
+    for sec in weekly.get("leagues", []):
+        try:
+            adv = _advice(views.get(sec["name"]))
+            if sec["name"] in by_name:
+                sec["start_sit"] = start_sit_lines(by_name[sec["name"]], adv.get("fixes") if adv else None)
+            live_adds(sec, adv)
+        except Exception:
+            traceback.print_exc()
+    weekly["start_sit_updated"] = iso(now)
+    return weekly
+
+
+def weekly_section(league, adv=None):
+    """Tuesday's plan for one football league. `adv` is the league page's advice from this same run: its fixes lead
+    the start/sit and its adds are the plan's adds, so the two pages start the week identical (Q-047)."""
     from .swap import fa_adds
-    ss = start_sit_lines(league)
-    if advice.valued(league):  # same rest-of-season list as the league tab
+    ss = start_sit_lines(league, adv.get("fixes") if adv else None)
+    if adv and adv.get("adds"):
+        adds = list(adv["adds"])
+    elif advice.valued(league):  # same rest-of-season list as the league tab
         adds = advice.adds(league)
     else:
         roster = league.starters + league.bench
@@ -190,7 +252,7 @@ def weekly_section(league):
                 for _, fa, who in fa_adds(roster, league.free_agents[:300])]
     if not adds:
         adds = ["No free agent projects above your current depth."]
-    return {"name": league.name, "week": league.week, "start_sit": ss[:3], "adds": adds[:3]}
+    return {"name": league.name, "week": league.week, "start_sit": ss, "adds": adds[:3]}
 
 
 def nba_weekly_section(league):
@@ -228,6 +290,26 @@ def origin_digest():
 def digest_due(now, local_generated, origin=origin_digest):
     """Today's digest is due here unless this checkout or origin/main already has it (no second 8am push)."""
     return digest.due(now, local_generated) and digest.due(now, origin())
+
+
+def refresh_digest(today, leagues, now, cards=None):
+    """Q-047: after the day's 8am digest, every later run rebuilds its items in place from this run's leagues (the
+    same digest.league_items the league pages' fixes come from), so the Today check never contradicts a league page.
+    Leagues this run couldn't read keep their earlier items. Never pushes: the 8am push was the day's one, and the
+    injury watch pushes a new OUT before kickoff. Returns the updated digest, or None when there's nothing to refresh
+    (no digest from today yet, or no item changed)."""
+    gen = parse_iso(today.get("generated"))
+    if not gen or "items" not in today or gen.astimezone(TZ).date() != now.astimezone(TZ).date():
+        return None
+    fresh = {lg.name for lg in leagues} | {"Picks"}
+    kept = [i for i in today["items"] if i.get("league") not in fresh]
+    order = {c["name"]: n for n, c in enumerate(LEAGUES)}
+    # sorted() is stable: each league's items keep their own order; leagues follow config, Picks last
+    items = sorted(digest.build(leagues, now, cards) + kept, key=lambda i: order.get(i.get("league"), len(order)))
+    if items == today["items"]:
+        return None
+    title, _ = digest.message(items)
+    return {**today, "title": title, "items": items, "updated": iso(now)}
 
 
 LAPTOP_KICK_FROM = dt.time(2, 50)       # the laptop's daily 2:55am model-health kick (\SportsHQ\Kick model health)
@@ -403,13 +485,20 @@ def main():
         except Exception as e:
             traceback.print_exc()
             errors.append(f"digest: {type(e).__name__}: {e}")
+    else:
+        try:   # later runs keep today's items in step with the league pages, without pushing (Q-047)
+            fresh = refresh_digest(today, leagues, now, load_json(ROOT / "picks" / "data" / "cards.json", {}))
+            if fresh:
+                save_json(DATA / "digest.json", fresh)
+        except Exception:
+            traceback.print_exc()
 
     weekly = load_json(DATA / "weekly.json", {}) or {}
     if weekly_due(now, parse_iso(weekly.get("generated"))) or os.environ.get("FORCE_WEEKLY") == "1":
         try:
             weekly = {"generated": iso(now), "week": ctx.week,
-                      "leagues": [nba_weekly_section(lg) if getattr(lg, "sport", "nfl") == "nba" else weekly_section(lg)
-                                  for lg in leagues]}
+                      "leagues": [nba_weekly_section(lg) if getattr(lg, "sport", "nfl") == "nba"
+                                  else weekly_section(lg, _advice(league_views.get(lg.name))) for lg in leagues]}
             save_json(DATA / "weekly.json", weekly)
             if os.environ.get("FORCE_WEEKLY") != "1":
                 push(f"Week {ctx.week} plan ready", "Start/sit and FA adds are on the Weekly tab.", priority=2, tags=["clipboard"])
@@ -417,16 +506,8 @@ def main():
             traceback.print_exc()
             errors.append(f"weekly: {type(e).__name__}: {e}")
     elif weekly.get("week") == ctx.week:
-        # adds stay Tuesday's plan; start/sit follows the latest injury news
-        by_name = {lg.name: lg for lg in leagues}
-        for sec in weekly.get("leagues", []):
-            try:
-                if sec["name"] in by_name:
-                    sec["start_sit"] = start_sit_lines(by_name[sec["name"]])[:3]
-            except Exception:
-                traceback.print_exc()
-        weekly["start_sit_updated"] = iso(now)
-        save_json(DATA / "weekly.json", weekly)
+        # Tuesday's framing stays; start/sit and adds follow the league pages (Tuesday's adds kept as plan_adds)
+        save_json(DATA / "weekly.json", refresh_weekly(weekly, leagues, league_views, now))
 
     # weekend wrap-up: Sunday night after the late games, final Tuesday 8am (shq/wrapup.py decides)
     try:

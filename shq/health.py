@@ -225,6 +225,9 @@ class League:
         # the dashboard names teams by team_name when one is set (shq/guillotine.py)
         self.team_name = {r["roster_id"]: ((by_uid.get(r["owner_id"]) or {}).get("metadata") or {}).get("team_name") or self.display[r["roster_id"]]
                           for r in self.rosters}
+        # since Q-047 the dashboard names them "Team name (username)" (guillotine.team_label)
+        from .guillotine import team_label
+        self.label = {r["roster_id"]: team_label(by_uid.get(r["owner_id"])) or self.display[r["roster_id"]] for r in self.rosters}
         self.cut_week = {r["roster_id"]: (r.get("settings") or {}).get("eliminated") for r in self.rosters}
         self.kickoffs = kickoffs or {}
 
@@ -420,13 +423,33 @@ def warroom_prices(now, estimate=node_estimates):
 
 
 # ---------- our bid recommendations ----------
+SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def name_key(name):
+    """Lower case, no punctuation, no Jr./Sr./II suffix: "Harold Fannin Jr." and "Harold Fannin" meet."""
+    words = "".join(ch if ch.isalnum() or ch.isspace() else " " for ch in (name or "").lower()).split()
+    while len(words) > 1 and words[-1] in SUFFIXES:
+        words.pop()
+    return " ".join(words)
+
+
+def id_lookup(names):
+    """Sleeper id for a player name from lg.name_to_id(): exact (lower case) first, then suffix- and
+    punctuation-blind."""
+    loose = {}
+    for n, sid in names.items():
+        loose.setdefault(name_key(n), sid)
+    return lambda name: names.get((name or "").lower()) or loose.get(name_key(name))
+
+
 def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
     """For every waiver run since tracking began: the War Room v2 bids (bids.json) and the dashboard's guillotine
     bids (lineups.json) as committed just before the run, against what happened (would the bid have beaten
     every rival? what did the winner pay?). A tie counts as a loss (waiver order decides it)."""
     bids_versions = bids_versions if bids_versions is not None else git_versions("docs/war-room-v2/bids.json")
     dash_versions = dash_versions if dash_versions is not None else git_versions("docs/data/lineups.json")
-    names = lg.name_to_id()
+    find = id_lookup(lg.name_to_id())
     v2, dash, runs = [], [], []
     for leg in range(1, lg.played + 1):
         run = lg.waiver_run(leg)
@@ -457,8 +480,12 @@ def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
         sha = last_before(dash_versions, run)
         G = (((load(sha, "docs/data/lineups.json") if sha else {}) or {}).get("leagues", {}).get("Guillotine") or {}).get("advice", {}).get("guillotine")
         if G:
-            for row in (G.get("bids") or []) + ((G.get("freed") or {}).get("players") or []):
-                sid = names.get(row["name"].lower())
+            # since Q-044 the page's bids are War Room v2's own calls; the old model's rows sit under "model"
+            M = G.get("model") or ({} if (G.get("bid_source") or {}).get("url") else G)
+            for row in (M.get("bids") or []) + ((M.get("freed") or {}).get("players") or []):
+                if row.get("v2"):
+                    continue
+                sid = row.get("sid") or find(row["name"])
                 if not sid:
                     continue
                 bid = row["price"] if row.get("call") == "bid" else 0
@@ -494,6 +521,7 @@ def shown_cut_odds(lg, bids_versions=None, dash_versions=None, load=git_json):
     dash_versions = dash_versions if dash_versions is not None else git_versions("docs/data/lineups.json")
     by_display = {v: k for k, v in lg.display.items()}
     by_team = {v: k for k, v in lg.team_name.items()}
+    by_team.update({v: k for k, v in (getattr(lg, "label", None) or {}).items()})
     v2, dash, weeks = [], [], []
     for w in range(1, lg.played + 1):
         kick, cut = lg.kickoffs.get(w), lg.cut_of(w)
