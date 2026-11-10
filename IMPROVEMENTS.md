@@ -122,6 +122,29 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** —
 - **Decision:** —
 
+### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
+- **Status:** shipped (e508112)
+- **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
+  pushes), `shq/swap.py` (`slot_fa`, `fa_over_bench`, `MIN_FILL` 1.0, `FA_EDGE` 5.0), `shq/advice.py` (values loaded before
+  the fixes so a fix can name the waivers drop)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (bug on the Domo Arigato league card, reported via Claude Ops)
+- **Evidence:** lineups.json, Tue Nov 10 4:37pm CT: Domo Arigato fix "Caleb Williams (QB) on BYE → start Carson Wentz", with
+  no projection shown; Wentz projected 0 this week and the next 4 (a backup after Cousins' trade to MIN), while the same
+  card's adds named Drew Lock (SEA, 15.7 this week). `_fix` took any playable bench player whatever his projection and
+  printed the projection only when above 0; the injury watch had the same "any playable bench player" rule.
+- **Expected impact:** a football fix never tells Michael to start a 0-point player when a usable free agent exists: it
+  says "add <FA> (proj) into your open roster spot / drop <X> and start him", keeps the bench option as a fallback only
+  above 0, and always shows the projection. Superflex/OP slots look at every eligible position (QBs included); a QB slot
+  only at QBs. NBA category leagues unchanged. Suggestions only: nothing is ever added or dropped.
+- **Effort:** S
+- **Risk:** Low (text only, plus the injury watch no longer swaps in a sub-1-point player when a free agent is available)
+- **Measure:** — (one-off: no urgent fix line "start <name> (0 proj)" while a free agent projected 1+ fits that slot)
+- **Design:** a bench fill-in under 1 point, or one a playable, slot-eligible free agent beats by 5+ points, gives way to
+  "add <FA> and start him"; the room comes from an open roster spot, else the drop `shq/waivers.py` picks for that free
+  agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
