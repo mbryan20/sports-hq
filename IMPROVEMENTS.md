@@ -395,8 +395,8 @@ Measure (the health.json check that should move), Design, Decision.
   n=48), weak for the third run; `radar.held` 0.71 (34 of 48); across all flagged player-mornings 76 of 126 held; 5
   flags were added by someone later (was 1). Edge by run: +0.15, +1.16, −0.98, −2.98, −2.96 as n went 22 → 25 → 29 →
   42 → 48: it has settled near −3 rather than bounced back. Ranked 1 (was 2).
-  Nov 10 (Q-044): most of that was the metric (today's ownership in the comparison list, open-ended "after", every
-  player-morning counted). On the fixed metric, before Q-044's model fixes: every flag held 0.64 (n=42), edge −0.29
+  Nov 10 (Q-045): most of that was the metric (today's ownership in the comparison list, open-ended "after", every
+  player-morning counted). On the fixed metric, before Q-045's model fixes: every flag held 0.64 (n=42), edge −0.29
   (n=29); after: shown 0.70 (n=10), every flag 0.63 (n=38), edge +0.34 (n=25). This item's value gate is still unbuilt.
 - **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
   when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
@@ -408,7 +408,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 
-### Q-044 · NBA radar health warnings came mostly from the metric; fix the backtest, then two small model fixes
+### Q-045 · NBA radar health warnings came mostly from the metric; fix the backtest, then two small model fixes
 - **Status:** shipped (74ba172)
 - **Area:** `shq/radar_backtest.py` (`run`, `summary`, `report`, `inputs`), `shq/health.py` (`judge`, `MIN_N`, `radar_health`,
   new info check `radar.held_all`), `shq/radar.py` (`role`, `rising`, `may_fade`, `rank_key`, `block`, `riser_item`),

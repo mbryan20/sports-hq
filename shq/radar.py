@@ -145,7 +145,7 @@ def role(p, tg, period):
 
 def rising(rl):
     """A bigger role in his last 3 games. Not one when he missed most of the earlier games: that's a player back from
-    an absence, whose low baseline is the games he sat (Q-044: those flags held only on paper, at -7 to -11 z a game)."""
+    an absence, whose low baseline is the games he sat (Q-045: those flags held only on paper, at -7 to -11 z a game)."""
     if not rl or rl["back"] or rl["recent"]["min"] < 18:
         return False
     usage = (rl["dusg"] or 0) >= USG_JUMP and rl["dmin"] >= -2
@@ -153,7 +153,7 @@ def rising(rl):
 
 
 def may_fade(rl, gone):
-    """No key teammate's absence behind the jump and fewer than LASTED straight games of it (Q-044 backtest: those
+    """No key teammate's absence behind the jump and fewer than LASTED straight games of it (Q-045 backtest: those
     held 9 of 16, the rest 18 of 26)."""
     return not gone and rl["streak"] < LASTED
 
