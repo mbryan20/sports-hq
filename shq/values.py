@@ -7,16 +7,26 @@ Sleeper players dump (.cache, persisted by the Actions cache).
                       points per game isn't one week's projection (or zero on his bye)
     annotate(league)  puts "sid", "val" and "ppg" on every player the league knows about
 
+Sleeper's later weeks lag behind trades and depth-chart changes (its week-after-next projections can carry a
+traded player's old team, or nothing for a new starter), while this week's projection is rebuilt every run. So a
+week projected for another team, or not projected at all, takes the player's live per-game number instead of the
+stale row or a zero (unless he's out), and his team always comes from Sleeper's live data. A player on IR scores
+0 for the games left on the IR minimum (IR_MIN_GAMES).
+
 NFL only: there is no free value source for basketball."""
 import time
 
-from .common import CACHE, get_json, load_json, save_json
+from .common import CACHE, get_json, load_json, parse_iso, save_json
+from .espn import norm_team
+from .status import OUTISH
 
 FC_URL = "https://api.fantasycalc.com/values/current"
 FC_MAX_AGE = 6 * 3600
 ROS_FILE = CACHE / "sleeper_ros.json"
 ROS_MAX_AGE = 6 * 3600
 ROS_WEEKS = 4
+ROS_FORMAT = 2                  # bump when the cached shape changes (2: per-player row team, "team_of")
+IR_MIN_GAMES = 4                # NFL injured reserve: out at least four games
 LAST_WEEK = 17                  # fantasy regular season + playoffs
 SKILL = ("QB", "RB", "WR", "TE")
 # Sleeper stat keys worth keeping from the 2MB-a-week projections (everything any league scores on)
@@ -54,7 +64,9 @@ def fantasycalc(dynasty, qbs, teams, ppr):
 
 
 def _slim(rows):
-    stats, teams = {}, set()
+    """One week: stats per player, the teams playing, and the team each projection was made for ("team_of"),
+    so a projection made before a trade can be told apart from one for his current team."""
+    stats, teams, team_of = {}, set(), {}
     for r in rows:
         s = r.get("stats") or {}
         if not s.get("gp"):
@@ -64,14 +76,16 @@ def _slim(rows):
         keep = {k: v for k, v in s.items() if v and not k.startswith(DROP_PREFIX) and isinstance(v, (int, float))}
         if keep:
             stats[r["player_id"]] = keep
-    return {"stats": stats, "teams": sorted(teams)}
+            if r.get("team"):
+                team_of[r["player_id"]] = r["team"]
+    return {"stats": stats, "teams": sorted(teams), "team_of": team_of}
 
 
 def ros_projections(season, week):
     """{"weeks": {week: {"stats": {pid: stats}, "teams": [teams playing]}}} for week..week+ROS_WEEKS-1."""
     want = [w for w in range(week, week + ROS_WEEKS) if w <= LAST_WEEK] or [week]
     cached = load_json(ROS_FILE)
-    if cached and cached.get("key") == [season, week] and time.time() - cached.get("_fetched", 0) < ROS_MAX_AGE:
+    if cached and cached.get("key") == [season, week, ROS_FORMAT] and time.time() - cached.get("_fetched", 0) < ROS_MAX_AGE:
         return cached
     weeks = {}
     try:
@@ -83,24 +97,25 @@ def ros_projections(season, week):
         if cached:
             return cached
         raise
-    out = {"_fetched": time.time(), "key": [season, week], "weeks": weeks}
+    out = {"_fetched": time.time(), "key": [season, week, ROS_FORMAT], "weeks": weeks}
     save_json(ROS_FILE, out)
     return out
 
 
-def ros_ppg(ros, sid, team, scoring):
-    """Projected points per game over the ROS window. Byes don't count as games; weeks a healthy
-    player isn't projected (injured) count as zero."""
-    from .leagues import score
+def live_team(row):
+    """A player's current team from his row in Sleeper's live (this week's) projections: the embedded player
+    record is current even when the row itself was projected for his old team."""
+    row = row or {}
+    return (row.get("player") or {}).get("team") or row.get("team") or None
+
+
+def ros_ppg(ros, sid, team, scoring, fill=None, ir_games=0):
+    """Projected points per game over the ROS window. Byes don't count as games; weeks with no usable
+    projection count as `fill` when given, else zero (see ros_weeks)."""
     if not sid or not team:
         return 0.0
-    total, games = 0.0, 0
-    for wk in ros["weeks"].values():
-        if team not in wk["teams"]:
-            continue
-        games += 1
-        total += score(wk["stats"].get(sid), scoring)
-    return round(total / games, 1) if games else 0.0
+    pts = [x for _, x in ros_weeks(ros, sid, team, scoring, fill, ir_games) if x is not None]
+    return round(sum(pts) / len(pts), 1) if pts else 0.0
 
 
 # Some leagues (Stempak) score a stat per position: "points" is 0 and pointsOverrides holds
@@ -116,14 +131,60 @@ def _points(it, key):
     return next(iter(ov.values())) if ov and not it.get("points") else it.get("points", 0)
 
 
-def ros_weeks(ros, sid, team, scoring):
-    """[(week, projected points or None on a bye)] over the ROS window, in week order."""
+def _stale(wk, sid, team):
+    """No projection this week, or one made for a team he no longer plays for."""
+    row_team = (wk.get("team_of") or {}).get(sid)
+    return sid not in wk["stats"] or bool(row_team and row_team != team)
+
+
+def ros_weeks(ros, sid, team, scoring, fill=None, ir_games=0):
+    """[(week, projected points or None on a bye)] over the ROS window, in week order. `team` is his current
+    team (byes follow it). A week whose projection is missing or was made for another team counts as `fill`
+    (his current per-game number) when given; the first `ir_games` games he'd play count as 0 (IR minimum)."""
     from .leagues import score
     out = []
     for w in sorted(ros["weeks"], key=int):
         wk = ros["weeks"][w]
-        out.append((int(w), None if not sid or not team or team not in wk["teams"] else score(wk["stats"].get(sid), scoring)))
+        if not sid or not team or team not in wk["teams"]:
+            out.append((int(w), None))
+        elif ir_games > 0:
+            ir_games -= 1
+            out.append((int(w), 0.0))
+        elif fill is not None and _stale(wk, sid, team):
+            out.append((int(w), fill))
+        else:
+            out.append((int(w), score(wk["stats"].get(sid), scoring)))
     return out
+
+
+def per_game(ros, sid, team, scoring, live_row=None):
+    """His current per-game projection, used for weeks Sleeper hasn't projected for his current team: this
+    week's live projection when it's for his current team, else the average of his up-to-date weeks, else
+    None (nothing to go on: those weeks stay 0)."""
+    from .leagues import score
+    if not sid or not team:
+        return None
+    lr = live_row or {}
+    if (lr.get("stats") or {}).get("gp") and lr.get("team") == team:
+        return score(lr["stats"], scoring)
+    fresh = [score(wk["stats"][sid], scoring) for wk in ros["weeks"].values()
+             if team in wk["teams"] and not _stale(wk, sid, team)]
+    return round(sum(fresh) / len(fresh), 1) if fresh else None
+
+
+def ir_games_left(p, week_start):
+    """Games still covered by the IR minimum for a player whose IR tag is confirmed (status.confirm turns an
+    unbacked one into Q). Placement is estimated from the date on ESPN's injury entry; each NFL week since
+    counts as a game played out. Unknown date: the full minimum."""
+    if p.get("status") != "IR":
+        return 0
+    at = (p.get("news") or {}).get("at")
+    if isinstance(at, str):
+        at = parse_iso(at)
+    if not at or not week_start:
+        return IR_MIN_GAMES
+    missed = 0 if at >= week_start else (week_start - at).days // 7 + 1
+    return max(0, IR_MIN_GAMES - missed)
 
 
 def espn_scoring(items):
@@ -158,6 +219,8 @@ def annotate(league):
     dynasty = bool(getattr(league, "dynasty", False))
     fc = fantasycalc(dynasty, qbs, teams, ppr)
     ros = ctx.ros()
+    live = getattr(ctx, "proj", None) or {}
+    week_start = getattr(ctx, "week_start", None)
     espn_map = {}
     if league.platform == "espn":  # Sleeper's DB lacks many ESPN ids; FantasyCalc carries both
         espn_map = {**ctx.espn_to_sleeper(), **{str(v["espn"]): sid for sid, v in fc.items() if v.get("espn")}}
@@ -166,12 +229,18 @@ def annotate(league):
         if league.platform == "espn":
             pos = next((x for x in p["positions"] if x in SKILL), None)
             sid = espn_map.get(str(p["key"])) or (ctx.match(p["name"], p["team"], pos) if pos and hasattr(ctx, "match") else None)
-        team = (ctx.players.get(sid or "") or {}).get("team")
+        # current team: Sleeper's live projections first (rebuilt every run), then the players file (cached
+        # 6h, so a few hours behind on a trade), then the platform's own
+        live_row = live.get(sid or "")
+        team = live_team(live_row) or (ctx.players.get(sid or "") or {}).get("team") or norm_team(p.get("team")) or None
+        healthy = p.get("status") not in OUTISH
+        fill = per_game(ros, sid, team, scoring, live_row) if healthy else None
+        ir = ir_games_left(p, week_start)
         v = fc.get(sid or "") or {}
         p["sid"] = sid
         p["val"] = v.get("value" if dynasty else "redraft", 0)
-        p["ppg"] = ros_ppg(ros, sid, team, scoring)
-        p["wk"] = ros_weeks(ros, sid, team, scoring)
+        p["ppg"] = ros_ppg(ros, sid, team, scoring, fill, ir)
+        p["wk"] = ros_weeks(ros, sid, team, scoring, fill, ir)
     league.fc_settings = {"dynasty": dynasty, "qbs": qbs, "teams": teams, "ppr": ppr}
     league._valued = True
     return True
