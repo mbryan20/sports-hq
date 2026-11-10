@@ -17,7 +17,7 @@ from .leagues import (Context, EspnLeague, LeagueOver, SavedYahooLeague, Sleeper
                       YahooLeague, view)
 from .notify import push, push_once
 from .status import OUTISH
-from .swap import plan_injury_swaps, strength_text
+from .swap import MIN_FILL, fa_over_bench, plan_injury_swaps, slot_fa, strength_text
 from .yahoo import YahooPending, YahooWriteDenied
 
 
@@ -111,6 +111,15 @@ def injury_watch(league, now):
         out, inn, slot = item["out"], item["in"], item["slot"]
         key = f"{league.key}:w{league.week}:{out['id']}"
         locks = ct_label(out["kickoff"])
+        # football: a free agent is the better fix when the bench fill-in projects under MIN_FILL or trails him by
+        # FA_EDGE+ (same rule as the digest's lineup fixes); a sub-MIN_FILL fill-in isn't worth swapping in
+        nba = getattr(league, "sport", "nfl") == "nba"
+        fa = league.best_fa(out["positions"], now) if nba else slot_fa(slot, digest.free_agents(league), now)
+        better = "" if nba or not (inn and fa_over_bench(inn, fa)) else \
+            f" Better: add {fa['name']} ({fa['team']}, {fa['proj']} proj) and start him — add/drop manually."
+        weak = None
+        if better and inn["proj"] < MIN_FILL:
+            weak, inn = inn, None
         if inn and league.can_write:
             try:
                 if os.environ.get("DRY_RUN") == "1":
@@ -120,7 +129,7 @@ def injury_watch(league, now):
                     ok = league.execute_swap(out, inn)
                 if ok:
                     push(f"{league.name}: lineup fixed", f"Swapped {out['name']} → {inn['name']} ({slot}). "
-                         f"{out['name']}: {out['why']}.{digest.cite(out)}", priority=4, tags=["arrows_counterclockwise"])
+                         f"{out['name']}: {out['why']}.{digest.cite(out)}{better}", priority=4, tags=["arrows_counterclockwise"])
                     actions.append(f"swapped {out['name']} -> {inn['name']}")
                     continue
                 push_once(key + ":unconfirmed", f"{league.name}: CHECK LINEUP",
@@ -132,17 +141,18 @@ def injury_watch(league, now):
                 league.can_write = False
         if inn:
             push_once(key + ":swap", f"{league.name}: make this swap",
-                      f"Bench {label(out)} → start {inn['name']} ({strength_text(inn)}) at {slot}. Locks {locks}.",
+                      f"Bench {label(out)} → start {inn['name']} ({strength_text(inn)}) at {slot}.{better} Locks {locks}.",
                       priority=4, tags=["rotating_light"])
             actions.append(f"suggested {out['name']} -> {inn['name']}")
         else:
-            fa = league.best_fa(out["positions"], now)
             if fa:
                 tip = f"Best FA: {fa['name']} ({fa['team']}, {strength_text(fa)}) — add/drop manually."
             else:
                 tip = "No playable FA found."
+            bench = (f"your best bench fit, {weak['name']}, projects {strength_text(weak)}" if weak
+                     else f"no healthy bench player fits {slot}")
             push_once(key + ":fa", f"{league.name}: no healthy bench {slot}",
-                      f"{label(out)} is out and no healthy bench player fits {slot}. {tip} Locks {locks}.",
+                      f"{label(out)} is out and {bench}. {tip} Locks {locks}.",
                       priority=4, tags=["rotating_light"])
             actions.append(f"no bench for {out['name']}")
     return actions
