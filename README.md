@@ -67,8 +67,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - **Laptop kick** (Windows Task Scheduler, `ops/kick.ps1`, no AI; working since Nov 8 with a one-repo token that expires Nov 8, 2027, `ops/designs/Q-014.md` "Sign-in"): GitHub runs scheduled jobs hours late, so the laptop
   starts `run.yml` at 7:02am CT and hourly to 11:02pm (skipped when data was committed in the last 20 min) and
   `model-health.yml` at 2:55am. A dispatched run gets its own concurrency group, so it is never dropped; a run that finds
-  another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. Tasks and how
-  to remove them: `ops/designs/Q-014.md` "As built".
+  another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. A kick that
+  fails (token expired, gh broken, GitHub down) pushes once per outage, "Sports HQ: laptop can't start GitHub jobs" (Q-037).
+  Tasks and how to remove them: `ops/designs/Q-014.md` "As built" and "The laptop is the clock".
 - Alerts if a laptop job's data goes stale (>30h) and on any failed run.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.

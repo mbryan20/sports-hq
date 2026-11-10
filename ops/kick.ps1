@@ -17,13 +17,21 @@
 # Read it from Michael's own PowerShell window or a scheduled task: a Claude app shell sees the app's private copy.
 # If that file can't be written, the line goes to %TEMP%\sports-hq-kick.log, else to the repo's .cache\sports-hq-kick.log
 # (gitignored), so a failure is never silent.
+#
+# A failure also sends ONE phone push per outage (Q-037): title "Sports HQ: laptop can't start GitHub jobs", the reason,
+# and the fix doc. The ntfy topic is read from picks\.ntfy_topic next to this script (gitignored) and never logged. What
+# was pushed is remembered in %LOCALAPPDATA%\sports-hq-kick.alerted; the same failure again pushes nothing, and a
+# working kick clears it, so the next outage pushes again.
 param(
   [string]$Workflow = "run.yml",
   [int]$FreshMinutes = 0,
   [switch]$SaveToken,
   [string]$Gh = "C:\Program Files\GitHub CLI\gh.exe",
   [string]$Log = "",
-  [string]$TokenFile = ""
+  [string]$TokenFile = "",
+  [string]$AlertFile = "",
+  [string]$TopicFile = "",
+  [string]$NtfyBase = "https://ntfy.sh"
 )
 # no "Stop": in Windows PowerShell 5.1 a native program's stderr turns into errors whose handling differs by host, so
 # every gh call is checked by its exit code instead
@@ -36,6 +44,8 @@ $local = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [Environment]::GetF
 if (-not $local -and $env:USERPROFILE) { $local = Join-Path $env:USERPROFILE "AppData\Local" }
 if (-not $Log) { $Log = if ($local) { Join-Path $local "sports-hq-kick.log" } else { "" } }
 if (-not $TokenFile) { $TokenFile = if ($local) { Join-Path $local "sports-hq-kick.token" } else { "" } }
+if (-not $AlertFile) { $AlertFile = if ($local) { Join-Path $local "sports-hq-kick.alerted" } elseif ($env:TEMP) { Join-Path $env:TEMP "sports-hq-kick.alerted" } else { "" } }
+if (-not $TopicFile) { $TopicFile = Join-Path (Split-Path $PSScriptRoot -Parent) "picks\.ntfy_topic" }
 # last resorts: TEMP, then the repo's own gitignored .cache folder next to this script
 $fallbacks = @($env:TEMP, (Join-Path (Split-Path $PSScriptRoot -Parent) ".cache")) | Where-Object { $_ } |
   ForEach-Object { Join-Path $_ "sports-hq-kick.log" }
@@ -64,7 +74,61 @@ function Invoke-Gh([string[]]$GhArgs) {
   return @{ code = $code; out = (@($out) -join " ") }
 }
 
-trap { Write-Log "FAILED: $($_.Exception.Message)"; exit 1 }
+# --- one phone push per outage (Q-037) ---
+$authKeys = @("token-unreadable", "token-rejected", "gh-missing", "not-signed-in")
+
+function Get-Alerted {
+  if (-not ($AlertFile -and (Test-Path $AlertFile))) { return @() }
+  return @(Get-Content $AlertFile -ErrorAction SilentlyContinue | Where-Object { $_ })
+}
+
+function Set-Alerted([string[]]$keys) {
+  if (-not $AlertFile) { return }
+  try {
+    if ($keys.Count) { Set-Content -Path $AlertFile -Value $keys -Encoding ascii -ErrorAction Stop }
+    elseif (Test-Path $AlertFile) { Remove-Item $AlertFile -ErrorAction Stop }
+  } catch {}
+}
+
+function Clear-Alerted([string[]]$keys) {
+  $old = @(Get-Alerted)
+  if ($old.Count) { Set-Alerted @($old | Where-Object { $keys -notcontains $_ }) }
+}
+
+function Send-Alert([string]$key, [string]$reason) {
+  # returns a note for the log line; never throws, never logs the topic
+  $done = @(Get-Alerted)
+  if ($done -contains $key) { return "phone alert already sent for this outage" }
+  if (-not ($TopicFile -and (Test-Path $TopicFile))) { return "no phone alert (no ntfy topic file)" }
+  $topic = ""
+  try {
+    $topic = (Get-Content $TopicFile -Raw -ErrorAction Stop).Trim()
+    if (-not $topic) { return "no phone alert (the ntfy topic file is empty)" }
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+    $short = if ($reason.Length -gt 300) { $reason.Substring(0, 300) + "..." } else { $reason }
+    $msg = "$short. Jobs run late on GitHub's own schedule until this is fixed. Fix: ops/designs/Q-014.md"
+    $req = @{
+      Method = "Post"; Uri = "$NtfyBase/$topic"; UseBasicParsing = $true; TimeoutSec = 20; ErrorAction = "Stop"
+      Headers = @{ Title = "Sports HQ: laptop can't start GitHub jobs"; Priority = "4"; Tags = "warning" }
+      Body = [Text.Encoding]::UTF8.GetBytes($msg); ContentType = "text/plain; charset=utf-8"
+    }
+    Invoke-RestMethod @req | Out-Null
+  } catch {
+    $e = "$($_.Exception.Message)"
+    if ($topic) { $e = $e -replace [regex]::Escape($topic), "<topic>" }
+    return "phone alert failed: $e"
+  }
+  Set-Alerted @($done + $key)
+  return "phone alert sent"
+}
+
+function Stop-Failed([string]$key, [string]$reason, [string]$extra, [int]$code) {
+  $note = Send-Alert $key $reason
+  Write-Log "FAILED: $reason$extra; $note"
+  exit $code
+}
+
+trap { Stop-Failed "error:$Workflow" "kick.ps1 error: $($_.Exception.Message)" "" 1 }
 
 if ($SaveToken) {
   # interactive, for Michael in his own PowerShell window; the input is hidden and never echoed
@@ -80,17 +144,18 @@ if ($TokenFile -and (Test-Path $TokenFile)) {
     $sec = (Get-Content $TokenFile -Raw -ErrorAction Stop).Trim() | ConvertTo-SecureString -ErrorAction Stop
     $env:GH_TOKEN = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec))
   } catch {
-    Write-Log "FAILED: the saved token in $TokenFile can't be read (save it again with kick.ps1 -SaveToken; $help)"
-    exit 1
+    Stop-Failed "token-unreadable" "the saved token in $TokenFile can't be read" " (save it again with kick.ps1 -SaveToken; $help)" 1
   }
 }
 
 $auth = Invoke-Gh @("auth", "status", "--hostname", "github.com")
 if ($auth.code -ne 0) {
-  $why = if ($env:GH_TOKEN) { "GitHub rejected the saved token (expired or revoked?)" } elseif ($auth.code -eq 127) { "gh isn't installed or can't start" } else { "gh is not signed in here and no saved token exists" }
-  Write-Log "FAILED: $why; nothing started ($help)"
-  exit 2
+  if ($env:GH_TOKEN) { $key = "token-rejected"; $why = "GitHub rejected the saved token (expired or revoked?), or GitHub is down" }
+  elseif ($auth.code -eq 127) { $key = "gh-missing"; $why = "gh isn't installed or can't start" }
+  else { $key = "not-signed-in"; $why = "gh is not signed in here and no saved token exists" }
+  Stop-Failed $key $why "; nothing started ($help)" 2
 }
+Clear-Alerted $authKeys   # signed in: a sign-in outage (if any) is over
 
 if ($FreshMinutes -gt 0) {
   # status.json changes on every pass of run.yml, so its last commit is the heartbeat of a running loop
@@ -105,6 +170,7 @@ if ($FreshMinutes -gt 0) {
 }
 
 $r = Invoke-Gh @("workflow", "run", $Workflow, "-R", $repo)
-if ($r.code -ne 0) { Write-Log "FAILED: gh workflow run: $($r.out)"; exit 1 }
+if ($r.code -ne 0) { Stop-Failed "dispatch:$Workflow" "gh couldn't start $Workflow ($($r.out))" "" 1 }
+Clear-Alerted @("dispatch:$Workflow", "error:$Workflow")
 Write-Log "started"
 exit 0

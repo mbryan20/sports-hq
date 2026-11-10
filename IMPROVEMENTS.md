@@ -21,6 +21,31 @@ Measure (the health.json check that should move), Design, Decision.
 
 ## Open
 
+### Q-037 · GitHub jobs still run hours late: make the laptop the clock for every time-critical one
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after the Tuesday guillotine chain, Nov 10 7:30pm CT)
+- **Area:** `ops/kick.ps1` (one push per outage), `.github/workflows/war-room-v2.yml` (own concurrency group for kicks),
+  `shq/run.py` (`laptop_kicks`: a push when the 2:55am kick didn't happen; "Laptop kick" footer row),
+  `.github/workflows/run.yml` (game-day handoff), `.github/workflows/model-health.yml` (4:50am cron removed),
+  `ops/designs/Q-014.md` "The laptop is the clock"
+- **Rank:** —
+- **Added:** 2026-11-09 by Claude Ops (Michael called the late GitHub jobs "clunky" and asked for a step-back review)
+- **Evidence:** claude-audit `overhaul/github-reliability.md` (independent review, Nov 9): GitHub documents scheduled runs as
+  best effort; War Room v2's daily 6:10am build ran 5.6-10.1 hours late on all 6 days Nov 2-9 (Tue Nov 3's first run 6:21am);
+  every laptop `workflow_dispatch` since Nov 8 started within seconds (Q-029). Gaps it found: no War Room kick; a failed kick
+  only writes a log line no session can read; a dispatched War Room run can be replaced by a late cron run in the shared
+  concurrency group; a game-day loop that hits its 5h45m limit leaves the injury watch idle up to about 80 minutes.
+- **Expected impact:** every time-critical build on time while the laptop is on; one push when the laptop can't start jobs,
+  and one a day when it has gone quiet; no injury-watch gap between game-day loops.
+- **Effort:** S-M
+- **Risk:** Low (two new push types, each at most once per outage or day; the handoff only fires when a loop hits its time
+  limit while a watch window is still open)
+- **Measure:** — (one-off: Tuesday War Room builds within 5 minutes of 5:40am and 6:50am CT for two weeks; no cancelled
+  dispatches; no gap over 15 minutes between `data:` commits inside game windows)
+- **Design:** claude-audit `overhaul/github-reliability.md` §3 (option B); as built in `ops/designs/Q-014.md` "The laptop is
+  the clock". The Windows task "Kick war room" is not part of this item's commits: it is staged in claude-audit
+  `overhaul/staged/github-kicks.ps1` and registered Sun Nov 15 9:00am by the "Overhaul: apply staged edits" task.
+- **Decision:** approved 2026-11-09 (Michael's Nov 9 instruction, via Claude Ops; extends the approved R1 / Q-029)
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
