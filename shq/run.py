@@ -220,9 +220,52 @@ def digest_due(now, local_generated, origin=origin_digest):
     return digest.due(now, local_generated) and digest.due(now, origin())
 
 
-def job_health(now):
+LAPTOP_KICK_FROM = dt.time(2, 50)       # the laptop's daily 2:55am model-health kick (\SportsHQ\Kick model health)
+LAPTOP_CHECK_AFTER = dt.time(4, 0)
+
+
+def gh_dispatches(workflow="model-health.yml"):
+    """When the last few workflow_dispatch runs of a workflow were created, or None when that can't be read (outside
+    GitHub Actions, or gh failed). run.yml gives gh its token and `actions: read`."""
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return None
+    try:
+        out = subprocess.run(["gh", "run", "list", "--workflow", workflow, "--event", "workflow_dispatch", "-L", "5",
+                              "--json", "createdAt"], cwd=ROOT, timeout=60, check=True, capture_output=True,
+                             text=True, encoding="utf-8").stdout
+        return [parse_iso(r["createdAt"]) for r in json.loads(out) if r.get("createdAt")]
+    except Exception:
+        traceback.print_exc()
+        return None
+
+
+def laptop_kicks(now, runs=gh_dispatches):
+    """Q-037: the laptop starts the time-critical GitHub jobs, so GitHub checks the laptop. Its 2:55am model-health kick is
+    never skipped, so it is the daily heartbeat: from 4am CT, if no model-health dispatch was created since 2:50am today,
+    push once that day. A late start (laptop asleep at 2:55, the task ran on waking) counts as alive. Returns the footer's
+    "Laptop kick" row, or None when the run list can't be read (then no push either)."""
+    times = runs()
+    if times is None:
+        return None
+    local = now.astimezone(TZ)
+    if local.time() >= LAPTOP_CHECK_AFTER:
+        since = dt.datetime.combine(local.date(), LAPTOP_KICK_FROM, TZ)
+        if not any(t >= since for t in times):
+            push_once(f"laptop-kick-silent:{local.date().isoformat()}", "Laptop didn't start today's Sports HQ jobs",
+                      "Laptop off, Windows task broken, or token expired. GitHub's own schedule (hours late) is all "
+                      "that's running.", priority=3, tags=["warning"])
+    return {"job": "Laptop kick (laptop, daily 2:55am)", "last": iso(max(times, default=None))}
+
+
+def job_health(now, kicks=laptop_kicks):
     """When each laptop job last delivered, from what it committed. The cloud alerts on staleness."""
     jobs = []
+    try:
+        row = kicks(now)
+        if row:
+            jobs.append(row)
+    except Exception:
+        traceback.print_exc()
     roster = load_json(SAVED_ROSTER) or {}
     jobs.append({"job": "Kosmonauts roster (laptop, daily)", "last": roster.get("captured")})
     for cfg in ESPN_PRIVATE:

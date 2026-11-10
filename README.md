@@ -70,7 +70,8 @@ The footer shows the last cloud run and when each laptop job last delivered.
   another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. A kick that
   fails (token expired, gh broken, GitHub down) pushes once per outage, "Sports HQ: laptop can't start GitHub jobs" (Q-037).
   Tasks and how to remove them: `ops/designs/Q-014.md` "As built" and "The laptop is the clock".
-- Alerts if a laptop job's data goes stale (>30h) and on any failed run.
+- Alerts if a laptop job's data goes stale (>30h) and on any failed run, and once a day if the laptop's 2:55am kick
+  didn't happen by 4am CT ("Laptop didn't start today's Sports HQ jobs", Q-037; the footer's "Laptop kick" row).
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
 - Model health (`model-health.yml` → `shq/health.py`, nightly 2:50am CT, backup 4:50am): re-tests every model against what
