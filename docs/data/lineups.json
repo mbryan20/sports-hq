@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T01:07:00Z",
+ "updated": "2026-11-10T01:17:00Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -178,7 +178,7 @@
       "OUT"
      ],
      "news": {
-      "note": "Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) could resume practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.",
+      "note": "Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.",
       "at": "2026-11-09T20:45:44Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
@@ -219,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Domo Arigato": {
@@ -404,7 +404,7 @@
      "pos": "WR",
      "opp": "@MIN",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.1,
      "status": null,
      "why": "",
@@ -508,7 +508,7 @@
      "pos": "QB",
      "opp": "vs BUF",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 14.4,
      "status": null,
      "why": "",
@@ -682,7 +682,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Guillotine": {
@@ -912,7 +912,7 @@
      "pos": "WR",
      "opp": "@MIN",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 7.4,
      "status": null,
      "why": "",
@@ -995,7 +995,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 7:07p",
+    "built": "Mon 7:17p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1011,31 +1011,31 @@
       {
        "name": "CodyRust",
        "proj": 89.7,
-       "cut": 0.777,
+       "cut": 0.997,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
-       "name": "MoneyManChas",
-       "proj": 100.1,
-       "cut": 0.14,
-       "faab": 150,
-       "bold": 0.2,
-       "me": false
-      },
-      {
        "name": "Aniasin1",
        "proj": 103.2,
-       "cut": 0.079,
+       "cut": 0.002,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
+       "name": "MoneyManChas",
+       "proj": 103.8,
+       "cut": 0.002,
+       "faab": 150,
+       "bold": 0.2,
+       "me": false
+      },
+      {
        "name": "Off with his head",
        "proj": 103.2,
-       "cut": 0.003,
+       "cut": 0.0,
        "faab": 95,
        "bold": 0.42,
        "me": false
@@ -1106,7 +1106,7 @@
      "bids": [],
      "freed": {
       "team": "CodyRust",
-      "cut": 0.777,
+      "cut": 0.997,
       "players": []
      }
     }
@@ -1324,8 +1324,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Yates: It should be the Cam Skattebo show in Week 10",
-      "at": "2026-11-09T17:11:27Z",
+      "note": "Skattebo (hamstring) was listed as limited on Monday's estimated injury report, Dan Salomone of the Giants' official site reports.",
+      "at": "2026-11-09T23:59:26Z",
       "url": "https://www.espn.com/nfl/player/_/id/4696981/cam-skattebo"
      }
     },
@@ -1422,8 +1422,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Burks (foot) was deemed a non-participant on the Commanders' practice report Monday, John Keim of ESPN.com reports.",
-      "at": "2026-11-10T00:22:00Z",
+      "note": "Commanders head coach Dan Quinn said Monday that he's \"more optimistic\" that Burks (foot) will be available for Thursday's game against the Giants, John Keim of ESPN.com reports.",
+      "at": "2026-11-09T19:55:40Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -1510,7 +1510,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Stempak": {
@@ -1533,7 +1533,7 @@
      "pos": "QB/OP",
      "opp": "@MIN",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 22.5,
      "status": null,
      "why": "",
@@ -1561,7 +1561,7 @@
      "pos": "RB/FLEX",
      "opp": "@MIN",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 19,
      "status": null,
      "why": "",
@@ -1651,7 +1651,7 @@
      "pos": "TE/FLEX",
      "opp": "@MIN",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.6,
      "status": null,
      "why": "",
@@ -1872,14 +1872,12 @@
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "3 starters play today, first locks Mon 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Bro-vid19": {
@@ -1972,7 +1970,7 @@
      "pos": "RB/FLEX",
      "opp": "vs BUF",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.4,
      "status": null,
      "why": "",
@@ -2060,7 +2058,7 @@
      "pos": "RB/FLEX",
      "opp": "vs BUF",
      "kickoff": "2026-11-10T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8,
      "status": null,
      "why": "",
@@ -2198,14 +2196,12 @@
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "1 starters play today, first locks Mon 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "3-Ball BB": {
@@ -2586,8 +2582,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop De'Andre Hunter (3 games this week, value -6.5/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.2/g, 3% rostered): +22.5 this week (helps FG%, FT%, 3PM). Dynasty: De'Andre Hunter is 29.",
-     "Drop Matisse Thybulle (2 games this week, value -2.9/g), add Jaxson Hayes (C, UTAH, 4 games this week, value -1.3/g, 13% rostered): +3.6 this week (helps REB, FG%, BLK). Dynasty: Matisse Thybulle is 30."
+     "Drop De'Andre Hunter (3 games this week, value -6.5/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.2/g, 3% rostered): +21.6 this week (helps FG%, FT%, 3PM). Dynasty: De'Andre Hunter is 29.",
+     "Drop Matisse Thybulle (2 games this week, value -2.9/g), add Jaxson Hayes (C, UTAH, 4 games this week, value -1.3/g, 13% rostered): +8.1 this week (helps REB, FG%, BLK). Dynasty: Matisse Thybulle is 30."
     ],
     "trades": null,
     "notes": [
@@ -2607,7 +2603,7 @@
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "PTS",
@@ -2653,21 +2649,21 @@
       }
      ],
      "now": "0-0-8",
-     "proj": "2-2",
-     "close": 4,
+     "proj": "2-1",
+     "close": 5,
      "games_left": [
       50,
       48
      ],
      "chase": [
-      "PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (4 games, 29.9/g) and Devin Booker (4 games, 25.2/g).",
       "FT% is close. Keep in the lineup: Devin Booker (4 games, .961 on 6.1 FTA/g) and Saddiq Bey (4 games, .897 on 3.9 FTA/g).",
-      "STL is close. Keep in the lineup: De'Aaron Fox (4 games, 1.3/g) and Devin Booker (4 games, 1.1/g)."
+      "PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (4 games, 29.9/g) and Devin Booker (4 games, 25.2/g).",
+      "REB is close. Keep in the lineup: Khaman Maluach (4 games, 6.5/g) and Jarrett Allen (3 games, 7.4/g)."
      ],
      "adds": [
-      "For PTS: Jordan Poole (PG/SG, NO), 4 games left, 13.2/g",
-      "For FT%: Malik Monk (PG/SG, SAC), 3 games left, .876 on 1.8 FTA/g",
-      "For STL: Collin Gillespie (PG, PHX), 4 games left, 2.4/g"
+      "For FT%: Jordan Poole (PG/SG, NO), 4 games left, .874 on 2.4 FTA/g",
+      "For PTS: Kyle Kuzma (SF/PF, MIL), 4 games left, 11.6/g",
+      "For REB: Jaxson Hayes (C, UTAH), 4 games left, 6.3/g"
      ]
     },
     "radar": {
@@ -2733,7 +2729,7 @@
        "name": "Leaky Black"
       },
       {
-       "text": "Oso Ighodaro (PF, PHX), free agent, 15% owned, -3.8 pts in 3 days: minutes 12 \u2192 23 in his last 3 games (Nov 4\u2013Nov 7) vs 5 before, played 3 of them, usage 18% \u2192 12%, started 2 of 3 (0 of 5 before). Fits FG% (close), REB (losing). 4 games left this week, 3 next week (back-to-back Mon\u2013Tue).",
+       "text": "Oso Ighodaro (PF, PHX), free agent, 15% owned, -3.8 pts in 3 days: minutes 12 \u2192 23 in his last 3 games (Nov 4\u2013Nov 7) vs 5 before, played 3 of them, usage 18% \u2192 12%, started 2 of 3 (0 of 5 before). Fits FG% (close), REB (close). 4 games left this week, 3 next week (back-to-back Mon\u2013Tue).",
        "short": "Oso Ighodaro (PHX, FA 15%): minutes 12 \u2192 23, now starting; fits FG%, REB (ESPN game logs through Nov 7)",
        "links": [
         [
@@ -2845,7 +2841,7 @@
      ],
      "need": [
       "FT% (close)",
-      "REB (losing)",
+      "REB (close)",
       "PTS (close)",
       "3PM (losing)",
       "STL (close)",
@@ -2994,9 +2990,9 @@
       "next": 54
      },
      "streamers": [
-      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +11.1 this week, helps FG%, 3PM, BLK",
-      "Jaxson Hayes (C, UTAH, 13% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +7.7 this week, helps FG%, BLK",
-      "Quenton Jackson (PG/SG, IND, 5% rostered): 3 games this week (We/Fr/Su), +6.5 this week, helps FT%, STL"
+      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +11.5 this week, helps FG%, 3PM, BLK",
+      "Jaxson Hayes (C, UTAH, 13% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +9.5 this week, helps FG%, BLK",
+      "Isaiah Jackson (PF/C, LAC, 6% rostered): 3 games this week (Tu/Fr/Su), +5.2 this week, helps FG%, STL"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
@@ -3012,7 +3008,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   },
   "Ball is Life": {
@@ -3708,7 +3704,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Mon 7:07p"
+    "built": "Mon 7:17p"
    }
   }
  }
