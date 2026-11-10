@@ -152,6 +152,8 @@ def games_plan(league, cats):
 
 def build(league, now):
     standing = digest.standing_item(league)
+    if getattr(league, "sport", "nfl") != "nba":
+        valued(league)   # cached; lets a fix's "add X and start him" name the same drop the adds list would
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
     notes = [i["text"] for i in items if not i["urgent"]]
     faab = getattr(league, "faab", None)

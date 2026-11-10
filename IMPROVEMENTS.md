@@ -122,6 +122,55 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** —
 - **Decision:** —
 
+### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
+- **Status:** shipped (e508112)
+- **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
+  pushes), `shq/swap.py` (`slot_fa`, `fa_over_bench`, `MIN_FILL` 1.0, `FA_EDGE` 5.0), `shq/advice.py` (values loaded before
+  the fixes so a fix can name the waivers drop)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (bug on the Domo Arigato league card, reported via Claude Ops)
+- **Evidence:** lineups.json, Tue Nov 10 4:37pm CT: Domo Arigato fix "Caleb Williams (QB) on BYE → start Carson Wentz", with
+  no projection shown; Wentz projected 0 this week and the next 4 (a backup after Cousins' trade to MIN), while the same
+  card's adds named Drew Lock (SEA, 15.7 this week). `_fix` took any playable bench player whatever his projection and
+  printed the projection only when above 0; the injury watch had the same "any playable bench player" rule.
+- **Expected impact:** a football fix never tells Michael to start a 0-point player when a usable free agent exists: it
+  says "add <FA> (proj) into your open roster spot / drop <X> and start him", keeps the bench option as a fallback only
+  above 0, and always shows the projection. Superflex/OP slots look at every eligible position (QBs included); a QB slot
+  only at QBs. NBA category leagues unchanged. Suggestions only: nothing is ever added or dropped.
+- **Effort:** S
+- **Risk:** Low (text only, plus the injury watch no longer swaps in a sub-1-point player when a free agent is available)
+- **Measure:** — (one-off: no urgent fix line "start <name> (0 proj)" while a free agent projected 1+ fits that slot)
+- **Design:** a bench fill-in under 1 point, or one a playable, slot-eligible free agent beats by 5+ points, gives way to
+  "add <FA> and start him"; the room comes from an open roster spot, else the drop `shq/waivers.py` picks for that free
+  agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
+### Q-043 · Traded players and new starters get zero or old-team rest-of-season numbers after the trade deadline
+- **Status:** shipped (ce89445)
+- **Area:** `shq/values.py` (`_slim` keeps each projection's team, `ros_weeks`/`ros_ppg` fill, `per_game`, `ir_games_left`,
+  `live_team`, `annotate`; ROS cache format 2), `shq/leagues.py` (`make_player`, `EspnLeague._live_team`/`_player`),
+  `shq/nfl_players.py` (basis text), `tests/test_trade_deadline.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (audit of the Tue Nov 10 NFL trade deadline: Downs IND→KC, Allen IND→SF,
+  Cousins LV→MIN, Mendoza LV's starter, Malik Willis to IR)
+- **Evidence:** `docs/data/players_nfl.json` 22:47Z: Sleeper's weeks 11-12 projections still carried the old teams and week 13
+  (IND/LV bye) had no row for the new teams, so Allen read [6.0, 9.4, 9.3, 0.0] = 6.2/gm (Domo), Cousins [13.8, 16.4, 16.7, 0.0],
+  Mendoza [10.9, 0.0, 0.0, None] = 3.6/gm (3-Ball), Downs (shown KC) got IND's week-13 bye from the 6h players file, and
+  Willis (IR) was projected 14-19 a week. Kosmonauts advised "Add Carnell Tate … for Keenan Allen (4.9/gm): fills in at WR in
+  week 13". Stempak/Bro-vid19 (ESPN snapshot) still showed Cousins "LV vs SEA" at 21:05Z (really MIN @ GB, 18:00Z).
+- **Expected impact:** rest-of-season, next-4-weeks, waiver and trade numbers follow a player's current team and role on the
+  day of a move, not when Sleeper next rebuilds its later weeks; lineups lock on the right kickoff after a trade.
+- **Effort:** M
+- **Risk:** Low (a healthy player Sleeper deliberately stopped projecting would now get his live number; out/IR players don't)
+- **Measure:** — (one-off: no healthy skill player with a live projection shows a 0 in `next` on a week his team plays)
+- **Design:** a week whose projection is missing or was made for another team takes the player's live per-game number (this
+  week's Sleeper projection when it's for his current team, else the average of his up-to-date weeks, else 0 as before),
+  never for OUT/IR/PUP/SUSP players. Team and bye come from Sleeper's live projections, then the players file, then the
+  platform; a Yahoo or ESPN snapshot team that differs from Sleeper's live team gives way for opponent, kickoff and bye. A
+  confirmed IR tag (status.confirm) scores 0 for the games left on the 4-game minimum, placement estimated from ESPN's
+  injury entry date (unknown date: all 4). Tests: `tests/test_trade_deadline.py`.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
