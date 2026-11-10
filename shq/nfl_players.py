@@ -4,7 +4,8 @@ rest-of-season and this-week ranks by position. Pure logic on what the run alrea
 - This week: the league's own projection (ESPN's for ESPN leagues, Sleeper's for Sleeper leagues and Kosmonauts), in the
   league's scoring, as on the lineup tab.
 - Rest of season: Sleeper's projections for the next ROS_WEEKS weeks scored with the league's settings, per game
-  (byes not counted; shq/values.py, the same numbers the waiver adds and trade finder use). QB/RB/WR/TE only; kickers
+  (byes not counted, weeks Sleeper hasn't re-projected after a trade or depth-chart change take his live weekly number,
+  IR minimum weeks count 0; shq/values.py, the same numbers the waiver adds and trade finder use). QB/RB/WR/TE only; kickers
   and defenses rank on this week.
 - Value: FantasyCalc's dynasty or redraft value for the league's settings.
 Written to docs/data/players_nfl.json (docs/players/ shows it next to the basketball leagues)."""
@@ -77,7 +78,9 @@ def build(league):
     return {
         "kind": "nfl", "week": getattr(league, "week", None), "partial": partial, "players": sorted(rows, key=lambda r: -(r["ros"] or r["proj"])),
         "basis": f"This week: {src} projections in your league's scoring. Rest of season: Sleeper's projections for the next "
-                 f"{values.ROS_WEEKS} weeks in your scoring, per game played (byes skipped; QB/RB/WR/TE). Value: FantasyCalc "
+                 f"{values.ROS_WEEKS} weeks in your scoring, per game played (byes skipped; QB/RB/WR/TE; a week Sleeper hasn't "
+                 "re-projected since a trade or new starting job uses his current weekly projection; IR players count 0 "
+                 "for the 4-game IR minimum). Value: FantasyCalc "
                  + ("dynasty" if fc.get("dynasty") else "redraft") + " for your league's settings. Ranks are by position among "
                  "every rostered player and the best free agents."
                  + (" Other teams' rosters aren't readable here yet (Yahoo API pending), so ranks are among your roster and "

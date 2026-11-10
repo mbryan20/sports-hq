@@ -103,7 +103,12 @@ def make_player(ctx, scoring, pid, slot, *, name=None, team=None, positions=None
     db = ctx.players.get(pid or "", {})
     pr = ctx.proj.get(pid or "", {})
     pp = pr.get("player") or {}
-    team = espn.norm_team(team or pr.get("team") or pp.get("team") or db.get("team")) or None
+    # A platform's team (Yahoo's laptop read, twice a day) can predate a trade; Sleeper's live projections are
+    # read every run, so when they name another team his game, kickoff and bye follow Sleeper's.
+    live = values.live_team(pr)
+    team = espn.norm_team(team or live or db.get("team")) or None
+    if pid and live and espn.norm_team(live) != team:
+        team = espn.norm_team(live)
     positions = positions or db.get("fantasy_positions") or ([db["position"]] if db.get("position") else [])
     sleeper_status = db.get("status") if db.get("status") not in (None, "Active") else None
     # Sleeper's DB lacks ESPN ids for many players (rookies especially), so fall back to name + team
@@ -355,9 +360,26 @@ class EspnLeague:
     def value_scoring(self):
         return {**values.DEFAULT_SCORING, **(self.data.get("scoring") or {})}
 
+    def _live_team(self, p, positions):
+        """ESPN's pro schedule entry for the team Sleeper's live projections put him on, when that differs from
+        the snapshot's (a trade since the laptop's last read); None otherwise."""
+        ctx = self.ctx
+        if self.sport != "nfl" or not getattr(ctx, "proj", None):
+            return None
+        sid = ctx.espn_to_sleeper().get(str(p["id"])) if hasattr(ctx, "espn_to_sleeper") else None
+        pos = next((x for x in positions if x in values.SKILL), None)
+        if not sid and pos and hasattr(ctx, "match"):
+            old = self.sched.get(p.get("pro_team"), {}).get("abbrev")
+            sid = ctx.match(p["name"], old, pos)
+        live = espn.norm_team(values.live_team(ctx.proj.get(sid or "")))
+        if not live or live == espn.norm_team(self.sched.get(p.get("pro_team"), {}).get("abbrev")):
+            return None
+        return next((t for t in self.sched.values() if espn.norm_team(t.get("abbrev")) == live), None)
+
     def _player(self, p, slot=None):
         names, bench = ef.SLOT_NAMES[self.sport], ef.BENCH[self.sport]
-        team = self.sched.get(p.get("pro_team"), {})
+        positions = [names[x] for x in p.get("eligible", []) if x in names and x not in bench]
+        team = self._live_team(p, positions) or self.sched.get(p.get("pro_team"), {})
         games = team.get("games", {}).get(self.period, [])
         kickoff, opp_id, home = games[0] if games else (None, None, None)
         entry = self.report.get(str(p["id"]))
@@ -365,7 +387,7 @@ class EspnLeague:
                                               entry, self.ctx.week_start if self.sport == "nfl" else None)
         return {
             "id": f"espn{p['id']}", "key": p["id"], "name": p["name"], "team": team.get("abbrev") or None,
-            "positions": [names[x] for x in p.get("eligible", []) if x in names and x not in bench],
+            "positions": positions,
             "slot": slot or names.get(p["slot"], str(p["slot"])), "status": status, "why": why,
             "news": news, "conflict": conflict,
             "kickoff": kickoff, "started": bool(kickoff) and self.ctx.now >= kickoff,

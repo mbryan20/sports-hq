@@ -145,7 +145,33 @@ Measure (the health.json check that should move), Design, Decision.
   agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
-### Q-043 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
+### Q-043 · Traded players and new starters get zero or old-team rest-of-season numbers after the trade deadline
+- **Status:** shipped (ce89445)
+- **Area:** `shq/values.py` (`_slim` keeps each projection's team, `ros_weeks`/`ros_ppg` fill, `per_game`, `ir_games_left`,
+  `live_team`, `annotate`; ROS cache format 2), `shq/leagues.py` (`make_player`, `EspnLeague._live_team`/`_player`),
+  `shq/nfl_players.py` (basis text), `tests/test_trade_deadline.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (audit of the Tue Nov 10 NFL trade deadline: Downs IND→KC, Allen IND→SF,
+  Cousins LV→MIN, Mendoza LV's starter, Malik Willis to IR)
+- **Evidence:** `docs/data/players_nfl.json` 22:47Z: Sleeper's weeks 11-12 projections still carried the old teams and week 13
+  (IND/LV bye) had no row for the new teams, so Allen read [6.0, 9.4, 9.3, 0.0] = 6.2/gm (Domo), Cousins [13.8, 16.4, 16.7, 0.0],
+  Mendoza [10.9, 0.0, 0.0, None] = 3.6/gm (3-Ball), Downs (shown KC) got IND's week-13 bye from the 6h players file, and
+  Willis (IR) was projected 14-19 a week. Kosmonauts advised "Add Carnell Tate … for Keenan Allen (4.9/gm): fills in at WR in
+  week 13". Stempak/Bro-vid19 (ESPN snapshot) still showed Cousins "LV vs SEA" at 21:05Z (really MIN @ GB, 18:00Z).
+- **Expected impact:** rest-of-season, next-4-weeks, waiver and trade numbers follow a player's current team and role on the
+  day of a move, not when Sleeper next rebuilds its later weeks; lineups lock on the right kickoff after a trade.
+- **Effort:** M
+- **Risk:** Low (a healthy player Sleeper deliberately stopped projecting would now get his live number; out/IR players don't)
+- **Measure:** — (one-off: no healthy skill player with a live projection shows a 0 in `next` on a week his team plays)
+- **Design:** a week whose projection is missing or was made for another team takes the player's live per-game number (this
+  week's Sleeper projection when it's for his current team, else the average of his up-to-date weeks, else 0 as before),
+  never for OUT/IR/PUP/SUSP players. Team and bye come from Sleeper's live projections, then the players file, then the
+  platform; a Yahoo or ESPN snapshot team that differs from Sleeper's live team gives way for opponent, kickoff and bye. A
+  confirmed IR tag (status.confirm) scores 0 for the games left on the 4-game minimum, placement estimated from ESPN's
+  injury entry date (unknown date: all 4). Tests: `tests/test_trade_deadline.py`.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
+### Q-044 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
 - **Status:** shipped (ae9cd9f)
 - **Area:** `shq/wrapup_render.py` (`short`), `shq/wrapup.py` (`margin`, `h2h_line`), `docs/wrapups/` (index, weeks 8-9
   re-rendered from saved JSON), `picks/pp/cards.py` (`card_over`, `old_card_html`), `docs/picks/index.html` (banner added
