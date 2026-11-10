@@ -2,6 +2,7 @@
 import datetime as dt
 import json
 import os
+import pathlib
 import shutil
 import subprocess
 import tempfile
@@ -283,6 +284,17 @@ class BidRules(unittest.TestCase):
                              "{s: 'bal', freed: false, dW: 0, dWin: 0.03, gR: 8, drop: 'cin'}]; decideAll(rows);"
                              "[rows[0].call, rows[0].bid, rows[0].why, rows[1].call]")
         self.assertEqual(got, ["Skip", 0, "BAL DEF is a free add and helps as much", "Add free"])
+
+
+class PageText(unittest.TestCase):
+    """A `${...}` inside a '...' or "..." string is printed as is ("Wk ${W0} proj" on the page, Nov 10)."""
+
+    def test_no_template_in_plain_quotes(self):
+        import re
+        src = (pathlib.Path(__file__).resolve().parent.parent / "warroom" / "app.js").read_text(encoding="utf-8")
+        # the page builds each table as `let h = ...;` on one line: a '...' one there must not hold ${
+        bad = [ln.strip()[:70] for ln in src.splitlines() if re.match(r"\s*(let|const|var) \w+ = '", ln) and "${" in ln]
+        self.assertEqual(bad, [])
 
 
 if __name__ == "__main__":

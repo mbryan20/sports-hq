@@ -95,7 +95,7 @@ function drawBids() {
 function renderLineup() {
   const L = lineup(roster(ME), W0);
   const on = new Set(L.st.map(x => x.s));
-  let h = '<thead><tr><th>Slot</th><th>Player</th><th class="n">Wk ${W0} proj</th><th class="n">Season avg</th></tr></thead><tbody>';
+  let h = `<thead><tr><th>Slot</th><th>Player</th><th class="n">Wk ${W0} proj</th><th class="n">Season avg</th></tr></thead><tbody>`;
   for (const x of L.st) {
     const p = x.s ? D.P[x.s] : null;
     const flag = !p ? '<span class="pill p-bad">Empty</span>' : x.v < 4 ? ' <span class="pill p-bad">Weak</span>' : '';
@@ -142,7 +142,7 @@ function renderRivals() {
   const med = SLOTS.map((_, i) => { const v = ALIVE.map(t => slotVals[t][i]).sort((a, b) => a - b); return v[Math.floor(v.length / 2)]; });
   const spentBig = {}; for (const h of D.hist) { const k = String(h.win); spentBig[k] = Math.max(spentBig[k] || 0, h.bid); }
   const order = ALIVE.slice().sort((a, b) => D.teams[b].faab - D.teams[a].faab);
-  let h = '<thead><tr><th>Team</th><th class="n">FAAB</th><th class="n">Boldest bid<br>(% of budget)</th><th class="n">Biggest win</th><th class="n">Wk ${W0} proj</th><th>Needs (vs league median)</th><th>Bye-week dips</th></tr></thead><tbody>';
+  let h = `<thead><tr><th>Team</th><th class="n">FAAB</th><th class="n">Boldest bid<br>(% of budget)</th><th class="n">Biggest win</th><th class="n">Wk ${W0} proj</th><th>Needs (vs league median)</th><th>Bye-week dips</th></tr></thead><tbody>`;
   for (const t of order) {
     const gaps = SLOTS.map((s, i) => ({ s: s[0], d: slotVals[t][i] - med[i] })).filter(x => x.d < -2).sort((a, b) => a.d - b.d).slice(0, 3);
     const need = gaps.map(x => `<span class="pill ${x.d < -5 ? 'p-bad' : 'p-warn'}">${x.s} ${fmt(x.d, 0)}</span>`).join(' ') || '<span class="pill p-good">None big</span>';
