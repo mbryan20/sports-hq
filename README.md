@@ -29,7 +29,7 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
-guillotine survival odds and FAAB bid ranges (`shq/guillotine.py`), fixes for starters who can't play, start/sit
+guillotine survival odds (`shq/guillotine.py`) with War Room v2's bid calls from `bids.json` (its own pricing only when that file is stale), fixes for starters who can't play, start/sit
 moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
 values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
