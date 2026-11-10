@@ -145,6 +145,29 @@ Measure (the health.json check that should move), Design, Decision.
   agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
+### Q-043 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
+- **Status:** shipped (ae9cd9f)
+- **Area:** `shq/wrapup_render.py` (`short`), `shq/wrapup.py` (`margin`, `h2h_line`), `docs/wrapups/` (index, weeks 8-9
+  re-rendered from saved JSON), `picks/pp/cards.py` (`card_over`, `old_card_html`), `docs/picks/index.html` (banner added
+  to the live page), `docs/lib/core.js` (`SHQ.picksStale`), `docs/lib/core.css` (`.pill`, `.fb button`),
+  `docs/index.html` (Players tile)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (site review via Claude Ops)
+- **Evidence:** wrap-up archive rows ended "…Most left" / "…Yahoo en" (`[:220]`); week 9 read "182.8-7.0 … by 175.7"
+  and "166.5-141.5 … by 25.1" (margin from raw 182.76-7.04); /picks/ on Tue Nov 10 still showed Saturday's "SAT REFRESH"
+  card with "next lock Sat 10:55am CT" and no label; footer "Picks cards: 3d ago" amber every Tue/Wed (30-hour rule on a
+  Wed-Sat job); 👍/👎 22px and header pills 28px tall; Players/War Room/Wrap-up header links hidden under 420px.
+- **Expected impact:** archive short versions end on a whole sentence; margins match the scores shown; an old picks card
+  says so ("Last week's card … New drafts post Wednesday 9pm CT") from the Tuesday after it was built; the footer is amber
+  only when a Wed 9pm / Thu 8pm / Fri 9pm / Sat 8am CT build was missed (3h grace, fresh from 2h before the slot, like
+  picks-backup.yml); tap targets at least 36px; Players one tap from the home page (War Room and Wrap-up tiles already were).
+- **Effort:** S
+- **Risk:** Low (display only; week 8 margins also corrected: 79.2, 13.9, 24.5)
+- **Measure:** — (one-off)
+- **Design:** tests: `tests/test_wrapup.py` (short version, margins), `tests/test_pick_breakdowns.py` (`card_over`, banner),
+  `tests/test_core_js.py` (`SHQ.picksStale`, Node; skipped without Node). Checked at 375px and desktop, light and dark.
+- **Decision:** bug fixes requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
