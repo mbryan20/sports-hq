@@ -1,6 +1,7 @@
 """Copy the Guillotine War Room page (a claude.ai artifact, which work networks block) onto the
 Sports HQ site: `py -m shq.save_warroom <downloaded index.html>` adds the back link and noindex tag,
-writes docs/war-room/index.html, and commits + pushes only if it changed."""
+writes docs/war-room/index.html, and commits + pushes only if it changed.
+RETIRED Nov 10 2026: prints a note and writes nothing (see RETIRED)."""
 import pathlib
 import subprocess
 import sys
@@ -13,7 +14,13 @@ LINK = ('<a href="../" style="position:fixed;top:calc(env(safe-area-inset-top,0p
         'text-decoration:none">&larr; Sports HQ</a>')
 
 
+RETIRED = ("Retired Nov 10 2026: War Room v2 (docs/war-room-v2/, built by .github/workflows/war-room-v2.yml) replaced "
+           "the old artifact copy, and docs/war-room/ now forwards to it. Nothing written.")
+
+
 def main(src):
+    print(RETIRED)          # the laptop roster sync's Part C still calls this: keep it a harmless no-op
+    return
     s = pathlib.Path(src).read_text(encoding="utf-8")
     if "Guillotine War Room" not in s or len(s) < 20000:
         sys.exit("That doesn't look like the War Room page.")

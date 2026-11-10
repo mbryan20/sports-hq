@@ -73,7 +73,7 @@ that need a sign-in. It is an ongoing project, improved through the nightly mode
   (`SHQ.LAYOUTS` in core.js: name, path, one-line description; the footer of the menu links War Room, Wrap-up and the lab).
   The menu only navigates; it does not change which page `/` opens.
 - **Each layout** is its own CSS plus a small render function on top of the core, with `data-view="<letter>"` on `<body>`
-  and `<div data-picker></div>` in the header. Keep header links to `picks/`, `war-room/` and `wrapups/`, and check
+  and `<div data-picker></div>` in the header. Keep header links to `picks/`, `war-room-v2/` and `wrapups/`, and check
   375px (no sideways scroll) and 1440px in dark and light after any change. A feature added to `SHQ.detail` or `SHQ.feed`
   shows up in all four layouts at once.
 - **New variant:** copy a lab layout to `docs/lab/<next letter>/`, set `data-layout`/`data-view`, add it to `SHQ.LAYOUTS` and
