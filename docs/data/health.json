@@ -1,41 +1,15 @@
 {
- "generated": "2026-11-10T16:37:32Z",
+ "generated": "2026-11-10T23:20:31Z",
  "summary": {
-  "ok": 12,
+  "ok": 14,
   "watch": 0,
-  "drift": 1,
-  "weak": 1,
+  "drift": 0,
+  "weak": 0,
   "waiting": 5,
-  "info": 4,
+  "info": 5,
   "errors": 0
  },
- "flags": [
-  {
-   "section": "radar",
-   "id": "radar.held",
-   "label": "Flagged free agents whose bigger role held",
-   "value": 0.71,
-   "n": 48,
-   "unit": "%",
-   "baseline": 1.0,
-   "baseline_set": "2026-11-03",
-   "tolerance": 0.15,
-   "status": "drift"
-  },
-  {
-   "section": "radar",
-   "id": "radar.edge",
-   "label": "Radar flags' value over the old suggestions (z per game)",
-   "value": -2.96,
-   "n": 48,
-   "unit": "z",
-   "baseline": 1.32,
-   "baseline_set": "2026-11-03",
-   "tolerance": 0.5,
-   "status": "weak",
-   "floor": 0.0
-  }
- ],
+ "flags": [],
  "sections": [
   {
    "id": "warroom",
@@ -324,7 +298,7 @@
        "n": 24,
        "cov50": 0.62,
        "cov80": 0.88,
-       "est_mae": 6.3
+       "est_mae": 6.2
       },
       "pos WR": {
        "n": 63,
@@ -348,7 +322,7 @@
        "n": 52,
        "cov50": 0.48,
        "cov80": 0.81,
-       "est_mae": 18.5
+       "est_mae": 18.4
       },
       "estimate under $10": {
        "n": 138,
@@ -1194,44 +1168,66 @@
   {
    "id": "radar",
    "title": "NBA trend radar",
-   "status": "drift",
+   "status": "ok",
    "checks": [
     {
      "id": "radar.held",
-     "label": "Flagged free agents whose bigger role held",
-     "value": 0.71,
-     "n": 48,
+     "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
+     "value": 0.7,
+     "n": 10,
      "unit": "%",
-     "baseline": 1.0,
-     "baseline_set": "2026-11-03",
+     "baseline": 0.7,
+     "baseline_set": "2026-11-10",
      "tolerance": 0.15,
-     "status": "drift"
+     "status": "ok"
+    },
+    {
+     "id": "radar.held_all",
+     "label": "Every flagged free agent whose bigger role held, shown or not",
+     "value": 0.63,
+     "n": 38,
+     "unit": "%",
+     "status": "info"
     },
     {
      "id": "radar.edge",
-     "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": -2.96,
-     "n": 48,
+     "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
+     "value": 0.34,
+     "n": 25,
      "unit": "z",
-     "baseline": 1.32,
-     "baseline_set": "2026-11-03",
+     "baseline": 0.34,
+     "baseline_set": "2026-11-10",
      "tolerance": 0.5,
-     "status": "weak",
-     "floor": 0.0
+     "status": "ok"
     }
    ],
    "details": {
-    "flagged": 48,
-    "held": 34,
-    "held_rate": 0.71,
-    "flag_value": -4.48,
-    "wire_value": -1.52,
-    "edge": -2.96,
-    "added_later": 5,
-    "any_flagged": 126,
-    "any_held": 76
+    "mornings": 14,
+    "wire_mornings": 3,
+    "wire_value": -4.71,
+    "shown": {
+     "n": 10,
+     "held": 7,
+     "held_rate": 0.7,
+     "value": -2.75,
+     "edge_n": 4,
+     "edge": 2.22,
+     "added_later": 1
+    },
+    "flags": {
+     "n": 38,
+     "held": 24,
+     "held_rate": 0.63,
+     "value": -3.86,
+     "edge_n": 25,
+     "edge": 0.34,
+     "added_later": 4
+    },
+    "every_value": -5.58
    },
-   "notes": []
+   "notes": [
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 3 mornings (state/nba_owned.json starts Nov 3); shown flags alone 2.22 (n=4)."
+   ]
   },
   {
    "id": "picks",
