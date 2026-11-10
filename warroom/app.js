@@ -18,7 +18,7 @@ const VIEW = (() => { const v = { pos: '', show: 'all', sort: 'dwin' }; try { Ob
 const saveView = () => { try { localStorage.setItem('wr2-view', JSON.stringify(VIEW)); } catch (e) {} };
 const SORTS = {
   dwin: ['Win odds added', r => r.dWin], bid: ['Your bid', r => r.bid || 0], price: ['Likely price', r => r.freed ? r.price : -1],
-  chance: ['Win chance', r => r.bid > 0 ? r.chance : -1], value: ['Value to you', r => r.freed ? r.value : -1],
+  chance: ['Win chance', r => isBid(r) ? r.chance : -1], value: ['Value to you', r => r.freed ? r.value : -1],
   season: ['Season gain', r => r.gR], name: ['Name', r => D.P[r.s].n],
 };
 const CLAIMS = new Set(['Bid', 'Coin flip', 'Add free']);
@@ -28,7 +28,7 @@ function renderBids() {
   const rows = candidates(), money = decideAll(rows);
   BIDROWS = rows.filter(r => r.added || r.dW !== undefined); MONEY = money;
   let top = null;
-  for (const r of BIDROWS) if (r.freed && r.bid > 0 && (!top || r.ev > top.ev)) top = r;
+  for (const r of BIDROWS) if (r.freed && isBid(r) && (!top || r.ev > top.ev)) top = r;
   $('budgetline').textContent = money.dpp ? `Value rate: $${fmt(money.dpp)} per point of win odds${S.dpp > 0 ? '' : ' (auto)'}. Bids total $${money.used} of the $${money.spend} you can spend.` : 'No players on waivers right now: free adds only.';
   drawBids();
   return top;
@@ -56,8 +56,8 @@ function drawBids() {
   $('bidbar').innerHTML = bidBar();
   const pill = c => `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[c] || 'p-mute'}">${c}</span>`;
   const drop = r => r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) + (dropUse[r.drop] > 1 && CLAIMS.has(r.call) ? ` <span class="pill p-warn" title="More than one move here drops this player">used ${dropUse[r.drop]}×</span>` : '') : '—';
-  const opts = r => r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && r.bid > 0 ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && r.bid > 0 ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0';
-  const rivals = r => (r.th || []).slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
+  const opts = r => r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && isBid(r) ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && isBid(r) ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0';
+  const rivals = r => rivalBids(r).slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
   const tag = p => `<b>${esc(p.n)}</b> <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`;
   const btn = r => `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
   const why = r => r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : '';
@@ -77,7 +77,7 @@ function drawBids() {
       + `<td class="n">${r.freed ? '$' + r.value : '—'}</td><td class="opts">${opts(r)}</td><td>${pill(r.call)}${why(r)}</td><td>${btn(r)}</td></tr>`;
     cards += `<div class="card"><div class="top"><div>${tag(p)}<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div></div>${pill(r.call)}</div>`
       + `<div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
-      + (r.freed && r.bid > 0 ? `<div class="bidline">Bid <b>$${r.bid}</b> (${pct(r.chance)} to win)</div>` : '')
+      + (r.freed && isBid(r) ? `<div class="bidline">Bid <b>$${r.bid}</b> (${pct(r.chance)} to win)</div>` : '')
       + `<div class="sub">Drop: ${drop(r)}</div>`
       + (r.freed ? `<div class="opts">${opts(r)}</div><div class="sub">Rivals: ${rivals(r)}</div>` : '')
       + `${why(r)}<div class="foot">${btn(r)}</div></div>`;

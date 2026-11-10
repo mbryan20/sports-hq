@@ -78,16 +78,25 @@ The test: rebuild each past week as it stood, then compare with what happened. T
   - All bids together stay under FAAB minus the reserve, and no two claims share a drop (a claim moved to its
     next-best drop is re-valued).
   - Moves adding under 0.3 points of win odds are skipped as noise.
+  - $0 counts with its own payoff (Q-038): when $1 wins no more past claims than $0, the call is a $0 claim
+    (`call` Bid or Coin flip with `bid` 0). Before Nov 10 the $0 option was scored as worth nothing, so $1 always won.
+  - A player who is Out or on IR and projected 0 this week (not on a bye) is Skip, never Add free (Q-040).
+  - A K or DEF add never drops an RB, WR or TE worth 8+ points a week (season average or the next weeks'
+    projection), and a paid K or DEF claim is skipped when a free agent at that position helps as much (Q-041).
 - **Reserve:** $5, held back from all bids together; $0 in the last 3 weeks.
 - **Simulations:** the page runs 6,000 seasons so the controls respond quickly; `bids.json` uses 20,000.
 
 ### bids.json fields the Tuesday checks and the AI write-up use
 - **Per-row amounts:**
-  - `bid`: the amount to claim; 0 means don't claim.
+  - `bid`: the amount to claim. With `call` Bid or Coin flip, 0 means a $0 claim (since Nov 10); with any
+    other call, don't claim.
   - `win_chance`: the chance that bid wins.
   - `drop` / `drop_id`: who to drop for it.
   - `value`: the player's worth to you in $.
 - **Prices:** `est_price` (likely price, wins about half of comparable claims) and `price_80`. `your_max` = value, capped at what you can spend.
+- **Rivals:** `likely_rival_bids` (top 3) are on the same scale as `win_chance` since Nov 10 (Q-039): each rival's
+  guessed bid × (est_price / raw estimate), because past claims went for less than the raw guesses (often $0:
+  nobody claimed him). `raw` keeps the unscaled guess.
 - **Labels:** `call` (Bid / Coin flip / Priced out / Skip / Add free) and `why`, plus `bye_week`.
 - **Budget block:** `budget.spendable`, `budget.recommended_bids_total` and `budget.dollars_per_win_point`.
 

@@ -50,7 +50,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-09 (Michael's Nov 9 instruction, via Claude Ops; extends the approved R1 / Q-029)
 
 ### Q-038 · War Room v2 never credits a $0 bid with its payoff, so it recommends $1 that buys nothing
-- **Status:** proposed
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, the line `let best = { b: 0, ev: 0, p: winChance(0, r.est) }`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -63,11 +63,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Effort:** S (one line, plus a test that a flat curve between $0 and $1 gives a $0 call)
 - **Risk:** Low (also needs a call name for a $0 waiver claim, e.g. "Claim at $0"; today $0 means "Add free" or nothing)
 - **Measure:** — (one-off: no row whose recommended bid has the same `win_curve` value as $0)
-- **Design:** —
-- **Decision:** —
+- **Design:** `decideAll` scores $0 at winChance(0) x value; a $0 pick is call Bid / Coin flip with bid 0 (needs a drop, counts in the budget loop, listed in `bid_options`); `shq/health.py` scores a $0 claim as a win when no rival claimed him.
+- **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-039 · Stated win chances don't match the same row's likely rival bids
-- **Status:** proposed
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
 - **Area:** War Room v2 (`warroom/model.js` `winChance`, `threats` (the `likely_rival_bids` list); `warroom/build.py` `ladder`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -83,11 +83,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Risk:** Med (changes every stated win chance)
 - **Measure:** `rec.win_brier`, `wr.ladder_cov50` (by estimate size), share of rows where the stated chance is above 50% while
   the bid is below every listed rival bid (should be 0)
-- **Design:** —
-- **Decision:** —
+- **Design:** `rivalBids(r)` scales each rival guess by priceFor(.5)/estimate (`raw` kept); the page and bids.json use it. $0 ties left as they are: the ladder counts unclaimed players as $0, so most $0 cases had no rival claim at all.
+- **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-040 · An injured or IR player with no projection still gets "Add free"
-- **Status:** proposed
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, the free-agent branch; `proj`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -100,11 +100,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Effort:** S
 - **Risk:** Low
 - **Measure:** — (one-off: no "Add free" row with injury Out/IR and `proj_next_week` 0 unless its call says stash)
-- **Design:** —
-- **Decision:** —
+- **Design:** `outNow(s)`: injury Out or IR, projected 0 this week, not on a bye -> Skip with a why, for free agents and freed players.
+- **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-041 · War Room v2 drops a usable RB to add a second DEF
-- **Status:** proposed
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
 - **Area:** War Room v2 (`warroom/model.js` `bestDrop`, `decideAll`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -119,8 +119,8 @@ Measure (the health.json check that should move), Design, Decision.
   position)
 - **Risk:** Low
 - **Measure:** — (one-off: no claim whose add is K/DEF and whose drop is an RB/WR projected above about 8 points)
-- **Design:** —
-- **Decision:** —
+- **Design:** `bestDrop`: a K/DEF add skips RB/WR/TE drops worth 8+ (season average or the next 4 weeks' projection); after pricing, a paid K/DEF claim is Skip when a same-position free agent is Add free with at least its season gain.
+- **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)

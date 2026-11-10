@@ -56,11 +56,23 @@ function roster(t, extra, drop) {
   return r;
 }
 function teamProj(t, extra, drop) { const o = {}; for (const w of WEEKS) o[w] = lineup(roster(t, extra, drop), w).tot; return o; }
-// rosters are full, so every add is also a drop: the player whose loss costs the fewest projected points
+// rosters are full, so every add is also a drop: the player whose loss costs the fewest projected points.
+// A K or DEF add never drops an RB, WR or TE worth KEEP_FLOOR points a week (season average or the coming
+// weeks' projection): on the bench he counts as nearly free in the lineup math, but he is the cover for
+// byes and injuries (Q-041, Nov 10: MIN DEF for $1 would have dropped Breece Hall).
+const KEEP_FLOOR = 8;
+function keeper(d) {
+  const p = D.P[d];
+  if (!p || !['RB', 'WR', 'TE'].includes(p.p)) return false;
+  const near = NEAR.length ? NEAR.reduce((a, w) => a + proj(d, w), 0) / NEAR.length : 0;
+  return Math.max(p.a || 0, near) >= KEEP_FLOOR;
+}
 function bestDrop(t, s, skip) {
   let best = null, bestTot = -1e9;
+  const kd = D.P[s] && (D.P[s].p === 'K' || D.P[s].p === 'DEF');
   for (const d of roster(t)) {
     if (d === s || S.adds.has(d) || (skip && skip.has(d))) continue;
+    if (kd && keeper(d)) continue;
     const tot = WEEKS.reduce((a, w) => a + lineup(roster(t, [s], d), w).tot, 0);
     if (tot > bestTot) { bestTot = tot; best = d; }
   }
@@ -130,6 +142,23 @@ function priceFor(chance, est, cap = 999) {
   for (let b = 0; b <= cap; b++) if (winChance(b, est) >= chance) return b;
   return null;
 }
+// Likely rival bids on the same scale as the win chance (Q-039). threats() guesses each rival's bid from his
+// boldest past bids, and past claims went for less than that guess (often $0: nobody claimed him), which the
+// ladder measures. So each guess is scaled by (price that wins half of comparable claims) / (raw estimate);
+// `raw` keeps the unscaled guess. Without a ladder the guesses are shown as they are.
+function rivalBids(r) {
+  const th = r.th || [];
+  if (!th.length) return [];
+  const f = D.ladder && r.est ? (priceFor(.5, r.est) ?? r.est) / r.est : 1;
+  return th.map(x => ({ t: x.t, bid: Math.round(x.bid * f), raw: x.bid }));
+}
+// a waiver claim the model recommends (a $0 claim is still a claim: it needs a drop and can beat no claim)
+const isBid = r => r.call === 'Bid' || r.call === 'Coin flip';
+// out this week and projected 0 for an injury (not a bye): Out or on IR (Q-040)
+function outNow(s) {
+  const p = D.P[s];
+  return !!p && (p.inj === 'Out' || p.st === 'RES') && proj(s, W0) === 0 && !(p.bye || []).includes(W0);
+}
 
 // Bids worth comparing for one player: the best-value bid, the bids that won about 25%, 50% and 80% of
 // comparable past claims, and his full value. Each with its win chance and average payoff
@@ -137,7 +166,7 @@ function priceFor(chance, est, cap = 999) {
 function bidOptions(r, value, spend) {
   const faab = D.teams[ME].faab;      // the 80% price is shown even above what you can spend, up to your FAAB
   const amts = new Set([r.bid, priceFor(.25, r.est), priceFor(.5, r.est), priceFor(.8, r.est, faab), Math.min(value, spend)]
-    .filter(b => b !== null && b > 0 && b <= faab));
+    .filter(b => b !== null && (b > 0 || (b === r.bid && isBid(r))) && b <= faab));
   return [...amts].sort((a, b) => a - b).map(b => { const p = winChance(b, r.est); return { bid: b, chance: p, payoff: p * (value - b) }; });
 }
 
@@ -203,10 +232,15 @@ const dollarsPerPoint = rows => S.dpp > 0 ? S.dpp : autoDpp(rows);
 function decideAll(rows) {
   const faab = D.teams[ME].faab, spend = Math.max(0, faab - S.reserve), dpp = dollarsPerPoint(rows);
   const price = r => {        // value, best bid and call for one candidate at its current drop
+    if (outNow(r.s)) return Object.assign(r, { call: 'Skip', bid: 0, value: 0, chance: null, options: [],
+      price: r.freed ? (priceFor(.5, r.est) ?? r.est) : 0, price80: r.freed ? (priceFor(.8, r.est) ?? r.est) : 0,
+      why: 'out this week (injury or IR): not worth a roster spot now' });
     if (!r.freed) return Object.assign(r, { call: r.dWin >= MIN_WIN ? 'Add free' : 'Skip', bid: 0, value: 0, price: 0, price80: 0, chance: null,
       why: r.dWin >= MIN_WIN ? 'free agent' : 'adds too little to matter' });
     const value = dpp ? Math.floor(r.dWin * 100 * dpp) : 0, cap = Math.min(spend, value);
-    let best = { b: 0, ev: 0, p: winChance(0, r.est) };
+    // $0 counts with its own payoff: a $1 bid that wins no more often than $0 buys nothing (Q-038)
+    const p0 = winChance(0, r.est);
+    let best = { b: 0, ev: p0 * value, p: p0 };
     for (let b = 1; b <= cap; b++) { const p = winChance(b, r.est), ev = p * (value - b); if (ev > best.ev + 1e-9) best = { b, ev, p }; }
     const small = value < 1 || r.dWin < MIN_WIN, call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : best.p >= .5 ? 'Bid' : 'Coin flip';
     Object.assign(r, { call, bid: call === 'Bid' || call === 'Coin flip' ? best.b : 0, chance: best.p, value, ev: best.ev,
@@ -216,16 +250,22 @@ function decideAll(rows) {
     return r;
   };
   rows.filter(r => !r.added && r.dW !== undefined).forEach(price);
+  // only one K and one DEF start: don't pay for one while a free agent at the same position helps as much (Q-041)
+  for (const r of rows) {
+    if (r.added || !r.freed || !isBid(r) || !['K', 'DEF'].includes(D.P[r.s].p)) continue;
+    const free = rows.find(x => !x.added && !x.freed && x.call === 'Add free' && D.P[x.s].p === D.P[r.s].p && x.gR >= r.gR);
+    if (free) Object.assign(r, { call: 'Skip', bid: 0, options: [], why: `${pname(free.s)} is a free add and helps as much` });
+  }
   // All your bids must fit your FAAB minus the reserve, and each claim needs its own drop (Sleeper fails a claim
   // whose drop is already gone). The most valuable claims choose first; a later claim moves to its next-best
   // drop and is re-valued, since that drop may cost more.
   let used = 0; const drops = new Set();
-  for (const r of rows.filter(r => r.bid > 0).sort((a, b) => b.ev - a.ev)) {
+  for (const r of rows.filter(r => !r.added && isBid(r)).sort((a, b) => b.ev - a.ev)) {
     if (drops.has(r.drop)) {
       r.drop = bestDrop(ME, r.s, drops);
       if (!r.drop) { Object.assign(r, { call: 'Skip', bid: 0, why: 'no roster spot left to drop' }); continue; }
       gains(r); price(r);
-      if (!r.bid) continue;
+      if (!isBid(r)) continue;
       r.why = 'drop changed: a better claim uses the first choice';
     }
     if (used + r.bid > spend) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
@@ -253,7 +293,7 @@ function exportBids() {
     win_curve: r.freed && r.est ? Array.from({ length: D.teams[ME].faab + 1 }, (_, b) => Math.round(winChance(b, r.est) * 100) / 100) : null,
     bid_options: (r.options || []).map(o => ({ bid: o.bid, win_chance: r3(o.chance), avg_payoff: r1(o.payoff), recommended: o.bid === r.bid,
       over_spendable: o.bid > money.spend })),
-    likely_rival_bids: (r.th || []).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid })) }));
+    likely_rival_bids: rivalBids(r).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid, raw: x.raw })) }));
   const sim = BASE.sim;
   return {
     league: D.league, data_as_of: D.asof, last_sleeper_move: D.data_as_of, week: W0, last_week: LAST,

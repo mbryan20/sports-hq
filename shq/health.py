@@ -425,14 +425,15 @@ def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
             continue
         claims = lg.claims(leg)
 
-        def outcome(sid, bid):
+        def outcome(sid, bid, claim=None):
             got = claims.get(sid, [])
             winner = next(((rid, b) for rid, b, won in got if won), None)
             mine = next(((b, won) for rid, b, won in got if rid == lg.me), None)
             # the price to beat is what a rival won him for: a higher losing bid failed for another reason
             # (budget used up by other wins, its drop already gone)
             rivals = winner[1] if winner and winner[0] != lg.me else max((b for rid, b, _ in got if rid != lg.me), default=None)
-            return {"would_win": bid > 0 and (rivals is None or bid > rivals), "top_rival_bid": rivals,
+            claim = bid > 0 if claim is None else claim      # a $0 claim (Q-038) wins when no rival claimed him
+            return {"would_win": claim and (rivals is None or bid > rivals), "top_rival_bid": rivals,
                     "winner": lg.display.get(winner[0]) if winner else None, "paid": winner[1] if winner else 0,
                     "my_bid": mine[0] if mine else None, "i_won": bool(mine and mine[1])}
         sha = last_before(bids_versions, run)
@@ -442,7 +443,7 @@ def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
             for row in B.get("bids") or []:
                 if not str(row.get("source", "")).startswith("freed"):
                     continue
-                o = outcome(row["sleeper_id"], row.get("bid") or 0)
+                o = outcome(row["sleeper_id"], row.get("bid") or 0, (row.get("bid") or 0) > 0 or row["call"] in ("Bid", "Coin flip"))
                 v2.append({"leg": leg, "player": row["name"], "call": row["call"], "bid": row.get("bid") or 0,
                            "win_chance": row.get("win_chance"), "est_price": row.get("est_price"), "value": row.get("value"), **o})
         sha = last_before(dash_versions, run)
@@ -455,7 +456,7 @@ def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
                 bid = row["price"] if row.get("call") == "bid" else 0
                 dash.append({"leg": leg, "player": row["name"], "call": row.get("call"), "bid": bid, "est_price": row.get("price"),
                              "max": row.get("max"), **outcome(sid, bid)})
-    rec = [x for x in v2 if x["bid"] > 0]
+    rec = [x for x in v2 if x["bid"] > 0 or x["call"] in ("Bid", "Coin flip")]
     paid = {}
     for leg in range(1, lg.played + 1):
         rows = []

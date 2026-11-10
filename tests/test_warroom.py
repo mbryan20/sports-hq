@@ -232,6 +232,58 @@ class BidRules(unittest.TestCase):
         self.assertEqual(self.run_js(D, "[winChance(0, 10), winChance(1, 10), winChance(11, 10), winChance(41, 10)]"), [0.25, 0.25, 0.625, 1])
         self.assertEqual(self.run_js(D, "[priceFor(.5, 10), priceFor(.8, 10)]"), [11, 31])
 
+    # ---- Nov 10 review fixes (Q-038 to Q-041) ----
+    @staticmethod
+    def league(ladder, roster=(), players=None):
+        """Weeks 9-12, my team (id 1, $10 FAAB) and one rival; players: id -> fields (pw = projections from week 9)."""
+        P = {}
+        for s, f in (players or {}).items():
+            P[s] = {"n": s, "p": "RB", "t": "X", "a": 10, "r": 10, "g": 5, "own": 0, "bye": [], "pw": [10] * 4, **f}
+        return {"me": 1, "week": 9, "last_week": 12, "P": P, "hist": [], "dead": {}, "cut": None, "ladder": ladder,
+                "teams": {"1": {"n": "me", "faab": 10, "roster": list(roster)}, "2": {"n": "rival", "faab": 10, "roster": []}}}
+
+    def test_zero_dollar_bid_keeps_its_payoff(self):
+        # Barkley, Nov 10: 57% at both $0 and $1, value $3 -> $0 (worth $1.71) beats $1 ($1.14)
+        D = self.league({"lo": [0, 0, 0, 0, 1, 1, 1], "hi": []}, players={"x": {}})
+        row = "{s: 'x', freed: true, dW: 0, dWin: 0.03, gR: 1, est: 5, drop: 'a', th: []}"
+        got = self.run_js(D, f"S.dpp = 1; const rows = [{row}]; decideAll(rows); [rows[0].call, rows[0].bid, rows[0].options.map(o => o.bid)]")
+        self.assertEqual(got[:2], ["Bid", 0])
+        self.assertIn(0, got[2])
+        # when $1 does beat more past claims than $0, it is still chosen
+        D["ladder"]["lo"] = [0, 0, 0.1, 0.1, 1, 1]
+        got = self.run_js(D, f"S.dpp = 1; const rows = [{row}]; decideAll(rows); [rows[0].call, rows[0].bid]")
+        self.assertEqual(got, ["Bid", 1])
+
+    def test_rival_bids_on_the_win_chance_scale(self):
+        D = self.league({"lo": [0.5, 0.5, 1, 1], "hi": []})
+        got = self.run_js(D, "rivalBids({th: [{t: '2', bid: 18}], est: 19})")
+        self.assertEqual(got, [{"t": "2", "bid": 9, "raw": 18}])            # half of past claims went for <= $10 of a $19 guess
+        D["ladder"] = None
+        self.assertEqual(self.run_js(D, "rivalBids({th: [{t: '2', bid: 18}], est: 19})"), [{"t": "2", "bid": 18, "raw": 18}])
+
+    def test_out_now_is_never_a_free_add(self):
+        D = self.league(None, players={"lj": {"p": "QB", "inj": "Out", "st": "RES", "pw": [0, 10, 10, 10]},
+                                       "bye": {"bye": [9], "pw": [0, 10, 10, 10]}})
+        got = self.run_js(D, "S.dpp = 1; const rows = [{s: 'lj', freed: false, dW: 0.1, dWin: 0.05, gR: 30, drop: 'a'},"
+                             "{s: 'bye', freed: false, dW: 0.1, dWin: 0.05, gR: 30, drop: 'b'}]; decideAll(rows); rows.map(r => r.call)")
+        self.assertEqual(got, ["Skip", "Add free"])                         # on a bye is not out
+
+    def test_k_or_def_add_keeps_a_usable_rb(self):
+        players = {f"r{i}": {"pw": [15] * 4} for i in range(1, 5)}
+        players.update({"bh": {"a": 11.9, "pw": [8.1] * 4}, "cin": {"p": "DEF", "pw": [6.6] * 4}, "kk": {"p": "K", "pw": [7] * 4},
+                        "min": {"p": "DEF", "pw": [7] * 4}, "rb9": {"pw": [9] * 4}})
+        D = self.league(None, roster=["r1", "r2", "r3", "r4", "bh", "cin", "kk"], players=players)
+        # bench RB and the old DEF both cost 0 lineup points; the RB is first, so he went before (Breece Hall, Nov 10)
+        self.assertEqual(self.run_js(D, "[bestDrop(ME, 'min'), bestDrop(ME, 'rb9')]"), ["cin", "bh"])
+
+    def test_no_paid_def_while_a_better_def_is_free(self):
+        D = self.league({"lo": [0, 0, 0, 0, 1, 1, 1], "hi": []},
+                        players={"min": {"p": "DEF"}, "bal": {"p": "DEF", "n": "BAL DEF"}})
+        got = self.run_js(D, "S.dpp = 1; const rows = [{s: 'min', freed: true, dW: 0, dWin: 0.02, gR: 5, est: 2, drop: 'cin', th: []},"
+                             "{s: 'bal', freed: false, dW: 0, dWin: 0.03, gR: 8, drop: 'cin'}]; decideAll(rows);"
+                             "[rows[0].call, rows[0].bid, rows[0].why, rows[1].call]")
+        self.assertEqual(got, ["Skip", 0, "BAL DEF is a free add and helps as much", "Add free"])
+
 
 if __name__ == "__main__":
     unittest.main()
