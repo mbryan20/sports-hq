@@ -53,7 +53,8 @@ The footer shows the last cloud run and when each laptop job last delivered.
   Yahoo: swap via API (when write access exists) and confirm; everyone else: push the exact swap. No healthy
   bench option → push the best free agent. Never adds or drops.
 - GitHub drops many scheduled triggers, so a run keeps looping every 10 min while a watch window is open or
-  opens within 3h (up to ~5h45m per run). Times come from real kickoffs, so DST doesn't matter.
+  opens within 3h (up to ~5h45m per run; a loop that reaches that limit with the window still open starts the next
+  run itself, Q-037). Times come from real kickoffs, so DST doesn't matter.
 - Weekend wrap-up (`shq/wrapup.py`, `shq/wrapup_render.py`): Sunday edition on the first run after every Sunday game
   is final, final edition from Tuesday 8am CT; writes `docs/wrapups/<season>-wNN.{pdf,html,json}` and the archive, pushes
   the PDF link (3-min ntfy delay so Pages has published it). Run one by hand: Actions → Sports HQ run → `force_wrapup`, or

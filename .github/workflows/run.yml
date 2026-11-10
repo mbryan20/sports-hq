@@ -39,10 +39,18 @@ on:
         description: "Send a test push"
         type: boolean
         default: false
+      handoff:
+        description: "Started by a loop that hit its time limit (skips the 'another run is looping' check)"
+        type: boolean
+        default: false
+      loop_minutes:
+        description: "Testing only: end the loop after this many minutes (max 345)"
+        type: number
+        default: 345
 
 permissions:
   contents: write
-  actions: read     # the Run step checks whether another Sports HQ run is already looping
+  actions: write    # the Run step checks whether another Sports HQ run is looping, and hands off to a new run (Q-037)
 
 # Scheduled runs share one group (one running, one waiting). Each manual or laptop dispatch (ops/kick.ps1, Q-029) gets its
 # own group so it starts at once instead of being replaced by the next queued cron; when another run is already looping
@@ -83,16 +91,23 @@ jobs:
           FORCE_DIGEST: ${{ inputs.force_digest && '1' || '0' }}
           FORCE_WRAPUP: ${{ inputs.force_wrapup && '1' || '0' }}
           TEST_PUSH: ${{ inputs.test_push && '1' || '0' }}
+          HANDOFF: ${{ inputs.handoff && '1' || '0' }}
+          LOOP_MINUTES: ${{ inputs.loop_minutes || 345 }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           GH_TOKEN: ${{ github.token }}
         # GitHub drops many scheduled triggers under load, so one run that starts carries the
         # whole window: pass, commit, then keep going every 10 min while shq.run says a watch
-        # window is open or opens within 3h, up to ~5h45m (job limit is 6h).
+        # window is open or opens within 3h, up to ~5h45m (job limit is 6h). A loop that reaches that limit while the
+        # window is still open starts its successor (handoff, Q-037), so the injury watch never sits idle mid-game.
         run: |
           set +e
-          end=$((SECONDS + 345*60)); failed=0
-          # another Sports HQ run has been going 10+ min, so it is looping (a one-pass run ends in ~5): one pass, no second loop
+          lm="$LOOP_MINUTES"; case "$lm" in ''|*[!0-9]*) lm=345 ;; esac; { [ "$lm" -lt 1 ] || [ "$lm" -gt 345 ]; } && lm=345
+          end=$((SECONDS + lm*60)); failed=0; timed_out=0
+          # another Sports HQ run has been going 10+ min, so it is looping (a one-pass run ends in ~5): one pass, no second loop.
+          # A handoff run skips this: the loop that started it is still finishing.
+          if [ "$HANDOFF" = 1 ]; then others=0; echo "handoff from a loop at its time limit: looping"; else
           others=$(gh run list --workflow run.yml --status in_progress --json databaseId,createdAt --jq             "[.[] | select(.databaseId != ${{ github.run_id }} and (.createdAt | fromdateiso8601) < (now - 600))] | length" 2>/dev/null || echo 0)
+          fi
           [ "${others:-0}" -gt 0 ] && echo "another run is looping: one pass only"
           while :; do
             if ! python -m shq.run; then
@@ -105,10 +120,16 @@ jobs:
             export FORCE_WEEKLY=0 FORCE_DIGEST=0 FORCE_WRAPUP=0 TEST_PUSH=0
             [ "${others:-0}" -gt 0 ] && break
             python -m shq.run --keep-watching || break
-            [ $((SECONDS + 660)) -ge $end ] && break
+            if [ $((SECONDS + 660)) -ge $end ]; then timed_out=1; break; fi
             # wake at :07/:17/:27… so a pass lands 3 min before kickoffs on :00/:05/:30 marks
             sleep $(( 600 - ($(date +%s) + 180) % 600 ))
           done
+          # the watch window is still open but this job is near GitHub's 6-hour limit: start the next loop now (Q-037).
+          # GitHub lets the built-in token start workflow_dispatch runs; a test run (loop_minutes) hands off a normal one.
+          if [ $timed_out -eq 1 ]; then
+            dr=false; [ "$DRY_RUN" = 1 ] && dr=true
+            gh workflow run run.yml --ref "${{ github.ref_name }}" -f handoff=true -f dry_run=$dr && echo "handed off to a new run" || echo "handoff failed"
+          fi
           exit $failed
       - name: Push alert on failure
         if: failure() && steps.run.outcome != 'failure'
