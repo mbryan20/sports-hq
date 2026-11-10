@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T00:07:00Z",
+ "updated": "2026-11-10T00:11:25Z",
  "week": 9,
  "leagues": {
   "Kosmonauts": {
@@ -204,9 +204,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Geno Smith (QB, NYJ, 19.3/gm, value 142) for Brenton Strange (TE, your TE2, 8.5/gm): fills in at QB in weeks 11, 12, +23 pts over the next 4 weeks",
-     "Add Ladd McConkey (WR, LAC, 10.6/gm, value 1,549) for Keenan Allen (WR, your WR3, 8.1/gm): better backup WR, +1.2 pts over the next 4 weeks",
-     "Add Devin Singletary (RB, NYG, 8.9/gm, value 743) for David Montgomery (RB, your RB4, 7.5/gm): fills in at RB in week 9, +2.1 pts over the next 4 weeks"
+     "Add Geno Smith (QB, NYJ, 19.8/gm, value 134) for Brenton Strange (TE, your TE2, 8.5/gm): fills in at QB in weeks 11, 12, +25.5 pts over the next 4 weeks",
+     "Add Ladd McConkey (WR, LAC, 10.7/gm, value 1,508) for Keenan Allen (WR, your WR3, 8.0/gm): better backup WR, +1.3 pts over the next 4 weeks",
+     "Add Devin Singletary (RB, NYG, 8.8/gm, value 750) for David Montgomery (RB, your RB4, 7.6/gm): fills in at RB in week 9, +2 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -219,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "Domo Arigato": {
@@ -558,8 +558,8 @@
       "OUT"
      ],
      "news": {
-      "note": "Fantasy buzz: Cardinals' Michael Wilson out for season with neck injury",
-      "at": "2026-11-09T22:29:36Z",
+      "note": "Fantasy buzz: Rams' Puka Nacua likely heading to IR, Cardinals' Michael Wilson out for season",
+      "at": "2026-11-09T23:03:52Z",
       "url": "https://www.espn.com/nfl/player/_/id/4569618/garrett-wilson"
      }
     },
@@ -612,14 +612,15 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Drew Lock (QB, SEA, 5.6/gm, value 1,131) into your open roster spot: fills in at QB in week 9, +2.3 pts over the next 4 weeks. Bid $1\u20133",
-     "Add Tank Dell (WR, HOU, 2.8/gm, value 1,266) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
-     "Add Zonovan Knight (RB, ARI, 5.5/gm, value 309) for Jaylen Wright (RB, your RB6, 3.0/gm): fills in at RB in week 11, +1.6 pts over the next 4 weeks. Bid $1\u20133"
+     "Add Drew Lock (QB, SEA, 11.1/gm, value 1,148) into your open roster spot: fills in at QB in weeks 9, 10, +8.1 pts over the next 4 weeks. Bid $1\u20133",
+     "Add Tank Dell (WR, HOU, 2.8/gm, value 1,234) for Jalen Nailor (WR, your WR9, 3.3/gm): better backup WR. Bid $1\u20133",
+     "Add Zonovan Knight (RB, ARI, 6.2/gm, value 289) for Evan Engram (TE, your TE2, 5.2/gm): fills in at RB in week 11, +2.5 pts over the next 4 weeks. Bid $1\u20133"
     ],
     "trades": {
      "lines": [
-      "Weak spot: WR (Stefon Diggs 12.8/gm, 10th of 12)",
-      "Weak spot: TE (Mike Gesicki 9.9/gm, 11th of 12)",
+      "Weak spot: WR (Stefon Diggs 12.8/gm, 9th of 12)",
+      "Weak spot: TE (Mike Gesicki 10.2/gm, 11th of 12)",
+      "Surplus: Tre Tucker (WR), 10.6/gm on your bench, would start for 6 of 11 teams",
       "Trade deadline: week 10."
      ],
      "offers": [
@@ -632,10 +633,10 @@
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 2778,
-       "get_value": 3050,
-       "my_gain": 1.7,
-       "their_gain": 2.6,
+       "give_value": 2785,
+       "get_value": 3068,
+       "my_gain": 1.5,
+       "their_gain": 2.3,
        "cut": false,
        "why": "Harold Fannin Jr. starts for you; Zach Charbonnet starts for them over Tyjae Spears (6.5/gm)"
       },
@@ -648,12 +649,28 @@
         "Bo Nix (QB)",
         "Zay Flowers (WR)"
        ],
-       "give_value": 7463,
-       "get_value": 7004,
-       "my_gain": 0.9,
-       "their_gain": 1.9,
+       "give_value": 7419,
+       "get_value": 7028,
+       "my_gain": 0.5,
+       "their_gain": 2.3,
        "cut": true,
        "why": "Zay Flowers and Bo Nix start for you; Caleb Williams starts for them"
+      },
+      {
+       "team": "mattschadegg",
+       "give": [
+        "Tetairoa McMillan (WR)",
+        "Tyler Shough (QB)"
+       ],
+       "get": [
+        "Joe Burrow (QB)"
+       ],
+       "give_value": 7360,
+       "get_value": 7349,
+       "my_gain": 0.6,
+       "their_gain": 1.0,
+       "cut": false,
+       "why": "Joe Burrow starts for you; Tetairoa McMillan and Tyler Shough start for them over Chris Godwin Jr. (9.0/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -665,7 +682,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "Guillotine": {
@@ -909,17 +926,33 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Brenton Strange (TE, JAX, 8.5/gm, value 345) for Khalil Shakir (WR, your WR5, 8.4/gm): fills in at TE in week 10, +7.7 pts over the next 4 weeks"
+     "Add Brenton Strange (TE, JAX, 8.5/gm, value 344) for Khalil Shakir (WR, your WR5, 8.4/gm): fills in at TE in week 10, +7.8 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
-      "Weak spot: QB (Jayden Daniels 23.4/gm, 8th of 10)",
-      "Weak spot: TE (Dallas Goedert 9.0/gm, 8th of 10)",
-      "Surplus: Woody Marks (RB), 9.2/gm on your bench, would start for 5 of 9 teams",
-      "Surplus: Tre Tucker (WR), 8.8/gm on your bench, would start for 6 of 9 teams",
+      "Weak spot: QB (Jayden Daniels 23.7/gm, 7th of 10)",
+      "Weak spot: TE (Dallas Goedert 8.6/gm, 9th of 10)",
+      "Surplus: Woody Marks (RB), 9.1/gm on your bench, would start for 6 of 9 teams",
+      "Surplus: Tre Tucker (WR), 8.9/gm on your bench, would start for 8 of 9 teams",
       "Trade deadline: week 11."
      ],
      "offers": [
+      {
+       "team": "robert8063",
+       "give": [
+        "Dallas Goedert (TE)",
+        "Braelon Allen (RB)"
+       ],
+       "get": [
+        "Sam LaPorta (TE)"
+       ],
+       "give_value": 1886,
+       "get_value": 2029,
+       "my_gain": 1.2,
+       "their_gain": 0.6,
+       "cut": false,
+       "why": "Sam LaPorta starts for you; Dallas Goedert and Braelon Allen start for them over Germie Bernard (7.3/gm)"
+      },
       {
        "team": "robert8063",
        "give": [
@@ -929,28 +962,28 @@
        "get": [
         "Jaxon Smith-Njigba (WR)"
        ],
-       "give_value": 9794,
-       "get_value": 10056,
-       "my_gain": 0.7,
-       "their_gain": 1.3,
+       "give_value": 9687,
+       "get_value": 10021,
+       "my_gain": 0.6,
+       "their_gain": 1.2,
        "cut": false,
-       "why": "Jaxon Smith-Njigba starts for you; Chuba Hubbard and Tee Higgins start for them over Germie Bernard (7.2/gm)"
+       "why": "Jaxon Smith-Njigba starts for you; Chuba Hubbard and Tee Higgins start for them over Germie Bernard (7.3/gm)"
       },
       {
-       "team": "MoneyManChas",
+       "team": "robert8063",
        "give": [
-        "Dallas Goedert (TE)",
-        "Woody Marks (RB)"
+        "Breece Hall (RB)",
+        "Carnell Tate (WR)"
        ],
        "get": [
-        "Harold Fannin Jr. (TE)"
+        "Matthew Golden (WR)"
        ],
-       "give_value": 1476,
-       "get_value": 1387,
+       "give_value": 4222,
+       "get_value": 4362,
        "my_gain": 0.5,
-       "their_gain": 0.5,
+       "their_gain": 0.9,
        "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Dallas Goedert and Woody Marks start for them over T.J. Hockenson (8.2/gm)"
+       "why": "Matthew Golden starts for you; Breece Hall and Carnell Tate start for them over Germie Bernard (7.3/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -962,7 +995,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 6:07p",
+    "built": "Mon 6:11p",
     "guillotine": {
      "week": 9,
      "sims": 5000,
@@ -1415,63 +1448,48 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.6/gm, value 1,053) for Kaytron Allen (RB, your RB8, 1.5/gm): fills in at TE in week 10, +7.3 pts over the next 4 weeks",
-     "Add Ted Hurst III (WR, TB, 4.7/gm, value 1,177) for Treylon Burks (WR, your WR7, 4.7/gm): better backup WR"
+     "Add Pat Freiermuth (TE, PIT, 9.8/gm, value 1,077) for Kaytron Allen (RB, your RB8, 1.5/gm): fills in at TE in week 10, +7.6 pts over the next 4 weeks",
+     "Add Ted Hurst III (WR, TB, 4.6/gm, value 1,161) for Treylon Burks (WR, your WR7, 4.8/gm): better backup WR"
     ],
     "trades": {
      "lines": [
-      "Weak spot: WR (Denzel Boston 10.7/gm, 7th of 10)",
-      "Weak spot: TE (Dallas Goedert 10.9/gm, 9th of 10)",
+      "Weak spot: WR (Tre Tucker 10.6/gm, 7th of 10)",
+      "Weak spot: TE (Dallas Goedert 10.5/gm, 10th of 10)",
+      "Surplus: Denzel Boston (WR), 10.4/gm on your bench, would start for 6 of 9 teams",
       "Trade deadline: Dec 18."
      ],
      "offers": [
       {
-       "team": "The Guppies",
+       "team": "The MONSTARS",
        "give": [
-        "Daniel Jones (QB)",
+        "Tre Tucker (WR)",
         "Xavier Worthy (WR)"
        ],
        "get": [
-        "Jonah Coleman (RB)"
+        "Rome Odunze (WR)"
        ],
-       "give_value": 2642,
-       "get_value": 2694,
-       "my_gain": 2.7,
+       "give_value": 2401,
+       "get_value": 2313,
+       "my_gain": 1.4,
        "their_gain": 0.6,
        "cut": false,
-       "why": "Jonah Coleman starts for you; Daniel Jones and Xavier Worthy start for them over Woody Marks (10.1/gm)"
+       "why": "Rome Odunze starts for you; Tre Tucker and Xavier Worthy start for them over Jordan Addison (8.4/gm)"
       },
       {
        "team": "The Guppies",
        "give": [
         "Tyler Shough (QB)",
-        "Tre Tucker (WR)"
+        "J.K. Dobbins (RB)"
        ],
        "get": [
-        "Ashton Jeanty (RB)"
-       ],
-       "give_value": 4704,
-       "get_value": 4588,
-       "my_gain": 1.5,
-       "their_gain": 1.7,
-       "cut": false,
-       "why": "Ashton Jeanty starts for you; Tyler Shough and Tre Tucker start for them over Woody Marks (10.1/gm)"
-      },
-      {
-       "team": "The Guppies",
-       "give": [
-        "Jayden Daniels (QB)"
-       ],
-       "get": [
-        "Rhamondre Stevenson (RB)",
         "Zay Flowers (WR)"
        ],
-       "give_value": 5547,
-       "get_value": 5591,
-       "my_gain": 1.4,
-       "their_gain": 0.6,
-       "cut": true,
-       "why": "Zay Flowers and Rhamondre Stevenson start for you; Jayden Daniels starts for them"
+       "give_value": 4484,
+       "get_value": 4105,
+       "my_gain": 1.0,
+       "their_gain": 1.1,
+       "cut": false,
+       "why": "Zay Flowers starts for you; Tyler Shough starts for them"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -1492,7 +1510,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "Stempak": {
@@ -1793,14 +1811,14 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 18.0/gm, value 1,536) for Chig Okonkwo (TE, your TE3, 8.8/gm): fills in at QB in week 10, +5.5 pts over the next 4 weeks",
-     "Add Omar Cooper Jr. (WR, NYJ, 11.2/gm, value 625) for Josh Downs (WR, your WR5, 9.9/gm): better backup WR, +0.3 pts over the next 4 weeks"
+     "Add Aaron Rodgers (QB, PIT, 18.1/gm, value 1,462) for Chig Okonkwo (TE, your TE3, 8.8/gm): fills in at QB in week 10, +6.3 pts over the next 4 weeks",
+     "Add Omar Cooper Jr. (WR, NYJ, 11.3/gm, value 591) for Josh Downs (WR, your WR5, 9.7/gm): better backup WR, +0.5 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
-      "Weak spot: TE (Dalton Kincaid 10.8/gm, 8th of 8)",
-      "Surplus: Ollie Gordon II (RB), 13.2/gm on your bench, would start for 5 of 7 teams",
-      "Surplus: Rhamondre Stevenson (RB), 12.9/gm on your bench, would start for 5 of 7 teams",
+      "Weak spot: TE (Juwan Johnson 10.9/gm, 7th of 8)",
+      "Surplus: Rhamondre Stevenson (RB), 12.8/gm on your bench, would start for 5 of 7 teams",
+      "Surplus: Ollie Gordon II (RB), 12.7/gm on your bench, would start for 5 of 7 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
@@ -1813,43 +1831,43 @@
         "Luther Burden III (WR)",
         "George Kittle (TE)"
        ],
-       "give_value": 6302,
-       "get_value": 6297,
-       "my_gain": 3.8,
-       "their_gain": 1.5,
+       "give_value": 6308,
+       "get_value": 6199,
+       "my_gain": 4.0,
+       "their_gain": 1.0,
        "cut": true,
-       "why": "George Kittle and Luther Burden III start for you; James Cook III starts for them over Tyler Allgeier (11.9/gm)"
-      },
-      {
-       "team": "Jonesing for more",
-       "give": [
-        "Ollie Gordon II (RB)"
-       ],
-       "get": [
-        "Travis Kelce (TE)"
-       ],
-       "give_value": 1407,
-       "get_value": 1516,
-       "my_gain": 2.5,
-       "their_gain": 1.3,
-       "cut": false,
-       "why": "Travis Kelce starts for you; Ollie Gordon II starts for them over Tyler Allgeier (11.9/gm)"
+       "why": "George Kittle and Luther Burden III start for you; James Cook III starts for them over Tyler Allgeier (11.7/gm)"
       },
       {
        "team": "Sacked again",
        "give": [
         "Chase Brown (RB)",
-        "Christian Watson (WR)"
+        "Zay Flowers (WR)"
        ],
        "get": [
         "Trey McBride (TE)"
        ],
-       "give_value": 7166,
+       "give_value": 6349,
        "get_value": 7048,
-       "my_gain": 1.6,
-       "their_gain": 3.8,
+       "my_gain": 2.1,
+       "their_gain": 2.3,
        "cut": false,
-       "why": "Trey McBride starts for you; Chase Brown and Christian Watson start for them over George Pickens (9.9/gm)"
+       "why": "Trey McBride starts for you; Chase Brown and Zay Flowers start for them over George Pickens (10.2/gm)"
+      },
+      {
+       "team": "Jonesing for more",
+       "give": [
+        "Rhamondre Stevenson (RB)"
+       ],
+       "get": [
+        "Travis Kelce (TE)"
+       ],
+       "give_value": 1673,
+       "get_value": 1517,
+       "my_gain": 2.3,
+       "their_gain": 1.1,
+       "cut": false,
+       "why": "Travis Kelce starts for you; Rhamondre Stevenson starts for them over Tyler Allgeier (11.7/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -1861,7 +1879,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "Bro-vid19": {
@@ -2118,14 +2136,14 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Quentin Johnston (WR, LAC, 7.2/gm, value 26) for Rashid Shaheed (WR, your WR5, 4.0/gm): fills in at WR in week 11, +8.1 pts over the next 4 weeks",
-     "Add Bryce Young (QB, CAR, 18.1/gm, value 643) for Audric Estime (RB, your RB5, 3.0/gm): better backup QB, +3.7 pts over the next 4 weeks"
+     "Add Quentin Johnston (WR, LAC, 7.3/gm, value 31) for Rashid Shaheed (WR, your WR5, 4.0/gm): fills in at WR in week 11, +8.5 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 17.9/gm, value 678) for Audric Estime (RB, your RB5, 3.0/gm): better backup QB, +3.4 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
       "Weak spot: RB (Aaron Jones Sr. 9.7/gm, 10th of 12)",
       "Surplus: Brenton Strange (TE), 10.6/gm on your bench, would start for 7 of 11 teams",
-      "Surplus: KC Concepcion (WR), 10.4/gm on your bench, would start for 7 of 11 teams",
+      "Surplus: KC Concepcion (WR), 10.5/gm on your bench, would start for 8 of 11 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
@@ -2138,44 +2156,44 @@
        "get": [
         "Kenneth Walker III (RB)"
        ],
-       "give_value": 9692,
-       "get_value": 9036,
-       "my_gain": 2.5,
+       "give_value": 9684,
+       "get_value": 8946,
+       "my_gain": 2.4,
        "their_gain": 0.6,
        "cut": false,
-       "why": "Kenneth Walker III starts for you; Ja'Marr Chase and Aaron Jones Sr. start for them over Cooper Kupp (7.3/gm)"
+       "why": "Kenneth Walker III starts for you; Ja'Marr Chase and Aaron Jones Sr. start for them over Demarcus Robinson (7.5/gm)"
       },
       {
-       "team": "Inglorious Staffords",
+       "team": "Party Puka",
        "give": [
         "Drake London (WR)",
         "Brenton Strange (TE)"
        ],
        "get": [
-        "Bucky Irving (RB)"
+        "Kyren Williams (RB)"
        ],
-       "give_value": 5317,
-       "get_value": 5045,
-       "my_gain": 1.8,
-       "their_gain": 1.0,
+       "give_value": 5230,
+       "get_value": 5440,
+       "my_gain": 1.9,
+       "their_gain": 0.6,
        "cut": false,
-       "why": "Bucky Irving starts for you; Drake London and Brenton Strange start for them over Cooper Kupp (7.3/gm)"
+       "why": "Kyren Williams starts for you; Drake London and Brenton Strange start for them over Mike Evans (8.9/gm)"
       },
       {
-       "team": "Henry \"not charles\" Barkley",
+       "team": "Inglorious Staffords",
        "give": [
-        "Jaylen Warren (RB)"
+        "Nico Collins (WR)",
+        "Juwan Johnson (TE)"
        ],
        "get": [
-        "Saquon Barkley (RB)",
-        "Ollie Gordon II (RB)"
+        "Bucky Irving (RB)"
        ],
-       "give_value": 5057,
-       "get_value": 4727,
+       "give_value": 4585,
+       "get_value": 5009,
        "my_gain": 1.5,
-       "their_gain": 0.8,
-       "cut": true,
-       "why": "Ollie Gordon II and Saquon Barkley start for you; Jaylen Warren starts for them"
+       "their_gain": 1.1,
+       "cut": false,
+       "why": "Bucky Irving starts for you; Nico Collins and Juwan Johnson start for them over Demarcus Robinson (7.5/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2187,7 +2205,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "3-Ball BB": {
@@ -2216,9 +2234,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -1.55,
-      "rk": 113,
-      "wk": 7.4,
+      "v": -1.47,
+      "rk": 110,
+      "wk": 7.8,
       "src": "10 g"
      },
      "news": null
@@ -2236,9 +2254,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 2.87,
-      "rk": 25,
-      "wk": 25.1,
+      "v": 3.0,
+      "rk": 23,
+      "wk": 25.7,
       "src": "8 g"
      },
      "news": null
@@ -2256,10 +2274,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -4.3,
-      "rk": 198,
-      "wk": -1.8,
-      "src": "10 g"
+      "v": -4.92,
+      "rk": 210,
+      "wk": -3.0,
+      "src": "11 g"
      },
      "news": null
     },
@@ -2276,10 +2294,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 3.33,
-      "rk": 20,
-      "wk": 13.5,
-      "src": "11 g"
+      "v": 2.17,
+      "rk": 32,
+      "wk": 11.2,
+      "src": "12 g"
      },
      "news": null
     },
@@ -2298,9 +2316,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -3.85,
+      "v": -3.78,
       "rk": 187,
-      "wk": -0.9,
+      "wk": -0.7,
       "src": "11 g"
      },
      "news": null
@@ -2318,10 +2336,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -1.28,
-      "rk": 102,
-      "wk": 6.4,
-      "src": "8 g"
+      "v": -2.29,
+      "rk": 133,
+      "wk": 3.4,
+      "src": "9 g"
      },
      "news": null
     },
@@ -2338,9 +2356,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 0.14,
-      "rk": 70,
-      "wk": 14.2,
+      "v": 0.24,
+      "rk": 67,
+      "wk": 14.6,
       "src": "10 g"
      },
      "news": null
@@ -2358,9 +2376,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.36,
-      "rk": 81,
-      "wk": 9.2,
+      "v": -0.25,
+      "rk": 79,
+      "wk": 9.5,
       "src": "8 g"
      },
      "news": null
@@ -2378,9 +2396,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -3.65,
-      "rk": 181,
-      "wk": -0.9,
+      "v": -3.59,
+      "rk": 179,
+      "wk": -0.7,
       "src": "8 g"
      },
      "news": null
@@ -2398,10 +2416,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -2.53,
-      "rk": 136,
-      "wk": 1.8,
-      "src": "11 g"
+      "v": -3.23,
+      "rk": 163,
+      "wk": 0.4,
+      "src": "12 g"
      },
      "news": null
     }
@@ -2422,9 +2440,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -6.21,
+      "v": -6.17,
       "rk": 256,
-      "wk": -11.2,
+      "wk": -11.0,
       "src": "9 g"
      },
      "news": null
@@ -2444,9 +2462,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 4.05,
+      "v": 4.2,
       "rk": 16,
-      "wk": 29.8,
+      "wk": 30.5,
       "src": "10 g"
      },
      "news": null
@@ -2466,9 +2484,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -2.74,
-      "rk": 145,
-      "wk": 2.0,
+      "v": -2.67,
+      "rk": 143,
+      "wk": 2.3,
       "src": "9 g"
      },
      "news": null
@@ -2488,9 +2506,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -3.61,
-      "rk": 178,
-      "wk": -0.6,
+      "v": -3.56,
+      "rk": 177,
+      "wk": -0.4,
       "src": "9 g"
      },
      "news": null
@@ -2510,9 +2528,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 0.91,
-      "rk": 51,
-      "wk": 13.0,
+      "v": 1.01,
+      "rk": 49,
+      "wk": 13.3,
       "src": "9 g"
      },
      "news": null
@@ -2532,9 +2550,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.69,
-      "rk": 42,
-      "wk": 10.2,
+      "v": 1.82,
+      "rk": 40,
+      "wk": 10.5,
       "src": "11 g"
      },
      "news": null
@@ -2554,9 +2572,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -6.45,
+      "v": -6.43,
       "rk": 265,
-      "wk": -9.1,
+      "wk": -9.0,
       "src": "9 g"
      },
      "news": null
@@ -2568,8 +2586,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop De'Andre Hunter (3 games this week, value -6.5/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.2/g, 3% rostered): +25.4 this week (helps FG%, FT%, 3PM). Dynasty: De'Andre Hunter is 29.",
-     "Drop Matisse Thybulle (2 games this week, value -2.5/g), add Jaxson Hayes (C, UTAH, 4 games this week, value -1.4/g, 13% rostered): +4.2 this week (helps REB, FG%, BLK). Dynasty: Matisse Thybulle is 30."
+     "Drop De'Andre Hunter (3 games this week, value -6.4/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.3/g, 3% rostered): +32.9 this week (helps FG%, BLK, FT%). Dynasty: De'Andre Hunter is 29.",
+     "Drop Matisse Thybulle (2 games this week, value -3.2/g), add Jaxson Hayes (C, UTAH, 4 games this week, value -1.3/g, 13% rostered): +19.3 this week (helps REB, BLK, FG%). Dynasty: Matisse Thybulle is 30."
     ],
     "trades": null,
     "notes": [
@@ -2603,7 +2621,7 @@
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "win"
+       "outlook": "close"
       },
       {
        "cat": "3PM",
@@ -2617,7 +2635,7 @@
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "close"
+       "outlook": "lose"
       },
       {
        "cat": "AST",
@@ -2635,21 +2653,21 @@
       }
      ],
      "now": "0-0-8",
-     "proj": "2-3",
+     "proj": "1-4",
      "close": 3,
      "games_left": [
       50,
       53
      ],
      "chase": [
+      "FG% is close. Keep in the lineup: Walker Kessler (2 games, .694 on 8.2 FGA/g) and Jarrett Allen (3 games, .628 on 7.4 FGA/g).",
       "FT% is close. Keep in the lineup: Devin Booker (4 games, .961 on 6.1 FTA/g) and Saddiq Bey (4 games, .897 on 3.9 FTA/g).",
-      "FG% is close. Keep in the lineup: Walker Kessler (2 games, .694 on 8.9 FGA/g) and Jarrett Allen (3 games, .621 on 8.2 FGA/g).",
-      "STL is close. Keep in the lineup: De'Aaron Fox (4 games, 1.3/g) and Devin Booker (4 games, 1.1/g)."
+      "BLK is close. Keep in the lineup: Walker Kessler (2 games, 2.2/g) and Shai Gilgeous-Alexander (4 games, 1.1/g)."
      ],
      "adds": [
-      "For FT%: Jordan Poole (PG/SG, NO), 4 games left, .874 on 2.4 FTA/g",
       "For FG%: Oso Ighodaro (PF, PHX), 4 games left, .667 on 4.5 FGA/g",
-      "For STL: Collin Gillespie (PG, PHX), 4 games left, 2.4/g"
+      "For FT%: Jordan Poole (PG/SG, NO), 4 games left, .874 on 2.4 FTA/g",
+      "For BLK: Jaxson Hayes (C, UTAH), 4 games left, 1.7/g"
      ]
     },
     "radar": {
@@ -2701,7 +2719,7 @@
        "name": "Josh Giddey"
       },
       {
-       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- -0.1: minutes 5 \u2192 27 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 2 of them, usage 13% \u2192 8%. Fits STL (close), 3PM (losing). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
+       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- -0.1: minutes 5 \u2192 27 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 2 of them, usage 13% \u2192 8%. Fits STL (losing), 3PM (losing). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
        "short": "Leaky Black (SAC, FA 1%): minutes 5 \u2192 27; fits STL, 3PM (ESPN game logs through Nov 8)",
        "links": [
         [
@@ -2715,26 +2733,22 @@
        "name": "Leaky Black"
       },
       {
-       "text": "Quenton Jackson (PG, IND), free agent, 5% owned, +1.4 pts in 3 days: minutes 20 \u2192 25 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, usage 17% \u2192 25%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close), FT% (close). 4 games left this week, 3 next week.",
-       "short": "Quenton Jackson (IND, FA 5%): minutes 20 \u2192 25, usage 17% \u2192 25%; fits STL, FT% (ESPN game logs through Nov 7)",
+       "text": "Oso Ighodaro (PF, PHX), free agent, 15% owned, -3.8 pts in 3 days: minutes 12 \u2192 23 in his last 3 games (Nov 4\u2013Nov 7) vs 5 before, played 3 of them, usage 18% \u2192 12%, started 2 of 3 (0 of 5 before). Fits FG% (close), BLK (close), REB (losing). 4 games left this week, 3 next week (back-to-back Mon\u2013Tue).",
+       "short": "Oso Ighodaro (PHX, FA 15%): minutes 12 \u2192 23, now starting; fits FG%, BLK (ESPN game logs through Nov 7)",
        "links": [
         [
          "ESPN game log through Nov 7",
-         "https://www.espn.com/nba/player/gamelog/_/id/4592829"
-        ],
-        [
-         "ESPN Nov 7",
-         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+         "https://www.espn.com/nba/player/gamelog/_/id/4601023"
         ]
        ],
        "where": "fa",
        "push": true,
-       "id": "4592829",
-       "name": "Quenton Jackson"
+       "id": "4601023",
+       "name": "Oso Ighodaro"
       },
       {
-       "text": "Braden Smith (PG, IND), free agent, 0% owned, -0.2 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (close). 4 games left this week, 3 next week.",
-       "short": "Braden Smith (IND, FA 0%): minutes 3 \u2192 26, usage 9% \u2192 20%, now starting; fits STL (ESPN game logs through Nov 7)",
+       "text": "Braden Smith (PG, IND), free agent, 0% owned, -0.2 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (losing), BLK (close). 4 games left this week, 3 next week.",
+       "short": "Braden Smith (IND, FA 0%): minutes 3 \u2192 26, usage 9% \u2192 20%, now starting; fits STL, BLK (ESPN game logs through Nov 7)",
        "links": [
         [
          "ESPN game log through Nov 7",
@@ -2751,18 +2765,22 @@
        "name": "Braden Smith"
       },
       {
-       "text": "Oso Ighodaro (PF, PHX), free agent, 15% owned, -3.8 pts in 3 days: minutes 12 \u2192 23 in his last 3 games (Nov 4\u2013Nov 7) vs 5 before, played 3 of them, usage 18% \u2192 12%, started 2 of 3 (0 of 5 before). Fits FG% (close). 4 games left this week, 3 next week (back-to-back Mon\u2013Tue).",
-       "short": "Oso Ighodaro (PHX, FA 15%): minutes 12 \u2192 23, now starting; fits FG% (ESPN game logs through Nov 7)",
+       "text": "Quenton Jackson (PG, IND), free agent, 5% owned, +1.4 pts in 3 days: minutes 20 \u2192 25 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, usage 17% \u2192 25%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (losing), FT% (close). 4 games left this week, 3 next week.",
+       "short": "Quenton Jackson (IND, FA 5%): minutes 20 \u2192 25, usage 17% \u2192 25%; fits STL, FT% (ESPN game logs through Nov 7)",
        "links": [
         [
          "ESPN game log through Nov 7",
-         "https://www.espn.com/nba/player/gamelog/_/id/4601023"
+         "https://www.espn.com/nba/player/gamelog/_/id/4592829"
+        ],
+        [
+         "ESPN Nov 7",
+         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
         ]
        ],
        "where": "fa",
        "push": true,
-       "id": "4601023",
-       "name": "Oso Ighodaro"
+       "id": "4592829",
+       "name": "Quenton Jackson"
       }
      ],
      "shrinking": [
@@ -2829,11 +2847,12 @@
       "FT% (close)",
       "REB (losing)",
       "PTS (losing)",
+      "BLK (close)",
       "3PM (losing)",
-      "STL (close)",
+      "STL (losing)",
       "FG% (close)"
      ],
-     "basis": "ESPN game logs through Nov 8; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
+     "basis": "ESPN game logs through Nov 9; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "games": {
      "now": {
@@ -2976,9 +2995,9 @@
       "next": 54
      },
      "streamers": [
-      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +12.7 this week, helps FG%, 3PM, BLK",
-      "Jaxson Hayes (C, UTAH, 13% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +12.2 this week, helps FG%, BLK",
-      "Quenton Jackson (PG/SG, IND, 5% rostered): 4 games this week (Mo/We/Fr/Su), +11.9 this week, helps FT%, STL"
+      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +22.8 this week, helps FG%, 3PM, BLK",
+      "Jaxson Hayes (C, UTAH, 13% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +22.5 this week, helps BLK, FG%",
+      "Mo Bamba (C, UTAH, 3% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +20.0 this week, helps BLK, FG%"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
@@ -2994,7 +3013,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   },
   "Ball is Life": {
@@ -3025,9 +3044,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.61,
-      "rk": 43,
-      "wk": 10.0,
+      "v": 1.73,
+      "rk": 41,
+      "wk": 10.2,
       "src": "11 g"
      },
      "news": null
@@ -3047,7 +3066,7 @@
       "OUT"
      ],
      "cv": {
-      "v": 3.49,
+      "v": 3.6,
       "rk": 18,
       "wk": 0.0,
       "src": "11 g"
@@ -3071,10 +3090,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 0.86,
-      "rk": 50,
-      "wk": 8.5,
-      "src": "11 g"
+      "v": -0.09,
+      "rk": 71,
+      "wk": 6.6,
+      "src": "12 g"
      },
      "news": null
     },
@@ -3093,9 +3112,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 0.61,
-      "rk": 56,
-      "wk": 8.0,
+      "v": 0.72,
+      "rk": 54,
+      "wk": 8.2,
       "src": "11 g"
      },
      "news": null
@@ -3113,9 +3132,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -5.02,
+      "v": -4.97,
       "rk": 215,
-      "wk": -3.3,
+      "wk": -3.2,
       "src": "9 g"
      },
      "news": null
@@ -3133,9 +3152,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -2.65,
-      "rk": 142,
-      "wk": 2.2,
+      "v": -2.59,
+      "rk": 140,
+      "wk": 2.4,
       "src": "8 g"
      },
      "news": null
@@ -3155,9 +3174,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -2.37,
-      "rk": 134,
-      "wk": 2.0,
+      "v": -2.29,
+      "rk": 131,
+      "wk": 2.2,
       "src": "10 g"
      },
      "news": null
@@ -3175,10 +3194,10 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -2.79,
-      "rk": 147,
-      "wk": 1.8,
-      "src": "8 g"
+      "v": -3.72,
+      "rk": 184,
+      "wk": -1.1,
+      "src": "9 g"
      },
      "news": null
     },
@@ -3195,9 +3214,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -3.94,
-      "rk": 191,
-      "wk": -2.2,
+      "v": -3.87,
+      "rk": 190,
+      "wk": -2.0,
       "src": "7 g"
      },
      "news": null
@@ -3220,9 +3239,9 @@
       "Q"
      ],
      "cv": {
-      "v": 2.91,
-      "rk": 22,
-      "wk": 18.9,
+      "v": 3.15,
+      "rk": 20,
+      "wk": 19.6,
       "src": "10 g"
      },
      "news": {
@@ -3246,9 +3265,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -0.6,
-      "rk": 89,
-      "wk": 8.4,
+      "v": -0.51,
+      "rk": 88,
+      "wk": 8.6,
       "src": "9 g"
      },
      "news": null
@@ -3268,9 +3287,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -0.51,
-      "rk": 85,
-      "wk": 8.6,
+      "v": -0.42,
+      "rk": 82,
+      "wk": 8.9,
       "src": "10 g"
      },
      "news": null
@@ -3290,9 +3309,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -0.35,
-      "rk": 80,
-      "wk": 12.2,
+      "v": -0.26,
+      "rk": 78,
+      "wk": 12.4,
       "src": "10 g"
      },
      "news": null
@@ -3312,9 +3331,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -1.4,
-      "rk": 106,
-      "wk": 8.0,
+      "v": -1.3,
+      "rk": 104,
+      "wk": 8.3,
       "src": "9 g"
      },
      "news": null
@@ -3326,9 +3345,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop John Collins (2 games this week, value -5.0/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.1/g, 3% rostered): +18.9 this week (helps FG%, 3PM, FT%).",
-     "Drop Peyton Watson (3 games this week, value -2.8/g), add Cam Spencer (PG/SG, MEM, 4 games this week, value -2.6/g, 10% rostered): +14.0 this week (helps FG%, AST, 3PM).",
-     "Drop Obi Toppin (4 games this week, value -3.9/g), add T.J. McConnell (PG, IND, 4 games this week, value -3.8/g, 8% rostered): +11.0 this week (helps AST, STL, FT%)."
+     "Drop Peyton Watson (3 games this week, value -3.7/g), add Spencer Jones (SF/PF, DEN, 3 games this week, value +0.3/g, 3% rostered): +29.0 this week (helps FG%, 3PM, REB).",
+     "Drop John Collins (2 games this week, value -5.0/g), add Mo Bamba (C, UTAH, 4 games this week, value -3.0/g, 3% rostered): +15.6 this week (helps FG%, BLK).",
+     "Drop Draymond Green (3 games this week, value -2.6/g), add Robert Williams III (C, POR, 3 games this week, value -1.9/g, 5% rostered): +10.0 this week (helps FG%, PTS, REB)."
     ],
     "trades": null,
     "notes": [
@@ -3383,7 +3402,7 @@
        "me": "0",
        "opp": "0",
        "now": "T",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "FG%",
@@ -3394,18 +3413,16 @@
       }
      ],
      "now": "0-0-8",
-     "proj": "0-6",
-     "close": 2,
+     "proj": "1-6",
+     "close": 1,
      "games_left": [
       37,
-      45
+      43
      ],
      "chase": [
-      "AST is close. Keep in the lineup: Draymond Green (3 games, 7.8/g) and Darius Garland (3 games, 7.0/g).",
       "FG% is close. Keep in the lineup: Giannis Antetokounmpo (3 games, .566 on 18.9 FGA/g) and Jaxson Hayes (4 games, .630 on 5.1 FGA/g)."
      ],
      "adds": [
-      "For AST: Cam Spencer (PG/SG, MEM), 4 games left, 5.1/g",
       "For FG%: Deandre Ayton (C, WSH), 3 games left, .694 on 3.6 FGA/g"
      ]
     },
@@ -3430,8 +3447,22 @@
        "name": "Ajay Mitchell"
       },
       {
-       "text": "Braden Smith (PG, IND), free agent, 0% owned, -0.2 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (losing), AST (close), BLK (losing). 4 games left this week, 3 next week.",
-       "short": "Braden Smith (IND, FA 0%): minutes 3 \u2192 26, usage 9% \u2192 20%, now starting; fits STL, AST (ESPN game logs through Nov 7)",
+       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- -0.1: minutes 5 \u2192 27 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 2 of them, usage 13% \u2192 8%. Fits STL (losing), 3PM (losing). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
+       "short": "Leaky Black (SAC, FA 1%): minutes 5 \u2192 27; fits STL, 3PM (ESPN game logs through Nov 8)",
+       "links": [
+        [
+         "ESPN game log through Nov 8",
+         "https://www.espn.com/nba/player/gamelog/_/id/4395650"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "4395650",
+       "name": "Leaky Black"
+      },
+      {
+       "text": "Braden Smith (PG, IND), free agent, 0% owned, -0.2 pts in 3 days: minutes 3 \u2192 26 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 3 of them, usage 9% \u2192 20%, started 3 of 3 (0 of 7 before), since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (losing), BLK (losing). 4 games left this week, 3 next week.",
+       "short": "Braden Smith (IND, FA 0%): minutes 3 \u2192 26, usage 9% \u2192 20%, now starting; fits STL, BLK (ESPN game logs through Nov 7)",
        "links": [
         [
          "ESPN game log through Nov 7",
@@ -3446,20 +3477,6 @@
        "push": true,
        "id": "5105854",
        "name": "Braden Smith"
-      },
-      {
-       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- -0.1: minutes 5 \u2192 27 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 2 of them, usage 13% \u2192 8%. Fits STL (losing), 3PM (losing). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
-       "short": "Leaky Black (SAC, FA 1%): minutes 5 \u2192 27; fits STL, 3PM (ESPN game logs through Nov 8)",
-       "links": [
-        [
-         "ESPN game log through Nov 8",
-         "https://www.espn.com/nba/player/gamelog/_/id/4395650"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4395650",
-       "name": "Leaky Black"
       },
       {
        "text": "Quenton Jackson (PG, IND), free agent, 5% owned, +1.4 pts in 3 days: minutes 20 \u2192 25 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, usage 17% \u2192 25%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits STL (losing), FT% (losing). 4 games left this week, 3 next week.",
@@ -3497,6 +3514,15 @@
      "shrinking": [],
      "injuries": [
       {
+       "text": "Austin Reaves (LAL) is out [ESPN Nov 9: Out, Reaves (illness) has been ruled out for Monday's game against Atlanta, Benjamin Royer of\u2026]. In 1 game without him: Ziaire Williams (FA) 18 \u2192 1 min, usage 15% \u2192 100%.",
+       "links": [
+        [
+         "ESPN Nov 9",
+         "https://www.espn.com/nba/player/_/id/4066457/austin-reaves"
+        ]
+       ]
+      },
+      {
        "text": "Anthony Edwards (MIN) is out [ESPN Oct 29: Out, Edwards underwent a successful arthroscopic procedure on his right knee Thursday, the\u2026]. In 7 games without him: Jaylen Clark (FA) 3 \u2192 19 min, usage 21% \u2192 14%; Trey Lyles (FA) 14 \u2192 21 min, usage 11% \u2192 14%.",
        "links": [
         [
@@ -3522,15 +3548,6 @@
          "https://www.espn.com/nba/player/_/id/4433134/scottie-barnes"
         ]
        ]
-      },
-      {
-       "text": "Jalen Suggs (ORL) is out [ESPN Nov 9: Out, Suggs (knee) has been ruled out for Tuesday's game against the Kings.]. In 6 games without him: Jase Richardson (FA) 15 \u2192 26 min, usage 18% \u2192 15%; Jamal Cain (FA) 13 \u2192 22 min, usage 12% \u2192 18%.",
-       "links": [
-        [
-         "ESPN Nov 9",
-         "https://www.espn.com/nba/player/_/id/4432165/jalen-suggs"
-        ]
-       ]
       }
      ],
      "need": [
@@ -3540,10 +3557,9 @@
       "BLK (losing)",
       "3PM (losing)",
       "STL (losing)",
-      "AST (close)",
       "FG% (close)"
      ],
-     "basis": "ESPN game logs through Nov 8; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
+     "basis": "ESPN game logs through Nov 9; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "games": {
      "now": {
@@ -3682,18 +3698,18 @@
      },
      "mine": {
       "now": 37,
-      "opp": 45,
+      "opp": 43,
       "next": 43
      },
      "streamers": [
-      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +14.5 this week, helps FG%, 3PM, BLK",
-      "Cam Spencer (PG/SG, MEM, 10% rostered): 4 games this week (Mo/We/Fr/Sa, back-to-back), +11.9 this week, helps AST",
-      "T.J. McConnell (PG, IND, 8% rostered): 4 games this week (Mo/We/Fr/Su), +9.9 this week, helps FG%, AST"
+      "Spencer Jones (SF/PF, DEN, 3% rostered): 3 games this week (Mo/We/Sa), +24.6 this week, helps FG%, 3PM, BLK",
+      "Mo Bamba (C, UTAH, 3% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +14.0 this week, helps BLK, FG%",
+      "Robert Williams III (C, POR, 5% rostered): 3 games this week (Tu/We/Fr, back-to-back), +11.0 this week, helps BLK, FG%, REB"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Mon 6:07p"
+    "built": "Mon 6:11p"
    }
   }
  }
