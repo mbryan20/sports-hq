@@ -145,6 +145,33 @@ Measure (the health.json check that should move), Design, Decision.
   agent (needs FantasyCalc values), else "needs a roster spot". Tests: `tests/test_digest.py` `FreeAgentFix`.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
+### Q-043 · The Guillotine league page said every TE was "priced out" while War Room v2 said free add or $1
+- **Status:** shipped (aac5193)
+- **Area:** `shq/guillotine.py` (`load_v2`, `v2_current`, `v2_rows`, `on_waivers`, `RESERVE` 10 → 5), `docs/lib/core.js`
+  (`bidText`, bid section, home tile and inbox lines), `tests/test_guillotine.py` (`WarRoomV2`)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (contradiction reported via Claude Ops)
+- **Evidence:** lineups.json, Tue Nov 10 2026: every TE (Freiermuth, Fannin, Strange, Hockenson, Higbee) "priced out:
+  rivals may go $4, worth $0 to you", shown on the tile/inbox as "Bid: Pat Freiermuth … priced out"; bids.json the same
+  day: Freiermuth and Brenton Strange "Add free", Harold Fannin "Bid $1". Cause: `RESERVE = 10` (all of Michael's $10, so
+  `my_max` was always $0) against v2's `reserve: 5`, and the model priced plain free agents as waiver bids.
+- **Expected impact:** one set of bid calls everywhere: the league page, home tile and inbox show War Room v2's call, bid,
+  drop, why and win chance (link to /war-room-v2/) whenever bids.json is for this week and its waiver run hasn't passed.
+  The old model is only the fallback: v2's reserve (from bids.json, else 5), plain free agents are "Add free" (only a
+  fresh cut's players, before their Wednesday run, need a claim), and a priced-out line says "over your reserve" instead
+  of "worth $0". A $0 Bid reads "Claim at $0". Priced-out rows stay on the league page only; with v2 current the generic
+  guillotine add ideas stay off the inbox.
+- **Effort:** S
+- **Risk:** Low (display and fallback only; War Room v2 untouched)
+- **Measure:** — (one-off: no Guillotine bid line in lineups.json contradicts bids.json's call for the same player).
+  Note for `shq/health.py`: from this week the dashboard's `bids` mirror v2 (`bid_source` says which); the model's own
+  rows are kept under `advice.guillotine.model` if the dashboard-vs-v2 comparison should keep scoring them.
+- **Design:** `analyze()` reads `docs/war-room-v2/bids.json`; current = same `week` and `now` ≤ `next_waiver_run` + 1h.
+  Rows keep v2's order, drop Skips, and keep `call` (lowercase), `bid` (= `price`), `drop`, `why`, `win_chance`,
+  `your_max` (as `max`). A malformed file falls back. Free agent vs waivers in the fallback follows v2's `freed_status`
+  (players in a `chopped` transaction, until a waiver run after it or an hour past that Wednesday's run).
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
