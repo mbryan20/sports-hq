@@ -1,34 +1,21 @@
 {
- "generated": "2026-11-09T21:07:50Z",
+ "generated": "2026-11-10T08:55:29Z",
  "summary": {
-  "ok": 11,
+  "ok": 12,
   "watch": 0,
   "drift": 1,
-  "weak": 2,
+  "weak": 1,
   "waiting": 5,
   "info": 4,
   "errors": 0
  },
  "flags": [
   {
-   "section": "warroom",
-   "id": "wr.cut_skill",
-   "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
-   "value": -0.017,
-   "n": 8,
-   "unit": "%",
-   "baseline": -0.017,
-   "baseline_set": "2026-11-03",
-   "tolerance": 0.05,
-   "status": "weak",
-   "floor": 0.0
-  },
-  {
    "section": "radar",
    "id": "radar.held",
    "label": "Flagged free agents whose bigger role held",
    "value": 0.71,
-   "n": 42,
+   "n": 48,
    "unit": "%",
    "baseline": 1.0,
    "baseline_set": "2026-11-03",
@@ -39,8 +26,8 @@
    "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestions (z per game)",
-   "value": -2.98,
-   "n": 42,
+   "value": -2.96,
+   "n": 48,
    "unit": "z",
    "baseline": 1.32,
    "baseline_set": "2026-11-03",
@@ -53,13 +40,13 @@
   {
    "id": "warroom",
    "title": "War Room v2 (guillotine bids)",
-   "status": "weak",
+   "status": "ok",
    "checks": [
     {
      "id": "wr.proj_mae",
      "label": "Team-score miss with Sleeper projections (1 week ahead)",
      "value": 16.6,
-     "n": 81,
+     "n": 91,
      "unit": "pts",
      "baseline": 16.6,
      "baseline_set": "2026-11-03",
@@ -69,16 +56,16 @@
     {
      "id": "wr.blend_mae",
      "label": "Team-score miss with the old season/last-3 blend",
-     "value": 19.7,
-     "n": 81,
+     "value": 19.5,
+     "n": 91,
      "unit": "pts",
      "status": "info"
     },
     {
      "id": "wr.proj_edge",
      "label": "Sleeper projections' edge over the blend",
-     "value": 3.1,
-     "n": 81,
+     "value": 2.9,
+     "n": 91,
      "unit": "pts",
      "baseline": 3.1,
      "baseline_set": "2026-11-03",
@@ -88,8 +75,8 @@
     {
      "id": "wr.swing",
      "label": "Score swing (spread of real scores around projections)",
-     "value": 22.1,
-     "n": 116,
+     "value": 21.7,
+     "n": 126,
      "unit": "pts",
      "status": "info"
     },
@@ -120,28 +107,27 @@
     {
      "id": "wr.cut_skill",
      "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
-     "value": -0.017,
-     "n": 8,
+     "value": 0.032,
+     "n": 9,
      "unit": "%",
      "baseline": -0.017,
      "baseline_set": "2026-11-03",
      "tolerance": 0.05,
-     "status": "weak",
-     "floor": 0.0
+     "status": "ok"
     },
     {
      "id": "wr.best_sd",
      "label": "Swing that would have predicted the cuts best",
      "value": 36,
-     "n": 8,
+     "n": 9,
      "unit": "pts",
      "status": "info"
     },
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 8.9,
-     "n": 187,
+     "value": 9.1,
+     "n": 190,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -151,8 +137,8 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.56,
-     "n": 187,
+     "value": 0.55,
+     "n": 190,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
@@ -162,7 +148,7 @@
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
      "value": 0.81,
-     "n": 187,
+     "n": 190,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -171,25 +157,30 @@
    ],
    "details": {
     "projection": {
-     "weeks": "3-8",
-     "n": 81,
+     "weeks": "3-9",
+     "n": 91,
      "sleeper_mae": 16.6,
-     "blend_mae": 19.7,
-     "sleeper_bias": -0.5,
-     "edge": 3.1
+     "blend_mae": 19.5,
+     "sleeper_bias": -1.7,
+     "edge": 2.9
     },
     "swing": {
-     "sd": 22.1,
-     "n": 116,
-     "by_weeks_ahead": {}
+     "sd": 21.7,
+     "n": 126,
+     "by_weeks_ahead": {
+      "1": [
+       13.4,
+       10
+      ]
+     }
     },
     "cuts_by_swing": {
      "14": {
-      "n": 8,
-      "logloss": 3.042,
-      "coin_toss": 2.661,
-      "skill": -0.143,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.799,
+      "coin_toss": 2.622,
+      "skill": -0.068,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -198,16 +189,17 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.14
+      "cut_team_chance": 0.172
      },
      "18": {
-      "n": 8,
-      "logloss": 2.814,
-      "coin_toss": 2.661,
-      "skill": -0.057,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.616,
+      "coin_toss": 2.622,
+      "skill": 0.002,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -216,16 +208,17 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.123
+      "cut_team_chance": 0.149
      },
      "22": {
-      "n": 8,
-      "logloss": 2.708,
-      "coin_toss": 2.661,
-      "skill": -0.017,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.537,
+      "coin_toss": 2.622,
+      "skill": 0.032,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -234,16 +227,17 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.111
+      "cut_team_chance": 0.133
      },
      "27": {
-      "n": 8,
-      "logloss": 2.644,
-      "coin_toss": 2.661,
-      "skill": 0.007,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.497,
+      "coin_toss": 2.622,
+      "skill": 0.048,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -252,16 +246,17 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.102
+      "cut_team_chance": 0.12
      },
      "32": {
-      "n": 8,
-      "logloss": 2.614,
-      "coin_toss": 2.661,
-      "skill": 0.018,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.483,
+      "coin_toss": 2.622,
+      "skill": 0.053,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -270,16 +265,17 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.096
+      "cut_team_chance": 0.112
      },
      "36": {
-      "n": 8,
-      "logloss": 2.601,
-      "coin_toss": 2.661,
-      "skill": 0.023,
-      "cut_team_rank": 7.2,
+      "n": 9,
+      "logloss": 2.48,
+      "coin_toss": 2.622,
+      "skill": 0.054,
+      "cut_team_rank": 6.6,
       "ranks": [
        14,
        11,
@@ -288,22 +284,23 @@
        1,
        11,
        1,
-       10
+       10,
+       1
       ],
-      "cut_team_chance": 0.092
+      "cut_team_chance": 0.107
      }
     },
     "prices": {
-     "n": 187,
-     "cov50": 0.56,
+     "n": 190,
+     "cov50": 0.55,
      "cov80": 0.81,
-     "est_mae": 8.9,
+     "est_mae": 9.1,
      "by": {
       "pos DEF": {
        "n": 24,
        "cov50": 0.58,
        "cov80": 0.96,
-       "est_mae": 2.1
+       "est_mae": 2.2
       },
       "pos K": {
        "n": 20,
@@ -315,56 +312,55 @@
        "n": 23,
        "cov50": 0.7,
        "cov80": 0.87,
-       "est_mae": 10.7
+       "est_mae": 10.8
       },
       "pos RB": {
-       "n": 35,
-       "cov50": 0.34,
-       "cov80": 0.69,
-       "est_mae": 18.7
+       "n": 36,
+       "cov50": 0.31,
+       "cov80": 0.67,
+       "est_mae": 18.1
       },
       "pos TE": {
        "n": 24,
        "cov50": 0.62,
        "cov80": 0.88,
-       "est_mae": 6.1
+       "est_mae": 6.3
       },
       "pos WR": {
-       "n": 61,
-       "cov50": 0.49,
-       "cov80": 0.74,
-       "est_mae": 8.5
+       "n": 63,
+       "cov50": 0.48,
+       "cov80": 0.73,
+       "est_mae": 8.9
       },
       "legs 1-4": {
-       "n": 91,
-       "cov50": 0.53,
-       "cov80": 0.8,
-       "est_mae": 12.5
+       "n": 94,
+       "cov50": 0.51,
+       "cov80": 0.81,
+       "est_mae": 12.2
       },
       "legs 5-8": {
        "n": 96,
-       "cov50": 0.59,
-       "cov80": 0.82,
-       "est_mae": 5.6
+       "cov50": 0.58,
+       "cov80": 0.8,
+       "est_mae": 6.0
       },
       "estimate $10+": {
-       "n": 54,
-       "cov50": 0.5,
+       "n": 52,
+       "cov50": 0.48,
        "cov80": 0.81,
        "est_mae": 18.5
       },
       "estimate under $10": {
-       "n": 133,
-       "cov50": 0.59,
-       "cov80": 0.81,
-       "est_mae": 5.1
+       "n": 138,
+       "cov50": 0.57,
+       "cov80": 0.8,
+       "est_mae": 5.5
       }
      }
     }
    },
    "notes": [
-    "Cut odds at the measured 22-pt swing scored worse than a coin toss over 8 weeks (the real cut team ranked [14, 11, 9, 1, 1, 11, 1, 10] by predicted risk); a 36-pt swing would have scored best.",
-    "Far-week projections: waiting for weeks played after Nov 3 (the page has carried Sleeper's projections since then)."
+    "Far-week misses as shown on the page: 1 wk ahead 13.4 pts (n=10)"
    ]
   },
   {
@@ -1138,41 +1134,62 @@
     {
      "id": "gd.v2_skill",
      "label": "War Room v2 cut odds vs a coin toss (as shown before kickoff)",
-     "value": null,
-     "n": 0,
+     "value": 0.507,
+     "n": 1,
      "unit": "%",
      "status": "waiting"
     },
     {
      "id": "gd.dash_skill",
      "label": "Dashboard cut odds vs a coin toss (as shown before kickoff)",
-     "value": -0.653,
-     "n": 1,
+     "value": -0.142,
+     "n": 2,
      "unit": "%",
      "status": "waiting"
     }
    ],
    "details": {
-    "v2": null,
-    "dashboard": {
+    "v2": {
      "n": 1,
-     "logloss": 3.963,
-     "coin_toss": 2.398,
-     "skill": -0.653,
-     "cut_team_rank": 10.0,
+     "logloss": 1.136,
+     "coin_toss": 2.303,
+     "skill": 0.507,
+     "cut_team_rank": 1.0,
      "ranks": [
-      10
+      1
      ],
-     "cut_team_chance": 0.019
+     "cut_team_chance": 0.321
+    },
+    "dashboard": {
+     "n": 2,
+     "logloss": 2.683,
+     "coin_toss": 2.35,
+     "skill": -0.142,
+     "cut_team_rank": 6.0,
+     "ranks": [
+      10,
+      2
+     ],
+     "cut_team_chance": 0.133
     },
     "weeks": [
      [
       "dashboard",
       8
+     ],
+     [
+      "v2",
+      9
+     ],
+     [
+      "dashboard",
+      9
      ]
     ]
    },
-   "notes": []
+   "notes": [
+    "Same weeks: War Room v2 log-loss 1.136 vs dashboard 2.683 (coin toss 2.35)."
+   ]
   },
   {
    "id": "radar",
@@ -1183,7 +1200,7 @@
      "id": "radar.held",
      "label": "Flagged free agents whose bigger role held",
      "value": 0.71,
-     "n": 42,
+     "n": 48,
      "unit": "%",
      "baseline": 1.0,
      "baseline_set": "2026-11-03",
@@ -1193,8 +1210,8 @@
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestions (z per game)",
-     "value": -2.98,
-     "n": 42,
+     "value": -2.96,
+     "n": 48,
      "unit": "z",
      "baseline": 1.32,
      "baseline_set": "2026-11-03",
@@ -1204,15 +1221,15 @@
     }
    ],
    "details": {
-    "flagged": 42,
-    "held": 30,
+    "flagged": 48,
+    "held": 34,
     "held_rate": 0.71,
-    "flag_value": -4.25,
-    "wire_value": -1.28,
-    "edge": -2.98,
-    "added_later": 2,
-    "any_flagged": 115,
-    "any_held": 73
+    "flag_value": -4.48,
+    "wire_value": -1.52,
+    "edge": -2.96,
+    "added_later": 5,
+    "any_flagged": 126,
+    "any_held": 76
    },
    "notes": []
   },
