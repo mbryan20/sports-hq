@@ -290,6 +290,29 @@
     });
     document.querySelectorAll("[data-foot]").forEach(f => { f.innerHTML = S.footHTML(); });
   }
+  // Picks cards are built only Wed 9pm, Thu 8pm, Fri 9pm and Sat 8am CT (picks/RUNBOOK.md), so a 30-hour rule turns
+  // them amber every Tue/Wed. Instead: amber only when the latest slot passed 3+ hours ago and no card was built
+  // since 2 hours before it (the same "fresh" window picks-backup.yml uses).
+  S.PICK_SLOTS = { 3: [21], 4: [20], 5: [21], 6: [8] };        // CT weekday (0 = Sunday) -> slot hours
+  const CTF = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric",
+    hour: "numeric", minute: "numeric", hourCycle: "h23" });
+  const ctParts = t => Object.fromEntries(CTF.formatToParts(new Date(t)).map(p => [p.type, p.value]));
+  const ctWall = (y, mo, d, h) => {                              // UTC ms of a Central wall-clock time
+    const guess = Date.UTC(y, mo - 1, d, h), p = ctParts(guess);
+    return guess - (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute) - guess);
+  };
+  S.picksStale = function (last, now = Date.now()) {
+    const t = ctParts(now), made = last ? new Date(last).getTime() : NaN;
+    for (let back = 0; back < 8; back++) {
+      const c = new Date(Date.UTC(+t.year, +t.month - 1, +t.day - back));
+      const hours = (S.PICK_SLOTS[c.getUTCDay()] || []).slice().sort((a, b) => b - a);
+      for (const h of hours) {
+        const slot = ctWall(c.getUTCFullYear(), c.getUTCMonth() + 1, c.getUTCDate(), h);
+        if (slot + 3 * 3600000 <= now) return !(made >= slot - 2 * 3600000);
+      }
+    }
+    return !(made > 0);
+  };
   S.footHTML = function () {
     const s = S.data.status;
     if (!s) return "";
@@ -298,8 +321,8 @@
     if (s.watch_active) bits.push("injury watch ON");
     const errs = (s.errors || []).map(e => `<div class="err">${esc(e)}</div>`).join("");
     const jobs = (s.jobs || []).map(j => {
-      const age = j.last ? (Date.now() - new Date(j.last)) / 3600000 : null;
-      return `<span class="${age === null || age > 30 ? "stale" : ""}">${esc(j.job.replace(/ \(laptop.*\)/, ""))}: ${j.last ? esc(ago(j.last)) : "not yet"}</span>`;
+      const stale = /^Picks cards/.test(j.job) ? S.picksStale(j.last) : !j.last || (Date.now() - new Date(j.last)) / 3600000 > 30;
+      return `<span class="${stale ? "stale" : ""}">${esc(j.job.replace(/ \(laptop.*\)/, ""))}: ${j.last ? esc(ago(j.last)) : "not yet"}</span>`;
     }).join("");
     return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>`;
   };

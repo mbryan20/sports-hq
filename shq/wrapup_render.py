@@ -5,6 +5,7 @@ The PDF page is 4.25 x 7.5 in, so a phone's PDF viewer shows it at about 1.3x wi
 file small and needs no font files; text is mapped to its Windows-1252 character set."""
 import html as H
 import io
+import re
 
 from .config import SITE_URL
 
@@ -163,13 +164,26 @@ SOURCES = ("Sources: Sleeper and ESPN fantasy APIs (scores, projections), ESPN's
            "with league scoring until Yahoo's API is approved. Built by GitHub Actions from templates; no AI.")
 
 
+def short(text, n=220):
+    """At most n characters for the archive's short-version column, never cut mid-word: up to the last whole
+    sentence that fits, or (when the first sentence alone is longer) the last whole word plus an ellipsis."""
+    s = " ".join(str(text or "").split())
+    if len(s) <= n:
+        return s
+    ends = [m.end() for m in re.finditer(r"[.!?](?=\s|$)", s[:n + 1]) if m.end() <= n]
+    if ends:
+        return s[:ends[-1]]
+    head = s[:n].rsplit(" ", 1)[0] if " " in s[:n] else s[:n - 1]
+    return head.rstrip(" ,;:-(") + "…"
+
+
 def archive(issues):
     pdf_link = lambda i: f'<a href="{_e(i["pdf"])}">PDF</a>' if i.get("pdf") else ""
     rows = "".join(
         f'<tr><td><a href="{_e(i["html"])}">NFL week {i["week"]}</a><div class="src">college week {i["cfb_week"]}, '
         f'{"final" if i["edition"] == "final" else "Sunday edition"}</div></td>'
         f'<td>{pdf_link(i)}</td>'
-        f'<td class="src">{_e(" ".join(i.get("headline") or [])[:220])}</td></tr>' for i in issues)
+        f'<td class="src">{_e(short(" ".join(i.get("headline") or [])))}</td></tr>' for i in issues)
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>Weekend wrap-ups</title><style>{CSS}</style></head><body><main><div class="meta"><a href="../">Sports HQ</a></div>'
             f'<h1>Weekend wrap-ups</h1><div class="meta">Sunday night after the late games, final Tuesday morning after Monday night.</div>'

@@ -102,7 +102,11 @@ function render(d) {
     <article class="tile extra" tabindex="0" data-go="wrapups/" data-spot="Wrap-up tile">
       <div class="t-head"><h3>Weekend wrap-up</h3><span class="meta">PDF + page</span></div>
       <p class="t-top">How the week went across every league and pool.</p>
-      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Wrap-up tile")}</div></article>`;
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Wrap-up tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-go="players/" data-spot="Players tile">
+      <div class="t-head"><h3>Players</h3><span class="meta">Football · basketball</span></div>
+      <p class="t-top">Every player in each league, sortable and filterable, with stats and values.</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Players tile")}</div></article>`;
   document.getElementById("main").innerHTML = kpis
     + `<div class="sechead"><h2>Leagues</h2><span class="meta">tap a tile for the full page</span></div><section class="grid">${tiles}</section>`
     + `<div class="sechead"><h2>Pools and plans</h2></div><section class="grid">${picksTile}${extras}</section>`;

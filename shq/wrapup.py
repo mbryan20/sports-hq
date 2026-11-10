@@ -212,15 +212,22 @@ def standing_text(rows, me, week, decided, cats=False):
     return f"{_ord(rank)} of {n} ({mine}{move}{leader})" + ("" if decided else ", before this week")
 
 
+def margin(a, b):
+    """a - b as shown next to the two scores: from the one-decimal scores the reader sees, so 182.8-7.0 reads
+    "by 175.8" even when the raw 182.76 - 7.04 is 175.72. A gap that rounds away reads "by less than 0.1"."""
+    d = float(_f(a)) - float(_f(b))
+    return _f(d) if abs(d) >= 0.05 else "less than 0.1"
+
+
 def h2h_line(mine, opp, opp_name, pending_mine, pending_opp=None, opp_known=True):
     """Result line for a points matchup. pending_*: starters still to play (Monday night). opp_known: whether
     pending_opp is real (ESPN box scores only carry my players, so theirs is known only once the week is over)."""
     opp_name = _clean(opp_name) or "your opponent"
     if not pending_mine and not pending_opp and opp_known:
         if mine > opp:
-            return "W", f"Won {_f(mine)}-{_f(opp)} vs {opp_name}, by {_f(mine - opp)}"
+            return "W", f"Won {_f(mine)}-{_f(opp)} vs {opp_name}, by {margin(mine, opp)}"
         if mine < opp:
-            return "L", f"Lost {_f(mine)}-{_f(opp)} vs {opp_name}, by {_f(opp - mine)}"
+            return "L", f"Lost {_f(mine)}-{_f(opp)} vs {opp_name}, by {margin(opp, mine)}"
         return "T", f"Tied {_f(mine)}-{_f(opp)} vs {opp_name}"
     lead = "Leading" if mine > opp else "Trailing" if mine < opp else "Tied"
     text = f"{lead} {_f(mine)}-{_f(opp)} vs {opp_name}"

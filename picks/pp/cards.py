@@ -655,6 +655,38 @@ def alerts_for(cards, slate, stage):
         return []
 
 
+NEXT_DRAFT = "Wednesday 9pm CT"  # RUNBOOK: drafts Wed 9pm (picks-backup.yml covers a missed slot at 9:45pm)
+
+
+def card_over(meta):
+    """When a card's week is over: midnight CT starting the first Tuesday after it was built. Cards are built
+    Wed-Sat for games through Monday night; the Tuesday 8pm postmortem grades them and the next draft is Wednesday."""
+    try:
+        made = datetime.fromisoformat(meta["generated_iso"]).astimezone(CT)
+    except (KeyError, TypeError, ValueError):
+        return None
+    day = (made + timedelta(days=(1 - made.weekday()) % 7 or 7)).date()     # weekday(): Tuesday = 1
+    return datetime(day.year, day.month, day.day, tzinfo=CT)
+
+
+def old_card_html(meta):
+    """A banner, hidden until the card's week is over (checked in the browser, since the page stays up from Saturday's
+    refresh to Wednesday's draft): says it's last week's card and when the new drafts come. Self-contained (own style
+    and script)."""
+    over = card_over(meta)
+    if not over:
+        return ""
+    week = html.escape((meta.get("week_label") or "").split(" (")[0])
+    return ("<style>.old{margin:8px 0;padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.4;background:#fff4d6;"
+            "color:#4a3200;border:1px solid #e0b44c}@media (prefers-color-scheme:dark){.old{background:#2e2610;color:#ffdc8a;"
+            "border-color:#7a6224}}body.oldcard .stage{background:var(--mut)}</style>"
+            f"<p id='oldcard' class='old' data-over='{over.isoformat()}' hidden><b>Last week's card.</b> "
+            f"{week + ': t' if week else 'T'}hese games are over and every lock on this page has passed. "
+            f"New drafts post {NEXT_DRAFT}.</p>"
+            "<script>(function(){var b=document.getElementById('oldcard');"
+            "if(b&&Date.now()>=Date.parse(b.getAttribute('data-over'))){b.hidden=false;document.body.classList.add('oldcard');}})();</script>")
+
+
 def render(cards, meta, games=()):
     def pct(x):
         return "—" if x is None else f"{x*100:.0f}"
@@ -695,6 +727,7 @@ table.ag th:nth-child(1){{width:21%}}table.ag th:nth-child(2){{width:39%}}table.
 ul.alerts{{color:var(--red);font-weight:600;margin:8px 0}}.ck{{margin:2px 0 6px}}
 </style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
 <p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}{(' · breakdowns ' + html.escape(meta['breakdowns'])) if meta.get('breakdowns') else ''}</p>
+{old_card_html(meta)}
 {checks_html(meta)}
 {''.join(body)}
 {GAPS_HTML}
