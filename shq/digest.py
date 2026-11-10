@@ -10,7 +10,7 @@ from . import radar, waivers
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
 from .status import OUTISH
-from .swap import eligible, fa_over_bench, playable, slot_fa, strength, strength_text
+from .swap import eligible, fa_over_bench, playable, q_tag, slot_fa, strength, strength_text
 
 DEAD = OUTISH | {"D"}
 DANGER_CUT = 0.20   # guillotine elimination chance that counts as urgent
@@ -87,7 +87,7 @@ def _fix(league, starter, used, now, spots):
         return "no healthy bench fit", False
     used.add(fa["id"])
     room = _room(league, fa, used, spots)
-    text = f"add {fa['name']} ({fa.get('team') or 'FA'}, {fa['proj']} proj){room or ''} and start him"
+    text = f"add {fa['name']}{q_tag(fa)} ({fa.get('team') or 'FA'}, {fa['proj']} proj){room or ''} and start him"
     if pick and pick["proj"] > 0:
         text += f" (or start {pick['name']}, {strength_text(pick)})"
     elif pick:

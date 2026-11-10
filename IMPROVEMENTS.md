@@ -123,7 +123,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
-- **Status:** shipped (e508112)
+- **Status:** shipped (e508112). Follow-up Nov 10 evening: a Questionable free agent (not an unconfirmed Out) is named, marked "(Q)", when he projects 5+ more than the best healthy one (Drew Lock 18.7 Q vs Kyle McCord 12.4); `swap.slot_fa`, test `test_questionable_free_agent_named_when_far_better`.
 - **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
   pushes), `shq/swap.py` (`slot_fa`, `fa_over_bench`, `MIN_FILL` 1.0, `FA_EDGE` 5.0), `shq/advice.py` (values loaded before
   the fixes so a fix can name the waivers drop)

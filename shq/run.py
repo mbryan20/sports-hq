@@ -17,7 +17,7 @@ from .leagues import (Context, EspnLeague, LeagueOver, SavedYahooLeague, Sleeper
                       YahooLeague, view)
 from .notify import push, push_once
 from .status import OUTISH
-from .swap import MIN_FILL, fa_over_bench, plan_injury_swaps, slot_fa, strength_text
+from .swap import MIN_FILL, fa_over_bench, plan_injury_swaps, q_tag, slot_fa, strength_text
 from .yahoo import YahooPending, YahooWriteDenied
 
 
@@ -116,7 +116,7 @@ def injury_watch(league, now):
         nba = getattr(league, "sport", "nfl") == "nba"
         fa = league.best_fa(out["positions"], now) if nba else slot_fa(slot, digest.free_agents(league), now)
         better = "" if nba or not (inn and fa_over_bench(inn, fa)) else \
-            f" Better: add {fa['name']} ({fa['team']}, {fa['proj']} proj) and start him — add/drop manually."
+            f" Better: add {fa['name']}{q_tag(fa)} ({fa['team']}, {fa['proj']} proj) and start him — add/drop manually."
         weak = None
         if better and inn["proj"] < MIN_FILL:
             weak, inn = inn, None

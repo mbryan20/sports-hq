@@ -102,6 +102,17 @@ class FreeAgentFix(unittest.TestCase):
                                         "roster spot and start him (Carson Wentz projects 0)"])
         self.assertEqual(advice.build(lg, NOW)["fixes"], self.fix(lg))   # league tab says the same
 
+    def test_questionable_free_agent_named_when_far_better(self):
+        # Nov 10: Drew Lock (Q, expected to play, 18.7) vs Kyle McCord (healthy, 12.4) for Caleb Williams' bye
+        dead = [p("Caleb Williams", "QB", ["QB"], bye=True, proj=0)]
+        bench = [p("Carson Wentz", "BN", ["QB"], proj=0)]
+        lock, mccord = p("Drew Lock", "FA", ["QB"], status="Q", proj=18.7), p("Kyle McCord", "FA", ["QB"], proj=12.4)
+        self.assertIn("add Drew Lock (Q) (X, 18.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+        lock["proj"] = 15.0                                            # under FA_EDGE more: the healthy one
+        self.assertIn("add Kyle McCord (X, 12.4 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+        lock["proj"], lock["conflict"] = 18.7, True                    # Sleeper Out, unconfirmed: never named
+        self.assertIn("add Kyle McCord", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+
     def test_free_agent_far_better_keeps_bench_fallback(self):
         lg = self.league([p("Hurt RB", "RB", ["RB"], status="OUT")], [p("Spare RB", "BN", ["RB"], proj=3.0)],
                          [p("Waiver RB", "FA", ["RB"], proj=9.5)])

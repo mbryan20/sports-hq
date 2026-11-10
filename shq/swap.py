@@ -47,10 +47,28 @@ FA_EDGE = 5.0    # a free agent this many points better than the best bench fill
 
 def slot_fa(slot, free_agents, now, skip=()):
     """Best playable free agent who can legally fill `slot`, by this week's projection (flex and superflex slots
-    take every position they allow, so a dead QB in SUPER_FLEX/OP can be covered by a QB)."""
-    cands = [p for p in free_agents if p["id"] not in skip and p.get("positions")
-             and eligible(slot, p["positions"]) and playable(p, now)]
-    return max(cands, key=lambda p: (p["proj"], p.get("owned", 0)), default=None)
+    take every position they allow, so a dead QB in SUPER_FLEX/OP can be covered by a QB).
+    A Questionable free agent (not one whose Out is only unconfirmed: `conflict`) is named only when he projects
+    FA_EDGE+ more than the best healthy one, and the caller shows "(Q)" (Nov 10: Drew Lock, Q but expected to play,
+    18.7 vs Kyle McCord 12.4; ESPN tags many players a generic Q on Tuesdays)."""
+    def ok(p, q):
+        if p["id"] in skip or not p.get("positions") or not eligible(slot, p["positions"]):
+            return False
+        if not q:
+            return playable(p, now)
+        return (p["status"] == "Q" and not p.get("conflict") and not p["bye"] and p["kickoff"] is not None
+                and not p["started"] and now < p["kickoff"])
+    key = lambda p: (p["proj"], p.get("owned", 0))
+    best = max((p for p in free_agents if ok(p, False)), key=key, default=None)
+    q = max((p for p in free_agents if ok(p, True)), key=key, default=None)
+    if q and (best is None or q["proj"] - best["proj"] >= FA_EDGE):
+        return q
+    return best
+
+
+def q_tag(p):
+    """" (Q)" for a Questionable player named in a fix, else ""."""
+    return " (Q)" if p.get("status") == "Q" else ""
 
 
 def fa_over_bench(bench_pick, fa):
