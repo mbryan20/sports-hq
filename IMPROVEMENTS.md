@@ -334,7 +334,7 @@ Measure (the health.json check that should move), Design, Decision.
 
 
 ### Q-043 · NBA radar health warnings came mostly from the metric; fix the backtest, then two small model fixes
-- **Status:** shipped (SHA_PLACEHOLDER)
+- **Status:** shipped (74ba172)
 - **Area:** `shq/radar_backtest.py` (`run`, `summary`, `report`, `inputs`), `shq/health.py` (`judge`, `MIN_N`, `radar_health`,
   new info check `radar.held_all`), `shq/radar.py` (`role`, `rising`, `may_fade`, `rank_key`, `block`, `riser_item`),
   `state/health_baselines.json` (`radar.held`, `radar.edge` re-set), `reviews/2026-11-10-nba-radar-backtest.md`
