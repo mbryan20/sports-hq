@@ -22,8 +22,7 @@ Measure (the health.json check that should move), Design, Decision.
 ## Open
 
 ### Q-037 · GitHub jobs still run hours late: make the laptop the clock for every time-critical one
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands Sun Nov 15 9:00am CT through the one-time "Overhaul:
-  apply staged edits" task, claude-audit `overhaul/staged/APPLY.md` item 3)
+- **Status:** shipped (d5d5bf7, landed Tue Nov 10 after Michael lifted the Sunday hold)
 - **Area:** `ops/kick.ps1` (one push per outage), `.github/workflows/war-room-v2.yml` (own concurrency group for kicks),
   `shq/run.py` (`laptop_kicks`: a push when the 2:55am kick didn't happen; "Laptop kick" footer row),
   `.github/workflows/run.yml` (game-day handoff), `.github/workflows/model-health.yml` (4:50am cron removed),
