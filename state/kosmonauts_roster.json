@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-09T13:34:32Z",
+ "captured": "2026-11-10T13:35:26Z",
  "players": [
   {
    "slot": "QB",
@@ -107,7 +107,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "BN",
@@ -157,7 +157,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -185,18 +185,6 @@
   },
   {
    "slot": "FA",
-   "name": "Malik Willis",
-   "yahoo_id": "34042",
-   "key": null,
-   "team": "MIA",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Aaron Rodgers",
    "yahoo_id": "7200",
    "key": null,
@@ -206,6 +194,18 @@
     "QB"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Malik Willis",
+   "yahoo_id": "34042",
+   "key": null,
+   "team": "MIA",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -313,7 +313,7 @@
    "eligible": [
     "QB"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -325,7 +325,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -377,6 +377,18 @@
   },
   {
    "slot": "FA",
+   "name": "TreVeyon Henderson",
+   "yahoo_id": "41823",
+   "key": null,
+   "team": "NE",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
    "name": "Devin Singletary",
    "yahoo_id": "31906",
    "key": null,
@@ -386,18 +398,6 @@
     "RB"
    ],
    "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "TreVeyon Henderson",
-   "yahoo_id": "41823",
-   "key": null,
-   "team": "NE",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Out"
   },
   {
    "slot": "FA",
@@ -469,7 +469,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -529,7 +529,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -565,7 +565,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -617,6 +617,18 @@
   },
   {
    "slot": "FA",
+   "name": "Khalil Shakir",
+   "yahoo_id": "34104",
+   "key": null,
+   "team": "BUF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Courtland Sutton",
    "yahoo_id": "31010",
    "key": null,
@@ -633,18 +645,6 @@
    "yahoo_id": "42642",
    "key": null,
    "team": "PHI",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Khalil Shakir",
-   "yahoo_id": "34104",
-   "key": null,
-   "team": "BUF",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -745,7 +745,7 @@
    "eligible": [
     "TE"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -757,7 +757,7 @@
    "eligible": [
     "TE"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -1157,10 +1157,10 @@
   },
   {
    "slot": "FA",
-   "name": "Giants",
-   "yahoo_id": "100019",
+   "name": "Bills",
+   "yahoo_id": "100002",
    "key": null,
-   "team": "NYG",
+   "team": "BUF",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1169,10 +1169,10 @@
   },
   {
    "slot": "FA",
-   "name": "Bills",
-   "yahoo_id": "100002",
+   "name": "Giants",
+   "yahoo_id": "100019",
    "key": null,
-   "team": "BUF",
+   "team": "NYG",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1205,18 +1205,6 @@
   },
   {
    "slot": "FA",
-   "name": "Panthers",
-   "yahoo_id": "100029",
-   "key": null,
-   "team": "CAR",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Chargers",
    "yahoo_id": "100024",
    "key": null,
@@ -1226,7 +1214,19 @@
     "DEF"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Panthers",
+   "yahoo_id": "100029",
+   "key": null,
+   "team": "CAR",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
   }
  ],
- "fa_captured": "2026-11-09T13:34:32Z"
+ "fa_captured": "2026-11-10T13:35:26Z"
 }
