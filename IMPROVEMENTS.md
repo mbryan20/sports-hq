@@ -22,7 +22,8 @@ Measure (the health.json check that should move), Design, Decision.
 ## Open
 
 ### Q-037 · GitHub jobs still run hours late: make the laptop the clock for every time-critical one
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after the Tuesday guillotine chain, Nov 10 7:30pm CT)
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands Sun Nov 15 9:00am CT through the one-time "Overhaul:
+  apply staged edits" task, claude-audit `overhaul/staged/APPLY.md` item 3)
 - **Area:** `ops/kick.ps1` (one push per outage), `.github/workflows/war-room-v2.yml` (own concurrency group for kicks),
   `shq/run.py` (`laptop_kicks`: a push when the 2:55am kick didn't happen; "Laptop kick" footer row),
   `.github/workflows/run.yml` (game-day handoff), `.github/workflows/model-health.yml` (4:50am cron removed),
@@ -34,6 +35,9 @@ Measure (the health.json check that should move), Design, Decision.
   every laptop `workflow_dispatch` since Nov 8 started within seconds (Q-029). Gaps it found: no War Room kick; a failed kick
   only writes a log line no session can read; a dispatched War Room run can be replaced by a late cron run in the shared
   concurrency group; a game-day loop that hits its 5h45m limit leaves the injury watch idle up to about 80 minutes.
+  Tue Nov 10 (Claude Ops' morning review, checked against `gh run list --workflow war-room-v2.yml`): GitHub never ran the
+  Mon 10:40pm, Mon 11:20pm or Tue 5:40am CT War Room builds; the first runs were 6:58am and 7:37am CT. The 6:03am strategy
+  Doc was written on a week-old bids.json (`ada4348`, Mon 4:15pm CT, before the week 9 cut was confirmed).
 - **Expected impact:** every time-critical build on time while the laptop is on; one push when the laptop can't start jobs,
   and one a day when it has gone quiet; no injury-watch gap between game-day loops.
 - **Effort:** S-M
@@ -45,6 +49,79 @@ Measure (the health.json check that should move), Design, Decision.
   the clock". The Windows task "Kick war room" is not part of this item's commits: it is staged in claude-audit
   `overhaul/staged/github-kicks.ps1` and registered Sun Nov 15 9:00am by the "Overhaul: apply staged edits" task.
 - **Decision:** approved 2026-11-09 (Michael's Nov 9 instruction, via Claude Ops; extends the approved R1 / Q-029)
+
+### Q-038 · War Room v2 never credits a $0 bid with its payoff, so it recommends $1 that buys nothing
+- **Status:** proposed
+- **Area:** War Room v2 (`warroom/model.js` `decideAll`, the line `let best = { b: 0, ev: 0, p: winChance(0, r.est) }`)
+- **Rank:** —
+- **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
+- **Evidence:** bids.json `f53bf00` (Tue Nov 10 7:37am CT): Saquon Barkley "Bid $1", `win_chance` 0.572, and `win_curve`
+  gives 0.57 at both $0 and $1, so the dollar buys nothing (he is on bye in week 10; value $3). Cause: the search starts
+  the $0 option with `ev: 0` instead of `winChance(0) x value`, so any bid of $1+ with a positive payoff beats it. For
+  Barkley $0 is worth 0.57 x $3 = $1.71 against $1.14 at $1 (`bid_options` avg_payoff 1.1). MIN DEF has the same pattern
+  ($1 at 0.77 vs $0 at 0.57; there the $1 is worth it).
+- **Expected impact:** no wasted dollars on claims a $0 bid wins as often; with $5 spendable, $1 is 20% of the budget.
+- **Effort:** S (one line, plus a test that a flat curve between $0 and $1 gives a $0 call)
+- **Risk:** Low (also needs a call name for a $0 waiver claim, e.g. "Claim at $0"; today $0 means "Add free" or nothing)
+- **Measure:** — (one-off: no row whose recommended bid has the same `win_curve` value as $0)
+- **Design:** —
+- **Decision:** —
+
+### Q-039 · Stated win chances don't match the same row's likely rival bids
+- **Status:** proposed
+- **Area:** War Room v2 (`warroom/model.js` `winChance`, `threats` (the `likely_rival_bids` list); `warroom/build.py` `ladder`)
+- **Rank:** —
+- **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
+- **Evidence:** bids.json `f53bf00`: Jaylen Warren 21% at $2 while the row lists rivals at $18, $13 and $11; Barkley 57% at
+  $0 with three rivals at $4 each. The two numbers come from different places: `likely_rival_bids` is the raw guess per
+  rival, while `winChance` uses only the ladder (how past winning bids compared with the raw estimate), which is well
+  calibrated league-wide (`wr.ladder_cov50` about 0.55, Q-003). So the rival list may be what's too high, not the chance.
+  Also, at $0 `winChance` counts every past $0 winning bid as a win for me, but a $0 tie goes by waiver order.
+  Not confirmed: which number is wrong; the Wed Nov 11 waiver run is the first test.
+- **Expected impact:** one believable number per row; the bid check (and the Nov 15 chain addendum, which calls a >50% chance
+  below every rival bid "not believable") stops having to second-guess the model.
+- **Effort:** M (show calibrated rival bids, or scale the rival list by the ladder; treat $0 ties by waiver order)
+- **Risk:** Med (changes every stated win chance)
+- **Measure:** `rec.win_brier`, `wr.ladder_cov50` (by estimate size), share of rows where the stated chance is above 50% while
+  the bid is below every listed rival bid (should be 0)
+- **Design:** —
+- **Decision:** —
+
+### Q-040 · An injured or IR player with no projection still gets "Add free"
+- **Status:** proposed
+- **Area:** War Room v2 (`warroom/model.js` `decideAll`, the free-agent branch; `proj`)
+- **Rank:** —
+- **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
+- **Evidence:** bids.json `539613e` and `f53bf00`: Lamar Jackson (QB, injury "Out", `ir` true, `proj_next_week` 0) is
+  "Add free", dropping Woody Marks (8.2 projected). Free agents get "Add free" whenever their rest-of-season win odds clear
+  `MIN_WIN`, with no check on whether he can play soon or whether the drop is worth more now. Not confirmed: how many weeks
+  Sleeper projects him out.
+- **Expected impact:** no free add that costs a usable player for someone who can't play; an IR stash only when an IR slot is
+  open or the gain is large and labelled "stash".
+- **Effort:** S
+- **Risk:** Low
+- **Measure:** — (one-off: no "Add free" row with injury Out/IR and `proj_next_week` 0 unless its call says stash)
+- **Design:** —
+- **Decision:** —
+
+### Q-041 · War Room v2 drops a usable RB to add a second DEF
+- **Status:** proposed
+- **Area:** War Room v2 (`warroom/model.js` `bestDrop`, `decideAll`)
+- **Rank:** —
+- **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
+- **Evidence:** bids.json `f53bf00`: MIN DEF "Bid $1" (77%), drop Breece Hall (RB, 8.1 projected, 11.9 season average).
+  I already start CIN DEF (6.6 projected); MIN DEF projects 6.1, and BAL DEF (8.5) and GB DEF (8.2) are free adds in the
+  same file. `bestDrop` picks the drop that costs the least projected starting lineup over the coming weeks, so a bench RB
+  counts as nearly free (no value for injury cover), and each row is valued alone, so it can pay for one DEF while a
+  better one is free.
+- **Expected impact:** no starting-calibre RB or WR dropped for a backup DEF or K; when a better DEF is free, the paid DEF
+  claim is skipped.
+- **Effort:** S-M (protect RB/WR above a projection floor from K/DEF swaps; compare paid claims with free adds at the same
+  position)
+- **Risk:** Low
+- **Measure:** — (one-off: no claim whose add is K/DEF and whose drop is an RB/WR projected above about 8 points)
+- **Design:** —
+- **Decision:** —
 
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
