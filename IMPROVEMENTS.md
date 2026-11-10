@@ -197,7 +197,7 @@ Measure (the health.json check that should move), Design, Decision.
   (players in a `chopped` transaction, until a waiver run after it or an hour past that Wednesday's run).
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
-### Q-044 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
+### Q-045 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
 - **Status:** shipped (ae9cd9f)
 - **Area:** `shq/wrapup_render.py` (`short`), `shq/wrapup.py` (`margin`, `h2h_line`), `docs/wrapups/` (index, weeks 8-9
   re-rendered from saved JSON), `picks/pp/cards.py` (`card_over`, `old_card_html`), `docs/picks/index.html` (banner added
