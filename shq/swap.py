@@ -58,11 +58,14 @@ def plan_injury_swaps(starters, bench, now, lead_hours=2):
 
 
 def start_sit(starters, bench, limit=3, min_gain=1.0):
-    """Greedy best bench→starter upgrades for the week ahead. Dead slots (OUT/bye) count as 0."""
+    """Greedy best bench→starter upgrades for the week ahead. Dead slots (OUT/bye) count as 0.
+    A bench player whose Out is unconfirmed (status.confirm shows him as Q with `conflict`, e.g. Sleeper says
+    Out but ESPN's Out note is from last week) is never moved in: unconfirmed means don't act either way
+    (Nov 10: "Start Garrett Wilson" while Sleeper listed him Out)."""
     def value(p):
         return 0.0 if (p["status"] in OUTISH or p["bye"] or p.get("empty")) else p["proj"]
 
-    live_bench = [b for b in bench if b["status"] not in OUTISH and not b["bye"]]
+    live_bench = [b for b in bench if b["status"] not in OUTISH and not b["bye"] and not b.get("conflict")]
     pairs = sorted(
         ((value(b) - value(s), s, b) for s in starters for b in live_bench
          if eligible(s["slot"], b["positions"]) and not s["started"] and not b["started"]),
