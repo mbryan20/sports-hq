@@ -75,7 +75,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   didn't happen by 4am CT ("Laptop didn't start today's Sports HQ jobs", Q-037; the footer's "Laptop kick" row).
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
-- Model health (`model-health.yml` → `shq/health.py`, nightly 2:50am CT, backup 4:50am): re-tests every model against what
+- Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what
   happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
   waiver run out, by position and season stage); our bids vs the waiver results (would they have won, what winners paid);

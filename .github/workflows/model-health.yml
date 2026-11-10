@@ -6,11 +6,12 @@ name: Model health
 # state/health_baselines.json. No AI, no paid APIs, read-only on every site. It sends no push: the nightly
 # improvement pass (ops/tasks/nightly-improvement-pass.md) reads health.json and the run list.
 # Actions cron is UTC; times are Central Standard Time (UTC-6, from Nov 1; one hour later in CT after Mar 14).
-# GitHub drops some scheduled runs, so there are two slots; a second run the same night just refreshes the file.
+# The laptop starts it at 2:55am CT (Windows task \SportsHQ\Kick model health, ops/kick.ps1); GitHub runs its own crons
+# hours late, so the one below is only a fallback for when the laptop is off. The 4:50am backup slot was removed Nov 10
+# (Q-037): the kick replaces it. A second run the same night just refreshes the file.
 on:
   schedule:
     - cron: "50 8 * * *"           # 2:50am CT, after Wednesday's 2:15am waiver run and War Room v2's 2:40am build
-    - cron: "50 10 * * *"          # 4:50am CT, backup slot
   workflow_dispatch:
 
 permissions:
