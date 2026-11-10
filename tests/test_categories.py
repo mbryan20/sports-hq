@@ -80,7 +80,8 @@ class Categories(unittest.TestCase):
         self.assertEqual((rows["FG%"]["me"], rows["FG%"]["outlook"]), (".500", "win"))                         # .500 vs .475
         self.assertEqual((rows["TO"]["now"], rows["TO"]["outlook"]), ("L", "lose"))                            # fewer wins
         self.assertEqual((c["now"], c["proj"], c["close"]), ("1-2-1", "1-2", 1))
-        self.assertEqual(c["chase"], ["3PM is close. Keep in the lineup: Atlanta Star (3 games, 3.0/g) and Boston Wing (2 games, 1.0/g)."])
+        # Boston Wing fills the slot on BOS days in the projection but sits on the bench now: not "keep in the lineup" (Q-047)
+        self.assertEqual(c["chase"], ["3PM is close. Keep in the lineup: Atlanta Star (3 games, 3.0/g)."])
         self.assertEqual(c["adds"], ["For 3PM: Atlanta Shooter (PG, ATL), 3 games left, 2.5/g"])
 
     def test_snapshot_saved_before_the_trim(self):

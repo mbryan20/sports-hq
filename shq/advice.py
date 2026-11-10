@@ -162,15 +162,21 @@ def build(league, now):
     nba = getattr(league, "sport", "nfl") == "nba"
     cats = league.cats = categories.build(league) if nba else None
     league.radar = trend_radar(league, cats) if nba else None
+    if cats and (league.radar or {}).get("shrink_ids"):   # the chase never says keep starting a shrinking role (Q-047)
+        cats = league.cats = categories.build(league, skip=league.radar["shrink_ids"])
     if nba:
         player_values(league)
+        shown = nba_lineup.moves(league, now)[:3]
+        radar.agree(league.radar, shown, league.bench, now)   # the radar's "start him" only when a move backs it
+        moves = [m["text"] for m in shown]
     else:
         football_players(league)
+        moves = _moves(league, now)[:3]
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),
         "fixes": [i["text"] for i in items if i["urgent"]],
-        "moves": _moves(league, now)[:3],
+        "moves": moves,
         "adds": adds(league)[:3],
         "trades": trade_block(league),
         "notes": notes,

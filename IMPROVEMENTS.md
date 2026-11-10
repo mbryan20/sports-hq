@@ -220,6 +220,32 @@ Measure (the health.json check that should move), Design, Decision.
   `tests/test_core_js.py` (`SHQ.picksStale`, Node; skipped without Node). Checked at 375px and desktop, light and dark.
 - **Decision:** bug fixes requested by Michael via Claude Ops, Nov 10
 
+### Q-047 · NBA league tabs contradicted themselves: radar "start him" vs "Drop him", a benched shrinking player "kept in the lineup"
+- **Status:** shipped (b9ccfcd)
+- **Area:** `shq/radar.py` (`fades`, `block`'s `keep` and `shrink_ids`, `agree`, bench riser tag), `shq/nba_swaps.py` (drop
+  filter, so also the weekly plan's adds), `shq/categories.py` (`build(skip)`, `_starting`), `shq/nba_lineup.py`
+  (`start_key` on a move), `shq/advice.py` (chase rebuilt with the radar's shrinking ids; radar verdicts after Lineup moves)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops)
+- **Evidence:** live site Tue Nov 10 (data 23:27Z): Ball is Life's radar said "Obi Toppin … on your bench: start him" while
+  Waiver adds #1 said "Drop Obi Toppin"; the weekly plan said "Drop Draymond Green" while the radar had him rising.
+  3-Ball BB's chase said "FG% is close. Keep in the lineup: Jarrett Allen" with Allen on the bench and in the radar's
+  shrinking list (minutes 28 → 18); the radar said "start him" for Dosunmu, Podziemski and Giddey with Lineup moves empty.
+- **Expected impact:** one answer per player on an NBA tab. A rising player of mine isn't a drop unless the radar says his
+  rise may fade; "Keep in the lineup" names only current starters who aren't shrinking; "start him today" only when Lineup
+  moves starts him, otherwise "worth a start on his next game day (no game today)", "worth a start next game (today's game
+  has started)", "consider starting him if he plays (Q today)" or "consider starting him (no lineup move today: his season
+  value doesn't beat a starter who plays today by 1+ value/g)".
+- **Effort:** S
+- **Risk:** Low (advice text and drop candidates only; a protected riser can mean one fewer swap shown)
+- **Measure:** — (one-off)
+- **Design:** the rule is in `shq/radar.py`'s docstring. "May fade" for the drop filter is what the radar text says
+  (`fades`: no injury behind a jump of under 4 straight games, or the injured teammate behind it is off the report).
+  Tests: `tests/test_nba_one_answer.py` (one class per contradiction, plus the whole tab through `advice.build`);
+  `tests/test_categories.py` no longer expects a bench player in "Keep in the lineup". The weekly plan's adds are frozen
+  from Tuesday's build (`shq/run.py`, not touched here), so its Draymond line changes at the next weekly rebuild.
+- **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
