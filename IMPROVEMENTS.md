@@ -320,6 +320,9 @@ Measure (the health.json check that should move), Design, Decision.
   n=48), weak for the third run; `radar.held` 0.71 (34 of 48); across all flagged player-mornings 76 of 126 held; 5
   flags were added by someone later (was 1). Edge by run: +0.15, +1.16, −0.98, −2.98, −2.96 as n went 22 → 25 → 29 →
   42 → 48: it has settled near −3 rather than bounced back. Ranked 1 (was 2).
+  Nov 10 (Q-043): most of that was the metric (today's ownership in the comparison list, open-ended "after", every
+  player-morning counted). On the fixed metric, before Q-043's model fixes: every flag held 0.64 (n=42), edge −0.29
+  (n=29); after: shown 0.70 (n=10), every flag 0.63 (n=38), edge +0.34 (n=25). This item's value gate is still unbuilt.
 - **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
   when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
   actually suggests now.
@@ -329,6 +332,44 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-036.md`
 - **Decision:** —
 
+
+### Q-043 · NBA radar health warnings came mostly from the metric; fix the backtest, then two small model fixes
+- **Status:** shipped (SHA_PLACEHOLDER)
+- **Area:** `shq/radar_backtest.py` (`run`, `summary`, `report`, `inputs`), `shq/health.py` (`judge`, `MIN_N`, `radar_health`,
+  new info check `radar.held_all`), `shq/radar.py` (`role`, `rising`, `may_fade`, `rank_key`, `block`, `riser_item`),
+  `state/health_baselines.json` (`radar.held`, `radar.edge` re-set), `reviews/2026-11-10-nba-radar-backtest.md`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (from Claude Ops' diagnosis of the Q-036 warnings)
+- **Evidence:** health.json Nov 10: `radar.held` 0.71 (drift) and `radar.edge` −2.96 (weak), both against baselines set Nov 3
+  on n=5; the radar code hadn't changed since. The metric had three faults: (1) the "old suggestion" it compared with was
+  ranked by today's % rostered, so later breakouts leaked into it; (2) "held" used every game after the flag (DNPs
+  dropped) and counted each player-morning (178 for 48 players); (3) it scored every flag, while the site shows 4 a
+  morning. Re-scored on the same data (logs through Nov 9, last 14 mornings with games, each free agent once at his first
+  flag, his team's next 3 games, a missed game = 0 min, old suggestion by that morning's `state/nba_owned.json` reading):
+  every flag held 27 of 42 (0.64), the 4 shown a morning 7 of 11 (0.64), edge −0.29 z per game (n=29, Nov 4-6 mornings).
+  Model fixes tried on that backtest (before → after): (6) a "riser" who played under half his team's earlier games is
+  back from an absence, not a riser: removes Marcus Smart, Oso Ighodaro, Caleb Martin, Kobe Brown (−7 to −11 z a game;
+  three "held" only because their baseline was the games they sat): every flag 27/42 → 24/38, edge −0.29 → +0.34 (n=25),
+  value −4.24 → −3.86. Shipped. (5) rank flags caused by an injured key teammate first, and label a jump with no cause
+  and under 4 straight games "may fade" (those held 9 of 16, the rest 18 of 26): shown 7/11 → 7/10 (0.64 → 0.70), shown
+  value −3.63 → −2.75. Shipped. (7) usage-only flags need 24+ recent minutes or a teammate's absence: removed 4 flags
+  (2 held), edge −0.29 → −0.43, with 6: held 0.62 and edge +0.23, both worse than 6 alone. Not shipped. A
+  "may fade last" order changed nothing in this sample, so may-fade is a label only.
+  Not confirmed: the replay stands in "on ESPN's injury report" with "missed all 3 of his recent games" (old reports
+  aren't kept), and ranks by fit over all 3-Ball categories without games left. Samples are small (10 shown, 25 for edge).
+- **Expected impact:** the radar checks stop warning about a measuring error and track what the site shows; slightly
+  fewer, better-ordered rising lines on both basketball tabs (no players just back from an absence; injury-driven jumps
+  on top; unexplained short jumps say "may fade").
+- **Effort:** S-M
+- **Risk:** Low (ideas and at most one push a day per league; push rules unchanged)
+- **Measure:** `radar.held` (shown, baseline 0.70, n=10, MIN_N 10), `radar.edge` (every flag, baseline +0.34, n=25, MIN_N 20,
+  floor 0), `radar.held_all` (info, 0.63, n=38). `judge` now re-sets any stored baseline with n under the check's MIN_N.
+- **Design:** as above. The window is the last 14 mornings with games (a period with no NBA games, e.g. Nov 3, repeats
+  the morning before). MIN_N for the shown check is 10, not 20: the site shows ~10 different free agents per 14 mornings,
+  so 20 would leave it waiting for good. Edge is judged on every flag (n=25); the shown-only edge (+2.22 on n=4) is in the
+  notes. Q-036's value gate is not built; re-judge it on the new metric. Undo: `git revert` the commit (restores the old
+  `state/health_baselines.json` radar rows too).
+- **Decision:** built 2026-11-10 on Claude Ops' build request (the session that ran the diagnosis)
 
 ### Q-018 · The What to do card contradicts itself
 - **Status:** designed

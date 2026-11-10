@@ -1,23 +1,32 @@
 """Backtest for the NBA trend radar (shq/radar.py): would its flags have beaten the waiver wire?
 
-Replays each morning of the last two weeks with only the games played before it, using the same rules the
-radar uses (injuries are inferred from the logs: the ESPN report of that morning isn't kept). For every
-free agent it flagged in 3-Ball BB (rosters rebuilt from the league's public transactions), it checks:
-- role held: minutes per game in the games after the flag vs his earlier baseline;
-- value: per-game category value after the flag (3-Ball's categories, in rotation-player z units) against what
-  the site suggested that morning (the most-owned free agents with a game, as shq/advice.py ranks NBA adds)
-  and against the average free agent who played;
+Replays each of the last 14 mornings that had games, with only the games played before it, using the same rules the
+radar uses (injuries are inferred from the logs: the ESPN report of that morning isn't kept, so a key teammate who
+missed every one of the riser's last 3 games stands in for "on ESPN's injury report"). Every free agent it flags in
+3-Ball BB (rosters rebuilt from the league's public transactions) is scored once, at his first flag, on his team's
+next 3 games (the same window `radar.role()` flags on; a game he missed counts as 0 minutes, as in his baseline):
+- role held: minutes over those 3 games at least 3 above his earlier baseline;
+- shown: the same for the 4 free agents a morning the site would have listed (`radar.block()`'s order), the number
+  that matters, since the rest never reach the page;
+- value: per-game category value in those games (3-Ball's categories, in rotation-player z units) against what the
+  site suggested that morning (the 3 most-owned free agents with a game, ranked by that morning's % rostered from
+  `state/nba_owned.json`, so only mornings from Nov 3 on) and against the average free agent who played;
 - market: whether a 3-Ball team added him later, and his ESPN-wide % rostered now with ESPN's +/-.
 Free reads only, no AI. Run: py -m shq.radar_backtest [--write] (--write saves reviews/<date>-nba-radar-backtest.md)."""
+import datetime as dt
 import sys
 
 from . import espn_fantasy as ef
 from . import radar
-from .common import ROOT, get_json, now_utc
+from .common import ROOT, get_json, load_json, now_utc
 from .config import TZ
 
 LEAGUE = radar.SOURCE
-FIRST, MIN_AFTER = 7, 2     # first morning replayed (needs 6 periods of games before it); games needed after a flag
+FIRST = 7          # first morning that can be replayed (needs 6 periods of games before it)
+MORNINGS = 14      # mornings replayed: the last two weeks
+HORIZON = 3        # judged on his team's next 3 games, the window radar.role() flags on
+SHOWN = 4          # free agents a basketball tab lists (radar.block)
+WIRE = 3           # the old suggestion: the 3 most-owned free agents
 
 
 def transactions(last_period):
@@ -52,96 +61,169 @@ def value(sc, cats, games):
     return sum(per) / len(per)
 
 
-def run(pool, now_ids, txns, cats, last):
-    flags, wire, every, anyone = [], [], [], {}
-    z = radar.z_scales(pool, radar.team_games(pool))
-    for day in range(FIRST, last + 1 - MIN_AFTER + 1):
+def day_date(dates, day):
+    """The date of scoring period `day`; a period with no NBA games (absent from radar.period_dates) follows the one before."""
+    known = [d for d in dates if d <= day]
+    return dates[max(known)] + dt.timedelta(days=day - max(known)) if known else None
+
+
+def run(pool, now_ids, txns, cats, last, dates=None, owned=None, mornings=MORNINGS):
+    """Replay the last `mornings` mornings that had games, through period `last`. Returns {"log": every scored
+    flag-morning, "wire": [(day, value)], "every": [value], "mornings": [days replayed]}. Each flag: day, id, name,
+    base/flag/after minutes (after = per team game over his team's next HORIZON games), played, held, value, cause,
+    fade, shown (among the SHOWN the site would list that morning), added, owned/change now. Flags too recent for
+    HORIZON team games after them aren't scored. dates: {period: date} (radar.period_dates), owned: the
+    state/nba_owned.json history; both only for the old-suggestion comparison."""
+    dates, owned = dates or {}, owned or {}
+    tg_all = radar.team_games(pool)
+    sc = {"z": radar.z_scales(pool, tg_all)}
+    need = {c: "all" for c, rev in cats if not rev and c in sc["z"]}
+    ahead = lambda team, day: sorted(d for t, d in tg_all if t == team and d >= day)[:HORIZON]
+    log, wire, every = [], [], []
+    days = sorted({d for _, d in tg_all if FIRST <= d <= last})[-mornings:]   # a day without games repeats the one before
+    for day in days:
         past = before(pool, day)
         tg = radar.team_games(past)
         taken = rostered_at(now_ids, txns, day)
-        sc = {"z": z}
-        after = lambda pid: [x for x in pool[pid]["games"] if x[0] >= day and x[1] == pool[pid]["team"]]
-        team_last = {t: max(d for tt, d in tg if tt == t) for t, _ in tg}
+        team_last = {}
+        for t, d in tg:
+            team_last[t] = max(d, team_last.get(t, d))
         fas = [pid for pid in pool if pid not in taken and past[pid]["games"]
                and past[pid]["games"][-1][0] == team_last.get(past[pid]["team"])]      # played his team's last game
-        for pid in pool:   # the signal itself, rostered or not: does a flagged role hold?
-            rl = radar.role(past[pid], tg, day)
-            later = after(pid)
-            if pid not in anyone and radar.rising(rl) and len(later) >= MIN_AFTER:
-                anyone[pid] = (rl["base"]["min"], sum(st.get("40", 0) for *_, st in later) / len(later))
+
+        def outcome(pid):
+            """(minutes per team game, games played, value per game played) over his team's next HORIZON games."""
+            team = pool[pid]["team"]
+            nxt = ahead(team, day)
+            if len(nxt) < HORIZON:
+                return None
+            games = [g for g in pool[pid]["games"] if g[1] == team and g[0] in nxt]
+            return sum(st.get("40", 0) for *_, st in games) / HORIZON, len(games), value(sc, cats, games)
+
+        ranked = []
         for pid in fas:
+            res = outcome(pid)
+            if res and res[2] is not None:
+                every.append(res[2])
             rl = radar.role(past[pid], tg, day)
-            later = after(pid)
-            v = value(sc, cats, later)
-            if v is not None:
-                every.append(v)
-            if radar.rising(rl) and len(later) >= MIN_AFTER:
-                adds = [sp for sp, kind, x in txns if x == pid and kind == "ADD" and sp >= day]
-                flags.append({"day": day, "id": pid, "name": pool[pid]["name"], "base": rl["base"]["min"], "flag": rl["recent"]["min"],
-                              "after": sum(st.get("40", 0) for *_, st in later) / len(later), "n_after": len(later),
-                              "value": v, "added": adds[0] if adds else None, "owned": pool[pid]["owned"], "change": pool[pid]["change"]})
-        top = sorted(fas, key=lambda pid: -pool[pid]["owned"])[:3]
-        wire += [v for pid in top if (v := value(sc, cats, after(pid))) is not None]
-    return flags, wire, every, anyone
+            if not rl:
+                continue
+            if not radar.rising(rl):
+                continue
+            gone = radar.absences(past, past[pid]["team"], [d for d, *_ in rl["games"]])
+            fit, _ = radar.fit_score(sc, past[pid], rl, need)
+            ranked.append((radar.rank_key(rl, gone, gone, fit), pid, rl, gone, res))   # absent = out (no old report)
+        ranked.sort(key=lambda t: t[0])
+        for i, (_, pid, rl, gone, res) in enumerate(ranked):
+            if not res:
+                continue
+            adds = [sp for sp, kind, x in txns if x == pid and kind == "ADD" and sp >= day]
+            log.append({"day": day, "id": pid, "name": pool[pid]["name"], "base": rl["base"]["min"], "flag": rl["recent"]["min"],
+                        "after": res[0], "played": res[1], "held": res[0] >= rl["base"]["min"] + 3, "value": res[2],
+                        "cause": pool[gone[0]]["name"] if gone else None, "fade": radar.may_fade(rl, gone),
+                        "shown": i < SHOWN, "added": adds[0] if adds else None, "owned": pool[pid]["owned"],
+                        "change": pool[pid]["change"]})
+        when = day_date(dates, day)
+        hist = owned.get(when.isoformat()) if when else None
+        if hist:   # ESPN-wide % rostered that morning; players over 70% aren't kept, so they fall back to today's
+            pct = lambda pid: hist.get(pid, pool[pid]["owned"] if pool[pid]["owned"] > 70 else 0)
+            for pid in sorted(fas, key=lambda pid: -pct(pid))[:WIRE]:
+                res = outcome(pid)
+                if res and res[2] is not None:
+                    wire.append((day, res[2]))
+    return {"log": log, "wire": wire, "every": every, "mornings": days}
 
 
-def report(pool, flags, wire, every, anyone, dates, cats, last):
-    mean = lambda xs: sum(xs) / len(xs) if xs else float("nan")
-    first = {}
-    for f in flags:   # count each player once, from his first flag
-        first.setdefault(f["id"], f)
-    uniq = list(first.values())
-    held = [f for f in uniq if f["after"] >= f["base"] + 3]
-    added = [f for f in uniq if f["added"]]
-    day = lambda d: radar._day(dates.get(d))
+def firsts(log, keep=lambda f: True):
+    """Each player once, at his first flag-morning that passes `keep`."""
+    out = {}
+    for f in log:
+        if keep(f):
+            out.setdefault(f["id"], f)
+    return list(out.values())
+
+
+def mean(xs):
+    xs = [x for x in xs if x is not None]
+    return sum(xs) / len(xs) if xs else None
+
+
+def r2(x):
+    return round(x, 2) if x is not None else None
+
+
+def summary(res):
+    """The numbers model health tracks: hit rates (shown and all flags, each player once at his first flag) and the
+    value edge over the old suggestion on the mornings that have an ownership reading (each player once, at his first
+    flag among those mornings)."""
+    wire_days = {d for d, _ in res["wire"]}
+    wv = mean([v for _, v in res["wire"]])
+    out = {"mornings": len(res["mornings"]), "wire_mornings": len(wire_days), "wire_value": r2(wv)}
+    for key, keep in (("shown", lambda f: f["shown"]), ("flags", lambda f: True)):
+        fl = firsts(res["log"], keep)
+        held = sum(f["held"] for f in fl)
+        on_wire = [f["value"] for f in firsts(res["log"], lambda f: keep(f) and f["day"] in wire_days) if f["value"] is not None]
+        fv = mean(on_wire)
+        out[key] = {"n": len(fl), "held": held, "held_rate": r2(held / len(fl)) if fl else None,
+                    "value": r2(mean([f["value"] for f in fl])), "edge_n": len(on_wire),
+                    "edge": r2(fv - wv) if fv is not None and wv is not None else None,
+                    "added_later": sum(1 for f in fl if f["added"])}
+    out["every_value"] = r2(mean(res["every"]))
+    return out
+
+
+def report(res, dates, cats, last):
+    s = summary(res)
+    sh, fl = s["shown"], s["flags"]
+    day = lambda d: radar._day(day_date(dates, d))
+    fmt = lambda x: f"{x:+.2f}" if x is not None else "–"
+    pct = lambda k: f"{k['held']} of {k['n']}" + (f" ({k['held_rate']:.0%})" if k["n"] else "")
     lines = [
         f"# NBA trend radar backtest ({now_utc().astimezone(TZ).date()})", "",
-        f"Mornings replayed: {day(FIRST)} to {day(max(f['day'] for f in flags) if flags else FIRST)}, each with only the games "
-        f"before it (ESPN game logs through {day(last)}). League: 3-Ball BB, categories "
+        f"Mornings replayed: {day(res['mornings'][0])} to {day(res['mornings'][-1])} (the last {len(res['mornings'])} with games), "
+        f"each with only the games before it (ESPN game logs through {day(last)}); a flag is judged on his team's next "
+        f"{HORIZON} games, so the last few mornings aren't scored yet. League: 3-Ball BB, categories "
         + ", ".join(ef.NBA_STATS[c] for c, _ in cats) + ".", "",
         "## Result", "",
-        "Verdict: " + ("the flagged free agents kept their bigger roles and out-produced the site's current suggestions"
-                       if flags and mean([f['value'] for f in flags]) > mean(wire) else "the flags did not beat the site's current suggestions")
-        + ("; no 3-Ball team picked any of them up afterward, so there was no waiver race to win yet." if not added
-           else f"; {len(added)} were later picked up by a 3-Ball team.")
-        + f" Small sample ({len(uniq)} free agents), so treat this as a first read.", "",
-        f"- Free agents flagged: {len(uniq)} players ({len(flags)} player-mornings).",
-        f"- Role held (minutes after the flag at least 3 above his old baseline): {len(held)} of {len(uniq)}.",
-        f"- Minutes per game: baseline {mean([f['base'] for f in uniq]):.1f}, at the flag {mean([f['flag'] for f in uniq]):.1f}, "
-        f"after the flag {mean([f['after'] for f in uniq]):.1f}.",
-        f"- Category value per game after the flag (z units, 0 = average rotation player): radar flags {mean([f['value'] for f in flags]):+.2f}, "
-        f"the site's current suggestion (3 most-owned free agents) {mean(wire):+.2f}, average free agent who played {mean(every):+.2f}.",
-        f"- Every player the radar would have flagged, rostered or not: {len(anyone)}; role held for "
-        f"{sum(a >= b + 3 for b, a in anyone.values())} (minutes {mean([b for b, _ in anyone.values()]):.1f} before, "
-        f"{mean([a for _, a in anyone.values()]):.1f} after).",
-        f"- Added later by a 3-Ball team: {len(added)} of {len(uniq)}"
-        + (f" (median {sorted(f['added'] - f['day'] for f in added)[len(added) // 2]} days after our flag)" if added else "") + ".",
-        "", "## Players (first flag)", "",
-        "| Flagged | Player | Min before → at flag → after (games) | Value/g after | Added in 3-Ball | % rostered now (ESPN +/-) |",
-        "|---|---|---|---|---|---|",
+        f"- Shown on the site (top {SHOWN} free agents a morning, the tab's order): role held for {pct(sh)}; "
+        f"value {fmt(sh['value'])} per game.",
+        f"- Every flagged free agent: role held for {pct(fl)}; value {fmt(fl['value'])} per game.",
+        f"- Against the site's old suggestion ({WIRE} most-owned free agents by that morning's % rostered, {s['wire_mornings']} "
+        f"mornings): shown flags {fmt(sh['edge'])} z per game (n={sh['edge_n']}), every flag {fmt(fl['edge'])} "
+        f"(n={fl['edge_n']}); the old suggestion itself {fmt(s['wire_value'])}, the average free agent who played "
+        f"{fmt(s['every_value'])}.",
+        f"- Added later by a 3-Ball team: {fl['added_later']} of {fl['n']}.",
+        "", "## Players (first flag; * = was among the shown)", "",
+        f"| Flagged | Player | Min before → at flag → next {HORIZON} team games (played) | Held | Value/g | Cause | Added in 3-Ball | % rostered now (ESPN +/-) |",
+        "|---|---|---|---|---|---|---|---|",
     ]
-    for f in sorted(uniq, key=lambda f: (f["day"], -f["after"])):
-        lines.append(f"| {day(f['day'])} | {f['name']} | {f['base']:.0f} → {f['flag']:.0f} → {f['after']:.0f} ({f['n_after']}) | "
-                     f"{f['value']:+.2f} | {day(f['added']) if f['added'] else '–'} | {f['owned']:.1f} ({f['change']:+.1f}) |")
+    shown_ids = {f["id"] for f in res["log"] if f["shown"]}
+    for f in sorted(firsts(res["log"]), key=lambda f: (f["day"], -f["after"])):
+        lines.append(f"| {day(f['day'])} | {f['name']}{' *' if f['id'] in shown_ids else ''} | {f['base']:.0f} → {f['flag']:.0f} → "
+                     f"{f['after']:.0f} ({f['played']}) | {'yes' if f['held'] else 'no'} | {fmt(f['value'])} | "
+                     f"{f['cause'] or ('none, may fade' if f['fade'] else 'none')} | {day(f['added']) if f['added'] else '–'} | "
+                     f"{f['owned']:.1f} ({f['change']:+.1f}) |")
     lines += ["", "## Caveats", "",
-              "- Small sample: two weeks of a new season. Run it again in December.",
-              "- Ownership at the time of each flag isn't recorded anywhere free, so the market check uses 3-Ball's own adds; "
-              "`state/nba_owned.json` now keeps a daily % rostered reading, so later backtests can measure the ESPN-wide rise.",
-              "- The comparison list uses today's % rostered to rank that morning's free agents (a small look-ahead in its favor).",
-              "- Injuries come from the logs only (a key teammate missing games), not that morning's ESPN report."]
+              "- Small sample: a few weeks of a new season. A flag counts once, at his first flag.",
+              "- Injuries come from the logs only (a key teammate missing games), not that morning's ESPN report.",
+              "- The site's order also weighs games left this week; the replay ranks by category fit over every 3-Ball category."]
     return "\n".join(lines) + "\n"
 
 
-def main(argv):
+def inputs():
+    """Everything run() needs, from free reads: (pool, rostered ids now, transactions, categories, last period, dates, owned)."""
     pool = radar.fetch_pool()
-    tg = radar.team_games(pool)
-    last = max(d for _, d in tg)
+    last = max(d for _, d in radar.team_games(pool))
     raw = get_json(ef._url("nba", LEAGUE["season"], LEAGUE["league_id"]), [("view", "mRoster"), ("view", "mSettings")])
     now_ids = {str(e["playerId"]) for t in raw["teams"] for e in (t.get("roster") or {}).get("entries", [])}
     cats = [(i["statId"], bool(i.get("isReverseItem"))) for i in raw["settings"]["scoringSettings"]["scoringItems"]]
-    sched = ef.pro_schedule("nba", LEAGUE["season"])
-    flags, wire, every, anyone = run(pool, now_ids, transactions(last + 1), cats, last)
-    text = report(pool, flags, wire, every, anyone, radar.period_dates(sched), cats, last)
+    dates = radar.period_dates(ef.pro_schedule("nba", LEAGUE["season"]))
+    return pool, now_ids, transactions(last + 1), cats, last, dates, load_json(radar.OWNED, {}) or {}
+
+
+def main(argv):
+    pool, now_ids, txns, cats, last, dates, owned = inputs()
+    text = report(run(pool, now_ids, txns, cats, last, dates, owned), dates, cats, last)
     if "--write" in argv:
         path = ROOT / "reviews" / f"{now_utc().astimezone(TZ).date()}-nba-radar-backtest.md"
         path.write_bytes(text.encode("utf-8"))
