@@ -19,8 +19,10 @@ on:
 permissions:
   contents: write
 
+# Laptop kicks (ops/kick.ps1, Q-037) get their own group: in one shared group an hours-late cron run waiting behind a kick
+# would replace it silently. The commit step's pull-and-push retries cover two builds landing close together.
 concurrency:
-  group: war-room-v2
+  group: war-room-v2-${{ github.event_name == 'workflow_dispatch' && 'kick' || 'cron' }}
   cancel-in-progress: false
 
 jobs:

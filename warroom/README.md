@@ -14,6 +14,9 @@ WebFetch summaries that dropped data, and fixes made during a run were lost.
   Monday night), Tue 5:40am CT (fresh for the 6:00am AI strategy task), Tue 6:50am CT (fresh for the
   7:11am bid check), Tue 8:10, 9:10 and 9:50am CT (a fresh page during the morning), Wed 2:40am CT
   (after waivers). It commits only when the page or JSON changed. A failed build sends an ntfy push.
+  GitHub runs these crons hours late, so from Sun Nov 15 the laptop starts the workflow at the same times (Windows task
+  `\SportsHQ\Kick war room`, `ops/designs/Q-014.md` "The laptop is the clock"); a kick has its own concurrency group, so
+  a late cron run can't replace it (Q-037).
 
 ## Files
 | File | Does |
