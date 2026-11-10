@@ -17,6 +17,7 @@ NFL only: there is no free value source for basketball."""
 import time
 
 from .common import CACHE, get_json, load_json, parse_iso, save_json
+from .espn import norm_team
 from .status import OUTISH
 
 FC_URL = "https://api.fantasycalc.com/values/current"
@@ -231,7 +232,7 @@ def annotate(league):
         # current team: Sleeper's live projections first (rebuilt every run), then the players file (cached
         # 6h, so a few hours behind on a trade), then the platform's own
         live_row = live.get(sid or "")
-        team = live_team(live_row) or (ctx.players.get(sid or "") or {}).get("team") or p.get("team")
+        team = live_team(live_row) or (ctx.players.get(sid or "") or {}).get("team") or norm_team(p.get("team")) or None
         healthy = p.get("status") not in OUTISH
         fill = per_game(ros, sid, team, scoring, live_row) if healthy else None
         ir = ir_games_left(p, week_start)
