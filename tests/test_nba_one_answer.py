@@ -173,12 +173,28 @@ class StartHimOnlyWithAMove(Base):
         swaps = nba_swaps.build(self.lg, rb.CATS)
         self.assertEqual([(x["drop"]["name"], x["add"]["name"]) for x in swaps["swaps"]], [("Boston Guard", "Free Streamer")])
         moves = nba_lineup.moves(self.lg, rb.NOW)
-        self.assertIn("Boston Guard", [m["start"] for m in moves])           # even a lineup move doesn't win over the drop
+        self.assertIn("Boston Guard", [m["start"] for m in moves])           # agree() alone: the swap's drop wins (advice.build never lets a move's start be dropped)
         radar.agree(self.r, moves, self.lg.bench, rb.NOW, swaps)
         text = self.bench_text("Boston Guard")
         self.assertIn(f"Boston Guard (PG, BOS), on your bench: rise may fade (no teammate's injury behind it); Waiver adds "
                       f"swaps him for Free Streamer (+{swaps['swaps'][0]['gain']:.1f} this week): minutes", text)
         self.assertNotIn("start", text.split(": minutes")[0])
+
+    def test_waiver_adds_never_drop_a_player_lineup_moves_starts(self):
+        """One answer per player: Lineup moves "Start Boston Guard" and Waiver adds "Drop Boston Guard" can't both show."""
+        self.plays_today(3.0, 0.0)
+        self.lg.values = VALUES
+        self.lg.radar = self.r
+        moves = nba_lineup.moves(self.lg, rb.NOW)
+        self.assertEqual([m["start"] for m in moves], ["Boston Guard"])
+        self.assertEqual([x["drop"]["name"] for x in nba_swaps.build(self.lg, rb.CATS)["swaps"]], ["Boston Guard"])
+        s = nba_swaps.build(self.lg, rb.CATS, [m["start_key"] for m in moves])
+        self.assertNotIn("Boston Guard", [x["drop"]["name"] for x in s["swaps"]])
+        self.lg.cats = rb.CATS
+        lines = advice.adds(self.lg, [m["start_key"] for m in moves])
+        self.assertFalse(any(a.startswith("Drop Boston Guard") for a in lines))
+        radar.agree(self.r, moves, self.lg.bench, rb.NOW, self.lg.swaps)
+        self.assertIn("on your bench, start him today (it's in Lineup moves)", self.bench_text("Boston Guard"))
 
     def test_advice_tab_never_says_start_him_without_a_move(self):
         """The whole tab: every radar "start him" names a player Lineup moves starts, for both bench risers."""

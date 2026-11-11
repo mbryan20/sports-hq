@@ -9,7 +9,8 @@ Built on the player values (shq/nba_values.py) and this week's category table (s
   value per game for the rest of the season (one good week isn't worth a worse player), and in dynasty leagues a drop
   rostered on DYNASTY_KEEP% or more of ESPN leagues or younger than DYNASTY_YOUNG. A dead roster spot (no NBA team) always goes first.
 - Never a drop either: a player of mine the trend radar has rising, unless his rise "may fade" (league.radar["keep"],
-  shq/radar.py, Q-047). The radar would say start him while this said drop him; the weekly plan uses these same swaps."""
+  shq/radar.py, Q-047). The radar would say start him while this said drop him; the weekly plan uses these same swaps.
+- Nor a player today's Lineup moves start (build()'s starting ids, from shq/nba_lineup.py via advice.build; Q-047)."""
 from .nba_values import by_id
 
 WEIGHT = {"close": 1.5, "lose": 0.5, "win": 0.5, "tie": 1.0}
@@ -50,8 +51,9 @@ def helps(block, add, drop, cats):
     return [c for c, _ in up[:3]]
 
 
-def build(league, cats=None):
-    """{"swaps": [...], "dead": [...], "lines": [...]} for my roster in an NBA category league, or None without values."""
+def build(league, cats=None, starting=()):
+    """{"swaps": [...], "dead": [...], "lines": [...]} for my roster in an NBA category league, or None without values.
+    starting: ESPN ids of players today's Lineup moves start; none of them is a drop."""
     block = getattr(league, "values", None)
     if not block:
         return None
@@ -63,6 +65,7 @@ def build(league, cats=None):
     mine = [ids[str(p["id"])] for p in league.data["roster"] if str(p["id"]) in ids and str(p["id"]) not in ir]
     deads = [p for p in mine if dead(p)]
     keep = set((getattr(league, "radar", None) or {}).get("keep") or [])     # rising on the radar, not "may fade"
+    keep |= {str(x) for x in starting or ()}                                 # Lineup moves start him today
     drops = [p for p in mine if dead(p) or (str(p["id"]) not in keep
              and (not dynasty or (p["pct"] < DYNASTY_KEEP and (p.get("age") or 99) >= DYNASTY_YOUNG)))]
     adds = [p for p in block["players"] if not p["own"] and not p.get("out") and not dead(p)]

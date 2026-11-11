@@ -56,7 +56,8 @@ def valued(league):
         return False
 
 
-def adds(league):
+def adds(league, starting=()):
+    """The league tab's adds. starting: ids of players today's Lineup moves start (NBA), never a swap's drop."""
     if valued(league):
         dynasty = bool(getattr(league, "dynasty", False))
         # guillotine bids come from the survival model (shq/guillotine.py), not the generic ranges
@@ -66,7 +67,7 @@ def adds(league):
                              budget=budget)
         return [waivers.line(a) for a in found] or ["No free agent improves your lineup, or beats a backup at his position, right now."]
     if getattr(league, "sport", "nfl") == "nba" and getattr(league, "values", None):
-        league.swaps = nba_swaps.build(league, getattr(league, "cats", None))
+        league.swaps = nba_swaps.build(league, getattr(league, "cats", None), starting)
         return league.swaps["lines"] or ["No free agent beats anyone on your roster by enough this week."]
     if getattr(league, "sport", "nfl") == "nba":
         fas = sorted(((league.games_in_matchup(p), p["owned"], p) for p in league.free_agents if p["status"] not in OUTISH),
@@ -167,7 +168,7 @@ def build(league, now):
     if nba:
         player_values(league)
         shown = nba_lineup.moves(league, now)[:3]
-        add_lines = adds(league)[:3]                           # sets league.swaps
+        add_lines = adds(league, [m["start_key"] for m in shown])[:3]   # sets league.swaps; never drops a move's start
         # the radar's verdict follows Lineup moves and Waiver adds: "start him" only when a move backs it, and a riser
         # the swaps drop gets no start verdict at all (Q-047)
         radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None))
