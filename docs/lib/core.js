@@ -9,7 +9,9 @@
   const FILES = ["lineups", "weekly", "status", "digest", "pick_lines"];
   const BAD = { OUT: "bad", IR: "bad", PUP: "bad", SUSP: "bad", NA: "bad", INACTIVE: "bad", EMPTY: "bad", "NO TEAM": "bad", D: "d", Q: "q", BYE: "bye", "NO GAME": "off" };
 
-  const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO };
+  const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO,
+    // written guides kept outside the site, linked wherever their subject shows (Michael, Nov 10: one tap, no asking)
+    GUIDE: { guillotine: "https://docs.google.com/document/d/1Pa67152FLY8IQ70neRnnHZ4lFFT6XqWZwvWk1iF-tT8/edit" } };
   const openTab = window.open.bind(window);   // kept before any layout script can shadow the global open()
 
   // ---------- helpers ----------
@@ -104,9 +106,10 @@
         : fixes.length || a.danger || (g && g.cut > 0.2) ? "bad"
         : moves.length || losing || chase.length ? "warn" : "ok";
       const bid0 = actBids(g)[0];
+      // a chase line ("Keep in the lineup: …") changes nothing, so it's a "keep", never a move, and comes after the adds
       const top = fixes[0] ? { kind: "fix", text: fixes[0] } : moves[0] ? { kind: "move", text: moves[0] }
-        : bid0 ? { kind: "add", text: bidText(bid0) } : chase[0] ? { kind: "move", text: chase[0] }
-        : adds[0] ? { kind: "add", text: adds[0] } : offers[0] ? { kind: "trade", text: offerText(offers[0]) } : null;
+        : bid0 ? { kind: "add", text: bidText(bid0) } : adds[0] ? { kind: "add", text: adds[0] }
+        : chase[0] ? { kind: "keep", text: chase[0] } : offers[0] ? { kind: "trade", text: offerText(offers[0]) } : null;
       out.push({
         name, lg, a, g, c, state, score, top, fixes, moves, adds, offers, chase,
         sport: lg.sport, platform: lg.platform, week: lg.week, opponent: lg.opponent,
@@ -138,8 +141,9 @@
   };
 
   // One ranked list of everything to do, across leagues.
-  const RANK = { fix: 0, pick: 1, risk: 1, move: 2, add: 3, trade: 4 };
-  S.KINDS = { fix: "Fix", pick: "Picks", risk: "Risk", move: "Move", add: "Add", trade: "Trade" };
+  // "keep": a category chase line, informational, so no "Lineup moves" / "Move" / "Do now" count includes it
+  const RANK = { fix: 0, pick: 1, risk: 1, move: 2, add: 3, trade: 4, keep: 5 };
+  S.KINDS = { fix: "Fix", pick: "Picks", risk: "Risk", move: "Move", add: "Add", trade: "Trade", keep: "Keep" };
   S.feed = function (d = S.data) {
     const items = [];
     for (const L of S.leagues(d)) {
@@ -147,7 +151,7 @@
       L.fixes.forEach(t => push("fix", t));
       if (L.g && L.g.cut > 0.2) push("risk", `Cut risk ${pct(L.g.cut)}: rank ${L.g.rank} of ${L.g.n}`);
       L.moves.forEach(t => push("move", t));
-      L.chase.forEach(t => push("move", t));
+      L.chase.forEach(t => push("keep", t));
       actBids(L.g).slice(0, 5).forEach(b => push("add", bidText(b)));
       // War Room v2's calls cover the guillotine's adds (with its drops); the generic add ideas stay on the league page
       if (!L.g?.bid_source?.url) L.adds.slice(0, 2).forEach(t => push("add", t));
@@ -238,7 +242,8 @@
     const freed = g.freed?.players?.length ? `<div class="subhead">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div>${ulx(g.freed.players.map(bid), "", names)}` : "";
     return sec(`Survival · week ${g.week}`, `<ul class="tips"><li class="${g.cut > 0.2 ? "bad" : "ok"}"><b>Survive ${pct(g.survive)}</b> · rank ${g.rank} of ${g.n} (${g.proj.toFixed(1)} proj) · cut risk ${pct(g.cut)}</li>${risk.map(li).join("")}</ul>`)
       + sec(`Bids · waivers ${esc(g.waivers)} CT`, ulx(g.bids.length ? g.bids.map(bid) : [v2 ? "War Room v2 has no claims to make this week." : "No free agent adds a point to your lineup."], "", names) + freed
-        + `<p class="basis">${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
+        + `<p class="basis"><a href="${esc(S.GUIDE.guillotine)}" target="_blank" rel="noopener">Written guide: this week's full breakdown &rarr;</a> `
+        + `${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
         + `You have $${g.faab} FAAB${g.reserve != null ? `, keeping $${g.reserve} in reserve` : ""}. Most left: ${esc(g.rich.map(r => `${r.name} $${r.faab}`).join(", "))}. `
         + (v2 ? `Survival: ${g.sims} simulated weeks, best lineups. It only recommends.` : `War Room v2's bids aren't current, so these are the dashboard model's: ${g.sims} simulated weeks, best lineups; it only recommends.`) + `</p>`);
   }
@@ -322,7 +327,9 @@
     if (!w?.leagues?.length) return `<p class="note">The weekly plan posts Tuesdays at 7am CT.</p>`;
     const upd = w.start_sit_updated ? ` · start/sit and adds updated ${kick(w.start_sit_updated)}` : "";
     // adds follow the league page (Q-048); Tuesday's lines it no longer makes are noted under them
-    const was = l => l.plan_changed?.length ? `<div class="note">Tuesday's plan had: ${l.plan_changed.map(esc).join(" · ")}</div>` : "";
+    const when = S.dayKey(w.generated) === S.dayKey(new Date()) ? "This morning's plan"
+      : new Date(w.generated).toLocaleDateString("en-US", { weekday: "long", timeZone: TZ }) + "'s plan";
+    const was = l => l.plan_changed?.length ? `<div class="note">${esc(when)} (replaced by the lines above):</div>${ul(l.plan_changed)}` : "";
     return `<div class="meta">Week ${w.week} · generated ${esc(kick(w.generated))}${esc(upd)}</div><div class="wgrid">` +
       w.leagues.map(l => `<div class="wcard"><h3>${esc(l.name)}</h3><div class="subhead">Start / sit</div>${ulx(l.start_sit, "", expNames(l.name, d))}<div class="subhead">Top FA adds</div>${ulx(l.adds, "", expNames(l.name, d))}${was(l)}</div>`).join("") + "</div>";
   };
