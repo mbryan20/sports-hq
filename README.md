@@ -25,14 +25,21 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 | War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
-| Players (`/players/`, header link, ▦ menu, "Players" on each league page) | **football leagues**: every rostered player and the best 150 free agents, rest-of-season (Sleeper 4-week projections, per game) and this-week ranks by position, FantasyCalc value, next 4 weeks; filter available / mine / position / injury (`docs/data/players_nfl.json`, `shq/nfl_players.py`). **Basketball**: every NBA player in each basketball league: sort by value, this week, games, minutes or any category; filter available / mine, position, health, rising or falling minutes, games this week and next, and the categories he should help in (ranked by fit); tap a row for his full line. Phone: key columns plus a category heat strip. **⇄ Trade check**: tap + on players to give and get, and the tray gives a verdict (value per game above waiver level, fit to your weakest categories, and for 3-Ball an age curve; `shq/nba_trade.py`) | `docs/data/players.json` (cloud, every run) |
+| Players (`/players/`, header link, ▦ menu, "Players" on each league page) | **football leagues**: every rostered player and the best 150 free agents, rest-of-season (Sleeper 4-week projections, per game) and this-week ranks by position, **ESPN experts' consensus rank** this week and lately (green/red where they differ from ours by 10+ spots, 6+ at QB/TE), FantasyCalc value, next 4 weeks; filter available / mine / position / injury (`docs/data/players_nfl.json`, `shq/nfl_players.py`). **Basketball**: every NBA player in each basketball league: sort by value, this week, games, minutes or any category; filter available / mine, position, health, rising or falling minutes, games this week and next, and the categories he should help in (ranked by fit); tap a row for his full line. Phone: key columns plus a category heat strip. **⇄ Trade check**: tap + on players to give and get, and the tray gives a verdict (value per game above waiver level, fit to your weakest categories, and for 3-Ball an age curve; `shq/nba_trade.py`) | `docs/data/players.json` (cloud, every run) |
 | Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
 guillotine survival odds (`shq/guillotine.py`) with War Room v2's bid calls from `bids.json` (its own pricing only when that file is stale), fixes for starters who can't play, start/sit
 moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
-values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
+values; `shq/trades.py`), FAAB left. Football pages also tag every fix, lineup move, waiver add and guillotine bid with
+**ESPN's expert consensus rank** for each player it names ("ESPN experts: Jaylen Warren RB11 this week"; the same tags on
+Today and Weekly, and on each roster row), and list **Where we disagree with the experts**: our calls that go against
+their ranks by 10+ spots (6+ at QB/TE), both numbers shown (`shq/experts.py`, Q-052). Why ESPN's experts and not
+FantasyPros: FantasyPros' terms forbid republishing its rankings and its API needs a paid key for personal use; ESPN's
+analysts' weekly ranks come free from the same public API the 3-Ball leagues use. Start/sit still runs on Sleeper's
+projections: in weeks 1-9 a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5%
+for Sleeper alone (better in only 5 of 9 weeks); the nightly model health check keeps testing it. NBA category leagues also get a category table (my total, the opponent's,
 win/lose/close by the rest-of-week projection), which close categories to chase and with whom, and free agents
 strong in them (`shq/categories.py`), plus a **Trend radar** (`shq/radar.py`): free agents and bench players whose minutes, usage or starts just jumped (tied to the cited injury behind it and ranked by the categories I need), my players losing minutes, and who absorbs each injured starter's minutes, from ESPN game logs. Every NBA player also has a **category value** (`shq/nba_values.py`): value per game in that
 league's own categories, rank, and this week's value (games left), from this season's averages after 5 games and ESPN's
@@ -93,7 +100,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
   waiver run out, by position and season stage); our bids vs the waiver results (would they have won, what winners paid);
   the cut odds the dashboard and v2 showed before kickoff; the NBA radar backtest; Pool Picks' stored backtest and graded
-  cards. Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
+  cards; start/sit pair accuracy of Sleeper vs ESPN's experts vs a blend, and our own "Start X over Y" calls vs what happened (`shq/experts.py`). Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
   or weak when it doesn't beat the simple alternative. No push; the nightly improvement pass reads it.
 
 **Laptop (Claude scheduled tasks in the desktop app; they read sign-in sites in Michael's Chrome — see `ops/BROWSER.md`)**

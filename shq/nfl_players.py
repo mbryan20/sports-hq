@@ -8,6 +8,7 @@ rest-of-season and this-week ranks by position. Pure logic on what the run alrea
   IR minimum weeks count 0; shq/values.py, the same numbers the waiver adds and trade finder use). QB/RB/WR/TE only; kickers
   and defenses rank on this week.
 - Value: FantasyCalc's dynasty or redraft value for the league's settings.
+- Experts: ESPN's analysts' consensus position rank this week and lately (shq/experts.py), when they rank him.
 Written to docs/data/players_nfl.json (docs/players/ shows it next to the basketball leagues)."""
 from . import values
 
@@ -67,6 +68,10 @@ def build(league):
              "next": [x for _, x in p.get("wk") or []] if valued else [],
              "opp": "BYE" if p.get("bye") else p.get("opp"), "kick": p["kickoff"].isoformat() if p.get("kickoff") else None,
              "inj": p.get("status")}
+        x = p.get("exp")   # ESPN experts' consensus position rank (shq/experts.py)
+        if x:
+            r.update({"exp_wk": x.get("wk"), "exp_lately": x.get("lately"),
+                      **({"exp_range": [x["best"], x["worst"], x["n"]]} if x.get("n") else {})})
         (fas if own is None else rows).append(r)
     fas.sort(key=lambda r: -max(r["ros"] or 0, r["proj"]))
     rows += fas[:FA_KEEP]
@@ -82,7 +87,10 @@ def build(league):
                  "re-projected since a trade or new starting job uses his current weekly projection; IR players count 0 "
                  "for the 4-game IR minimum). Value: FantasyCalc "
                  + ("dynasty" if fc.get("dynasty") else "redraft") + " for your league's settings. Ranks are by position among "
-                 "every rostered player and the best free agents."
+                 "every rostered player and the best free agents. Experts: ESPN's fantasy analysts' consensus position rank "
+                 "this week (their PPR ranks averaged; QB/RB/WR/TE) and lately (median of their last 3 weekly ranks, weeks he "
+                 "was out or on a bye skipped); "
+                 "green/red = they rank him 10+ spots (QB/TE 6+) better/worse than our this-week rank."
                  + (" Other teams' rosters aren't readable here yet (Yahoo API pending), so ranks are among your roster and "
                     "the free agents only." if partial else ""),
     }

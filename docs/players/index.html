@@ -211,7 +211,11 @@ body.trading main { padding-bottom: 46vh; }
       + `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
   }
   // ---------- football: rest-of-season and this-week ranks by position (shq/nfl_players.py) ----------
-  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "fc", "name"];
+  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name"];
+  // ESPN experts' consensus rank (shq/experts.py): green/red when they rank him far better/worse than our week rank
+  const EXP_BIG = { QB: 6, TE: 6, RB: 10, WR: 10 };
+  const expCls = p => { if (!p.exp_wk || !p.proj_rk) return ""; const g = p.proj_rk - p.exp_wk, b = EXP_BIG[p.pos] || 10;
+    return g >= b ? "pos" : -g >= b ? "neg" : ""; };
   function renderNFL(L) {
     document.body.classList.remove("trading");
     document.documentElement.style.setProperty("--top", (document.querySelector(".topbar")?.offsetHeight || 52) + "px");
@@ -221,11 +225,11 @@ body.trading main { padding-bottom: 46vh; }
       (st.who === "all" || (st.who === "fa" ? !p.own : st.who === "mine" ? p.own === "me" : p.own && p.own !== "me")) &&
       (!pos || p.pos === pos) && (!st.health || (st.health === "ok" ? !p.inj : !!p.inj)) &&
       (!q || p.name.toLowerCase().includes(q) || (p.team || "").toLowerCase() === q));
-    const val = (p, k) => k === "name" ? p.name : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
+    const val = (p, k) => k === "name" ? p.name : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
     all.sort((a, b) => { const x = val(a, st.sort), y = val(b, st.sort);
       return typeof x === "string" ? st.dir * x.localeCompare(y) : st.dir * ((x ?? -1e9) - (y ?? -1e9)); });
     const shown = all.slice(0, st.limit), wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
-    const ncol = 6 + (wide ? 2 : 0);
+    const ncol = 7 + (wide ? 3 : 0);
     const opt = (v, t, cur) => `<option value="${v}"${String(cur) === String(v) ? " selected" : ""}>${t}</option>`;
     const n1 = x => x == null ? "–" : Number(x).toFixed(1);
     const rk = (p, k) => p[k + "_rk"] ? `${p.pos}${p[k + "_rk"]}` : "–";
@@ -236,16 +240,17 @@ body.trading main { padding-bottom: 46vh; }
       <select data-f="health" aria-label="Health">${opt("", "Any health", st.health)}${opt("ok", "No injury tag", st.health)}${opt("inj", "Injury tag", st.health)}</select></div>`;
     const head = `<tr>${th("ros", "Rk", "", "Rest-of-season rank at his position")}${th("name", "Player", "l")}
       ${th("ros", "ROS", "", "Rest of season: projected points per game (next 4 weeks, byes skipped)")}${th("proj", "Wk", "", "This week's projection")}
-      <th title="This week's rank at his position">Wk rk</th>${W(th("fc", "Value", "", "FantasyCalc value"))}${W(`<th class="l" title="Next 4 weeks' projections">Next 4</th>`)}</tr>`;
+      <th title="This week's rank at his position">Wk rk</th>${th("exp", "Experts", "", "ESPN experts' consensus rank at his position this week")}${W(`<th title="ESPN experts' median rank over their last 3 weekly ranks">Exp lately</th>`)}${W(th("fc", "Value", "", "FantasyCalc value"))}${W(`<th class="l" title="Next 4 weeks' projections">Next 4</th>`)}</tr>`;
     const body = shown.map(p => {
       const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}`;
       const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${rk(p, "ros")}</td>
         <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${/OUT|IR|D/.test(p.inj) ? "bad" : "q"}">${esc(p.inj)}</span>` : ""}</div><div class="sb">${sub}</div></td>
-        <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td>
+        <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
         ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td><td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
       const more = st.open[p.id] ? `<tr class="more"><td colspan="${ncol}"><b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${p.own === "me" ? "yours" : p.own ? esc(p.own) : "free agent"}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
         Rest of season ${n1(p.ros)} per game (${rk(p, "ros")}) · this week ${p.opp === "BYE" ? "bye" : `${n1(p.proj)} (${rk(p, "proj")})`}${p.opp && p.opp !== "BYE" ? `, ${esc(p.opp)} ${esc(S.kick(p.kick))}` : ""}<br>
-        Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td></tr>` : "";
+        Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}<br>
+        ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}</td></tr>` : "";
       return tr + more;
     }).join("");
     main.innerHTML = `<div class="tabs">${tabsHTML()}</div>${filters}

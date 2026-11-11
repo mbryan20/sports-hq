@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
+from . import advice, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -53,6 +53,14 @@ def league_view(league, now):
         tips = advice.build(league, now)
         if tips is not None and getattr(league, "guillotine", None):
             tips["guillotine"] = league.guillotine
+            if tips.get("experts"):   # tag the bid players too (shq/experts.py); never costs the tab its advice
+                try:
+                    g = league.guillotine or {}
+                    bids = list(g.get("bids") or []) + list((g.get("freed") or {}).get("players") or [])
+                    tips["experts"]["names"].update(
+                        experts.extra_names(league, [b.get("name") for b in bids] + [b.get("drop") for b in bids]))
+                except Exception:
+                    traceback.print_exc()
     except Exception:
         traceback.print_exc()
         tips = None

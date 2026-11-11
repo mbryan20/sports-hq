@@ -2,7 +2,7 @@
 import datetime as dt
 import re
 
-from . import espn, espn_fantasy as ef, sleeper, values
+from . import espn, espn_fantasy as ef, experts, sleeper, values
 from .common import iso, parse_iso
 from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
 from .status import OUTISH, confirm, worst
@@ -432,6 +432,7 @@ def view(league, advice=None):
         return {"slot": p["slot"], "name": p["name"], "team": p["team"], "pos": "/".join(p["positions"][:2]),
                 "opp": p["opp"], "kickoff": iso(p["kickoff"]), "started": p["started"], "proj": p["proj"],
                 "status": p["status"], "why": p["why"], "flags": flags, **({"cv": p["cv"]} if p.get("cv") else {}),
+                **({"exp": experts.label(p["exp"])} if p.get("exp") else {}),   # ESPN experts' rank (shq/experts.py)
                 "news": {**p["news"], "at": iso(p["news"]["at"])} if p.get("news") and p["status"] else None}
     return {
         "name": league.name, "platform": league.platform, "week": league.week,

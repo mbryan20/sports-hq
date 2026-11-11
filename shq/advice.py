@@ -4,13 +4,14 @@
     fixes    starters who can't play (bye/out/doubtful/empty) with the fix — same rules as the digest
     moves    healthy start/sit upgrades by projection
     adds     top free agents on rest-of-season value, who to drop, FAAB bid (shq/waivers.py)
+    experts  ESPN experts' consensus rank for each player the advice names, and where our calls disagree (shq/experts.py)
     trades   trade finder lines + up to 3 fair offers that help both lineups (shq/trades.py)
     assets   3-Ball dynasty picks and minor leaguers from the league sheet (shq/dynasty.py)
     radar    NBA: rising free agents and bench players, my shrinking roles, injured starters' minutes (shq/radar.py)
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
+from . import categories, digest, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -142,6 +143,26 @@ def football_players(league):
         league.players_block = None
 
 
+def expert_ranks(league):
+    """ESPN experts' consensus ranks on every football player ("exp"), before the Players page rows are built;
+    best-effort (shq/experts.py)."""
+    try:
+        if getattr(league, "ctx", None) is not None:
+            experts.annotate(league, experts.ranks_for(league.ctx))
+    except Exception:
+        traceback.print_exc()
+
+
+def expert_block(league, lines):
+    """The league page's "ESPN experts" block: ranks for each player the advice names, and where we disagree."""
+    try:
+        moves = [(s, b, g) for s, b, g in start_sit(league.starters, league.bench) if not _dead(s)][:3]
+        return experts.block(league, lines, moves)
+    except Exception:
+        traceback.print_exc()
+        return None
+
+
 def games_plan(league, cats):
     """NBA games grid and streamers (shq/nba_games.py); best-effort like the rest of the advice."""
     try:
@@ -174,9 +195,11 @@ def build(league, now):
         radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None))
         moves = [m["text"] for m in shown]
     else:
+        expert_ranks(league)
         football_players(league)
         moves = _moves(league, now)[:3]
         add_lines = adds(league)[:3]
+    exp = None if nba else expert_block(league, [i["text"] for i in items] + moves + add_lines)
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),
@@ -189,5 +212,6 @@ def build(league, now):
         "radar": league.radar,
         "games": games_plan(league, cats) if nba else None,
         "assets": dynasty.block(league.sport, now) if getattr(league, "assets", False) else None,
+        "experts": exp,
         "built": ct_label(now),
     }
