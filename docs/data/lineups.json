@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T00:07:00Z",
+ "updated": "2026-11-11T00:17:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -219,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "Domo Arigato": {
@@ -647,7 +647,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "Guillotine": {
@@ -888,7 +888,7 @@
     "matchup": "Projected 6 of 9 this week, +20.9 pts vs the lowest other team, 10% chance of being cut",
     "danger": false,
     "fixes": [
-     "Dallas Goedert (TE) on BYE \u2192 no bench fit: add Pat Freiermuth (PIT, 9.2 proj), drop Khalil Shakir (8.3 proj), and start him [ESPN, Nov 8 6:28p: Goedert caught five of six targets for 50 yards in Sunday's 19-11 loss to the Giants.]"
+     "Dallas Goedert (TE) on BYE \u2192 no bench fit: add Harold Fannin Jr. (CLE, 9.2 proj), drop Khalil Shakir (8.3 proj), and start him [ESPN, Nov 8 6:28p: Goedert caught five of six targets for 50 yards in Sunday's 19-11 loss to the Giants.]"
     ],
     "moves": [
      "Start Tony Pollard (11.2) over Breece Hall (8.1) at FLEX, +3.1"
@@ -931,7 +931,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 6:07p",
+    "built": "Tue 6:17p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -952,21 +952,6 @@
      },
      "model": {
       "bids": [
-       {
-        "name": "Pat Freiermuth",
-        "sid": "7600",
-        "pos": "TE",
-        "team": "PIT",
-        "proj": 9.2,
-        "gain": 9.2,
-        "cut_with": 0.064,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
-       },
        {
         "name": "Harold Fannin Jr.",
         "sid": "12506",
@@ -989,6 +974,21 @@
           "bid": 2
          }
         ]
+       },
+       {
+        "name": "Pat Freiermuth",
+        "sid": "7600",
+        "pos": "TE",
+        "team": "PIT",
+        "proj": 9.2,
+        "gain": 9.2,
+        "cut_with": 0.064,
+        "freed_from": null,
+        "price": 0,
+        "max": 0,
+        "call": "add free",
+        "free": true,
+        "rivals": []
        },
        {
         "name": "T.J. Hockenson",
@@ -1949,14 +1949,14 @@
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
      "proj": 9.3,
-     "status": "Q",
-     "why": "ESPN: OUT, but ESPN says Questionable: unconfirmed",
+     "status": "OUT",
+     "why": "ESPN: OUT",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "news": {
-      "note": "Burks (foot) was deemed a non-participant on the Commanders' practice report Monday, John Keim of ESPN.com reports.",
-      "at": "2026-11-10T00:22:56Z",
+      "note": "Burks (foot) was a limited participant in Tuesday's practice.",
+      "at": "2026-11-10T23:58:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -2044,7 +2044,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "Stempak": {
@@ -2336,8 +2336,8 @@
       "Q"
      ],
      "news": {
-      "note": "Okonkwo was deemed a limited participant on Washington's estimated practice report Monday due to a hip injury, John Keim of ESPN.com reports.",
-      "at": "2026-11-10T00:36:00Z",
+      "note": "Okonkwo (hip) was a full participant in Tuesday's practice.",
+      "at": "2026-11-10T23:56:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4360635/chig-okonkwo"
      }
     }
@@ -2422,7 +2422,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "Bro-vid19": {
@@ -2749,7 +2749,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "3-Ball BB": {
@@ -3240,6 +3240,7 @@
        "id": "4397002",
        "name": "Ayo Dosunmu",
        "fade": false,
+       "fade_why": null,
        "verdict": "worth a start on his next game day (no game today)"
       },
       {
@@ -3256,6 +3257,7 @@
        "id": "4709138",
        "name": "Brandin Podziemski",
        "fade": true,
+       "fade_why": "no teammate's injury behind it",
        "verdict": "worth a start on his next game day (no game today)"
       },
       {
@@ -3272,6 +3274,7 @@
        "id": "4871145",
        "name": "Josh Giddey",
        "fade": true,
+       "fade_why": "no teammate's injury behind it",
        "verdict": "worth a start on his next game day (no game today)"
       },
       {
@@ -3291,7 +3294,8 @@
        "push": true,
        "id": "4702656",
        "name": "Alijah Martin",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Jamison Battle (SF, TOR), free agent, 0% owned: minutes 16 \u2192 23 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
@@ -3310,7 +3314,8 @@
        "push": false,
        "id": "4431893",
        "name": "Jamison Battle",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Aaron Nesmith (SF, IND), free agent, 4% owned, -0.2 pts in 3 days: minutes 17 \u2192 30 in his last 3 games (Nov 4\u2013Nov 9) vs 8 before, played 6 of them, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week.",
@@ -3329,7 +3334,8 @@
        "push": true,
        "id": "4396909",
        "name": "Aaron Nesmith",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Josh Okogie (SF, UTAH), free agent, 0% owned: minutes 14 \u2192 22 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 6 of them, usage 8% \u2192 13%, since Jaren Jackson Jr. went out [ESPN Oct 27: Out, Jackson has been diagnosed with a torn MCL in his right knee and will be sidelined for\u2026]. Fits FT% (close). 4 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
@@ -3348,7 +3354,8 @@
        "push": true,
        "id": "4065663",
        "name": "Josh Okogie",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       }
      ],
      "shrinking": [
@@ -3587,7 +3594,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   },
   "Ball is Life": {
@@ -4016,10 +4023,11 @@
        "id": "4278355",
        "name": "Obi Toppin",
        "fade": false,
+       "fade_why": null,
        "verdict": "worth a start on his next game day (no game today)"
       },
       {
-       "text": "Draymond Green (PF, GS), on your bench, worth a start on his next game day (no game today): minutes 20 \u2192 27 in his last 3 games (Nov 5\u2013Nov 9) vs 8 before, played 6 of them; no teammate's injury behind it, so this may fade. Fits BLK (close). 2 games left this week, 4 next week (back-to-back Wed\u2013Thu).",
+       "text": "Draymond Green (PF, GS), on your bench: rise may fade (no teammate's injury behind it); Waiver adds swaps him for Robert Williams III (+7.5 this week): minutes 20 \u2192 27 in his last 3 games (Nov 5\u2013Nov 9) vs 8 before, played 6 of them; no teammate's injury behind it, so this may fade. Fits BLK (close). 2 games left this week, 4 next week (back-to-back Wed\u2013Thu).",
        "short": "Draymond Green (GS, your bench): minutes 20 \u2192 27; fits BLK; may fade (ESPN game logs through Nov 9)",
        "links": [
         [
@@ -4032,7 +4040,8 @@
        "id": "6589",
        "name": "Draymond Green",
        "fade": true,
-       "verdict": "worth a start on his next game day (no game today)"
+       "fade_why": "no teammate's injury behind it",
+       "verdict": "rise may fade (no teammate's injury behind it); Waiver adds swaps him for Robert Williams III (+7.5 this week)"
       },
       {
        "text": "Bennett Stirtz (PG, OKC), free agent, 2% owned, +1.7 pts in 3 days: minutes 15 \u2192 25 in his last 3 games (Nov 4\u2013Nov 7) vs 7 before, usage 13% \u2192 16%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (losing), FT% (losing). 4 games left this week, 3 next week (back-to-back Tue\u2013Wed).",
@@ -4051,7 +4060,8 @@
        "push": true,
        "id": "5241364",
        "name": "Bennett Stirtz",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Kevin Huerter (SG, DET), free agent, 3% owned, +1.8 pts in 3 days: minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
@@ -4070,7 +4080,8 @@
        "push": true,
        "id": "4066372",
        "name": "Kevin Huerter",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Jamison Battle (SF, TOR), free agent, 0% owned: minutes 16 \u2192 23 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
@@ -4089,7 +4100,8 @@
        "push": false,
        "id": "4431893",
        "name": "Jamison Battle",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       },
       {
        "text": "Jay Huff (C, IND), free agent, 1% owned, -0.3 pts in 3 days: minutes 14 \u2192 21 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 6 of them, usage 13% \u2192 20%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (close). 3 games left this week, 3 next week.",
@@ -4108,7 +4120,8 @@
        "push": true,
        "id": "4065731",
        "name": "Jay Huff",
-       "fade": false
+       "fade": false,
+       "fade_why": null
       }
      ],
      "shrinking": [],
@@ -4313,7 +4326,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Tue 6:07p"
+    "built": "Tue 6:17p"
    }
   }
  }
