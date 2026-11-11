@@ -9,7 +9,9 @@
   const FILES = ["lineups", "weekly", "status", "digest", "pick_lines"];
   const BAD = { OUT: "bad", IR: "bad", PUP: "bad", SUSP: "bad", NA: "bad", INACTIVE: "bad", EMPTY: "bad", "NO TEAM": "bad", D: "d", Q: "q", BYE: "bye", "NO GAME": "off" };
 
-  const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO };
+  const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO,
+    // written guides kept outside the site, linked wherever their subject shows (Michael, Nov 10: one tap, no asking)
+    GUIDE: { guillotine: "https://docs.google.com/document/d/1Pa67152FLY8IQ70neRnnHZ4lFFT6XqWZwvWk1iF-tT8/edit" } };
   const openTab = window.open.bind(window);   // kept before any layout script can shadow the global open()
 
   // ---------- helpers ----------
@@ -219,7 +221,8 @@
     const freed = g.freed?.players?.length ? `<div class="subhead">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div>${ul(g.freed.players.map(bid))}` : "";
     return sec(`Survival · week ${g.week}`, `<ul class="tips"><li class="${g.cut > 0.2 ? "bad" : "ok"}"><b>Survive ${pct(g.survive)}</b> · rank ${g.rank} of ${g.n} (${g.proj.toFixed(1)} proj) · cut risk ${pct(g.cut)}</li>${risk.map(li).join("")}</ul>`)
       + sec(`Bids · waivers ${esc(g.waivers)} CT`, ul(g.bids.length ? g.bids.map(bid) : [v2 ? "War Room v2 has no claims to make this week." : "No free agent adds a point to your lineup."]) + freed
-        + `<p class="basis">${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
+        + `<p class="basis"><a href="${esc(S.GUIDE.guillotine)}" target="_blank" rel="noopener">Written guide: this week's full breakdown &rarr;</a> `
+        + `${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
         + `You have $${g.faab} FAAB${g.reserve != null ? `, keeping $${g.reserve} in reserve` : ""}. Most left: ${esc(g.rich.map(r => `${r.name} $${r.faab}`).join(", "))}. `
         + (v2 ? `Survival: ${g.sims} simulated weeks, best lineups. It only recommends.` : `War Room v2's bids aren't current, so these are the dashboard model's: ${g.sims} simulated weeks, best lineups; it only recommends.`) + `</p>`);
   }
