@@ -9,7 +9,7 @@ import traceback
 from . import radar, waivers
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
-from .status import OUTISH
+from .status import OUTISH, espn_word
 from .swap import eligible, fa_over_bench, playable, q_tag, slot_fa, strength, strength_text
 
 DEAD = OUTISH | {"D"}
@@ -120,6 +120,13 @@ def _room(league, fa, used, spots):
 def league_items(league, now):
     nba = getattr(league, "sport", "nfl") == "nba"
     items, used, spots = [], set(), [getattr(league, "open_spots", 0) or 0]
+    for p in getattr(league, "ir_blocked", []):
+        # first and urgent in every league: it blocks every add and drop, including the fixes below (Stempak and
+        # Ball is Life, Nov 10); in football he may also be a missed starter
+        items.append({"league": league.name, "urgent": True,
+                      "text": f"Move {p['name']} out of IR: ESPN lists him {_ir_label(p, nba)}, "
+                              f"so ESPN blocks adds and drops until he's on your bench; do this before any add or drop"
+                              + cite(p)})
     for s in league.starters:
         if s["started"]:
             continue
@@ -139,7 +146,7 @@ def league_items(league, now):
                           "text": f"{s['name']} ({s['slot']}): {s['why']}. Check before benching" + cite(s)})
         elif s["status"] == "Q" and _today(s["kickoff"], now):
             items.append({"league": league.name, "urgent": False,
-                          "text": f"{s['name']} ({s['slot']}) is Questionable, plays {ct_label(s['kickoff'])}" + cite(s)})
+                          "text": f"{s['name']} ({s['slot']}) is {_q_label(s, nba)}, plays {ct_label(s['kickoff'])}" + cite(s)})
     if nba:
         playing = sum(1 for s in league.starters if playable(s, now))
         if playing:
@@ -150,11 +157,6 @@ def league_items(league, now):
         if today:
             items.append({"league": league.name, "urgent": False,
                           "text": f"{len(today)} starters play today, first locks {ct_label(today[0])}"})
-    for p in getattr(league, "ir_blocked", []):
-        # blocks every add and drop; in football he may also be a missed starter
-        items.append({"league": league.name, "urgent": not nba,
-                      "text": f"Move {p['name']} out of IR: ESPN lists him {_ir_label(p, nba)}, "
-                              f"so ESPN blocks adds and drops until he's on your bench" + cite(p)})
     standing = standing_item(league)
     if standing:
         items.append(standing)
@@ -166,7 +168,16 @@ def league_items(league, now):
 
 
 def _ir_label(p, nba):
-    return {None: "as active", "Q": "day-to-day" if nba else "Questionable", "D": "Doubtful"}.get(p["status"], p["status"])
+    return {None: "as active", "Q": _q_label(p, nba), "D": "Doubtful"}.get(p["status"], p["status"])
+
+
+def _q_label(p, nba):
+    """NBA's Q is ESPN's day-to-day, which runs from probable to doubtful: say which when ESPN's note does (Giannis,
+    Nov 10: "Questionable" while the note said probable)."""
+    if not nba:
+        return "Questionable"
+    word = espn_word((p.get("news") or {}).get("note"))
+    return "day-to-day" + (f" (ESPN: {word})" if word else "")
 
 
 def standing_item(league):

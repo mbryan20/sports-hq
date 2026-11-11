@@ -104,9 +104,10 @@
         : fixes.length || a.danger || (g && g.cut > 0.2) ? "bad"
         : moves.length || losing || chase.length ? "warn" : "ok";
       const bid0 = actBids(g)[0];
+      // a chase line ("Keep in the lineup: …") changes nothing, so it's a "keep", never a move, and comes after the adds
       const top = fixes[0] ? { kind: "fix", text: fixes[0] } : moves[0] ? { kind: "move", text: moves[0] }
-        : bid0 ? { kind: "add", text: bidText(bid0) } : chase[0] ? { kind: "move", text: chase[0] }
-        : adds[0] ? { kind: "add", text: adds[0] } : offers[0] ? { kind: "trade", text: offerText(offers[0]) } : null;
+        : bid0 ? { kind: "add", text: bidText(bid0) } : adds[0] ? { kind: "add", text: adds[0] }
+        : chase[0] ? { kind: "keep", text: chase[0] } : offers[0] ? { kind: "trade", text: offerText(offers[0]) } : null;
       out.push({
         name, lg, a, g, c, state, score, top, fixes, moves, adds, offers, chase,
         sport: lg.sport, platform: lg.platform, week: lg.week, opponent: lg.opponent,
@@ -138,8 +139,9 @@
   };
 
   // One ranked list of everything to do, across leagues.
-  const RANK = { fix: 0, pick: 1, risk: 1, move: 2, add: 3, trade: 4 };
-  S.KINDS = { fix: "Fix", pick: "Picks", risk: "Risk", move: "Move", add: "Add", trade: "Trade" };
+  // "keep": a category chase line, informational, so no "Lineup moves" / "Move" / "Do now" count includes it
+  const RANK = { fix: 0, pick: 1, risk: 1, move: 2, add: 3, trade: 4, keep: 5 };
+  S.KINDS = { fix: "Fix", pick: "Picks", risk: "Risk", move: "Move", add: "Add", trade: "Trade", keep: "Keep" };
   S.feed = function (d = S.data) {
     const items = [];
     for (const L of S.leagues(d)) {
@@ -147,7 +149,7 @@
       L.fixes.forEach(t => push("fix", t));
       if (L.g && L.g.cut > 0.2) push("risk", `Cut risk ${pct(L.g.cut)}: rank ${L.g.rank} of ${L.g.n}`);
       L.moves.forEach(t => push("move", t));
-      L.chase.forEach(t => push("move", t));
+      L.chase.forEach(t => push("keep", t));
       actBids(L.g).slice(0, 5).forEach(b => push("add", bidText(b)));
       // War Room v2's calls cover the guillotine's adds (with its drops); the generic add ideas stay on the league page
       if (!L.g?.bid_source?.url) L.adds.slice(0, 2).forEach(t => push("add", t));

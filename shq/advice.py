@@ -151,6 +151,26 @@ def games_plan(league, cats):
         return None
 
 
+def ir_room(items, swaps):
+    """The IR fix names the drop that makes room for him when the roster is full (the same one Waiver adds names)."""
+    room = (swaps or {}).get("room") or []
+    if not room:
+        return items
+    names = " and ".join(f"{p['name']} (value {p['v']:+.1f}/g)" for p in room)
+    return [{**i, "text": i["text"] + f". Your roster is full, so moving him takes a drop: {names}, the weakest bench player Waiver adds doesn't already drop"}
+            if i["urgent"] and " out of IR: " in i["text"] else i for i in items]
+
+
+def dedupe_cat_adds(cats, swaps):
+    """Category adds for a need a Waiver adds swap already helps are dropped: two different names for the same need
+    read as two answers (Ball is Life, Nov 10: Jerami Grant for BLK there, Mo Bamba in Waiver adds)."""
+    covered = {c for x in (swaps or {}).get("swaps") or [] for c in x["helps"]}
+    if not cats or not covered or not cats.get("adds"):
+        return cats
+    cats["adds"] = [a for a in cats["adds"] if a.split(":")[0].removeprefix("For ") not in covered]
+    return cats
+
+
 def build(league, now):
     standing = digest.standing_item(league)
     if getattr(league, "sport", "nfl") != "nba":
@@ -171,8 +191,10 @@ def build(league, now):
         add_lines = adds(league, [m["start_key"] for m in shown])[:3]   # sets league.swaps; never drops a move's start
         # the radar's verdict follows Lineup moves and Waiver adds: "start him" only when a move backs it, and a riser
         # the swaps drop gets no start verdict at all (Q-047)
-        radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None))
+        radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None), league.starters)
         moves = [m["text"] for m in shown]
+        items = ir_room(items, getattr(league, "swaps", None))
+        cats = dedupe_cat_adds(cats, getattr(league, "swaps", None))
     else:
         football_players(league)
         moves = _moves(league, now)[:3]

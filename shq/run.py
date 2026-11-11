@@ -194,7 +194,8 @@ def _advice(view):
     return view.get("advice") or None
 
 
-ADD_RE = re.compile(r"^(?:Drop (?P<drop1>.+?) \(.*?\), add |Add )?(?P<add>.+?) \(")
+# an NBA swap after an IR fix reads "First move X out of IR (...); then drop A (...), add B (..." (shq/nba_swaps.py)
+ADD_RE = re.compile(r"^(?:First move .+?; then )?(?:[Dd]rop (?P<drop1>.+?) \(.*?\), add |Add )?(?P<add>.+?) \(")
 DROP_RE = re.compile(r"\) (?:for|over) (?P<drop>.+?) \(|, drop (?P<drop2>.+?) \(")
 
 
