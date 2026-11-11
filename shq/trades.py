@@ -160,7 +160,10 @@ def finder(slots, mine, teams):
     for p in depth:
         wanted = sum(lineup(slots, t["players"] + [p])[0] > lineup(slots, t["players"])[0] for t in teams)
         if wanted >= len(teams) / 2:
-            lines.append(f"Surplus: {_tag(p)}, {p['ppg']}/gm on your bench, would start for {wanted} of {len(teams)} teams")
+            # "depth" is past my best lineup on per-game value, not this week's bench: he may start this week
+            # (Nov 10: "Ollie Gordon II, 12.3/gm on your bench" while he started in week 10)
+            lines.append(f"Surplus: {_tag(p)}, {p['ppg']}/gm beyond your rest-of-season starters, "
+                         f"would start for {wanted} of {len(teams)} teams")
         if sum(l.startswith("Surplus") for l in lines) == 2:
             break
     return lines

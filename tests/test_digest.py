@@ -107,9 +107,9 @@ class FreeAgentFix(unittest.TestCase):
         dead = [p("Caleb Williams", "QB", ["QB"], bye=True, proj=0)]
         bench = [p("Carson Wentz", "BN", ["QB"], proj=0)]
         lock, mccord = p("Drew Lock", "FA", ["QB"], status="Q", proj=18.7), p("Kyle McCord", "FA", ["QB"], proj=12.4)
-        self.assertIn("add Drew Lock (Q) (X, 18.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+        self.assertIn("add Drew Lock (X, Q, 18.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
         lock["proj"] = 15.7                                            # live Nov 10 evening: 3.3 more, still Lock
-        self.assertIn("add Drew Lock (Q) (X, 15.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+        self.assertIn("add Drew Lock (X, Q, 15.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
         lock["proj"] = 14.0                                            # under Q_EDGE more: the healthy one
         self.assertIn("add Kyle McCord (X, 12.4 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
         lock["proj"], lock["conflict"] = 18.7, True                    # Sleeper Out, unconfirmed: never named
@@ -159,6 +159,110 @@ class FreeAgentFix(unittest.TestCase):
         notify.sent.clear()
         self.assertEqual(run.injury_watch(lg, NOW), ["suggested Hurt QB -> Backup QB"])
         self.assertNotIn("Better", notify.sent[-1]["message"])
+
+
+class PassThreeFixes(unittest.TestCase):
+    """Nov 10 pass-3 review: the Q mark sits inside the team bracket; a weak bench fill-in gives way to a free agent
+    projecting double; a guillotine fix follows War Room v2 (free adds only, v2's drop, never a claim's drop)."""
+    SLOTS = ["QB", "RB", "WR", "TE", "SUPER_FLEX"]
+    league = FreeAgentFix.league
+    fix = FreeAgentFix.fix
+
+    def test_q_mark_inside_the_brackets(self):
+        lock = {**p("Drew Lock", "FA", ["QB"], status="Q", proj=15.7), "team": "SEA"}
+        lg = self.league([p("Caleb Williams", "QB", ["QB"], bye=True, proj=0)], [p("Carson Wentz", "BN", ["QB"], proj=0)],
+                         [lock], 1)
+        self.assertEqual(self.fix(lg), ["Caleb Williams (QB) on BYE → add Drew Lock (SEA, Q, 15.7 proj) into your open "
+                                        "roster spot and start him (Carson Wentz projects 0)"])
+        from shq import notify, run                                   # the injury-watch push says it the same way
+        notify.sent.clear()
+        run.push_once = lambda key, title, msg, **kw: notify.push(title, msg)
+        soon = NOW + dt.timedelta(hours=1)
+        lg = self.league([p("Hurt QB", "QB", ["QB"], status="OUT", kickoff=soon)],
+                         [p("Backup QB", "BN", ["QB"], proj=4.0, kickoff=soon)],
+                         [{**lock, "kickoff": soon}])
+        lg.key, lg.week, lg.can_write = "t", 10, False
+        run.injury_watch(lg, NOW)
+        self.assertIn("Better: add Drew Lock (SEA, Q, 15.7 proj) and start him", notify.sent[-1]["message"])
+
+    def test_weak_bench_fill_in_gives_way_to_a_free_agent_projecting_double(self):
+        # 3-Ball FB, Nov 10: "start Kenyon Sadiq (4.0 proj)" for Goedert's bye; Pat Freiermuth (8.2) was a free agent
+        goedert = p("Dallas Goedert", "TE", ["TE"], bye=True, proj=0)
+        sadiq, pat = p("Kenyon Sadiq", "BN", ["TE"], proj=4.0), p("Pat Freiermuth", "FA", ["TE"], proj=8.2)
+        self.assertEqual(self.fix(self.league([goedert], [sadiq], [pat])),
+                         ["Dallas Goedert (TE) on BYE → add Pat Freiermuth (X, 8.2 proj) and start him "
+                          "(or start Kenyon Sadiq, 4.0 proj); needs a roster spot"])
+        sadiq["proj"] = 4.5                                            # 8.2 is under double: keep the bench option
+        self.assertEqual(self.fix(self.league([goedert], [sadiq], [pat])),
+                         ["Dallas Goedert (TE) on BYE → start Kenyon Sadiq (4.5 proj)"])
+        sadiq["proj"], pat["proj"] = 6.0, 10.5                         # not weak, gap under FA_EDGE: bench
+        self.assertEqual(self.fix(self.league([goedert], [sadiq], [pat])),
+                         ["Dallas Goedert (TE) on BYE → start Kenyon Sadiq (6.0 proj)"])
+
+    def guillotine(self, source="War Room v2"):
+        """Nov 10 Guillotine: Goedert (TE) on bye, no TE on the bench. War Room v2: Harold Fannin a $1 claim (drop Woody
+        Marks), Saquon Barkley a $1 claim (drop Khalil Shakir), Pat Freiermuth a free add (drop Woody Marks)."""
+        row = lambda sid, name, call, free, drop, **k: {"sid": sid, "name": name, "pos": k.get("pos", "TE"),
+                                                        "team": k.get("team", "PIT"), "proj": k.get("proj", 9.0),
+                                                        "gain": 3.0, "call": call, "bid": k.get("bid", 0), "free": free,
+                                                        "drop": drop, "v2": source == "War Room v2"}
+        lg = self.league([p("Dallas Goedert", "TE", ["TE"], bye=True, proj=0)],
+                         [p("Khalil Shakir", "BN", ["WR"], proj=8.3, pid="s1"),
+                          p("Woody Marks", "BN", ["RB"], proj=7.5, pid="s2"),
+                          p("Braelon Allen", "BN", ["RB"], proj=6.0, pid="s3")],
+                         [p("Harold Fannin Jr.", "FA", ["TE"], proj=9.2, pid="12506"),
+                          p("Pat Freiermuth", "FA", ["TE"], proj=8.0, pid="7600"),
+                          p("Brenton Strange", "FA", ["TE"], proj=7.0, pid="9480"),
+                          p("Jaylen Warren", "FA", ["RB"], proj=13.5, pid="8228")])
+        lg.guillotine = {"bid_source": {"name": source}, "waivers": "Wed 2:15a", "waiting": ["8228"], "bids": [
+            row("8228", "Jaylen Warren", "coin flip", False, "Braelon Allen", pos="RB", bid=2, proj=15.3),
+            row("6804", "Jordan Love", "add free", True, "Woody Marks", pos="QB", team="GB", proj=20.2),
+            row("12506", "Harold Fannin", "bid", False, "Woody Marks", team="CLE", bid=1),
+            row("4866", "Saquon Barkley", "bid", False, "Khalil Shakir", pos="RB", team="PHI", bid=1, proj=0),
+            row("5844", "T.J. Hockenson", "priced out", False, "Tre Tucker", team="MIN", proj=8.3),
+            row("7600", "Pat Freiermuth", "add free", True, "Woody Marks", proj=9.1)]}
+        return lg
+
+    def test_guillotine_fix_names_a_free_add_with_war_room_v2s_drop(self):
+        lg = self.guillotine()
+        expect = ["Dallas Goedert (TE) on BYE → no bench fit: add Pat Freiermuth (X, 8.0 proj), drop Woody Marks "
+                  "(7.5 proj) as War Room v2 says, and start him"]
+        self.assertEqual(self.fix(lg), expect)                         # never Fannin: a claim until Wednesday's run
+        self.assertEqual(advice.build(lg, NOW)["fixes"], expect)       # league page and Weekly say the same
+        # a dashboard-model fallback (v2 stale) keeps the old rule: best free agent, claims included
+        self.assertIn("add Harold Fannin Jr.", self.fix(self.guillotine(source="dashboard model"))[0])
+
+    def test_guillotine_fix_never_drops_a_players_v2_drops_for_a_claim(self):
+        from unittest import mock
+        lg = self.guillotine()
+        lg.guillotine["bids"] = [b for b in lg.guillotine["bids"] if b["name"] != "Pat Freiermuth"]   # no v2 row: _room
+        lg._valued = True
+        for fa in lg.free_agents:
+            fa["ppg"] = fa["proj"]
+        seen = []
+        def adds(starters, bench, fas, slots, **kw):
+            seen.append([b["name"] for b in bench])
+            return [{"drop": bench[0]}] if bench else []
+        with mock.patch.object(digest.waivers, "adds", adds):
+            text = self.fix(lg)[0]
+        self.assertEqual(seen, [[]])          # Shakir (Barkley claim's drop), Marks and Allen (claims' drops) kept
+        self.assertIn("add Pat Freiermuth (X, 8.0 proj) and start him; needs a roster spot", text)
+
+    def test_guillotine_adds_are_war_room_v2s_calls_and_drops(self):
+        from shq import run
+        lg = self.guillotine()
+        lines = advice.adds(lg)
+        self.assertEqual(lines, [
+            "Add Jaylen Warren (RB, PIT, 15.3 proj) on waivers, drop Braelon Allen (War Room v2: coin flip, bid $2, "
+            "+3.0 pts this week; claims run Wed 2:15a CT)",
+            "Add Jordan Love (QB, GB, 20.2 proj) now, no claim needed, drop Woody Marks (War Room v2: add free, "
+            "+3.0 pts this week)",
+            "Add Harold Fannin (TE, CLE, 9.0 proj) on waivers, drop Woody Marks (War Room v2: bid, bid $1, "
+            "+3.0 pts this week; claims run Wed 2:15a CT)"])
+        self.assertEqual([run.add_key(x) for x in lines],      # the Weekly plan compares adds by (add, drop)
+                         [("Jaylen Warren", "Braelon Allen"), ("Jordan Love", "Woody Marks"), ("Harold Fannin", "Woody Marks")])
+        lg.guillotine["bid_source"] = {"name": "dashboard model"}
+        self.assertNotIn("War Room v2", " ".join(advice.adds(lg)))
 
 
 class LaptopKick(unittest.TestCase):

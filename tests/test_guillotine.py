@@ -207,6 +207,17 @@ class WarRoomV2(unittest.TestCase):
         self.assertTrue(all(b["v2"] and b["drop"] == "cw" for b in out["bids"]))
         self.assertFalse(any(b["call"] == "priced out" and b["name"] == "Freiermuth" for b in out["bids"]))
 
+    def test_live_team_wins_over_a_stale_bids_json_team(self):
+        # Nov 10: bids.json (built 21:26Z) still said "Kirk Cousins, LV" after his trade to MIN that day
+        v2 = v2_fixture()
+        v2["bids"][2].update(sleeper_id="fa", team="KC")                # SHQ's live data has "fa" on LV
+        out = g.analyze(self.lg, self.ctx, NOW, sims=500, past=[], v2=v2)
+        by = {b["name"]: b for b in out["bids"]}
+        self.assertEqual(by["Freiermuth"]["team"], "LV")
+        self.assertEqual(by["Warren"]["team"], "PIT")                    # unknown to SHQ: v2's team stays
+        self.assertEqual(g.v2_rows(v2)[2]["team"], "KC")
+        self.assertEqual(out["waiting"], [])
+
     def test_stale_bids_json_falls_back_with_its_reserve(self):
         for v2 in (v2_fixture(week=7), v2_fixture(run="2026-10-28T08:15:00Z")):   # last week's / waivers already ran
             out = g.analyze(self.lg, self.ctx, NOW, sims=500, past=[], v2=v2)

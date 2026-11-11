@@ -347,6 +347,41 @@ Measure (the health.json check that should move), Design, Decision.
   Undo: `git revert` the commit (the new state keys are harmless; the `.gitattributes` lines go with the revert).
 - **Decision:** requested by Michael via Claude Ops, Nov 10
 
+### Q-050 · Pass-3 review: Guillotine fix and adds contradicted War Room v2; wrong news; weak bench fill-in; small text fixes
+- **Status:** shipped (Tue Nov 10 evening; commit titled "Q-050")
+- **Area:** `shq/digest.py` (`v2_calls`, `fix_pool`, `_v2_room`, `_room(keep=)`), `shq/advice.py` (`v2_adds`),
+  `shq/guillotine.py` (`v2_rows(teams=)`, `live_teams`, `waiting` in the analysis), `shq/run.py` (injury watch uses
+  `fix_pool`; ESPN news by name), `shq/swap.py` (`WEAK_FILL`, `fa_over_bench`, `q_tag`), `shq/espn.py` (`pick_news`,
+  feed read 5 deep), `shq/trades.py` (Surplus text), `shq/wrapup_render.py` (Next week "As of"), `picks/pp/cards.py`
+  (old-card banner), `docs/index.html`, `docs/lib/core.js` (Weekly), tests in `tests/test_digest.py`
+  (`PassThreeFixes`), `tests/test_guillotine.py`, `tests/test_espn_news_cache.py` (`OwnNews`)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (pass-3 review, Tue Nov 10 ~6:20pm CT)
+- **Evidence:** lineups.json / digest.json Tue Nov 10 6:27pm CT. (1) Guillotine fix "add Harold Fannin Jr. ... drop
+  Khalil Shakir ... and start him" for Goedert's bye, while `docs/war-room-v2/bids.json` had Fannin as a $1 waiver claim
+  (drop Woody Marks; Shakir is v2's drop for the Barkley claim) and Pat Freiermuth as a free add; the adds said "Jaylen
+  Warren for Woody Marks" and "Jordan Love for Braelon Allen" while v2 said Warren for Braelon Allen, Love for Woody
+  Marks. (2) bids.json listed "Kirk Cousins, LV" after his trade to MIN. (3) 3-Ball FB "start Kenyon Sadiq (4.0 proj)"
+  while Freiermuth (8.2) was a free agent (gap 4.2, under FA_EDGE 5). (4) "Fantasy buzz: Malik Willis placed on IR ..."
+  cited for Rhamondre Stevenson and Garrett Wilson (`player_news` took the feed's first item, a roundup). (5) "add Drew
+  Lock (Q) (SEA, 15.7 proj)". (6) Stempak "Surplus: Ollie Gordon II, 12.3/gm on your bench" while he starts. (7) Today
+  tile showed the 8:02a build time after later refreshes; Weekly "Tuesday's plan had:" inline; wrap-up Next week had no
+  as-of; the old picks card kept its "next lock" lines and a 2.85:1 grey chip in dark mode.
+- **Expected impact:** (1) With v2 current, a guillotine fix names only a player you can add now (no pending claim),
+  with v2's drop when v2 lists him, and never drops a player v2 uses as a recommended claim's drop; the league page's
+  (and Weekly's) adds are v2's own calls and drops, in v2's order, Priced out skipped. Dashboard-model fallback unchanged.
+  (2) v2 rows take SHQ's live team by Sleeper id. (3) A bench fill-in under 5 gives way to a free agent projecting at
+  least double. (4) A citation is the player's own note (Rotowire first, else a headline/short story naming him), else
+  none. (5) "add Drew Lock (SEA, Q, 15.7 proj)". (6) "beyond your rest-of-season starters". (7) Today tile shows the
+  last refresh; Weekly "This morning's plan (replaced by the lines above):" as a list; wrap-up "As of <build>. League
+  pages have current advice." (week 9 HTML re-rendered from its saved JSON; PDF fixed forward); the old card hides its
+  lock lines and the chip is #666 under white (5.7:1).
+- **Effort:** S
+- **Risk:** Low (advice text only; nothing is ever added, dropped or bid)
+- **Measure:** — (one-off: no guillotine fix names a player on v2's list as a claim; no roundup headline as a citation)
+- **Design:** as above. War Room v2 itself (`warroom/`, bids.json) untouched.
+- **Decision:** bug fixes requested by Michael via Claude Ops (pass-3 review), Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
