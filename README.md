@@ -26,6 +26,7 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 | War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
 | Players (`/players/`, header link, ▦ menu, "Players" on each league page) | **football leagues**: every rostered player and the best 150 free agents, rest-of-season (Sleeper 4-week projections, per game) and this-week ranks by position, **ESPN experts' consensus rank** this week and lately (green/red where they differ from ours by 10+ spots, 6+ at QB/TE), FantasyCalc value, next 4 weeks; filter available / mine / position / injury (`docs/data/players_nfl.json`, `shq/nfl_players.py`). **Basketball**: every NBA player in each basketball league: sort by value, this week, games, minutes or any category; filter available / mine, position, health, rising or falling minutes, games this week and next, and the categories he should help in (ranked by fit); tap a row for his full line. Phone: key columns plus a category heat strip. **⇄ Trade check**: tap + on players to give and get, and the tray gives a verdict (value per game above waiver level, fit to your weakest categories, and for 3-Ball an age curve; `shq/nba_trade.py`) | `docs/data/players.json` (cloud, every run) |
+| Try a move · Ask Claude (`/move/`, a box on every league page and in War Room v2, the bar under the home page's totals, ▦ menu) | **Try a move** (no AI, instant): search any player to add and pick one of yours to drop (or let it pick the cheapest drop); two moves at once work. Verdict "Worth it / Not worth it / Coin flip" with reasons. Guillotine: War Room v2's own model (`warroom/model.js` `tryMove`: win odds, expected weeks alive, this week's cut risk, lineup points each week, byes, and the claim price and win chance when he's on waivers; "Better drop" when another drop does clearly better). Other football: best-lineup points this week and the next 4 weeks in the league's own slots (K/DEF this week only), rest-of-season per game, ESPN experts, bye, injury, FantasyCalc value (dynasty: a big value loss turns "worth it" into a coin flip). Basketball: the Players page's trade check (value above waiver level, fit to weak categories, dynasty value, this week). **Ask Claude**: a question box per league; opens a pre-filled GitHub issue (label `ask`, works where claude.ai is blocked); `ask.yml` has Claude answer it from Sports HQ's data, the War Room model (`node warroom/trymove.js`) and news under 48h (`ops/tasks/ask-claude.md`), and the answer shows under that league's box (`docs/data/asks.json`, `shq/asks.py`). Questions and answers are public on GitHub, like Feedback | `docs/lib/move.js` (Q-054) |
 | Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
@@ -101,6 +102,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
   with no IR news in the last 7 days has served it), and never while Sleeper projects him to play this week.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
+  `ask.yml` (Q-054) answers a league page's "Ask Claude" question (an issue from the owner, label `ask` / title "Ask:") with
+  `anthropics/claude-code-action` (Opus; needs the `CLAUDE_CODE_OAUTH_TOKEN` secret from `claude setup-token`; without it the
+  box says "not set up yet"), writes `docs/data/asks.json`, comments the answer and closes the issue. No schedule.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what
   happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
@@ -153,7 +157,7 @@ Add an entry to `LEAGUES` in `shq/config.py` (platform sleeper / espn). ESPN pri
 - Yahoo Fantasy API: applied 2026-10-24, pending. When approved, Kosmonauts switches to the API on its own and
   pushes "Yahoo access is live". Yahoo grants read-only access, so Kosmonauts swaps stay "make this swap" pushes.
 - Secrets: `YAHOO_CLIENT_ID`, `YAHOO_CLIENT_SECRET`, `YAHOO_REFRESH_TOKEN`, `TOKEN_KEY`, `NTFY_TOPIC`, and
-  `CFBD_API_KEY` (still to add, for the picks backup).
+  `CFBD_API_KEY` (still to add, for the picks backup), `CLAUDE_CODE_OAUTH_TOKEN` (still to add, for Ask Claude).
 
 ## Local
 ```

@@ -51,18 +51,34 @@ def ladder(cases, estimates):
     return {"lo": sorted(lo), "hi": sorted(hi)}
 
 
+def page_files(blob):
+    """The page (data inlined) plus what the league pages' Try-a-move box loads (docs/lib/move.js, Q-054): the same
+    data and model as separate files, so the Guillotine page runs the War Room's own numbers."""
+    page = ((HERE / "app_template.html").read_text(encoding="utf-8")
+            .replace("__DATA__", blob.replace("</", r"<\/"))
+            .replace("__MODEL__", (HERE / "model.js").read_text(encoding="utf-8"))
+            .replace("__JS__", (HERE / "app.js").read_text(encoding="utf-8")))
+    return (("index.html", page), ("data.json", blob), ("model.js", (HERE / "model.js").read_text(encoding="utf-8")),
+            ("compare.js", (HERE / "compare.js").read_text(encoding="utf-8")),
+            ("compare.html", (HERE / "compare.html").read_text(encoding="utf-8")))
+
+
+def repage():
+    """Rebuild the page files from the data already inlined in docs/war-room-v2/index.html (no Sleeper, no Node):
+    for a change to app.js, model.js or the template between scheduled builds.  py -m warroom.build --repage"""
+    import re
+    m = re.search(r'<script type="application/json" id="data">(.*?)</script>', (OUT / "index.html").read_text(encoding="utf-8"), re.S)
+    blob = m.group(1).replace(r"<\/", "</")
+    return [name for name, text in page_files(blob) if write_if_changed(OUT / name, text)]
+
+
 def main():
     data = build(now_utc())
     cases = data.pop("calib")
     data["ladder"] = ladder(cases, json.loads(node("--calibrate", data=json.dumps(cases)))) if cases else None
     blob = json.dumps(data, separators=(",", ":"), sort_keys=True)
     bids = node(data=blob)
-    page = ((HERE / "app_template.html").read_text(encoding="utf-8")
-            .replace("__DATA__", blob.replace("</", r"<\/"))
-            .replace("__MODEL__", (HERE / "model.js").read_text(encoding="utf-8"))
-            .replace("__JS__", (HERE / "app.js").read_text(encoding="utf-8")))
-    files = (("index.html", page), ("bids.json", bids), ("compare.js", (HERE / "compare.js").read_text(encoding="utf-8")),
-             ("compare.html", (HERE / "compare.html").read_text(encoding="utf-8")))
+    files = (("bids.json", bids),) + page_files(blob)
     changed = [name for name, text in files if write_if_changed(OUT / name, text)]
     summary = json.loads(bids)
     print(f"{data['asof']} | week {data['week']} | swing {data['sd']} | ladder {len((data['ladder'] or {}).get('lo', []))}+"
@@ -72,4 +88,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    print(repage()) if "--repage" in sys.argv else main()

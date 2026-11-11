@@ -81,7 +81,7 @@ def build(league):
     fc = getattr(league, "fc_settings", None) or {}
     partial = not getattr(league, "others", None)
     return {
-        "kind": "nfl", "week": getattr(league, "week", None), "partial": partial, "players": sorted(rows, key=lambda r: -(r["ros"] or r["proj"])),
+        "kind": "nfl", "week": getattr(league, "week", None), "partial": partial, "dynasty": bool(fc.get("dynasty")), "players": sorted(rows, key=lambda r: -(r["ros"] or r["proj"])),
         "basis": f"This week: {src} projections in your league's scoring. Rest of season: Sleeper's projections for the next "
                  f"{values.ROS_WEEKS} weeks in your scoring, per game played (byes skipped; QB/RB/WR/TE; a week Sleeper hasn't "
                  "re-projected since a trade or new starting job uses his current weekly projection; IR players count 0 "

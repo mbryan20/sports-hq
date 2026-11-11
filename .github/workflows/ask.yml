@@ -1,0 +1,89 @@
+name: Ask Claude
+
+# A league page's "Ask Claude" box (docs/lib/move.js, Q-054) opens a pre-filled GitHub issue: label "ask",
+# title "Ask: <league>: <question>". Claude answers it from Sports HQ's data, the War Room model and news under 48h
+# (ops/tasks/ask-claude.md); the answer goes into docs/data/asks.json (shown under that league's box, a few minutes
+# later) and on the issue, which is then closed. Runs only when Michael asks: no schedule.
+# Only the repo owner's issues count (the repo is public). Claude only writes .ask/answer.md; this workflow commits.
+# Needs the CLAUDE_CODE_OAUTH_TOKEN secret (`claude setup-token`); without it the box answers "not set up yet".
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: ask
+  cancel-in-progress: false
+
+jobs:
+  answer:
+    if: github.event.issue.user.login == github.repository_owner && (contains(github.event.issue.labels.*.name, 'ask') || startsWith(github.event.issue.title, 'Ask:'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      HAS_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Read the question
+        # issue text only ever reaches the script through env vars, never the shell
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_CREATED: ${{ github.event.issue.created_at }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: mkdir -p .ask && python -m shq.asks parse > .ask/question.json && cat .ask/question.json
+      - name: Claude answers
+        if: env.HAS_TOKEN == 'true'
+        continue-on-error: true
+        timeout-minutes: 15
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: |
+            Follow ops/tasks/ask-claude.md exactly. The question is in .ask/question.json. Write the answer to .ask/answer.md.
+          claude_args: >-
+            --model claude-opus-5-5 --max-turns 40
+            --allowedTools "Read,Write,Glob,Grep,WebSearch,WebFetch,Bash(node warroom/trymove.js:*)"
+      - name: Not set up yet
+        if: env.HAS_TOKEN != 'true'
+        run: |
+          printf '%s\n' "Claude can't answer here yet: Sports HQ's Ask box needs its one-time sign-in (the CLAUDE_CODE_OAUTH_TOKEN secret on GitHub). Try a move above works without it." > .ask/answer.md
+      - name: Record the answer
+        run: python -m shq.asks record .ask/question.json .ask/answer.md
+      - name: Commit (merge, never rebase)
+        env:
+          N: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/asks.json
+          git commit -q -m "Ask #$N answered"
+          for i in 1 2 3 4 5; do git pull -q --no-rebase --no-edit && git push -q && exit 0; sleep 5; done
+          exit 1
+      - name: Answer on the issue and close it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          N: ${{ github.event.issue.number }}
+        run: |
+          { cat .ask/answer.md 2>/dev/null; printf '\n\n---\nAlso on the league page (Try a move · Ask Claude) in a minute or two.\n'; } > .ask/comment.md
+          gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body-file .ask/comment.md
+          gh issue close "$N" -R "$GITHUB_REPOSITORY"
+      - name: Push alert on failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          curl -s -H "Title: Ask Claude failed" -H "Priority: 3" -H "Tags: x" \
+            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -d "Your Sports HQ question didn't get an answer. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"

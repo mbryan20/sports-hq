@@ -142,6 +142,11 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
       </nav>
 
       <section class="view" id="v-bids">
+        <div class="panel" id="trypanel">
+          <h2>Try a move</h2>
+          <p class="sub" style="margin:0 0 8px">Pick any player to add and one of yours to drop (or let the model pick): the change in your win odds, cut risk and each week's lineup, and the claim price when he's on waivers. Two moves at once work too. Ask Claude underneath for news and gut calls.</p>
+          <div id="trymove"></div>
+        </div>
         <div class="panel">
           <h2>Who to bid on this week</h2>
           <p class="sub" style="margin:0 0 6px"><a href="compare.html">See your Sleeper claims next to these numbers &rarr;</a></p>
@@ -205,6 +210,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
   </div>
 </div>
 
+<script src="../lib/move.js"></script>
 <script type="application/json" id="data">__DATA__</script>
 <script>
 const D = JSON.parse(document.getElementById('data').textContent);

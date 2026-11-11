@@ -304,6 +304,7 @@
     expOn = a.experts?.names || null;   // tags every list below; cleared once the page is built
     const fixes = L.fixes.length ? ul(L.fixes, "fix") : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
+      + sec("Try a move · Ask Claude", `<div class="mv-host" data-mv="${esc(name)}"></div>`, { cls: "trymove" })
       + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
       + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" }) + expertsHTML(a.experts) + tradesHTML(a.trades)
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
@@ -388,6 +389,24 @@
     return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>`;
   };
 
+  // ---------- Try a move + Ask Claude (lib/move.js, Q-054): loaded the first time a league page shows its box ----------
+  let moveJs = null;
+  S.loadMove = () => moveJs || (moveJs = new Promise((ok, no) => {
+    if (window.SHQ.move?.mount) return ok();
+    const s = document.createElement("script");
+    s.src = S.url("lib/move.js"); s.onload = () => ok(); s.onerror = () => { moveJs = null; no(new Error("lib/move.js")); };
+    document.head.appendChild(s);
+  }));
+  S.mountMoves = function (root = document) {
+    const hosts = [...root.querySelectorAll(".mv-host:not([data-on])")];
+    if (!hosts.length) return;
+    hosts.forEach(h => h.dataset.on = "1");
+    S.loadMove().then(() => hosts.forEach(h => S.move.mount(h, h.dataset.mv, { lg: S.data.lineups?.leagues?.[h.dataset.mv] })))
+      .catch(() => hosts.forEach(h => { h.innerHTML = `<p class="note">Try a move didn't load. Pull down to refresh.</p>`; }));
+  };
+  if (typeof MutationObserver !== "undefined" && document.documentElement?.nodeType)
+    new MutationObserver(() => S.mountMoves()).observe(document.documentElement, { childList: true, subtree: true });
+
   // ---------- drawer (detail over the layout) ----------
   S.drawer = {
     open(html, key) {
@@ -451,7 +470,7 @@
       m.innerHTML = `<div class="lm-h">Layout</div>` + LAYOUTS.map(l => `<a role="menuitemradio" aria-checked="${l.id === view()}" href="${esc(S.url(l.path))}">
           <span class="lm-letter">${l.id.toUpperCase()}</span><span class="lm-tx"><b>${esc(l.name)}</b>${l.id === "a" ? `<span class="lm-def">main page</span>` : ""}<span class="lm-d">${esc(l.desc)}</span></span>
           <span class="lm-tick" aria-hidden="true">${l.id === view() ? "✓" : ""}</span></a>`).join("")
-        + `<div class="lm-f"><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room-v2/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
+        + `<div class="lm-f"><a href="${esc(S.url("move/"))}">Try a move</a><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room-v2/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
       document.body.appendChild(m);
     }
     const r = btn.getBoundingClientRect(), w = Math.min(360, innerWidth - 24);

@@ -246,3 +246,6 @@ function route() {
 }
 addEventListener('hashchange', route);
 route(); rerender();
+// Try a move (Q-054): the shared box (docs/lib/move.js) on this page's own model; it keeps working without it
+if (window.SHQ && SHQ.move) SHQ.move.mount($('trymove'), 'Guillotine', { engine: SHQ.move.wrEngine({ playerList, tryMove }) });
+else $('trypanel').hidden = true;

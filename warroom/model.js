@@ -172,7 +172,7 @@ function bidOptions(r, value, spend) {
 
 let BASE = null;
 function computeBase() {
-  PJ = {};
+  PJ = {}; RATE = null;
   const projs = {}; for (const t of ALIVE) projs[t] = teamProj(t);
   BASE = { projs, sim: simulate(projs, S.sims) };
 }
@@ -337,6 +337,101 @@ function exportBids() {
         .concat(roster(ME).filter(s => D.P[s] && !on.has(s)).map(s => ({ slot: 'BN', ...player(s), proj_next_week: r1(proj(s, W0)) }))); })(),
     bids, names: D.names || {},
   };
+}
+
+// ---------- try a move (Q-054): any adds and drops, judged by the same simulation as the bids ----------
+// Michael, Nov 11: "should I put in a claim for KC Concepcion and drop Tre Tucker?" The Try-a-move box on the War Room
+// and on the Guillotine league page (docs/lib/move.js) calls tryMove() with the players he picks.
+function ownerOf(s) { for (const t of Object.keys(D.teams)) if (t !== CUT && D.teams[t].roster.includes(s)) return t; return null; }
+// every player the model knows, for the search box: who has him now
+function playerList() {
+  const freed = new Set(freedPlayers()), mine = new Set(roster(ME));
+  return Object.keys(D.P).map(s => {
+    const p = D.P[s], o = mine.has(s) ? ME : ownerOf(s);
+    return { id: s, name: p.n, pos: p.p, team: p.t, own: o === ME ? 'me' : o ? tname(o) : null, freed: freed.has(s), inj: p.inj || (p.st === 'RES' ? 'IR' : '') };
+  });
+}
+let RATE = null;   // $ per point of win odds from this week's candidates; only needed to price a claim, so worked out once on demand
+// Each add needs a drop (rosters are full): drops[i] goes with adds[i]; a missing one is the model's own pick (bestDrop).
+// Returns the change in win odds, expected weeks alive, this week's cut risk and each week's lineup points, the claim
+// price and win chance for a player on waivers, a verdict ('worth' / 'not' / 'coin' / 'unavailable') and its reasons.
+function tryMove(adds, drops) {
+  adds = (adds || []).filter(s => D.P[s]); drops = (drops || []).slice(0, adds.length);
+  if (!adds.length) return null;
+  if (!BASE) computeBase();
+  const n = Math.max(500, Math.round(S.sims / 2));
+  const base = BASE.quick || (BASE.quick = simulate(BASE.projs, n)[ME]);
+  const mine = new Set(roster(ME)), used = new Set(drops.filter(Boolean)), picked = [];
+  adds.forEach((s, i) => {
+    let d = drops[i] && mine.has(drops[i]) ? drops[i] : null, auto = false;
+    if (!d) { d = bestDrop(ME, s, new Set([...used, ...adds])); auto = true; if (d) used.add(d); }
+    picked.push({ s, drop: d, auto });
+  });
+  const A = picked.map(x => x.s), Dr = picked.map(x => x.drop).filter(Boolean);
+  const now = BASE.projs[ME], after = teamProj(ME, A, Dr);
+  const weeks = WEEKS.map(w => ({ w, d: Math.round((after[w] - now[w]) * 10) / 10 }));
+  const sm = simulate(Object.assign({}, BASE.projs, { [ME]: after }), n)[ME];
+  const out = { week: W0, last: LAST, adds: [], drops: [], weeks, g1: weeks[0] ? weeks[0].d : 0, gR: weeks.reduce((a, x) => a + x.d, 0),
+    dWin: sm.pWin - base.pWin, dW: sm.expWeeks - base.expWeeks, winNow: base.pWin, winWith: sm.pWin,
+    cutNow: base.pCut[W0], cutWith: sm.pCut[W0], waivers: D.waivers, open: !!D.cut && D.cut.freed_status === 'on waivers' };
+  const info = s => { const p = D.P[s]; return { id: s, name: p.n, pos: p.p, team: p.t, inj: p.inj || '', ir: p.st === 'RES',
+    bye: (p.bye || []).filter(w => w >= W0 && w <= LAST), out: outNow(s), proj: Math.round(proj(s, W0) * 10) / 10, avg: p.a }; };
+  for (const x of picked) {
+    const a = info(x.s), o = mine.has(x.s) ? ME : ownerOf(x.s);
+    a.drop = x.drop; a.autoDrop = x.auto;
+    a.status = o === ME ? 'yours' : o ? 'owned' : out.open && freedPlayers().includes(x.s) ? 'waivers' : 'free';
+    if (o && o !== ME) a.owner = tname(o);
+    if (a.status === 'waivers') {
+      // his claim alone (with his own drop), priced exactly like the bids table
+      if (RATE === null) RATE = S.dpp > 0 ? S.dpp : (dollarsPerPoint(candidates()) || 0);
+      const solo = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, [x.s], x.drop) }), n)[ME];
+      const th = threats(x.s), row = { s: x.s, freed: true, drop: x.drop, th, est: rawEstimate(th), dW: solo.expWeeks - base.expWeeks,
+        dWin: solo.pWin - base.pWin, gR: 0 };
+      const keep = S.dpp; S.dpp = RATE || keep; decideAll([row]); S.dpp = keep;
+      Object.assign(a, { call: row.call, bid: row.bid, chance: row.chance, price: row.price, price80: row.price80, value: row.value });
+    }
+    out.adds.push(a);
+  }
+  out.drops = picked.filter(x => x.drop).map(x => info(x.drop));
+  // verdict: win odds first; inside the simulation's noise, the next two weeks' lineup points decide (a bye next week costs a
+  // week you have to survive), else it's a coin flip
+  const near = weeks.slice(0, 2).reduce((a, x) => a + x.d, 0);
+  const bad = out.adds.filter(a => a.status === 'owned' || a.status === 'yours');
+  // (a move that gains nothing measurable and loses lineup points over the season isn't worth making)
+  out.verdict = bad.length ? 'unavailable' : out.dWin >= MIN_WIN ? 'worth' : out.dWin <= -MIN_WIN ? 'not'
+    : near <= -1 ? 'not' : near >= 1 && out.dWin > 0 ? 'worth' : out.gR <= -1 ? 'not' : 'coin';
+  // one add with the drop he chose: would another drop do clearly better?
+  if (picked.length === 1 && !picked[0].auto) {
+    const alt = bestDrop(ME, picked[0].s);
+    if (alt && alt !== picked[0].drop) {
+      const sa = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, A, [alt]) }), n)[ME];
+      if (sa.pWin - sm.pWin >= MIN_WIN) out.better = { drop: alt, name: pname(alt), dWin: sa.pWin - base.pWin };
+    }
+  }
+  const R = [], sg = (x, d = 1) => (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(d), pc = x => (x > 0 && x < 0.005 ? '<1' : Math.round(x * 100)) + '%';
+  R.push(`Win the league: ${pc(out.winNow)} → ${pc(out.winWith)} (${sg(out.dWin * 100)} points of win odds); expected weeks alive ${sg(out.dW, 2)}.`);
+  if (Math.abs(out.dWin) < MIN_WIN) R.push(`A change under ${MIN_WIN * 100} points is inside the simulation's noise, so the lineup points below decide.`);
+  R.push(`Week ${W0} lineup ${sg(out.g1)} pts; your week ${W0} cut risk ${pc(out.cutNow)} → ${pc(out.cutWith)}.`);
+  const big = weeks.slice(1).filter(x => Math.abs(x.d) >= 3).slice(0, 3);
+  R.push(`Weeks ${W0}–${LAST} lineup ${sg(out.gR, 0)} pts in total` + (big.length ? ` (${big.map(x => `week ${x.w} ${sg(x.d)}`).join(', ')})` : '') + '.');
+  for (const p of out.adds.concat(out.drops)) {
+    const bits = [];
+    if (p.bye.length) bits.push(`bye week ${p.bye[0]}`);
+    if (p.ir) bits.push('on IR'); else if (p.inj) bits.push(p.inj);
+    if (p.out) bits.push(`out for week ${W0}`);
+    if (bits.length) R.push(`${p.name}: ${bits.join(', ')}.`);
+  }
+  for (const a of out.adds) {
+    if (a.status === 'owned') R.push(`${a.name} is on ${a.owner}'s roster: not available to add.`);
+    else if (a.status === 'yours') R.push(`${a.name} is already on your roster.`);
+    else if (a.status === 'waivers') R.push(`${a.name} is on waivers until ${D.waivers}: likely price $${a.price} (wins about half of similar claims) to $${a.price80} (about 80%). `
+      + `He's worth $${a.value} to you; ` + (a.call === 'Bid' || a.call === 'Coin flip' ? `bid $${a.bid} (${pc(a.chance)} to win).` : `the bids table says ${a.call.toLowerCase()}.`));
+    else R.push(`${a.name} is a free agent: add him now for $0` + (out.open ? '' : ' (nothing is on waivers until the next cut)') + '.');
+    if (a.autoDrop && a.drop) R.push(`No drop picked for ${a.name}: the model drops ${pname(a.drop)} (costs you the fewest points).`);
+  }
+  if (out.better) R.push(`Better drop: ${out.better.name} instead (${sg(out.better.dWin * 100)} points of win odds in total).`);
+  out.reasons = R;
+  return out;
 }
 
 // Calibration helper for build.py: the raw estimate for each past claim, rebuilt as of that waiver run.

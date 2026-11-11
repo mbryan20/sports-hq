@@ -55,5 +55,15 @@ class PicksStale(unittest.TestCase):
         self.assertTrue(self.stale("2026-10-31T10:30:00+00:00", ms(2026, 10, 31, 17)))
 
 
+class TryMoveBox(PicksStale):
+    """Every league page carries the Try a move / Ask Claude box (Q-054); lib/move.js mounts it when it shows."""
+
+    def test_box_on_the_league_page(self):
+        d = {"lineups": {"leagues": {"Stempak": {"sport": "nfl", "starters": [], "bench": [], "advice": {}}}}}
+        html = self.js(f"SHQ.detail('Stempak', {json.dumps(d)})")
+        self.assertIn('class="mv-host" data-mv="Stempak"', html)
+        self.assertIn("Try a move · Ask Claude", html)
+
+
 if __name__ == "__main__":
     unittest.main()
