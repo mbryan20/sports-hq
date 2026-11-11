@@ -40,7 +40,7 @@ projection before; it shows on each roster row and is written to `docs/data/play
 swaps** (`shq/nba_swaps.py`): "Drop X, add Y: +N this week (helps AST, 3PM)", up to 3, need-weighted by this week's
 categories, dead roster spots (no NBA team) first; dynasty never drops anyone 40%+ rostered or under 24 (ages from ESPN's
 team rosters, `shq/nba_ages.py`). **Games & streamers** (`shq/nba_games.py`): games per NBA team for the rest of this week
-and next week with back-to-backs, my games left vs my opponent's and next week's, and the top 3 streamers. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
+and next week with back-to-backs, my games left vs my opponent's and next week's, and the top 3 streamers. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push (one a day for both basketball leagues together). Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.
@@ -75,8 +75,17 @@ The footer shows the last cloud run and when each laptop job last delivered.
   another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. A kick that
   fails (token expired, gh broken, GitHub down) pushes once per outage, "Sports HQ: laptop can't start GitHub jobs" (Q-037).
   Tasks and how to remove them: `ops/designs/Q-014.md` "As built" and "The laptop is the clock".
-- Alerts if a laptop job's data goes stale (>30h) and on any failed run, and once a day if the laptop's 2:55am kick
-  didn't happen by 4am CT ("Laptop didn't start today's Sports HQ jobs", Q-037; the footer's "Laptop kick" row).
+- Alerts on any failed run, and once per laptop outage ("Laptop/roster sync down", Q-049): a laptop job's data stale
+  (>30h: private ESPN snapshots, the Kosmonauts roster) and the laptop's 2:55am kick missing by 4am CT (Q-037; the
+  footer's "Laptop kick" row) are listed in that one push. No second push until the laptop kicks again and every symptom
+  has cleared.
+- **One push per piece of news** (`shq/pushes.py`, Q-049): Tuesday's plan (7am), 8am digest and wrap-up final go out as
+  ONE push from the first run at or after 8am CT (tap opens the wrap-up PDF); the NBA radar sends one push a day for both
+  basketball leagues; the digest leaves out a starter the injury watch already pushed about; stale pool lines push at
+  most once a day and never 10pm-6am CT (held lines stay flagged on the Picks page and ride the next push). Dedupe keys
+  live in `state/alerts.json` / `state/pick_lines_sent.json`; before a real push the run also reads `origin/main`'s copy,
+  and `commit_data.sh` merges those files key by key (`shq/statemerge.py`), so a laptop kick and a cron loop never
+  push the same alert twice. Anything not pushed is still on the site.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what

@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, digest, espn, guillotine, nba_lineup, nba_values, notify, radar, wrapup
+from . import advice, digest, espn, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -77,12 +77,12 @@ def better_news(league):
             p["news"] = {**n, **fresh}
 
 
-def radar_push(league, view_json, notes):
-    """NBA trend radar: a push for a rising free agent in a category I need (shq/radar.py). Never fails the run."""
-    if getattr(league, "sport", "nfl") != "nba":
-        return
+def radar_push(queue, notes):
+    """NBA trend radar: one push a day for every NBA league together, for rising free agents in a category I need
+    (shq/radar.py, Q-049). `queue` is [(league, league view)]. Never fails the run."""
     try:
-        sent = radar.send_alerts(league, view_json.get("advice"))
+        sent = radar.send_all([(lg, (v or {}).get("advice")) for lg, v in queue
+                               if getattr(lg, "sport", "nfl") == "nba"])
         if sent:
             notes.append(f"radar push: {sent}")
     except Exception:
@@ -331,30 +331,37 @@ def gh_dispatches(workflow="model-health.yml"):
         return None
 
 
+KICK_SILENT = ("No laptop kick since 2:55am today: laptop off, Windows task broken, or token expired. GitHub's own "
+               "schedule (hours late) is all that's running.")
+
+
 def laptop_kicks(now, runs=gh_dispatches):
     """Q-037: the laptop starts the time-critical GitHub jobs, so GitHub checks the laptop. Its 2:55am model-health kick is
     never skipped, so it is the daily heartbeat: from 4am CT, if no model-health dispatch was created since 2:50am today,
-    push once that day. A late start (laptop asleep at 2:55, the task ran on waking) counts as alive. Returns the footer's
-    "Laptop kick" row, or None when the run list can't be read (then no push either)."""
+    the row says "silent" and job_health hands that to the one laptop-outage push (shq/pushes.py, Q-049). A late start
+    (laptop asleep at 2:55, the task ran on waking) counts as alive. Returns the footer's "Laptop kick" row, or None when
+    the run list can't be read (then no alert either)."""
     times = runs()
     if times is None:
         return None
     local = now.astimezone(TZ)
+    row = {"job": "Laptop kick (laptop, daily 2:55am)", "last": iso(max(times, default=None))}
     if local.time() >= LAPTOP_CHECK_AFTER:
         since = dt.datetime.combine(local.date(), LAPTOP_KICK_FROM, TZ)
         if not any(t >= since for t in times):
-            push_once(f"laptop-kick-silent:{local.date().isoformat()}", "Laptop didn't start today's Sports HQ jobs",
-                      "Laptop off, Windows task broken, or token expired. GitHub's own schedule (hours late) is all "
-                      "that's running.", priority=3, tags=["warning"])
-    return {"job": "Laptop kick (laptop, daily 2:55am)", "last": iso(max(times, default=None))}
+            row["silent"] = True
+    return row
 
 
-def job_health(now, kicks=laptop_kicks):
-    """When each laptop job last delivered, from what it committed. The cloud alerts on staleness."""
+def job_health(now, kicks=laptop_kicks, outage=None):
+    """When each laptop job last delivered, from what it committed. The cloud alerts on staleness: a silent kick goes
+    on `outage` (this pass's laptop symptoms) for the one outage push."""
     jobs = []
     try:
         row = kicks(now)
         if row:
+            if row.pop("silent", False) and outage is not None:
+                outage.append(KICK_SILENT)
             jobs.append(row)
     except Exception:
         traceback.print_exc()
@@ -379,7 +386,7 @@ def main():
     status["week"] = ctx.week
 
     prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
-    league_views = {}
+    league_views, radar_queue, outage = {}, [], []
     for cfg in LEAGUES:
         name = cfg["name"]
         try:
@@ -389,10 +396,8 @@ def main():
                 lg = SleeperLeague(ctx, name, cfg.get("league_id"), cfg.get("format"))
             else:
                 lg = EspnLeague(ctx, cfg)
-                if lg.captured and now - lg.captured > ROSTER_STALE:
-                    push_once(f"espn-stale:{name}:{iso(lg.captured)}", f"{name}: ESPN sync is stale",
-                              f"Last read from ESPN {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open?",
-                              tags=["warning"])
+                if lg.captured and now - lg.captured > ROSTER_STALE:   # one laptop-outage push (shq/pushes.py)
+                    outage.append(pushes.stale_cause(name, lg.captured, "ESPN"))
                     notes.append(f"{name}: ESPN snapshot is stale")
             lg.dynasty = bool(cfg.get("dynasty"))
             lg.assets = bool(cfg.get("assets"))  # 3-Ball: picks and minors from the league sheet
@@ -401,7 +406,7 @@ def main():
             better_news(lg)
             leagues.append(lg)
             league_views[name] = league_view(lg, now)
-            radar_push(lg, league_views[name], notes)
+            radar_queue.append((lg, league_views[name]))
             prev = prev_views.get(name) or {}
             if cfg["platform"] == "yahoo" and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
@@ -419,10 +424,8 @@ def main():
                 better_news(lg)
                 leagues.append(lg)
                 league_views[name] = league_view(lg, now)
-                if now - lg.captured > ROSTER_STALE:
-                    push_once(f"roster-stale:{saved['captured']}", f"{name}: roster sync is stale",
-                              f"Last read from Yahoo {ct_label(lg.captured)} CT. Is the laptop on with the Claude app open? "
-                              "Alerts are using that roster.", tags=["warning"])
+                if now - lg.captured > ROSTER_STALE:   # one laptop-outage push (shq/pushes.py)
+                    outage.append(pushes.stale_cause(name, lg.captured, "Yahoo (laptop roster sync)"))
                     notes.append(f"{name}: saved roster is stale")
             else:
                 league_views[name] = {"name": name, "platform": "yahoo", "pending": True,
@@ -441,7 +444,14 @@ def main():
     status["upcoming_kickoffs"] = [iso(k) for k in upcoming]
     lead = dt.timedelta(hours=WATCH_LEAD_HOURS)
     status["watch_active"] = any(k - lead <= now < k for k in kicks)
-    status["jobs"] = job_health(now)
+    radar_push(radar_queue, notes)
+    status["jobs"] = job_health(now, outage=outage)
+    try:   # laptop or Chrome down: one push per outage, every symptom in it (Q-049)
+        sent = pushes.outage_push(now, outage, status["jobs"])
+        if sent:
+            notes.append(f"outage push: {sent}")
+    except Exception:
+        traceback.print_exc()
     try:   # NBA: one lineup push a day before the first tip, only when a move is needed (shq/nba_lineup.py)
         sent = nba_lineup.send([lg for lg in leagues if getattr(lg, "sport", "nfl") == "nba"], now)
         if sent:
@@ -477,11 +487,8 @@ def main():
             title, msg = digest.message(items)
             save_json(DATA / "digest.json", {"generated": iso(now), "title": title, "items": items})
             if any(i["urgent"] for i in items) and digest.push_window(now):
-                day = now.astimezone(TZ).date().isoformat()
-                if forced:
-                    push(title, msg, priority=3, tags=["sunrise"])
-                else:
-                    push_once(f"digest:{day}", title, msg, priority=3, tags=["sunrise"])
+                # once a day; on Tuesday it rides in the morning push; never repeats an injury-watch push (Q-049)
+                pushes.digest_push(items, leagues, now, forced)
         except Exception as e:
             traceback.print_exc()
             errors.append(f"digest: {type(e).__name__}: {e}")
@@ -500,8 +507,8 @@ def main():
                       "leagues": [nba_weekly_section(lg) if getattr(lg, "sport", "nfl") == "nba"
                                   else weekly_section(lg, _advice(league_views.get(lg.name))) for lg in leagues]}
             save_json(DATA / "weekly.json", weekly)
-            if os.environ.get("FORCE_WEEKLY") != "1":
-                push(f"Week {ctx.week} plan ready", "Start/sit and FA adds are on the Weekly tab.", priority=2, tags=["clipboard"])
+            if os.environ.get("FORCE_WEEKLY") != "1":   # Tuesday: rides in the 8am morning push (Q-049)
+                pushes.plan_push(now, ctx.week)
         except Exception as e:
             traceback.print_exc()
             errors.append(f"weekly: {type(e).__name__}: {e}")
@@ -511,12 +518,22 @@ def main():
 
     # weekend wrap-up: Sunday night after the late games, final Tuesday 8am (shq/wrapup.py decides)
     try:
-        note = wrapup.run(now, ctx.week, ctx.games, league_views, force=os.environ.get("FORCE_WRAPUP") == "1")
+        forced_wrap = os.environ.get("FORCE_WRAPUP") == "1"
+        note = wrapup.run(now, ctx.week, ctx.games, league_views, force=forced_wrap,
+                          deliver=pushes.wrapup_deliver(now, forced_wrap))
         if note:
             notes.append(note)
     except Exception as e:
         traceback.print_exc()
         errors.append(f"wrap-up: {type(e).__name__}: {e}")
+
+    try:   # Tuesday 8am CT: ONE push with the week's plan, today's digest and the wrap-up final (Q-049)
+        sent = pushes.tuesday_push(now, leagues)
+        if sent:
+            notes.append(f"morning push: {sent}")
+    except Exception as e:
+        traceback.print_exc()
+        errors.append(f"morning push: {type(e).__name__}: {e}")
 
     status["errors"], status["notes"], status["pushes"] = errors, notes, len(notify.sent)
     status["ok"] = not errors

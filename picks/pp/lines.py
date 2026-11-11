@@ -2,7 +2,8 @@
 
 BTO and CFP post fixed spreads early in the week; the market keeps moving. `scan` compares every open
 pool line with ESPN's current line (DraftKings) and pushes once per game when the gap is 1.5+ points
-or the pool line gains a key number (NFL 3/7, CFB 3/7/10/14). `overlay` puts the same fresh lines
+or the pool line gains a key number (NFL 3/7, CFB 3/7/10/14): at most one push a day, never 10pm-6am CT
+(Q-049; held lines stay flagged on the Picks page and ride the next push). `overlay` puts the same fresh lines
 under the cards so `fair_margins` centers on the market as it is now, not CFBD's line from hours ago.
 
 Usage: py -m pp.lines [--week NN] [--if-due] [--no-push]
@@ -234,14 +235,55 @@ def due(now=None):
     return (now - last).total_seconds() >= every * 3600 - 300
 
 
-def run(week=None, push=True, now=None, fetch=espn_odds):
+QUIET_FROM, QUIET_TO = 22, 6   # no stale-line push 10pm-6am CT (one went out at 1:29am, Nov 5)
+
+
+def day_key(now):
+    return f"push-day:{now.astimezone(CT).date().isoformat()}"
+
+
+def held(now, sent):
+    """Why a stale-line push waits (Q-049), or None: quiet hours, or today's one push already went. Held lines stay
+    flagged on the Picks page and go in the next allowed push if their pool is still open."""
+    h = now.astimezone(CT).hour
+    if h >= QUIET_FROM or h < QUIET_TO:
+        return "quiet hours"
+    if day_key(now) in sent:
+        return "already pushed today"
+    return None
+
+
+def origin_sent():
+    """origin/main's state/pick_lines_sent.json, read only where a real push could go out (GitHub Actions with a topic):
+    another run (a laptop kick beside the cron loop) may have pushed these lines already. {} when unreadable."""
+    if os.environ.get("GITHUB_ACTIONS") != "true" or not os.environ.get("NTFY_TOPIC"):
+        return {}
+    import subprocess
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "main"], cwd=ROOT.parent, timeout=60, check=True, capture_output=True)
+        out = subprocess.run(["git", "show", "origin/main:state/pick_lines_sent.json"], cwd=ROOT.parent, timeout=30,
+                             check=True, capture_output=True, text=True, encoding="utf-8").stdout
+        data = json.loads(out)
+        return data if isinstance(data, dict) else {}
+    except Exception as e:
+        print(f"origin pick_lines_sent unreadable: {e}")
+        return {}
+
+
+def run(week=None, push=True, now=None, fetch=espn_odds, origin=origin_sent):
     from .publish import notify
     now = now or datetime.now(timezone.utc)
     week, rows = scan(week, now, fetch)
     sent = json.loads(SENT.read_text()) if SENT.exists() else {}
-    new = [r for r in rows if r["flag"] and f"{week}:{r['pool']}:{r['game']}" not in sent]
+    unsent = lambda: [r for r in rows if r["flag"] and f"{week}:{r['pool']}:{r['game']}" not in sent]
+    new = unsent()
     pushed = []
-    if new and push and os.environ.get("DRY_RUN") != "1":
+    if new and push and os.environ.get("DRY_RUN") != "1" and not held(now, sent):
+        for k, v in origin().items():   # keep another run's keys (the later time when both have one)
+            if k not in sent or str(v) > str(sent[k]):
+                sent[k] = v
+        new = unsent()
+    if new and push and os.environ.get("DRY_RUN") != "1" and not held(now, sent):
         title = f"Stale pool line: {new[0]['pool'].upper()} {new[0]['side']} {_fmt(new[0]['pool_line'])}" if len(new) == 1 \
             else f"{len(new)} stale pool lines"
         msg = "\n".join(describe(r) for r in new) + "\nPool lines are fixed; the market moved."
@@ -249,6 +291,7 @@ def run(week=None, push=True, now=None, fetch=espn_odds):
             pushed = new
             for r in new:
                 sent[f"{week}:{r['pool']}:{r['game']}"] = now.isoformat()
+            sent[day_key(now)] = now.isoformat()
     cutoff = (now - timedelta(days=21)).isoformat()
     SENT.parent.mkdir(parents=True, exist_ok=True)
     SENT.write_text(json.dumps({k: v for k, v in sent.items() if v >= cutoff}, indent=1))

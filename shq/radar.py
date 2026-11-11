@@ -27,7 +27,7 @@ import time
 
 from . import categories, notify
 from . import espn_fantasy as ef
-from .common import CACHE, STATE, get_json, iso, load_json, save_json
+from .common import CACHE, STATE, get_json, load_json, save_json
 from .config import LEAGUES, TZ
 from .espn_fantasy import NBA_STATS, RATIO
 from .status import OUTISH, norm
@@ -521,22 +521,52 @@ def injury_items(league, sc, taken, mine):
     return out[:4]
 
 
-def send_alerts(league, advice):
-    """One push per league per day at most, 7am–9pm CT: rising free agents under PUSH_OWNED% whose role jumped and
-    who help a category I'm losing or that's close. A player is pushed once per matchup week."""
-    if league.ctx.now.astimezone(TZ).hour not in PUSH_HOURS:
+def _player_key(league, i):
+    return f"{league.key}:radar:w{league.week}:{i['id']}"
+
+
+def send_all(entries):
+    """One radar push per day at most for every NBA league together (Q-049; it was one per league, a minute apart),
+    7am–9pm CT: rising free agents under PUSH_OWNED% whose role jumped and who help a category I'm losing or that's
+    close, up to 2 per league. A player is pushed once per matchup week. `entries` is [(league, advice)]. A riser that
+    shows up after the day's push waits for tomorrow's (if he's still rising); the league tab shows him either way."""
+    entries = [(lg, adv) for lg, adv in entries if lg is not None]
+    if not entries:
         return None
-    seen = load_json(notify.ALERTS, {}) or {}
-    key = lambda i: f"{league.key}:radar:w{league.week}:{i['id']}"
-    new = [i for i in ((advice or {}).get("radar") or {}).get("rising", []) if i.get("push") and key(i) not in seen][:2]
-    day = f"{league.key}:radar:{league.ctx.now.astimezone(TZ).date()}"
-    if not new or day in seen:
+    now = entries[0][0].ctx.now
+    if now.astimezone(TZ).hour not in PUSH_HOURS:
         return None
-    title = f"{league.name}: rising free agent{'s' if len(new) > 1 else ''} " + " + ".join(i["name"] for i in new)
-    notify.push_once(day, title, "\n\n".join(i["text"] for i in new), priority=3, tags=["chart_with_upwards_trend"])
-    seen = load_json(notify.ALERTS, {}) or {}
-    save_json(notify.ALERTS, {**seen, **{key(i): iso(league.ctx.now) for i in new}})
+    date = now.astimezone(TZ).date()
+    day = f"radar:{date}"
+    old_days = {f"{lg.key}:radar:{date}" for lg, _ in entries}   # per-league day keys from before Q-049
+    seen = notify.seen()
+    if day in seen or old_days & set(seen):
+        return None
+    found = []
+    for lg, adv in entries:
+        new = [i for i in ((adv or {}).get("radar") or {}).get("rising", [])
+               if i.get("push") and _player_key(lg, i) not in seen][:2]
+        if new:
+            found.append((lg, new))
+    if not found:
+        return None
+    names = [i["name"] for _, new in found for i in new]
+    if len(found) == 1:
+        lg, new = found[0]
+        title = f"{lg.name}: rising free agent{'s' if len(new) > 1 else ''} " + " + ".join(names)
+        msg = "\n\n".join(i["text"] for i in new)
+    else:
+        title = "NBA rising free agents: " + " + ".join(names)
+        msg = "\n\n".join(f"{lg.name}: " + "\n\n".join(i["text"] for i in new) for lg, new in found)
+    if not notify.push_once(day, title, msg, priority=3, tags=["chart_with_upwards_trend"]):
+        return None
+    notify.mark([_player_key(lg, i) for lg, new in found for i in new], now)
     return title
+
+
+def send_alerts(league, advice):
+    """One league on its own (kept for callers and tests); shq.run sends every NBA league through send_all."""
+    return send_all([(league, advice)])
 
 
 def digest_items(league):

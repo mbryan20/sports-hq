@@ -816,15 +816,16 @@ def merge_entries(old, new):
     return old
 
 
-def run(now, week, games, views, force=False):
+def run(now, week, games, views, force=False, deliver=None):
     """Called by shq.run every pass. Builds, publishes and pushes when an edition is due; quietly redraws a final
-    issue's pools when the Tuesday postmortem lands. Returns a note for the log, or None."""
+    issue's pools when the Tuesday postmortem lands. Returns a note for the log, or None. `deliver(model, urls)` replaces
+    the push (shq/pushes.py holds a Tuesday final for the one 8am morning push, Q-049)."""
     issues = (load_json(INDEX, {}) or {}).get("issues", [])
     want = due(now, week, games, issues, force)
     if want:
         model = build(now, want[0], want[1], views)
         urls = publish(model)
-        send(model, urls)
+        (deliver or send)(model, urls)
         return f"wrap-up week {want[0]} {want[1]} published"
     stale = refresh_due(issues)
     if stale:

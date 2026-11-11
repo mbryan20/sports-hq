@@ -1,3 +1,6 @@
 * text=auto eol=lf
 *.png binary
 *.enc binary
+# push-dedup state merges key by key, so two runs never drop each other's sent alerts (shq/statemerge.py, Q-049)
+state/alerts.json merge=pushstate
+state/pick_lines_sent.json merge=pushstate
