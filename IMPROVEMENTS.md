@@ -1118,7 +1118,7 @@ Measure (the health.json check that should move), Design, Decision.
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
 ### Q-053 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands with Q-038..Q-041 after 8:00pm CT Tue Nov 10)
+- **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, `gainsOnTop`; `warroom/app.js` `planHtml`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session
@@ -1137,7 +1137,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** Michael, Nov 10 7pm (quoted above) and 4:30pm: "I expect improvements to the site and the model."
 
 ### Q-041 · War Room v2 drops a usable RB to add a second DEF
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
+- **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `bestDrop`, `decideAll`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -1156,7 +1156,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-040 · An injured or IR player with no projection still gets "Add free"
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
+- **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, the free-agent branch; `proj`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -1173,7 +1173,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-039 · Stated win chances don't match the same row's likely rival bids
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
+- **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `winChance`, `threats` (the `likely_rival_bids` list); `warroom/build.py` `ladder`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
@@ -1193,7 +1193,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
 ### Q-038 · War Room v2 never credits a $0 bid with its payoff, so it recommends $1 that buys nothing
-- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands after 8:00pm CT Tue Nov 10)
+- **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, the line `let best = { b: 0, ev: 0, p: winChance(0, r.est) }`)
 - **Rank:** —
 - **Added:** 2026-11-10 by the Sports HQ build session (from Claude Ops' review of the Nov 10 bids.json)
