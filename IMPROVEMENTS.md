@@ -365,6 +365,50 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** as above. War Room v2 itself (`warroom/`, bids.json) untouched.
 - **Decision:** bug fixes requested by Michael via Claude Ops (pass-3 review), Nov 10
 
+### Q-051 · NBA pass-3 review: IR fix first, questionable adds, radar protection, chase isn't a move
+- **Status:** shipped (886bddc)
+- **Area:** `shq/digest.py` (IR line first + urgent in every league, NBA day-to-day label), `shq/nba_swaps.py` (IR-first
+  line + room drop, day-to-day discount + status, radar protection by value, "over keeping", whole-year ages),
+  `shq/radar.py` (`keep` = shown bench risers, `agree()` verdicts and wording, % rostered wording), `shq/advice.py`
+  (`ir_room`, `dedupe_cat_adds`), `shq/nba_values.py` (`play`, `word`), `shq/status.py` (`espn_word`, `play_chance`),
+  `shq/nba_games.py` (streamer status), `shq/run.py` (`ADD_RE` reads the IR-first line), `docs/lib/core.js` (chase kind
+  only), `tests/test_nba_pass3.py` (new), `tests/test_nba_one_answer.py`, `tests/test_radar.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops), from the pass-3 review (Tue Nov 10 ~6:20pm)
+- **Evidence:** live `docs/data/lineups.json` Nov 10 ~6:20pm. (1) Ball is Life: Austin Reaves (ESPN Active, played Nov 8)
+  in an IR slot; Fix now said "Lineup is set, nothing to fix", the only mention was a collapsed note, and Waiver adds said
+  "Drop John Collins, add Mo Bamba", which ESPN blocks until he moves; Stempak (football) listed an add/drop fix before
+  "Move David Montgomery out of IR". (2) 3-Ball BB: Isaiah Stewart (ESPN 5:13p: questionable for Wednesday) shown as
+  "+20.0 this week, 3 games" with no tag. (3) Ball is Life radar `keep` held Ryan Dunn (#230, -5.5/g, a starter whose rise
+  the page never shows), LaMelo Ball and Ajay Mitchell, so the swaps dropped Collins/Draymond. (4) chase lines counted
+  as moves: KPI "Lineup moves 6", layout B "Move 6", layout C "Do now 16", MOVE chip on "Keep in the lineup: Walker
+  Kessler" (no game today). (5) Draymond's "may fade" said twice, "Waiver adds swaps him", "worth a start" for every
+  bench riser on a no-game day, "1 straight game of it so far" after a 3-game rise, "+1.7 pts in 3 days" for % rostered.
+  (6) Stewart "+20.0" in Waiver adds vs "+11.6" in Streamers; Category adds named Jerami Grant for BLK while Waiver adds
+  named Mo Bamba. (7) "De'Andre Hunter is 29" (28.9). (8) Giannis "is Questionable" while ESPN's note said probable.
+- **Expected impact:** one answer per player and per action on the NBA tabs. (1) An IR slot ESPN won't allow is the first,
+  urgent Fix now line in every league ("...; do this before any add or drop"), and the NBA add list starts "First move
+  Austin Reaves out of IR (Fix now): ...; your roster is full, so that takes a drop too: X; then drop ..."; the Fix now
+  line and the radar name the same room drop (the weakest bench player the swaps don't already drop). (2) A day-to-day
+  add or drop shows "day-to-day (ESPN: questionable), next game counted at 50%" and his next game counts at ESPN's word:
+  probable 0.9, questionable 0.5, doubtful 0.25, no word 0.5 (streamers too). (3) Only bench risers the radar shows, not
+  "may fade", are protected, and only while their value isn't more than 1.0/g below the weakest other drop (Toppin
+  -4.2 vs Dunn -5.5 stays protected; Dunn is a drop). (4) Chase lines are kind "keep": not in any move count; the NBA
+  tile's top line is the fix, move or add. (5) "rise may fade (why); the add list below swaps him for X (+N this week over
+  keeping him)" once; no-game verdict "worth a start on his next game day" only when his value beats the weakest
+  starter's by 1+/g, else "keep him on the bench for now (...)"; "it hasn't lasted 4 straight games yet"; "rostered 2%
+  (+1.7% in 3 days)". (6) "+20.0 this week over keeping De'Andre Hunter"; Category adds for a need a swap already helps
+  are left out. (7) Whole years. (8) "day-to-day (ESPN: probable)".
+- **Effort:** M
+- **Risk:** Low (advice text and drop choice only; nothing is sent). Not confirmed: whether ESPN lets you drop a player
+  while an IR slot is blocked (the line says the move "takes a drop", not which screen allows it). The play chances are
+  set, not fitted.
+- **Measure:** — (one-off: the next live Ball is Life tab shows the Reaves fix first and the IR-first add line; 3-Ball BB's
+  Stewart line names his status)
+- **Design:** see Area. Tests: `tests/test_nba_pass3.py` (one class per item, fixtures only; the core.js feed/tile check
+  runs under Node, a source check runs everywhere). Undo: `git revert` the commit.
+- **Decision:** requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
