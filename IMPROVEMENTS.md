@@ -1117,6 +1117,41 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-054 · A place to ask about a specific move, for every team (Try a move + Ask Claude)
+- **Status:** shipped (5fe47f8, Wed Nov 11 ~9:10am CT). Ask Claude answers once the `CLAUDE_CODE_OAUTH_TOKEN` secret is added
+  (Michael's one step); until then its box replies "not set up yet". Try a move needs nothing.
+- **Area:** `docs/lib/move.js` (new), `docs/lib/core.js` (box on each league page), `docs/move/` (new page), `docs/index.html`
+  (bar under the totals), `warroom/model.js` (`tryMove`, `playerList`), `warroom/app.js` + template, `warroom/build.py`
+  (publishes `data.json` + `model.js`; `--repage`), `warroom/trymove.js`, `shq/asks.py`, `.github/workflows/ask.yml`,
+  `ops/tasks/ask-claude.md`, `shq/nfl_players.py` (`dynasty` flag)
+- **Rank:** —
+- **Added:** 2026-11-11 by the Sports HQ build session (Michael's request)
+- **Evidence:** Michael, Wed Nov 11: "Where can I have a place where I can ask questions about particular moves? Is it possible
+  to have a space in the sports HQ for each team to do this? ... should I put in a claim for KC Concepcion and drop Tre Tucker?
+  Should I consider adding Caleb Williams this week while he is unowned and not wanted by the rest of the league?"
+- **Design:** (1) **Try a move**, no AI, instant: search any player in the league's data, pick a drop (or let it pick the
+  cheapest), up to two moves. Guillotine = War Room v2's own simulation (`tryMove`: win odds, expected weeks alive, this
+  week's cut risk, lineup points per week, byes, injury, claim price + win chance when on waivers priced exactly like the
+  bids table, "Better drop" hint). Verdict: win odds ±0.3 points decide; inside that noise, the next two weeks' lineup points,
+  then the season's (a move that gains nothing and loses points is "Not worth it"). Other football = best lineup in the
+  league's own slots this week and next 4 (K/DEF this week only; a K/DEF is never auto-dropped for a skill player),
+  ±3 points decide, else depth (rest-of-season per game ±2); dynasty: losing 1,000+ FantasyCalc value turns "worth it" into
+  a coin flip, gaining 1,000+ turns a coin flip into "worth it". Basketball = the Players page's trade-check math. Shown on
+  every league page (lazy-loaded, state kept through the 5-minute refresh), on `/move/` (league chips), in War Room v2
+  (above the bids table), a bar under the home page's totals and the ▦ menu. (2) **Ask Claude**: per-league box opens a
+  pre-filled GitHub issue (label `ask`; works where claude.ai is blocked, like Feedback); `ask.yml` runs only for the
+  owner's issues, Claude (Opus, claude-code-action) may only read, search the web, run `node warroom/trymove.js` and write
+  `.ask/answer.md`; the workflow records it in `docs/data/asks.json` (newest 20 per league), comments and closes the issue.
+  Rules in `ops/tasks/ask-claude.md`: verdict first, Sports HQ numbers + War Room model, news under 48h cited with date,
+  Michael's guillotine rules. Folded nowhere else: Claude Ops was asked first whether to route through the Queue's
+  Go-button runner (it can't be fired from a public site without claude.ai); no reply within 30 minutes, so Sports HQ
+  owns it (one answerer per sports question, no schedule).
+- **Checked:** this morning's data: Concepcion for Tucker −0.2 points of win odds ("Not worth it": no gain, −2 lineup points
+  over the season; his bye is week 11); Caleb Williams for Goedert +0.7 ("Worth it"; "Better drop: Woody Marks", +1.0);
+  Jacobs for Marks + Caleb for Goedert +3.4 (+3.7 in this morning's run; simulation noise). Phone 375px and desktop, light
+  and dark, no console errors. Node tests emulated in the browser (13/13); full suite 417 OK locally.
+- **Undo:** `git revert 5fe47f8` (and this entry); delete the `ask` label and the secret if added.
+
 ### Q-053 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
 - **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, `gainsOnTop`; `warroom/app.js` `planHtml`)
