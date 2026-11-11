@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T01:07:00Z",
+ "updated": "2026-11-11T01:17:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -219,7 +219,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "Domo Arigato": {
@@ -679,7 +679,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "Guillotine": {
@@ -963,7 +963,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 7:07p",
+    "built": "Tue 7:17p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -1023,6 +1023,21 @@
         "rivals": []
        },
        {
+        "name": "Brenton Strange",
+        "sid": "9480",
+        "pos": "TE",
+        "team": "JAX",
+        "proj": 8.7,
+        "gain": 8.7,
+        "cut_with": 0.068,
+        "freed_from": null,
+        "price": 0,
+        "max": 0,
+        "call": "add free",
+        "free": true,
+        "rivals": []
+       },
+       {
         "name": "T.J. Hockenson",
         "sid": "5844",
         "pos": "TE",
@@ -1044,21 +1059,6 @@
           "bid": 2
          }
         ]
-       },
-       {
-        "name": "Brenton Strange",
-        "sid": "9480",
-        "pos": "TE",
-        "team": "JAX",
-        "proj": 8.7,
-        "gain": 8.7,
-        "cut_with": 0.068,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
        },
        {
         "name": "Tyler Higbee",
@@ -1998,14 +1998,14 @@
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
      "proj": 9.3,
-     "status": "OUT",
-     "why": "ESPN: Out",
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
      "flags": [
-      "OUT"
+      "Q"
      ],
      "news": {
       "note": "Burks (foot) was a limited participant in Tuesday's practice.",
-      "at": "2026-11-10T23:58:00Z",
+      "at": "2026-11-10T23:58:16Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -2109,7 +2109,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "Stempak": {
@@ -2274,14 +2274,14 @@
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: INJURY_RESERVE, but ESPN says Questionable: unconfirmed",
+     "status": "IR",
+     "why": "ESPN: INJURY_RESERVE",
      "flags": [
-      "Q"
+      "IR"
      ],
      "news": {
       "note": "The Dolphins placed Willis (groin) on injured reserve Tuesday.",
-      "at": "2026-11-10T21:32:00Z",
+      "at": "2026-11-10T21:32:20Z",
       "url": "https://www.espn.com/nfl/player/_/id/4242512/malik-willis"
      }
     }
@@ -2411,15 +2411,16 @@
     "matchup": "154.7 projected vs Sacked again",
     "danger": false,
     "fixes": [
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]"
+     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]",
+     "Malik Willis (QB) IR (ESPN: INJURY_RESERVE) \u2192 no bench fit: add Aaron Rodgers (PIT, 17.9 proj), drop Chig Okonkwo (8.6 proj), and start him [ESPN, Nov 10 3:32p: The Dolphins placed Willis (groin) on injured reserve Tuesday.]"
     ],
     "moves": [
      "Start Zay Flowers (14.6) over Chase Brown (13.6) at FLEX, +1.0"
     ],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 18.4/gm, value 1,570) for Chig Okonkwo (TE, your TE3, 9.1/gm): fills in at QB in week 10, +24.1 pts over the next 4 weeks",
-     "Add A.J. Brown (WR, NE, 13.3/gm, value 1,521) for Josh Downs (WR, your WR5, 7.1/gm): better backup WR, +1 pts over the next 4 weeks",
-     "Add Dominic Zvada (K, NYG, 10.8 proj this week), drop Jason Myers (9 proj)"
+     "Add Aaron Rodgers (QB, PIT, 18.4/gm, value 1,570) for Chig Okonkwo (TE, your TE3, 9.1/gm): fills in at QB in week 10, +27.5 pts over the next 4 weeks",
+     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,611) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup QB, +2.4 pts over the next 4 weeks",
+     "Add A.J. Brown (WR, NE, 13.3/gm, value 1,521) for Josh Downs (WR, your WR5, 7.1/gm): better backup WR, +1 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2480,14 +2481,13 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "Malik Willis (QB): ESPN: INJURY_RESERVE, but ESPN says Questionable: unconfirmed. Check before benching [ESPN, Nov 10 3:32p: The Dolphins placed Willis (groin) on injured reserve Tuesday.]",
      "(roster as of the laptop read Tue 4:36p; check it's still current)"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "Bro-vid19": {
@@ -2814,7 +2814,7 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "3-Ball BB": {
@@ -3671,7 +3671,7 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   },
   "Ball is Life": {
@@ -3707,11 +3707,7 @@
       "wk": 18.9,
       "src": "10 g"
      },
-     "news": {
-      "note": "Antetokounmpo (wrist) is questionable for Tuesday's game against the Jazz.",
-      "at": "2026-11-11T00:24:00Z",
-      "url": "https://www.espn.com/nba/player/_/id/3032977/giannis-antetokounmpo"
-     }
+     "news": null
     },
     {
      "slot": "UT",
@@ -4005,7 +4001,7 @@
     ],
     "trades": null,
     "notes": [
-     "Giannis Antetokounmpo (PF) is day-to-day (ESPN: questionable), plays Tue 8:00p [ESPN, Nov 10 6:24p: Antetokounmpo (wrist) is questionable for Tuesday's game against the Jazz.]",
+     "Giannis Antetokounmpo (PF) is day-to-day, plays Tue 8:00p",
      "4 of 9 starters play tonight",
      "(roster as of the laptop read Tue 4:36p; check it's still current)"
     ],
@@ -4403,7 +4399,7 @@
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Tue 7:07p"
+    "built": "Tue 7:17p"
    }
   }
  }
