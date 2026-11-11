@@ -300,7 +300,9 @@
     if (!w?.leagues?.length) return `<p class="note">The weekly plan posts Tuesdays at 7am CT.</p>`;
     const upd = w.start_sit_updated ? ` · start/sit and adds updated ${kick(w.start_sit_updated)}` : "";
     // adds follow the league page (Q-048); Tuesday's lines it no longer makes are noted under them
-    const was = l => l.plan_changed?.length ? `<div class="note">Tuesday's plan had: ${l.plan_changed.map(esc).join(" · ")}</div>` : "";
+    const when = S.dayKey(w.generated) === S.dayKey(new Date()) ? "This morning's plan"
+      : new Date(w.generated).toLocaleDateString("en-US", { weekday: "long", timeZone: TZ }) + "'s plan";
+    const was = l => l.plan_changed?.length ? `<div class="note">${esc(when)} (replaced by the lines above):</div>${ul(l.plan_changed)}` : "";
     return `<div class="meta">Week ${w.week} · generated ${esc(kick(w.generated))}${esc(upd)}</div><div class="wgrid">` +
       w.leagues.map(l => `<div class="wcard"><h3>${esc(l.name)}</h3><div class="subhead">Start / sit</div>${ul(l.start_sit)}<div class="subhead">Top FA adds</div>${ul(l.adds)}${was(l)}</div>`).join("") + "</div>";
   };
