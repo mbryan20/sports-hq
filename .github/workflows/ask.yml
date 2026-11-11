@@ -4,7 +4,9 @@ name: Ask Claude
 # title "Ask: <league>: <question>". Claude answers it from Sports HQ's data, the War Room model and news under 48h
 # (ops/tasks/ask-claude.md); the answer goes into docs/data/asks.json (shown under that league's box, a few minutes
 # later) and on the issue, which is then closed. Runs only when Michael asks: no schedule.
-# Only the repo owner's issues count (the repo is public). Claude only writes .ask/answer.md; this workflow commits.
+# Public repo: the job runs only for an issue the owner opened himself (login + OWNER association + the "ask" label;
+# never on comments or edits). Claude only reads, searches and writes .ask/answer.md; this workflow commits asks.json
+# and posts the one comment (guardrails agreed with Claude Ops, Nov 11).
 # Needs the CLAUDE_CODE_OAUTH_TOKEN secret (`claude setup-token`); without it the box answers "not set up yet".
 on:
   issues:
@@ -13,7 +15,6 @@ on:
 permissions:
   contents: write
   issues: write
-  id-token: write
 
 concurrency:
   group: ask
@@ -21,7 +22,7 @@ concurrency:
 
 jobs:
   answer:
-    if: github.event.issue.user.login == github.repository_owner && (contains(github.event.issue.labels.*.name, 'ask') || startsWith(github.event.issue.title, 'Ask:'))
+    if: github.event.issue.user.login == 'mbryan20' && github.event.issue.author_association == 'OWNER' && contains(github.event.issue.labels.*.name, 'ask')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:

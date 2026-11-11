@@ -283,7 +283,7 @@
     function askDraw() {
       $a.innerHTML = `<label for="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}">Ask Claude about ${esc(name)}</label>
         <textarea id="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}" data-askq rows="2" placeholder="e.g. Is he worth adding this week while nobody else wants him?">${esc(st.draft)}</textarea>
-        <div class="mv-row"><button class="mv-btn go" data-ask>Ask</button><span class="mv-fine">For news and gut calls the numbers can't settle. Opens GitHub with your question filled in: tap <b>Create</b>. The answer shows here in a few minutes. Questions and answers are public on GitHub, like Feedback.</span></div>
+        <div class="mv-row"><button class="mv-btn go" data-ask>Ask</button><span class="mv-fine">For news and gut calls the numbers can't settle. Opens GitHub with your question filled in: tap <b>Create</b>. The answer shows here in a few minutes. Questions and answers are public on GitHub, like Feedback: sports only.</span></div>
         <div class="mv-answers"></div>`;
       answers();
     }

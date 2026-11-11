@@ -76,7 +76,10 @@ class Workflow(unittest.TestCase):
     """The answerer only runs for the owner's own issues, and issue text never reaches the shell."""
     def test_guards(self):
         y = (Path(__file__).resolve().parent.parent / ".github" / "workflows" / "ask.yml").read_text(encoding="utf-8")
-        self.assertIn("github.event.issue.user.login == github.repository_owner", y)
+        self.assertIn("github.event.issue.user.login == 'mbryan20' && github.event.issue.author_association == 'OWNER'", y)
+        self.assertIn("contains(github.event.issue.labels.*.name, 'ask')", y)
+        self.assertNotIn("issue_comment", y)
+        self.assertNotIn("id-token", y)
         self.assertNotIn("run: echo \"${{ github.event.issue", y)
         for line in y.splitlines():
             if "github.event.issue.body" in line or "github.event.issue.title }}" in line:

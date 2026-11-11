@@ -1150,7 +1150,11 @@ Measure (the health.json check that should move), Design, Decision.
   over the season; his bye is week 11); Caleb Williams for Goedert +0.7 ("Worth it"; "Better drop: Woody Marks", +1.0);
   Jacobs for Marks + Caleb for Goedert +3.4 (+3.7 in this morning's run; simulation noise). Phone 375px and desktop, light
   and dark, no console errors. Node tests emulated in the browser (13/13); full suite 417 OK locally.
-- **Undo:** `git revert 5fe47f8` (and this entry); delete the `ask` label and the secret if added.
+- **Guardrails (Claude Ops, Nov 11 ~9:30am):** Ops chose this route over the Go-button runner (that runner has Michael's
+  Gmail/Drive/Calendar; a public issue must never reach it). The job runs only for an issue opened by mbryan20 with
+  author_association OWNER and the `ask` label (no title fallback, no comments/edits), permissions contents + issues only;
+  the prompt answers private topics (job search, investments, health, family) with "Not here: this page is public".
+- **Undo:** `git revert 5fe47f8` (and this entry, and the guardrail commit); delete the `ask` label and the secret if added.
 
 ### Q-053 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
 - **Status:** shipped (c3bf006, landed Wed Nov 11 ~8:20am CT; planned for Tue 8pm, delayed because the build session stopped at ~7:30pm)
