@@ -17,12 +17,16 @@ or that are close (shq/categories.py), my players losing minutes, and the cited 
 
 One answer per player across the league tab (Q-047). The radar, Lineup moves, Waiver adds and the category chase used to
 disagree ("start him" here, "Drop him" two sections down). The rule:
-- A player of mine the radar has rising, and not "may fade", is never a drop: block()'s "keep" ids, which
-  shq/nba_swaps.py skips (and so the weekly plan, built from the same swaps).
+- A bench player of mine the radar shows rising, and not "may fade", is never a drop: block()'s "keep" ids, which
+  shq/nba_swaps.py skips (and so the weekly plan, built from the same swaps) unless his value is well below the next
+  drop. Starters aren't in "keep": the page never shows their rise, so nothing on it would contradict a drop.
 - My shrinking players ("shrink_ids") and anyone on my bench are never "Keep in the lineup" in the chase (shq/categories.py).
 - "Start him" for a rising bench player only when today's Lineup moves start him (agree(), after shq/nba_lineup.py has
   run); otherwise "worth a start" / "consider starting him" with the reason there's no move today.
-- A "may fade" riser the Waiver adds swaps drop gets no start verdict: his line says the rise may fade and names the swap."""
+- A riser the Waiver adds swaps drop gets no start verdict: his line says why (the rise may fade, or his value is well
+  below the rest of the roster) and names the swap, once.
+- On a day he has no game, "worth a start on his next game day" only when his season value beats my weakest starter's
+  by nba_lineup.MIN_EDGE (the same edge Lineup moves use on game days)."""
 import json
 import time
 
@@ -328,8 +332,9 @@ def block(league, cats=None):
     shrink_ids = [pid for pid in mine if pid in pool and shrinking(roles.get(pid)) and pid not in sc["out"]]
     shrink = [shrink_item(league, sc, pid, roles[pid]) for pid in shrink_ids]
     ir = {str(p["id"]) for p in league.data["roster"] if p.get("slot") == ef.BENCH["nba"][1]}
-    keep = sorted(pid for pid in mine if pid in pool and pid not in ir and rising(roles.get(pid)) and pid not in sc["out"]
-                  and not fades(roles[pid], absences(pool, pool[pid]["team"], [d for d, *_ in roles[pid]["games"]]), sc["out"]))
+    # only the bench risers the page shows, and not "may fade" (Ball is Life, Nov 10: a starter's unseen rise protected
+    # Ryan Dunn at -5.5/g); shq/nba_swaps.py also drops the protection when his value is well below the next drop
+    keep = sorted(i["id"] for i in bench if not i["fade"] and i["id"] not in ir)
     injuries = injury_items(league, sc, taken, mine)
     last = max((rl["last"] for rl in roles.values() if rl), default=None)
     return {
@@ -380,11 +385,13 @@ def team_abbrev(sched, team):
 
 
 def change_text(pid, p, hist):
+    """' (+1.7% in 3 days)': the change in % rostered (points, not pts scored), our own 3-day reading when we have one,
+    else ESPN's +/-."""
     days = sorted(hist)
     old = next((hist[d].get(pid) for d in days[-4:-3]), None) if len(days) >= 4 else None
     if old is not None:
-        return f", {p['owned'] - old:+.1f} pts in 3 days"
-    return f", ESPN +/- {p['change']:+.1f}" if p.get("change") else ""
+        return f" ({p['owned'] - old:+.1f}% in 3 days)"
+    return f" ({p['change']:+.1f}% lately, ESPN's +/-)" if p.get("change") else ""
 
 
 def window_text(rl, dates):
@@ -413,13 +420,14 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
     p, dates = sc["pool"][pid], sc["dates"]
     g_now, g_next, b2b = games
     pos = POS.get(p["pos"], "?")
-    tag = "on your bench" if where == "bench" else f"free agent, {p['owned']:.0f}% owned{change_text(pid, p, hist)}"   # agree() adds the verdict
+    tag = "on your bench" if where == "bench" else f"free agent, rostered {p['owned']:.0f}%{change_text(pid, p, hist)}"   # agree() adds the verdict
     text = f"{p['name']} ({pos}, {team_abbrev(league.sched, p['team'])}), {tag}: {window_text(rl, dates)}"
     links = [[f"ESPN game log through {_day(dates.get(rl['last']))}", GAMELOG.format(pid)]]
     fade = fades(rl, gone, sc["out"])
+    clause = ""     # the "may fade" reason; agree() drops it when the verdict already says it
     if may_fade(rl, gone):
-        run = f" and {rl['streak']} straight game{'s' if rl['streak'] != 1 else ''} of it so far" if rl["streak"] else ""
-        text += f"; no teammate's injury behind it{run}, so this may fade"
+        clause = f"; no teammate's injury behind it and it hasn't lasted {LASTED} straight games yet, so this may fade"
+        text += clause
     if gone:
         x = gone[0]
         cite, more = injury_cite(sc, x)
@@ -427,7 +435,8 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
             text += f", since {sc['pool'][x]['name']} went out{cite}"
             links += more
         else:
-            text += f"; {sc['pool'][x]['name']} sat those games but isn't on ESPN's injury report now, so this may fade"
+            clause = f"; {sc['pool'][x]['name']} sat those games but isn't on ESPN's injury report now, so this may fade"
+            text += clause
     if helps:
         text += ". Fits " + ", ".join(f"{NBA_STATS[c]}" + (f" ({need[c]})" if need.get(c) not in (None, "all") else "") for c, _ in helps[:3])
     else:
@@ -449,14 +458,20 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
     fade_why = ("no teammate's injury behind it" if may_fade(rl, gone)
                 else f"{sc['pool'][gone[0]]['name']} is off the injury report" if fade else None)
     return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"], "fade": fade,
-            "fade_why": fade_why}
+            "fade_why": fade_why, "fade_clause": clause}
 
 
-def agree(r, moves, bench, now, swaps=None):
-    """Give each rising bench player the same verdict as the rest of the tab. A riser the Waiver adds swaps drop (only a
-    "may fade" one can be, shq/nba_swaps.py) gets no start verdict: "rise may fade (why); Waiver adds swaps him for X".
-    Otherwise follow today's Lineup moves (the ones shown, shq/nba_lineup.py): "start him today" only when a move starts
-    him; else why there's no move: no game today, his game has started, he's questionable, or his season value doesn't
+def _value(p):
+    return ((p or {}).get("cv") or {}).get("v")
+
+
+def agree(r, moves, bench, now, swaps=None, starters=None):
+    """Give each rising bench player the same verdict as the rest of the tab. A riser the Waiver adds swaps drop gets no
+    start verdict: "rise may fade (why); the add list below swaps him for X", or, for one whose value is well below the
+    rest of the roster (shq/nba_swaps.py KEEP_SLACK), "rising, but his value ... is well below ...". Otherwise follow
+    today's Lineup moves (the ones shown, shq/nba_lineup.py): "start him today" only when a move starts him; else why
+    there's no move: no game today (then "worth a start on his next game day" only when his season value beats my
+    weakest starter's by nba_lineup.MIN_EDGE), his game has started, he's questionable, or his season value doesn't
     beat a starter who plays today by nba_lineup.MIN_EDGE."""
     if not r:
         return r
@@ -465,14 +480,25 @@ def agree(r, moves, bench, now, swaps=None):
     starts = {str(m.get("start_key")) for m in moves}
     rows = {str(b.get("key")): b for b in bench}
     dropped = {str(s["drop"]["id"]): s for s in (swaps or {}).get("swaps") or []}
+    room = {str(p["id"]): p for p in (swaps or {}).get("room") or []}     # the drop that makes room for an IR move
+    rated = [p for p in starters or [] if not p.get("empty") and _value(p) is not None]
+    weakest = min(rated, key=_value, default=None)
     for i in r.get("rising") or []:
         if i["where"] != "bench":
             continue
         b = rows.get(i["id"])
         s = dropped.get(i["id"])
-        if s:
-            verdict = (f"rise may fade ({i.get('fade_why') or 'it may not last'}); Waiver adds swaps him for "
-                       f"{s['add']['name']} ({s['gain']:+.1f} {swaps.get('horizon', 'this week')})")
+        if s or i["id"] in room:
+            v = (s["drop"] if s else room[i["id"]])["v"]
+            swap = (f"the add list below swaps him for {s['add']['name']} ({s['gain']:+.1f} "
+                    f"{swaps.get('horizon', 'this week')} over keeping him)" if s else
+                    f"the add list below drops him to make room for {' and '.join(swaps.get('blocked') or [])} out of IR")
+            if i.get("fade"):
+                verdict = f"rise may fade ({i.get('fade_why') or 'it may not last'}); {swap}"
+                if i.get("fade_clause"):        # said once, in the verdict
+                    i["text"] = i["text"].replace(i["fade_clause"], "", 1)
+            else:
+                verdict = f"rising, but his value ({v:+.1f}/g) is well below the rest of your roster; {swap}"
             i["text"] = i["text"].replace(", on your bench:", f", on your bench: {verdict}:", 1)
             i["verdict"] = verdict
             continue
@@ -481,7 +507,15 @@ def agree(r, moves, bench, now, swaps=None):
         elif not b:
             verdict = "consider starting him"
         elif not nba_lineup._today(b, now):
-            verdict = "worth a start on his next game day (no game today)"
+            mine, low = _value(b), _value(weakest)
+            if mine is None or low is None:
+                verdict = "worth a look on his next game day (no game today)"
+            elif mine >= low + nba_lineup.MIN_EDGE:
+                verdict = (f"worth a start on his next game day (no game today; his value {mine:+.1f}/g beats your "
+                           f"weakest starter, {weakest['name']}, at {low:+.1f}/g)")
+            else:
+                verdict = (f"keep him on the bench for now (no game today; his season value {mine:+.1f}/g doesn't beat your weakest "
+                           f"starter, {weakest['name']}, at {low:+.1f}/g, by {nba_lineup.MIN_EDGE:g}+)")
         elif b["started"] or now >= b["kickoff"]:
             verdict = "worth a start next game (today's game has started)"
         elif not playable(b, now):

@@ -55,3 +55,22 @@ def worst(*sources):
         if SEVERITY.get(s, 0) > SEVERITY.get(best, 0):
             best, why = s, f"{src}: {raw}"
     return best, why
+
+
+# NBA day-to-day covers everything from probable to doubtful; ESPN's note usually names which. The chance he plays
+# his next game, for counting that game in this-week values (shq/nba_values.py, shq/nba_swaps.py).
+PLAY_CHANCE = {"probable": 0.9, "questionable": 0.5, "doubtful": 0.25}
+DTD_CHANCE = 0.5      # day-to-day with no word in the note: as questionable
+
+
+def espn_word(note):
+    """'probable' / 'questionable' / 'doubtful' when ESPN's injury note says one, else None."""
+    low = (note or "").lower()
+    return next((w for w in PLAY_CHANCE if w in low), None)
+
+
+def play_chance(status, note):
+    """Chance a day-to-day NBA player plays his next game: 1 when healthy, else from ESPN's note word."""
+    if not status:
+        return 1.0
+    return PLAY_CHANCE.get(espn_word(note), DTD_CHANCE)

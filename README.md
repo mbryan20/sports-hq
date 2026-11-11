@@ -93,6 +93,12 @@ The footer shows the last cloud run and when each laptop job last delivered.
   live in `state/alerts.json` / `state/pick_lines_sent.json`; before a real push the run also reads `origin/main`'s copy,
   and `commit_data.sh` merges those files key by key (`shq/statemerge.py`), so a laptop kick and a cron loop never
   push the same alert twice. Anything not pushed is still on the site.
+- **Rest-of-season numbers** (`shq/values.py`, Q-043): a later week Sleeper hasn't re-projected for a player's current
+  team takes his live per-game number, but never this week (no live projection = 0), never for a player any source tags
+  Doubtful/Out/IR/PUP/SUSP (even when the shown status was softened to Q), and never in a QB's week where Sleeper projects
+  a hurt teammate back as the starter. IR players count 0 for what's left of the 4-game minimum, counted from the first
+  run that saw the IR tag (`state/ir_seen.json`, committed, merged key by key; a player already on IR before tracking
+  with no IR news in the last 7 days has served it), and never while Sleeper projects him to play this week.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what

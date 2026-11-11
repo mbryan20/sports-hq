@@ -82,7 +82,7 @@ class RisingIsNotADrop(Base):
         drops = [x["drop"]["name"] for x in s["swaps"]]
         self.assertNotIn("Atlanta Riser", drops)
         self.assertEqual(drops, ["Boston Guard"])                           # may fade: still a drop candidate
-        self.assertIn("never drops a player the trend radar has rising unless it may fade", s["basis"])
+        self.assertIn("never drops a player the trend radar shows rising on your bench unless it may fade", s["basis"])
         lg.swaps = s
         weekly = run.nba_weekly_section(lg)["adds"]
         self.assertFalse(any("Drop Atlanta Riser" in a for a in weekly))
@@ -134,9 +134,11 @@ class StartHimOnlyWithAMove(Base):
         self.assertIsNone(self.guard["kickoff"])                            # BOS doesn't play in period 9
         moves = nba_lineup.moves(self.lg, rb.NOW)                           # ATL plays: the Riser fills Boston Big's idle slot
         self.assertEqual([(m["start"], m["why"]) for m in moves], [("Atlanta Riser", "no game today")])
-        radar.agree(self.r, moves, self.lg.bench, rb.NOW)
+        self.guard["cv"], self.big["cv"] = {"v": 3.0}, {"v": 0.0}            # beats the weakest starter by 1+ value/g
+        radar.agree(self.r, moves, self.lg.bench, rb.NOW, None, self.lg.starters)
         text = self.bench_text("Boston Guard")
-        self.assertIn("Boston Guard (PG, BOS), on your bench, worth a start on his next game day (no game today): minutes", text)
+        self.assertIn("Boston Guard (PG, BOS), on your bench, worth a start on his next game day (no game today; his value "
+                      "+3.0/g beats your weakest starter, Boston Big, at +0.0/g): minutes", text)
         self.assertNotIn("start him", text)
         self.assertIn("Atlanta Riser (PG, ATL), on your bench, start him today (it's in Lineup moves): minutes",
                       self.bench_text("Atlanta Riser"))
@@ -176,8 +178,9 @@ class StartHimOnlyWithAMove(Base):
         self.assertIn("Boston Guard", [m["start"] for m in moves])           # agree() alone: the swap's drop wins (advice.build never lets a move's start be dropped)
         radar.agree(self.r, moves, self.lg.bench, rb.NOW, swaps)
         text = self.bench_text("Boston Guard")
-        self.assertIn(f"Boston Guard (PG, BOS), on your bench: rise may fade (no teammate's injury behind it); Waiver adds "
-                      f"swaps him for Free Streamer (+{swaps['swaps'][0]['gain']:.1f} this week): minutes", text)
+        self.assertIn(f"Boston Guard (PG, BOS), on your bench: rise may fade (no teammate's injury behind it); the add list "
+                      f"below swaps him for Free Streamer (+{swaps['swaps'][0]['gain']:.1f} this week over keeping him): minutes", text)
+        self.assertEqual(text.count("may fade"), 1)                         # said once (pass-3 review, Nov 10)
         self.assertNotIn("start", text.split(": minutes")[0])
 
     def test_waiver_adds_never_drop_a_player_lineup_moves_starts(self):
@@ -205,8 +208,9 @@ class StartHimOnlyWithAMove(Base):
                 self.assertIn(i["name"], starts)
         self.assertTrue(all("on your bench, " in i["text"] for i in tab["radar"]["rising"] if i["where"] == "bench"))
         said = {i["name"]: i.get("verdict") for i in tab["radar"]["rising"] if i["where"] == "bench"}
-        self.assertEqual(said, {"Atlanta Riser": "start him today (it's in Lineup moves)",
-                                "Boston Guard": "worth a start on his next game day (no game today)"})
+        self.assertEqual(said["Atlanta Riser"], "start him today (it's in Lineup moves)")
+        # no game today and his season value doesn't beat the weakest starter's by 1+: not "worth a start" (pass 3)
+        self.assertTrue(said["Boston Guard"].startswith("keep him on the bench for now (no game today; his season value"))
         self.assertIn("Atlanta Riser", starts)
         for a in tab["adds"]:                                               # no "Drop X" for a player told to start
             self.assertFalse(any(a.startswith(f"Drop {n} ") for n, v in said.items() if "start" in (v or "")))

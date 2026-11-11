@@ -77,7 +77,7 @@ def better_news(league):
             continue
         m = re.search(r"/id/(\d+)", n.get("url") or "")
         try:
-            fresh = m and espn.player_news(m.group(1), game)
+            fresh = m and espn.player_news(m.group(1), game, p["name"])
         except Exception:
             traceback.print_exc()
             continue
@@ -122,9 +122,10 @@ def injury_watch(league, now):
         # football: a free agent is the better fix when the bench fill-in projects under MIN_FILL or trails him by
         # FA_EDGE+ (same rule as the digest's lineup fixes); a sub-MIN_FILL fill-in isn't worth swapping in
         nba = getattr(league, "sport", "nfl") == "nba"
-        fa = league.best_fa(out["positions"], now) if nba else slot_fa(slot, digest.free_agents(league), now)
+        # guillotine with War Room v2 current: only players addable now, never a pending waiver claim (digest.fix_pool)
+        fa = league.best_fa(out["positions"], now) if nba else slot_fa(slot, digest.fix_pool(league), now)
         better = "" if nba or not (inn and fa_over_bench(inn, fa)) else \
-            f" Better: add {fa['name']}{q_tag(fa)} ({fa['team']}, {fa['proj']} proj) and start him — add/drop manually."
+            f" Better: add {fa['name']} ({fa['team']}{q_tag(fa)}, {fa['proj']} proj) and start him — add/drop manually."
         weak = None
         if better and inn["proj"] < MIN_FILL:
             weak, inn = inn, None
@@ -202,7 +203,8 @@ def _advice(view):
     return view.get("advice") or None
 
 
-ADD_RE = re.compile(r"^(?:Drop (?P<drop1>.+?) \(.*?\), add |Add )?(?P<add>.+?) \(")
+# an NBA swap after an IR fix reads "First move X out of IR (...); then drop A (...), add B (..." (shq/nba_swaps.py)
+ADD_RE = re.compile(r"^(?:First move .+?; then )?(?:[Dd]rop (?P<drop1>.+?) \(.*?\), add |Add )?(?P<add>.+?) \(")
 DROP_RE = re.compile(r"\) (?:for|over) (?P<drop>.+?) \(|, drop (?P<drop2>.+?) \(")
 
 

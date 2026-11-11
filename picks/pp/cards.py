@@ -671,15 +671,16 @@ def card_over(meta):
 
 def old_card_html(meta):
     """A banner, hidden until the card's week is over (checked in the browser, since the page stays up from Saturday's
-    refresh to Wednesday's draft): says it's last week's card and when the new drafts come. Self-contained (own style
-    and script)."""
+    refresh to Wednesday's draft): says it's last week's card and when the new drafts come, hides the "next lock ..."
+    lines (all passed) and greys the stage chip (#666 under white text: 5.7:1 in light and dark mode; the old --mut grey
+    was 2.85:1 in dark mode). Self-contained (own style and script)."""
     over = card_over(meta)
     if not over:
         return ""
     week = html.escape((meta.get("week_label") or "").split(" (")[0])
     return ("<style>.old{margin:8px 0;padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.4;background:#fff4d6;"
             "color:#4a3200;border:1px solid #e0b44c}@media (prefers-color-scheme:dark){.old{background:#2e2610;color:#ffdc8a;"
-            "border-color:#7a6224}}body.oldcard .stage{background:var(--mut)}</style>"
+            "border-color:#7a6224}}body.oldcard .stage{background:#666;color:#fff}body.oldcard .dl{display:none}</style>"
             f"<p id='oldcard' class='old' data-over='{over.isoformat()}' hidden><b>Last week's card.</b> "
             f"{week + ': t' if week else 'T'}hese games are over and every lock on this page has passed. "
             f"New drafts post {NEXT_DRAFT}.</p>"

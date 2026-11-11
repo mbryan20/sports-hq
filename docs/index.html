@@ -88,7 +88,7 @@ function render(d) {
       ${gaps.length ? `<ul class="tips">${gaps.slice(0, 3).map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="t-top muted">No stale-line edges open right now.</p>`}
       <div class="t-foot"><span class="meta">Open the cards →</span>${SHQ.fbButtons("Picks tile")}</div></article>`;
   const extras = `<article class="tile extra" tabindex="0" data-open="today" data-spot="Today tile">
-      <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.generated)) : ""}</span></div>
+      <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.updated || d.digest.generated)) : ""}</span></div>
       <p class="t-top">${today ? esc(today.title) : "Today's 8am check hasn't posted yet."}</p>
       <div class="t-foot"><span class="meta">Daily check →</span>${SHQ.fbButtons("Today tile")}</div></article>
     <article class="tile extra" tabindex="0" data-open="weekly" data-spot="Weekly tile">
@@ -98,7 +98,7 @@ function render(d) {
     <article class="tile extra" tabindex="0" data-go="war-room-v2/" data-spot="War Room tile">
       <div class="t-head"><h3>War Room</h3><span class="meta">Guillotine model</span></div>
       <p class="t-top">${g ? `Survive ${SHQ.pct(g.survive)} · waivers ${esc(g.waivers)} CT · $${g.faab} FAAB` : "Bid and elimination model."}</p>
-      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("War Room tile")}</div></article>
+      <div class="t-foot"><span class="meta">Open →</span><a class="meta" href="${SHQ.GUIDE.guillotine}" target="_blank" rel="noopener">Written guide ↗</a>${SHQ.fbButtons("War Room tile")}</div></article>
     <article class="tile extra" tabindex="0" data-go="wrapups/" data-spot="Wrap-up tile">
       <div class="t-head"><h3>Weekend wrap-up</h3><span class="meta">PDF + page</span></div>
       <p class="t-top">How the week went across every league and pool.</p>
@@ -125,7 +125,7 @@ function openFromHash() {
 }
 document.getElementById("main").addEventListener("click", e => {
   const t = e.target.closest(".tile");
-  if (!t) return;
+  if (!t || e.target.closest("a[href]")) return;   // a link inside a tile (the War Room guide) opens itself
   if (t.dataset.go) location.href = t.dataset.go;
   else openLeague(t.dataset.league || t.dataset.open);
 });

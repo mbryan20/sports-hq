@@ -146,7 +146,24 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
 ### Q-043 · Traded players and new starters get zero or old-team rest-of-season numbers after the trade deadline
-- **Status:** shipped (ce89445)
+- **Status:** shipped (ce89445). Follow-up fix shipped the same evening (Tue Nov 10, see **Follow-up** below).
+- **Follow-up (regressions found ~6:20pm):** (1) IR placement was read from ESPN's injury entry date, which is the latest
+  blurb's (Etienne, on IR since Oct 1, read [0, 0, 0, 0] / ROS 0.0 after a Nov 4 / Nov 11 00:05Z blurb, and Kosmonauts
+  said drop him for Geno Smith; Iosivas, Legette too). Now `state/ir_seen.json` records the first run that saw each IR
+  tag (`ir_placed`; merged key by key like alerts.json); no record and no IR news in the last 7 days = minimum served;
+  never zero weeks while Sleeper projects him > 0 this week. (2) The fill made up a this-week number for players
+  status.confirm had softened to Q (Davante Adams, Sleeper IR: 13.8 in week 10, "Add Davante Adams (13.8/gm)" in
+  Stempak; Mike Evans, Sleeper Out: 18.1) and for Doubtful players (Stevenson, Kyler Murray in the ESPN leagues). Now this
+  week is never filled (no live projection = 0), and fill eligibility comes from the raw worst tag of every source
+  (`raw_status`, `DEAD`: Doubtful/Out/IR/PUP/SUSP/NA). (3) A fill-in QB was filled through weeks his hurt starter is
+  projected back (Drew Lock 18.7 in weeks 12-13 with Darnold back; Cousins 17.2 in weeks 11-13 with Murray back). Now a
+  QB's stale or missing week is 0 when a teammate who is hurt now is projected there as the starter (≥ 100 pass yards and
+  ≥ 60% of the fill); a healthy benched teammate's stale rows don't block a new starter (Mendoza case). (4) Not changed:
+  `shq/status.py` `confirm` also reads ESPN's note date as the designation date (Cam Skattebo: ESPN Out, Tuesday
+  21:38Z note says full practice, so OUT stands). Softening that would risk leaving a truly out player in a lineup and
+  there is no designation date to use instead, so it stays as is. Code: `values.week_fills`, `live_points`,
+  `raw_status`, `_qb_starter_back`, `ir_placed`/`load_ir_seen`/`save_ir_seen`, `.gitattributes`; tests: new classes in
+  `tests/test_trade_deadline.py` (`IrPlacement`, `ReallyOut`, `QbRoom`; two IR tests updated to the new placement rule).
 - **Area:** `shq/values.py` (`_slim` keeps each projection's team, `ros_weeks`/`ros_ppg` fill, `per_game`, `ir_games_left`,
   `live_team`, `annotate`; ROS cache format 2), `shq/leagues.py` (`make_player`, `EspnLeague._live_team`/`_player`),
   `shq/nfl_players.py` (basis text), `tests/test_trade_deadline.py`
@@ -328,6 +345,85 @@ Measure (the health.json check that should move), Design, Decision.
   of `notify.push`, ntfy and git origin reads patched to fail; a temp-repo rebase shows the driver keeps both runs' keys
   and that without it one is lost); `tests/test_laptop_kick.py` now checks the silent-kick symptom instead of a push.
   Undo: `git revert` the commit (the new state keys are harmless; the `.gitattributes` lines go with the revert).
+- **Decision:** requested by Michael via Claude Ops, Nov 10
+
+### Q-050 · Pass-3 review: Guillotine fix and adds contradicted War Room v2; wrong news; weak bench fill-in; small text fixes
+- **Status:** shipped (Tue Nov 10 evening; commit titled "Q-050")
+- **Area:** `shq/digest.py` (`v2_calls`, `fix_pool`, `_v2_room`, `_room(keep=)`), `shq/advice.py` (`v2_adds`),
+  `shq/guillotine.py` (`v2_rows(teams=)`, `live_teams`, `waiting` in the analysis), `shq/run.py` (injury watch uses
+  `fix_pool`; ESPN news by name), `shq/swap.py` (`WEAK_FILL`, `fa_over_bench`, `q_tag`), `shq/espn.py` (`pick_news`,
+  feed read 5 deep), `shq/trades.py` (Surplus text), `shq/wrapup_render.py` (Next week "As of"), `picks/pp/cards.py`
+  (old-card banner), `docs/index.html`, `docs/lib/core.js` (Weekly), tests in `tests/test_digest.py`
+  (`PassThreeFixes`), `tests/test_guillotine.py`, `tests/test_espn_news_cache.py` (`OwnNews`)
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (pass-3 review, Tue Nov 10 ~6:20pm CT)
+- **Evidence:** lineups.json / digest.json Tue Nov 10 6:27pm CT. (1) Guillotine fix "add Harold Fannin Jr. ... drop
+  Khalil Shakir ... and start him" for Goedert's bye, while `docs/war-room-v2/bids.json` had Fannin as a $1 waiver claim
+  (drop Woody Marks; Shakir is v2's drop for the Barkley claim) and Pat Freiermuth as a free add; the adds said "Jaylen
+  Warren for Woody Marks" and "Jordan Love for Braelon Allen" while v2 said Warren for Braelon Allen, Love for Woody
+  Marks. (2) bids.json listed "Kirk Cousins, LV" after his trade to MIN. (3) 3-Ball FB "start Kenyon Sadiq (4.0 proj)"
+  while Freiermuth (8.2) was a free agent (gap 4.2, under FA_EDGE 5). (4) "Fantasy buzz: Malik Willis placed on IR ..."
+  cited for Rhamondre Stevenson and Garrett Wilson (`player_news` took the feed's first item, a roundup). (5) "add Drew
+  Lock (Q) (SEA, 15.7 proj)". (6) Stempak "Surplus: Ollie Gordon II, 12.3/gm on your bench" while he starts. (7) Today
+  tile showed the 8:02a build time after later refreshes; Weekly "Tuesday's plan had:" inline; wrap-up Next week had no
+  as-of; the old picks card kept its "next lock" lines and a 2.85:1 grey chip in dark mode.
+- **Expected impact:** (1) With v2 current, a guillotine fix names only a player you can add now (no pending claim),
+  with v2's drop when v2 lists him, and never drops a player v2 uses as a recommended claim's drop; the league page's
+  (and Weekly's) adds are v2's own calls and drops, in v2's order, Priced out skipped. Dashboard-model fallback unchanged.
+  (2) v2 rows take SHQ's live team by Sleeper id. (3) A bench fill-in under 5 gives way to a free agent projecting at
+  least double. (4) A citation is the player's own note (Rotowire first, else a headline/short story naming him), else
+  none. (5) "add Drew Lock (SEA, Q, 15.7 proj)". (6) "beyond your rest-of-season starters". (7) Today tile shows the
+  last refresh; Weekly "This morning's plan (replaced by the lines above):" as a list; wrap-up "As of <build>. League
+  pages have current advice." (week 9 HTML re-rendered from its saved JSON; PDF fixed forward); the old card hides its
+  lock lines and the chip is #666 under white (5.7:1).
+- **Effort:** S
+- **Risk:** Low (advice text only; nothing is ever added, dropped or bid)
+- **Measure:** — (one-off: no guillotine fix names a player on v2's list as a claim; no roundup headline as a citation)
+- **Design:** as above. War Room v2 itself (`warroom/`, bids.json) untouched.
+- **Decision:** bug fixes requested by Michael via Claude Ops (pass-3 review), Nov 10
+
+### Q-051 · NBA pass-3 review: IR fix first, questionable adds, radar protection, chase isn't a move
+- **Status:** shipped (886bddc)
+- **Area:** `shq/digest.py` (IR line first + urgent in every league, NBA day-to-day label), `shq/nba_swaps.py` (IR-first
+  line + room drop, day-to-day discount + status, radar protection by value, "over keeping", whole-year ages),
+  `shq/radar.py` (`keep` = shown bench risers, `agree()` verdicts and wording, % rostered wording), `shq/advice.py`
+  (`ir_room`, `dedupe_cat_adds`), `shq/nba_values.py` (`play`, `word`), `shq/status.py` (`espn_word`, `play_chance`),
+  `shq/nba_games.py` (streamer status), `shq/run.py` (`ADD_RE` reads the IR-first line), `docs/lib/core.js` (chase kind
+  only), `tests/test_nba_pass3.py` (new), `tests/test_nba_one_answer.py`, `tests/test_radar.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops), from the pass-3 review (Tue Nov 10 ~6:20pm)
+- **Evidence:** live `docs/data/lineups.json` Nov 10 ~6:20pm. (1) Ball is Life: Austin Reaves (ESPN Active, played Nov 8)
+  in an IR slot; Fix now said "Lineup is set, nothing to fix", the only mention was a collapsed note, and Waiver adds said
+  "Drop John Collins, add Mo Bamba", which ESPN blocks until he moves; Stempak (football) listed an add/drop fix before
+  "Move David Montgomery out of IR". (2) 3-Ball BB: Isaiah Stewart (ESPN 5:13p: questionable for Wednesday) shown as
+  "+20.0 this week, 3 games" with no tag. (3) Ball is Life radar `keep` held Ryan Dunn (#230, -5.5/g, a starter whose rise
+  the page never shows), LaMelo Ball and Ajay Mitchell, so the swaps dropped Collins/Draymond. (4) chase lines counted
+  as moves: KPI "Lineup moves 6", layout B "Move 6", layout C "Do now 16", MOVE chip on "Keep in the lineup: Walker
+  Kessler" (no game today). (5) Draymond's "may fade" said twice, "Waiver adds swaps him", "worth a start" for every
+  bench riser on a no-game day, "1 straight game of it so far" after a 3-game rise, "+1.7 pts in 3 days" for % rostered.
+  (6) Stewart "+20.0" in Waiver adds vs "+11.6" in Streamers; Category adds named Jerami Grant for BLK while Waiver adds
+  named Mo Bamba. (7) "De'Andre Hunter is 29" (28.9). (8) Giannis "is Questionable" while ESPN's note said probable.
+- **Expected impact:** one answer per player and per action on the NBA tabs. (1) An IR slot ESPN won't allow is the first,
+  urgent Fix now line in every league ("...; do this before any add or drop"), and the NBA add list starts "First move
+  Austin Reaves out of IR (Fix now): ...; your roster is full, so that takes a drop too: X; then drop ..."; the Fix now
+  line and the radar name the same room drop (the weakest bench player the swaps don't already drop). (2) A day-to-day
+  add or drop shows "day-to-day (ESPN: questionable), next game counted at 50%" and his next game counts at ESPN's word:
+  probable 0.9, questionable 0.5, doubtful 0.25, no word 0.5 (streamers too). (3) Only bench risers the radar shows, not
+  "may fade", are protected, and only while their value isn't more than 1.0/g below the weakest other drop (Toppin
+  -4.2 vs Dunn -5.5 stays protected; Dunn is a drop). (4) Chase lines are kind "keep": not in any move count; the NBA
+  tile's top line is the fix, move or add. (5) "rise may fade (why); the add list below swaps him for X (+N this week over
+  keeping him)" once; no-game verdict "worth a start on his next game day" only when his value beats the weakest
+  starter's by 1+/g, else "keep him on the bench for now (...)"; "it hasn't lasted 4 straight games yet"; "rostered 2%
+  (+1.7% in 3 days)". (6) "+20.0 this week over keeping De'Andre Hunter"; Category adds for a need a swap already helps
+  are left out. (7) Whole years. (8) "day-to-day (ESPN: probable)".
+- **Effort:** M
+- **Risk:** Low (advice text and drop choice only; nothing is sent). Not confirmed: whether ESPN lets you drop a player
+  while an IR slot is blocked (the line says the move "takes a drop", not which screen allows it). The play chances are
+  set, not fitted.
+- **Measure:** — (one-off: the next live Ball is Life tab shows the Reaves fix first and the IR-first add line; 3-Ball BB's
+  Stewart line names his status)
+- **Design:** see Area. Tests: `tests/test_nba_pass3.py` (one class per item, fixtures only; the core.js feed/tile check
+  runs under Node, a source check runs everywhere). Undo: `git revert` the commit.
 - **Decision:** requested by Michael via Claude Ops, Nov 10
 
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)

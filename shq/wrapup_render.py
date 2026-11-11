@@ -119,6 +119,11 @@ def _league_html(l):
     return "".join(parts)
 
 
+def next_asof(m):
+    """The Next week list is a snapshot: the league pages keep changing after the wrap-up is built (Nov 10)."""
+    return f"As of {m.get('generated_label') or 'the build time'}."
+
+
 def html(m):
     pdf = f"{m['season']}-w{m['week']:02d}.pdf"
     p = [f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -134,7 +139,7 @@ def html(m):
                  f'<td>{_e(l.get("score") or "-")}</td><td>{_e((l.get("standing") or "-").split(" (")[0])}</td></tr>')
     p.append("</table><h2>League by league</h2>")
     p += [_league_html(l) for l in m["leagues"]]
-    p.append("<h2>Next week</h2>")
+    p.append("<h2>Next week</h2>" + f'<div class="meta">{_e(next_asof(m))} <a href="../">League pages</a> have current advice.</div>')
     for l in m["leagues"]:
         if l.get("next"):
             p.append(f'<div class="row"><strong>{_e(l["name"])}</strong><ul>' + "".join(f"<li>{_e(x)}</li>" for x in l["next"]) + "</ul></div>")
@@ -285,6 +290,7 @@ def pdf(m):
         story += block
 
     story += section("Next week")
+    story.append(P(_t(next_asof(m) + " League pages have current advice."), small))
     for l in m["leagues"]:
         if l.get("next"):
             story += [KeepTogether([P(f"<b>{_t(l['name'])}</b>"), li(_t(l["next"][0]))])] + [li(_t(x)) for x in l["next"][1:]]

@@ -103,7 +103,7 @@ def streamers(league, cats, now_days, next_days, dates):
         ds = team_days(league, tid.get(p["team"]), days)
         helps = [c for c, z in sorted(zip(block["cats"], p["z"]), key=lambda t: (t[0] not in need, -t[1])) if z >= 0.4][:3]
         bb = b2b(ds)
-        out.append(f"{p['name']} ({p['pos']}, {p['team']}, {p['pct']:.0f}% rostered): {len(ds)} game{'s' if len(ds) != 1 else ''} "
+        out.append(f"{p['name']} ({p['pos']}, {p['team']}, {p['pct']:.0f}% rostered{nba_swaps.status_text(p) if horizon == 0 else ''}): {len(ds)} game{'s' if len(ds) != 1 else ''} "
                    f"{when} ({label_days(league, ds, dates)}{', back-to-back' if bb else ''}), "
                    f"{nba_swaps.worth(p, block, w, horizon):+.1f} {when}"
                    + (f", helps {', '.join(helps)}" if helps else ""))
