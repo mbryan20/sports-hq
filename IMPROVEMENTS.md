@@ -223,7 +223,8 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-047 · NBA league tabs contradicted themselves: radar "start him" vs "Drop him", a benched shrinking player "kept in the lineup"
 - **Status:** shipped (b9ccfcd); follow-up shipped (f9159e2): a "may fade" riser the Waiver adds drop gets the swap on
   the radar ("rise may fade (no teammate's injury behind it); Waiver adds swaps him for X (+N this week)"), not a start
-  verdict (Draymond Green, Ball is Life, Nov 10; Michael's call via Claude Ops: may-fade risers stay droppable)
+  verdict (Draymond Green, Ball is Life, Nov 10; Michael's call via Claude Ops: may-fade risers stay droppable);
+  follow-up shipped (70976c8): Waiver adds swaps never drop a player today's Lineup moves start
 - **Area:** `shq/radar.py` (`fades`, `block`'s `keep` and `shrink_ids`, `agree`, bench riser tag), `shq/nba_swaps.py` (drop
   filter, so also the weekly plan's adds), `shq/categories.py` (`build(skip)`, `_starting`), `shq/nba_lineup.py`
   (`start_key` on a move), `shq/advice.py` (chase rebuilt with the radar's shrinking ids; radar verdicts after Lineup moves)
