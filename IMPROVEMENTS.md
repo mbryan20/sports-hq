@@ -426,6 +426,40 @@ Measure (the health.json check that should move), Design, Decision.
   runs under Node, a source check runs everywhere). Undo: `git revert` the commit.
 - **Decision:** requested by Michael via Claude Ops, Nov 10
 
+### Q-052 · Expert consensus ranks on every football decision (instead of checking FantasyPros)
+- **Status:** shipped (ffb2854)
+- **Area:** `shq/experts.py` (new: fetch + 3h cache, consensus and "lately" ranks, cross-platform player match, league
+  block, "where we disagree", pairs backtest), `shq/advice.py` (`expert_ranks`, `expert_block`, `advice["experts"]`),
+  `shq/run.py` (guillotine bid names), `shq/leagues.py` (roster row `exp`), `shq/nfl_players.py` (`exp_wk`,
+  `exp_lately`, `exp_range`), `shq/health.py` (section `experts`, checks `exp.*`), `docs/lib/core.js` (tags under each
+  line, disagree section, roster rows, Today, Weekly), `docs/players/index.html` (Experts + Exp lately columns),
+  `tests/test_experts.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops)
+- **Evidence:** Michael, Nov 10 7pm: "I find myself going to FantasyPros regularly still because i trust it to be more
+  reliable for certain things." FantasyPros checked first: robots.txt allows its ranking pages, but its Terms of Use
+  (fantasypros.com/about/legal/) allow only "a single copy made for personal use" and forbid republishing; Sports HQ
+  is a public repo and site. Its API (fantasypros.com/api-data/) needs a key: free tier "non-production use" only,
+  personal use = $8.99/mo Premium or a HOF member's personal key; no account was created. ESPN's analysts' weekly PPR
+  ranks (8 experts, ~330 players a week) come free from the public ESPN fantasy API the 3-Ball leagues already use.
+  ESPN has no in-season NBA expert ranks and no rest-of-season football ranks in that feed.
+- **Expected impact:** every football fix, lineup move, waiver add and guillotine bid shows "ESPN experts: <player>
+  WR18 this week, WR22 lately"; roster rows, Today and Weekly too; the Players page gets sortable Experts / Exp lately
+  columns (green/red where they differ from our week rank by 10+ spots, 6+ at QB/TE); each league page lists "Where we
+  disagree with the experts" (both numbers). Backtest, weeks 1-9 2026, 15,973 start/sit pairs (same position, within 12
+  expert ranks, both played, half PPR): Sleeper 57.5%, experts 56.8%, 50/50 blend 57.9%, blend better in 5 of 9 weeks.
+  Not a clear win, so start/sit and adds still run on Sleeper's projections (display only).
+- **Effort:** M
+- **Risk:** Low (display + a nightly check; the lineup model is unchanged; an ESPN outage leaves the last cache or no
+  tags, never a failed run). Players parked at the bottom of the experts' lists (bye, ruled out) show as "not ranked to
+  play this week", and their "lately" skips those weeks.
+- **Measure:** health.json section `experts`: `exp.blend_edge` and `exp.last_week_edge` (switch start/sit to the blend
+  when it is 1%+ better and wins 70%+ of weeks; the section's note says so), `exp.calls_right` (our "Start X over Y"
+  calls that outscored, baseline-tracked), `exp.calls_vs_experts`.
+- **Design:** `shq/experts.py` docstring. Weekly ranks are read at most every 3h (`.cache/espn_experts.json`, generic
+  User-Agent, nothing personal); this week's rank appears once ESPN publishes it (usually Tue-Wed).
+- **Decision:** requested by Michael via Claude Ops, Nov 10 (FantasyPros itself not used: terms; paid key would be his call)
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
