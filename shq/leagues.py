@@ -2,10 +2,10 @@
 import datetime as dt
 import re
 
-from . import espn, espn_fantasy as ef, sleeper, values
+from . import espn, espn_fantasy as ef, experts, sleeper, values
 from .common import iso, parse_iso
 from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
-from .status import confirm, worst
+from .status import OUTISH, confirm, worst
 from .yahoo import Yahoo
 
 
@@ -432,6 +432,7 @@ def view(league, advice=None):
         return {"slot": p["slot"], "name": p["name"], "team": p["team"], "pos": "/".join(p["positions"][:2]),
                 "opp": p["opp"], "kickoff": iso(p["kickoff"]), "started": p["started"], "proj": p["proj"],
                 "status": p["status"], "why": p["why"], "flags": flags, **({"cv": p["cv"]} if p.get("cv") else {}),
+                **({"exp": experts.label(p["exp"])} if p.get("exp") else {}),   # ESPN experts' rank (shq/experts.py)
                 "news": {**p["news"], "at": iso(p["news"]["at"])} if p.get("news") and p["status"] else None}
     return {
         "name": league.name, "platform": league.platform, "week": league.week,
@@ -441,7 +442,10 @@ def view(league, advice=None):
         "opponent": league.opponent, "opp_proj": league.opp_proj,
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
         # category leagues have no points: no team projection (the page shows the category outlook instead)
-        "proj": None if getattr(league, "sport", "nfl") == "nba" else round(sum(p["proj"] for p in league.starters), 1),
+        # starters who can't play (empty, bye, OUT/IR/Doubtful) count 0, same as the headline (shq/advice.py, Q-048)
+        "proj": None if getattr(league, "sport", "nfl") == "nba" else round(sum(
+            p["proj"] for p in league.starters
+            if not (p.get("empty") or p["bye"] or p["status"] in OUTISH | {"D"})), 1),
         "starters": [row(p) for p in league.starters], "bench": [row(p) for p in league.bench],
         "advice": advice,
     }

@@ -4,7 +4,8 @@ Pure logic, no AI; ESPN is read-only, so every move is "make this change" for Mi
 A move is needed only when a starter can't help today (no game, out, or an empty slot) and a bench player who plays
 today can fill that slot, or when a bench player who plays today is worth clearly more than a starter who plays today
 (MIN_EDGE value per game, shq/nba_values.py). The same rule as the 8am digest's "no game today → start X", ranked by
-category value instead of points (category leagues have none).
+category value instead of points (category leagues have none). The trend radar's "start him" for a rising bench player
+follows these moves (radar.agree(), Q-047), so the two never disagree.
 
 The push: at most one a day for both leagues together, sent on the first run inside LEAD before the earliest tip-off
 among the moves, and only when there is a move. An out starter in it isn't pushed again by the injury watch."""
@@ -70,7 +71,7 @@ def moves(league, now):
 
 def _move(b, s, why, lock):
     sit = s["slot"] if s.get("empty") else s["name"]
-    return {"start": b["name"], "sit": sit, "sit_id": s["id"], "slot": s["slot"], "why": why, "lock": lock,
+    return {"start": b["name"], "start_key": b.get("key"), "sit": sit, "sit_id": s["id"], "slot": s["slot"], "why": why, "lock": lock,
             "text": f"Start {b['name']} ({b['team']} {b['opp'] or ''}, {ct_label(b['kickoff'])}) over {sit} at {s['slot']}: {why}"}
 
 

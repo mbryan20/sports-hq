@@ -20,6 +20,7 @@ from . import categories, nba_ages, radar
 from .common import load_json
 from .config import TZ
 from .espn_fantasy import NBA_STATS, RATIO, SLOT_NAMES
+from .status import espn_word, play_chance
 
 MIN_GAMES = 5          # games before this season's averages replace ESPN's projection
 DEFAULT_CATS = [[0, False], [1, False], [2, False], [3, False], [6, False], [17, False], [19, False], [20, False]]
@@ -114,7 +115,8 @@ def build(league, sc=None):
     """{"cats", "players": [...best first], "repl", "n", "basis"} for one NBA category league, or None when the
     pool read failed. Each player: id, name, team, pos, own ("me" / team name / None = free agent), src ("season" /
     "proj"), gp, min, v (value per game), rk, wk (this week), g [games left this week, next week], b2b, z (per cat,
-    in "cats" order), st (per-game stats in the same order), inj, dmin (minutes, last 3 games vs before), pct (% rostered),
+    in "cats" order), st (per-game stats in the same order), inj, play (chance he plays his next game), word (ESPN's
+    probable/questionable/doubtful), dmin (minutes, last 3 games vs before), pct (% rostered),
     age (years, None when ESPN's rosters don't list him)."""
     sc = sc or radar.scan_for(league)
     pool, roles = sc["pool"], sc.get("roles") or {}
@@ -145,6 +147,7 @@ def build(league, sc=None):
         g_now, g_next, b2b = radar.schedule(league, p)
         healthy = categories._healthy(league, {"id": pid, "injury": p.get("injury")})
         entry = league.report.get(pid) or {}
+        inj = entry.get("status") or (p.get("injury") if p.get("injury") not in (None, "ACTIVE") else None)
         rl = roles.get(pid)
         st = lines[pid]
         out.append({
@@ -153,7 +156,10 @@ def build(league, sc=None):
             "v": round(v, 2), "rk": rk, "wk": round((v - repl) * g_now, 1) if healthy else 0.0,
             "g": [g_now, g_next], "b2b": len(b2b), "z": [round(x, 2) for x in z],
             "st": [shown(c, st) for c, _ in cats],
-            "inj": entry.get("status") or (p.get("injury") if p.get("injury") not in (None, "ACTIVE") else None),
+            "inj": inj,
+            # day-to-day: the chance he plays his next game (ESPN's note: probable/questionable/doubtful), which
+            # shq/nba_swaps.worth() counts that game at; 1 when healthy
+            "play": play_chance(inj, entry.get("note")) if healthy else 1.0, "word": espn_word(entry.get("note")) if inj else None,
             "out": not healthy, "dmin": round(rl["dmin"], 1) if rl else None, "pct": p.get("owned", 0),
             "age": nba_ages.age(born.get(pid), today),
         })

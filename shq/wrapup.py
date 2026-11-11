@@ -20,6 +20,7 @@ import sys
 import traceback
 
 from . import espn, notify, sleeper
+from . import guillotine as guillotine_mod
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, get_json, iso, load_json, now_utc, parse_iso, save_json
 from .config import LEAGUES, SEASON, SITE_URL, SLEEPER_USERNAME, TZ, YAHOO_SCORING
@@ -249,6 +250,8 @@ def sleeper_section(cfg, view, week, games, edition):
     lid, scoring = lg["league_id"], lg["scoring_settings"]
     rosters = sleeper.rosters(lid)
     names = {u["user_id"]: (u.get("metadata") or {}).get("team_name") or u.get("display_name") for u in users}
+    if cfg.get("format") == "guillotine":   # "Team name (username)", as on the league page and War Room (Q-048)
+        names = {u["user_id"]: guillotine_mod.team_label(u) for u in users}
     team = {r["roster_id"]: _clean(names.get(r["owner_id"])) or f"Team {r['roster_id']}" for r in rosters}
     mine = next(r["roster_id"] for r in rosters if r["owner_id"] == uid)
     db, proj = sleeper.players(), _proj(week)
@@ -640,21 +643,24 @@ def stale_lines(cfb_week, events):
 
 # ---------- war room ----------
 
-def warroom_section():
+def warroom_section(names=None):
+    """`names` maps War Room v2's usernames to the league page's "Team name (username)" labels (Q-048)."""
     b = load_json(ROOT / "docs" / "war-room-v2" / "bids.json")
     if not b:
         return None
+    names = names or {}
+    nm = lambda t: names.get(t, t)
     me, cut = b.get("me") or {}, b.get("cut") or {}
     lines = []
     if cut.get("team"):
-        lines.append(f"Week {cut['week']} cut: {cut['team']} ({'confirmed' if cut.get('confirmed') else 'projected'}).")
+        lines.append(f"Week {cut['week']} cut: {nm(cut['team'])} ({'confirmed' if cut.get('confirmed') else 'projected'}).")
     if me:
         lines.append(f"You next week (week {b.get('week')}): {_pct(me.get('cut_risk_next_week') or 0)} cut risk, "
                      f"projected {_f(me.get('projected_next_week') or 0)}, about {me.get('expected_weeks_left')} weeks left, "
                      f"{_pct(me.get('win_odds') or 0)} to win it.")
     risk = sorted((t for t in b.get("cut_risks") or [] if not t.get("me")), key=lambda t: -(t.get("cut_risk_next_week") or 0))[:3]
     if risk:
-        lines.append("Most at risk: " + ", ".join(f"{t['team']} {_pct(t['cut_risk_next_week'])}" for t in risk) + ".")
+        lines.append("Most at risk: " + ", ".join(f"{nm(t['team'])} {_pct(t['cut_risk_next_week'])}" for t in risk) + ".")
     bids = [x for x in b.get("bids") or [] if x.get("call") in ("Bid", "Add free")][:3]
     if bids:
         lines.append(f"Bids before waivers {b.get('waivers')} (${b.get('my_faab')} left): " + "; ".join(
@@ -664,6 +670,15 @@ def warroom_section():
 
 
 # ---------- the report ----------
+
+def _v2_names(views):
+    """{username: label} from the Guillotine league page's survival block (shq/guillotine.py), or {}."""
+    for cfg in LEAGUES:
+        if cfg.get("format") == "guillotine":
+            g = (((views or {}).get(cfg["name"]) or {}).get("advice") or {}).get("guillotine") or {}
+            return g.get("labels") or {}
+    return {}
+
 
 def build(now, week, edition, views):
     games, nxt = _games(week), _games(week + 1)
@@ -684,7 +699,7 @@ def build(now, week, edition, views):
                  "note": f"Couldn't grade the pools ({type(e).__name__})."}
     model = {"week": week, "cfb_week": pools["cfb_week"], "season": SEASON, "edition": edition,
              "generated": iso(now), "generated_label": f"{now.astimezone(TZ).strftime('%a %b')} {now.astimezone(TZ).day}, {ct_label(now).split(' ')[1]} CT",
-             "leagues": leagues, "pools": pools, "warroom": warroom_section()}
+             "leagues": leagues, "pools": pools, "warroom": warroom_section(_v2_names(views))}
     model["numbers"] = numbers(model)
     model["headline"] = headline(model)
     return model
@@ -801,15 +816,16 @@ def merge_entries(old, new):
     return old
 
 
-def run(now, week, games, views, force=False):
+def run(now, week, games, views, force=False, deliver=None):
     """Called by shq.run every pass. Builds, publishes and pushes when an edition is due; quietly redraws a final
-    issue's pools when the Tuesday postmortem lands. Returns a note for the log, or None."""
+    issue's pools when the Tuesday postmortem lands. Returns a note for the log, or None. `deliver(model, urls)` replaces
+    the push (shq/pushes.py holds a Tuesday final for the one 8am morning push, Q-049)."""
     issues = (load_json(INDEX, {}) or {}).get("issues", [])
     want = due(now, week, games, issues, force)
     if want:
         model = build(now, want[0], want[1], views)
         urls = publish(model)
-        send(model, urls)
+        (deliver or send)(model, urls)
         return f"wrap-up week {want[0]} {want[1]} published"
     stale = refresh_due(issues)
     if stale:

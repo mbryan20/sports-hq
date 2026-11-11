@@ -77,3 +77,26 @@ Entries were read read-only from all three sites in Michael's Chrome; all were s
 - Good decision that lost: Northwestern +4.5 in BTO was on the stale-number side of a 2-point move and lost when Oregon won by 8. Auburn +13.5 in CFP (2 points better than market) also lost. Neither result says the stale-line read was wrong.
 - Card vs entries: the card would have been 3 Yahoo points and $1,920 better. Most of the gap is Northwestern in Yahoo plus the two card-endorsed contrarian picks (Maryland, Washington St.), which are legitimate season-win plays that lost close games. The repeatable value Michael added was the Northwestern spread read. No evidence yet that his Yahoo straight-up departures add value.
 - Lesson: one game in two pools needs two separate decisions, a spread side and a straight-up winner. For the second week running (Ole Miss in week 8, Northwestern in week 9), his BTO side became his Yahoo pick, so one game cost him in both pools.
+
+## Week 10 (CFBD 10, Nov 5-9) — graded Tue Nov 10, 2026
+Entries were read read-only from all three sites in Michael's Chrome; all were signed in. Cards graded are the last posted before each pool locked (BTO final Thu Nov 5; CFP and Yahoo Sat 8am refresh). BTO had not scored Week 10 on the site yet (Tue evening), so its net and balance are computed from the final scores.
+
+**Records (card vs entered)**
+- BTO: card 1-2, net -$1,660 (Notre Dame -5.5 $830 ★ won; LSU -2.5 LP 2 $1,660 lost; NE -0.5 LP 2 $830 lost). Entered 1-2, net -$250: Notre Dame -2.5 (LP 3, $1,350 ★) won 31-24; LSU -3.5 (LP 1, $800) lost 13-31; NE -2.5 ($800) lost 27-45. Same three sides; he wagered $2,950 of $3,320.
+- CFP: card 1-0, net +11,904; entered the same (Iowa +2.5 for 11,904, won 24-10).
+- Yahoo: card 16-9; entered 16-9. TB1: Notre Dame 35-28 Miami (actual 31-24), Georgia 34-29 Ole Miss (actual 42-7). TB2: most Houston (wrong; SMU scored 51), fewest Nevada (right, 3, tied with NC State).
+
+**Standings**
+- BTO: site still shows $3,320, #20 of 49, Three Bet; expect $3,070 once Week 10 posts. Playoff line (#12) $4,250; leader $10,700 (both before Week 10).
+- CFP: 23,808 pts, #14 (52 players with points). Money line (#12) 32,000; leader 79,360.
+- Yahoo: 151 pts, 8th of 14 (tied with 7th). Leader 160, 3rd 156.
+
+**Differences (judged on pre-kickoff information)**
+- BTO, same sides, different line points and sizing. Card: biggest bet on LSU (pool -4.5 vs market -6, plus 2 LP = 62% cover), 2 LP on NE through 1-2, Notre Dame at -5.5 (55%). Michael: 3 LP and his biggest bet on Notre Dame (-2.5 vs market -7.5, through 3), 1 LP on LSU, none on NE. On the card's own cover numbers the card's package was worth about +$620 expected vs about +$500 for his. Close, card slightly better on process; his was $1,410 better on outcome because Notre Dame was the only cover. Not confirmed: his-line cover rates are my estimate scaled from the card's numbers, not a fresh sim.
+- Yahoo Texas@Missouri, card Texas vs entered Missouri: the card was better. Missouri was on the card's upset-watch list but the market had it at 44%, and 24% of Yahoo players were on it (4 of 10 active group members, as it turned out), so the pick gave up 12 points of win chance for little separation. Texas won 34-20.
+- Yahoo Fresno St.@Utah St., card Fresno St. vs entered Utah St.: Michael's call was better. Also on the upset-watch list: market 48%, line moving toward Utah St., only 8% of Yahoo players on it. A near coin flip with real separation is the right kind of contrarian pick. Utah St. won 17-10.
+
+**Process vs outcome**
+- Good decision that lost: the card's largest BTO bet, LSU -2.5 (1.5-point stale pool line plus 2 LP, 62% cover), lost by 18. One blowout doesn't make the stale-line edge wrong.
+- Card vs entries: the biggest value this week came from Michael acting on the Saturday 8am CHANGE alerts. He switched CFP from Notre Dame -7.5 to the card's Iowa +2.5 and Yahoo from Northwestern to Iowa. Notre Dame won by exactly 7, so -7.5 would have lost the whole 11,904 balance. His own departures were a wash: two Yahoo upset-watch picks split 1-1 (Utah St. was the better call, Missouri the worse), and his BTO resizing gained $1,410 on outcome but was slightly worse by the card's numbers. Acting on the alert is repeatable. No evidence yet that his resizing adds value.
+- Lesson: no change. The Saturday 8am saved-picks check is what caught the CFP bust. Keep it as is.

@@ -140,15 +140,15 @@ class Analyze(unittest.TestCase):
     def test_odds_rank_and_bids(self):
         out = g.analyze(self.lg, self.ctx, NOW, sims=2000, past=[], v2={})
         self.assertEqual((out["n"], out["rank"], out["faab"]), (3, 2, 60))
-        self.assertEqual(out["teams"][0]["name"], "Weak Sauce")    # most at risk first
+        self.assertEqual(out["teams"][0]["name"], "Weak Sauce (Weak)")    # most at risk first; team name (username), Q-048
         self.assertGreater(out["teams"][0]["cut"], out["cut"])
         self.assertAlmostEqual(out["cut"] + out["survive"], 1.0)
         self.assertEqual([b["name"] for b in out["bids"]], ["fa"])  # fk adds nothing to my lineup
         b = out["bids"][0]
         self.assertEqual(b["gain"], 5.0)                           # 14 replaces the 9-point FLEX
         self.assertLess(b["cut_with"], out["cut"])
-        self.assertEqual(out["freed"]["team"], "Weak Sauce")
-        self.assertEqual([r["name"] for r in out["rich"]], ["Rich", "Weak Sauce"])
+        self.assertEqual(out["freed"]["team"], "Weak Sauce (Weak)")
+        self.assertEqual([r["name"] for r in out["rich"]], ["Rich", "Weak Sauce (Weak)"])
         self.assertEqual(out["waivers"], "Wed 2:15a")
 
     def test_final_games_use_real_points(self):
@@ -206,6 +206,17 @@ class WarRoomV2(unittest.TestCase):
         self.assertEqual(by["Hockenson"]["why"], "likely price is above his value to you")
         self.assertTrue(all(b["v2"] and b["drop"] == "cw" for b in out["bids"]))
         self.assertFalse(any(b["call"] == "priced out" and b["name"] == "Freiermuth" for b in out["bids"]))
+
+    def test_live_team_wins_over_a_stale_bids_json_team(self):
+        # Nov 10: bids.json (built 21:26Z) still said "Kirk Cousins, LV" after his trade to MIN that day
+        v2 = v2_fixture()
+        v2["bids"][2].update(sleeper_id="fa", team="KC")                # SHQ's live data has "fa" on LV
+        out = g.analyze(self.lg, self.ctx, NOW, sims=500, past=[], v2=v2)
+        by = {b["name"]: b for b in out["bids"]}
+        self.assertEqual(by["Freiermuth"]["team"], "LV")
+        self.assertEqual(by["Warren"]["team"], "PIT")                    # unknown to SHQ: v2's team stays
+        self.assertEqual(g.v2_rows(v2)[2]["team"], "KC")
+        self.assertEqual(out["waiting"], [])
 
     def test_stale_bids_json_falls_back_with_its_reserve(self):
         for v2 in (v2_fixture(week=7), v2_fixture(run="2026-10-28T08:15:00Z")):   # last week's / waivers already ran

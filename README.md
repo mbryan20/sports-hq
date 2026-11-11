@@ -20,19 +20,26 @@ all leagues and pools), C Deck (a card per league, swipe on a phone) and D Game 
 | 3-Ball FB / 3-Ball BB | ESPN 3-Ball Dynasty (football, basketball) | ESPN API, public league (cloud) |
 | Stempak, Bro-vid19 | ESPN football, private | laptop snapshot with Michael's ESPN sign-in |
 | Ball is Life | ESPN "We playin basketball", 8-cat, private | laptop snapshot |
-| Weekly | start/sit + top 3 adds per league (basketball: drop/add swaps on category value) | Tuesday 7am CT |
+| Weekly | start/sit + top 3 adds per league (basketball: drop/add swaps on category value); every run after that its start/sit (the league page's fixes, then upgrades) and adds follow the league page, with Tuesday's moves it no longer makes noted (Q-048) | Tuesday 7am CT, refreshed every run |
 | Wrap-up (`/wrapups/`, header link) | weekend wrap-up: every league's result, bench points, booms/busts, cited injuries, next week's moves, pools, War Room bids; a phone-sized PDF plus a web page, archived per week; push opens the PDF | cloud, Sunday night after the late games + final Tuesday 8am CT |
 | Picks | BTO, CFP, Yahoo pick'em cards (Pool Picks, in `picks/`) | laptop Claude runs Tue–Sat |
 | War Room | Guillotine bid/elimination model (copy of the War Room artifact) | laptop sync, daily |
 | War Room v2 (`/war-room-v2/`) | Same model, rebuilt from Sleeper's API in git (`warroom/`), plus `bids.json` for the AI write-up and bid check | GitHub, `war-room-v2.yml` (daily 6:10am, Mon night, Tue morning, Wed after waivers) |
-| Players (`/players/`, header link, ▦ menu, "Players" on each league page) | **football leagues**: every rostered player and the best 150 free agents, rest-of-season (Sleeper 4-week projections, per game) and this-week ranks by position, FantasyCalc value, next 4 weeks; filter available / mine / position / injury (`docs/data/players_nfl.json`, `shq/nfl_players.py`). **Basketball**: every NBA player in each basketball league: sort by value, this week, games, minutes or any category; filter available / mine, position, health, rising or falling minutes, games this week and next, and the categories he should help in (ranked by fit); tap a row for his full line. Phone: key columns plus a category heat strip. **⇄ Trade check**: tap + on players to give and get, and the tray gives a verdict (value per game above waiver level, fit to your weakest categories, and for 3-Ball an age curve; `shq/nba_trade.py`) | `docs/data/players.json` (cloud, every run) |
+| Players (`/players/`, header link, ▦ menu, "Players" on each league page) | **football leagues**: every rostered player and the best 150 free agents, rest-of-season (Sleeper 4-week projections, per game) and this-week ranks by position, **ESPN experts' consensus rank** this week and lately (green/red where they differ from ours by 10+ spots, 6+ at QB/TE), FantasyCalc value, next 4 weeks; filter available / mine / position / injury (`docs/data/players_nfl.json`, `shq/nfl_players.py`). **Basketball**: every NBA player in each basketball league: sort by value, this week, games, minutes or any category; filter available / mine, position, health, rising or falling minutes, games this week and next, and the categories he should help in (ranked by fit); tap a row for his full line. Phone: key columns plus a category heat strip. **⇄ Trade check**: tap + on players to give and get, and the tray gives a verdict (value per game above waiver level, fit to your weakest categories, and for 3-Ball an age curve; `shq/nba_trade.py`) | `docs/data/players.json` (cloud, every run) |
 | Layouts lab (`/lab/`) | where new layout ideas are tried; 👍/👎 and 💬 Feedback on every page | same data files |
 
 Each league page (tap its tile) opens with a **What to do** section (`shq/advice.py`, rebuilt every run): matchup outlook or
 guillotine survival odds (`shq/guillotine.py`) with War Room v2's bid calls from `bids.json` (its own pricing only when that file is stale), fixes for starters who can't play, start/sit
 moves, waiver adds on rest-of-season value with who to drop and a FAAB bid range (`shq/waivers.py`), trade ideas
 for the football leagues (weak spots, surplus, up to 3 fair offers that help both lineups, from FantasyCalc
-values; `shq/trades.py`), FAAB left. NBA category leagues also get a category table (my total, the opponent's,
+values; `shq/trades.py`), FAAB left. Football pages also tag every fix, lineup move, waiver add and guillotine bid with
+**ESPN's expert consensus rank** for each player it names ("ESPN experts: Jaylen Warren RB11 this week"; the same tags on
+Today and Weekly, and on each roster row), and list **Where we disagree with the experts**: our calls that go against
+their ranks by 10+ spots (6+ at QB/TE), both numbers shown (`shq/experts.py`, Q-052). Why ESPN's experts and not
+FantasyPros: FantasyPros' terms forbid republishing its rankings and its API needs a paid key for personal use; ESPN's
+analysts' weekly ranks come free from the same public API the 3-Ball leagues use. Start/sit still runs on Sleeper's
+projections: in weeks 1-9 a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5%
+for Sleeper alone (better in only 5 of 9 weeks); the nightly model health check keeps testing it. NBA category leagues also get a category table (my total, the opponent's,
 win/lose/close by the rest-of-week projection), which close categories to chase and with whom, and free agents
 strong in them (`shq/categories.py`), plus a **Trend radar** (`shq/radar.py`): free agents and bench players whose minutes, usage or starts just jumped (tied to the cited injury behind it and ranked by the categories I need), my players losing minutes, and who absorbs each injured starter's minutes, from ESPN game logs. Every NBA player also has a **category value** (`shq/nba_values.py`): value per game in that
 league's own categories, rank, and this week's value (games left), from this season's averages after 5 games and ESPN's
@@ -40,7 +47,7 @@ projection before; it shows on each roster row and is written to `docs/data/play
 swaps** (`shq/nba_swaps.py`): "Drop X, add Y: +N this week (helps AST, 3PM)", up to 3, need-weighted by this week's
 categories, dead roster spots (no NBA team) first; dynasty never drops anyone 40%+ rostered or under 24 (ages from ESPN's
 team rosters, `shq/nba_ages.py`). **Games & streamers** (`shq/nba_games.py`): games per NBA team for the rest of this week
-and next week with back-to-backs, my games left vs my opponent's and next week's, and the top 3 streamers. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push. Ideas only: nothing is ever sent to a fantasy site.
+and next week with back-to-backs, my games left vs my opponent's and next week's, and the top 3 streamers. The radar's top lines also go in the Today digest, and a rising free agent under 30% owned in a category I need gets one push (one a day for both basketball leagues together). Ideas only: nothing is ever sent to a fantasy site.
 What's next and the hand-off rules live in **ROADMAP.md**.
 
 The footer shows the last cloud run and when each laptop job last delivered.
@@ -63,8 +70,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - Daily digest (`shq/digest.py`): first run after 8am CT fills the Today tab; pushes once only if something
   needs fixing (dead starter or empty slot, guillotine bottom 3, Friday picks deadlines). A football fix says
   "add <free agent> (proj) and start him" (open roster spot, or the drop `shq/waivers.py` picks) when the best bench
-  fill-in projects under 1 point or a free agent beats him by 5+; every fix shows the projection, 0 included. Late runs (after 1pm) update the
-  tab without pushing. NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
+  fill-in projects under 1 point or a free agent beats him by 5+; every fix shows the projection, 0 included. A digest whose first run is after 1pm
+  fills the tab without pushing. Every later run that day rebuilds the items in place from the same live fixes the league
+  pages show ("updated <time>" on the tab), never pushing (Q-048). NBA lineup fixes are listed there but pushed by the **NBA lineup push** (`shq/nba_lineup.py`): at
   most one a day for both basketball leagues, from 3h before the first affected tip-off, only when a starter has no game,
   is out or the slot is empty and a bench player who plays today can fill it, or a bench player who plays today is worth
   1+ value per game more than a playing starter. The same moves show as "Lineup moves" on the tabs.
@@ -74,8 +82,23 @@ The footer shows the last cloud run and when each laptop job last delivered.
   another one looping does one pass and stops; the digest checks `origin/main` so it is built and pushed once. A kick that
   fails (token expired, gh broken, GitHub down) pushes once per outage, "Sports HQ: laptop can't start GitHub jobs" (Q-037).
   Tasks and how to remove them: `ops/designs/Q-014.md` "As built" and "The laptop is the clock".
-- Alerts if a laptop job's data goes stale (>30h) and on any failed run, and once a day if the laptop's 2:55am kick
-  didn't happen by 4am CT ("Laptop didn't start today's Sports HQ jobs", Q-037; the footer's "Laptop kick" row).
+- Alerts on any failed run, and once per laptop outage ("Laptop/roster sync down", Q-049): a laptop job's data stale
+  (>30h: private ESPN snapshots, the Kosmonauts roster) and the laptop's 2:55am kick missing by 4am CT (Q-037; the
+  footer's "Laptop kick" row) are listed in that one push. No second push until the laptop kicks again and every symptom
+  has cleared.
+- **One push per piece of news** (`shq/pushes.py`, Q-049): Tuesday's plan (7am), 8am digest and wrap-up final go out as
+  ONE push from the first run at or after 8am CT (tap opens the wrap-up PDF); the NBA radar sends one push a day for both
+  basketball leagues; the digest leaves out a starter the injury watch already pushed about; stale pool lines push at
+  most once a day and never 10pm-6am CT (held lines stay flagged on the Picks page and ride the next push). Dedupe keys
+  live in `state/alerts.json` / `state/pick_lines_sent.json`; before a real push the run also reads `origin/main`'s copy,
+  and `commit_data.sh` merges those files key by key (`shq/statemerge.py`), so a laptop kick and a cron loop never
+  push the same alert twice. Anything not pushed is still on the site.
+- **Rest-of-season numbers** (`shq/values.py`, Q-043): a later week Sleeper hasn't re-projected for a player's current
+  team takes his live per-game number, but never this week (no live projection = 0), never for a player any source tags
+  Doubtful/Out/IR/PUP/SUSP (even when the shown status was softened to Q), and never in a QB's week where Sleeper projects
+  a hurt teammate back as the starter. IR players count 0 for what's left of the 4-game minimum, counted from the first
+  run that saw the IR tag (`state/ir_seen.json`, committed, merged key by key; a player already on IR before tracking
+  with no IR news in the last 7 days has served it), and never while Sleeper projects him to play this week.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what
@@ -83,7 +106,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
   waiver run out, by position and season stage); our bids vs the waiver results (would they have won, what winners paid);
   the cut odds the dashboard and v2 showed before kickoff; the NBA radar backtest; Pool Picks' stored backtest and graded
-  cards. Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
+  cards; start/sit pair accuracy of Sleeper vs ESPN's experts vs a blend, and our own "Start X over Y" calls vs what happened (`shq/experts.py`). Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
   or weak when it doesn't beat the simple alternative. No push; the nightly improvement pass reads it.
 
 **Laptop (Claude scheduled tasks in the desktop app; they read sign-in sites in Michael's Chrome — see `ops/BROWSER.md`)**

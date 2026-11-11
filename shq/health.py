@@ -17,6 +17,9 @@ Models and checks:
 - NBA trend radar (`shq/radar_backtest.py`, last 14 mornings): role held over the next 3 team games for the free agents
   the site showed (and, info only, every flag), value vs the old suggestion ranked by that morning's % rostered.
 - Pool Picks: the stored walk-forward backtest (picks/backtest/) and the graded postmortems.
+- Start/sit (`shq/experts.py`, weeks played so far): how often Sleeper's projections, ESPN's expert consensus and a 50/50
+  blend ranked the higher scorer first in realistic pairs, and our own "Start X over Y" moves as shown before Sunday's
+  early games (docs/data/lineups.json history) vs what happened and what the experts said.
 
 Each check is compared with its baseline in state/health_baselines.json (a missing baseline is set from the
 first measurement). Status: ok, watch (worse by more than half the tolerance), drift (worse by more than the
@@ -29,6 +32,7 @@ import collections
 import datetime as dt
 import json
 import math
+import re
 import subprocess
 import sys
 import traceback
@@ -65,12 +69,19 @@ CHECKS = {
     "picks.brier_gap": ("College model Brier minus the market's (0 = as good as the market)", "lower", 0.01, ""),
     "picks.stale_cover": ("Stale-line (1.5+ pt) picks that covered, college", "higher", 0.05, "%"),
     "picks.card_ats": ("Posted card picks that won against the spread", "higher", 0.08, "%"),
+    "exp.sleeper_acc": ("Start/sit pairs Sleeper's projections called right (season so far)", None, 0, "%"),
+    "exp.experts_acc": ("Start/sit pairs ESPN's experts called right (season so far)", None, 0, "%"),
+    "exp.blend_edge": ("50/50 experts + Sleeper blend vs Sleeper alone (pairs called right)", None, 0, "%"),
+    "exp.last_week_edge": ("Blend vs Sleeper alone, last completed week", None, 0, "%"),
+    "exp.calls_right": ("Our \"Start X over Y\" calls where X outscored Y", "higher", 0.10, "%"),
+    "exp.calls_vs_experts": ("Our calls the experts disagreed with that were right", None, 0, "%"),
 }
 MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win": 1, "rec.win_brier": 5, "rec.est_mae": 5,
          "gd.dash_price_mae": 5, "wr.ladder_cov50": 20, "wr.ladder_cov80": 20, "picks.card_ats": 10,
          # radar: players, once each at his first flag. Shown is ~10 players per 14 mornings (4 listed a morning, mostly
          # the same names), so 20 would never be reached; every flag and the edge get ~25-40.
-         "radar.held": 10, "radar.held_all": 20, "radar.edge": 20}
+         "radar.held": 10, "radar.held_all": 20, "radar.edge": 20,
+         "exp.calls_right": 10, "exp.calls_vs_experts": 5}
 # A stored baseline measured on fewer than MIN_N outcomes is re-set from the next measurement that has enough.
 # the simple alternative a check must beat whatever its baseline says: a value on the wrong side is "weak"
 FLOORS = {"wr.cut_skill": 0.0, "gd.v2_skill": 0.0, "gd.dash_skill": 0.0, "wr.proj_edge": 0.0, "radar.edge": 0.0,
@@ -225,6 +236,9 @@ class League:
         # the dashboard names teams by team_name when one is set (shq/guillotine.py)
         self.team_name = {r["roster_id"]: ((by_uid.get(r["owner_id"]) or {}).get("metadata") or {}).get("team_name") or self.display[r["roster_id"]]
                           for r in self.rosters}
+        # since Q-048 the dashboard names them "Team name (username)" (guillotine.team_label)
+        from .guillotine import team_label
+        self.label = {r["roster_id"]: team_label(by_uid.get(r["owner_id"])) or self.display[r["roster_id"]] for r in self.rosters}
         self.cut_week = {r["roster_id"]: (r.get("settings") or {}).get("eliminated") for r in self.rosters}
         self.kickoffs = kickoffs or {}
 
@@ -420,13 +434,33 @@ def warroom_prices(now, estimate=node_estimates):
 
 
 # ---------- our bid recommendations ----------
+SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def name_key(name):
+    """Lower case, no punctuation, no Jr./Sr./II suffix: "Harold Fannin Jr." and "Harold Fannin" meet."""
+    words = "".join(ch if ch.isalnum() or ch.isspace() else " " for ch in (name or "").lower()).split()
+    while len(words) > 1 and words[-1] in SUFFIXES:
+        words.pop()
+    return " ".join(words)
+
+
+def id_lookup(names):
+    """Sleeper id for a player name from lg.name_to_id(): exact (lower case) first, then suffix- and
+    punctuation-blind."""
+    loose = {}
+    for n, sid in names.items():
+        loose.setdefault(name_key(n), sid)
+    return lambda name: names.get((name or "").lower()) or loose.get(name_key(name))
+
+
 def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
     """For every waiver run since tracking began: the War Room v2 bids (bids.json) and the dashboard's guillotine
     bids (lineups.json) as committed just before the run, against what happened (would the bid have beaten
     every rival? what did the winner pay?). A tie counts as a loss (waiver order decides it)."""
     bids_versions = bids_versions if bids_versions is not None else git_versions("docs/war-room-v2/bids.json")
     dash_versions = dash_versions if dash_versions is not None else git_versions("docs/data/lineups.json")
-    names = lg.name_to_id()
+    find = id_lookup(lg.name_to_id())
     v2, dash, runs = [], [], []
     for leg in range(1, lg.played + 1):
         run = lg.waiver_run(leg)
@@ -458,8 +492,12 @@ def rec_outcomes(lg, bids_versions=None, dash_versions=None, load=git_json):
         sha = last_before(dash_versions, run)
         G = (((load(sha, "docs/data/lineups.json") if sha else {}) or {}).get("leagues", {}).get("Guillotine") or {}).get("advice", {}).get("guillotine")
         if G:
-            for row in (G.get("bids") or []) + ((G.get("freed") or {}).get("players") or []):
-                sid = names.get(row["name"].lower())
+            # since Q-044 the page's bids are War Room v2's own calls; the old model's rows sit under "model"
+            M = G.get("model") or ({} if (G.get("bid_source") or {}).get("url") else G)
+            for row in (M.get("bids") or []) + ((M.get("freed") or {}).get("players") or []):
+                if row.get("v2"):
+                    continue
+                sid = row.get("sid") or find(row["name"])
                 if not sid:
                     continue
                 bid = row["price"] if row.get("call") == "bid" else 0
@@ -495,6 +533,7 @@ def shown_cut_odds(lg, bids_versions=None, dash_versions=None, load=git_json):
     dash_versions = dash_versions if dash_versions is not None else git_versions("docs/data/lineups.json")
     by_display = {v: k for k, v in lg.display.items()}
     by_team = {v: k for k, v in lg.team_name.items()}
+    by_team.update({v: k for k, v in (getattr(lg, "label", None) or {}).items()})
     v2, dash, weeks = [], [], []
     for w in range(1, lg.played + 1):
         kick, cut = lg.kickoffs.get(w), lg.cut_of(w)
@@ -552,6 +591,94 @@ def picks_health():
             "stale_cover": stale.get("cover"), "stale_n": stale.get("n"),
             "graded_weeks": weeks, "card": card, "card_ats": rate(card), "card_n": card["w"] + card["l"],
             "entered": entered, "entered_rate": rate(entered)}
+
+
+# ---------- ESPN experts vs Sleeper vs our start/sit calls (shq/experts.py) ----------
+MOVE_RE = re.compile(r"^Start (.+?) \(([\d.]+)\) over (.+?) \(([\d.]+)\) at ")
+SWITCH_EDGE, SWITCH_SHARE = 0.01, 0.7   # when the blend would be worth switching on (see note)
+
+
+def sunday_lock(thursday_kickoff):
+    """Unix time just before Sunday's early games (16:30 UTC; the 1pm ET slate is 17:00/18:00 UTC)."""
+    days = (6 - thursday_kickoff.weekday()) % 7
+    sunday = (thursday_kickoff + dt.timedelta(days=days)).replace(hour=16, minute=30, second=0, microsecond=0)
+    return int(sunday.timestamp())
+
+
+def our_calls(weeks, first_kicks, versions=None, load=git_json):
+    """Every distinct "Start X over Y" lineup move the league pages showed just before Sunday's early games:
+    [(week, league, start name, sit name)], from docs/data/lineups.json's git history."""
+    versions = git_versions("docs/data/lineups.json") if versions is None else versions
+    out = []
+    for w in weeks:
+        k = first_kicks.get(w)
+        sha = last_before(versions, sunday_lock(k)) if k else None
+        if not sha:
+            continue
+        try:
+            data = load(sha, "docs/data/lineups.json")
+        except Exception:
+            continue
+        if data.get("week") not in (None, w):
+            continue
+        for name, lg in (data.get("leagues") or {}).items():
+            for t in ((lg.get("advice") or {}).get("moves") or []):
+                m = MOVE_RE.match(t)
+                if m:
+                    out.append((w, name, m.group(1), m.group(3)))
+    return sorted(set(out))
+
+
+def experts_health(fetch=get_json, players=None, versions=None, load=git_json, first_kicks=None, last=None):
+    """Weeks played so far: start/sit pair accuracy of Sleeper's projections, ESPN's experts and a 50/50 blend
+    (experts.pairs_accuracy, half-PPR points, players who played), and our own "Start X over Y" calls."""
+    from . import experts, sleeper
+    from .config import LEAGUES
+    if last is None:
+        st = fetch(f"{sleeper.BASE}/state/nfl")
+        last = int(st.get("week") or 1) - 1 if st.get("season_type") == "regular" else int(st.get("week") or 0)
+    weeks = list(range(1, max(0, last) + 1))
+    if not weeks:
+        return {"acc": {"n": 0}, "calls": {}, "weeks": []}
+    src = next(lg for lg in LEAGUES if lg["platform"] == "espn" and lg["sport"] == "nfl" and not lg.get("private"))
+    data = experts.compact(experts.fetch(SEASON, src["league_id"], weeks, fetch))
+    db = players if players is not None else sleeper.players()
+    params = [("season_type", "regular")] + [("position[]", p) for p in ("QB", "RB", "WR", "TE")]
+    rows, stats_by_week = {}, {}
+    for w in weeks:
+        proj = {r["player_id"]: r.get("stats") or {} for r in fetch(f"https://api.sleeper.app/projections/nfl/{SEASON}/{w}", params) or []}
+        stats = {r["player_id"]: r.get("stats") or {} for r in fetch(f"https://api.sleeper.app/stats/nfl/{SEASON}/{w}", params) or []}
+        stats_by_week[w] = stats
+        rows[w] = experts.backtest_rows(data, w, proj, stats, db)
+    acc = experts.pairs_accuracy({w: r for w, r in rows.items() if r})
+    # our calls: did the player we said to start outscore the one we said to sit; what did the experts say
+    look = id_lookup({(p.get("full_name") or "").lower(): sid for sid, p in db.items() if p.get("full_name")})
+    first_kicks = first_kicks if first_kicks is not None else kickoffs(weeks)
+    calls = {"n": 0, "right": 0, "experts_split": 0, "split_right": 0, "agree": 0, "lines": []}
+    for w, lg, start, sit in our_calls(weeks, first_kicks, versions, load):
+        a, b = look(start), look(sit)
+        sa, sb = stats_by_week[w].get(a), stats_by_week[w].get(b)
+        if not (sa and sb):
+            continue
+        pa, pb = sa.get("pts_half_ppr") or 0.0, sb.get("pts_half_ppr") or 0.0
+        if pa == pb:
+            continue
+        right = pa > pb
+        calls["n"] += 1
+        calls["right"] += right
+        rk = {x["sid"]: x["rk"] for x in rows.get(w) or []}
+        ra, rb = rk.get(a), rk.get(b)
+        if ra and rb:
+            if ra > rb:   # the experts ranked the player we benched ahead
+                calls["experts_split"] += 1
+                calls["split_right"] += right
+            else:
+                calls["agree"] += 1
+        calls["lines"].append(f"Week {w} {lg}: start {start} ({pa:.1f}) over {sit} ({pb:.1f}) {'right' if right else 'wrong'}"
+                              + (f"; experts had them #{ra} vs #{rb}" if ra and rb else ""))
+    calls["rate"] = r(calls["right"] / calls["n"], 3) if calls["n"] else None
+    calls["split_rate"] = r(calls["split_right"] / calls["experts_split"], 3) if calls["experts_split"] else None
+    return {"acc": acc, "calls": calls, "weeks": weeks}
 
 
 # ---------- assemble ----------
@@ -670,7 +797,33 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
         notes = [f"Backtest {h['backtest_file']} is re-run by the laptop (needs the CFBD key); this job reads it."]
         return checks, h, notes
 
+    def exp():
+        h = experts_health()
+        a, c = h["acc"], h["calls"]
+        last = a.get("weeks", {}).get(max(a["weeks"])) if a.get("weeks") else None
+        checks = [j("exp.sleeper_acc", a.get("sleeper"), a["n"]), j("exp.experts_acc", a.get("experts"), a["n"]),
+                  j("exp.blend_edge", a.get("edge"), a["n"]),
+                  j("exp.last_week_edge", r(last["blend"] - last["sleeper"], 4) if last else None, (last or {}).get("n", 0)),
+                  j("exp.calls_right", c.get("rate"), c.get("n", 0)), j("exp.calls_vs_experts", c.get("split_rate"), c.get("experts_split", 0))]
+        notes = []
+        if a["n"]:
+            wk = len(a["weeks"])
+            notes.append(f"Weeks {min(a['weeks'])}-{max(a['weeks'])}: {a['n']} pairs of players at a position ranked within 12 spots by "
+                         f"the experts, both played, half-PPR. Sleeper {a['sleeper']:.1%}, experts {a['experts']:.1%}, blend {a['blend']:.1%}; "
+                         f"the blend beat Sleeper in {a['blend_wins']} of {wk} weeks.")
+            if a["edge"] >= SWITCH_EDGE and a["blend_wins"] >= SWITCH_SHARE * wk:
+                notes.append(f"The blend now clearly beats Sleeper alone (+{a['edge']:.1%}, {a['blend_wins']} of {wk} weeks): worth "
+                             "switching start/sit to it (shq/experts.py).")
+            else:
+                notes.append("Start/sit stays on Sleeper's projections; the experts are shown next to each call (switch when the blend "
+                             f"is {SWITCH_EDGE:.0%}+ better in {SWITCH_SHARE:.0%}+ of weeks).")
+        if c.get("n"):
+            notes.append(f"Our lineup moves: {c['right']} of {c['n']} right; the experts disagreed on {c['experts_split']} and we were right on "
+                         f"{c['split_right']} of those.")
+        return checks, h, notes
+
     sections = [
+        section("experts", "Start/sit: Sleeper vs ESPN's experts", exp),
         section("warroom", "War Room v2 (guillotine bids)", wr),
         section("recs", "Our guillotine bids vs what happened", recs),
         section("guillotine", "Guillotine cut odds as shown (dashboard vs War Room v2)", gd),

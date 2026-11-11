@@ -143,13 +143,13 @@ class Radar(unittest.TestCase):
         r = radar.block(lg, CATS)
         self.assertEqual(r["need"], ["AST (losing)", "3PM (close)"])      # TO is reversed: never "needed"
         self.assertEqual([i["where"] for i in r["rising"]], ["bench", "fa"])
-        self.assertIn("no teammate's injury behind it and 3 straight games of it so far, so this may fade", r["rising"][0]["text"])
+        self.assertIn("no teammate's injury behind it and it hasn't lasted 4 straight games yet, so this may fade", r["rising"][0]["text"])
         self.assertTrue(r["rising"][0]["fade"])
         self.assertIn("; may fade (ESPN game logs", r["rising"][0]["short"])
         fa = r["rising"][1]
         self.assertFalse(fa["fade"])
         self.assertNotIn("may fade", fa["text"])
-        self.assertIn("Atlanta Riser (PG, ATL), free agent, 8% owned", fa["text"])
+        self.assertIn("Atlanta Riser (PG, ATL), free agent, rostered 8% (+1.2% lately, ESPN's +/-)", fa["text"])
         self.assertIn("minutes 12 → 32 in his last 3 games", fa["text"])
         self.assertIn("since Atlanta Star went out [ESPN Oct 25: Out, Star (ankle) will miss two weeks.]", fa["text"])
         self.assertIn("Fits AST (losing), 3PM (close)", fa["text"])

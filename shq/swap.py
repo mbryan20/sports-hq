@@ -43,13 +43,16 @@ def strength_text(p):
 
 MIN_FILL = 1.0   # a points-league fill-in projected under this is no fix (Nov 10: "start Carson Wentz", projected 0)
 FA_EDGE = 5.0    # a free agent this many points better than the best bench fill-in is the real fix
+Q_EDGE = 3.0     # a Questionable free agent this much better than the best healthy one is named instead, marked Q
+WEAK_FILL = 5.0  # a bench fill-in under this gives way to a free agent projecting at least double him (Nov 10, 3-Ball FB:
+                 # "start Kenyon Sadiq (4.0 proj)" while Pat Freiermuth, 8.2, was a free agent: a 4.2 gap, under FA_EDGE)
 
 
 def slot_fa(slot, free_agents, now, skip=()):
     """Best playable free agent who can legally fill `slot`, by this week's projection (flex and superflex slots
     take every position they allow, so a dead QB in SUPER_FLEX/OP can be covered by a QB).
     A Questionable free agent (not one whose Out is only unconfirmed: `conflict`) is named only when he projects
-    FA_EDGE+ more than the best healthy one, and the caller shows "(Q)" (Nov 10: Drew Lock, Q but expected to play,
+    Q_EDGE+ more than the best healthy one, and the caller marks him Q (Nov 10: Drew Lock, Q but expected to play,
     18.7 vs Kyle McCord 12.4; ESPN tags many players a generic Q on Tuesdays)."""
     def ok(p, q):
         if p["id"] in skip or not p.get("positions") or not eligible(slot, p["positions"]):
@@ -61,25 +64,28 @@ def slot_fa(slot, free_agents, now, skip=()):
     key = lambda p: (p["proj"], p.get("owned", 0))
     best = max((p for p in free_agents if ok(p, False)), key=key, default=None)
     q = max((p for p in free_agents if ok(p, True)), key=key, default=None)
-    if q and (best is None or q["proj"] - best["proj"] >= FA_EDGE):
+    if q and (best is None or q["proj"] - best["proj"] >= Q_EDGE):
         return q
     return best
 
 
 def q_tag(p):
-    """" (Q)" for a Questionable player named in a fix, else ""."""
-    return " (Q)" if p.get("status") == "Q" else ""
+    """", Q" for a Questionable player named in a fix, else "": it goes after the team inside the brackets,
+    "add Drew Lock (SEA, Q, 15.7 proj)" (Nov 10: "(Q) (SEA, 15.7 proj)" read as two asides)."""
+    return ", Q" if p.get("status") == "Q" else ""
 
 
 def fa_over_bench(bench_pick, fa):
     """Points leagues: True when adding `fa` is the better fix for a dead starter than `bench_pick` (None = no
-    bench fit): the bench option projects under MIN_FILL, or the free agent beats him by FA_EDGE or more.
-    Suggestion only: nothing here ever adds or drops."""
+    bench fit): the bench option projects under MIN_FILL, the free agent beats him by FA_EDGE or more, or the bench
+    option is weak (under WEAK_FILL) and the free agent projects at least double him. Suggestion only: nothing here
+    ever adds or drops."""
     if fa is None:
         return False
     if bench_pick is None:
         return True
-    return fa["proj"] > bench_pick["proj"] and (bench_pick["proj"] < MIN_FILL or fa["proj"] - bench_pick["proj"] >= FA_EDGE)
+    b, f = bench_pick["proj"], fa["proj"]
+    return f > b and (b < MIN_FILL or f - b >= FA_EDGE or (b < WEAK_FILL and f >= 2 * b))
 
 
 def plan_injury_swaps(starters, bench, now, lead_hours=2):

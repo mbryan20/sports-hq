@@ -2,6 +2,8 @@
 # Commit and push whatever the last pass wrote. Safe to call when nothing changed.
 git config user.name "sports-hq-bot"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+# state/alerts.json and state/pick_lines_sent.json merge key by key (.gitattributes, shq/statemerge.py, Q-049)
+git config merge.pushstate.driver "python -m shq.statemerge %O %A %B"
 mkdir -p state
 git add docs/data docs/wrapups state
 git commit -q -m "data: $(date -u +%FT%TZ)" || { echo "nothing to commit"; exit 0; }

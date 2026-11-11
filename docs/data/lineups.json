@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T23:27:00Z",
+ "updated": "2026-11-11T14:02:24Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -12,8 +12,8 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-11-10T22:34:54Z",
-   "proj": 101.9,
+   "roster_synced": "2026-11-11T13:37:03Z",
+   "proj": 103.0,
    "starters": [
     {
      "slot": "QB",
@@ -23,10 +23,11 @@
      "opp": "@ARI",
      "kickoff": "2026-11-15T21:05:00Z",
      "started": false,
-     "proj": 20.3,
+     "proj": 20.2,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB13 this week, QB8 lately",
      "news": null
     },
     {
@@ -41,6 +42,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB15 this week, RB12 lately",
      "news": null
     },
     {
@@ -55,6 +57,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB10 this week, RB15 lately",
      "news": null
     },
     {
@@ -65,10 +68,11 @@
      "opp": "vs LAC",
      "kickoff": "2026-11-17T01:15:00Z",
      "started": false,
-     "proj": 13.5,
+     "proj": 13.6,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR12 this week, WR8 lately",
      "news": null
     },
     {
@@ -83,6 +87,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR4 this week, WR5 lately",
      "news": null
     },
     {
@@ -93,10 +98,11 @@
      "opp": "vs MIA",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 9.4,
+     "proj": 9.5,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE7 this week, TE6 lately",
      "news": null
     },
     {
@@ -107,7 +113,7 @@
      "opp": "vs MIA",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 10.8,
+     "proj": 10.7,
      "status": null,
      "why": "",
      "flags": [],
@@ -121,7 +127,7 @@
      "opp": "@ATL",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 5.8,
+     "proj": 6.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -141,6 +147,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE11 this week",
      "news": null
     },
     {
@@ -151,15 +158,15 @@
      "opp": "vs CAR",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 8.9,
+     "proj": 8.1,
      "status": "IR",
      "why": "Yahoo: IR",
      "flags": [
       "IR"
      ],
      "news": {
-      "note": "Head coach Kellen Moore said Wednesday that the Saints haven't opened Etienne's (hamstring) practice window just yet, Jeff Nowak of WWL Louisiana reports.",
-      "at": "2026-11-04T21:38:00Z",
+      "note": "Head coach Kellen Moore said Monday that the Saints haven't yet determined whether Etienne (hamstring) will return from injured reserve ahead of Sunday's game against the Panthers, Luke Johnson of The New Orleans Times-Picayune reports. \"We'll see,\" Moore said. \"He's progressing well. We'll gather some more information and make a decision.\"",
+      "at": "2026-11-11T00:05:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4239996/travis-etienne-jr"
      }
     },
@@ -173,10 +180,11 @@
      "started": false,
      "proj": 10.0,
      "status": "Q",
-     "why": "Sleeper: Out, but ESPN says Questionable: unconfirmed",
+     "why": "Yahoo: Questionable",
      "flags": [
       "Q"
      ],
+     "exp": "not ranked to play this week, RB20 lately",
      "news": {
       "note": "Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.",
       "at": "2026-11-09T20:45:44Z",
@@ -185,28 +193,33 @@
     },
     {
      "slot": "BN",
-     "name": "Keenan Allen",
-     "team": "SF",
+     "name": "Carnell Tate",
+     "team": "TEN",
      "pos": "WR",
-     "opp": "@DAL",
-     "kickoff": "2026-11-15T21:25:00Z",
+     "opp": "vs JAX",
+     "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 4.8,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "news": null
+     "proj": 10.0,
+     "status": "Q",
+     "why": "Yahoo: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "exp": "WR22 this week",
+     "news": {
+      "note": "Tate (shoulder) will not play against the Bengals on Sunday but is expected to be back in action following the Titans' bye for Week 10 against the Jaguars on Sunday, Nov. 15, Paul Kuharsky of PaulKuharsky.com reports.",
+      "at": "2026-10-31T15:10:01Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4871023/carnell-tate"
+     }
     }
    ],
    "advice": {
-    "matchup": "101.9 projected",
+    "matchup": "103.0 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Geno Smith (QB, NYJ, 20.5/gm, value 128) for Travis Etienne Jr. (RB, your RB4, 2.2/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +26.2 pts over the next 4 weeks",
-     "Add Carnell Tate (WR, TEN, 11.3/gm, value 1,901) for Keenan Allen (WR, your WR3, 4.8/gm): fills in at WR in week 13, +9.8 pts over the next 4 weeks",
-     "Add Ravens (DEF, BAL, 7.5 proj this week), drop Chiefs (5.8 proj)"
+     "Add Geno Smith (QB, NYJ, 20.5/gm, value 122) for David Montgomery (RB, your RB3, 9.7/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +23.9 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -219,7 +232,25 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 5:27p"
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Matthew Stafford": "QB13 this week, QB8 lately",
+      "Chase Brown": "RB15 this week, RB12 lately",
+      "Bhayshul Tuten": "RB10 this week, RB15 lately",
+      "Zay Flowers": "WR12 this week, WR8 lately",
+      "Amon-Ra St. Brown": "WR4 this week, WR5 lately",
+      "Tyler Warren": "TE7 this week, TE6 lately",
+      "Brenton Strange": "TE11 this week",
+      "David Montgomery": "not ranked to play this week, RB20 lately",
+      "Carnell Tate": "WR22 this week",
+      "Geno Smith": "QB16 this week, QB15 lately"
+     },
+     "disagree": [],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a"
    }
   },
   "Domo Arigato": {
@@ -231,9 +262,9 @@
    "snapshot": null,
    "league": "Sunday\u2019s Best",
    "opponent": "Buttered Toast!",
-   "opp_proj": 138.8,
+   "opp_proj": 139.5,
    "roster_synced": null,
-   "proj": 86.0,
+   "proj": 85.8,
    "starters": [
     {
      "slot": "QB",
@@ -249,6 +280,7 @@
      "flags": [
       "BYE"
      ],
+     "exp": "not ranked to play this week, QB11 lately",
      "news": null
     },
     {
@@ -260,14 +292,15 @@
      "kickoff": "2026-11-15T14:30:00Z",
      "started": false,
      "proj": 0,
-     "status": "OUT",
-     "why": "Sleeper: Out",
+     "status": "D",
+     "why": "Sleeper: Doubtful",
      "flags": [
-      "OUT"
+      "D"
      ],
+     "exp": "not ranked to play this week, RB15 lately",
      "news": {
-      "note": "Fantasy buzz: Malik Willis placed on IR, are there any Dolphins you should start?",
-      "at": "2026-11-10T21:54:11Z",
+      "note": "The knee injury that Stevenson sustained late in the third quarter of Sunday's 45-27 loss to the Packers is expected to keep him out for \"the next few weeks,\" Ian Rapoport of NFL Network reports.",
+      "at": "2026-11-10T15:46:24Z",
       "url": "https://www.espn.com/nfl/player/_/id/4569173/rhamondre-stevenson"
      }
     },
@@ -279,10 +312,11 @@
      "opp": "@TEN",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 16.2,
+     "proj": 16.1,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB10 this week, RB15 lately",
      "news": null
     },
     {
@@ -297,6 +331,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR44 this week, WR29 lately",
      "news": null
     },
     {
@@ -311,6 +346,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR11 this week, WR14 lately",
      "news": null
     },
     {
@@ -325,6 +361,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE22 this week, TE21 lately",
      "news": null
     },
     {
@@ -339,6 +376,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR30 this week, WR20 lately",
      "news": null
     },
     {
@@ -349,10 +387,11 @@
      "opp": "vs CAR",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 17.1,
+     "proj": 17.0,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB11 this week, QB14 lately",
      "news": null
     },
     {
@@ -399,6 +438,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB43 this week, RB46 lately",
      "news": null
     },
     {
@@ -413,6 +453,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR65 this week, WR55 lately",
      "news": null
     },
     {
@@ -423,12 +464,13 @@
      "opp": "@IND",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 2.9,
+     "proj": 2.8,
      "status": "Q",
-     "why": "Sleeper: Out, but ESPN says Questionable: unconfirmed",
+     "why": "Sleeper: Questionable",
      "flags": [
       "Q"
      ],
+     "exp": "RB52 this week, RB43 lately",
      "news": {
       "note": "Wright (quadriceps) is listed as inactive Sunday against the Lions.",
       "at": "2026-11-08T16:51:51Z",
@@ -447,6 +489,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR56 this week, WR30 lately",
      "news": null
     },
     {
@@ -457,10 +500,11 @@
      "opp": "vs WAS",
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
-     "proj": 6.0,
+     "proj": 6.6,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR42 this week, WR50 lately",
      "news": null
     },
     {
@@ -475,6 +519,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR73 this week, WR59 lately",
      "news": null
     },
     {
@@ -489,6 +534,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE36 this week, TE24 lately",
      "news": null
     },
     {
@@ -503,6 +549,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB35 this week, RB39 lately",
      "news": null
     },
     {
@@ -517,6 +564,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB33 this week, QB20 lately",
      "news": null
     },
     {
@@ -549,6 +597,7 @@
      "flags": [
       "BYE"
      ],
+     "exp": "not ranked to play this week, TE25 lately",
      "news": null
     },
     {
@@ -561,13 +610,14 @@
      "started": false,
      "proj": 14.3,
      "status": "Q",
-     "why": "Sleeper: Out, but ESPN says Questionable: unconfirmed",
+     "why": "Sleeper: Questionable",
      "flags": [
       "Q"
      ],
+     "exp": "WR16 this week, WR14 lately",
      "news": {
-      "note": "Fantasy buzz: Malik Willis placed on IR, are there any Dolphins you should start?",
-      "at": "2026-11-10T21:54:11Z",
+      "note": "Wilson (concussion) is out for Sunday's game against the Chiefs, Brian Costello of the New York Post reports.",
+      "at": "2026-11-06T16:16:24Z",
       "url": "https://www.espn.com/nfl/player/_/id/4569618/garrett-wilson"
      }
     },
@@ -583,6 +633,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR72 this week, WR54 lately",
      "news": null
     },
     {
@@ -597,6 +648,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB17 this week, RB25 lately",
      "news": null
     },
     {
@@ -617,27 +669,45 @@
     }
    ],
    "advice": {
-    "matchup": "86.0 vs 138.8 (Buttered Toast!): projected to lose by 52.8",
+    "matchup": "85.8 vs 139.5 (Buttered Toast!): projected to lose by 53.7",
     "danger": false,
     "fixes": [
-     "Caleb Williams (QB) on BYE \u2192 add Kyle McCord (MIA, 12.4 proj) into your open roster spot and start him (Carson Wentz projects 0) [ESPN, Nov 8 11:17p: Williams completed 22 of 37 passes for 279 yards, two touchdowns and four interceptions in Sunday's 27-24 win over the Buccaneers. He also rushed five times\u2026]",
-     "Rhamondre Stevenson (RB) OUT (Sleeper: Out) \u2192 start Zach Charbonnet (12.8 proj) [ESPN, Nov 10 3:54p: Fantasy buzz: Malik Willis placed on IR, are there any Dolphins you should start?]",
+     "Caleb Williams (QB) on BYE \u2192 add Drew Lock (SEA, Q, 15.7 proj) into your open roster spot and start him (Carson Wentz projects 0) [ESPN, Nov 8 11:17p: Williams completed 22 of 37 passes for 279 yards, two touchdowns and four interceptions in Sunday's 27-24 win over the Buccaneers. He also rushed five times\u2026]",
+     "Rhamondre Stevenson (RB) D (Sleeper: Doubtful) \u2192 start Zach Charbonnet (12.8 proj) [ESPN, Nov 10 9:46a: The knee injury that Stevenson sustained late in the third quarter of Sunday's 45-27 loss to the Packers is expected to keep him out for \"the next few weeks,\"\u2026]",
      "Jake Elliott (K) on BYE \u2192 no bench fit: add Dominic Zvada (NYG, 8.7 proj), drop Jake Elliott (0 proj), and start him [ESPN, Nov 9 8:57p: Elliott made his lone field-goal attempt in Sunday's 19-11 loss to the Giants.]"
     ],
-    "moves": [],
+    "moves": [
+     "Start Garrett Wilson (14.3) over Tre Tucker (9.3) at WR, +5.0"
+    ],
     "adds": [
-     "Add Drew Lock (QB, SEA, 15.7/gm, value 1,131) into your open roster spot: fills in at QB in weeks 10, 13, +10.7 pts over the next 4 weeks. Bid $1\u20133",
+     "Add Drew Lock (QB, SEA, 5.2/gm, value 1,083) into your open roster spot: fills in at QB in week 10, +6.5 pts over the next 4 weeks. Bid $1\u20133",
      "Add Dominic Zvada (K, NYG, 8.7 proj this week), drop Jake Elliott (0 proj). Bid $0\u20131",
-     "Add Indianapolis Colts (DEF, IND, 7.6 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131"
+     "Add Indianapolis Colts (DEF, IND, 7.9 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131"
     ],
     "trades": {
      "lines": [
       "Weak spot: RB (Zach Charbonnet 10.6/gm, 9th of 12)",
       "Weak spot: TE (Mike Gesicki 10.0/gm, 11th of 12)",
-      "No fair 1-for-1 or 2-for-1 that helps both lineups right now.",
       "Trade deadline: week 10."
      ],
-     "offers": [],
+     "offers": [
+      {
+       "team": "TheParlay",
+       "give": [
+        "Rhamondre Stevenson (RB)"
+       ],
+       "get": [
+        "Tory Horton (WR)",
+        "Juwan Johnson (TE)"
+       ],
+       "give_value": 1777,
+       "get_value": 1679,
+       "my_gain": 0.5,
+       "their_gain": 1.3,
+       "cut": true,
+       "why": "Juwan Johnson starts for you; Rhamondre Stevenson starts for them over Tyjae Spears (6.5/gm)"
+      }
+     ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
     "notes": [
@@ -647,7 +717,39 @@
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 5:27p"
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Caleb Williams": "not ranked to play this week, QB11 lately",
+      "Rhamondre Stevenson": "not ranked to play this week, RB15 lately",
+      "Bhayshul Tuten": "RB10 this week, RB15 lately",
+      "Tre Tucker": "WR44 this week, WR29 lately",
+      "Tetairoa McMillan": "WR11 this week, WR14 lately",
+      "Mike Gesicki": "TE22 this week, TE21 lately",
+      "Stefon Diggs": "WR30 this week, WR20 lately",
+      "Tyler Shough": "QB11 this week, QB14 lately",
+      "Chris Rodriguez Jr.": "RB43 this week, RB46 lately",
+      "Keon Coleman": "WR65 this week, WR55 lately",
+      "Jaylen Wright": "RB52 this week, RB43 lately",
+      "Devaughn Vele": "WR56 this week, WR30 lately",
+      "Malachi Fields": "WR42 this week, WR50 lately",
+      "Ja'Kobi Lane": "WR73 this week, WR59 lately",
+      "Kenyon Sadiq": "TE36 this week, TE24 lately",
+      "Kaelon Black": "RB35 this week, RB39 lately",
+      "Carson Wentz": "QB33 this week, QB20 lately",
+      "Evan Engram": "not ranked to play this week, TE25 lately",
+      "Garrett Wilson": "WR16 this week, WR14 lately",
+      "Jalen Nailor": "WR72 this week, WR54 lately",
+      "Zach Charbonnet": "RB17 this week, RB25 lately",
+      "Drew Lock": "QB14 this week, QB15 lately"
+     },
+     "disagree": [
+      "Free agent Mack Hollins (NE) is WR32 with the experts this week, ahead of your starter Tre Tucker (WR44); we project 6.3 vs 9.3."
+     ],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a"
    }
   },
   "Guillotine": {
@@ -661,7 +763,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 123.8,
+   "proj": 136.2,
    "starters": [
     {
      "slot": "QB",
@@ -671,10 +773,11 @@
      "opp": "@NYG",
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
-     "proj": 21.7,
+     "proj": 21.2,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB6 this week",
      "news": null
     },
     {
@@ -689,6 +792,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB6 this week, RB12 lately",
      "news": null
     },
     {
@@ -703,6 +807,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB12 this week, RB6 lately",
      "news": null
     },
     {
@@ -717,6 +822,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR4 this week, WR5 lately",
      "news": null
     },
     {
@@ -731,6 +837,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR6 this week, WR10 lately",
      "news": null
     },
     {
@@ -745,22 +852,22 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR44 this week, WR29 lately",
      "news": null
     },
     {
      "slot": "TE",
-     "name": "Dallas Goedert",
-     "team": "PHI",
+     "name": "Brenton Strange",
+     "team": "JAX",
      "pos": "TE",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@TEN",
+     "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 8.7,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ],
+     "flags": [],
+     "exp": "TE11 this week",
      "news": null
     },
     {
@@ -773,10 +880,11 @@
      "started": false,
      "proj": 10.0,
      "status": "Q",
-     "why": "Sleeper: Out, but ESPN says Questionable: unconfirmed",
+     "why": "Sleeper: Questionable",
      "flags": [
       "Q"
      ],
+     "exp": "WR22 this week",
      "news": {
       "note": "Tate (shoulder) will not play against the Bengals on Sunday but is expected to be back in action following the Titans' bye for Week 10 against the Jaguars on Sunday, Nov. 15, Paul Kuharsky of PaulKuharsky.com reports.",
       "at": "2026-10-31T15:10:01Z",
@@ -791,21 +899,22 @@
      "opp": "vs BUF",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 8.1,
+     "proj": 10.4,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB18 this week, RB26 lately",
      "news": null
     },
     {
      "slot": "K",
-     "name": "Ka'imi Fairbairn",
-     "team": "HOU",
+     "name": "Jake Bates",
+     "team": "DET",
      "pos": "K",
-     "opp": "@CLE",
-     "kickoff": "2026-11-15T18:00:00Z",
+     "opp": "vs NE",
+     "kickoff": "2026-11-15T14:30:00Z",
      "started": false,
-     "proj": 6.5,
+     "proj": 7.2,
      "status": null,
      "why": "",
      "flags": [],
@@ -813,13 +922,13 @@
     },
     {
      "slot": "DEF",
-     "name": "Cincinnati Bengals",
-     "team": "CIN",
+     "name": "Green Bay Packers",
+     "team": "GB",
      "pos": "DEF",
-     "opp": "vs PIT",
-     "kickoff": "2026-11-16T01:20:00Z",
+     "opp": "vs MIN",
+     "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 6.7,
+     "proj": 7.9,
      "status": null,
      "why": "",
      "flags": [],
@@ -835,10 +944,11 @@
      "opp": "vs BUF",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 9.8,
+     "proj": 7.5,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB29 this week, RB13 lately",
      "news": null
     },
     {
@@ -849,10 +959,28 @@
      "opp": "@CLE",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 8.2,
+     "proj": 7.8,
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB19 this week, RB20 lately",
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Dallas Goedert",
+     "team": "PHI",
+     "pos": "TE",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "BYE"
+     ],
+     "exp": "not ranked to play this week, TE7 lately",
      "news": null
     },
     {
@@ -867,40 +995,26 @@
      "status": null,
      "why": "",
      "flags": [],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Khalil Shakir",
-     "team": "BUF",
-     "pos": "WR",
-     "opp": "@NYJ",
-     "kickoff": "2026-11-15T18:00:00Z",
-     "started": false,
-     "proj": 8.3,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "exp": "RB16 this week, RB18 lately",
      "news": null
     }
    ],
    "advice": {
-    "matchup": "Projected 6 of 9 this week, +21.1 pts vs the lowest other team, 10% chance of being cut",
+    "matchup": "Projected 5 of 9 this week, +20.9 pts vs the lowest other team, 7% chance of being cut",
     "danger": false,
-    "fixes": [
-     "Dallas Goedert (TE) on BYE \u2192 no bench fit: add Harold Fannin Jr. (CLE, 9.2 proj), drop Khalil Shakir (8.3 proj), and start him [ESPN, Nov 8 6:28p: Goedert caught five of six targets for 50 yards in Sunday's 19-11 loss to the Giants.]"
-    ],
+    "fixes": [],
     "moves": [
-     "Start Tony Pollard (11.2) over Breece Hall (8.1) at FLEX, +3.1"
+     "Start Tony Pollard (11.2) over Carnell Tate (10.0) at FLEX, +1.2"
     ],
     "adds": [
-     "Add Jaylen Warren (RB, PIT, 13.5/gm, value 5,256) for Woody Marks (RB, your RB6, 7.5/gm): starts at FLEX over Braelon Allen, lineup +3.2/gm, +15.6 pts over the next 4 weeks",
-     "Add Harold Fannin Jr. (TE, CLE, 10.0/gm, value 1,259) for Khalil Shakir (WR, your WR5, 8.6/gm): starts at TE over Dallas Goedert, lineup +0.8/gm, +9.7 pts over the next 4 weeks",
-     "Add Jordan Love (QB, GB, 21.6/gm, value 2,529) for Braelon Allen (RB, your RB5, 10.3/gm): fills in at QB in week 13, +2.1 pts over the next 4 weeks"
+     "Add Kirk Cousins (QB, MIN, 17.1 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)",
+     "Add Lamar Jackson (QB, BAL, 0 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)",
+     "Add Matt Gay (K, LV, 6.7 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)"
     ],
     "trades": {
      "lines": [
-      "Weak spot: TE (Dallas Goedert 9.2/gm, 7th of 9)",
+      "Weak spot: TE (Dallas Goedert 9.2/gm, 8th of 9)",
+      "Surplus: Breece Hall (RB), 9.3/gm beyond your rest-of-season starters, would start for 4 of 8 teams",
       "Trade deadline: week 11."
      ],
      "offers": [
@@ -913,124 +1027,111 @@
        "get": [
         "Jaxon Smith-Njigba (WR)"
        ],
-       "give_value": 10074,
-       "get_value": 9892,
-       "my_gain": 0.7,
+       "give_value": 9937,
+       "get_value": 9885,
+       "my_gain": 1.4,
        "their_gain": 0.5,
        "cut": false,
        "why": "Jaxon Smith-Njigba starts for you; Chuba Hubbard and Tee Higgins start for them over Jadarian Price (7.4/gm)"
+      },
+      {
+       "team": "robert8063",
+       "give": [
+        "Carnell Tate (WR)",
+        "Breece Hall (RB)"
+       ],
+       "get": [
+        "Matthew Golden (WR)"
+       ],
+       "give_value": 4971,
+       "get_value": 5278,
+       "my_gain": 1.4,
+       "their_gain": 0.5,
+       "cut": false,
+       "why": "Matthew Golden starts for you; Carnell Tate and Breece Hall start for them over Jadarian Price (7.4/gm)"
+      },
+      {
+       "team": "robert8063",
+       "give": [
+        "Braelon Allen (RB)",
+        "Dallas Goedert (TE)"
+       ],
+       "get": [
+        "Sam LaPorta (TE)"
+       ],
+       "give_value": 1512,
+       "get_value": 1552,
+       "my_gain": 1.0,
+       "their_gain": 0.9,
+       "cut": false,
+       "why": "Sam LaPorta starts for you; Braelon Allen and Dallas Goedert start for them over Jadarian Price (7.4/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "Carnell Tate (FLEX): Sleeper: Out, but ESPN says Questionable: unconfirmed. Check before benching [ESPN, Oct 31 10:10a: Tate (shoulder) will not play against the Bengals on Sunday but is expected to be back in action following the Titans' bye for Week 10 against the Jaguars on\u2026]",
      "FAAB left: $10"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 5:27p",
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Jayden Daniels": "QB6 this week",
+      "Chuba Hubbard": "RB6 this week, RB12 lately",
+      "Javonte Williams": "RB12 this week, RB6 lately",
+      "Amon-Ra St. Brown": "WR4 this week, WR5 lately",
+      "Tee Higgins": "WR6 this week, WR10 lately",
+      "Tre Tucker": "WR44 this week, WR29 lately",
+      "Brenton Strange": "TE11 this week",
+      "Carnell Tate": "WR22 this week",
+      "Breece Hall": "RB18 this week, RB26 lately",
+      "Braelon Allen": "RB29 this week, RB13 lately",
+      "Woody Marks": "RB19 this week, RB20 lately",
+      "Dallas Goedert": "not ranked to play this week, TE7 lately",
+      "Tony Pollard": "RB16 this week, RB18 lately",
+      "Kirk Cousins": "QB19 this week, QB11 lately",
+      "Lamar Jackson": "not ranked to play this week, QB3 lately",
+      "Bryce Young": "QB7 this week, QB10 lately",
+      "Jaylen Waddle": "not ranked to play this week, WR25 lately"
+     },
+     "disagree": [
+      "Free agent KC Concepcion Jr. (CLE) is WR28 with the experts this week, ahead of your starter Tre Tucker (WR44); we project 8.1 vs 7.8."
+     ],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a",
     "guillotine": {
      "week": 10,
      "sims": 5000,
      "n": 9,
-     "rank": 6,
-     "gap": 21.1,
-     "proj": 128.9,
-     "cut": 0.099,
-     "survive": 0.901,
+     "rank": 5,
+     "gap": 20.9,
+     "proj": 139.6,
+     "cut": 0.074,
+     "survive": 0.926,
      "faab": 10,
      "reserve": 5,
      "waivers": "Wed 2:15a",
      "bid_source": {
       "name": "War Room v2",
       "url": "war-room-v2/",
-      "as_of": "Week 9 final; MoneyManChas cut in week 9 (confirmed); moves through Mon 11:56p CT",
+      "as_of": "Week 9 final; MoneyManChas cut in week 9 (confirmed); moves through Wed 6:08a CT",
       "spendable": 5
      },
      "model": {
       "bids": [
        {
-        "name": "Harold Fannin Jr.",
-        "pos": "TE",
-        "team": "CLE",
-        "proj": 9.2,
-        "gain": 9.2,
-        "cut_with": 0.063,
-        "freed_from": null,
-        "price": 4,
-        "max": 4,
-        "call": "bid",
-        "rivals": [
-         {
-          "name": "GoodFellas",
-          "bid": 3
-         },
-         {
-          "name": "robert8063",
-          "bid": 2
-         }
-        ]
-       },
-       {
-        "name": "Pat Freiermuth",
-        "pos": "TE",
-        "team": "PIT",
-        "proj": 9.2,
-        "gain": 9.2,
-        "cut_with": 0.063,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
-       },
-       {
-        "name": "Brenton Strange",
-        "pos": "TE",
-        "team": "JAX",
-        "proj": 8.7,
-        "gain": 8.7,
-        "cut_with": 0.066,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
-       },
-       {
-        "name": "T.J. Hockenson",
-        "pos": "TE",
-        "team": "MIN",
-        "proj": 8.7,
-        "gain": 8.7,
-        "cut_with": 0.066,
-        "freed_from": null,
-        "price": 4,
-        "max": 3,
-        "call": "coin flip",
-        "rivals": [
-         {
-          "name": "GoodFellas",
-          "bid": 3
-         },
-         {
-          "name": "robert8063",
-          "bid": 2
-         }
-        ]
-       },
-       {
-        "name": "Tyler Higbee",
-        "pos": "TE",
-        "team": "LAR",
-        "proj": 7.0,
-        "gain": 7.0,
-        "cut_with": 0.073,
+        "name": "Bryce Young",
+        "sid": "9228",
+        "pos": "QB",
+        "team": "CAR",
+        "proj": 22.6,
+        "gain": 1.4,
+        "cut_with": 0.069,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1040,159 +1141,191 @@
        }
       ],
       "freed": {
-       "team": "GoodFellas",
-       "cut": 0.331,
+       "team": "GoodFellas (GoodFellas77)",
+       "cut": 0.249,
        "players": [
         {
-         "name": "Kyle Pitts Sr.",
-         "pos": "TE",
-         "team": "ATL",
-         "proj": 6.9,
-         "gain": 6.9,
-         "cut_with": 0.074,
-         "freed_from": "GoodFellas",
-         "price": 0,
-         "max": 3,
-         "call": "bid",
-         "rivals": []
-        },
-        {
-         "name": "James Cook III",
-         "pos": "RB",
-         "team": "BUF",
-         "proj": 14.6,
-         "gain": 4.8,
-         "cut_with": 0.076,
-         "freed_from": "GoodFellas",
-         "price": 33,
-         "max": 2,
-         "call": "priced out",
-         "rivals": [
-          {
-           "name": "Off with his head",
-           "bid": 32
-          },
-          {
-           "name": "SteelRob420",
-           "bid": 13
-          },
-          {
-           "name": "robert8063",
-           "bid": 13
-          }
-         ]
-        },
-        {
          "name": "Trevor Lawrence",
+         "sid": "7523",
          "pos": "QB",
          "team": "JAX",
          "proj": 25.5,
-         "gain": 3.8,
-         "cut_with": 0.082,
-         "freed_from": "GoodFellas",
-         "price": 21,
+         "gain": 4.3,
+         "cut_with": 0.057,
+         "freed_from": "GoodFellas (GoodFellas77)",
+         "price": 19,
          "max": 2,
          "call": "priced out",
          "rivals": [
           {
-           "name": "Off with his head",
-           "bid": 20
-          },
-          {
-           "name": "SteelRob420",
-           "bid": 9
+           "name": "Off with his head (damonhawk1)",
+           "bid": 18
           },
           {
            "name": "robert8063",
            "bid": 8
           }
          ]
+        },
+        {
+         "name": "James Cook III",
+         "sid": "8138",
+         "pos": "RB",
+         "team": "BUF",
+         "proj": 14.6,
+         "gain": 4.2,
+         "cut_with": 0.057,
+         "freed_from": "GoodFellas (GoodFellas77)",
+         "price": 29,
+         "max": 2,
+         "call": "priced out",
+         "rivals": [
+          {
+           "name": "Off with his head (damonhawk1)",
+           "bid": 28
+          },
+          {
+           "name": "robert8063",
+           "bid": 12
+          },
+          {
+           "name": "JHED1979",
+           "bid": 11
+          }
+         ]
+        },
+        {
+         "name": "Chris Olave",
+         "sid": "8144",
+         "pos": "WR",
+         "team": "NO",
+         "proj": 13.4,
+         "gain": 3.4,
+         "cut_with": 0.06,
+         "freed_from": "GoodFellas (GoodFellas77)",
+         "price": 20,
+         "max": 1,
+         "call": "priced out",
+         "rivals": [
+          {
+           "name": "Off with his head (damonhawk1)",
+           "bid": 19
+          },
+          {
+           "name": "robert8063",
+           "bid": 10
+          },
+          {
+           "name": "JHED1979",
+           "bid": 7
+          }
+         ]
         }
        ]
       }
      },
+     "labels": {
+      "CodyRust": "CodyRust",
+      "damonhawk1": "Off with his head (damonhawk1)",
+      "McConkeyTonkBadonkadonk": "McConkeyTonkBadonkadonk",
+      "robert8063": "robert8063",
+      "EvanTheMan5": "Worthy Strange (EvanTheMan5)",
+      "kevfather187": "kevfather187",
+      "michaelbryan": "michaelbryan",
+      "GoodFellas77": "GoodFellas (GoodFellas77)",
+      "MoneyManChas": "MoneyManChas",
+      "ScooterMcGavin24": "ScooterMcGavin24",
+      "Heston80": "Heston80",
+      "Swegs4": "Swegs4",
+      "JHED1979": "JHED1979",
+      "PureBlueMafia": "PureBlueMafia",
+      "SteelRob420": "SteelRob420",
+      "Aniasin1": "Aniasin1",
+      "Lindustrez": "Lindustrez",
+      "drewpepin1": "drewpepin1"
+     },
      "teams": [
       {
-       "name": "GoodFellas",
-       "proj": 107.8,
-       "cut": 0.331,
-       "faab": 20,
+       "name": "GoodFellas (GoodFellas77)",
+       "proj": 118.7,
+       "cut": 0.249,
+       "faab": 16,
        "bold": 0.74,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 120.7,
-       "cut": 0.17,
+       "proj": 120.8,
+       "cut": 0.218,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "robert8063",
-       "proj": 124.7,
-       "cut": 0.141,
-       "faab": 26,
-       "bold": 0.57,
+       "proj": 126.4,
+       "cut": 0.163,
+       "faab": 23,
+       "bold": 0.62,
+       "me": false
+      },
+      {
+       "name": "CodyRust",
+       "proj": 135.1,
+       "cut": 0.097,
+       "faab": 0,
+       "bold": 0.75,
        "me": false
       },
       {
        "name": "michaelbryan",
-       "proj": 128.9,
-       "cut": 0.099,
+       "proj": 139.6,
+       "cut": 0.074,
        "faab": 10,
        "bold": 0.58,
        "me": true
       },
       {
        "name": "SteelRob420",
-       "proj": 136.7,
-       "cut": 0.069,
-       "faab": 16,
-       "bold": 0.98,
-       "me": false
-      },
-      {
-       "name": "CodyRust",
-       "proj": 137.0,
-       "cut": 0.063,
+       "proj": 143.5,
+       "cut": 0.056,
        "faab": 0,
-       "bold": 0.75,
+       "bold": 1.0,
        "me": false
       },
       {
-       "name": "JHED1979",
-       "proj": 139.8,
-       "cut": 0.048,
-       "faab": 22,
-       "bold": 0.77,
-       "me": false
-      },
-      {
-       "name": "Off with his head",
-       "proj": 142.0,
-       "cut": 0.041,
-       "faab": 95,
+       "name": "Off with his head (damonhawk1)",
+       "proj": 142.4,
+       "cut": 0.056,
+       "faab": 87,
        "bold": 0.42,
        "me": false
       },
       {
        "name": "Swegs4",
-       "proj": 143.4,
-       "cut": 0.038,
-       "faab": 8,
+       "proj": 145.1,
+       "cut": 0.05,
+       "faab": 3,
        "bold": 1.0,
+       "me": false
+      },
+      {
+       "name": "JHED1979",
+       "proj": 148.3,
+       "cut": 0.036,
+       "faab": 22,
+       "bold": 0.77,
        "me": false
       }
      ],
      "rich": [
       {
-       "name": "Off with his head",
-       "faab": 95
+       "name": "Off with his head (damonhawk1)",
+       "faab": 87
       },
       {
        "name": "robert8063",
-       "faab": 26
+       "faab": 23
       },
       {
        "name": "JHED1979",
@@ -1201,44 +1334,10 @@
      ],
      "bids": [
       {
-       "name": "Jaylen Warren",
-       "pos": "RB",
-       "team": "PIT",
-       "proj": 15.3,
-       "gain": 5.5,
-       "gain_ros": 27.4,
-       "call": "coin flip",
-       "bid": 2,
-       "price": 2,
-       "max": 5,
-       "est_price": 13,
-       "drop": "Braelon Allen",
-       "why": null,
-       "win_chance": 0.212,
-       "free": false,
-       "source": "freed",
-       "injury": null,
-       "rivals": [
-        {
-         "name": "damonhawk1",
-         "bid": 16
-        },
-        {
-         "name": "JHED1979",
-         "bid": 13
-        },
-        {
-         "name": "robert8063",
-         "bid": 11
-        }
-       ],
-       "v2": true
-      },
-      {
        "name": "Kirk Cousins",
        "pos": "QB",
-       "team": "LV",
-       "proj": 16.5,
+       "team": "MIN",
+       "proj": 17.1,
        "gain": 0,
        "gain_ros": 9.8,
        "call": "add free",
@@ -1253,27 +1352,7 @@
        "source": "free agent",
        "injury": null,
        "rivals": [],
-       "v2": true
-      },
-      {
-       "name": "Jordan Love",
-       "pos": "QB",
-       "team": "GB",
-       "proj": 20.2,
-       "gain": 0,
-       "gain_ros": 12.9,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
+       "sid": "1166",
        "v2": true
       },
       {
@@ -1295,83 +1374,16 @@
        "source": "free agent",
        "injury": "Out",
        "rivals": [],
+       "sid": "4881",
        "v2": true
       },
       {
-       "name": "Harold Fannin",
-       "pos": "TE",
-       "team": "CLE",
-       "proj": 9,
-       "gain": 9,
-       "gain_ros": 17.5,
-       "call": "bid",
-       "bid": 1,
-       "price": 1,
-       "max": 3,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": null,
-       "win_chance": 0.645,
-       "free": false,
-       "source": "freed",
-       "injury": null,
-       "rivals": [
-        {
-         "name": "damonhawk1",
-         "bid": 2
-        },
-        {
-         "name": "robert8063",
-         "bid": 1
-        },
-        {
-         "name": "GoodFellas77",
-         "bid": 1
-        }
-       ],
-       "v2": true
-      },
-      {
-       "name": "Saquon Barkley",
-       "pos": "RB",
-       "team": "PHI",
-       "proj": 0,
+       "name": "Matt Gay",
+       "pos": "K",
+       "team": "LV",
+       "proj": 6.7,
        "gain": 0,
-       "gain_ros": 13.4,
-       "call": "bid",
-       "bid": 1,
-       "price": 1,
-       "max": 3,
-       "est_price": 0,
-       "drop": "Khalil Shakir",
-       "why": "drop changed: a better claim uses the first choice",
-       "win_chance": 0.572,
-       "free": false,
-       "source": "freed",
-       "injury": null,
-       "rivals": [
-        {
-         "name": "damonhawk1",
-         "bid": 4
-        },
-        {
-         "name": "robert8063",
-         "bid": 4
-        },
-        {
-         "name": "JHED1979",
-         "bid": 4
-        }
-       ],
-       "v2": true
-      },
-      {
-       "name": "Brenton Strange",
-       "pos": "TE",
-       "team": "JAX",
-       "proj": 8.7,
-       "gain": 8.7,
-       "gain_ros": 11.3,
+       "gain_ros": 6.7,
        "call": "add free",
        "bid": 0,
        "price": 0,
@@ -1384,179 +1396,59 @@
        "source": "free agent",
        "injury": null,
        "rivals": [],
+       "sid": "6083",
        "v2": true
       },
       {
-       "name": "Spencer Shrader",
-       "pos": "K",
-       "team": "IND",
-       "proj": 8.6,
-       "gain": 2.1,
-       "gain_ros": 7.3,
-       "call": "bid",
-       "bid": 1,
-       "price": 1,
-       "max": 2,
+       "name": "Bryce Young",
+       "pos": "QB",
+       "team": "CAR",
+       "proj": 22.6,
+       "gain": 1.4,
+       "gain_ros": 6.6,
+       "call": "add free",
+       "bid": 0,
+       "price": 0,
+       "max": 0,
        "est_price": 0,
-       "drop": "Breece Hall",
-       "why": "drop changed: a better claim uses the first choice",
-       "win_chance": 0.659,
-       "free": false,
-       "source": "freed",
+       "drop": "Woody Marks",
+       "why": "free agent",
+       "win_chance": null,
+       "free": true,
+       "source": "free agent",
        "injury": null,
-       "rivals": [
-        {
-         "name": "damonhawk1",
-         "bid": 1
-        },
-        {
-         "name": "SteelRob420",
-         "bid": 1
-        },
-        {
-         "name": "Swegs4",
-         "bid": 0
-        }
-       ],
+       "rivals": [],
+       "sid": "9228",
        "v2": true
       },
       {
        "name": "MIN DEF",
        "pos": "DEF",
        "team": "MIN",
-       "proj": 6.2,
+       "proj": 6.6,
        "gain": 0,
-       "gain_ros": 5.2,
-       "call": "priced out",
+       "gain_ros": 12,
+       "call": "add free",
        "bid": 0,
        "price": 0,
-       "max": 1,
+       "max": 0,
        "est_price": 0,
        "drop": "Woody Marks",
-       "why": "likely price is above his value to you",
-       "win_chance": 0.572,
-       "free": false,
-       "source": "freed",
+       "why": "free agent",
+       "win_chance": null,
+       "free": true,
+       "source": "free agent",
        "injury": null,
-       "rivals": [
-        {
-         "name": "Swegs4",
-         "bid": 0
-        },
-        {
-         "name": "Aniasin1",
-         "bid": 0
-        },
-        {
-         "name": "JHED1979",
-         "bid": 0
-        }
-       ],
+       "rivals": [],
+       "sid": "MIN",
        "v2": true
       },
       {
-       "name": "T.J. Hockenson",
-       "pos": "TE",
-       "team": "MIN",
-       "proj": 8.3,
-       "gain": 8.3,
-       "gain_ros": 11.4,
-       "call": "priced out",
-       "bid": 0,
-       "price": 0,
-       "max": 1,
-       "est_price": 0,
-       "drop": "Tre Tucker",
-       "why": "likely price is above his value to you",
-       "win_chance": 0.572,
-       "free": false,
-       "source": "freed",
-       "injury": null,
-       "rivals": [
-        {
-         "name": "damonhawk1",
-         "bid": 3
-        },
-        {
-         "name": "GoodFellas77",
-         "bid": 2
-        },
-        {
-         "name": "robert8063",
-         "bid": 1
-        }
-       ],
-       "v2": true
-      },
-      {
-       "name": "BAL DEF",
+       "name": "DET DEF",
        "pos": "DEF",
-       "team": "BAL",
-       "proj": 8.5,
-       "gain": 1.8,
-       "gain_ros": 5.4,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
-       "v2": true
-      },
-      {
-       "name": "Dominic Zvada",
-       "pos": "K",
-       "team": "NYG",
-       "proj": 7.3,
-       "gain": 0.8,
-       "gain_ros": 2.6,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
-       "v2": true
-      },
-      {
-       "name": "GB DEF",
-       "pos": "DEF",
-       "team": "GB",
-       "proj": 8.2,
-       "gain": 1.5,
-       "gain_ros": 3.2,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
-       "v2": true
-      },
-      {
-       "name": "Pat Freiermuth",
-       "pos": "TE",
-       "team": "PIT",
-       "proj": 9.1,
-       "gain": 9.1,
+       "team": "DET",
+       "proj": 6,
+       "gain": 0,
        "gain_ros": 9.1,
        "call": "add free",
        "bid": 0,
@@ -1570,15 +1462,16 @@
        "source": "free agent",
        "injury": null,
        "rivals": [],
+       "sid": "DET",
        "v2": true
       },
       {
-       "name": "IND DEF",
+       "name": "DEN DEF",
        "pos": "DEF",
-       "team": "IND",
-       "proj": 7.7,
-       "gain": 1,
-       "gain_ros": 3.2,
+       "team": "DEN",
+       "proj": 0,
+       "gain": 0,
+       "gain_ros": 11.7,
        "call": "add free",
        "bid": 0,
        "price": 0,
@@ -1591,10 +1484,34 @@
        "source": "free agent",
        "injury": null,
        "rivals": [],
+       "sid": "DEN",
+       "v2": true
+      },
+      {
+       "name": "Jaylen Waddle",
+       "pos": "WR",
+       "team": "DEN",
+       "proj": 0,
+       "gain": 0,
+       "gain_ros": 4.8,
+       "call": "add free",
+       "bid": 0,
+       "price": 0,
+       "max": 0,
+       "est_price": 0,
+       "drop": "Woody Marks",
+       "why": "free agent",
+       "win_chance": null,
+       "free": true,
+       "source": "free agent",
+       "injury": null,
+       "rivals": [],
+       "sid": "7526",
        "v2": true
       }
      ],
-     "freed": null
+     "freed": null,
+     "waiting": []
     }
    }
   },
@@ -1609,7 +1526,7 @@
    "opponent": "The MONSTARS",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 142.4,
+   "proj": 146.4,
    "starters": [
     {
      "slot": "WR",
@@ -1623,22 +1540,7 @@
      "status": null,
      "why": "",
      "flags": [],
-     "news": null
-    },
-    {
-     "slot": "FLEX",
-     "name": "Makai Lemon",
-     "team": "PHI",
-     "pos": "WR/FLEX",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "BYE"
-     ],
+     "exp": "WR14 this week, WR13 lately",
      "news": null
     },
     {
@@ -1653,6 +1555,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB11 this week, QB14 lately",
      "news": null
     },
     {
@@ -1667,6 +1570,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB6 this week",
      "news": null
     },
     {
@@ -1681,6 +1585,22 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB1 this week, RB2 lately",
+     "news": null
+    },
+    {
+     "slot": "TE",
+     "name": "Kenyon Sadiq",
+     "team": "NYJ",
+     "pos": "TE/FLEX",
+     "opp": "vs BUF",
+     "kickoff": "2026-11-15T18:00:00Z",
+     "started": false,
+     "proj": 4.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "exp": "TE36 this week, TE24 lately",
      "news": null
     },
     {
@@ -1695,23 +1615,29 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB3 this week",
      "news": null
     },
     {
-     "slot": "TE",
-     "name": "Dallas Goedert",
-     "team": "PHI",
-     "pos": "TE/FLEX",
-     "opp": null,
-     "kickoff": null,
+     "slot": "FLEX",
+     "name": "Cam Skattebo",
+     "team": "NYG",
+     "pos": "RB/FLEX",
+     "opp": "vs WSH",
+     "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
+     "proj": 11.6,
+     "status": "OUT",
+     "why": "ESPN: OUT",
      "flags": [
-      "BYE"
+      "OUT"
      ],
-     "news": null
+     "exp": "RB22 this week, RB18 lately",
+     "news": {
+      "note": "Skattebo (hamstring) was listed as a full participant in Tuesday's practice, Dan Salomone of the Giants' official site reports.",
+      "at": "2026-11-10T21:38:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4696981/cam-skattebo"
+     }
     },
     {
      "slot": "WR",
@@ -1725,6 +1651,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR19 this week, WR21 lately",
      "news": null
     },
     {
@@ -1739,6 +1666,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR10 this week",
      "news": null
     },
     {
@@ -1753,6 +1681,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB13 this week, RB17 lately",
      "news": null
     }
    ],
@@ -1769,6 +1698,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB23 this week, QB25 lately",
      "news": null
     },
     {
@@ -1783,41 +1713,42 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB25 this week, QB30 lately",
      "news": null
     },
     {
      "slot": "BN",
-     "name": "Kenyon Sadiq",
-     "team": "NYJ",
-     "pos": "TE/FLEX",
-     "opp": "vs BUF",
-     "kickoff": "2026-11-15T18:00:00Z",
+     "name": "Makai Lemon",
+     "team": "PHI",
+     "pos": "WR/FLEX",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 4.0,
+     "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [],
+     "flags": [
+      "BYE"
+     ],
+     "exp": "not ranked to play this week, WR34 lately",
      "news": null
     },
     {
      "slot": "BN",
-     "name": "Cam Skattebo",
-     "team": "NYG",
-     "pos": "RB/FLEX",
-     "opp": "vs WSH",
-     "kickoff": "2026-11-13T01:15:00Z",
+     "name": "Dallas Goedert",
+     "team": "PHI",
+     "pos": "TE/FLEX",
+     "opp": null,
+     "kickoff": null,
      "started": false,
-     "proj": 11.6,
-     "status": "OUT",
-     "why": "ESPN: OUT",
+     "proj": 0.0,
+     "status": null,
+     "why": "",
      "flags": [
-      "OUT"
+      "BYE"
      ],
-     "news": {
-      "note": "Skattebo (hamstring) was listed as a full participant in Tuesday's practice, Dan Salomone of the Giants' official site reports.",
-      "at": "2026-11-10T21:38:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4696981/cam-skattebo"
-     }
+     "exp": "not ranked to play this week, TE7 lately",
+     "news": null
     },
     {
      "slot": "BN",
@@ -1833,6 +1764,7 @@
      "flags": [
       "BYE"
      ],
+     "exp": "not ranked to play this week, RB29 lately",
      "news": null
     },
     {
@@ -1847,6 +1779,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR44 this week, WR29 lately",
      "news": null
     },
     {
@@ -1861,6 +1794,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB27 this week, RB30 lately",
      "news": null
     },
     {
@@ -1877,6 +1811,7 @@
      "flags": [
       "Q"
      ],
+     "exp": "WR39 this week, WR41 lately",
      "news": {
       "note": "Coach Andy Reid said Monday that Worthy (hamstring) is considered day-to-day in advance of Sunday's game against the Falcons, Matt McMullen of the Chiefs' official site reports.",
       "at": "2026-11-09T18:20:00Z",
@@ -1911,9 +1846,10 @@
      "flags": [
       "Q"
      ],
+     "exp": "WR41 this week, WR57 lately",
      "news": {
-      "note": "Burks (foot) was deemed a non-participant on the Commanders' practice report Monday, John Keim of ESPN.com reports.",
-      "at": "2026-11-10T00:22:56Z",
+      "note": "Burks (foot) was a limited participant in Tuesday's practice.",
+      "at": "2026-11-10T23:58:16Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -1929,58 +1865,74 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB43 this week, RB46 lately",
      "news": null
     }
    ],
    "advice": {
-    "matchup": "142.4 projected vs The MONSTARS",
+    "matchup": "146.4 projected vs The MONSTARS",
     "danger": false,
     "fixes": [
-     "Makai Lemon (FLEX) on BYE \u2192 start Rico Dowdle (9.8 proj) [ESPN, Nov 8 8:33p: Lemon caught six of nine targets for 61 yards in Sunday's 19-11 loss to the Giants.]",
-     "Dallas Goedert (TE) on BYE \u2192 start Kenyon Sadiq (4.0 proj) [ESPN, Nov 8 6:28p: Goedert caught five of six targets for 50 yards in Sunday's 19-11 loss to the Giants.]"
+     "Cam Skattebo (FLEX) OUT (ESPN: OUT) \u2192 start Rico Dowdle (9.8 proj) [ESPN, Nov 10 3:38p: Skattebo (hamstring) was listed as a full participant in Tuesday's practice, Dan Salomone of the Giants' official site reports.]"
     ],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,127) for Kaytron Allen (RB, your RB8, 1.5/gm): fills in at TE in week 10, +8.7 pts over the next 4 weeks"
+     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,028) for Kaytron Allen (RB, your RB8, 1.6/gm): fills in at TE in week 10, +8.6 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
-      "Weak spot: WR (Denzel Boston 10.7/gm, 8th of 10)",
+      "Weak spot: WR (Denzel Boston 10.7/gm, 7th of 10)",
       "Weak spot: TE (Dallas Goedert 11.1/gm, 9th of 10)",
       "Trade deadline: Dec 18."
      ],
      "offers": [
       {
-       "team": "Deep in The Muff",
+       "team": "The Guppies",
        "give": [
-        "Kenneth Walker III (RB)"
-       ],
-       "get": [
-        "Matthew Golden (WR)",
-        "Mike Evans (WR)"
-       ],
-       "give_value": 6511,
-       "get_value": 6307,
-       "my_gain": 1.7,
-       "their_gain": 0.9,
-       "cut": true,
-       "why": "Mike Evans and Matthew Golden start for you; Kenneth Walker III starts for them"
-      },
-      {
-       "team": "The MONSTARS",
-       "give": [
-        "Parker Washington (WR)",
+        "Daniel Jones (QB)",
         "Tre Tucker (WR)"
        ],
        "get": [
-        "Chris Olave (WR)"
+        "Jameson Williams (WR)"
        ],
-       "give_value": 4831,
-       "get_value": 4505,
-       "my_gain": 1.3,
+       "give_value": 2790,
+       "get_value": 2726,
+       "my_gain": 1.9,
+       "their_gain": 0.8,
+       "cut": false,
+       "why": "Jameson Williams starts for you; Daniel Jones and Tre Tucker start for them over Adonai Mitchell (8.7/gm)"
+      },
+      {
+       "team": "Deep in The Muff",
+       "give": [
+        "Parker Washington (WR)"
+       ],
+       "get": [
+        "A.J. Brown (WR)",
+        "Mike Evans (WR)"
+       ],
+       "give_value": 3714,
+       "get_value": 3903,
+       "my_gain": 0.6,
+       "their_gain": 2.0,
+       "cut": true,
+       "why": "Mike Evans and A.J. Brown start for you; Parker Washington starts for them"
+      },
+      {
+       "team": "The Guppies",
+       "give": [
+        "Tyler Shough (QB)",
+        "Ollie Gordon II (RB)"
+       ],
+       "get": [
+        "Patrick Mahomes (QB)"
+       ],
+       "give_value": 5204,
+       "get_value": 5086,
+       "my_gain": 1.0,
        "their_gain": 0.6,
        "cut": false,
-       "why": "Chris Olave starts for you; Parker Washington and Tre Tucker start for them over Jordan Addison (8.4/gm)"
+       "why": "Patrick Mahomes starts for you; Tyler Shough and Ollie Gordon II start for them over Adonai Mitchell (8.7/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -2001,7 +1953,38 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 5:27p"
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Parker Washington": "WR14 this week, WR13 lately",
+      "Tyler Shough": "QB11 this week, QB14 lately",
+      "Jayden Daniels": "QB6 this week",
+      "Kenneth Walker III": "RB1 this week, RB2 lately",
+      "Kenyon Sadiq": "TE36 this week, TE24 lately",
+      "Christian McCaffrey": "RB3 this week",
+      "Cam Skattebo": "RB22 this week, RB18 lately",
+      "Denzel Boston": "WR19 this week, WR21 lately",
+      "Christian Watson": "WR10 this week",
+      "Ollie Gordon II": "RB13 this week, RB17 lately",
+      "Daniel Jones": "QB23 this week, QB25 lately",
+      "Fernando Mendoza": "QB25 this week, QB30 lately",
+      "Makai Lemon": "not ranked to play this week, WR34 lately",
+      "Dallas Goedert": "not ranked to play this week, TE7 lately",
+      "J.K. Dobbins": "not ranked to play this week, RB29 lately",
+      "Tre Tucker": "WR44 this week, WR29 lately",
+      "Rico Dowdle": "RB27 this week, RB30 lately",
+      "Xavier Worthy": "WR39 this week, WR41 lately",
+      "Treylon Burks": "WR41 this week, WR57 lately",
+      "Chris Rodriguez Jr.": "RB43 this week, RB46 lately",
+      "Pat Freiermuth": "TE18 this week, TE10 lately"
+     },
+     "disagree": [
+      "Free agent Darren Waller (CAR) is TE15 with the experts this week, ahead of your starter Kenyon Sadiq (TE36); we project 8.5 vs 4.0."
+     ],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a"
    }
   },
   "Stempak": {
@@ -2010,12 +1993,12 @@
    "week": 10,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-10T22:36:22Z",
+   "snapshot": "2026-11-11T13:50:01Z",
    "league": "Stempak Family and Friends 2026",
    "opponent": "Sacked again",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 154.7,
+   "proj": 176.0,
    "starters": [
     {
      "slot": "QB",
@@ -2029,6 +2012,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB1 this week",
      "news": null
     },
     {
@@ -2043,6 +2027,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR4 this week, WR5 lately",
      "news": null
     },
     {
@@ -2057,6 +2042,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB4 this week, RB7 lately",
      "news": null
     },
     {
@@ -2071,6 +2057,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB15 this week, RB12 lately",
      "news": null
     },
     {
@@ -2085,6 +2072,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB12 this week, RB6 lately",
      "news": null
     },
     {
@@ -2099,6 +2087,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR10 this week",
      "news": null
     },
     {
@@ -2113,6 +2102,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE12 this week, TE14 lately",
      "news": null
     },
     {
@@ -2127,6 +2117,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB13 this week, RB17 lately",
      "news": null
     },
     {
@@ -2159,22 +2150,23 @@
     },
     {
      "slot": "QB",
-     "name": "Malik Willis",
-     "team": "MIA",
+     "name": "Drew Lock",
+     "team": "SEA",
      "pos": "QB/OP",
-     "opp": "@IND",
-     "kickoff": "2026-11-15T18:00:00Z",
+     "opp": "@LV",
+     "kickoff": "2026-11-15T21:05:00Z",
      "started": false,
-     "proj": 0.0,
-     "status": "IR",
-     "why": "ESPN: INJURY_RESERVE",
+     "proj": 21.3,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
      "flags": [
-      "IR"
+      "Q"
      ],
+     "exp": "QB14 this week, QB15 lately",
      "news": {
-      "note": "The Dolphins placed Willis (core) on injured reserve Tuesday.",
-      "at": "2026-11-10T21:32:20Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4242512/malik-willis"
+      "note": "Seahawks coach Mike Macdonald said Monday that Lock's tests on his oblique injury were \"good,\" and the issue is something the QB is expected to manage ahead of Sunday's game against the Raiders,  Gregg Bell of The Tacoma News Tribune reports.",
+      "at": "2026-11-09T18:00:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/3924327/drew-lock"
      }
     }
    ],
@@ -2193,6 +2185,7 @@
      "flags": [
       "BYE"
      ],
+     "exp": "not ranked to play this week, QB11 lately",
      "news": null
     },
     {
@@ -2207,6 +2200,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR12 this week, WR8 lately",
      "news": null
     },
     {
@@ -2224,6 +2218,7 @@
       "BYE",
       "Q"
      ],
+     "exp": "not ranked to play this week, WR25 lately",
      "news": {
       "note": "Waddle (concussion) has been ruled out for the remainder of Sunday's game against the Panthers, Parker Gabriel of The Denver Post reports.",
       "at": "2026-11-08T19:52:00Z",
@@ -2244,9 +2239,10 @@
      "flags": [
       "D"
      ],
+     "exp": "not ranked to play this week, RB15 lately",
      "news": {
-      "note": "Fantasy buzz: Malik Willis placed on IR, are there any Dolphins you should start?",
-      "at": "2026-11-10T21:54:11Z",
+      "note": "The knee injury that Stevenson sustained late in the third quarter of Sunday's 45-27 loss to the Packers is expected to keep him out for \"the next few weeks,\" Ian Rapoport of NFL Network reports.",
+      "at": "2026-11-10T15:46:24Z",
       "url": "https://www.espn.com/nfl/player/_/id/4569173/rhamondre-stevenson"
      }
     },
@@ -2262,6 +2258,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE24 this week, TE12 lately",
      "news": null
     },
     {
@@ -2276,6 +2273,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR48 this week, WR42 lately",
      "news": null
     },
     {
@@ -2287,38 +2285,32 @@
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
      "proj": 8.6,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
-     "flags": [
-      "Q"
-     ],
-     "news": {
-      "note": "Okonkwo was deemed a limited participant on Washington's estimated practice report Monday due to a hip injury, John Keim of ESPN.com reports.",
-      "at": "2026-11-10T00:36:00Z",
-      "url": "https://www.espn.com/nfl/player/_/id/4360635/chig-okonkwo"
-     }
+     "status": null,
+     "why": "",
+     "flags": [],
+     "exp": "TE16 this week, TE19 lately",
+     "news": null
     }
    ],
    "advice": {
-    "matchup": "154.7 projected vs Sacked again",
+    "matchup": "176.0 projected vs Sacked again",
     "danger": false,
     "fixes": [
-     "Malik Willis (QB) IR (ESPN: INJURY_RESERVE) \u2192 no bench fit: add Aaron Rodgers (PIT, 17.9 proj), drop Chig Okonkwo (8.6 proj), and start him [ESPN, Nov 10 3:32p: The Dolphins placed Willis (core) on injured reserve Tuesday.]",
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]"
+     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]"
     ],
     "moves": [
      "Start Zay Flowers (14.6) over Chase Brown (13.6) at FLEX, +1.0"
     ],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 18.4/gm, value 1,570) for Chig Okonkwo (TE, your TE3, 9.1/gm): fills in at QB in week 10, +27.4 pts over the next 4 weeks",
-     "Add Davante Adams (WR, LAR, 13.8/gm, value 1,553) for Josh Downs (WR, your WR5, 7.1/gm): fills in at WR in week 13, +1.1 pts over the next 4 weeks",
-     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,611) for Rhamondre Stevenson (RB, your RB5, 11.8/gm): better backup QB, +2.4 pts over the next 4 weeks"
+     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,237) for Chig Okonkwo (TE, your TE3, 9.1/gm): better backup QB, +7.4 pts over the next 4 weeks",
+     "Add A.J. Brown (WR, NE, 13.3/gm, value 1,574) for Josh Downs (WR, your WR5, 7.1/gm): better backup WR, +1 pts over the next 4 weeks",
+     "Add Jordan Mason (RB, MIN, 9.2/gm, value 538) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup RB, +0.9 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
-      "Weak spot: TE (Dalton Kincaid 11.1/gm, 7th of 8)",
-      "Surplus: Jaylen Waddle (WR), 13.5/gm on your bench, would start for 5 of 7 teams",
-      "Surplus: Ollie Gordon II (RB), 12.3/gm on your bench, would start for 4 of 7 teams",
+      "Weak spot: TE (Dalton Kincaid 10.9/gm, 7th of 8)",
+      "Surplus: Jaylen Waddle (WR), 13.5/gm beyond your rest-of-season starters, would start for 5 of 7 teams",
+      "Surplus: Ollie Gordon II (RB), 12.1/gm beyond your rest-of-season starters, would start for 4 of 7 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
@@ -2331,10 +2323,10 @@
         "Luther Burden III (WR)",
         "George Kittle (TE)"
        ],
-       "give_value": 6213,
-       "get_value": 6036,
-       "my_gain": 3.2,
-       "their_gain": 2.3,
+       "give_value": 6036,
+       "get_value": 6192,
+       "my_gain": 3.5,
+       "their_gain": 2.2,
        "cut": true,
        "why": "George Kittle and Luther Burden III start for you; James Cook III starts for them over Tyler Allgeier (11.0/gm)"
       },
@@ -2347,9 +2339,9 @@
         "DJ Moore (WR)",
         "Travis Kelce (TE)"
        ],
-       "give_value": 2783,
-       "get_value": 2981,
-       "my_gain": 2.3,
+       "give_value": 2842,
+       "get_value": 2987,
+       "my_gain": 2.5,
        "their_gain": 3.2,
        "cut": true,
        "why": "Travis Kelce and DJ Moore start for you; Chase Brown starts for them over Tyler Allgeier (11.0/gm)"
@@ -2362,24 +2354,52 @@
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 1201,
-       "get_value": 1274,
-       "my_gain": 1.1,
-       "their_gain": 1.6,
+       "give_value": 1216,
+       "get_value": 1218,
+       "my_gain": 1.3,
+       "their_gain": 0.6,
        "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Ollie Gordon II starts for them over Omarion Hampton (9.3/gm)"
+       "why": "Harold Fannin Jr. starts for you; Ollie Gordon II starts for them over Travis Etienne Jr. (10.1/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "(roster as of the laptop read Tue 4:36p; check it's still current)"
+     "(roster as of the laptop read Wed 7:50a; check it's still current)"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 5:27p"
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Josh Allen": "QB1 this week",
+      "Amon-Ra St. Brown": "WR4 this week, WR5 lately",
+      "James Cook III": "RB4 this week, RB7 lately",
+      "Chase Brown": "RB15 this week, RB12 lately",
+      "Javonte Williams": "RB12 this week, RB6 lately",
+      "Christian Watson": "WR10 this week",
+      "Dalton Kincaid": "TE12 this week, TE14 lately",
+      "Ollie Gordon II": "RB13 this week, RB17 lately",
+      "Drew Lock": "QB14 this week, QB15 lately",
+      "Caleb Williams": "not ranked to play this week, QB11 lately",
+      "Zay Flowers": "WR12 this week, WR8 lately",
+      "Jaylen Waddle": "not ranked to play this week, WR25 lately",
+      "Rhamondre Stevenson": "not ranked to play this week, RB15 lately",
+      "Juwan Johnson": "TE24 this week, TE12 lately",
+      "Josh Downs": "WR48 this week, WR42 lately",
+      "Chig Okonkwo": "TE16 this week, TE19 lately",
+      "David Montgomery": "not ranked to play this week, RB20 lately",
+      "Justin Herbert": "QB24 this week, QB25 lately",
+      "Jordan Mason": "RB37 this week, RB25 lately",
+      "A.J. Brown": "not ranked to play this week, WR19 lately"
+     },
+     "disagree": [],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a"
    }
   },
   "Bro-vid19": {
@@ -2388,12 +2408,12 @@
    "week": 10,
    "sport": "nfl",
    "format": null,
-   "snapshot": "2026-11-10T22:36:22Z",
+   "snapshot": "2026-11-11T13:50:01Z",
    "league": "Bro-vid19",
    "opponent": "Ashton DJENTY",
    "opp_proj": null,
    "roster_synced": null,
-   "proj": 133.4,
+   "proj": 135.5,
    "starters": [
     {
      "slot": "WR",
@@ -2407,6 +2427,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR2 this week, WR3 lately",
      "news": null
     },
     {
@@ -2421,6 +2442,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR15 this week, WR10 lately",
      "news": null
     },
     {
@@ -2435,7 +2457,29 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "WR13 this week, WR9 lately",
      "news": null
+    },
+    {
+     "slot": "WR",
+     "name": "Garrett Wilson",
+     "team": "NYJ",
+     "pos": "WR/FLEX",
+     "opp": "vs BUF",
+     "kickoff": "2026-11-15T18:00:00Z",
+     "started": false,
+     "proj": 12.7,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "Q"
+     ],
+     "exp": "WR16 this week, WR14 lately",
+     "news": {
+      "note": "Wilson (concussion) is out for Sunday's game against the Chiefs, Brian Costello of the New York Post reports.",
+      "at": "2026-11-06T16:16:24Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4569618/garrett-wilson"
+     }
     },
     {
      "slot": "RB",
@@ -2449,6 +2493,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB11 this week, RB10 lately",
      "news": null
     },
     {
@@ -2463,6 +2508,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "QB5 this week, QB3 lately",
      "news": null
     },
     {
@@ -2477,20 +2523,7 @@
      "status": null,
      "why": "",
      "flags": [],
-     "news": null
-    },
-    {
-     "slot": "WR",
-     "name": "KC Concepcion",
-     "team": "CLE",
-     "pos": "WR/FLEX",
-     "opp": "vs HOU",
-     "kickoff": "2026-11-15T18:00:00Z",
-     "started": false,
-     "proj": 10.6,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "exp": "TE6 this week, TE11 lately",
      "news": null
     },
     {
@@ -2533,6 +2566,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB25 this week, RB40 lately",
      "news": null
     }
    ],
@@ -2549,6 +2583,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB37 this week, RB25 lately",
      "news": null
     },
     {
@@ -2563,6 +2598,22 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "RB32 this week, RB26 lately",
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "KC Concepcion",
+     "team": "CLE",
+     "pos": "WR/FLEX",
+     "opp": "vs HOU",
+     "kickoff": "2026-11-15T18:00:00Z",
+     "started": false,
+     "proj": 10.6,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "exp": "WR28 this week, WR27 lately",
      "news": null
     },
     {
@@ -2579,6 +2630,7 @@
      "flags": [
       "Q"
      ],
+     "exp": "WR59 this week, WR45 lately",
      "news": {
       "note": "Shaheed (knee) is listed as out for Sunday's game against the Cardinals, Gregg Bell of 933 KJR reports.",
       "at": "2026-11-06T21:38:43Z",
@@ -2597,6 +2649,7 @@
      "status": null,
      "why": "",
      "flags": [],
+     "exp": "TE24 this week, TE12 lately",
      "news": null
     },
     {
@@ -2611,55 +2664,42 @@
      "status": null,
      "why": "",
      "flags": [],
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Kimani Vidal",
-     "team": "LAC",
-     "pos": "RB/FLEX",
-     "opp": "@BAL",
-     "kickoff": "2026-11-17T01:15:00Z",
-     "started": false,
-     "proj": 7.7,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "exp": "TE11 this week",
      "news": null
     }
    ],
    "advice": {
-    "matchup": "133.4 projected vs Ashton DJENTY",
+    "matchup": "135.5 projected vs Ashton DJENTY",
     "danger": false,
     "fixes": [
-     "Move Garrett Wilson out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 10 3:54p: Fantasy buzz: Malik Willis placed on IR, are there any Dolphins you should start?]",
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]"
+     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 9 2:45p: Coach DeMeco Ryans said Monday he's hopeful that Montgomery (groin) resumes practicing this week, or next week, Aaron Wilson of KPRC 2 Houston reports.]"
     ],
     "moves": [],
     "adds": [
-     "Add Malik Washington (WR, MIA, 9.8/gm, value 497) for Rashid Shaheed (WR, your WR5, 6.2/gm): fills in at WR in week 11, +10.9 pts over the next 4 weeks",
-     "Add Bryce Young (QB, CAR, 17.9/gm, value 456) for Kimani Vidal (RB, your RB4, 7.6/gm): better backup QB, +2.5 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 17.9/gm, value 822) for Brenton Strange (TE, your TE2, 10.9/gm): better backup QB, +3.5 pts over the next 4 weeks",
+     "Add Malik Washington (WR, MIA, 9.8/gm, value 444) for Rashid Shaheed (WR, your WR6, 6.2/gm): better backup WR, +2 pts over the next 4 weeks",
      "Add Dominic Zvada (K, NYG, 10.8 proj this week), drop Andre Szmyt (9.5 proj)"
     ],
     "trades": {
      "lines": [
       "Weak spot: RB (Aaron Jones Sr. 10.1/gm, 9th of 12)",
-      "Surplus: Brenton Strange (TE), 10.9/gm on your bench, would start for 6 of 11 teams",
+      "Surplus: KC Concepcion (WR), 10.9/gm beyond your rest-of-season starters, would start for 8 of 11 teams",
+      "Surplus: Brenton Strange (TE), 10.9/gm beyond your rest-of-season starters, would start for 6 of 11 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
       {
        "team": "Henry \"not charles\" Barkley",
        "give": [
-        "KC Concepcion (WR)",
-        "Aaron Jones Sr. (RB)"
+        "Aaron Jones Sr. (RB)",
+        "KC Concepcion (WR)"
        ],
        "get": [
         "Ollie Gordon II (RB)"
        ],
-       "give_value": 1661,
-       "get_value": 1743,
-       "my_gain": 2.2,
+       "give_value": 1736,
+       "get_value": 1824,
+       "my_gain": 2.0,
        "their_gain": 0.5,
        "cut": false,
        "why": "Ollie Gordon II starts for you; KC Concepcion starts for them over Jakobi Meyers (10.4/gm)"
@@ -2673,8 +2713,8 @@
        "get": [
         "Kyren Williams (RB)"
        ],
-       "give_value": 5556,
-       "get_value": 5469,
+       "give_value": 5431,
+       "get_value": 5059,
        "my_gain": 1.6,
        "their_gain": 1.0,
        "cut": false,
@@ -2689,10 +2729,10 @@
         "Tony Pollard (RB)",
         "Brock Purdy (QB)"
        ],
-       "give_value": 4424,
-       "get_value": 4660,
+       "give_value": 4466,
+       "get_value": 4395,
        "my_gain": 1.0,
-       "their_gain": 1.2,
+       "their_gain": 1.0,
        "cut": true,
        "why": "Brock Purdy and Tony Pollard start for you; Joe Burrow starts for them"
       }
@@ -2700,13 +2740,38 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "(roster as of the laptop read Tue 4:36p; check it's still current)"
+     "(roster as of the laptop read Wed 7:50a; check it's still current)"
     ],
     "cats": null,
     "radar": null,
     "games": null,
     "assets": null,
-    "built": "Tue 5:27p"
+    "experts": {
+     "week": 10,
+     "published": true,
+     "names": {
+      "Ja'Marr Chase": "WR2 this week, WR3 lately",
+      "Nico Collins": "WR15 this week, WR10 lately",
+      "Drake London": "WR13 this week, WR9 lately",
+      "Garrett Wilson": "WR16 this week, WR14 lately",
+      "Jaylen Warren": "RB11 this week, RB10 lately",
+      "Joe Burrow": "QB5 this week, QB3 lately",
+      "Travis Kelce": "TE6 this week, TE11 lately",
+      "Audric Estime": "RB25 this week, RB40 lately",
+      "Jordan Mason": "RB37 this week, RB25 lately",
+      "Aaron Jones Sr.": "RB32 this week, RB26 lately",
+      "KC Concepcion": "WR28 this week, WR27 lately",
+      "Rashid Shaheed": "WR59 this week, WR45 lately",
+      "Juwan Johnson": "TE24 this week, TE12 lately",
+      "Brenton Strange": "TE11 this week",
+      "David Montgomery": "not ranked to play this week, RB20 lately",
+      "Bryce Young": "QB7 this week, QB10 lately",
+      "Malik Washington": "WR43 this week, WR31 lately"
+     },
+     "disagree": [],
+     "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
+    },
+    "built": "Wed 8:02a"
    }
   },
   "3-Ball BB": {
@@ -2727,6 +2792,208 @@
      "name": "Saddiq Bey",
      "team": "NO",
      "pos": "SF/PF",
+     "opp": "vs BKN",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -2.11,
+      "rk": 124,
+      "wk": 3.9,
+      "src": "11 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Mikal Bridges",
+     "team": "NY",
+     "pos": "SG/SF",
+     "opp": "vs CLE",
+     "kickoff": "2026-11-12T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -5.72,
+      "rk": 238,
+      "wk": -7.0,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "PG",
+     "name": "Shai Gilgeous-Alexander",
+     "team": "OKC",
+     "pos": "PG/G",
+     "opp": "@POR",
+     "kickoff": "2026-11-12T03:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 3.54,
+      "rk": 18,
+      "wk": 20.8,
+      "src": "11 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "SG",
+     "name": "Josh Giddey",
+     "team": "CHI",
+     "pos": "PG/SG",
+     "opp": "vs SA",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -2.7,
+      "rk": 148,
+      "wk": 2.1,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "PF",
+     "name": "Franz Wagner",
+     "team": "ORL",
+     "pos": "SF/PF",
+     "opp": "@UTAH",
+     "kickoff": "2026-11-12T02:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 1.89,
+      "rk": 36,
+      "wk": 10.6,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "C",
+     "name": "Walker Kessler",
+     "team": "LAL",
+     "pos": "C/PF/C",
+     "opp": "@MIL",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 3.48,
+      "rk": 19,
+      "wk": 13.8,
+      "src": "12 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Jarrett Allen",
+     "team": "CLE",
+     "pos": "C/PF/C",
+     "opp": "@NY",
+     "kickoff": "2026-11-12T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -1.31,
+      "rk": 104,
+      "wk": 6.3,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "G",
+     "name": "De'Aaron Fox",
+     "team": "SA",
+     "pos": "PG/SG",
+     "opp": "@CHI",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 0.41,
+      "rk": 63,
+      "wk": 11.4,
+      "src": "11 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "UT",
+     "name": "Brandin Podziemski",
+     "team": "GS",
+     "pos": "PG/SG",
+     "opp": "@HOU",
+     "kickoff": "2026-11-12T02:30:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": 0.22,
+      "rk": 66,
+      "wk": 7.2,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "SF",
+     "name": "Matisse Thybulle",
+     "team": "LAL",
+     "pos": "SF/F",
+     "opp": "@MIL",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -2.34,
+      "rk": 136,
+      "wk": 2.1,
+      "src": "12 g"
+     },
+     "news": null
+    }
+   ],
+   "bench": [
+    {
+     "slot": "BN",
+     "name": "Devin Booker",
+     "team": "PHX",
+     "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
      "started": false,
@@ -2737,75 +3004,15 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -2.14,
-      "rk": 125,
-      "wk": 3.9,
-      "src": "11 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "SG",
-     "name": "Mikal Bridges",
-     "team": "NY",
-     "pos": "SG/SF",
-     "opp": "vs MIL",
-     "kickoff": "2026-11-11T00:30:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -6.16,
-      "rk": 248,
-      "wk": -10.8,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "G",
-     "name": "Devin Booker",
-     "team": "PHX",
-     "pos": "PG/SG",
-     "opp": "vs LAC",
-     "kickoff": "2026-11-11T02:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": 3.43,
-      "rk": 20,
-      "wk": 20.6,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "PG",
-     "name": "Shai Gilgeous-Alexander",
-     "team": "OKC",
-     "pos": "PG/G",
-     "opp": "@POR",
-     "kickoff": "2026-11-11T04:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": 3.98,
-      "rk": 16,
-      "wk": 29.7,
+      "v": 2.65,
+      "rk": 23,
+      "wk": 12.1,
       "src": "10 g"
      },
      "news": null
     },
     {
-     "slot": "UT",
+     "slot": "BN",
      "name": "Kingston Flemings",
      "team": "ATL",
      "pos": "SG/G",
@@ -2819,138 +3026,10 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -4.17,
-      "rk": 191,
-      "wk": -1.4,
+      "v": -4.13,
+      "rk": 189,
+      "wk": -1.5,
       "src": "11 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "SF",
-     "name": "Franz Wagner",
-     "team": "ORL",
-     "pos": "SF/PF",
-     "opp": "@SAC",
-     "kickoff": "2026-11-11T03:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": 0.89,
-      "rk": 51,
-      "wk": 13.0,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "UT",
-     "name": "Walker Kessler",
-     "team": "LAL",
-     "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": 3.4,
-      "rk": 21,
-      "wk": 13.7,
-      "src": "12 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "C",
-     "name": "Khaman Maluach",
-     "team": "PHX",
-     "pos": "C/PF/C",
-     "opp": "vs LAC",
-     "kickoff": "2026-11-11T02:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -3.42,
-      "rk": 170,
-      "wk": 0.1,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "PF",
-     "name": "De'Andre Hunter",
-     "team": "SAC",
-     "pos": "SF/PF",
-     "opp": "vs ORL",
-     "kickoff": "2026-11-11T03:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -6.47,
-      "rk": 262,
-      "wk": -9.1,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "UT",
-     "name": "Matisse Thybulle",
-     "team": "LAL",
-     "pos": "SF/F",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -2.34,
-      "rk": 135,
-      "wk": 2.2,
-      "src": "12 g"
-     },
-     "news": null
-    }
-   ],
-   "bench": [
-    {
-     "slot": "BN",
-     "name": "Josh Giddey",
-     "team": "CHI",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -2.74,
-      "rk": 149,
-      "wk": 2.1,
-      "src": "9 g"
      },
      "news": null
     },
@@ -2959,19 +3038,17 @@
      "name": "Matas Buzelis",
      "team": "CHI",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "vs SA",
+     "kickoff": "2026-11-12T01:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ],
+     "flags": [],
      "cv": {
-      "v": -3.62,
+      "v": -3.59,
       "rk": 177,
-      "wk": -0.5,
+      "wk": -0.6,
       "src": "9 g"
      },
      "news": null
@@ -2991,9 +3068,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -3.89,
-      "rk": 184,
-      "wk": -0.9,
+      "v": -3.88,
+      "rk": 185,
+      "wk": -1.0,
       "src": "11 g"
      },
      "news": null
@@ -3013,8 +3090,8 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.72,
-      "rk": 39,
+      "v": 1.77,
+      "rk": 40,
       "wk": 10.3,
       "src": "11 g"
      },
@@ -3022,8 +3099,8 @@
     },
     {
      "slot": "BN",
-     "name": "Jarrett Allen",
-     "team": "CLE",
+     "name": "Khaman Maluach",
+     "team": "PHX",
      "pos": "C/PF/C",
      "opp": null,
      "kickoff": null,
@@ -3035,17 +3112,17 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -1.37,
-      "rk": 107,
-      "wk": 6.2,
-      "src": "9 g"
+      "v": -3.2,
+      "rk": 160,
+      "wk": 0.4,
+      "src": "10 g"
      },
      "news": null
     },
     {
      "slot": "BN",
-     "name": "De'Aaron Fox",
-     "team": "SA",
+     "name": "Walter Clayton Jr.",
+     "team": "DAL",
      "pos": "PG/SG",
      "opp": null,
      "kickoff": null,
@@ -3057,32 +3134,10 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 0.36,
-      "rk": 63,
-      "wk": 11.4,
-      "src": "11 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Brandin Podziemski",
-     "team": "GS",
-     "pos": "PG/SG",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": 0.2,
-      "rk": 65,
-      "wk": 7.3,
-      "src": "9 g"
+      "v": -5.04,
+      "rk": 214,
+      "wk": -4.9,
+      "src": "10 g"
      },
      "news": null
     }
@@ -3091,96 +3146,95 @@
     "matchup": "vs Team Duke",
     "danger": false,
     "fixes": [],
-    "moves": [],
+    "moves": [
+     "Start Matas Buzelis (CHI vs SA, Wed 7:00p) over Mikal Bridges at UT: +2.1 value/g"
+    ],
     "adds": [
-     "Drop De'Andre Hunter (3 games this week, value -6.5/g), add Isaiah Stewart (PF/C, MEM, 3 games this week, value -3.0/g, 4% rostered): +20.0 this week (helps FG%, FT%, BLK). Dynasty: De'Andre Hunter is 29.",
-     "Drop Matisse Thybulle (2 games this week, value -2.3/g), add Mo Bamba (C, UTAH, 4 games this week, value -3.1/g, 3% rostered): +4.7 this week (helps FG%, REB, BLK). Dynasty: Matisse Thybulle is 30."
+     "Drop Matisse Thybulle (2 games this week, value -2.3/g), add Paul Reed (PF/C, DET, 2 games this week, value -1.1/g, 37% rostered): +4.0 this week over keeping Matisse Thybulle (helps REB, FG%, PTS). Dynasty: Matisse Thybulle is 29."
     ],
     "trades": null,
     "notes": [
-     "6 of 10 starters play tonight"
+     "10 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".862",
-       "opp": ".909",
-       "now": "L",
+       "me": ".898",
+       "opp": ".854",
+       "now": "W",
        "outlook": "close"
       },
       {
        "cat": "REB",
-       "me": "38",
-       "opp": "55",
-       "now": "L",
-       "outlook": "lose"
-      },
-      {
-       "cat": "PTS",
-       "me": "139",
-       "opp": "168",
+       "me": "72",
+       "opp": "80",
        "now": "L",
        "outlook": "close"
       },
       {
+       "cat": "PTS",
+       "me": "245",
+       "opp": "198",
+       "now": "W",
+       "outlook": "close"
+      },
+      {
        "cat": "BLK",
-       "me": "6",
-       "opp": "8",
+       "me": "8",
+       "opp": "9",
        "now": "L",
        "outlook": "win"
       },
       {
        "cat": "3PM",
-       "me": "16",
-       "opp": "18",
+       "me": "22",
+       "opp": "23",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "STL",
-       "me": "8",
-       "opp": "14",
+       "me": "13",
+       "opp": "16",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "AST",
-       "me": "30",
-       "opp": "39",
-       "now": "L",
+       "me": "51",
+       "opp": "48",
+       "now": "W",
        "outlook": "win"
       },
       {
        "cat": "FG%",
-       "me": ".570",
-       "opp": ".513",
+       "me": ".509",
+       "opp": ".479",
        "now": "W",
        "outlook": "close"
       }
      ],
-     "now": "1-7-0",
-     "proj": "2-3",
-     "close": 3,
+     "now": "4-4-0",
+     "proj": "2-1",
+     "close": 5,
      "games_left": [
-      45,
-      43
+      41,
+      38
      ],
      "chase": [
-      "FG% is close. Keep in the lineup: Jarrett Allen (3 games, .648 on 7.9 FGA/g) and Walker Kessler (2 games, .690 on 9.2 FGA/g).",
-      "FT% is close. Keep in the lineup: Devin Booker (3 games, .948 on 6.6 FTA/g) and Shai Gilgeous-Alexander (4 games, .853 on 6.8 FTA/g).",
-      "PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (4 games, 29.9/g) and Devin Booker (3 games, 26.0/g)."
+      "FT% is close. Keep in the lineup: Saddiq Bey (3 games, .901 on 3.7 FTA/g) and Shai Gilgeous-Alexander (3 games, .861 on 7.2 FTA/g).",
+      "PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (3 games, 29.6/g) and Saddiq Bey (3 games, 15.4/g).",
+      "FG% is close. Keep in the lineup: Walker Kessler (2 games, .690 on 9.2 FGA/g)."
      ],
      "adds": [
-      "For FG%: Mitchell Robinson (C, BOS), 3 games left, .685 on 4.2 FGA/g",
-      "For FT%: Jordan Poole (PG/SG, NO), 3 games left, .944 on 3.6 FTA/g",
-      "For PTS: Ryan Rollins (PG/SG, MIL), 4 games left, 10.7/g"
+      "For FT%: Jordan Poole (PG/SG, NO), 3 games left, .944 on 3.6 FTA/g"
      ]
     },
     "radar": {
      "rising": [
       {
-       "text": "Ayo Dosunmu (SG, MIN), on your bench: start him: minutes 30 \u2192 34 in his last 3 games (Nov 4\u2013Nov 8) vs 8 before, usage 21% \u2192 26%, since Anthony Edwards went out [ESPN Oct 29: Out, Edwards underwent a successful arthroscopic procedure on his right knee Thursday, the\u2026]. Fits FG% (close), PTS (close), FT% (close). 2 games left this week, 4 next week (back-to-back Mon\u2013Tue).",
+       "text": "Ayo Dosunmu (SG, MIN), on your bench, worth a start on his next game day (no game today; his value +1.8/g beats your weakest starter, Mikal Bridges, at -5.7/g): minutes 30 \u2192 34 in his last 3 games (Nov 4\u2013Nov 8) vs 8 before, usage 21% \u2192 26%, since Anthony Edwards went out [ESPN Oct 29: Out, Edwards underwent a successful arthroscopic procedure on his right knee Thursday, the\u2026]. Fits FG% (close), PTS (close), FT% (close). 2 games left this week, 4 next week (back-to-back Mon\u2013Tue).",
        "short": "Ayo Dosunmu (MIN, your bench): minutes 30 \u2192 34, usage 21% \u2192 26%; fits FG%, PTS (ESPN game logs through Nov 8)",
        "links": [
         [
@@ -3195,84 +3249,50 @@
        "where": "bench",
        "push": false,
        "id": "4397002",
-       "name": "Ayo Dosunmu"
+       "name": "Ayo Dosunmu",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": "",
+       "verdict": "worth a start on his next game day (no game today; his value +1.8/g beats your weakest starter, Mikal Bridges, at -5.7/g)"
       },
       {
-       "text": "Brandin Podziemski (SG, GS), on your bench: start him: minutes 25 \u2192 32 in his last 3 games (Nov 5\u2013Nov 9) vs 8 before, played 6 of them, usage 21% \u2192 17%. Fits 3PM (losing), FG% (close), STL (losing). 2 games left this week, 4 next week (back-to-back Wed\u2013Thu).",
-       "short": "Brandin Podziemski (GS, your bench): minutes 25 \u2192 32; fits 3PM, FG% (ESPN game logs through Nov 9)",
+       "text": "Kingston Flemings (SG, ATL), on your bench, worth a start on his next game day (no game today; his value -4.1/g beats your weakest starter, Mikal Bridges, at -5.7/g): minutes 18 \u2192 25 in his last 3 games (Nov 6\u2013Nov 9) vs 9 before, played 8 of them, started 3 of 3 (1 of 9 before). Fits FG% (close). 2 games left this week, 3 next week.",
+       "short": "Kingston Flemings (ATL, your bench): minutes 18 \u2192 25, now starting; fits FG% (ESPN game logs through Nov 9)",
        "links": [
         [
          "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/4709138"
+         "https://www.espn.com/nba/player/gamelog/_/id/5149077"
         ]
        ],
        "where": "bench",
        "push": false,
-       "id": "4709138",
-       "name": "Brandin Podziemski"
+       "id": "5149077",
+       "name": "Kingston Flemings",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": "",
+       "verdict": "worth a start on his next game day (no game today; his value -4.1/g beats your weakest starter, Mikal Bridges, at -5.7/g)"
       },
       {
-       "text": "Josh Giddey (PG, CHI), on your bench: start him: minutes 26 \u2192 31 in his last 3 games (Nov 2\u2013Nov 8) vs 6 before, usage 17% \u2192 22%. Doesn't add much in the categories you need this week. 3 games left this week, 4 next week (back-to-back Fri\u2013Sat).",
-       "short": "Josh Giddey (CHI, your bench): minutes 26 \u2192 31, usage 17% \u2192 22% (ESPN game logs through Nov 8)",
+       "text": "Walter Clayton Jr. (SG, DAL), on your bench, keep him on the bench for now (no game today; his season value -5.0/g doesn't beat your weakest starter, Mikal Bridges, at -5.7/g, by 1+): minutes 13 \u2192 21 in his last 3 games (Nov 6\u2013Nov 9) vs 8 before, played 7 of them. Doesn't add much in the categories you need this week. 3 games left this week, 3 next week (back-to-back Sat\u2013Sun).",
+       "short": "Walter Clayton Jr. (DAL, your bench): minutes 13 \u2192 21 (ESPN game logs through Nov 9)",
        "links": [
         [
-         "ESPN game log through Nov 8",
-         "https://www.espn.com/nba/player/gamelog/_/id/4871145"
+         "ESPN game log through Nov 9",
+         "https://www.espn.com/nba/player/gamelog/_/id/4896372"
         ]
        ],
        "where": "bench",
        "push": false,
-       "id": "4871145",
-       "name": "Josh Giddey"
+       "id": "4896372",
+       "name": "Walter Clayton Jr.",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": "",
+       "verdict": "keep him on the bench for now (no game today; his season value -5.0/g doesn't beat your weakest starter, Mikal Bridges, at -5.7/g, by 1+)"
       },
       {
-       "text": "Leaky Black (SF, SAC), free agent, 1% owned, ESPN +/- +0.3: minutes 5 \u2192 27 in his last 3 games (Nov 4\u2013Nov 8) vs 7 before, played 2 of them, usage 13% \u2192 8%. Fits STL (losing), 3PM (losing). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
-       "short": "Leaky Black (SAC, FA 1%): minutes 5 \u2192 27; fits STL, 3PM (ESPN game logs through Nov 8)",
-       "links": [
-        [
-         "ESPN game log through Nov 8",
-         "https://www.espn.com/nba/player/gamelog/_/id/4395650"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4395650",
-       "name": "Leaky Black"
-      },
-      {
-       "text": "Jamal Shead (PG, TOR), free agent, 11% owned, +7.6 pts in 3 days: minutes 22 \u2192 30 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, started 2 of 3 (0 of 7 before), since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits STL (losing), FT% (close). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
-       "short": "Jamal Shead (TOR, FA 11%): minutes 22 \u2192 30, usage 15% \u2192 19%, now starting; fits STL, FT% (ESPN game logs through Nov 9)",
-       "links": [
-        [
-         "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/4432241"
-        ],
-        [
-         "ESPN Nov 10",
-         "https://www.espn.com/nba/player/_/id/6450/kawhi-leonard"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4432241",
-       "name": "Jamal Shead"
-      },
-      {
-       "text": "Ryan Kalkbrenner (C, CHA), free agent, 2% owned, +0.0 pts in 3 days: minutes 16 \u2192 25 in his last 3 games (Nov 4\u2013Nov 9) vs 8 before, started 2 of 3 (0 of 8 before). Fits FG% (close), REB (losing), FT% (close). 2 games left this week, 2 next week.",
-       "short": "Ryan Kalkbrenner (CHA, FA 2%): minutes 16 \u2192 25, now starting; fits FG%, REB (ESPN game logs through Nov 9)",
-       "links": [
-        [
-         "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/4576060"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4576060",
-       "name": "Ryan Kalkbrenner"
-      },
-      {
-       "text": "Alijah Martin (SG, TOR), free agent, 0% owned: minutes 6 \u2192 20 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, played 6 of them, usage 16% \u2192 19%, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits FG% (close). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
+       "text": "Alijah Martin (SG, TOR), free agent, rostered 0% (-0.1% lately, ESPN's +/-): minutes 6 \u2192 20 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, played 6 of them, usage 16% \u2192 19%, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits FG% (close). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
        "short": "Alijah Martin (TOR, FA 0%): minutes 6 \u2192 20, usage 16% \u2192 19%; fits FG% (ESPN game logs through Nov 9)",
        "links": [
         [
@@ -3287,7 +3307,73 @@
        "where": "fa",
        "push": true,
        "id": "4702656",
-       "name": "Alijah Martin"
+       "name": "Alijah Martin",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Bennett Stirtz (PG, OKC), free agent, rostered 2% (+1.7% in 3 days): minutes 16 \u2192 24 in his last 3 games (Nov 6\u2013Nov 10) vs 8 before, usage 14% \u2192 18%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (losing), FT% (close), FG% (close). 3 games left this week, 3 next week.",
+       "short": "Bennett Stirtz (OKC, FA 2%): minutes 16 \u2192 24, usage 14% \u2192 18%; fits 3PM, FT% (ESPN game logs through Nov 10)",
+       "links": [
+        [
+         "ESPN game log through Nov 10",
+         "https://www.espn.com/nba/player/gamelog/_/id/5241364"
+        ],
+        [
+         "ESPN Oct 30",
+         "https://www.espn.com/nba/player/_/id/4433255/chet-holmgren"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "5241364",
+       "name": "Bennett Stirtz",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Jamison Battle (SF, TOR), free agent, rostered 0% (+0.1% lately, ESPN's +/-): minutes 16 \u2192 23 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
+       "short": "Jamison Battle (TOR, FA 0%): minutes 16 \u2192 23; fits 3PM (ESPN game logs through Nov 9)",
+       "links": [
+        [
+         "ESPN game log through Nov 9",
+         "https://www.espn.com/nba/player/gamelog/_/id/4431893"
+        ],
+        [
+         "ESPN Nov 10",
+         "https://www.espn.com/nba/player/_/id/6450/kawhi-leonard"
+        ]
+       ],
+       "where": "fa",
+       "push": false,
+       "id": "4431893",
+       "name": "Jamison Battle",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Aaron Nesmith (SF, IND), free agent, rostered 4% (-0.1% in 3 days): minutes 17 \u2192 30 in his last 3 games (Nov 4\u2013Nov 9) vs 8 before, played 6 of them, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week.",
+       "short": "Aaron Nesmith (IND, FA 4%): minutes 17 \u2192 30; fits 3PM (ESPN game logs through Nov 9)",
+       "links": [
+        [
+         "ESPN game log through Nov 9",
+         "https://www.espn.com/nba/player/gamelog/_/id/4396909"
+        ],
+        [
+         "ESPN Nov 7",
+         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "4396909",
+       "name": "Aaron Nesmith",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
       }
      ],
      "shrinking": [
@@ -3323,7 +3409,7 @@
        ]
       },
       {
-       "text": "Paolo Banchero (ORL) is out [ESPN Oct 24: Out, Banchero is expected to be sidelined for the next four-to-six weeks due to a right\u2026]. In 7 games without him: Jase Richardson (FA) 14 \u2192 25 min, usage 16% \u2192 16%; Jamal Cain (FA) 12 \u2192 21 min, usage 15% \u2192 17%.",
+       "text": "Paolo Banchero (ORL) is out [ESPN Oct 24: Out, Banchero is expected to be sidelined for the next four-to-six weeks due to a right\u2026]. In 8 games without him: Jase Richardson (FA) 14 \u2192 24 min, usage 16% \u2192 16%; Jamal Cain (FA) 12 \u2192 21 min, usage 15% \u2192 17%.",
        "links": [
         [
          "ESPN Oct 24",
@@ -3332,7 +3418,7 @@
        ]
       },
       {
-       "text": "Scottie Barnes (TOR) is out [ESPN Nov 10: Out, Barnes (groin) is out for Wednesday's game against Boston.]. In 2 games without him: Alijah Martin (FA) 6 \u2192 26 min, usage 18% \u2192 17%; Jamal Shead (FA) 22 \u2192 35 min, usage 14% \u2192 20%.",
+       "text": "Scottie Barnes (TOR) is out [ESPN Nov 10: Out, Barnes (groin) is out for Wednesday's game against Boston.]. In 2 games without him: Alijah Martin (FA) 6 \u2192 26 min, usage 18% \u2192 17%.",
        "links": [
         [
          "ESPN Nov 10",
@@ -3341,7 +3427,7 @@
        ]
       },
       {
-       "text": "Jalen Suggs (ORL) is out [ESPN Nov 9: Out, Suggs (knee) has been ruled out for Tuesday's game against the Kings.]. In 6 games without him: Jase Richardson (FA) 15 \u2192 26 min, usage 18% \u2192 15%; Jamal Cain (FA) 13 \u2192 22 min, usage 12% \u2192 18%.",
+       "text": "Jalen Suggs (ORL) is out [ESPN Nov 9: Out, Suggs (knee) has been ruled out for Tuesday's game against the Kings.]. In 7 games without him: Jase Richardson (FA) 15 \u2192 25 min, usage 18% \u2192 15%; Jamal Cain (FA) 13 \u2192 22 min, usage 12% \u2192 18%.",
        "links": [
         [
          "ESPN Nov 9",
@@ -3350,49 +3436,45 @@
        ]
       }
      ],
+     "keep": [
+      "4397002",
+      "4896372",
+      "5149077"
+     ],
+     "shrink_ids": [
+      "4066328",
+      "4066259"
+     ],
      "need": [
       "FT% (close)",
-      "REB (losing)",
+      "REB (close)",
       "PTS (close)",
       "3PM (losing)",
-      "STL (losing)",
+      "STL (close)",
       "FG% (close)"
      ],
-     "basis": "ESPN game logs through Nov 9; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
+     "basis": "ESPN game logs through Nov 10; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "games": {
      "now": {
-      "span": "Tue Nov 10\u2013Sun Nov 15",
+      "span": "Wed Nov 11\u2013Sun Nov 15",
       "groups": [
-       [
-        4,
-        [
-         "MIL",
-         "NY",
-         "OKC",
-         "UTAH"
-        ]
-       ],
        [
         3,
         [
-         "BOS",
          "CHI",
          "CLE",
          "DAL",
          "HOU",
          "IND",
-         "LAC",
          "MEM",
-         "MIA",
+         "MIL",
          "NO",
-         "ORL",
-         "PHI",
-         "PHX",
-         "POR",
+         "NY",
+         "OKC",
          "SA",
-         "SAC",
          "TOR",
+         "UTAH",
          "WSH"
         ]
        ],
@@ -3401,30 +3483,31 @@
         [
          "ATL",
          "BKN",
+         "BOS",
          "CHA",
          "DEN",
          "DET",
          "GS",
+         "LAC",
          "LAL",
-         "MIN"
+         "MIA",
+         "MIN",
+         "ORL",
+         "PHI",
+         "PHX",
+         "POR",
+         "SAC"
         ]
        ]
       ],
       "b2b": [
-       "BOS",
        "CHI",
        "CLE",
        "DAL",
        "MEM",
        "MIA",
-       "MIL",
        "NO",
-       "NY",
-       "OKC",
-       "ORL",
-       "POR",
        "TOR",
-       "UTAH",
        "WSH"
       ]
      },
@@ -3495,14 +3578,14 @@
       ]
      },
      "mine": {
-      "now": 45,
-      "opp": 43,
-      "next": 54
+      "now": 41,
+      "opp": 38,
+      "next": 55
      },
      "streamers": [
-      "Isaiah Stewart (PF/C, MEM, 4% rostered): 3 games this week (We/Fr/Sa, back-to-back), +11.6 this week, helps FG%, FT%",
-      "Mo Bamba (C, UTAH, 3% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +5.1 this week, helps FG%, BLK",
-      "Quenton Jackson (PG/SG, IND, 5% rostered): 3 games this week (We/Fr/Su), +5.0 this week, helps FT%, STL"
+      "Paul Reed (PF/C, DET, 37% rostered): 2 games this week (Th/Sa), +6.4 this week, helps FG%, REB, BLK",
+      "Quenton Jackson (PG/SG, IND, 5% rostered): 3 games this week (We/Fr/Su), +5.5 this week, helps FT%, STL",
+      "Jordan Goodwin (PG/SG, PHX, 1% rostered): 2 games this week (Th/Su), +3.4 this week, helps STL, 3PM"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
@@ -3518,7 +3601,8 @@
      ],
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
-    "built": "Tue 5:27p"
+    "experts": null,
+    "built": "Wed 8:02a"
    }
   },
   "Ball is Life": {
@@ -3527,7 +3611,7 @@
    "week": 4,
    "sport": "nba",
    "format": null,
-   "snapshot": "2026-11-10T22:36:22Z",
+   "snapshot": "2026-11-11T13:50:01Z",
    "league": "We playin basketball",
    "opponent": "Fighting Turkeys",
    "opp_proj": null,
@@ -3535,33 +3619,29 @@
    "proj": null,
    "starters": [
     {
-     "slot": "PF",
+     "slot": "UT",
      "name": "Giannis Antetokounmpo",
      "team": "MIA",
      "pos": "PF/C",
-     "opp": "@UTAH",
-     "kickoff": "2026-11-11T02:00:00Z",
+     "opp": null,
+     "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "Q",
-     "why": "ESPN: DAY_TO_DAY",
+     "status": null,
+     "why": "",
      "flags": [
-      "Q"
+      "NO GAME"
      ],
      "cv": {
-      "v": 2.78,
-      "rk": 24,
-      "wk": 18.5,
-      "src": "10 g"
+      "v": 2.37,
+      "rk": 27,
+      "wk": 11.4,
+      "src": "11 g"
      },
-     "news": {
-      "note": "Antetokounmpo is probable for Tuesday's game against the Jazz due to a right wrist sprain.",
-      "at": "2026-11-09T23:05:00Z",
-      "url": "https://www.espn.com/nba/player/_/id/3032977/giannis-antetokounmpo"
-     }
+     "news": null
     },
     {
-     "slot": "UT",
+     "slot": "G",
      "name": "LaMelo Ball",
      "team": "MIN",
      "pos": "PG/G",
@@ -3575,8 +3655,8 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.63,
-      "rk": 40,
+      "v": 1.65,
+      "rk": 41,
       "wk": 10.0,
       "src": "11 g"
      },
@@ -3584,145 +3664,141 @@
     },
     {
      "slot": "PG",
-     "name": "Darius Garland",
-     "team": "LAC",
-     "pos": "PG/G",
-     "opp": "@PHX",
-     "kickoff": "2026-11-11T02:00:00Z",
+     "name": "Austin Reaves",
+     "team": "LAL",
+     "pos": "PG/SG",
+     "opp": "@MIL",
+     "kickoff": "2026-11-12T01:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.6,
-      "rk": 87,
-      "wk": 8.4,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "SF",
-     "name": "Jaden McDaniels",
-     "team": "MIN",
-     "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": 0.61,
-      "rk": 54,
-      "wk": 8.0,
+      "v": 3.54,
+      "rk": 17,
+      "wk": 13.8,
       "src": "11 g"
      },
      "news": null
     },
     {
-     "slot": "SG",
-     "name": "VJ Edgecombe",
-     "team": "PHI",
-     "pos": "SG/G",
-     "opp": "vs BOS",
-     "kickoff": "2026-11-11T01:00:00Z",
+     "slot": "F",
+     "name": "Draymond Green",
+     "team": "GS",
+     "pos": "PF/C",
+     "opp": "@HOU",
+     "kickoff": "2026-11-12T02:30:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.49,
-      "rk": 83,
-      "wk": 8.7,
+      "v": -2.81,
+      "rk": 150,
+      "wk": 1.1,
+      "src": "9 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "C",
+     "name": "Day'Ron Sharpe",
+     "team": "BKN",
+     "pos": "C/PF/C",
+     "opp": "@NO",
+     "kickoff": "2026-11-12T01:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -2.31,
+      "rk": 132,
+      "wk": 2.1,
       "src": "10 g"
      },
      "news": null
     },
     {
-     "slot": "F",
+     "slot": "SF",
      "name": "Peyton Watson",
      "team": "CLE",
      "pos": "SF/PF",
-     "opp": null,
-     "kickoff": null,
+     "opp": "@NY",
+     "kickoff": "2026-11-12T00:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
-     "flags": [
-      "NO GAME"
-     ],
+     "flags": [],
      "cv": {
-      "v": -3.31,
-      "rk": 165,
+      "v": -3.29,
+      "rk": 166,
       "wk": 0.2,
       "src": "9 g"
      },
      "news": null
     },
     {
-     "slot": "G",
+     "slot": "SG",
      "name": "Ajay Mitchell",
      "team": "OKC",
      "pos": "PG/SG",
      "opp": "@POR",
-     "kickoff": "2026-11-11T04:00:00Z",
+     "kickoff": "2026-11-12T03:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.32,
-      "rk": 78,
-      "wk": 12.3,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "C",
-     "name": "Jaxson Hayes",
-     "team": "UTAH",
-     "pos": "C/PF/C",
-     "opp": "vs MIA",
-     "kickoff": "2026-11-11T02:00:00Z",
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "cv": {
-      "v": -1.39,
-      "rk": 106,
-      "wk": 8.0,
-      "src": "9 g"
+      "v": -0.44,
+      "rk": 79,
+      "wk": 8.7,
+      "src": "11 g"
      },
      "news": null
     },
     {
      "slot": "UT",
-     "name": "Ryan Dunn",
-     "team": "PHX",
-     "pos": "SF/PF",
-     "opp": "vs LAC",
-     "kickoff": "2026-11-11T02:00:00Z",
+     "name": "Jaxson Hayes",
+     "team": "UTAH",
+     "pos": "C/PF/C",
+     "opp": "vs ORL",
+     "kickoff": "2026-11-12T02:00:00Z",
      "started": false,
      "proj": 0.0,
      "status": null,
      "why": "",
      "flags": [],
      "cv": {
-      "v": -5.54,
-      "rk": 230,
-      "wk": -6.5,
-      "src": "9 g"
+      "v": -1.68,
+      "rk": 109,
+      "wk": 5.0,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "PF",
+     "name": "Obi Toppin",
+     "team": "IND",
+     "pos": "PF/F",
+     "opp": "vs WSH",
+     "kickoff": "2026-11-12T00:00:00Z",
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [],
+     "cv": {
+      "v": -4.19,
+      "rk": 191,
+      "wk": -2.5,
+      "src": "8 g"
      },
      "news": null
     }
@@ -3743,10 +3819,76 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.39,
-      "rk": 44,
+      "v": 1.43,
+      "rk": 43,
       "wk": 9.6,
       "src": "12 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Darius Garland",
+     "team": "LAC",
+     "pos": "PG/G",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": -0.88,
+      "rk": 94,
+      "wk": 4.9,
+      "src": "10 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Jaden McDaniels",
+     "team": "MIN",
+     "pos": "SF/PF",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": 0.67,
+      "rk": 53,
+      "wk": 8.0,
+      "src": "11 g"
+     },
+     "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "VJ Edgecombe",
+     "team": "PHI",
+     "pos": "SG/G",
+     "opp": null,
+     "kickoff": null,
+     "started": false,
+     "proj": 0.0,
+     "status": null,
+     "why": "",
+     "flags": [
+      "NO GAME"
+     ],
+     "cv": {
+      "v": -0.79,
+      "rk": 90,
+      "wk": 5.1,
+      "src": "11 g"
      },
      "news": null
     },
@@ -3765,76 +3907,10 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -3.39,
+      "v": -3.35,
       "rk": 169,
       "wk": 0.0,
       "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Draymond Green",
-     "team": "GS",
-     "pos": "PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -2.85,
-      "rk": 150,
-      "wk": 1.1,
-      "src": "9 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Day'Ron Sharpe",
-     "team": "BKN",
-     "pos": "C/PF/C",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -2.36,
-      "rk": 133,
-      "wk": 2.1,
-      "src": "10 g"
-     },
-     "news": null
-    },
-    {
-     "slot": "BN",
-     "name": "Obi Toppin",
-     "team": "IND",
-     "pos": "PF/F",
-     "opp": null,
-     "kickoff": null,
-     "started": false,
-     "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [
-      "NO GAME"
-     ],
-     "cv": {
-      "v": -4.23,
-      "rk": 194,
-      "wk": -2.5,
-      "src": "8 g"
      },
      "news": null
     }
@@ -3845,156 +3921,87 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Drop Obi Toppin (3 games this week, value -4.2/g), add Mo Bamba (C, UTAH, 4 games this week, value -3.1/g, 3% rostered): +18.5 this week (helps BLK, REB, FG%).",
-     "Drop Ryan Dunn (3 games this week, value -5.5/g), add Robert Williams III (C, POR, 3 games this week, value -1.9/g, 6% rostered): +12.2 this week (helps REB, BLK, FG%)."
+     "Drop Obi Toppin (3 games this week, value -4.2/g), add Quenton Jackson (PG/SG, IND, 3 games this week, value -2.4/g, 5% rostered): +5.4 this week over keeping Obi Toppin (helps FT%, STL, AST)."
     ],
     "trades": null,
     "notes": [
-     "Giannis Antetokounmpo (PF) is Questionable, plays Tue 8:00p [ESPN, Nov 9 5:05p: Antetokounmpo is probable for Tuesday's game against the Jazz due to a right wrist sprain.]",
-     "5 of 9 starters play tonight",
-     "Move Austin Reaves out of IR: ESPN lists him day-to-day, so ESPN blocks adds and drops until he's on your bench"
+     "7 of 9 starters play tonight"
     ],
     "cats": {
      "rows": [
       {
        "cat": "FT%",
-       "me": ".750",
-       "opp": ".842",
+       "me": ".696",
+       "opp": ".811",
        "now": "L",
        "outlook": "lose"
       },
       {
        "cat": "REB",
-       "me": "25",
-       "opp": "31",
-       "now": "L",
-       "outlook": "lose"
-      },
-      {
-       "cat": "PTS",
-       "me": "62",
+       "me": "58",
        "opp": "85",
        "now": "L",
        "outlook": "lose"
       },
       {
-       "cat": "BLK",
-       "me": "3",
-       "opp": "3",
-       "now": "T",
-       "outlook": "close"
+       "cat": "PTS",
+       "me": "143",
+       "opp": "190",
+       "now": "L",
+       "outlook": "lose"
       },
       {
-       "cat": "3PM",
-       "me": "6",
+       "cat": "BLK",
+       "me": "5",
        "opp": "9",
        "now": "L",
        "outlook": "lose"
       },
       {
+       "cat": "3PM",
+       "me": "9",
+       "opp": "18",
+       "now": "L",
+       "outlook": "lose"
+      },
+      {
        "cat": "STL",
-       "me": "8",
-       "opp": "3",
+       "me": "11",
+       "opp": "5",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "AST",
-       "me": "22",
-       "opp": "17",
+       "me": "43",
+       "opp": "36",
        "now": "W",
        "outlook": "win"
       },
       {
        "cat": "FG%",
-       "me": ".610",
-       "opp": ".405",
+       "me": ".562",
+       "opp": ".425",
        "now": "W",
        "outlook": "win"
       }
      ],
-     "now": "3-4-1",
-     "proj": "3-4",
-     "close": 1,
+     "now": "3-5-0",
+     "proj": "3-5",
+     "close": 0,
      "games_left": [
-      38,
-      40
+      32,
+      31
      ],
      "chase": [
-      "BLK is close. Keep in the lineup: Jaxson Hayes (4 games, 1.7/g) and Peyton Watson (3 games, 1.4/g)."
+      "No category is within reach either way; nothing to chase."
      ],
-     "adds": [
-      "For BLK: Jerami Grant (PF, MEM), 3 games left, 1.0/g"
-     ]
+     "adds": []
     },
     "radar": {
      "rising": [
       {
-       "text": "Draymond Green (PF, GS), on your bench: start him: minutes 20 \u2192 27 in his last 3 games (Nov 5\u2013Nov 9) vs 8 before, played 6 of them. Fits BLK (close). 2 games left this week, 4 next week (back-to-back Wed\u2013Thu).",
-       "short": "Draymond Green (GS, your bench): minutes 20 \u2192 27; fits BLK (ESPN game logs through Nov 9)",
-       "links": [
-        [
-         "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/6589"
-        ]
-       ],
-       "where": "bench",
-       "push": false,
-       "id": "6589",
-       "name": "Draymond Green"
-      },
-      {
-       "text": "Obi Toppin (PF, IND), on your bench: start him: minutes 14 \u2192 20 in his last 3 games (Nov 4\u2013Nov 9) vs 8 before, played 5 of them, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Doesn't add much in the categories you need this week. 3 games left this week, 3 next week.",
-       "short": "Obi Toppin (IND, your bench): minutes 14 \u2192 20 (ESPN game logs through Nov 9)",
-       "links": [
-        [
-         "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/4278355"
-        ],
-        [
-         "ESPN Nov 7",
-         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
-        ]
-       ],
-       "where": "bench",
-       "push": false,
-       "id": "4278355",
-       "name": "Obi Toppin"
-      },
-      {
-       "text": "Ryan Kalkbrenner (C, CHA), free agent, 2% owned, +0.0 pts in 3 days: minutes 16 \u2192 25 in his last 3 games (Nov 4\u2013Nov 9) vs 8 before, started 2 of 3 (0 of 8 before). Fits BLK (close), REB (losing), FT% (losing). 2 games left this week, 2 next week.",
-       "short": "Ryan Kalkbrenner (CHA, FA 2%): minutes 16 \u2192 25, now starting; fits BLK, REB (ESPN game logs through Nov 9)",
-       "links": [
-        [
-         "ESPN game log through Nov 9",
-         "https://www.espn.com/nba/player/gamelog/_/id/4576060"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4576060",
-       "name": "Ryan Kalkbrenner"
-      },
-      {
-       "text": "Bennett Stirtz (PG, OKC), free agent, 2% owned, +1.5 pts in 3 days: minutes 15 \u2192 25 in his last 3 games (Nov 4\u2013Nov 7) vs 7 before, usage 13% \u2192 16%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (losing), FT% (losing). 4 games left this week, 3 next week (back-to-back Tue\u2013Wed).",
-       "short": "Bennett Stirtz (OKC, FA 2%): minutes 15 \u2192 25, usage 13% \u2192 16%; fits 3PM, FT% (ESPN game logs through Nov 7)",
-       "links": [
-        [
-         "ESPN game log through Nov 7",
-         "https://www.espn.com/nba/player/gamelog/_/id/5241364"
-        ],
-        [
-         "ESPN Oct 30",
-         "https://www.espn.com/nba/player/_/id/4433255/chet-holmgren"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "5241364",
-       "name": "Bennett Stirtz"
-      },
-      {
-       "text": "Kevin Huerter (SG, DET), free agent, 3% owned, +1.9 pts in 3 days: minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (close), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
+       "text": "Kevin Huerter (SG, DET), free agent, rostered 3% (+1.8% in 3 days): minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (losing), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
        "short": "Kevin Huerter (DET, FA 3%): minutes 20 \u2192 29, usage 15% \u2192 19%; fits BLK, 3PM (ESPN game logs through Nov 9)",
        "links": [
         [
@@ -4009,21 +4016,73 @@
        "where": "fa",
        "push": true,
        "id": "4066372",
-       "name": "Kevin Huerter"
+       "name": "Kevin Huerter",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
       },
       {
-       "text": "Kobe Sanders (SG, LAC), free agent, 1% owned, +0.1 pts in 3 days: minutes 23 \u2192 26 in his last 3 games (Nov 2\u2013Nov 8) vs 6 before, usage 15% \u2192 23%. Fits FT% (losing), 3PM (losing). 3 games left this week, 3 next week.",
-       "short": "Kobe Sanders (LAC, FA 1%): minutes 23 \u2192 26, usage 15% \u2192 23%; fits FT%, 3PM (ESPN game logs through Nov 8)",
+       "text": "Jamison Battle (SF, TOR), free agent, rostered 0% (+0.1% lately, ESPN's +/-): minutes 16 \u2192 23 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, since Kawhi Leonard went out [ESPN Nov 10: Out, Leonard (knee) is continuing the reconditioning process, and another update will be\u2026]. Fits 3PM (losing). 3 games left this week, 3 next week (back-to-back Wed\u2013Thu).",
+       "short": "Jamison Battle (TOR, FA 0%): minutes 16 \u2192 23; fits 3PM (ESPN game logs through Nov 9)",
        "links": [
         [
-         "ESPN game log through Nov 8",
-         "https://www.espn.com/nba/player/gamelog/_/id/4702352"
+         "ESPN game log through Nov 9",
+         "https://www.espn.com/nba/player/gamelog/_/id/4431893"
+        ],
+        [
+         "ESPN Nov 10",
+         "https://www.espn.com/nba/player/_/id/6450/kawhi-leonard"
+        ]
+       ],
+       "where": "fa",
+       "push": false,
+       "id": "4431893",
+       "name": "Jamison Battle",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Bennett Stirtz (PG, OKC), free agent, rostered 2% (+1.7% in 3 days): minutes 16 \u2192 24 in his last 3 games (Nov 6\u2013Nov 10) vs 8 before, usage 14% \u2192 18%, since Chet Holmgren went out [ESPN Oct 30: Out, Holmgren underwent a biological treatment Friday to address a small patellar tendon tear\u2026]. Fits 3PM (losing), FT% (losing). 3 games left this week, 3 next week.",
+       "short": "Bennett Stirtz (OKC, FA 2%): minutes 16 \u2192 24, usage 14% \u2192 18%; fits 3PM, FT% (ESPN game logs through Nov 10)",
+       "links": [
+        [
+         "ESPN game log through Nov 10",
+         "https://www.espn.com/nba/player/gamelog/_/id/5241364"
+        ],
+        [
+         "ESPN Oct 30",
+         "https://www.espn.com/nba/player/_/id/4433255/chet-holmgren"
         ]
        ],
        "where": "fa",
        "push": true,
-       "id": "4702352",
-       "name": "Kobe Sanders"
+       "id": "5241364",
+       "name": "Bennett Stirtz",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Jay Huff (C, IND), free agent, rostered 1% (-0.2% in 3 days): minutes 14 \u2192 21 in his last 3 games (Nov 2\u2013Nov 7) vs 7 before, played 6 of them, usage 13% \u2192 20%, since Tyrese Haliburton went out [ESPN Nov 7: Out, Haliburton (hamstring) is progressing well but does not have a timetable to return,\u2026]. Fits BLK (losing). 3 games left this week, 3 next week.",
+       "short": "Jay Huff (IND, FA 1%): minutes 14 \u2192 21, usage 13% \u2192 20%; fits BLK (ESPN game logs through Nov 7)",
+       "links": [
+        [
+         "ESPN game log through Nov 7",
+         "https://www.espn.com/nba/player/gamelog/_/id/4065731"
+        ],
+        [
+         "ESPN Nov 7",
+         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "4065731",
+       "name": "Jay Huff",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
       }
      ],
      "shrinking": [],
@@ -4038,7 +4097,7 @@
        ]
       },
       {
-       "text": "Paolo Banchero (ORL) is out [ESPN Oct 24: Out, Banchero is expected to be sidelined for the next four-to-six weeks due to a right\u2026]. In 7 games without him: Jase Richardson (FA) 14 \u2192 25 min, usage 16% \u2192 16%; Jamal Cain (FA) 12 \u2192 21 min, usage 15% \u2192 17%.",
+       "text": "Paolo Banchero (ORL) is out [ESPN Oct 24: Out, Banchero is expected to be sidelined for the next four-to-six weeks due to a right\u2026]. In 8 games without him: Jase Richardson (FA) 14 \u2192 24 min, usage 16% \u2192 16%; Jamal Cain (FA) 12 \u2192 21 min, usage 15% \u2192 17%.",
        "links": [
         [
          "ESPN Oct 24",
@@ -4056,7 +4115,7 @@
        ]
       },
       {
-       "text": "Jalen Suggs (ORL) is out [ESPN Nov 9: Out, Suggs (knee) has been ruled out for Tuesday's game against the Kings.]. In 6 games without him: Jase Richardson (FA) 15 \u2192 26 min, usage 18% \u2192 15%; Jamal Cain (FA) 13 \u2192 22 min, usage 12% \u2192 18%.",
+       "text": "Jalen Suggs (ORL) is out [ESPN Nov 9: Out, Suggs (knee) has been ruled out for Tuesday's game against the Kings.]. In 7 games without him: Jase Richardson (FA) 15 \u2192 25 min, usage 18% \u2192 15%; Jamal Cain (FA) 13 \u2192 22 min, usage 12% \u2192 18%.",
        "links": [
         [
          "ESPN Nov 9",
@@ -4065,48 +4124,37 @@
        ]
       }
      ],
+     "keep": [],
+     "shrink_ids": [],
      "need": [
       "FT% (losing)",
       "REB (losing)",
       "PTS (losing)",
-      "BLK (close)",
+      "BLK (losing)",
       "3PM (losing)"
      ],
-     "basis": "ESPN game logs through Nov 9; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
+     "basis": "ESPN game logs through Nov 10; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
     },
     "games": {
      "now": {
-      "span": "Tue Nov 10\u2013Sun Nov 15",
+      "span": "Wed Nov 11\u2013Sun Nov 15",
       "groups": [
-       [
-        4,
-        [
-         "MIL",
-         "NY",
-         "OKC",
-         "UTAH"
-        ]
-       ],
        [
         3,
         [
-         "BOS",
          "CHI",
          "CLE",
          "DAL",
          "HOU",
          "IND",
-         "LAC",
          "MEM",
-         "MIA",
+         "MIL",
          "NO",
-         "ORL",
-         "PHI",
-         "PHX",
-         "POR",
+         "NY",
+         "OKC",
          "SA",
-         "SAC",
          "TOR",
+         "UTAH",
          "WSH"
         ]
        ],
@@ -4115,30 +4163,31 @@
         [
          "ATL",
          "BKN",
+         "BOS",
          "CHA",
          "DEN",
          "DET",
          "GS",
+         "LAC",
          "LAL",
-         "MIN"
+         "MIA",
+         "MIN",
+         "ORL",
+         "PHI",
+         "PHX",
+         "POR",
+         "SAC"
         ]
        ]
       ],
       "b2b": [
-       "BOS",
        "CHI",
        "CLE",
        "DAL",
        "MEM",
        "MIA",
-       "MIL",
        "NO",
-       "NY",
-       "OKC",
-       "ORL",
-       "POR",
        "TOR",
-       "UTAH",
        "WSH"
       ]
      },
@@ -4209,19 +4258,20 @@
       ]
      },
      "mine": {
-      "now": 38,
-      "opp": 40,
+      "now": 32,
+      "opp": 31,
       "next": 45
      },
      "streamers": [
-      "Mo Bamba (C, UTAH, 3% rostered): 4 games this week (Tu/We/Fr/Su, back-to-back), +14.8 this week, helps BLK, FG%",
-      "Robert Williams III (C, POR, 6% rostered): 3 games this week (Tu/We/Fr, back-to-back), +10.8 this week, helps BLK, REB, FG%",
-      "Isaiah Jackson (PF/C, LAC, 6% rostered): 3 games this week (Tu/Fr/Su), +4.1 this week, helps FG%, STL"
+      "Quenton Jackson (PG/SG, IND, 5% rostered): 3 games this week (We/Fr/Su), +2.9 this week, helps FT%, STL",
+      "Ziaire Williams (SG/SF, LAL, 6% rostered): 2 games this week (We/Su), +2.8 this week, helps STL, FG%",
+      "Cam Spencer (PG/SG, MEM, 9% rostered): 3 games this week (We/Fr/Sa, back-to-back), +2.6 this week, helps AST"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
     "assets": null,
-    "built": "Tue 5:27p"
+    "experts": null,
+    "built": "Wed 8:02a"
    }
   }
  }
