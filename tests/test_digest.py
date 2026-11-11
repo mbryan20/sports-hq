@@ -108,7 +108,9 @@ class FreeAgentFix(unittest.TestCase):
         bench = [p("Carson Wentz", "BN", ["QB"], proj=0)]
         lock, mccord = p("Drew Lock", "FA", ["QB"], status="Q", proj=18.7), p("Kyle McCord", "FA", ["QB"], proj=12.4)
         self.assertIn("add Drew Lock (Q) (X, 18.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
-        lock["proj"] = 15.0                                            # under FA_EDGE more: the healthy one
+        lock["proj"] = 15.7                                            # live Nov 10 evening: 3.3 more, still Lock
+        self.assertIn("add Drew Lock (Q) (X, 15.7 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
+        lock["proj"] = 14.0                                            # under Q_EDGE more: the healthy one
         self.assertIn("add Kyle McCord (X, 12.4 proj)", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])
         lock["proj"], lock["conflict"] = 18.7, True                    # Sleeper Out, unconfirmed: never named
         self.assertIn("add Kyle McCord", self.fix(self.league(dead, bench, [lock, mccord], 1))[0])

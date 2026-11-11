@@ -123,7 +123,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** —
 
 ### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
-- **Status:** shipped (e508112). Follow-up Nov 10 evening: a Questionable free agent (not an unconfirmed Out) is named, marked "(Q)", when he projects 5+ more than the best healthy one (Drew Lock 18.7 Q vs Kyle McCord 12.4); `swap.slot_fa`, test `test_questionable_free_agent_named_when_far_better`.
+- **Status:** shipped (e508112). Follow-up Nov 10 evening: a Questionable free agent (not an unconfirmed Out) is named, marked "(Q)", when he projects 3+ more than the best healthy one (`Q_EDGE`; Drew Lock 15.7 Q vs Kyle McCord 12.4, while the adds list already named Lock); `swap.slot_fa`, test `test_questionable_free_agent_named_when_far_better`.
 - **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
   pushes), `shq/swap.py` (`slot_fa`, `fa_over_bench`, `MIN_FILL` 1.0, `FA_EDGE` 5.0), `shq/advice.py` (values loaded before
   the fixes so a fix can name the waivers drop)
@@ -221,7 +221,10 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** bug fixes requested by Michael via Claude Ops, Nov 10
 
 ### Q-047 · NBA league tabs contradicted themselves: radar "start him" vs "Drop him", a benched shrinking player "kept in the lineup"
-- **Status:** shipped (b9ccfcd)
+- **Status:** shipped (b9ccfcd); follow-up shipped (f9159e2): a "may fade" riser the Waiver adds drop gets the swap on
+  the radar ("rise may fade (no teammate's injury behind it); Waiver adds swaps him for X (+N this week)"), not a start
+  verdict (Draymond Green, Ball is Life, Nov 10; Michael's call via Claude Ops: may-fade risers stay droppable);
+  follow-up shipped (70976c8): Waiver adds swaps never drop a player today's Lineup moves start
 - **Area:** `shq/radar.py` (`fades`, `block`'s `keep` and `shrink_ids`, `agree`, bench riser tag), `shq/nba_swaps.py` (drop
   filter, so also the weekly plan's adds), `shq/categories.py` (`build(skip)`, `_starting`), `shq/nba_lineup.py`
   (`start_key` on a move), `shq/advice.py` (chase rebuilt with the radar's shrinking ids; radar verdicts after Lineup moves)

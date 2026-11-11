@@ -21,7 +21,8 @@ disagree ("start him" here, "Drop him" two sections down). The rule:
   shq/nba_swaps.py skips (and so the weekly plan, built from the same swaps).
 - My shrinking players ("shrink_ids") and anyone on my bench are never "Keep in the lineup" in the chase (shq/categories.py).
 - "Start him" for a rising bench player only when today's Lineup moves start him (agree(), after shq/nba_lineup.py has
-  run); otherwise "worth a start" / "consider starting him" with the reason there's no move today."""
+  run); otherwise "worth a start" / "consider starting him" with the reason there's no move today.
+- A "may fade" riser the Waiver adds swaps drop gets no start verdict: his line says the rise may fade and names the swap."""
 import json
 import time
 
@@ -445,23 +446,36 @@ def riser_item(league, sc, pid, rl, where, helps, need, games, hist, gone):
              + (f"; fits {', '.join(NBA_STATS[c] for c, _ in helps[:2])}" if helps else "")
              + ("; may fade" if fade else "")
              + f" (ESPN game logs through {_day(dates.get(rl['last']))})")
-    return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"], "fade": fade}
+    fade_why = ("no teammate's injury behind it" if may_fade(rl, gone)
+                else f"{sc['pool'][gone[0]]['name']} is off the injury report" if fade else None)
+    return {"text": text, "short": short, "links": links, "where": where, "push": push, "id": pid, "name": p["name"], "fade": fade,
+            "fade_why": fade_why}
 
 
-def agree(r, moves, bench, now):
-    """Give each rising bench player the same verdict as today's Lineup moves (the ones shown, shq/nba_lineup.py):
-    "start him today" only when a move starts him; otherwise why there's no move: no game today, his game has started,
-    he's questionable, or his season value doesn't beat a starter who plays today by nba_lineup.MIN_EDGE."""
+def agree(r, moves, bench, now, swaps=None):
+    """Give each rising bench player the same verdict as the rest of the tab. A riser the Waiver adds swaps drop (only a
+    "may fade" one can be, shq/nba_swaps.py) gets no start verdict: "rise may fade (why); Waiver adds swaps him for X".
+    Otherwise follow today's Lineup moves (the ones shown, shq/nba_lineup.py): "start him today" only when a move starts
+    him; else why there's no move: no game today, his game has started, he's questionable, or his season value doesn't
+    beat a starter who plays today by nba_lineup.MIN_EDGE."""
     if not r:
         return r
     from . import nba_lineup
     from .swap import playable
     starts = {str(m.get("start_key")) for m in moves}
     rows = {str(b.get("key")): b for b in bench}
+    dropped = {str(s["drop"]["id"]): s for s in (swaps or {}).get("swaps") or []}
     for i in r.get("rising") or []:
         if i["where"] != "bench":
             continue
         b = rows.get(i["id"])
+        s = dropped.get(i["id"])
+        if s:
+            verdict = (f"rise may fade ({i.get('fade_why') or 'it may not last'}); Waiver adds swaps him for "
+                       f"{s['add']['name']} ({s['gain']:+.1f} {swaps.get('horizon', 'this week')})")
+            i["text"] = i["text"].replace(", on your bench:", f", on your bench: {verdict}:", 1)
+            i["verdict"] = verdict
+            continue
         if i["id"] in starts:
             verdict = "start him today (it's in Lineup moves)"
         elif not b:
