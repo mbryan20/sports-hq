@@ -167,17 +167,21 @@ def build(league, now):
     if nba:
         player_values(league)
         shown = nba_lineup.moves(league, now)[:3]
-        radar.agree(league.radar, shown, league.bench, now)   # the radar's "start him" only when a move backs it
+        add_lines = adds(league)[:3]                           # sets league.swaps
+        # the radar's verdict follows Lineup moves and Waiver adds: "start him" only when a move backs it, and a riser
+        # the swaps drop gets no start verdict at all (Q-047)
+        radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None))
         moves = [m["text"] for m in shown]
     else:
         football_players(league)
         moves = _moves(league, now)[:3]
+        add_lines = adds(league)[:3]
     return {
         "matchup": _matchup(league),
         "danger": bool(standing and standing["urgent"]),
         "fixes": [i["text"] for i in items if i["urgent"]],
         "moves": moves,
-        "adds": adds(league)[:3],
+        "adds": add_lines,
         "trades": trade_block(league),
         "notes": notes,
         "cats": cats,
