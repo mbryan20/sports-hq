@@ -209,39 +209,42 @@
       <div class="who"><div class="pname">${esc(p.name)}${chips}</div><div class="sub">${esc(sub)}</div>${val}${news}</div>
       <div class="proj">${v ? `<span title="Category value rank">#${v.rk}</span>` : p.proj ? p.proj.toFixed(1) : ""}</div></div>`;
   }
-  const li = t => `<li>${esc(t)}</li>`;
-  const sec = (title, body, { open = true, cls = "", count = "" } = {}) => body ? `<details class="sec ${cls}"${open ? " open" : ""}>
-    <summary><span>${title}</span>${count !== "" ? `<span class="count">${count}</span>` : ""}</summary>${body}</details>` : "";
-  const ul = (items, cls = "") => items?.length ? `<ul class="tips ${cls}">${items.map(li).join("")}</ul>` : "";
-  // ESPN experts' consensus rank under each line that names a ranked player (shq/experts.py: advice.experts.names)
+  // ESPN experts' consensus rank under each line that names a ranked player (shq/experts.py: advice.experts.names).
+  // S.detail sets expOn to the league's names while it builds the page, so every list on it (fixes, moves, adds,
+  // guillotine bids) is tagged; Today and Weekly pass each league's names to ulx.
+  let expOn = null;
   const expNames = (name, d = S.data) => d?.lineups?.leagues?.[name]?.advice?.experts?.names || null;
   function expTag(t, names) {
-    if (!names || !t) return "";
+    if (!names || typeof t !== "string") return "";
     const hits = [];
     for (const n of Object.keys(names).sort((a, b) => b.length - a.length))
       if (t.includes(n) && !hits.some(h => h.includes(n))) hits.push(n);
     hits.sort((a, b) => t.indexOf(a) - t.indexOf(b));
     return hits.length ? `<div class="sub-wrap exp">ESPN experts: ${hits.map(n => `${esc(n)} ${esc(names[n])}`).join(" · ")}</div>` : "";
   }
-  const ulx = (items, cls, names) => items?.length ? `<ul class="tips ${cls || ""}">${items.map(t => `<li>${esc(t)}${expTag(t, names)}</li>`).join("")}</ul>` : "";
   S.expTag = expTag;
+  const li = t => `<li>${esc(t)}${expTag(t, expOn)}</li>`;
+  const sec = (title, body, { open = true, cls = "", count = "" } = {}) => body ? `<details class="sec ${cls}"${open ? " open" : ""}>
+    <summary><span>${title}</span>${count !== "" ? `<span class="count">${count}</span>` : ""}</summary>${body}</details>` : "";
+  const ul = (items, cls = "") => items?.length ? `<ul class="tips ${cls}">${items.map(li).join("")}</ul>` : "";
+  const ulx = (items, cls, names) => items?.length ? `<ul class="tips ${cls || ""}">${items.map(t => `<li>${esc(t)}${expTag(t, names)}</li>`).join("")}</ul>` : "";
   // "Where we disagree with the experts" (football league pages)
   function expertsHTML(x) {
     if (!x) return "";
     const body = x.published
-      ? (x.disagree?.length ? ul(x.disagree) : `<ul class="tips"><li class="ok">No big disagreements: your lineup and adds match the experts' ranks.</li></ul>`)
+      ? (x.disagree?.length ? ulx(x.disagree) : `<ul class="tips"><li class="ok">No big disagreements: your lineup and adds match the experts' ranks.</li></ul>`)
       : `<ul class="tips muted"><li>Week ${esc(x.week)}'s expert ranks aren't out yet (ESPN usually posts them Tuesday-Wednesday). Each line above shows how they ranked the players lately.</li></ul>`;
     return sec("Where we disagree with the experts", body + `<p class="basis">${esc(x.basis)}</p>`, { open: !!x.disagree?.length, count: x.disagree?.length || "" });
   }
 
-  function guillotineHTML(g, names) {
+  function guillotineHTML(g) {
     if (!g) return "";
     const bid = b => bidText(b) + (b.cut_with != null ? `, cut risk ${pct(g.cut)} → ${pct(b.cut_with)}` : "");
     const v2 = g.bid_source?.url;
     const risk = g.teams.filter(t => !t.me).slice(0, 3).map(t => `${t.name}: ${pct(t.cut)} cut risk (${t.proj.toFixed(1)} proj, $${t.faab} FAAB)`);
-    const freed = g.freed?.players?.length ? `<div class="subhead">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div>${ulx(g.freed.players.map(bid), "", names)}` : "";
+    const freed = g.freed?.players?.length ? `<div class="subhead">If ${esc(g.freed.team)} is cut (${pct(g.freed.cut)}), their best for you</div>${ul(g.freed.players.map(bid))}` : "";
     return sec(`Survival · week ${g.week}`, `<ul class="tips"><li class="${g.cut > 0.2 ? "bad" : "ok"}"><b>Survive ${pct(g.survive)}</b> · rank ${g.rank} of ${g.n} (${g.proj.toFixed(1)} proj) · cut risk ${pct(g.cut)}</li>${risk.map(li).join("")}</ul>`)
-      + sec(`Bids · waivers ${esc(g.waivers)} CT`, ulx(g.bids.length ? g.bids.map(bid) : [v2 ? "War Room v2 has no claims to make this week." : "No free agent adds a point to your lineup."], "", names) + freed
+      + sec(`Bids · waivers ${esc(g.waivers)} CT`, ul(g.bids.length ? g.bids.map(bid) : [v2 ? "War Room v2 has no claims to make this week." : "No free agent adds a point to your lineup."]) + freed
         + `<p class="basis"><a href="${esc(S.GUIDE.guillotine)}" target="_blank" rel="noopener">Written guide: this week's full breakdown &rarr;</a> `
         + `${v2 ? `Calls from <a href="${esc(S.url(g.bid_source.url))}">War Room v2</a>${g.bid_source.as_of ? " (" + esc(g.bid_source.as_of) + ")" : ""}. ` : ""}`
         + `You have $${g.faab} FAAB${g.reserve != null ? `, keeping $${g.reserve} in reserve` : ""}. Most left: ${esc(g.rich.map(r => `${r.name} $${r.faab}`).join(", "))}. `
@@ -298,13 +301,14 @@
     if (lg.pending) return `<div class="detail"><div class="dhead"><h2>${esc(name)}</h2>${fb}</div><p class="note">${esc(lg.message)}<br>This fills in automatically.</p></div>`;
     const src = lg.roster_synced ? `roster read ${kick(lg.roster_synced)}` : lg.snapshot ? `ESPN read ${kick(lg.snapshot)}` : "";
     const stale = lg.stale ? `<p class="note"><b>Showing last good data</b>: the latest refresh failed.</p>` : "";
-    const xn = a.experts?.names;
-    const fixes = L.fixes.length ? ulx(L.fixes, "fix", xn) : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
+    expOn = a.experts?.names || null;   // tags every list below; cleared once the page is built
+    const fixes = L.fixes.length ? ul(L.fixes, "fix") : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
-      + guillotineHTML(L.g, xn) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ulx(L.moves, "", xn), { count: L.moves.length || "" })
-      + sec("Waiver adds", ulx(a.adds, "", xn), { count: L.adds.length || "" }) + expertsHTML(a.experts) + tradesHTML(a.trades)
+      + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
+      + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" }) + expertsHTML(a.experts) + tradesHTML(a.trades)
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });
+    expOn = null;
     const roster = sec("Starters", lg.starters.map(prow).join(""), { count: L.total ? `${L.locked}/${L.total} locked` : "" })
       + sec("Bench", lg.bench.length ? lg.bench.map(prow).join("") : `<p class="note">Empty</p>`, { open: false, count: lg.bench.length });
     return `<div class="detail">${stale}
