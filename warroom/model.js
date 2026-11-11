@@ -214,7 +214,7 @@ function gains(r) {
   r.dW = sm.expWeeks - BASE.quick.expWeeks; r.dWin = sm.pWin - BASE.quick.pWin;
 }
 
-// extra expected weeks and win odds from r on top of earlier claims `prior` ([{s, drop}]) that all won (Q-052)
+// extra expected weeks and win odds from r on top of earlier claims `prior` ([{s, drop}]) that all won (Q-053)
 function gainsOnTop(r, prior) {
   const n = Math.max(500, Math.round(S.sims / 2)), ps = prior.map(x => x.s), pd = prior.map(x => x.drop);
   const base = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, ps, pd) }), n)[ME];

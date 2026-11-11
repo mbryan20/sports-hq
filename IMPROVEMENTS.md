@@ -122,7 +122,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `bestDrop`: a K/DEF add skips RB/WR/TE drops worth 8+ (season average or the next 4 weeks' projection); after pricing, a paid K/DEF claim is Skip when a same-position free agent is Add free with at least its season gain.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
-### Q-052 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
+### Q-053 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
 - **Status:** building (branch `claude/improvements-nov5-6ed372`; lands with Q-038..Q-041 after 8:00pm CT Tue Nov 10)
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, `gainsOnTop`; `warroom/app.js` `planHtml`)
 - **Rank:** —
