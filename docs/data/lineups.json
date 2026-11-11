@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T01:37:01Z",
+ "updated": "2026-11-11T01:37:26Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -213,8 +213,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Geno Smith (QB, NYJ, 20.5/gm, value 128) for David Montgomery (RB, your RB3, 9.7/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +23.9 pts over the next 4 weeks",
-     "Add Carnell Tate (WR, TEN, 11.3/gm, value 1,901) for Keenan Allen (WR, your WR3, 4.8/gm): fills in at WR in week 13, +9.7 pts over the next 4 weeks",
+     "Add Geno Smith (QB, NYJ, 20.5/gm, value 150) for David Montgomery (RB, your RB3, 9.7/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +23.9 pts over the next 4 weeks",
+     "Add Carnell Tate (WR, TEN, 11.3/gm, value 1,949) for Keenan Allen (WR, your WR3, 4.8/gm): fills in at WR in week 13, +9.7 pts over the next 4 weeks",
      "Add Ravens (DEF, BAL, 7.5 proj this week), drop Chiefs (5.8 proj)"
     ],
     "trades": {
@@ -675,7 +675,7 @@
     ],
     "moves": [],
     "adds": [
-     "Add Drew Lock (QB, SEA, 5.2/gm, value 1,131) into your open roster spot: fills in at QB in week 10, +6.5 pts over the next 4 weeks. Bid $1\u20133",
+     "Add Drew Lock (QB, SEA, 5.2/gm, value 1,130) into your open roster spot: fills in at QB in week 10, +6.5 pts over the next 4 weeks. Bid $1\u20133",
      "Add Dominic Zvada (K, NYG, 8.7 proj this week), drop Jake Elliott (0 proj). Bid $0\u20131",
      "Add Indianapolis Colts (DEF, IND, 7.9 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131"
     ],
@@ -695,8 +695,8 @@
        "get": [
         "Quinshon Judkins (RB)"
        ],
-       "give_value": 2887,
-       "get_value": 2791,
+       "give_value": 2981,
+       "get_value": 2838,
        "my_gain": 1.1,
        "their_gain": 0.7,
        "cut": false,
@@ -708,11 +708,11 @@
         "Rhamondre Stevenson (RB)"
        ],
        "get": [
-        "Tyrone Tracy Jr. (RB)",
+        "Tory Horton (WR)",
         "Juwan Johnson (TE)"
        ],
-       "give_value": 1835,
-       "get_value": 1660,
+       "give_value": 1824,
+       "get_value": 1719,
        "my_gain": 0.5,
        "their_gain": 1.3,
        "cut": true,
@@ -1039,8 +1039,8 @@
        "get": [
         "Jaxon Smith-Njigba (WR)"
        ],
-       "give_value": 10074,
-       "get_value": 9892,
+       "give_value": 10042,
+       "get_value": 9808,
        "my_gain": 0.7,
        "their_gain": 0.5,
        "cut": false,
@@ -1149,21 +1149,6 @@
         "rivals": []
        },
        {
-        "name": "Brenton Strange",
-        "sid": "9480",
-        "pos": "TE",
-        "team": "JAX",
-        "proj": 8.7,
-        "gain": 8.7,
-        "cut_with": 0.068,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
-       },
-       {
         "name": "T.J. Hockenson",
         "sid": "5844",
         "pos": "TE",
@@ -1185,6 +1170,21 @@
           "bid": 2
          }
         ]
+       },
+       {
+        "name": "Brenton Strange",
+        "sid": "9480",
+        "pos": "TE",
+        "team": "JAX",
+        "proj": 8.7,
+        "gain": 8.7,
+        "cut_with": 0.068,
+        "freed_from": null,
+        "price": 0,
+        "max": 0,
+        "call": "add free",
+        "free": true,
+        "rivals": []
        },
        {
         "name": "Tyler Higbee",
@@ -2179,7 +2179,7 @@
     ],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,127) for Kaytron Allen (RB, your RB8, 1.5/gm): fills in at TE in week 10, +8.7 pts over the next 4 weeks"
+     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,146) for Kaytron Allen (RB, your RB8, 1.5/gm): fills in at TE in week 10, +8.7 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2197,10 +2197,10 @@
        "get": [
         "Jameson Williams (WR)"
        ],
-       "give_value": 2703,
-       "get_value": 2832,
+       "give_value": 2726,
+       "get_value": 2837,
        "my_gain": 1.9,
-       "their_gain": 0.9,
+       "their_gain": 0.8,
        "cut": false,
        "why": "Jameson Williams starts for you; Daniel Jones and Tre Tucker start for them over Adonai Mitchell (8.7/gm)"
       },
@@ -2213,8 +2213,8 @@
         "A.J. Brown (WR)",
         "Mike Evans (WR)"
        ],
-       "give_value": 3739,
-       "get_value": 4063,
+       "give_value": 3655,
+       "get_value": 3990,
        "my_gain": 0.6,
        "their_gain": 2.0,
        "cut": true,
@@ -2229,10 +2229,10 @@
        "get": [
         "Patrick Mahomes (QB)"
        ],
-       "give_value": 5040,
-       "get_value": 5290,
-       "my_gain": 0.9,
-       "their_gain": 0.7,
+       "give_value": 4938,
+       "get_value": 5254,
+       "my_gain": 0.8,
+       "their_gain": 0.8,
        "cut": false,
        "why": "Patrick Mahomes starts for you; Tyler Shough and Ollie Gordon II start for them over Adonai Mitchell (8.7/gm)"
       }
@@ -2610,9 +2610,9 @@
      "Start Zay Flowers (14.6) over Chase Brown (13.6) at FLEX, +1.0"
     ],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 18.4/gm, value 1,570) for Chig Okonkwo (TE, your TE3, 9.1/gm): fills in at QB in week 10, +27.5 pts over the next 4 weeks",
-     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,611) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup QB, +2.4 pts over the next 4 weeks",
-     "Add A.J. Brown (WR, NE, 13.3/gm, value 1,521) for Josh Downs (WR, your WR5, 7.1/gm): better backup WR, +1 pts over the next 4 weeks"
+     "Add Aaron Rodgers (QB, PIT, 18.4/gm, value 2,212) for Chig Okonkwo (TE, your TE3, 9.1/gm): fills in at QB in week 10, +27.5 pts over the next 4 weeks",
+     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,583) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup QB, +2.4 pts over the next 4 weeks",
+     "Add A.J. Brown (WR, NE, 13.3/gm, value 1,469) for Josh Downs (WR, your WR5, 7.1/gm): better backup WR, +1 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2625,18 +2625,34 @@
       {
        "team": "Jonesing for more",
        "give": [
-        "James Cook III (RB)"
+        "Javonte Williams (RB)"
        ],
        "get": [
-        "Luther Burden III (WR)",
-        "George Kittle (TE)"
+        "George Kittle (TE)",
+        "Jalen Coker (WR)"
        ],
-       "give_value": 6213,
-       "get_value": 6036,
-       "my_gain": 3.2,
-       "their_gain": 2.3,
+       "give_value": 4720,
+       "get_value": 4369,
+       "my_gain": 1.4,
+       "their_gain": 4.1,
        "cut": true,
-       "why": "George Kittle and Luther Burden III start for you; James Cook III starts for them over Tyler Allgeier (11.0/gm)"
+       "why": "George Kittle and Jalen Coker start for you; Javonte Williams starts for them over Tyler Allgeier (11.0/gm)"
+      },
+      {
+       "team": "Sacked again",
+       "give": [
+        "Christian Watson (WR)",
+        "Ollie Gordon II (RB)"
+       ],
+       "get": [
+        "Trey McBride (TE)"
+       ],
+       "give_value": 6396,
+       "get_value": 6637,
+       "my_gain": 2.3,
+       "their_gain": 0.5,
+       "cut": false,
+       "why": "Trey McBride starts for you; Christian Watson and Ollie Gordon II start for them over Quinshon Judkins (11.9/gm)"
       },
       {
        "team": "Jonesing for more",
@@ -2644,30 +2660,14 @@
         "Chase Brown (RB)"
        ],
        "get": [
-        "DJ Moore (WR)",
-        "Travis Kelce (TE)"
+        "Luther Burden III (WR)"
        ],
-       "give_value": 2783,
-       "get_value": 2981,
-       "my_gain": 2.3,
-       "their_gain": 3.2,
-       "cut": true,
-       "why": "Travis Kelce and DJ Moore start for you; Chase Brown starts for them over Tyler Allgeier (11.0/gm)"
-      },
-      {
-       "team": "Robert's Rowdy Team",
-       "give": [
-        "Ollie Gordon II (RB)"
-       ],
-       "get": [
-        "Harold Fannin Jr. (TE)"
-       ],
-       "give_value": 1201,
-       "get_value": 1274,
-       "my_gain": 1.1,
-       "their_gain": 0.6,
+       "give_value": 2762,
+       "get_value": 3055,
+       "my_gain": 1.4,
+       "their_gain": 2.2,
        "cut": false,
-       "why": "Harold Fannin Jr. starts for you; Ollie Gordon II starts for them over Travis Etienne Jr. (10.3/gm)"
+       "why": "Luther Burden III starts for you; Chase Brown starts for them over Tyler Allgeier (11.0/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2979,8 +2979,8 @@
     ],
     "moves": [],
     "adds": [
-     "Add Malik Washington (WR, MIA, 9.8/gm, value 497) for Rashid Shaheed (WR, your WR5, 6.2/gm): fills in at WR in week 11, +10.9 pts over the next 4 weeks",
-     "Add Bryce Young (QB, CAR, 17.9/gm, value 456) for Kimani Vidal (RB, your RB4, 7.6/gm): better backup QB, +2.5 pts over the next 4 weeks",
+     "Add Malik Washington (WR, MIA, 9.8/gm, value 446) for Rashid Shaheed (WR, your WR5, 6.2/gm): fills in at WR in week 11, +10.9 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 17.9/gm, value 401) for Kimani Vidal (RB, your RB4, 7.6/gm): better backup QB, +2.5 pts over the next 4 weeks",
      "Add Dominic Zvada (K, NYG, 10.8 proj this week), drop Andre Szmyt (9.5 proj)"
     ],
     "trades": {
@@ -2999,8 +2999,8 @@
        "get": [
         "Ollie Gordon II (RB)"
        ],
-       "give_value": 1661,
-       "get_value": 1743,
+       "give_value": 1698,
+       "get_value": 1552,
        "my_gain": 2.2,
        "their_gain": 0.5,
        "cut": false,
@@ -3015,8 +3015,8 @@
        "get": [
         "Kyren Williams (RB)"
        ],
-       "give_value": 5556,
-       "get_value": 5469,
+       "give_value": 5346,
+       "get_value": 5398,
        "my_gain": 1.6,
        "their_gain": 1.0,
        "cut": false,
@@ -3031,8 +3031,8 @@
         "Tony Pollard (RB)",
         "Brock Purdy (QB)"
        ],
-       "give_value": 4424,
-       "get_value": 4660,
+       "give_value": 4287,
+       "get_value": 4613,
        "my_gain": 1.0,
        "their_gain": 1.2,
        "cut": true,
