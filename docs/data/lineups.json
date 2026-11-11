@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T22:27:00Z",
+ "updated": "2026-11-11T22:37:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -263,7 +263,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "Domo Arigato": {
@@ -782,7 +782,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "Guillotine": {
@@ -999,11 +999,17 @@
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
      "proj": 9.3,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "Q",
+     "why": "ESPN: Questionable",
+     "flags": [
+      "Q"
+     ],
      "exp": "RB19 this week, RB20 lately",
-     "news": null
+     "news": {
+      "note": "Marks turned 18 carries into 70 yards and hauled in one of four targets for four yards during Sunday's 44-22 road win over the Chargers.",
+      "at": "2026-11-09T03:22:52Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4429059/woody-marks"
+     }
     },
     {
      "slot": "BN",
@@ -1142,7 +1148,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p",
+    "built": "Wed 4:37p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -2057,7 +2063,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "Stempak": {
@@ -2484,7 +2490,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "Bro-vid19": {
@@ -2855,7 +2861,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "3-Ball BB": {
@@ -3686,7 +3692,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   },
   "Ball is Life": {
@@ -4362,7 +4368,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Wed 4:27p"
+    "built": "Wed 4:37p"
    }
   }
  }
