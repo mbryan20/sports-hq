@@ -281,6 +281,52 @@ Measure (the health.json check that should move), Design, Decision.
   changed. NBA weekly start/sit and the swap drop rules are unchanged (Q-047's area).
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
+### Q-049 · Duplicate phone pushes: one push per piece of news
+- **Status:** shipped (1af7a32)
+- **Area:** `shq/pushes.py` (new: Tuesday morning push, digest vs injury watch, laptop-outage push), `shq/notify.py`
+  (`seen`/`mark`, origin/main read before a real push), `shq/statemerge.py` (new git merge driver) + `.gitattributes` +
+  `.github/commit_data.sh`, `shq/radar.py` (`send_all`), `shq/run.py` (push calls only: radar queue, outage symptoms,
+  `laptop_kicks` row flag, digest/plan/wrap-up push calls, morning push), `shq/wrapup.py` (`run(deliver=)`),
+  `picks/pp/lines.py` (`held`, `origin_sent`), `tests/test_push_dedupe.py`, `tests/test_laptop_kick.py`
+- **Rank:** —
+- **Added:** 2026-11-10 by a Sports HQ build session (via Claude Ops)
+- **Evidence:** claude-audit `cleanup-2026-11-10/inv-outputs.md` section 2 (push log + run summaries, Nov 8-10): Tuesday
+  reaches ~11-12 pushes. Nov 10: NBA radar x2 at 7:02am (one per league, same run; `state/alerts.json`
+  `espn:nba:184031:radar:2026-11-10` and `espn:nba:190278:radar:2026-11-10` both 13:02:43Z), "Week 10 plan ready"
+  7:02, digest 8:02 and wrap-up final 8:02 (the same pickups and start/sit moves three times). Stale pool lines: 6 pushes
+  Wed Nov 4-Sat Nov 7, one at 1:29am (`state/pick_lines_sent.json` 2026-11-05T07:29Z). A laptop/Chrome outage could push
+  "ESPN sync is stale" per league, "roster sync is stale" and "Laptop didn't start today's Sports HQ jobs" separately.
+- **Expected impact:** Tuesday Sports HQ pushes 5 → 2 (radar 1, morning push 1); all sources ~11-12 → ~8-9. (1) NBA
+  radar: one push a day for both basketball leagues (up to 2 risers each, 7am-9pm CT); a riser found after it waits for
+  tomorrow's if still rising. (2) Tuesday: the plan (7am) waits; the first pass at or after 8am CT sends ONE push with
+  today's urgent digest lines (or "Today: all clear."), "Week N plan: start/sit and FA adds are on the Weekly tab." and
+  the wrap-up final's headline, tap = the wrap-up PDF (PDF / Web page buttons, 3-min delay for Pages). Each part's own
+  key (`weekly-plan:`, `digest:`, `wrapup:`) is marked, so none pushes again by itself; a part that wasn't ready (the
+  wrap-up crashed, the plan built late) pushes alone later. Other days: digest and wrap-up as before. Every day the
+  digest push leaves out an urgent line about a starter the injury watch already pushed ("make this swap", "no healthy
+  bench", "CHECK LINEUP"); nothing urgent left = no digest push. Injury-watch pushes themselves are unchanged. (3) Stale
+  pool lines: never 10pm-6am CT, at most one push a CT day (`push-day:<date>`); held lines stay flagged on the Picks page
+  and ride the next push while their pool is open. (4) One "Laptop/roster sync down" push per outage, listing every
+  symptom (stale private-ESPN snapshot per league, stale Kosmonauts roster, no 2:55am kick by 4am); no second push until
+  the laptop's kick (or, when the run list can't be read, any laptop job) lands after the push and every symptom has
+  cleared (`laptop-down` / `laptop-up` in `state/alerts.json`). The guillotine chain (bid pushes, cut-risk push, War Room),
+  the NBA pre-tip lineup push and the laptop tasks' own pushes are untouched.
+- **Effort:** M
+- **Risk:** Low (push routing only; every page and data file is written as before). Not covered: two runs passing the
+  same new key within one pass of each other (each reads origin/main just before pushing, but the first commits at the
+  end of its pass); the laptop guard tasks' "Chrome unreachable" / roster-sync-failed pushes (laptop side).
+- **Measure:** — (one-off: next Tuesday `state/alerts.json` has `tuesday:<date>` and one `radar:<date>`, no per-league
+  `radar:<date>` keys; `pick_lines_sent.json` has at most one `push-day:` per day, none sent 22:00-06:00 CT)
+- **Design:** `shq/pushes.py` docstring. Dedupe across parallel runs (a laptop kick beside a cron loop): `notify.push_once`
+  also reads origin/main's `state/alerts.json` right before a real push (only in Actions with a topic, never in tests;
+  keys found there are kept locally), `pp.lines` does the same for `pick_lines_sent.json`, and both files merge key by
+  key in `commit_data.sh`'s pull (`merge=pushstate` driver, `shq/statemerge.py`; works for Q-017's merge too) instead of
+  `-X theirs` keeping one run's whole file. Tests: `tests/test_push_dedupe.py` (one class per item, a recorder in place
+  of `notify.push`, ntfy and git origin reads patched to fail; a temp-repo rebase shows the driver keeps both runs' keys
+  and that without it one is lost); `tests/test_laptop_kick.py` now checks the silent-kick symptom instead of a push.
+  Undo: `git revert` the commit (the new state keys are harmless; the `.gitattributes` lines go with the revert).
+- **Decision:** requested by Michael via Claude Ops, Nov 10
+
 ### Q-027 · B2: no way to sift NBA players inside HQ (still done on FantasyPros)
 - **Status:** shipped (02451dc)
 - **Area:** `docs/players/index.html` (new), `docs/lib/core.js` (`SHQ.loadFile`, Players links in the ▦ menu and on NBA league
