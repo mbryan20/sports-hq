@@ -56,8 +56,38 @@ def valued(league):
         return False
 
 
+V2_ADDS = 3
+
+
+def v2_adds(league):
+    """Guillotine with War Room v2 current: the adds are v2's own calls and drops, in v2's order (most added win odds
+    first), skipping Priced out; None when v2 isn't the bid source. Nov 10: the generic list said "Jaylen Warren for
+    Woody Marks" and "Jordan Love for Braelon Allen" while v2 said Warren for Braelon Allen, Love for Woody Marks."""
+    if not digest.v2_calls(league):
+        return None
+    g = league.guillotine
+    out = []
+    for b in g.get("bids") or []:
+        if not b.get("v2") or b.get("call") == "priced out":
+            continue
+        head = f"Add {b['name']} ({b.get('pos') or '?'}, {b.get('team') or 'FA'}, {b.get('proj') or 0} proj)"
+        drop = f", drop {b['drop']} (War Room v2" if b.get("drop") else " (War Room v2"
+        gain = f", +{b['gain']} pts this week" if b.get("gain") else ""
+        if b.get("free"):
+            out.append(f"{head} now, no claim needed{drop}: add free{gain})")
+        else:
+            out.append(f"{head} on waivers{drop}: {b['call']}, bid ${b.get('bid', 0)}{gain}; claims run "
+                       f"{g.get('waivers') or 'Wed 2:15a'} CT)")
+        if len(out) == V2_ADDS:
+            break
+    return out or ["No free agent or claim War Room v2 recommends right now (its full list is below)."]
+
+
 def adds(league, starting=()):
     """The league tab's adds. starting: ids of players today's Lineup moves start (NBA), never a swap's drop."""
+    calls = v2_adds(league)
+    if calls is not None:
+        return calls
     if valued(league):
         dynasty = bool(getattr(league, "dynasty", False))
         # guillotine bids come from the survival model (shq/guillotine.py), not the generic ranges

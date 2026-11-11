@@ -47,20 +47,51 @@ def injury_report(league="football/nfl"):
 
 NEWS_FILE = CACHE / "espn_player_news.json"
 NEWS_MAX_AGE = 3600  # the run loops every 10 min; a headline used only as a citation can be an hour old
+NEWS_ITEMS = 5       # ESPN's player feed mixes multi-player roundups in with the player's own notes
+NOTE_MAX = 1500      # a player note's story is a paragraph; a roundup's runs to thousands of characters
+SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
-def player_news(espn_id, game="ffl"):
-    """Latest ESPN fantasy news item for one player: {note, at} or None. Cached an hour per player so the
-    10-minute game-day loop doesn't re-ask ESPN for the same headline six times an hour."""
+def last_name(name):
+    """"Harold Fannin Jr." → "fannin"; "" without a name."""
+    words = re.sub(r"[^a-z' -]", "", (name or "").lower()).replace("-", " ").split()
+    while len(words) > 1 and words[-1] in SUFFIXES:
+        words.pop()
+    return words[-1] if len(words) > 1 else ""
+
+
+def about(item, name):
+    """True when a feed item is this player's own news: a Rotowire-style player note, or a headline or a short story
+    naming him by last name. A roundup that only mentions him deep in its story is not (Nov 10: "Fantasy buzz: Malik
+    Willis placed on IR, are there any Dolphins you should start?" was cited for Rhamondre Stevenson and Garrett
+    Wilson)."""
+    last = last_name(name)
+    named = lambda text: bool(last) and re.search(rf"\b{re.escape(last)}\b", (text or "").lower()) is not None
+    if item.get("type") == "Rotowire":
+        return not last or named(item.get("headline")) or named(item.get("story"))
+    return named(item.get("headline")) or (len(item.get("story") or "") <= NOTE_MAX and named(item.get("story")))
+
+
+def pick_news(feed, name=None):
+    """The first item that is this player's own news (Rotowire notes first, then a headline naming him), or None."""
+    feed = [f for f in feed or [] if f.get("headline")]
+    hit = next((f for f in feed if f.get("type") == "Rotowire" and about(f, name)), None) \
+        or next((f for f in feed if name and about(f, name)), None)
+    return {"note": hit["headline"], "published": hit.get("published")} if hit else None
+
+
+def player_news(espn_id, game="ffl", name=None):
+    """Latest ESPN fantasy news item about one player (`name` checks it names him): {note, at} or None. Cached an
+    hour per player so the 10-minute game-day loop doesn't re-ask ESPN for the same headline six times an hour."""
     cache = load_json(NEWS_FILE, {}) or {}
-    key = f"{game}:{espn_id}"
+    key = f"own:{game}:{espn_id}"   # "own:": entries cached before the roundup filter are ignored
     hit = cache.get(key)
     if hit and time.time() - hit["t"] < NEWS_MAX_AGE:
         item = hit["item"]
     else:
         feed = get_json(f"https://site.api.espn.com/apis/fantasy/v2/games/{game}/news/players",
-                        {"playerId": espn_id, "limit": 1}).get("feed") or []
-        item = {"note": feed[0]["headline"], "published": feed[0].get("published")} if feed and feed[0].get("headline") else None
+                        {"playerId": espn_id, "limit": NEWS_ITEMS}).get("feed") or []
+        item = pick_news(feed, name)
         cache = {k: v for k, v in cache.items() if time.time() - v["t"] < NEWS_MAX_AGE}
         cache[key] = {"t": time.time(), "item": item}
         save_json(NEWS_FILE, cache)

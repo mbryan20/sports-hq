@@ -88,7 +88,7 @@ function render(d) {
       ${gaps.length ? `<ul class="tips">${gaps.slice(0, 3).map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="t-top muted">No stale-line edges open right now.</p>`}
       <div class="t-foot"><span class="meta">Open the cards →</span>${SHQ.fbButtons("Picks tile")}</div></article>`;
   const extras = `<article class="tile extra" tabindex="0" data-open="today" data-spot="Today tile">
-      <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.generated)) : ""}</span></div>
+      <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.updated || d.digest.generated)) : ""}</span></div>
       <p class="t-top">${today ? esc(today.title) : "Today's 8am check hasn't posted yet."}</p>
       <div class="t-foot"><span class="meta">Daily check →</span>${SHQ.fbButtons("Today tile")}</div></article>
     <article class="tile extra" tabindex="0" data-open="weekly" data-spot="Weekly tile">

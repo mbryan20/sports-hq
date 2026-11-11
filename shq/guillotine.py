@@ -20,7 +20,7 @@ import datetime as dt
 import json
 import random
 
-from . import sleeper
+from . import espn, sleeper
 from .common import ROOT, ct_label
 from .config import TZ
 from .status import OUTISH
@@ -211,11 +211,13 @@ def labels(users):
     return {u["display_name"]: team_label(u) for u in users or [] if u.get("display_name")}
 
 
-def v2_rows(v2, names=None):
+def v2_rows(v2, names=None, teams=None):
     """War Room v2's calls in its own order (most added win odds first), Skips left out. `price` is the bid
     to place (health.py scores the dashboard's "bid" rows by it); a Bid of $0 is a $0 claim. `names` maps v2's
-    usernames to team labels; `sid` is the Sleeper id."""
-    names = names or {}
+    usernames to team labels; `sid` is the Sleeper id. `teams` is {Sleeper id: NFL team} from this run's live data:
+    it wins where it differs, since bids.json is built a few times a day (Nov 10: "Kirk Cousins, LV" hours after his
+    trade to MIN)."""
+    names, teams = names or {}, teams or {}
     rows = []
     for x in v2.get("bids") or []:
         call = str(x.get("call") or "").strip().lower()
@@ -223,7 +225,8 @@ def v2_rows(v2, names=None):
             continue
         bid = int(x.get("bid") or 0)
         rows.append({
-            "name": x.get("name"), "pos": x.get("pos"), "team": x.get("team"), "proj": x.get("proj_next_week"),
+            "name": x.get("name"), "pos": x.get("pos"), "team": teams.get(str(x.get("sleeper_id"))) or x.get("team"),
+            "proj": x.get("proj_next_week"),
             "gain": round(x.get("gain_next_week") or 0, 1), "gain_ros": round(x.get("gain_rest_of_season") or 0, 1),
             "call": call, "bid": bid, "price": bid, "max": x.get("your_max") or 0, "est_price": x.get("est_price"),
             "drop": x.get("drop"), "why": x.get("why"), "win_chance": x.get("win_chance"),
@@ -232,6 +235,24 @@ def v2_rows(v2, names=None):
                        for r in (x.get("likely_rival_bids") or [])[:3]],
             "sid": x.get("sleeper_id"), "v2": True})
     return rows
+
+
+def live_teams(v2, ctx, league):
+    """{Sleeper id: NFL team} for War Room v2's players from this run's Sleeper data (shq/leagues.make_player: live
+    projections' team first); best-effort, {} on any error."""
+    from .leagues import make_player
+    out = {}
+    for x in (v2 or {}).get("bids") or []:
+        sid = x.get("sleeper_id")
+        if not sid:
+            continue
+        try:
+            team = make_player(ctx, league.scoring, str(sid), "FA")["team"]
+        except Exception:
+            continue
+        if team and team != espn.norm_team(x.get("team")):
+            out[str(sid)] = team
+    return out
 
 
 def history(league, week):
@@ -317,7 +338,7 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
 
     source, model = {"name": "dashboard model"}, None
     try:
-        rows = v2_rows(v2, labels(league.users)) if v2_current(v2, ctx.week, now) else None
+        rows = v2_rows(v2, labels(league.users), live_teams(v2, ctx, league)) if v2_current(v2, ctx.week, now) else None
     except (TypeError, ValueError, AttributeError):   # a malformed bids.json: keep the model's own bids
         rows = None
     if rows is not None:
@@ -335,5 +356,7 @@ def analyze(league, ctx, now, sims=SIMS, past=None, v2=None):
                    "faab": teams[i].faab, "bold": round(bold.get(teams[i].rid, 0), 2), "me": i == me} for i in order],
         "rich": [{"name": t.name, "faab": t.faab} for t in sorted(teams, key=lambda t: -t.faab) if t is not mine][:3],
         "bids": bids, "freed": freed,
+        # players a cut freed whose waiver run hasn't happened: a lineup fix can't name them as an add now (digest.py)
+        "waiting": sorted(waiting),
     }
 
