@@ -52,7 +52,7 @@ function roster(t, extra, drop) {
   let r = D.teams[t].roster.slice();
   if (t === ME) r = r.concat([...S.adds]);
   if (extra) r = r.concat(extra);
-  if (drop) r = r.filter(s => s !== drop);
+  if (drop) { const d = [].concat(drop); r = r.filter(s => !d.includes(s)); }
   return r;
 }
 function teamProj(t, extra, drop) { const o = {}; for (const w of WEEKS) o[w] = lineup(roster(t, extra, drop), w).tot; return o; }
@@ -214,6 +214,14 @@ function gains(r) {
   r.dW = sm.expWeeks - BASE.quick.expWeeks; r.dWin = sm.pWin - BASE.quick.pWin;
 }
 
+// extra expected weeks and win odds from r on top of earlier claims `prior` ([{s, drop}]) that all won (Q-052)
+function gainsOnTop(r, prior) {
+  const n = Math.max(500, Math.round(S.sims / 2)), ps = prior.map(x => x.s), pd = prior.map(x => x.drop);
+  const base = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, ps, pd) }), n)[ME];
+  const sm = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, ps.concat([r.s]), pd.concat([r.drop])) }), n)[ME];
+  return { dW: sm.expWeeks - base.expWeeks, dWin: sm.pWin - base.pWin };
+}
+
 // $ per point of win odds at which your FAAB runs out: line up this week's freed players by win odds per $
 // (at the price that wins ~80% of the time), assume a similar crop at every waiver run you're expected to
 // see, and take the ratio of the deal where the money would run out. S.dpp overrides it.
@@ -259,7 +267,10 @@ function decideAll(rows) {
   // All your bids must fit your FAAB minus the reserve, and each claim needs its own drop (Sleeper fails a claim
   // whose drop is already gone). The most valuable claims choose first; a later claim moves to its next-best
   // drop and is re-valued, since that drop may cost more.
-  let used = 0; const drops = new Set();
+  // A claim at the same position as a better claim is worth less: if that one wins, this one only adds what it adds on
+  // top of him (two TEs for one TE spot). Its value is the chance-weighted mix of both cases (Q-052, Nov 10: Fannin and
+  // Hockenson were both claimed for Goedert's bye, each valued as if it were the only one).
+  let used = 0; const drops = new Set(), taken = [];
   for (const r of rows.filter(r => !r.added && isBid(r)).sort((a, b) => b.ev - a.ev)) {
     if (drops.has(r.drop)) {
       r.drop = bestDrop(ME, r.s, drops);
@@ -268,8 +279,17 @@ function decideAll(rows) {
       if (!isBid(r)) continue;
       r.why = 'drop changed: a better claim uses the first choice';
     }
+    const same = r.freed ? taken.filter(x => D.P[x.s].p === D.P[r.s].p) : [];
+    if (same.length) {
+      const pAny = 1 - same.reduce((a, x) => a * (1 - (x.chance ?? 0)), 1), top = gainsOnTop(r, same);
+      r.dW = (1 - pAny) * r.dW + pAny * top.dW; r.dWin = (1 - pAny) * r.dWin + pAny * top.dWin;
+      const why = r.why; price(r);
+      const names = same.map(x => pname(x.s)).join(' and ');
+      if (!isBid(r)) { r.why = `adds little if your ${names} claim wins (${Math.round(pAny * 100)}%)`; continue; }
+      r.why = (why ? why + '; ' : '') + `valued with your ${names} claim in mind`;
+    }
     if (used + r.bid > spend) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
-    used += r.bid; drops.add(r.drop);
+    used += r.bid; drops.add(r.drop); taken.push(r);
   }
   return { dpp, spend, used };
 }

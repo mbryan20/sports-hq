@@ -173,6 +173,33 @@ function renderMarket() {
   $('hist').innerHTML = t + '</tbody>';
 }
 
+// The written guide (Google Doc "Guillotine bid strategy (v2)", rewritten each Tuesday from bids.json + news). Michael, Nov 10:
+// everything made for him is one tap from Sports HQ.
+const GUIDE_URL = 'https://docs.google.com/document/d/1Pa67152FLY8IQ70neRnnHZ4lFFT6XqWZwvWk1iF-tT8/edit';
+
+// "Your moves" box: every claim and the best free adds, each with its own drop, the total vs what you can spend, the
+// deadline, how to place them, and the written guide. Same rows and calls as the table below.
+function planHtml() {
+  const name = s => s && D.P[s] ? esc(D.P[s].n) : 'your weakest player';
+  const claims = BIDROWS.filter(r => !r.added && r.freed && isBid(r)).sort((a, b) => b.ev - a.ev);
+  const claimBy = Object.fromEntries(claims.map(r => [r.drop, r]));
+  // the best free add at each position, two at most (two backup QBs is never the plan)
+  const seen = new Set();
+  const free = BIDROWS.filter(r => !r.added && !r.freed && r.call === 'Add free' && r.dWin > 0).sort((a, b) => b.dWin - a.dWin)
+    .filter(r => !seen.has(D.P[r.s].p) && (seen.add(D.P[r.s].p), true)).slice(0, 2);
+  const li = [];
+  for (const r of claims) li.push(`<li><b>Claim ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) for <b>$${r.bid}</b>, drop ${name(r.drop)}: ${pct(r.chance)} to win${r.call === 'Coin flip' ? ' (coin flip)' : ''}.</li>`);
+  // a free add happens now, so its drop is gone before the claims run: say which claim then needs another drop
+  for (const r of free) li.push(`<li><b>Add ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) now for $0, drop ${name(r.drop)}`
+    + (claimBy[r.drop] ? ` (your ${esc(D.P[claimBy[r.drop].s].n)} claim also drops him: give that claim another drop, or skip this add)` : '') + '.</li>');
+  const total = claims.reduce((a, r) => a + r.bid, 0);
+  const when = D.waivers ? `before waivers run (${esc(D.waivers)})` : 'this week (no waivers pending)';
+  return `<div class="plan"><p><b>Your moves ${when}:</b></p>`
+    + (li.length ? `<ol>${li.join('')}</ol>` : '<p>Nothing worth claiming or adding this week.</p>')
+    + (claims.length ? `<p class="sub">Claims total $${total} of the $${MONEY.spend} you can spend ($${S.reserve} kept in reserve). In Sleeper: Players, search the name, Claim, enter the bid, pick the drop. Each claim needs its own drop.</p>` : '')
+    + `<p class="sub"><a href="${GUIDE_URL}" target="_blank" rel="noopener">Written guide: the full breakdown with news, rivals and why &rarr;</a></p></div>`;
+}
+
 function renderHeader(top) {
   const me = D.teams[ME], s = BASE.sim[ME];
   $('asof').textContent = `${D.league} · ${D.asof} · ${ALIVE.length} teams alive`;
@@ -186,7 +213,7 @@ function renderHeader(top) {
     const p = D.P[top.s];
     t += `<p><b>Best claim:</b> ${esc(p.n)} (${p.p} ${p.t}) adds ${fmt(top.dWin * 100, 1)} points of win odds after dropping ${top.drop && D.P[top.drop] ? esc(D.P[top.drop].n) : 'your weakest player'}. Bid $${top.bid} (wins about ${pct(top.chance)} of the time); he's worth $${top.value} to you and usually goes for $${top.price}–$${top.price80}.</p>`;
   }
-  $('headline').innerHTML = t;
+  $('headline').innerHTML = planHtml() + t;
 }
 
 // ---------- wiring ----------

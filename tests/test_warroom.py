@@ -285,6 +285,20 @@ class BidRules(unittest.TestCase):
                              "[rows[0].call, rows[0].bid, rows[0].why, rows[1].call]")
         self.assertEqual(got, ["Skip", 0, "BAL DEF is a free add and helps as much", "Add free"])
 
+    def test_second_claim_at_a_position_counts_what_it_adds_on_top(self):
+        # Nov 10: Fannin and Hockenson were both claimed (dropping Breece Hall) for one TE spot. If the better TE claim
+        # wins (57%), a second TE adds nothing here (gainsOnTop stubbed to 0), so the second one is skipped.
+        D = self.league({"lo": [0, 0, 0, 0, 1, 1, 1], "hi": []},
+                        players={"fannin": {"p": "TE", "n": "Harold Fannin"}, "hock": {"p": "TE"}, "rb": {"p": "RB"}})
+        rows = ("[{s: 'fannin', freed: true, dW: 0, dWin: 0.03, gR: 5, est: 5, drop: 'a', th: []},"
+                "{s: 'hock', freed: true, dW: 0, dWin: 0.02, gR: 5, est: 5, drop: 'b', th: []},"
+                "{s: 'rb', freed: true, dW: 0, dWin: 0.02, gR: 5, est: 5, drop: 'c', th: []}]")
+        got = self.run_js(D, f"S.dpp = 1; gainsOnTop = () => ({{dW: 0, dWin: 0}}); const rows = {rows}; decideAll(rows);"
+                             "rows.map(r => [r.call, r.why])")
+        self.assertEqual(got[0][0], "Bid")
+        self.assertEqual(got[1], ["Skip", "adds little if your Harold Fannin claim wins (57%)"])
+        self.assertEqual(got[2], ["Bid", ""])                         # another position is valued on its own
+
 
 class PageText(unittest.TestCase):
     """A `${...}` inside a '...' or "..." string is printed as is ("Wk ${W0} proj" on the page, Nov 10)."""

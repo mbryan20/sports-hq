@@ -122,6 +122,25 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `bestDrop`: a K/DEF add skips RB/WR/TE drops worth 8+ (season average or the next 4 weeks' projection); after pricing, a paid K/DEF claim is Skip when a same-position free agent is Add free with at least its season gain.
 - **Decision:** approved 2026-11-10 (Michael, 9:15am via Claude Ops: "Get to work ... Tired of delays.")
 
+### Q-052 · War Room v2 claims two players for one spot, and its plan isn't on the page or linked to the guide
+- **Status:** building (branch `claude/improvements-nov5-6ed372`; lands with Q-038..Q-041 after 8:00pm CT Tue Nov 10)
+- **Area:** War Room v2 (`warroom/model.js` `decideAll`, `gainsOnTop`; `warroom/app.js` `planHtml`)
+- **Rank:** —
+- **Added:** 2026-11-10 by the Sports HQ build session
+- **Evidence:** Nov 10 evening, the new model claimed both Harold Fannin and T.J. Hockenson at $0 for Goedert's bye week,
+  dropping Breece Hall for Hockenson, with Strange and Freiermuth also free adds at TE: each claim was valued as if it were
+  the only one. Michael (7pm): "where's my guillotine breakdown and guide? ... there should be a direct link in the sports
+  HQ - no exceptions"; the Google Doc "Guillotine bid strategy (v2)" was not linked anywhere on the site.
+- **Design:** (1) claims are settled best first; a later claim at the same position as earlier kept claims is re-valued as
+  (chance none of those wins) x its own gain + (chance one wins) x what it adds on top of them (`gainsOnTop`, a simulation
+  with both added), then re-priced; if it is no longer worth a bid it becomes Skip, "adds little if your X claim wins (57%)".
+  Other positions are unchanged. (2) The War Room's top box now opens with "Your moves before waivers run": every claim
+  (bid, win chance, drop), the best free add per position (two at most, with a warning when its drop is a claim's drop), the
+  total vs what you can spend, how to place a claim in Sleeper, and a link to the written guide (the Doc).
+- **Test:** `BidRules.test_second_claim_at_a_position_counts_what_it_adds_on_top` (Node, CI). Real Nov 10 data: Hockenson
+  claim -> Skip, Breece Hall kept; Fannin, Barkley and Warren claims unchanged.
+- **Decision:** Michael, Nov 10 7pm (quoted above) and 4:30pm: "I expect improvements to the site and the model."
+
 ### Q-042 · A lineup fix says "start" a bench player projected 0 while a free agent projects 15+
 - **Status:** shipped (e508112). Follow-up Nov 10 evening: a Questionable free agent (not an unconfirmed Out) is named, marked "(Q)", when he projects 5+ more than the best healthy one (Drew Lock 18.7 Q vs Kyle McCord 12.4); `swap.slot_fa`, test `test_questionable_free_agent_named_when_far_better`.
 - **Area:** `shq/digest.py` (`_fix`, `_room`: Today digest, league-tab fixes, digest push), `shq/run.py` (`injury_watch`
