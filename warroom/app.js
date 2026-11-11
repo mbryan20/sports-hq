@@ -186,14 +186,17 @@ function planHtml() {
   // the best free add at each position, two at most (two backup QBs is never the plan)
   const seen = new Set();
   const free = BIDROWS.filter(r => !r.added && !r.freed && r.call === 'Add free' && r.dWin > 0).sort((a, b) => b.dWin - a.dWin)
-    .filter(r => !seen.has(D.P[r.s].p) && (seen.add(D.P[r.s].p), true)).slice(0, 2);
+    .filter(r => !seen.has(D.P[r.s].p) && (seen.add(D.P[r.s].p), true)).slice(0, 2)
+    // a second free add whose drop the first already uses can't happen too (Nov 11: Jacobs and Cousins both dropped Marks)
+    .filter((r, i, a) => i === 0 || r.drop !== a[0].drop);
   const li = [];
   for (const r of claims) li.push(`<li><b>Claim ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) for <b>$${r.bid}</b>, drop ${name(r.drop)}: ${pct(r.chance)} to win${r.call === 'Coin flip' ? ' (coin flip)' : ''}.</li>`);
   // a free add happens now, so its drop is gone before the claims run: say which claim then needs another drop
   for (const r of free) li.push(`<li><b>Add ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) now for $0, drop ${name(r.drop)}`
     + (claimBy[r.drop] ? ` (your ${esc(D.P[claimBy[r.drop].s].n)} claim also drops him: give that claim another drop, or skip this add)` : '') + '.</li>');
   const total = claims.reduce((a, r) => a + r.bid, 0);
-  const when = D.waivers ? `before waivers run (${esc(D.waivers)})` : 'this week (no waivers pending)';
+  const open = D.cut && D.cut.freed_status === 'on waivers';
+  const when = open && D.waivers ? `before waivers run (${esc(D.waivers)})` : 'this week (nothing on waivers until the next cut)';
   return `<div class="plan"><p><b>Your moves ${when}:</b></p>`
     + (li.length ? `<ol>${li.join('')}</ol>` : '<p>Nothing worth claiming or adding this week.</p>')
     + (claims.length ? `<p class="sub">Claims total $${total} of the $${MONEY.spend} you can spend ($${S.reserve} kept in reserve). In Sleeper: Players, search the name, Claim, enter the bid, pick the drop. Each claim needs its own drop.</p>` : '')
