@@ -146,7 +146,24 @@ Measure (the health.json check that should move), Design, Decision.
 - **Decision:** bug fix requested by Michael via Claude Ops, Nov 10
 
 ### Q-043 · Traded players and new starters get zero or old-team rest-of-season numbers after the trade deadline
-- **Status:** shipped (ce89445)
+- **Status:** shipped (ce89445). Follow-up fix shipped the same evening (Tue Nov 10, see **Follow-up** below).
+- **Follow-up (regressions found ~6:20pm):** (1) IR placement was read from ESPN's injury entry date, which is the latest
+  blurb's (Etienne, on IR since Oct 1, read [0, 0, 0, 0] / ROS 0.0 after a Nov 4 / Nov 11 00:05Z blurb, and Kosmonauts
+  said drop him for Geno Smith; Iosivas, Legette too). Now `state/ir_seen.json` records the first run that saw each IR
+  tag (`ir_placed`; merged key by key like alerts.json); no record and no IR news in the last 7 days = minimum served;
+  never zero weeks while Sleeper projects him > 0 this week. (2) The fill made up a this-week number for players
+  status.confirm had softened to Q (Davante Adams, Sleeper IR: 13.8 in week 10, "Add Davante Adams (13.8/gm)" in
+  Stempak; Mike Evans, Sleeper Out: 18.1) and for Doubtful players (Stevenson, Kyler Murray in the ESPN leagues). Now this
+  week is never filled (no live projection = 0), and fill eligibility comes from the raw worst tag of every source
+  (`raw_status`, `DEAD`: Doubtful/Out/IR/PUP/SUSP/NA). (3) A fill-in QB was filled through weeks his hurt starter is
+  projected back (Drew Lock 18.7 in weeks 12-13 with Darnold back; Cousins 17.2 in weeks 11-13 with Murray back). Now a
+  QB's stale or missing week is 0 when a teammate who is hurt now is projected there as the starter (≥ 100 pass yards and
+  ≥ 60% of the fill); a healthy benched teammate's stale rows don't block a new starter (Mendoza case). (4) Not changed:
+  `shq/status.py` `confirm` also reads ESPN's note date as the designation date (Cam Skattebo: ESPN Out, Tuesday
+  21:38Z note says full practice, so OUT stands). Softening that would risk leaving a truly out player in a lineup and
+  there is no designation date to use instead, so it stays as is. Code: `values.week_fills`, `live_points`,
+  `raw_status`, `_qb_starter_back`, `ir_placed`/`load_ir_seen`/`save_ir_seen`, `.gitattributes`; tests: new classes in
+  `tests/test_trade_deadline.py` (`IrPlacement`, `ReallyOut`, `QbRoom`; two IR tests updated to the new placement rule).
 - **Area:** `shq/values.py` (`_slim` keeps each projection's team, `ros_weeks`/`ros_ppg` fill, `per_game`, `ir_games_left`,
   `live_team`, `annotate`; ROS cache format 2), `shq/leagues.py` (`make_player`, `EspnLeague._live_team`/`_player`),
   `shq/nfl_players.py` (basis text), `tests/test_trade_deadline.py`
