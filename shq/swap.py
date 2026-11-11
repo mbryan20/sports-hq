@@ -43,13 +43,14 @@ def strength_text(p):
 
 MIN_FILL = 1.0   # a points-league fill-in projected under this is no fix (Nov 10: "start Carson Wentz", projected 0)
 FA_EDGE = 5.0    # a free agent this many points better than the best bench fill-in is the real fix
+Q_EDGE = 3.0     # a Questionable free agent this much better than the best healthy one is named instead, marked (Q)
 
 
 def slot_fa(slot, free_agents, now, skip=()):
     """Best playable free agent who can legally fill `slot`, by this week's projection (flex and superflex slots
     take every position they allow, so a dead QB in SUPER_FLEX/OP can be covered by a QB).
     A Questionable free agent (not one whose Out is only unconfirmed: `conflict`) is named only when he projects
-    FA_EDGE+ more than the best healthy one, and the caller shows "(Q)" (Nov 10: Drew Lock, Q but expected to play,
+    Q_EDGE+ more than the best healthy one, and the caller shows "(Q)" (Nov 10: Drew Lock, Q but expected to play,
     18.7 vs Kyle McCord 12.4; ESPN tags many players a generic Q on Tuesdays)."""
     def ok(p, q):
         if p["id"] in skip or not p.get("positions") or not eligible(slot, p["positions"]):
@@ -61,7 +62,7 @@ def slot_fa(slot, free_agents, now, skip=()):
     key = lambda p: (p["proj"], p.get("owned", 0))
     best = max((p for p in free_agents if ok(p, False)), key=key, default=None)
     q = max((p for p in free_agents if ok(p, True)), key=key, default=None)
-    if q and (best is None or q["proj"] - best["proj"] >= FA_EDGE):
+    if q and (best is None or q["proj"] - best["proj"] >= Q_EDGE):
         return q
     return best
 
