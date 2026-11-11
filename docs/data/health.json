@@ -1,16 +1,191 @@
 {
- "generated": "2026-11-10T23:20:31Z",
+ "generated": "2026-11-11T08:55:23Z",
  "summary": {
-  "ok": 14,
-  "watch": 0,
+  "ok": 12,
+  "watch": 2,
   "drift": 0,
   "weak": 0,
-  "waiting": 5,
-  "info": 5,
+  "waiting": 7,
+  "info": 9,
   "errors": 0
  },
- "flags": [],
+ "flags": [
+  {
+   "section": "recs",
+   "id": "rec.win_brier",
+   "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
+   "value": 0.17,
+   "n": 9,
+   "unit": "",
+   "baseline": 0.125,
+   "baseline_set": "2026-11-04",
+   "tolerance": 0.05,
+   "status": "watch"
+  },
+  {
+   "section": "picks",
+   "id": "picks.card_ats",
+   "label": "Posted card picks that won against the spread",
+   "value": 0.678,
+   "n": 59,
+   "unit": "%",
+   "baseline": 0.733,
+   "baseline_set": "2026-11-04",
+   "tolerance": 0.08,
+   "status": "watch"
+  }
+ ],
  "sections": [
+  {
+   "id": "experts",
+   "title": "Start/sit: Sleeper vs ESPN's experts",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "exp.sleeper_acc",
+     "label": "Start/sit pairs Sleeper's projections called right (season so far)",
+     "value": 0.575,
+     "n": 15973,
+     "unit": "%",
+     "status": "info"
+    },
+    {
+     "id": "exp.experts_acc",
+     "label": "Start/sit pairs ESPN's experts called right (season so far)",
+     "value": 0.5682,
+     "n": 15973,
+     "unit": "%",
+     "status": "info"
+    },
+    {
+     "id": "exp.blend_edge",
+     "label": "50/50 experts + Sleeper blend vs Sleeper alone (pairs called right)",
+     "value": 0.0043,
+     "n": 15973,
+     "unit": "%",
+     "status": "info"
+    },
+    {
+     "id": "exp.last_week_edge",
+     "label": "Blend vs Sleeper alone, last completed week",
+     "value": 0.0026,
+     "n": 1761,
+     "unit": "%",
+     "status": "info"
+    },
+    {
+     "id": "exp.calls_right",
+     "label": "Our \"Start X over Y\" calls where X outscored Y",
+     "value": 0.5,
+     "n": 2,
+     "unit": "%",
+     "status": "waiting"
+    },
+    {
+     "id": "exp.calls_vs_experts",
+     "label": "Our calls the experts disagreed with that were right",
+     "value": 1.0,
+     "n": 1,
+     "unit": "%",
+     "status": "waiting"
+    }
+   ],
+   "details": {
+    "acc": {
+     "n": 15973,
+     "weeks": {
+      "1": {
+       "sleeper": 0.5449,
+       "experts": 0.5741,
+       "blend": 0.5704,
+       "n": 1747
+      },
+      "2": {
+       "sleeper": 0.6038,
+       "experts": 0.5802,
+       "blend": 0.5997,
+       "n": 1801
+      },
+      "3": {
+       "sleeper": 0.5829,
+       "experts": 0.5742,
+       "blend": 0.5871,
+       "n": 1792
+      },
+      "4": {
+       "sleeper": 0.5638,
+       "experts": 0.5459,
+       "blend": 0.5598,
+       "n": 1841
+      },
+      "5": {
+       "sleeper": 0.5871,
+       "experts": 0.5685,
+       "blend": 0.5932,
+       "n": 1803
+      },
+      "6": {
+       "sleeper": 0.547,
+       "experts": 0.5626,
+       "blend": 0.56,
+       "n": 1733
+      },
+      "7": {
+       "sleeper": 0.5783,
+       "experts": 0.5652,
+       "blend": 0.5752,
+       "n": 1755
+      },
+      "8": {
+       "sleeper": 0.5908,
+       "experts": 0.5644,
+       "blend": 0.5905,
+       "n": 1740
+      },
+      "9": {
+       "sleeper": 0.5752,
+       "experts": 0.5792,
+       "blend": 0.5778,
+       "n": 1761
+      }
+     },
+     "sleeper": 0.575,
+     "experts": 0.5682,
+     "blend": 0.5793,
+     "edge": 0.0043,
+     "blend_wins": 5
+    },
+    "calls": {
+     "n": 2,
+     "right": 1,
+     "experts_split": 1,
+     "split_right": 1,
+     "agree": 1,
+     "lines": [
+      "Week 8 Bro-vid19: start Aaron Jones Sr. (5.0) over Jordan Mason (2.0) right; experts had them #26 vs #24",
+      "Week 9 Stempak: start Ollie Gordon II (6.9) over Rhamondre Stevenson (13.3) wrong; experts had them #15 vs #17"
+     ],
+     "rate": 0.5,
+     "split_rate": 1.0
+    },
+    "weeks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   "notes": [
+    "Weeks 1-9: 15973 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.5%, experts 56.8%, blend 57.9%; the blend beat Sleeper in 5 of 9 weeks.",
+    "Start/sit stays on Sleeper's projections; the experts are shown next to each call (switch when the blend is 1%+ better in 70%+ of weeks).",
+    "Our lineup moves: 1 of 2 right; the experts disagreed on 1 and we were right on 1 of those."
+   ]
+  },
   {
    "id": "warroom",
    "title": "War Room v2 (guillotine bids)",
@@ -100,8 +275,8 @@
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 9.0,
-     "n": 190,
+     "value": 8.3,
+     "n": 212,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -111,8 +286,8 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.55,
-     "n": 190,
+     "value": 0.56,
+     "n": 212,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
@@ -121,8 +296,8 @@
     {
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
-     "value": 0.81,
-     "n": 190,
+     "value": 0.82,
+     "n": 212,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -265,46 +440,46 @@
      }
     },
     "prices": {
-     "n": 190,
-     "cov50": 0.55,
-     "cov80": 0.81,
-     "est_mae": 9.0,
+     "n": 212,
+     "cov50": 0.56,
+     "cov80": 0.82,
+     "est_mae": 8.3,
      "by": {
       "pos DEF": {
-       "n": 24,
-       "cov50": 0.58,
+       "n": 27,
+       "cov50": 0.63,
        "cov80": 0.96,
-       "est_mae": 2.2
+       "est_mae": 2.1
       },
       "pos K": {
-       "n": 20,
-       "cov50": 0.9,
+       "n": 22,
+       "cov50": 0.91,
        "cov80": 0.95,
-       "est_mae": 2.9
+       "est_mae": 2.8
       },
       "pos QB": {
-       "n": 23,
-       "cov50": 0.7,
-       "cov80": 0.87,
-       "est_mae": 10.8
+       "n": 25,
+       "cov50": 0.68,
+       "cov80": 0.84,
+       "est_mae": 10.0
       },
       "pos RB": {
-       "n": 36,
-       "cov50": 0.31,
-       "cov80": 0.67,
-       "est_mae": 18.0
+       "n": 40,
+       "cov50": 0.33,
+       "cov80": 0.68,
+       "est_mae": 16.4
       },
       "pos TE": {
-       "n": 24,
-       "cov50": 0.62,
-       "cov80": 0.88,
-       "est_mae": 6.2
+       "n": 29,
+       "cov50": 0.66,
+       "cov80": 0.9,
+       "est_mae": 5.8
       },
       "pos WR": {
-       "n": 63,
+       "n": 69,
        "cov50": 0.48,
-       "cov80": 0.73,
-       "est_mae": 8.9
+       "cov80": 0.77,
+       "est_mae": 8.3
       },
       "legs 1-4": {
        "n": 94,
@@ -312,23 +487,23 @@
        "cov80": 0.81,
        "est_mae": 12.2
       },
-      "legs 5-8": {
-       "n": 96,
-       "cov50": 0.58,
-       "cov80": 0.8,
-       "est_mae": 6.0
+      "legs 5-9": {
+       "n": 118,
+       "cov50": 0.6,
+       "cov80": 0.83,
+       "est_mae": 5.3
       },
       "estimate $10+": {
-       "n": 52,
-       "cov50": 0.48,
+       "n": 53,
+       "cov50": 0.49,
        "cov80": 0.81,
-       "est_mae": 18.4
+       "est_mae": 18.1
       },
       "estimate under $10": {
-       "n": 138,
-       "cov50": 0.57,
-       "cov80": 0.8,
-       "est_mae": 5.5
+       "n": 159,
+       "cov50": 0.58,
+       "cov80": 0.82,
+       "est_mae": 5.1
       }
      }
     }
@@ -340,32 +515,32 @@
   {
    "id": "recs",
    "title": "Our guillotine bids vs what happened",
-   "status": "ok",
+   "status": "watch",
    "checks": [
     {
      "id": "rec.would_win",
      "label": "Our recommended bids that would have won",
-     "value": 0.2,
-     "n": 5,
+     "value": 0.22,
+     "n": 9,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "rec.win_brier",
      "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
-     "value": 0.125,
-     "n": 5,
+     "value": 0.17,
+     "n": 9,
      "unit": "",
      "baseline": 0.125,
      "baseline_set": "2026-11-04",
      "tolerance": 0.05,
-     "status": "ok"
+     "status": "watch"
     },
     {
      "id": "rec.est_mae",
      "label": "Likely-price miss vs what winners paid",
-     "value": 8.3,
-     "n": 6,
+     "value": 7.6,
+     "n": 7,
      "unit": "$",
      "baseline": 8.3,
      "baseline_set": "2026-11-04",
@@ -375,8 +550,8 @@
     {
      "id": "gd.dash_price_mae",
      "label": "Dashboard likely-price miss vs what winners paid",
-     "value": 12.4,
-     "n": 8,
+     "value": 10.2,
+     "n": 16,
      "unit": "$",
      "baseline": 12.4,
      "baseline_set": "2026-11-04",
@@ -386,7 +561,8 @@
    ],
    "details": {
     "runs": [
-     8
+     8,
+     9
     ],
     "winners_paid": {
      "1": [
@@ -788,6 +964,56 @@
        "bids": 5,
        "second": 2
       }
+     ],
+     "9": [
+      {
+       "player": "Jaylen Warren",
+       "pos": "RB",
+       "winner": "SteelRob420",
+       "paid": 16,
+       "bids": 7,
+       "second": 16
+      },
+      {
+       "player": "Jordan Love",
+       "pos": "QB",
+       "winner": "Swegs4",
+       "paid": 5,
+       "bids": 1,
+       "second": 0
+      },
+      {
+       "player": "Jonah Coleman",
+       "pos": "RB",
+       "winner": "damonhawk1",
+       "paid": 5,
+       "bids": 3,
+       "second": 3
+      },
+      {
+       "player": "Stefon Diggs",
+       "pos": "WR",
+       "winner": "damonhawk1",
+       "paid": 3,
+       "bids": 5,
+       "second": 1
+      },
+      {
+       "player": "Deebo Samuel Sr.",
+       "pos": "WR",
+       "winner": "GoodFellas77",
+       "paid": 3,
+       "bids": 4,
+       "second": 3
+      },
+      {
+       "player": "Saquon Barkley",
+       "pos": "RB",
+       "winner": "robert8063",
+       "paid": 2,
+       "bids": 3,
+       "second": 1
+      }
      ]
     },
     "v2_rows": [
@@ -955,6 +1181,171 @@
       "paid": 0,
       "my_bid": null,
       "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Jaylen Warren",
+      "call": "Coin flip",
+      "bid": 2,
+      "win_chance": 0.212,
+      "est_price": 13,
+      "value": 7,
+      "would_win": false,
+      "top_rival_bid": 16,
+      "winner": "SteelRob420",
+      "paid": 16,
+      "my_bid": 5,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Harold Fannin",
+      "call": "Bid",
+      "bid": 1,
+      "win_chance": 0.645,
+      "est_price": 0,
+      "value": 3,
+      "would_win": false,
+      "top_rival_bid": 1,
+      "winner": "GoodFellas77",
+      "paid": 1,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Saquon Barkley",
+      "call": "Bid",
+      "bid": 1,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 3,
+      "would_win": false,
+      "top_rival_bid": 2,
+      "winner": "robert8063",
+      "paid": 2,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Spencer Shrader",
+      "call": "Bid",
+      "bid": 1,
+      "win_chance": 0.659,
+      "est_price": 0,
+      "value": 2,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "MIN DEF",
+      "call": "Priced out",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "T.J. Hockenson",
+      "call": "Priced out",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Jonah Coleman",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 5,
+      "winner": "damonhawk1",
+      "paid": 5,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Stefon Diggs",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 3,
+      "winner": "damonhawk1",
+      "paid": 3,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Emeka Egbuka",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 0,
+      "winner": "CodyRust",
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Deebo Samuel",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 3,
+      "winner": "GoodFellas77",
+      "paid": 3,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Xavier Worthy",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.572,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 0,
+      "winner": "MoneyManChas",
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
      }
     ],
     "dash_rows": [
@@ -1069,15 +1460,127 @@
       "paid": 0,
       "my_bid": null,
       "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Pat Freiermuth",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Harold Fannin Jr.",
+      "call": "bid",
+      "bid": 4,
+      "est_price": 4,
+      "max": 4,
+      "would_win": true,
+      "top_rival_bid": 1,
+      "winner": "GoodFellas77",
+      "paid": 1,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Brenton Strange",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 9,
+      "player": "T.J. Hockenson",
+      "call": "coin flip",
+      "bid": 0,
+      "est_price": 4,
+      "max": 3,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Tyler Higbee",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Kyle Pitts Sr.",
+      "call": "bid",
+      "bid": 0,
+      "est_price": 0,
+      "max": 3,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "Trevor Lawrence",
+      "call": "priced out",
+      "bid": 0,
+      "est_price": 21,
+      "max": 2,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 9,
+      "player": "James Cook III",
+      "call": "priced out",
+      "bid": 0,
+      "est_price": 36,
+      "max": 2,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
      }
     ],
-    "would_win": 0.2,
-    "n_rec": 5,
-    "brier": 0.125,
-    "est_mae": 8.3,
-    "n_est": 6,
-    "dash_est_mae": 12.4,
-    "n_dash": 8,
+    "would_win": 0.22,
+    "n_rec": 9,
+    "brier": 0.17,
+    "est_mae": 7.6,
+    "n_est": 7,
+    "dash_est_mae": 10.2,
+    "n_dash": 16,
     "bargains_skipped": [
      {
       "leg": 8,
@@ -1185,15 +1688,15 @@
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
      "value": 0.63,
-     "n": 38,
+     "n": 41,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": 0.34,
-     "n": 25,
+     "value": 0.43,
+     "n": 30,
      "unit": "z",
      "baseline": 0.34,
      "baseline_set": "2026-11-10",
@@ -1203,36 +1706,36 @@
    ],
    "details": {
     "mornings": 14,
-    "wire_mornings": 3,
-    "wire_value": -4.71,
+    "wire_mornings": 4,
+    "wire_value": -4.97,
     "shown": {
      "n": 10,
      "held": 7,
      "held_rate": 0.7,
-     "value": -2.75,
+     "value": -2.78,
      "edge_n": 4,
-     "edge": 2.22,
+     "edge": 2.46,
      "added_later": 1
     },
     "flags": {
-     "n": 38,
-     "held": 24,
+     "n": 41,
+     "held": 26,
      "held_rate": 0.63,
-     "value": -3.86,
-     "edge_n": 25,
-     "edge": 0.34,
-     "added_later": 4
+     "value": -3.99,
+     "edge_n": 30,
+     "edge": 0.43,
+     "added_later": 5
     },
-    "every_value": -5.58
+    "every_value": -5.65
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 3 mornings (state/nba_owned.json starts Nov 3); shown flags alone 2.22 (n=4)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 4 mornings (state/nba_owned.json starts Nov 3); shown flags alone 2.46 (n=4)."
    ]
   },
   {
    "id": "picks",
    "title": "Pool Picks",
-   "status": "ok",
+   "status": "watch",
    "checks": [
     {
      "id": "picks.brier_gap",
@@ -1259,13 +1762,13 @@
     {
      "id": "picks.card_ats",
      "label": "Posted card picks that won against the spread",
-     "value": 0.733,
-     "n": 30,
+     "value": 0.678,
+     "n": 59,
      "unit": "%",
      "baseline": 0.733,
      "baseline_set": "2026-11-04",
      "tolerance": 0.08,
-     "status": "ok"
+     "status": "watch"
     }
    ],
    "details": {
@@ -1278,21 +1781,22 @@
     "stale_n": 194,
     "graded_weeks": [
      8,
-     9
+     9,
+     10
     ],
     "card": {
-     "w": 22,
-     "l": 8,
+     "w": 40,
+     "l": 19,
      "p": 0
     },
-    "card_ats": 0.733,
-    "card_n": 30,
+    "card_ats": 0.678,
+    "card_n": 59,
     "entered": {
-     "w": 32,
-     "l": 27,
+     "w": 50,
+     "l": 38,
      "p": 0
     },
-    "entered_rate": 0.542
+    "entered_rate": 0.568
    },
    "notes": [
     "Backtest 2026_w1-8.json is re-run by the laptop (needs the CFBD key); this job reads it."
