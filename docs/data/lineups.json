@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T21:37:01Z",
+ "updated": "2026-11-11T21:47:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -177,8 +177,8 @@
       "IR"
      ],
      "news": {
-      "note": "Head coach Kellen Moore said Monday that the Saints haven't yet determined whether Etienne (hamstring) will return from injured reserve ahead of Sunday's game against the Panthers, Luke Johnson of The New Orleans Times-Picayune reports. \"We'll see,\" Moore said. \"He's progressing well. We'll gather some more information and make a decision.\"",
-      "at": "2026-11-11T00:05:00Z",
+      "note": "Etienne (hamstring) was back at practice Wednesday, Ross Jackson of WWL Louisiana reports.",
+      "at": "2026-11-11T21:38:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4239996/travis-etienne-jr"
      }
     },
@@ -263,7 +263,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "Domo Arigato": {
@@ -782,11 +782,11 @@
       "J.K. Dobbins": "not ranked to play this week, RB29 lately"
      },
      "disagree": [
-      "Free agent Mack Hollins (NE) is WR32 with the experts this week, ahead of your starter Tre Tucker (WR43); we project 6.3 vs 9.3."
+      "Free agent Mack Hollins (NE) is WR32 with the experts this week, ahead of your starter Tre Tucker (WR43); we project 8.2 vs 9.3."
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "Guillotine": {
@@ -1043,7 +1043,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 5 of 9 this week, +20.7 pts vs the lowest other team, 7% chance of being cut",
+    "matchup": "Projected 5 of 9 this week, +18.7 pts vs the lowest other team, 8% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [
@@ -1146,16 +1146,16 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p",
+    "built": "Wed 3:47p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
      "n": 9,
      "rank": 5,
-     "gap": 20.7,
+     "gap": 18.7,
      "proj": 139.6,
-     "cut": 0.073,
-     "survive": 0.927,
+     "cut": 0.076,
+     "survive": 0.924,
      "faab": 10,
      "reserve": 5,
      "waivers": "Wed 2:15a",
@@ -1174,7 +1174,7 @@
         "team": "CAR",
         "proj": 22.6,
         "gain": 1.4,
-        "cut_with": 0.069,
+        "cut_with": 0.071,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1184,83 +1184,87 @@
        }
       ],
       "freed": {
-       "team": "GoodFellas (GoodFellas77)",
-       "cut": 0.246,
+       "team": "Aniasin1",
+       "cut": 0.223,
        "players": [
         {
-         "name": "Trevor Lawrence",
-         "sid": "7523",
+         "name": "Josh Allen",
+         "sid": "4984",
          "pos": "QB",
-         "team": "JAX",
-         "proj": 25.5,
-         "gain": 4.3,
-         "cut_with": 0.057,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 19,
-         "max": 2,
+         "team": "BUF",
+         "proj": 29.8,
+         "gain": 8.6,
+         "cut_with": 0.044,
+         "freed_from": "Aniasin1",
+         "price": 38,
+         "max": 3,
          "call": "priced out",
          "rivals": [
           {
            "name": "Off with his head (damonhawk1)",
-           "bid": 18
+           "bid": 37
           },
           {
            "name": "robert8063",
+           "bid": 14
+          },
+          {
+           "name": "GoodFellas (GoodFellas77)",
            "bid": 8
           }
          ]
         },
         {
-         "name": "James Cook III",
-         "sid": "8138",
-         "pos": "RB",
-         "team": "BUF",
-         "proj": 14.6,
-         "gain": 4.2,
-         "cut_with": 0.057,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 30,
-         "max": 2,
-         "call": "priced out",
-         "rivals": [
-          {
-           "name": "Off with his head (damonhawk1)",
-           "bid": 29
-          },
-          {
-           "name": "robert8063",
-           "bid": 12
-          },
-          {
-           "name": "JHED1979",
-           "bid": 11
-          }
-         ]
-        },
-        {
-         "name": "Chris Olave",
-         "sid": "8144",
+         "name": "Jalen Coker",
+         "sid": "11646",
          "pos": "WR",
-         "team": "NO",
-         "proj": 13.4,
-         "gain": 3.4,
-         "cut_with": 0.06,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 20,
+         "team": "CAR",
+         "proj": 12.1,
+         "gain": 2.1,
+         "cut_with": 0.068,
+         "freed_from": "Aniasin1",
+         "price": 12,
          "max": 1,
          "call": "priced out",
          "rivals": [
           {
            "name": "Off with his head (damonhawk1)",
-           "bid": 19
+           "bid": 11
           },
           {
            "name": "robert8063",
-           "bid": 10
+           "bid": 7
           },
           {
-           "name": "JHED1979",
-           "bid": 7
+           "name": "GoodFellas (GoodFellas77)",
+           "bid": 5
+          }
+         ]
+        },
+        {
+         "name": "Isaiah Likely",
+         "sid": "8131",
+         "pos": "TE",
+         "team": "NYG",
+         "proj": 10.3,
+         "gain": 1.6,
+         "cut_with": 0.07,
+         "freed_from": "Aniasin1",
+         "price": 4,
+         "max": 1,
+         "call": "priced out",
+         "rivals": [
+          {
+           "name": "Off with his head (damonhawk1)",
+           "bid": 3
+          },
+          {
+           "name": "robert8063",
+           "bid": 3
+          },
+          {
+           "name": "GoodFellas (GoodFellas77)",
+           "bid": 2
           }
          ]
         }
@@ -1289,33 +1293,33 @@
      },
      "teams": [
       {
-       "name": "GoodFellas (GoodFellas77)",
-       "proj": 118.9,
-       "cut": 0.246,
-       "faab": 16,
-       "bold": 0.74,
-       "me": false
-      },
-      {
        "name": "Aniasin1",
        "proj": 120.9,
-       "cut": 0.217,
+       "cut": 0.223,
        "faab": 4,
        "bold": 0.93,
        "me": false
       },
       {
+       "name": "GoodFellas (GoodFellas77)",
+       "proj": 121.7,
+       "cut": 0.223,
+       "faab": 16,
+       "bold": 0.74,
+       "me": false
+      },
+      {
        "name": "robert8063",
        "proj": 125.5,
-       "cut": 0.173,
+       "cut": 0.177,
        "faab": 23,
        "bold": 0.62,
        "me": false
       },
       {
        "name": "CodyRust",
-       "proj": 135.5,
-       "cut": 0.094,
+       "proj": 135.4,
+       "cut": 0.098,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -1323,31 +1327,31 @@
       {
        "name": "michaelbryan",
        "proj": 139.6,
-       "cut": 0.073,
+       "cut": 0.076,
        "faab": 10,
        "bold": 0.58,
        "me": true
       },
       {
-       "name": "Off with his head (damonhawk1)",
-       "proj": 142.4,
-       "cut": 0.056,
-       "faab": 87,
-       "bold": 0.42,
-       "me": false
-      },
-      {
        "name": "SteelRob420",
        "proj": 143.5,
-       "cut": 0.056,
+       "cut": 0.058,
        "faab": 0,
        "bold": 1.0,
        "me": false
       },
       {
+       "name": "Off with his head (damonhawk1)",
+       "proj": 142.4,
+       "cut": 0.057,
+       "faab": 87,
+       "bold": 0.42,
+       "me": false
+      },
+      {
        "name": "Swegs4",
-       "proj": 145.2,
-       "cut": 0.049,
+       "proj": 145.7,
+       "cut": 0.051,
        "faab": 3,
        "bold": 1.0,
        "me": false
@@ -1355,7 +1359,7 @@
       {
        "name": "JHED1979",
        "proj": 148.5,
-       "cut": 0.036,
+       "cut": 0.037,
        "faab": 22,
        "bold": 0.77,
        "me": false
@@ -1912,15 +1916,15 @@
      "kickoff": "2026-11-13T01:15:00Z",
      "started": false,
      "proj": 9.3,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "status": "OUT",
+     "why": "ESPN: OUT",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "exp": "WR44 this week, WR57 lately",
      "news": {
       "note": "Burks (foot) was a limited participant in Tuesday's walkthrough practice.",
-      "at": "2026-11-10T23:58:16Z",
+      "at": "2026-11-10T23:58:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4567156/treylon-burks"
      }
     },
@@ -2061,7 +2065,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "Stempak": {
@@ -2482,7 +2486,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "Bro-vid19": {
@@ -2853,7 +2857,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "3-Ball BB": {
@@ -3684,7 +3688,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   },
   "Ball is Life": {
@@ -4360,7 +4364,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Wed 3:37p"
+    "built": "Wed 3:47p"
    }
   }
  }
