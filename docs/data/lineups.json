@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T19:47:00Z",
+ "updated": "2026-11-12T19:57:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -262,7 +262,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    }
   },
   "Domo Arigato": {
@@ -784,7 +784,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    }
   },
   "Guillotine": {
@@ -1054,9 +1054,9 @@
      "Start Woody Marks (12.0) over Breece Hall (10.4) at FLEX, +1.6"
     ],
     "adds": [
-     "Add Josh Jacobs (RB, GB, 0 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)",
-     "Add Kirk Cousins (QB, MIN, 17.5 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)",
-     "Add Matt Gay (K, LV, 7 proj) now, no claim needed, drop Woody Marks (War Room v2: add free)"
+     "Add Josh Jacobs (RB, GB, 0 proj) now, no claim needed, drop Braelon Allen (War Room v2: add free)",
+     "Add Kirk Cousins (QB, MIN, 17.4 proj) now, no claim needed, drop Braelon Allen (War Room v2: add free)",
+     "Add Caleb Williams (QB, CHI, 0 proj) now, no claim needed, drop Braelon Allen (War Room v2: add free)"
     ],
     "trades": {
      "lines": [
@@ -1142,14 +1142,16 @@
       "Woody Marks": "RB19 this week, RB20 lately",
       "Dallas Goedert": "not ranked to play this week, TE7 lately",
       "Kirk Cousins": "QB19 this week, QB11 lately",
+      "Caleb Williams": "not ranked to play this week, QB11 lately",
       "Josh Jacobs": "not ranked to play this week, RB15 lately",
       "Bryce Young": "QB7 this week, QB10 lately",
+      "T.J. Hockenson": "TE9 this week",
       "Jaylen Waddle": "not ranked to play this week, WR25 lately"
      },
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p",
+    "built": "Thu 1:57p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -1385,13 +1387,13 @@
        "team": "GB",
        "proj": 0,
        "gain": 0,
-       "gain_ros": 19.5,
+       "gain_ros": 17.8,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Braelon Allen",
        "why": "free agent",
        "win_chance": null,
        "free": true,
@@ -1405,15 +1407,15 @@
        "name": "Kirk Cousins",
        "pos": "QB",
        "team": "MIN",
-       "proj": 17.5,
+       "proj": 17.4,
        "gain": 0,
-       "gain_ros": 9.8,
+       "gain_ros": 11.9,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Braelon Allen",
        "why": "free agent",
        "win_chance": null,
        "free": true,
@@ -1424,40 +1426,40 @@
        "v2": true
       },
       {
-       "name": "Matt Gay",
-       "pos": "K",
-       "team": "LV",
-       "proj": 7,
+       "name": "Caleb Williams",
+       "pos": "QB",
+       "team": "CHI",
+       "proj": 0,
        "gain": 0,
-       "gain_ros": 6.7,
+       "gain_ros": 7.6,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Braelon Allen",
        "why": "free agent",
        "win_chance": null,
        "free": true,
        "source": "free agent",
        "injury": null,
        "rivals": [],
-       "sid": "6083",
+       "sid": "11560",
        "v2": true
       },
       {
        "name": "Bryce Young",
        "pos": "QB",
        "team": "CAR",
-       "proj": 22.5,
+       "proj": 22.4,
        "gain": 1.2,
-       "gain_ros": 6.4,
+       "gain_ros": 7.9,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Braelon Allen",
        "why": "free agent",
        "win_chance": null,
        "free": true,
@@ -1468,69 +1470,25 @@
        "v2": true
       },
       {
-       "name": "MIN DEF",
-       "pos": "DEF",
+       "name": "T.J. Hockenson",
+       "pos": "TE",
        "team": "MIN",
-       "proj": 6.7,
-       "gain": 0,
-       "gain_ros": 12,
+       "proj": 8.8,
+       "gain": 0.1,
+       "gain_ros": 5.9,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Braelon Allen",
        "why": "free agent",
        "win_chance": null,
        "free": true,
        "source": "free agent",
        "injury": null,
        "rivals": [],
-       "sid": "MIN",
-       "v2": true
-      },
-      {
-       "name": "DEN DEF",
-       "pos": "DEF",
-       "team": "DEN",
-       "proj": 0,
-       "gain": 0,
-       "gain_ros": 11.7,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
-       "sid": "DEN",
-       "v2": true
-      },
-      {
-       "name": "DET DEF",
-       "pos": "DEF",
-       "team": "DET",
-       "proj": 5.7,
-       "gain": 0,
-       "gain_ros": 9.1,
-       "call": "add free",
-       "bid": 0,
-       "price": 0,
-       "max": 0,
-       "est_price": 0,
-       "drop": "Woody Marks",
-       "why": "free agent",
-       "win_chance": null,
-       "free": true,
-       "source": "free agent",
-       "injury": null,
-       "rivals": [],
-       "sid": "DET",
+       "sid": "5844",
        "v2": true
       },
       {
@@ -1539,13 +1497,13 @@
        "team": "DEN",
        "proj": 0,
        "gain": 0,
-       "gain_ros": 4.8,
+       "gain_ros": 6.4,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "Tre Tucker",
        "why": "free agent",
        "win_chance": null,
        "free": true,
@@ -1556,25 +1514,25 @@
        "v2": true
       },
       {
-       "name": "Dominic Zvada",
-       "pos": "K",
-       "team": "NYG",
-       "proj": 7.1,
-       "gain": 0.1,
-       "gain_ros": 2.2,
+       "name": "MIN DEF",
+       "pos": "DEF",
+       "team": "MIN",
+       "proj": 6.7,
+       "gain": -1.2,
+       "gain_ros": 9.4,
        "call": "add free",
        "bid": 0,
        "price": 0,
        "max": 0,
        "est_price": 0,
-       "drop": "Woody Marks",
+       "drop": "GB DEF",
        "why": "free agent",
        "win_chance": null,
        "free": true,
        "source": "free agent",
        "injury": null,
        "rivals": [],
-       "sid": "13833",
+       "sid": "MIN",
        "v2": true
       }
      ],
@@ -2064,7 +2022,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    }
   },
   "Stempak": {
@@ -2491,7 +2449,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    }
   },
   "Bro-vid19": {
@@ -2861,7 +2819,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    }
   },
   "3-Ball BB": {
@@ -3411,7 +3369,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Kevin Huerter (SG, DET), free agent, rostered 7% (+5.1% in 3 days): minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (losing), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
+       "text": "Kevin Huerter (SG, DET), free agent, rostered 7% (+5.4% in 3 days): minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (losing), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
        "short": "Kevin Huerter (DET, FA 7%): minutes 20 \u2192 29, usage 15% \u2192 19%; fits BLK, 3PM (ESPN game logs through Nov 9)",
        "links": [
         [
@@ -3691,7 +3649,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (1:30pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   },
@@ -4098,7 +4056,7 @@
        "verdict": "keep him on the bench for now (no game today; his season value -2.7/g doesn't beat your weakest starter, Peyton Watson, at -3.5/g, by 1+)"
       },
       {
-       "text": "Kevin Huerter (SG, DET), free agent, rostered 7% (+5.1% in 3 days): minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (losing), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
+       "text": "Kevin Huerter (SG, DET), free agent, rostered 7% (+5.4% in 3 days): minutes 20 \u2192 29 in his last 3 games (Nov 4\u2013Nov 9) vs 7 before, usage 15% \u2192 19%, since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits BLK (losing), 3PM (losing). 2 games left this week, 4 next week (back-to-back Tue\u2013Wed).",
        "short": "Kevin Huerter (DET, FA 7%): minutes 20 \u2192 29, usage 15% \u2192 19%; fits BLK, 3PM (ESPN game logs through Nov 9)",
        "links": [
         [
@@ -4371,7 +4329,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Thu 1:47p"
+    "built": "Thu 1:57p"
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (1:30pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   }
