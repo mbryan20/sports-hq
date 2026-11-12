@@ -84,6 +84,12 @@ CHECKS = {
     "swap.est_bias": ("Waiver swaps: what happened minus the shown \"+N\" (below 0 = the site promised too much)", None, 0, "z"),
     "stream.edge": ("Streamers: value over the next one listed (z per game of the higher-ranked, rest of the week)", "higher", 1.5, "z"),
     "stream.order": ("Streamer pairs where the higher-ranked one did better", None, 0, "%"),
+    # the NBA value-source trial (section "sources"): each trial source minus the site's values on the same mornings,
+    # complete weeks pooled; shown, never judged (the switch rule is in nba_advice_backtest.ready_sources)
+    "src.darko_gain": ("Value trial: DARKO minutes' swap gain minus the site's (z per add game)", None, 0, "z"),
+    "src.darko_err": ("Value trial: DARKO minutes' \"+N\" miss minus the site's (below 0 = closer)", None, 0, "z"),
+    "src.shrunk_gain": ("Value trial: shrunk values' swap gain minus the site's (z per add game)", None, 0, "z"),
+    "src.shrunk_err": ("Value trial: shrunk values' \"+N\" miss minus the site's (below 0 = closer)", None, 0, "z"),
     "picks.brier_gap": ("College model Brier minus the market's (0 = as good as the market)", "lower", 0.01, ""),
     "picks.stale_cover": ("Stale-line (1.5+ pt) picks that covered, college", "higher", 0.05, "%"),
     "picks.card_ats": ("Posted card picks that won against the spread", "higher", 0.08, "%"),
@@ -644,6 +650,67 @@ def swaps_notes(s):
     return notes
 
 
+# ---------- NBA value-source trial (site vs DARKO minutes vs shrunk) ----------
+SOURCE_LABEL = {"site": "site", "darko_minutes": "DARKO minutes", "shrunk": "shrunk"}
+
+
+def trial_health(previous=None, **kw):
+    """shq/nba_advice_backtest.py trial() on last night's stored weeks (`previous`, this section's details)."""
+    from . import nba_advice_backtest as ab
+    return ab.trial(previous, **kw)
+
+
+def trial_checks(t, j):
+    out = []
+    for s, short in (("darko_minutes", "darko"), ("shrunk", "shrunk")):
+        g = (t.get("gate") or {}).get(s) or {}
+        sub = lambda a, b: round(a - b, 2) if a is not None and b is not None else None
+        out += [j(f"src.{short}_gain", sub(g.get("gain"), g.get("ref_gain")), g.get("n", 0)),
+                j(f"src.{short}_err", sub(g.get("err"), g.get("ref_err")), g.get("n", 0))]
+    return out
+
+
+def trial_notes(t):
+    from .config import NBA_VALUE_SOURCE
+    from .nba_advice_backtest import GATE_N, GATE_WEEKS
+    f = lambda x: f"{x:+.2f}" if x is not None else "n/a"
+    notes = []
+    if t.get("ready"):
+        notes.append("Ready to switch on: " + ", ".join(t["ready"]) + f" (shq/config.py NBA_VALUE_SOURCE, now \"{NBA_VALUE_SOURCE}\"; "
+                     "a one-line change a session makes after Michael is told).")
+    else:
+        notes.append(f"Ready to switch on: none yet (the switch is \"{NBA_VALUE_SOURCE}\").")
+    notes.append(f"Rule: a source switches on after {GATE_WEEKS}+ complete fantasy weeks and {GATE_N}+ of its swaps judged, "
+                 "with a higher swap gain per add game and a smaller miss on its own \"+N\" than the site's values over those "
+                 "weeks (pooled by swaps).")
+    for s, g in (t.get("gate") or {}).items():
+        notes.append(f"{SOURCE_LABEL.get(s, s)}: {g['weeks']} complete weeks, {g['n']} swaps: gain {f(g['gain'])}/g vs the site's "
+                     f"{f(g['ref_gain'])}, miss {g['err'] if g['err'] is not None else 'n/a'} vs {g['ref_err'] if g['ref_err'] is not None else 'n/a'}"
+                     + (" (ready)" if g["ready"] else "") + ".")
+    for wk, x in (t.get("weeks") or {}).items():
+        parts = [f"{SOURCE_LABEL.get(s, s)} swaps {f(r['swap'])}/g (n={r['n_swap']}, miss {r['err'] if r['err'] is not None else 'n/a'}), "
+                 f"streamers {f(r['stream'])}/g" for s, r in x.items()]
+        notes.append(f"Week ending {wk}: " + "; ".join(parts) + ".")
+    if not t.get("weeks"):
+        notes.append("No complete week yet with a DARKO reading on its mornings: each is scored once its fantasy week is over.")
+    same = (f"Same mornings for all three: {t.get('mornings', 0)} league mornings with a DARKO reading since "
+            f"{t.get('first') or 'n/a'} (state/nba_darko.json: the first ones from DARKO's Time Machine as of that morning, "
+            "then one live reading a day from 7am CT")
+    if t.get("lag") is not None:
+        same += (f"; the live readings had DARKO's ratings through games {t['lag']} days back on average, 1 = up to "
+                 "date")
+    same += ")."
+    if t.get("match") is not None and t.get("match_swaps") is not None:
+        same += (f" The replay of the site's own values reproduces {t['match']:.0%} of the streamers and "
+                 f"{t['match_swaps']:.0%} of the swaps shown.")
+    notes.append(same)
+    notes.append("How: each morning's picks replayed under each source with the site's rules, judged like the swaps above "
+                 "(league units, need-weighted, above a waiver-level player). DARKO minutes = each line rescaled to DARKO's "
+                 "projected minutes (darko.app; only our minutes factor is kept); shrunk = a season average pulled toward "
+                 "ESPN's season projection by games played (tonight's projection, not that morning's).")
+    return notes
+
+
 # ---------- Pool Picks ----------
 def picks_health():
     bt = load_json(ROOT / "picks" / "backtest" / "2026_w1-8.json") or {}
@@ -1178,6 +1245,11 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
         h = swaps_health(prev)
         return swaps_checks(h["summary"], j), h, swaps_notes(h["summary"])
 
+    def sources():
+        prev = next((s.get("details") or {} for s in (load_json(OUT) or {}).get("sections") or [] if s.get("id") == "sources"), {})
+        t = trial_health(prev)
+        return trial_checks(t, j), t, trial_notes(t)
+
     def pk():
         h = picks_health()
         checks = [j("picks.brier_gap", h["brier_gap"], h["backtest_n"] or 0), j("picks.stale_cover", h["stale_cover"], h["stale_n"] or 0),
@@ -1224,6 +1296,7 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
         section("guillotine", "Guillotine cut odds as shown (dashboard vs War Room v2)", gd),
         section("radar", "NBA trend radar", nba),
         section("swaps", "NBA waiver swaps and streamers", swaps),
+        section("sources", "NBA value-source trial: site vs DARKO minutes vs shrunk", sources),
         section("picks", "Pool Picks", pk),
     ]
     flags = [{"section": s["id"], **c} for s in sections for c in s["checks"] if c["status"] in ("drift", "weak", "watch", "error")]

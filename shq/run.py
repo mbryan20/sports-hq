@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
+from . import advice, darko, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -400,6 +400,10 @@ def main():
     ctx = Context(now)
     status["week"] = ctx.week
 
+    # DARKO's projected minutes, once a day from 7am CT: the value-source trial's snapshot (shq/darko.py; never fails)
+    dk = darko.track(now)
+    if dk:
+        notes.append(dk)
     prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
     league_views, radar_queue, outage = {}, [], []
     for cfg in LEAGUES:

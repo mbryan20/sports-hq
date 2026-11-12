@@ -156,9 +156,73 @@ class Score(unittest.TestCase):
         flip = lambda p, m: {"2": [0, 0], "3": [3, 0]}.get(p["id"], p["z"])     # rates Next Guy above Add Guy
         out = ab.compare_sources(hist(), POOL, DATES, dt.date(2026, 11, 9), {"site": ab.site_source, "flip": flip})
         self.assertEqual((out["match"], out["match_swaps"]), (1.0, 1.0))          # the replay picks what the site showed
-        self.assertEqual(out["overall"]["site"], {"stream": 1.0, "swap": 2.5, "n_stream": 3, "n_swap": 1})
+        # err / bias: the source's own "+N" (Add Guy 2 games x (2 - -1) = 6 over a drop worth 0) vs what happened (5)
+        self.assertEqual(out["overall"]["site"], {"stream": 1.0, "swap": 2.5, "n_stream": 3, "n_swap": 1, "err": 1.0, "bias": -1.0})
         self.assertEqual(out["overall"]["flip"]["swap"], -0.5)                     # Next Guy (0) for Drop Guy (1), per 2 games
-        self.assertEqual(out["diff"]["2026-11-08"]["flip"], {"stream": 0.0, "swap": -3.0})
+        self.assertEqual(out["overall"]["flip"]["err"], 9.0)                       # promised 8 (2 x (3 - -1)), got -1
+        self.assertEqual(out["diff"]["2026-11-08"]["flip"], {"stream": 0.0, "swap": -3.0, "err": 8.0})
+
+
+class Trial(unittest.TestCase):
+    """The value-source trial: site vs DARKO minutes vs shrunk on the same mornings, and the rule to switch one on."""
+    # DARKO gives Next Guy 1.75x his minutes (PTS raw 15 -> 26.25, z 1 -> 3.25): he passes Add Guy
+    DAYS = {"2026-11-05": {"asof": "2026-11-04", "how": "time machine", "m": {"3": 1.9}},
+            "2026-11-06": {"asof": "2026-11-05", "how": "live", "m": {"3": 1.9}}}
+
+    def test_darko_and_shrunk_sources_on_a_morning(self):
+        m = hist()[0]
+        dk = ab.darko_source(self.DAYS)
+        self.assertEqual(dk({"id": "3", "z": [1, 0]}, m), [3.25, 0.0])           # clamped to 1.75
+        self.assertEqual(dk({"id": "2", "z": [2, 0]}, m), [2, 0])                 # no factor: the site's
+        self.assertEqual(ab.darko_source({})({"id": "3", "z": [1, 0]}, m), [1, 0])
+        pool = {"2": {"proj": {"0": 15, "13": 5, "14": 10}}}                       # PTS z 1, FG% made-above-rate 0
+        sh = ab.shrunk_source(pool)
+        self.assertEqual(sh({"id": "2", "z": [3, 0], "src": "season", "gp": 10}, m), [2.0, 0.0])   # halfway at 10 games
+        self.assertEqual(sh({"id": "2", "z": [3, 0], "src": "proj", "gp": 3}, m), [3, 0])         # already the projection
+        self.assertEqual(sh({"id": "3", "z": [3, 0], "src": "season", "gp": 10}, m), [3, 0])      # no projection
+
+    def test_same_mornings_scored_and_weeks_stored(self):
+        t = ab.trial(None, hist=hist(), pool=POOL, dates=DATES, today=dt.date(2026, 11, 9), days=self.DAYS)
+        wk = t["weeks"]["2026-11-08"]
+        self.assertEqual(set(wk), {"site", "darko_minutes", "shrunk"})
+        self.assertEqual(wk["site"], wk["shrunk"])                               # no src/projection in the fixture
+        self.assertEqual((wk["darko_minutes"]["swap"], wk["darko_minutes"]["n_swap"]), (-0.5, 1))   # Next Guy for Drop Guy
+        self.assertEqual(t["diff"]["2026-11-08"]["darko_minutes"]["swap"], -3.0)
+        self.assertEqual((t["mornings"], t["first"], t["lag"], t["ready"]), (2, "2026-11-05", 1, []))
+        self.assertEqual(t["gate"]["darko_minutes"]["weeks"], 1)
+        only_one = ab.trial(None, hist=hist(), pool=POOL, dates=DATES, today=dt.date(2026, 11, 9), days={"2026-11-06": self.DAYS["2026-11-06"]})
+        self.assertEqual(only_one["mornings"], 1)                                # mornings without a reading are left out
+        again = ab.trial(t, hist=[], pool={}, dates=DATES, today=dt.date(2026, 11, 10), days=self.DAYS)
+        self.assertEqual(again["weeks"], t["weeks"])                             # stored weeks stand
+        stale = ab.trial({**t, "v": ab.TRIAL_V + 1}, hist=[], pool={}, dates=DATES, today=dt.date(2026, 11, 10), days=self.DAYS)
+        self.assertEqual(stale["weeks"], {})
+
+    def test_rule_two_weeks_twenty_swaps_better_gain_and_miss(self):
+        row = lambda swap, err, n: {"swap": swap, "err": err, "n_swap": n, "stream": 0, "n_stream": 3, "bias": 0}
+        weeks = {"2026-11-15": {"site": row(0.1, 7.0, 10), "darko_minutes": row(0.6, 5.0, 10), "shrunk": row(0.5, 8.0, 10)},
+                 "2026-11-22": {"site": row(-0.3, 6.0, 12), "darko_minutes": row(0.2, 5.5, 11), "shrunk": row(0.9, 6.5, 12)}}
+        g = ab.ready_sources(weeks)
+        self.assertTrue(g["darko_minutes"]["ready"])
+        self.assertEqual((g["darko_minutes"]["n"], g["darko_minutes"]["gain"], g["darko_minutes"]["ref_gain"]), (21, 0.39, -0.12))
+        self.assertFalse(g["shrunk"]["ready"])                                   # better gain, but a bigger miss overall
+        self.assertEqual((g["shrunk"]["gain"], g["shrunk"]["err"], g["shrunk"]["ref_err"]), (0.72, 7.18, 6.45))
+        self.assertFalse(ab.ready_sources({"2026-11-15": weeks["2026-11-15"]})["darko_minutes"]["ready"])     # one week
+        few = {k: {**v, "darko_minutes": {**v["darko_minutes"], "n_swap": 9}} for k, v in weeks.items()}
+        self.assertFalse(ab.ready_sources(few)["darko_minutes"]["ready"])                                   # 18 swaps
+
+    def test_health_section_says_when_one_is_ready(self):
+        t = ab.trial(None, hist=hist(), pool=POOL, dates=DATES, today=dt.date(2026, 11, 9), days=self.DAYS)
+        base = {}
+        rows = {r["id"]: r for r in health.trial_checks(t, lambda c, v, n: health.judge(c, v, n, base, "2026-11-12"))}
+        self.assertEqual((rows["src.darko_gain"]["value"], rows["src.darko_gain"]["status"]), (-3.0, "info"))
+        self.assertEqual(rows["src.darko_err"]["value"], 8.5)                    # promised 2 x (3.25 - -1), got -1
+        self.assertEqual(base, {})                                               # shown, never judged
+        notes = health.trial_notes(t)
+        self.assertTrue(notes[0].startswith('Ready to switch on: none yet (the switch is "site")'))
+        self.assertTrue(any(n.startswith("Week ending 2026-11-08: site swaps +2.50/g (n=1, miss 1.0)") for n in notes))
+        ready = {**t, "ready": ["darko_minutes"]}
+        self.assertTrue(health.trial_notes(ready)[0].startswith("Ready to switch on: darko_minutes"))
+        self.assertIn("Ready to switch on: none yet", health.trial_notes({})[0])
 
 
 class HealthChecks(unittest.TestCase):

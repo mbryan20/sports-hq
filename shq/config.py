@@ -47,3 +47,10 @@ LEAGUES = [
     {"name": "Ball is Life", "sport": "nba", "platform": "espn", "league_id": 190278, "team_id": 5, "season": 2027, "private": True},
 ]
 ESPN_PRIVATE = [lg for lg in LEAGUES if lg["platform"] == "espn" and lg.get("private")]
+
+# NBA category value per game (shq/nba_values.py): "site" (this season's averages, ESPN's projection before 5 games),
+# "darko_minutes" (each line rescaled to DARKO's projected minutes, shq/darko.py) or "shrunk" (a short season pulled
+# toward ESPN's projection by games played). A trial: model health (section "sources") compares all three nightly and
+# says "ready to switch on: <source>" once one beats the site on swap gain and estimate error over 2+ complete weeks
+# and 20+ swaps. Switching is this one line, made by a session after Michael is told.
+NBA_VALUE_SOURCE = "site"

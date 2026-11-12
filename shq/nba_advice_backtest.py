@@ -19,10 +19,13 @@ actual number here are the same kind of number.
 Scored suggestions are kept in docs/data/health.json (shq/health.py passes last night's back in), so the sample keeps
 growing after the game logs (ESPN keeps each player's last 20) roll past them.
 
-compare_sources() replays the picks with another value source on the same history (for the DARKO-minutes change: turn
-it on only if it beats the site's values over at least 2 weeks). Free reads only, no AI.
+compare_sources() replays the picks with another value source on the same history. trial() is the nightly value-source
+trial (shq/health.py section "sources"): the site's values vs DARKO minutes vs shrunk (config.NBA_VALUE_SOURCE,
+shq/nba_values.py) on the same mornings (those with a DARKO reading, state/nba_darko.json), finished weeks kept in
+health.json; ready_sources() applies the rule to switch one on. Free reads only, no AI.
 
-    py -m shq.nba_advice_backtest [--write]     prints the report; --write saves reviews/<date>-nba-swaps-backtest.md"""
+    py -m shq.nba_advice_backtest [--write]     prints the report; --write saves reviews/<date>-nba-swaps-backtest.md
+    py -m shq.nba_advice_backtest --trial       prints the value-source trial"""
 import datetime as dt
 import re
 import sys
@@ -32,6 +35,7 @@ from . import nba_swaps, radar
 from .common import ROOT, now_utc
 from .config import LEAGUES, TZ
 from .espn_fantasy import NBA_STATS
+from . import nba_values
 from .nba_values import raw
 
 LINEUPS, PLAYERS = "docs/data/lineups.json", "docs/data/players.json"
@@ -363,15 +367,16 @@ def picks(morning, source):
                 continue
             pairs.append((not nba_swaps.dead(d), -gain, d["id"], a["id"]))
     pairs.sort()
-    swaps, used = [], set()
-    for _, _, d, a in pairs:
+    swaps, used, est = [], set(), {}
+    for _, g, d, a in pairs:
         if d in used or a in used:
             continue
         used |= {d, a}
         swaps.append((d, a, when))
+        est[(d, a)] = -g
         if len(swaps) == nba_swaps.MAX_SWAPS:
             break
-    return {"streamers": [(p["id"], when) for p in streamers], "swaps": swaps}
+    return {"streamers": [(p["id"], when) for p in streamers], "swaps": swaps, "est": est}
 
 
 def compare_sources(hist, pool, dates, today, sources):
@@ -380,11 +385,12 @@ def compare_sources(hist, pool, dates, today, sources):
     run(). Returns {"weeks": {week: {source: {"stream": actual worth per game of its top 3 streamers, "swap": actual gain
     per add game of its swaps, "n_stream", "n_swap"}}}, "overall": {...same over all weeks}, "diff": {week: {source:
     its stream/swap minus the reference's}}, "match" / "match_swaps": share of the reference's replayed streamers / swaps
-    the site really showed (a check that the replay is faithful)}.
+    the site really showed (a check that the replay is faithful)}. Each source also has "err" / "bias": its swaps' own
+    "+N" (the gain it estimated) vs what happened, average miss and average (actual - estimate).
     Each pick counts once a week, at its first morning, as in run()."""
     last_period = max((d for p in pool.values() for d, *_ in p.get("games") or []), default=0)
     names = list(sources)
-    got = {n: {"stream": {}, "swap": {}} for n in names}       # {source: {kind: {key: (week, value)}}}
+    got = {n: {"stream": {}, "swap": {}, "err": {}, "bias": {}} for n in names}   # {source: {kind: {key: (week, value)}}}
     shown = matched = shown_sw = matched_sw = 0
     for m in hist:
         block = m["block"]
@@ -417,17 +423,22 @@ def compare_sources(hist, pool, dates, today, sources):
                 if va is None or vd is None:
                     continue
                 games = g[a]["g"][0 if when == "this week" else 1] or 1
-                got[n]["swap"].setdefault(f"{m['league']}|{week}|{d}|{a}", (week, (va - vd) / games))
+                k = f"{m['league']}|{week}|{d}|{a}"
+                if k not in got[n]["swap"]:
+                    got[n]["swap"][k] = (week, (va - vd) / games)
+                    miss = (va - vd) - pk["est"][(d, a)]
+                    got[n]["err"][k], got[n]["bias"][k] = (week, abs(miss)), (week, miss)
 
     def agg(n, week=None):
-        vals = {k: [v for w_, v in got[n][k].values() if week is None or w_ == week] for k in ("stream", "swap")}
+        vals = {k: [v for w_, v in got[n][k].values() if week is None or w_ == week] for k in got[n]}
         return {"stream": r2(mean(vals["stream"])), "swap": r2(mean(vals["swap"])),
-                "n_stream": len(vals["stream"]), "n_swap": len(vals["swap"])}
+                "n_stream": len(vals["stream"]), "n_swap": len(vals["swap"]),
+                "err": r2(mean(vals["err"])), "bias": r2(mean(vals["bias"]))}
     weeks = sorted({w_ for n in names for k in ("stream", "swap") for w_, _ in got[n][k].values()})
     out = {"weeks": {wk: {n: agg(n, wk) for n in names} for wk in weeks}, "overall": {n: agg(n) for n in names},
            "match": r2(matched / shown) if shown else None, "match_swaps": r2(matched_sw / shown_sw) if shown_sw else None}
     sub = lambda a, b: r2(a - b) if a is not None and b is not None else None
-    out["diff"] = {wk: {n: {k: sub(out["weeks"][wk][n][k], out["weeks"][wk][names[0]][k]) for k in ("stream", "swap")}
+    out["diff"] = {wk: {n: {k: sub(out["weeks"][wk][n][k], out["weeks"][wk][names[0]][k]) for k in ("stream", "swap", "err")}
                         for n in names[1:]} for wk in weeks}
     return out
 
@@ -437,6 +448,93 @@ def compare(sources, today=None):
     today = today or now_utc().astimezone(TZ).date()
     pool, dates = inputs()
     return compare_sources(history(), pool, dates, today, sources)
+
+
+# ---------- the value-source trial (site vs DARKO minutes vs shrunk) ----------
+TRIAL_V = 1            # version of the stored trial weeks; a change in how they're scored re-scores them
+GATE_WEEKS, GATE_N = 2, 20     # the rule: 2+ complete weeks, 20+ of the source's swaps judged
+
+
+def scale_rows(block):
+    """[(mean, sd, sign)] per category on a morning's league scale (players.json "scale" and "rev")."""
+    rev = block.get("rev") or [False] * len(block["cats"])
+    return [(block["scale"][c][0], block["scale"][c][1], -1 if r else 1) for c, r in zip(block["cats"], rev)]
+
+
+def darko_source(days):
+    """Value source "darko_minutes" on a past morning: that morning's minutes factor (state/nba_darko.json "days")."""
+    def fn(p, morning):
+        f = ((days.get(morning["day"]) or {}).get("m") or {}).get(str(p["id"]))
+        return p["z"] if f is None else nba_values.minutes_z(p["z"], scale_rows(morning["block"]), f)
+    return fn
+
+
+def shrunk_source(pool):
+    """Value source "shrunk" on a past morning: a season-valued player's z pulled toward his ESPN projection's z on that
+    morning's scale. The projection is the pool's (tonight's ESPN season projection, not that morning's)."""
+    def fn(p, morning):
+        proj = (pool.get(str(p["id"])) or {}).get("proj") or {}
+        if p.get("src") != "season" or not proj:
+            return p["z"]
+        block = morning["block"]
+        zp = [s * (raw(CAT_ID[c], proj, block["scale"][c][2]) - mean) / (sd or 1)
+              for c, (mean, sd, s) in zip(block["cats"], scale_rows(block))]
+        return nba_values.shrunk_z(p["z"], zp, p.get("gp") or 0)
+    return fn
+
+
+def pooled(rows, key):
+    """A per-week number pooled over weeks, weighted by each week's swaps."""
+    xs = [(r[key], r["n_swap"]) for r in rows if r.get(key) is not None and r.get("n_swap")]
+    n = sum(w for _, w in xs)
+    return r2(sum(x * w for x, w in xs) / n) if n else None
+
+
+def ready_sources(weeks, ref="site"):
+    """The rule, per trial source over the stored complete weeks: {source: {"weeks", "n", "gain", "err", "ref_gain",
+    "ref_err", "ready"}}. Ready = GATE_WEEKS+ complete weeks with its swaps judged, GATE_N+ of them, and over those weeks
+    a higher swap gain per add game AND a lower estimate miss than the site's (both pooled by swaps)."""
+    out = {}
+    names = sorted({s for wk in weeks.values() for s in wk if s != ref})
+    for s in names:
+        both = [wk for wk in sorted(weeks) if (weeks[wk].get(s) or {}).get("n_swap") and (weeks[wk].get(ref) or {}).get("n_swap")]
+        mine, theirs = [weeks[wk][s] for wk in both], [weeks[wk][ref] for wk in both]
+        g, e, rg, re_ = pooled(mine, "swap"), pooled(mine, "err"), pooled(theirs, "swap"), pooled(theirs, "err")
+        n = sum(x["n_swap"] for x in mine)
+        ok = (len(both) >= GATE_WEEKS and n >= GATE_N and None not in (g, e, rg, re_) and g > rg and e < re_)
+        out[s] = {"weeks": len(both), "n": n, "gain": g, "err": e, "ref_gain": rg, "ref_err": re_, "ready": ok}
+    return out
+
+
+def trial(previous=None, hist=None, pool=None, dates=None, today=None, days=None):
+    """The nightly value-source trial: the site's values, DARKO minutes and shrunk, replayed on the same mornings (every
+    morning with a DARKO reading) and scored as compare_sources() does. Complete weeks are stored (`previous`: last
+    night's result) and stand once stored. {"v", "weeks": {week: {source: ...}}, "diff", "gate", "ready", "mornings",
+    "first", "match", "match_swaps", "lag"}."""
+    from . import darko
+    today = today or now_utc().astimezone(TZ).date()
+    if pool is None or dates is None:
+        pool, dates = inputs()
+    days = days if days is not None else (darko.load().get("days") or {})
+    if hist is None:                    # only the mornings with a DARKO reading are read from git
+        from . import health
+        on = lambda t: dt.datetime.fromtimestamp(t, TZ).date().isoformat() in days
+        hist = history([(t, sha) for t, sha in health.git_versions(LINEUPS) if on(t)])
+    hist = [m for m in hist if m["day"] in days]
+    prev = previous if (previous or {}).get("v") == TRIAL_V else {}
+    cmp = compare_sources(hist, pool, dates, today, {"site": site_source, "darko_minutes": darko_source(days),
+                                                     "shrunk": shrunk_source(pool)})
+    weeks = {**cmp["weeks"], **(prev.get("weeks") or {})}       # only finished weeks are ever scored; stored ones stand
+    sub = lambda a, b: r2(a - b) if a is not None and b is not None else None
+    diff = {wk: {s: {k: sub(x[s][k], x["site"][k]) for k in ("stream", "swap", "err")} for s in x if s != "site"}
+            for wk, x in sorted(weeks.items())}
+    gate = ready_sources(weeks)
+    lag = [(dt.date.fromisoformat(d) - dt.date.fromisoformat(days[d]["asof"])).days for d in days
+           if days[d].get("asof") and days[d].get("how") == "live"]
+    return {"v": TRIAL_V, "weeks": dict(sorted(weeks.items())), "diff": diff, "gate": gate,
+            "ready": [s for s, g in gate.items() if g["ready"]], "mornings": len(hist),
+            "first": min(days) if days else None, "match": cmp["match"], "match_swaps": cmp["match_swaps"],
+            "lag": r2(mean(lag)) if lag else None}
 
 
 # ---------- runs ----------
@@ -534,6 +632,11 @@ def main(argv):
              f"risers and today's Lineup moves); their top 3 streamers {fmt(cmp['overall']['site']['stream'])} per game, swaps "
              f"{fmt(cmp['overall']['site']['swap'])} per add game (n={cmp['overall']['site']['n_stream']} / "
              f"{cmp['overall']['site']['n_swap']}).\n")
+    if "--trial" in argv:
+        from .health import trial_notes
+        t = trial(pool=pool, dates=dates, today=today, hist=hist)
+        print("\n".join(trial_notes(t)))
+        return
     if "--write" in argv:
         path = ROOT / "reviews" / f"{today}-nba-swaps-backtest.md"
         path.write_bytes(text.encode("utf-8"))

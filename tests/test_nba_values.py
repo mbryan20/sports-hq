@@ -6,6 +6,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 os.environ["DRY_RUN"] = "1"
 
@@ -144,6 +145,67 @@ class Values(unittest.TestCase):
             self.assertEqual([p["id"] for p in d["leagues"]["A"]["players"]], ["1", "2"])
             self.assertEqual(d["leagues"]["B"]["cats"], ["AST"])
             self.assertIn('\n{"id":"2"}\n', path.read_text(encoding="utf-8"))
+
+
+class ValueSource(unittest.TestCase):
+    """The trial switch (config.NBA_VALUE_SOURCE): "site" is today's values, unchanged; "darko_minutes" and "shrunk"
+    change players' values (and so the order) on the site's scale and waiver level."""
+    setUp, tearDown = Values.setUp, Values.tearDown
+
+    def test_z_transforms(self):
+        rows = [(10, 5, 1), (2, 1, -1)]                 # PTS mean 10 sd 5; TO mean 2 sd 1, reversed
+        self.assertEqual(nba_values.minutes_z([2, -1], rows, 1.0), [2.0, -1.0])
+        self.assertEqual(nba_values.minutes_z([2, -1], rows, 1.5), [4.0, -2.5])   # 20 -> 30 pts; 3 -> 4.5 TO
+        self.assertEqual(nba_values.minutes_z([2, -1], rows, 9), nba_values.minutes_z([2, -1], rows, nba_values.M_RANGE[1]))
+        self.assertEqual(nba_values.shrunk_z([3, 1], [1, 1], nba_values.SHRINK_K), [2.0, 1.0])
+        self.assertEqual(nba_values.shrunk_z([3], [1], 0), [1.0])
+
+    def test_site_is_the_default_and_unchanged(self):
+        from shq import config
+        self.assertEqual(config.NBA_VALUE_SOURCE, "site")
+        b, site = nba_values.build(league()), nba_values.build(league(), source="site")
+        self.assertEqual(b, site)
+        self.assertNotIn("source", b)
+        self.assertNotIn("DARKO", b["basis"])
+
+    def test_darko_minutes_rescales_lines_and_credits_darko(self):
+        from shq import darko
+        with tempfile.TemporaryDirectory() as tmp:
+            snap = Path(tmp) / "nba_darko.json"
+            with mock.patch.object(darko, "SNAP", snap):
+                none = nba_values.build(league(), source="darko_minutes")             # no reading: the site's values
+                site = nba_values.build(league(), source="site")
+                self.assertEqual([p["v"] for p in none["players"]], [p["v"] for p in site["players"]])
+                self.assertIn("no recent DARKO reading", none["basis"])
+                darko.record("2026-10-28", [{"name": "Bench Guy", "min": 45.0}, {"name": "Star", "min": 15.0}], "2026-10-27",
+                             {"6": 30.0, "1": 30.0}, {"6": "Bench Guy", "1": "Star"})
+                b = nba_values.build(league(), source="darko_minutes")
+        by, sb = nba_values.by_id(b), nba_values.by_id(site)
+        self.assertIn("minutes from DARKO (darko.app), as of 2026-10-27", b["basis"])
+        self.assertEqual(b["source"], "darko_minutes")
+        self.assertEqual((b["repl"], b["scale"]), (site["repl"], site["scale"]))    # the league's scale and waiver level stay
+        # 1.5x the minutes: more points and assists, but his 33% shooting and turnovers weigh more too
+        rows = [(site["scale"][c][0], site["scale"][c][1], -1 if r else 1) for c, r in zip(site["cats"], site["rev"])]
+        for got, want in zip(by["6"]["z"], nba_values.minutes_z(sb["6"]["z"], rows, 1.5)):
+            self.assertAlmostEqual(got, want, delta=0.03)
+        self.assertGreater(by["6"]["z"][0], sb["6"]["z"][0])                         # PTS up
+        self.assertLess(by["6"]["z"][3], sb["6"]["z"][3])                            # TO (reversed) down
+        self.assertLess(by["1"]["v"], sb["1"]["v"])                                  # the star at half the minutes
+        self.assertEqual(by["2"]["v"], sb["2"]["v"])                                 # no reading: unchanged
+        self.assertEqual(by["6"]["st"], sb["6"]["st"])                               # his shown stats are ESPN's, not DARKO's
+        self.assertEqual([p["rk"] for p in b["players"]], list(range(1, len(b["players"]) + 1)))
+        self.assertEqual(b["players"][0]["v"], max(p["v"] for p in b["players"]))
+
+    def test_shrunk_pulls_a_season_toward_espn_projection(self):
+        pool = {**POOL, "2": {**POOL["2"], "proj": line(10, 1, 4, 10)}}              # projected well below his 8 games
+        radar.fetch_pool = lambda *a, **k: pool
+        site, b = nba_values.build(league(), source="site"), nba_values.build(league(), source="shrunk")
+        by, sb = nba_values.by_id(b), nba_values.by_id(site)
+        self.assertLess(by["2"]["v"], sb["2"]["v"])
+        self.assertEqual(by["4"]["v"], sb["4"]["v"])                                 # 3 games: already ESPN's projection
+        self.assertEqual(by["1"]["v"], sb["1"]["v"])                                 # no projection: unchanged
+        self.assertIn("pulled toward his ESPN projection", b["basis"])
+        self.assertEqual(b["source"], "shrunk")
 
 
 if __name__ == "__main__":

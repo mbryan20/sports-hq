@@ -11,12 +11,20 @@ times attempts, so a good shooter on many attempts helps more than one on few. R
 Rank is by that value across the whole pool.
 
 This week: (value per game - a waiver-level player's) x games left this matchup that haven't tipped off, and 0 while
-he's out on ESPN's injury report. A waiver-level player is the one ranked just past what the league rosters."""
+he's out on ESPN's injury report. A waiver-level player is the one ranked just past what the league rosters.
+
+Value source (config.NBA_VALUE_SOURCE, a trial switch; "site" = all of the above, unchanged):
+- "darko_minutes": each player's line rescaled to DARKO's projected minutes (shq/darko.py: his minutes factor, clamped
+  to M_RANGE), per-minute production kept. On the z scale that is z' = s(m(mean + sd s z) - mean)/sd per category.
+- "shrunk": a player valued on this season's games has each category's z pulled toward his ESPN season projection's z
+  by games played: w = gp / (gp + SHRINK_K).
+Either way the league's z scale and waiver level stay the site's (as the backtest replays them); only players' values
+and so the order change. Model health compares the three nightly (shq/nba_advice_backtest.py trial())."""
 import json
 import traceback
 from pathlib import Path
 
-from . import categories, nba_ages, radar
+from . import categories, config, nba_ages, radar
 from .common import load_json
 from .config import TZ
 from .espn_fantasy import NBA_STATS, RATIO, SLOT_NAMES
@@ -26,6 +34,9 @@ MIN_GAMES = 5          # games before this season's averages replace ESPN's proj
 DEFAULT_CATS = [[0, False], [1, False], [2, False], [3, False], [6, False], [17, False], [19, False], [20, False]]
 POS = ("PG", "SG", "SF", "PF", "C")
 KEEP = 300             # players written per league besides the ones on a roster
+SOURCES = ("site", "darko_minutes", "shrunk")
+M_RANGE = (0.5, 1.75)  # DARKO minutes factor clamp: a 5-minute sample doesn't triple a player's value
+SHRINK_K = 10          # games of ESPN's projection a season's average is shrunk toward (not tuned on the backtest)
 
 
 def per_game(p):
@@ -83,6 +94,45 @@ def value_pool(lines, cats, n):
     return out, sc
 
 
+def minutes_z(z, rows, m):
+    """A player's category z-scores with his line rescaled by minutes factor m (clamped to M_RANGE). rows: [(mean,
+    sd, sign)] per category on the league's scale (sign -1 for a reversed category). Ratio categories scale too: made
+    and attempts both move with minutes."""
+    m = min(max(m, M_RANGE[0]), M_RANGE[1])
+    return [s * (m * (mean + (sd or 1) * s * x) - mean) / (sd or 1) for x, (mean, sd, s) in zip(z, rows)]
+
+
+def shrunk_z(z, zproj, gp, k=SHRINK_K):
+    """z pulled toward his projection's z by games played."""
+    w = gp / (gp + k) if gp + k else 1.0
+    return [w * a + (1 - w) * b for a, b in zip(z, zproj)]
+
+
+def alternative(source, vals, src, pool, cats, sc, factors):
+    """{id: (value, [z])} under a trial value source; a player it has nothing for keeps his site value."""
+    rows = [(sc[c][0], sc[c][1], -1 if rev else 1) for c, rev in cats]
+    out = {}
+    for pid, (v, z) in vals.items():
+        if source == "darko_minutes" and pid in factors:
+            z = minutes_z(z, rows, factors[pid])
+        elif source == "shrunk" and src[pid][0] == "season" and (pool[pid].get("proj") or {}):
+            z = shrunk_z(z, zs(pool[pid]["proj"], cats, sc), src[pid][1])
+        out[pid] = (sum(z), z)
+    return out
+
+
+def source_basis(source, used, asof):
+    if source == "darko_minutes":
+        if not used:
+            return " Value source: DARKO minutes is switched on but there is no recent DARKO reading, so these are the site's values."
+        return (f" Value source: minutes from DARKO (darko.app), as of {asof}: each player's per-game line is rescaled to "
+                f"DARKO's projected minutes ({used} players; factor kept within {M_RANGE[0]}–{M_RANGE[1]}).")
+    if source == "shrunk":
+        return (f" Value source: shrunk: a player valued on this season's games is pulled toward his ESPN projection by "
+                f"games played (weight games / (games + {SHRINK_K})).")
+    return ""
+
+
 def roster_spots(league):
     slots = league.data.get("slot_counts") or {}
     per_team = sum(v for k, v in slots.items() if int(k) != 13) or 13      # IR spots don't count
@@ -111,7 +161,7 @@ def shown(cat, st):
     return round(st.get(str(cat), 0), 1)
 
 
-def build(league, sc=None):
+def build(league, sc=None, source=None):
     """{"cats", "players": [...best first], "repl", "n", "basis"} for one NBA category league, or None when the
     pool read failed. Each player: id, name, team, pos, own ("me" / team name / None = free agent), src ("season" /
     "proj"), gp, min, v (value per game), rk, wk (this week), g [games left this week, next week], b2b, z (per cat,
@@ -133,13 +183,26 @@ def build(league, sc=None):
     vals, scale = value_pool(lines, cats, n)
     order = sorted(vals, key=lambda i: -vals[i][0])
     repl = vals[order[min(n, len(order) - 1)]][0]
+    today = league.ctx.now.astimezone(TZ).date()
+    source = source or getattr(config, "NBA_VALUE_SOURCE", "site")
+    extra = ""
+    if source in SOURCES and source != "site":      # the trial switch; the scale and waiver level stay the site's
+        try:
+            factors, asof = {}, None
+            if source == "darko_minutes":
+                from . import darko
+                factors, asof, _ = darko.today_factors(today.isoformat())
+            vals = alternative(source, vals, src, pool, cats, scale, factors)
+            order = sorted(vals, key=lambda i: -vals[i][0])
+            extra = source_basis(source, sum(1 for i in vals if i in factors), asof)
+        except Exception:
+            traceback.print_exc()
     own = owners(league)
     try:
         born = nba_ages.birth_dates()
     except Exception:
         traceback.print_exc()
         born = {}
-    today = league.ctx.now.astimezone(TZ).date()
     out = []
     for rk, pid in enumerate(order, 1):
         if rk > KEEP and pid not in own:
@@ -176,7 +239,8 @@ def build(league, sc=None):
                      f"({league.team_count} teams' rosters); per-game stats from this season once a player has {MIN_GAMES} "
                      "games, ESPN's projection before that. This week = (value − a waiver-level player's) × games left, "
                      "0 while out. Injury tags are ESPN's; today's status line comes from the NBA injury report and "
-                     "Sleeper (the official report wins when it's newer)."}
+                     "Sleeper (the official report wins when it's newer)." + extra,
+            **({"source": source} if extra else {})}
 
 
 def save(path, blocks, updated):
