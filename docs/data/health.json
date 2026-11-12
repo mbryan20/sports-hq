@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T16:40:15Z",
+ "generated": "2026-11-12T08:55:21Z",
  "summary": {
   "ok": 12,
   "watch": 2,
@@ -1676,8 +1676,8 @@
     {
      "id": "radar.held",
      "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-     "value": 0.7,
-     "n": 10,
+     "value": 0.64,
+     "n": 11,
      "unit": "%",
      "baseline": 0.7,
      "baseline_set": "2026-11-10",
@@ -1687,16 +1687,16 @@
     {
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
-     "value": 0.63,
-     "n": 41,
+     "value": 0.65,
+     "n": 48,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": 0.43,
-     "n": 30,
+     "value": 0.12,
+     "n": 39,
      "unit": "z",
      "baseline": 0.34,
      "baseline_set": "2026-11-10",
@@ -1706,30 +1706,30 @@
    ],
    "details": {
     "mornings": 14,
-    "wire_mornings": 4,
-    "wire_value": -4.97,
+    "wire_mornings": 5,
+    "wire_value": -4.8,
     "shown": {
-     "n": 10,
+     "n": 11,
      "held": 7,
-     "held_rate": 0.7,
-     "value": -2.78,
-     "edge_n": 4,
-     "edge": 2.46,
-     "added_later": 1
+     "held_rate": 0.64,
+     "value": -2.46,
+     "edge_n": 5,
+     "edge": 3.04,
+     "added_later": 2
     },
     "flags": {
-     "n": 41,
-     "held": 26,
-     "held_rate": 0.63,
-     "value": -3.99,
-     "edge_n": 30,
-     "edge": 0.43,
-     "added_later": 5
+     "n": 48,
+     "held": 31,
+     "held_rate": 0.65,
+     "value": -4.15,
+     "edge_n": 39,
+     "edge": 0.12,
+     "added_later": 6
     },
-    "every_value": -5.65
+    "every_value": -5.72
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 4 mornings (state/nba_owned.json starts Nov 3); shown flags alone 2.46 (n=4)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 5 mornings (state/nba_owned.json starts Nov 3); shown flags alone 3.04 (n=5)."
    ]
   },
   {
