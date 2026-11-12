@@ -94,6 +94,13 @@ The footer shows the last cloud run and when each laptop job last delivered.
   live in `state/alerts.json` / `state/pick_lines_sent.json`; before a real push the run also reads `origin/main`'s copy,
   and `commit_data.sh` merges those files key by key (`shq/statemerge.py`), so a laptop kick and a cron loop never
   push the same alert twice. Anything not pushed is still on the site.
+- **NBA game-day status** (`shq/nba_status.py`, Q-058): on top of ESPN's injury report, the NBA's official injury report
+  (newest PDF from official.nba.com, re-read at most every 10 min, hourly on days without games) and Sleeper's public NBA
+  players file (every 45 min on game days, 6h otherwise), both cached in `.cache` and never allowed to fail a run. For
+  today's game the official report wins when it's newer than ESPN's note; Sleeper fills gaps; disagreement with nothing
+  official is "unconfirmed" (shown, never acted on). "Injury Management" + Out is a rest day: OUT for that game only. A
+  starter newly out rides in the one NBA lineup push if it hasn't gone out; after it, the site only. Pages show our
+  derived status and a short reason ("Out (rest) per NBA injury report, 5:30pm"), never the report itself.
 - **Rest-of-season numbers** (`shq/values.py`, Q-043): a later week Sleeper hasn't re-projected for a player's current
   team takes his live per-game number, but never this week (no live projection = 0), never for a player any source tags
   Doubtful/Out/IR/PUP/SUSP (even when the shown status was softened to Q), and never in a QB's week where Sleeper projects

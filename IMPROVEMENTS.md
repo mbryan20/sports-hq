@@ -1117,6 +1117,35 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-058 · NBA rest days and late scratches arrived late: status came only from ESPN
+- **Status:** shipped (e363165, Thu Nov 12; renumbered in ded7042). Live from the next cloud run. Not dispatched.
+- **Area:** `shq/nba_status.py` (new), `shq/leagues.py` (`Context.nba_gameday`, `EspnLeague._player`/`gameday`, `view`
+  `status_basis`), `shq/nba_lineup.py` (`_why`, `pushed_today`, `lines`, `send`), `shq/run.py` (`injury_watch`),
+  `shq/digest.py` (`_problem`, `_q_label`), `shq/nba_values.py` (`gd`), `shq/nba_swaps.py` (`status_text`),
+  `docs/lib/core.js` (Starters basis), `docs/players/index.html` ("Out today" chip, "Today:" line), `requirements.txt`
+  (pypdf 5.1.0), `tests/test_nba_status.py` (new), README
+- **Rank:** —
+- **Added:** 2026-11-12 by a Sports HQ build session (Michael: add game-day NBA status from two allowed sources)
+- **Design:** two free sources on top of ESPN's injury report, both cached in `.cache` and never allowed to fail a run.
+  (1) The NBA's official injury report: the season index on official.nba.com (generic user agent; the default one gets
+  403), newest PDF parsed by word positions (pypdf) into date, team, player, status, reason; "NOT YET SUBMITTED" =
+  unknown. Re-read at most every 10 min on game days, hourly otherwise; the PDF is downloaded only when a newer one is
+  listed. (2) Sleeper's public NBA players file (no ESPN ids for NBA, so name + team): injury_status, news_updated;
+  every 45 min on game days, 6h otherwise. Precedence: for today's game the official row wins when it's newer than
+  ESPN's note (or ESPN has none); an older row that disagrees with ESPN's newer note on whether he plays = unconfirmed
+  (Q, nothing acts); no row → Sleeper fills gaps only when newer than ESPN and worse, through `status.confirm` (a Sleeper
+  Out ESPN doesn't back is unconfirmed). "Injury Management" + Out = rest: OUT for that game only. Push: a starter newly
+  out is a lineup move, so it rides in the one NBA lineup push if it hasn't gone out; after it, the move shows "(new
+  since today's lineup push; not pushed)" and the injury watch skips starters whose Out the official report backs. No
+  new notification. Display: our status and a short reason ("Out (rest) per NBA injury report, 5:30pm"), credited in a
+  basis line on league pages and the Players page; the report itself is never republished or linked.
+- **Checked:** 22 fixture tests (PDF words incl. a wrapped reason and a header-less page 2, index links, Sleeper JSON,
+  caching and outages, every precedence rule, the push rules); full suite OK. Live, Nov 12 8:50am CT (8:45am report, 29
+  players listed, 2 of today's 8 teams not yet submitted; Sleeper 98 tagged): none of the 9 rostered players who play today is on the
+  report, so both leagues' statuses are unchanged (Ball is Life: Austin Reaves stays Q from ESPN, no game today).
+  Not confirmed: that official.nba.com answers GitHub's runners (if not, ESPN + Sleeper carry on).
+- **Undo:** `git revert ded7042 e363165` and this entry (pypdf leaves requirements with the revert).
+
 ### Q-057 · Model health: were traded, injured and newly starting players projected right?
 - **Status:** shipped (a1b34f8, Thu Nov 12). Week 9 shows from the next nightly run; week 10 joins on the first run after
   Monday night (Tue Nov 17, 2:55am CT). Not dispatched.

@@ -2,7 +2,7 @@
 import datetime as dt
 import re
 
-from . import espn, espn_fantasy as ef, experts, sleeper, values
+from . import espn, espn_fantasy as ef, experts, nba_status, sleeper, values
 from .common import iso, parse_iso
 from .config import TZ, SEASON, SLEEPER_TEAM_NAME, SLEEPER_USERNAME, YAHOO_LEAGUE_NAME, YAHOO_SCORING
 from .status import OUTISH, confirm, worst
@@ -85,6 +85,13 @@ class Context:
         if sport not in cache:
             cache[sport] = espn.injury_report("basketball/nba")
         return cache[sport]
+
+    def nba_gameday(self, game_day=True):
+        """Game-day NBA status (the official injury report and Sleeper, shq/nba_status.py), read once per run.
+        Never raises: an empty feed leaves ESPN's statuses as they are."""
+        if "_gd" not in self.__dict__:
+            self._gd = nba_status.load(self.now, game_day)
+        return self._gd
 
 
 def name_key(name):
@@ -332,6 +339,10 @@ class EspnLeague:
         if sport == "nba" and self.captured:  # NBA periods are days; roll a morning snapshot forward
             self.period += (ctx.now.astimezone(TZ).date() - self.captured.astimezone(TZ).date()).days
         self.week = data["matchup_period"] if sport == "nba" else ctx.week
+        # NBA: today's status from the official injury report and Sleeper on top of ESPN's (Q-058)
+        self.gd = None
+        if sport == "nba" and hasattr(ctx, "nba_gameday"):
+            self.gd = ctx.nba_gameday(any(t.get("games", {}).get(self.period) for t in self.sched.values()))
         bench = ef.BENCH[sport]
         roster = data["roster"]
         self.starters = [self._player(p) for p in roster if p["slot"] not in bench]
@@ -385,6 +396,10 @@ class EspnLeague:
         entry = self.report.get(str(p["id"]))
         status, why, news, conflict = confirm(*worst(("ESPN", p.get("injury")), ("ESPN", entry and entry["status"])),
                                               entry, self.ctx.week_start if self.sport == "nfl" else None)
+        gd = None
+        if self.gd:
+            status, why, news, conflict, gd = self.gd.apply((status, why, news, conflict), entry, p["name"],
+                                                            team.get("abbrev"), kickoff)
         return {
             "id": f"espn{p['id']}", "key": p["id"], "name": p["name"], "team": team.get("abbrev") or None,
             "positions": positions,
@@ -393,8 +408,20 @@ class EspnLeague:
             "kickoff": kickoff, "started": bool(kickoff) and self.ctx.now >= kickoff,
             "bye": bool(p.get("pro_team")) and not games,
             "opp": (("vs " if home else "@") + self.sched.get(opp_id, {}).get("abbrev", "?")) if games else None,
-            "proj": p.get("proj") or 0.0, "owned": p.get("owned", 0), "empty": False,
+            "proj": p.get("proj") or 0.0, "owned": p.get("owned", 0), "empty": False, "gd": gd,
         }
+
+    def gameday(self, pid, name, pro_team, injury):
+        """(status, why) when today's NBA injury report or Sleeper decided this player's status (the Players page),
+        else None."""
+        if not self.gd:
+            return None
+        team = self.sched.get(pro_team, {})
+        games = team.get("games", {}).get(self.period, [])
+        entry = self.report.get(str(pid))
+        base = confirm(*worst(("ESPN", injury), ("ESPN", entry and entry["status"])), entry, None)
+        status, why, _, _, gd = self.gd.apply(base, entry, name, team.get("abbrev"), games[0][0] if games else None)
+        return (status, why) if gd else None
 
     def games_in_matchup(self, p):
         """Games left this matchup period for the player's team (NBA)."""
@@ -448,4 +475,6 @@ def view(league, advice=None):
             if not (p.get("empty") or p["bye"] or p["status"] in OUTISH | {"D"})), 1),
         "starters": [row(p) for p in league.starters], "bench": [row(p) for p in league.bench],
         "advice": advice,
+        # NBA: where today's statuses come from (shq/nba_status.py credits the NBA injury report and Sleeper)
+        **({"status_basis": league.gd.credit()} if getattr(league, "gd", None) is not None else {}),
     }

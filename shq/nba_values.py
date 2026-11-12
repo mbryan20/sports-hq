@@ -117,7 +117,8 @@ def build(league, sc=None):
     "proj"), gp, min, v (value per game), rk, wk (this week), g [games left this week, next week], b2b, z (per cat,
     in "cats" order), st (per-game stats in the same order), inj, play (chance he plays his next game), word (ESPN's
     probable/questionable/doubtful), dmin (minutes, last 3 games vs before), pct (% rostered),
-    age (years, None when ESPN's rosters don't list him)."""
+    age (years, None when ESPN's rosters don't list him), and gd {"s": status or None, "t": "Out (rest) per NBA injury
+    report, 5:30pm"} only when today's official report or Sleeper decided his status (shq/nba_status.py, Q-058)."""
     sc = sc or radar.scan_for(league)
     pool, roles = sc["pool"], sc.get("roles") or {}
     cats = league_cats(league)
@@ -150,6 +151,11 @@ def build(league, sc=None):
         inj = entry.get("status") or (p.get("injury") if p.get("injury") not in (None, "ACTIVE") else None)
         rl = roles.get(pid)
         st = lines[pid]
+        try:
+            gd = league.gameday(pid, p["name"], p.get("team"), p.get("injury")) if hasattr(league, "gameday") else None
+        except Exception:
+            traceback.print_exc()
+            gd = None
         out.append({
             "id": pid, "name": p["name"], "team": radar.team_abbrev(league.sched, p["team"]), "pos": position(p.get("eligible")),
             "own": own.get(pid), "src": src[pid][0], "gp": src[pid][1], "min": round(st.get("40", 0), 1),
@@ -162,13 +168,15 @@ def build(league, sc=None):
             "play": play_chance(inj, entry.get("note")) if healthy else 1.0, "word": espn_word(entry.get("note")) if inj else None,
             "out": not healthy, "dmin": round(rl["dmin"], 1) if rl else None, "pct": p.get("owned", 0),
             "age": nba_ages.age(born.get(pid), today),
+            **({"gd": {"s": gd[0], "t": gd[1]}} if gd else {}),
         })
     return {"cats": [NBA_STATS[c] for c, _ in cats], "rev": [r for _, r in cats], "players": out, "repl": round(repl, 2),
             "n": n, "scale": {NBA_STATS[c]: [round(x, 4) if x is not None else None for x in scale[c]] for c, _ in cats},
             "basis": f"Value per game = the league's {len(cats)} categories as z-scores against the top {n} players "
                      f"({league.team_count} teams' rosters); per-game stats from this season once a player has {MIN_GAMES} "
                      "games, ESPN's projection before that. This week = (value − a waiver-level player's) × games left, "
-                     "0 while out."}
+                     "0 while out. Injury tags are ESPN's; today's status line comes from the NBA injury report and "
+                     "Sleeper (the official report wins when it's newer)."}
 
 
 def save(path, blocks, updated):

@@ -320,12 +320,6 @@
       "D/F/R marks when each draft/final/refresh posted; hollow dot = opening line. Tap a chart for the line at that time."));
     var key = el("p", "ch-key"); key.innerHTML = '<i style="color:var(--ch-mkt)"></i>market <i style="color:var(--ch-pool);border-top-style:dashed"></i>pool line';
     sec.appendChild(key);
-    // Public betting % (Michael, Nov 12): TheSpread's charts (data from SportsInsights). Its terms forbid copying or
-    // republishing the numbers without written permission, so the page links to them instead of showing them.
-    var pub = el("p", "meta");
-    pub.innerHTML = 'Public betting % (share of tickets): <a href="https://www.thespread.com/ncaa-college-football-public-betting-chart/" target="_blank" rel="noopener">college football</a> · ' +
-      '<a href="https://www.thespread.com/nfl-football-public-betting-chart/" target="_blank" rel="noopener">NFL</a> (TheSpread; opens their page, since their terms don\'t allow copying the numbers here).';
-    sec.appendChild(pub);
     sec.appendChild(el("div", "ch-bar"));
     sec.appendChild(el("div", "ch-body"));
     var anchor = document.getElementById("gaps") || document.getElementById("allg");

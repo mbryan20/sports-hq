@@ -119,9 +119,14 @@ def injury_watch(league, now):
         out, inn, slot = item["out"], item["in"], item["slot"]
         key = f"{league.key}:w{league.week}:{out['id']}"
         locks = ct_label(out["kickoff"])
+        nba = getattr(league, "sport", "nfl") == "nba"
+        # NBA: an Out the official injury report backs (a rest day, a late scratch) gets at most the day's one lineup
+        # push (shq/nba_lineup.py); once that has gone out, it's on the site only, never a second push (Q-058)
+        if nba and (out.get("gd") or {}).get("src") == "nba" and nba_lineup.pushed_today(now):
+            actions.append(f"site only (after today's NBA lineup push): {out['name']}")
+            continue
         # football: a free agent is the better fix when the bench fill-in projects under MIN_FILL or trails him by
         # FA_EDGE+ (same rule as the digest's lineup fixes); a sub-MIN_FILL fill-in isn't worth swapping in
-        nba = getattr(league, "sport", "nfl") == "nba"
         # guillotine with War Room v2 current: only players addable now, never a pending waiver claim (digest.fix_pool)
         fa = league.best_fa(out["positions"], now) if nba else slot_fa(slot, digest.fix_pool(league), now)
         better = "" if nba or not (inn and fa_over_bench(inn, fa)) else \
