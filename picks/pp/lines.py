@@ -298,6 +298,12 @@ def run(week=None, push=True, now=None, fetch=espn_odds, origin=origin_sent):
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"updated": now.astimezone(CT).isoformat(), "week": week, "alert_gap": GAP_ALERT,
                                "rows": rows}, indent=1))
+    if week:
+        try:  # line movement for the Picks page charts (pp.history); never fails the scan
+            from .history import record_lines
+            record_lines(week, rows, now, fetch, latest_slate(week)[0] or {}, OUT.parent / "pick_line_history")
+        except Exception as ex:
+            print("line history skipped:", repr(ex))
     return week, rows, pushed
 
 

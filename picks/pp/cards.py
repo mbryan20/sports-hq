@@ -750,6 +750,7 @@ ul.alerts{{color:var(--red);font-weight:600;margin:8px 0}}.ck{{margin:2px 0 6px}
 {checks_html(meta)}
 {''.join(body)}
 {GAPS_HTML}
+<script src="changes.js" defer></script>
 {all_games_html(games)}
 <section><h2>Model check</h2><ul>{''.join(f'<li>{t}</li>' for t in meta['calibration'])}</ul>
 <p class="meta">Win % = stats-only model / market implied. Method: <a href="method/pool-method.html">pool method</a> · <a href="method/pool-rules.html">pool rules</a> · <a href="history.html">history</a></p></section>
@@ -779,6 +780,11 @@ def write(cards, meta, games):
     (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards, "game_stats": stats}, indent=1, default=str))
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "index.html").write_text(render(cards, meta, games), encoding="utf-8")
+    try:  # the week's card history (docs/picks/changes.json, pp.history); never blocks a card
+        from . import history
+        history.write()
+    except Exception as ex:
+        print("card history skipped:", repr(ex))
 
 
 def rerender(week=None):
