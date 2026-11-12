@@ -1121,8 +1121,11 @@ Measure (the health.json check that should move), Design, Decision.
 - **Status:** shipped (Thu Nov 12 redraft). Found when Ops asked for a picks redraft: Wednesday's card told Michael
   "switch Kansas to West Virginia" while its own "value of taking the other side" note said Kansas raised his chance
   to win the group (0.8% -> 1.0%) and its stats gave Kansas 54%. `pp.cards.keep_saved_picks` now keeps any saved Yahoo
-  pick whose season value is positive (reason "Your pick kept: <team> wins N%, season chance a% -> b%"), drops it from
-  Upset watch, and the CHANGE line no longer fires. First run kept Kansas, Texas A&M and Cincinnati.
+  pick whose season gain is at least 0.05 pts (`MIN_GAIN`; smaller gains are inside the sim's ~0.1-pt noise), with
+  reason "Your pick kept: <team> wins N%, adds X pts season chance", drops it from Upset watch, and the CHANGE line no
+  longer fires. Kept Kansas (+0.17) and Texas A&M; Cincinnati (+0.03) stayed a switch to Iowa St. (commits 272d470,
+  0a2984a; the 0.05 floor, gain-based reason, kept-dog count in the underdog note and clearer note headers came from
+  the second-opinion check).
 - `pp.push` opens every card push with "Changed since <previous card time>:" and one line per pool change
   (old -> new, with the new card's reason), or "no pick, line or wager changed". The previous card comes from git.
 - Tests: tests/test_yahoo_value.py KeepSavedPick, tests/test_pick_push.py ChangedSince.
