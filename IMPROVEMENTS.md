@@ -1122,6 +1122,13 @@ Measure (the health.json check that should move), Design, Decision.
   nightly model health shows the trial from the next run; first numbers (one complete week, ending Nov 8): swaps per add
   game site +0.10 (n=8, "+N" miss 7.73), DARKO minutes +2.32 (n=10, miss 4.56), shrunk -1.90 (n=6, miss 9.19). Not
   ready (1 week, under 20 swaps). Not dispatched.
+  Tightened (5f6a437, Claude Ops: the repo is public, don't republish DARKO's data): `state/nba_darko.json` keeps our
+  factor only for my two basketball rosters, the players that morning's swaps and streamers named, and the 10 best free
+  agents by value per league (`keep_ids`, TOP_FA); factors to the nearest 0.05; no DARKO as-of date (snapshot v2); the
+  run takes the snapshot after the basketball tabs are built. Nov 6-12 rebuilt from the cached reads: 48-52 players a
+  day (was 300-470). So DARKO minutes now moves only those players in the trial and on the switch; anyone else keeps
+  the site's value. Re-run first numbers (week ending Nov 8): DARKO minutes +3.06/g (n=9, miss 5.87), site and shrunk
+  unchanged.
 - **Area:** `shq/darko.py` (new), `shq/nba_values.py` (`minutes_z`, `shrunk_z`, `alternative`, `build(source=)`),
   `shq/config.py` (`NBA_VALUE_SOURCE`), `shq/run.py` (daily `darko.track`), `shq/nba_advice_backtest.py` (`trial`,
   `ready_sources`, `darko_source`, `shrunk_source`; `compare_sources` now scores each source's own "+N" miss),
