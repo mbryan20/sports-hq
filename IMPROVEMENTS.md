@@ -1117,6 +1117,31 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-057 · Model health: were traded, injured and newly starting players projected right?
+- **Status:** shipped (a1b34f8, Thu Nov 12). Week 9 shows from the next nightly run; week 10 joins on the first run after
+  Monday night (Tue Nov 17, 2:55am CT). Not dispatched.
+- **Area:** `shq/health.py` (`moved_week`, `moved_health`, `moved_checks`, `moved_notes`, `scoring_getter`; section
+  `moved`, checks `moved.*`), `tests/test_moved_players.py` (new)
+- **Rank:** —
+- **Added:** 2026-11-12 by a Sports HQ build session (Michael, Nov 12: "how do we test that traded and injured players are
+  scored right?"; Q-043's rules had fixture tests only)
+- **Design:** once per completed week from week 9 (the players file's git history starts Nov 6): every QB/RB/WR/TE in
+  `docs/data/players_nfl.json` (all football leagues, one row per Sleeper id; ESPN ids via Sleeper's `espn_id`, else name
+  and team) as committed before the week's first kickoff who had an injury tag (Q/D/OUT/IR/PUP/SUSP) or a
+  `state/ir_seen.json` record, a team other than 14 days earlier (the file then, else Sleeper's projections two weeks
+  back), or (QB) a projection after his last game week projected at 0 (Sleeper's projections, byes skipped). Projection =
+  what the file showed just before his own game (a Thursday Q ruled out Friday showed 0 by Sunday; using the Thursday
+  copy flagged 10 false "did not play" in week 9). Actual = Sleeper's weekly stats in that league's scoring (half-PPR if
+  unreadable); played = Sleeper recorded a game. Checks (latest week): projected 0 but scored 5+, projected 5+ but did not
+  play (both judged vs baseline, tolerance 2), their average miss, everyone else's, and the gap (tolerance 1.5 pts);
+  under 10 players = info. Up to 10 flagged players named in the notes. A week counts 5 days 6 hours after its Thursday
+  kickoff; scored weeks are kept from last night's health.json (`MOVED_V` bump recomputes).
+- **Checked:** 11 fixture tests (fake git copies and Sleeper stats/projections); full suite 459 OK. Real data, week 9:
+  132 players in the group (127 injury tags, 0 new teams, 6 new starting QBs), 0 projected 0 who scored 5+, 0 projected
+  5+ who sat, average miss 3.7 pts vs 4.1 for the other 293.
+- **Undo:** `git revert a1b34f8` and this entry (the section disappears from the next health.json; its baselines stay
+  unused in `state/health_baselines.json`).
+
 ### Q-056 · Picks page: see what changed between card versions through the week, with line movement charts
 - **Status:** shipped (855f18a, Thu Nov 12). The section and card charts show on the live page from the next card
   build that runs this `pp.cards` (the page's HTML carries the one `<script>` tag); the line files grow from the next

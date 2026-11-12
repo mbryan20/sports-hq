@@ -17,6 +17,10 @@ Models and checks:
 - NBA trend radar (`shq/radar_backtest.py`, last 14 mornings): role held over the next 3 team games for the free agents
   the site showed (and, info only, every flag), value vs the old suggestion ranked by that morning's % rostered.
 - Pool Picks: the stored walk-forward backtest (picks/backtest/) and the graded postmortems.
+- Traded, injured and new starters (Q-043's rules), once per completed week from week 9: every QB/RB/WR/TE in
+  docs/data/players_nfl.json as committed before the first kickoff who had an injury tag (or a state/ir_seen.json record),
+  a team other than 14 days earlier, or (QB) a projection after a week projected at 0, vs Sleeper's recorded stats:
+  projected 0 but scored 5+, projected 5+ but did not play, and their average miss vs everyone else's.
 - Start/sit (`shq/experts.py`, weeks played so far): how often Sleeper's projections, ESPN's expert consensus and a 50/50
   blend ranked the higher scorer first in realistic pairs, and our own "Start X over Y" moves as shown before Sunday's
   early games (docs/data/lineups.json history) vs what happened and what the experts said.
@@ -75,13 +79,21 @@ CHECKS = {
     "exp.last_week_edge": ("Blend vs Sleeper alone, last completed week", None, 0, "%"),
     "exp.calls_right": ("Our \"Start X over Y\" calls where X outscored Y", "higher", 0.10, "%"),
     "exp.calls_vs_experts": ("Our calls the experts disagreed with that were right", None, 0, "%"),
+    # last completed week; n = players hurt, on a new team or newly starting going in (moved_week)
+    "moved.zeroed": ("Hurt, traded or new-starter players we projected at 0 who scored 5+", "lower", 2, ""),
+    "moved.inactive": ("Hurt, traded or new-starter players we projected at 5+ who did not play", "lower", 2, ""),
+    "moved.mae": ("Their average projection miss", None, 0, "pts"),
+    "moved.others_mae": ("Everyone else's average projection miss", None, 0, "pts"),
+    "moved.mae_gap": ("Their miss minus everyone else's", "lower", 1.5, "pts"),
 }
 MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win": 1, "rec.win_brier": 5, "rec.est_mae": 5,
          "gd.dash_price_mae": 5, "wr.ladder_cov50": 20, "wr.ladder_cov80": 20, "picks.card_ats": 10,
          # radar: players, once each at his first flag. Shown is ~10 players per 14 mornings (4 listed a morning, mostly
          # the same names), so 20 would never be reached; every flag and the edge get ~25-40.
          "radar.held": 10, "radar.held_all": 20, "radar.edge": 20,
-         "exp.calls_right": 10, "exp.calls_vs_experts": 5}
+         "exp.calls_right": 10, "exp.calls_vs_experts": 5,
+         # under 10 players in a week the moved.* checks are shown as info (build, moved)
+         "moved.zeroed": 10, "moved.inactive": 10, "moved.mae": 10, "moved.mae_gap": 10}
 # A stored baseline measured on fewer than MIN_N outcomes is re-set from the next measurement that has enough.
 # the simple alternative a check must beat whatever its baseline says: a value on the wrong side is "weak"
 FLOORS = {"wr.cut_skill": 0.0, "gd.v2_skill": 0.0, "gd.dash_skill": 0.0, "wr.proj_edge": 0.0, "radar.edge": 0.0,
@@ -681,6 +693,307 @@ def experts_health(fetch=get_json, players=None, versions=None, load=git_json, f
     return {"acc": acc, "calls": calls, "weeks": weeks}
 
 
+# ---------- traded, injured and new starters (Q-043's fill / IR / really-out rules vs what happened) ----------
+MOVED_FROM = 9            # docs/data/players_nfl.json's history starts Nov 6 2026 (just before week 9's first kickoff)
+MOVED_V = 1               # stored weeks with another version are recomputed
+MOVED_MIN = 10            # fewer players than this in a week: the checks are shown as info
+MOVED_FINAL = dt.timedelta(days=5, hours=6)   # a week is final this long after its Thursday kickoff (after Monday night)
+PLAYERS_NFL, IR_SEEN_PATH = "docs/data/players_nfl.json", "state/ir_seen.json"
+INJ_TAGS = ("SUSP", "PUP", "IR", "OUT", "D", "Q")      # worst first
+SKILL = ("QB", "RB", "WR", "TE")
+MISS_PTS = 5.0            # "scored 5+" / "projected 5+"
+
+
+def last_version(versions, t):
+    """(unix time, sha) of the newest version committed before unix time t, or None."""
+    best = None
+    for v in versions:
+        if v[0] < t:
+            best = v
+    return best
+
+
+def _day(ts):
+    d = dt.datetime.fromtimestamp(ts, dt.timezone.utc)
+    return f"{d:%b} {d.day}"
+
+
+def league_platforms():
+    from .config import LEAGUES
+    return {lg["name"]: lg["platform"] for lg in LEAGUES if lg["sport"] == "nfl"}
+
+
+def scoring_getter(fetch=get_json):
+    """name -> that league's scoring (Sleeper-keyed), looked up once: Sleeper leagues' scoring_settings, Kosmonauts'
+    YAHOO_SCORING, ESPN's from the snapshot / public read on top of values.DEFAULT_SCORING. None when unreadable
+    (the player is then scored in half-PPR)."""
+    from . import espn_fantasy as ef, sleeper
+    from .config import LEAGUES, SLEEPER_TEAM_NAME, YAHOO_SCORING
+    from .values import DEFAULT_SCORING
+    memo = {}
+
+    def get(name):
+        if name in memo:
+            return memo[name]
+        cfg = next((c for c in LEAGUES if c["name"] == name and c["sport"] == "nfl"), None)
+        sc = None
+        try:
+            if cfg and cfg["platform"] == "yahoo":
+                sc = YAHOO_SCORING
+            elif cfg and cfg["platform"] == "sleeper":
+                lg = (fetch(f"{sleeper.BASE}/league/{cfg['league_id']}") if cfg.get("league_id")
+                      else sleeper.find_league(SLEEPER_USERNAME, SLEEPER_TEAM_NAME if name == SLEEPER_TEAM_NAME else name, SEASON)[0])
+                sc = lg.get("scoring_settings")
+            elif cfg and cfg["platform"] == "espn":
+                data = (ef.load_snapshot("nfl", cfg["league_id"]) if cfg.get("private")
+                        else ef.fetch_public("nfl", cfg["season"], cfg["league_id"], cfg["team_id"]))
+                sc = {**DEFAULT_SCORING, **((data or {}).get("scoring") or {})}
+        except Exception:
+            traceback.print_exc()
+        memo[name] = sc or None
+        return memo[name]
+    return get
+
+
+def moved_week(w, kick, versions, ir_versions, load, fetch, db, scoring_of, platforms=None):
+    """One completed week: every QB/RB/WR/TE in the players file (all football leagues, one row per Sleeper id) as
+    committed just before week w's first kickoff (unix time `kick`), split into the group Q-043's rules touch (an
+    injury tag or a state/ir_seen.json record then; a team other than 14 days earlier; a QB projected 0 the week
+    before and > 0 now) and everyone else, against Sleeper's recorded stats for the week. Each player's projection
+    is the one the file showed just before his own game (a Thursday Q who was ruled out Friday showed 0 by Sunday;
+    falls back to the first-kickoff copy)."""
+    from . import sleeper
+    from .leagues import score
+    platforms = platforms if platforms is not None else league_platforms()
+    order = {"sleeper": 0, "yahoo": 1, "espn": 2}
+    ver = last_version(versions, kick)
+    if not ver:
+        return None
+    V = load(ver[1], PLAYERS_NFL) or {}
+    by_espn = {str(p["espn_id"]): sid for sid, p in (db or {}).items() if p.get("espn_id")}
+    # Sleeper's players file lacks espn_id for about half the players: then name and team, or a name only one player has
+    by_name, names = {}, collections.Counter()
+    for sid, p in (db or {}).items():
+        k = name_key(p.get("full_name"))
+        if k and p.get("position") in SKILL:
+            by_name.setdefault((k, p.get("team")), sid)
+            by_name.setdefault((k, None), sid)
+            names[k] += 1
+
+    def to_sid(pid, platform, p=None):
+        pid = str(pid or "")
+        if pid.startswith("espn:"):
+            return by_espn.get(pid[5:])
+        if platform == "espn":
+            k = name_key((p or {}).get("name"))
+            return (by_espn.get(pid) or by_name.get((k, (p or {}).get("team")))
+                    or (by_name.get((k, None)) if names[k] == 1 else None))
+        return pid if pid.isdigit() else None
+
+    def index(D):
+        """{sid: {league: player}} for week w's rows, leagues in preference order (Sleeper, Yahoo, ESPN)."""
+        got = {}
+        for name, lg in sorted(((D or {}).get("leagues") or {}).items(), key=lambda kv: order.get(platforms.get(kv[0]), 9)):
+            if lg.get("week") != w:
+                continue
+            for p in lg.get("players") or []:
+                sid = to_sid(p.get("id"), platforms.get(name), p)
+                if sid and p.get("pos") in SKILL:
+                    got.setdefault(sid, {}).setdefault(name, p)
+        return got
+
+    first = index(V)
+    if not first:
+        return None
+    at_game = {ver[1]: first}
+
+    def at_kick(sid, name, p):
+        """His row (same league if there) in the last copy before his own kickoff."""
+        try:
+            t = dt.datetime.fromisoformat(str(p.get("kick"))).timestamp()
+        except ValueError:
+            return name, p
+        v = last_version(versions, t)
+        if not v:
+            return name, p
+        if v[1] not in at_game:
+            at_game[v[1]] = index(load(v[1], PLAYERS_NFL))
+        mine = at_game[v[1]].get(sid) or {}
+        if name in mine:
+            return name, mine[name]
+        return next(iter(mine.items()), (name, p))
+    tag_of = lambda by_league: {str(p["inj"]).upper() for p in by_league.values() if p.get("inj")}
+    # his team 14 days before: the players file then, else Sleeper's projections two weeks back (the file's history
+    # starts Nov 6, so weeks 9-10 use that)
+    old = last_version(versions, kick - 14 * 86400)
+    if old and old[1] != ver[1]:
+        teams_then, team_src = {}, f"the players file as of {_day(old[0])}"
+        for name, lg in (load(old[1], PLAYERS_NFL) or {}).get("leagues", {}).items():
+            for p in lg.get("players") or []:
+                sid = to_sid(p.get("id"), platforms.get(name), p)
+                if sid and p.get("team"):
+                    teams_then.setdefault(sid, p["team"])
+    else:
+        teams_then, team_src = {}, f"Sleeper's week-{w - 2} projections"
+        if w > 2:
+            for x in fetch(f"https://api.sleeper.app/projections/nfl/{SEASON}/{w - 2}",
+                           [("season_type", "regular")] + [("position[]", p) for p in SKILL]) or []:
+                if x.get("team"):
+                    teams_then[str(x["player_id"])] = x["team"]
+    irv = last_version(ir_versions, kick)
+    ir_ids = {to_sid(k, None) for k in (load(irv[1], IR_SEEN_PATH) or {})} if irv else set()
+    qb_proj = {}
+
+    def qb_week(k):
+        if k not in qb_proj:
+            got = fetch(f"https://api.sleeper.app/projections/nfl/{SEASON}/{k}", [("season_type", "regular"), ("position[]", "QB")]) or []
+            qb_proj[k] = ({str(x["player_id"]): x for x in got}, {x.get("team") for x in got if x.get("opponent")})
+        return qb_proj[k]
+
+    def prev_qb(sid, team):
+        """Sleeper's projection for his last game week before w (a bye is skipped); None when unknown."""
+        for k in (w - 1, w - 2):
+            if k < 1:
+                break
+            by_id, playing = qb_week(k)
+            x = by_id.get(sid)
+            if x and x.get("opponent"):
+                return (x.get("stats") or {}).get("pts_half_ppr") or 0.0
+            if ((x or {}).get("team") or team) in playing:
+                return 0.0           # his team played and Sleeper projected him nothing
+        return None
+
+    stats = fetch(f"{sleeper.BASE}/stats/nfl/regular/{SEASON}/{w}") or {}
+    if not stats:
+        return None
+    def proj_of(p):
+        return p.get("proj") if p.get("proj") is not None else (p.get("next") or [None])[0]
+
+    out = []
+    for sid, by_league in first.items():
+        name0, p0 = next(iter(by_league.items()))
+        opp = str(p0.get("opp") or "")
+        if not opp or "BYE" in opp.upper() or proj_of(p0) is None:
+            continue
+        name, p = at_kick(sid, name0, p0)
+        proj = proj_of(p)
+        if proj is None:
+            name, p, proj = name0, p0, proj_of(p0)
+        tags = tag_of(by_league) | tag_of({name: p})
+        st = stats.get(sid) or {}
+        played = (st.get("gp") or 0) > 0
+        sc = scoring_of(name)
+        actual = (score(st, sc) if sc else round(st.get("pts_half_ppr") or 0.0, 1)) if played else 0.0
+        why = []
+        tag = next((t for t in INJ_TAGS if t in tags), None)
+        if tag:
+            why.append(f"tagged {tag}")
+        elif sid in ir_ids:
+            why.append("on our IR list")
+        then = teams_then.get(sid)
+        if then and p0.get("team") and then != p0["team"]:
+            why.append(f"new team ({then} to {p0['team']})")
+        if p0.get("pos") == "QB" and (proj_of(p0) or 0) > 0 and prev_qb(sid, p0.get("team")) == 0:
+            why.append("new starter (projected 0 the week before)")
+        miss = ("zeroed" if proj <= 0 and actual >= MISS_PTS else
+                "inactive" if proj >= MISS_PTS and not played else None)
+        out.append({"sid": sid, "name": p.get("name"), "pos": p.get("pos"), "team": p.get("team"), "league": name,
+                    "proj": round(proj, 1), "actual": round(actual, 1), "played": played, "why": why, "miss": miss})
+    group = [x for x in out if x["why"]]
+    others = [x for x in out if not x["why"]]
+    # average miss over players who were projected or played (a 0 for a deep backup who sat says nothing)
+    err = lambda xs: r(mean([abs(x["proj"] - x["actual"]) for x in xs if x["proj"] > 0 or x["played"]]))
+    flagged = sorted((x for x in group if x["miss"]), key=lambda x: -abs(x["proj"] - x["actual"]))
+    has = lambda x, *heads: any(y.startswith(heads) for y in x["why"])
+    return {"v": MOVED_V, "week": w, "players_version": ver[1][:7], "players_as_of": iso(dt.datetime.fromtimestamp(ver[0], dt.timezone.utc)),
+            "teams_from": team_src, "n": len(group), "n_others": len(others),
+            "tagged": sum(1 for x in group if has(x, "tagged", "on our IR")), "new_team": sum(1 for x in group if has(x, "new team")),
+            "new_starters": sum(1 for x in group if has(x, "new starter")),
+            "zeroed": sum(1 for x in group if x["miss"] == "zeroed"), "inactive": sum(1 for x in group if x["miss"] == "inactive"),
+            "mae": err(group), "others_mae": err(others),
+            "mae_n": sum(1 for x in group if x["proj"] > 0 or x["played"]), "others_mae_n": sum(1 for x in others if x["proj"] > 0 or x["played"]),
+            "flagged": flagged[:10], "flagged_total": len(flagged),
+            "group": [{k: x[k] for k in ("name", "team", "proj", "actual", "played", "why")} for x in group]}
+
+
+def moved_health(now, fetch=get_json, versions=None, ir_versions=None, load=git_json, first_kicks=None, last=None,
+                 previous=None, db=None, scoring_of=None):
+    """Every completed week from MOVED_FROM on: stored weeks (from last night's health.json) are kept as they were,
+    new ones computed once (moved_week)."""
+    from . import sleeper
+    if last is None:     # the week in play counts once its Monday night is over (MOVED_FINAL), not when Sleeper flips
+        last = int(fetch(f"{sleeper.BASE}/state/nfl").get("week") or 0)
+    weeks = {}
+    todo = []
+    for w in range(MOVED_FROM, max(0, last) + 1):
+        old = (previous or {}).get(str(w))
+        if isinstance(old, dict) and old.get("v") == MOVED_V:
+            weeks[str(w)] = old
+        else:
+            todo.append(w)
+    if todo:
+        first_kicks = first_kicks if first_kicks is not None else kickoffs(todo)
+        todo = [w for w in todo if first_kicks.get(w) and now >= first_kicks[w] + MOVED_FINAL]
+    if todo:
+        versions = versions if versions is not None else git_versions(PLAYERS_NFL)
+        ir_versions = ir_versions if ir_versions is not None else git_versions(IR_SEEN_PATH)
+        if db is None:
+            db = sleeper.players()
+        scoring_of = scoring_of or scoring_getter(fetch)
+        for w in todo:
+            res = moved_week(w, first_kicks[w].timestamp(), versions, ir_versions, load, fetch, db, scoring_of)
+            if res:
+                weeks[str(w)] = res
+    return {"weeks": dict(sorted(weeks.items(), key=lambda kv: int(kv[0]))), "through_week": last}
+
+
+def moved_checks(weeks, j):
+    """The section's checks from the latest scored week; under MOVED_MIN players they are shown as info, not judged."""
+    x = weeks[max(weeks, key=int)] if weeks else {}
+    n = x.get("n", 0)
+
+    def mj(cid, value, cnt=n):
+        row = j(cid, value, cnt)
+        if row["status"] == "waiting" and value is not None:
+            row["status"] = "info"
+        return {**row, "week": x.get("week")}
+    gap = r(x["mae"] - x["others_mae"]) if x.get("mae") is not None and x.get("others_mae") is not None else None
+    return [mj("moved.zeroed", x.get("zeroed")), mj("moved.inactive", x.get("inactive")), mj("moved.mae", x.get("mae")),
+            mj("moved.others_mae", x.get("others_mae"), x.get("n_others", 0)), mj("moved.mae_gap", gap)]
+
+
+def moved_line(x):
+    why = "; ".join(x["why"])
+    if x["miss"] == "zeroed":
+        what = f"we projected 0, he scored {x['actual']:g}"
+    else:
+        what = f"we projected {x['proj']:g}, he did not play"
+    return f"{x['name']} ({x['team']}, {why}): {what}."
+
+
+def moved_notes(weeks):
+    if not weeks:
+        return [f"Waiting for week {MOVED_FROM}'s games to be final (the players file's history starts just before week {MOVED_FROM})."]
+    notes = []
+    for key in sorted(weeks, key=int, reverse=True):
+        x = weeks[key]
+        notes.append(f"Week {x['week']}: {x['n']} players were hurt, on a new team or newly starting going in "
+                     f"({x['tagged']} injury tags, {x['new_team']} new teams, {x['new_starters']} new starting QBs). "
+                     f"{x['zeroed']} we projected at 0 scored 5+; {x['inactive']} we projected at 5+ did not play. "
+                     f"Average miss {x['mae']} pts for them vs {x['others_mae']} for everyone else.")
+        if key == max(weeks, key=int):
+            notes += [f"Week {x['week']}: " + moved_line(f) for f in x["flagged"]]
+            if x["flagged_total"] > len(x["flagged"]):
+                notes.append(f"Week {x['week']}: {x['flagged_total'] - len(x['flagged'])} more in health.json (details).")
+    latest = weeks[max(weeks, key=int)]
+    notes.append(f"How: who is in the group comes from the players file as it stood before the week's first kickoff; our "
+                 f"projection is what the file showed just before his own game (one league's number per player, Sleeper "
+                 f"leagues first, actual points in that league's scoring); \"played\" means Sleeper recorded a game for him. "
+                 f"New team = a team other than in {latest['teams_from']}. Byes are left out. Under {MOVED_MIN} players in "
+                 f"a week the checks are info only.")
+    return notes
+
+
 # ---------- assemble ----------
 def kickoffs(weeks):
     """{week: first kickoff (UTC datetime)} from ESPN's public scoreboard."""
@@ -822,8 +1135,15 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
                          f"{c['split_right']} of those.")
         return checks, h, notes
 
+    def moved():
+        # weeks already scored stay as last night's health.json has them (moved_health)
+        prev = next((s.get("details") or {} for s in (load_json(OUT) or {}).get("sections") or [] if s.get("id") == "moved"), {})
+        h = moved_health(now, previous=prev.get("weeks"))
+        return moved_checks(h["weeks"], j), h, moved_notes(h["weeks"])
+
     sections = [
         section("experts", "Start/sit: Sleeper vs ESPN's experts", exp),
+        section("moved", "Traded, injured and new starters", moved),
         section("warroom", "War Room v2 (guillotine bids)", wr),
         section("recs", "Our guillotine bids vs what happened", recs),
         section("guillotine", "Guillotine cut odds as shown (dashboard vs War Room v2)", gd),
