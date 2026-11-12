@@ -1117,6 +1117,19 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-062 · War Room revamp: honest win chances, backup claims, Michael's rules as hard checks
+- **Status:** built Thu Nov 12 for Tuesday Nov 17's bids (Michael approved plan parts 1-3 through Claude Ops). Details
+  in warroom/README.md "Nov 12 revamp". Rival-by-rival prices fitted every build; calls Bid / Coin flip / Long shot /
+  Backup by honest chance; backups on one drop (Sleeper's copy rule, worst case = top bid of each chain); rules.json
+  (reserve, league-winners cap, marginal claims at $0, never drop this week's starter for an add who wouldn't start);
+  bids.json claim_list in Sleeper order with a why per claim; the page shows that list at default settings.
+- Replay of weeks 2-9 (prices fitted on earlier weeks only): +12.1 title-odds points for $26 vs +7.4 for the old
+  prices and +13.6 for $182 actually bid. Time-forward calibration weeks 6-9: 20% bids won 17% (old ladder: 1%).
+- Not done here (plan items 4-6, after Tuesday): phone-first page layout, market check vs Survive The Chop prices,
+  post-waiver report card. The three Tuesday job prompts need the staged edits in
+  claude-audit/cleanup-2026-11-10/staged-warroom-prompts.md (applied by Claude Ops in a turn Michael types).
+- Tests: tests/test_warroom_revamp.py.
+
 ### Q-061 · Picks: keep a saved Yahoo pick the card's own season numbers favor; every push says what changed since the last card
 - **Status:** shipped (Thu Nov 12 redraft). Found when Ops asked for a picks redraft: Wednesday's card told Michael
   "switch Kansas to West Virginia" while its own "value of taking the other side" note said Kansas raised his chance

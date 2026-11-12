@@ -83,13 +83,40 @@ The test: rebuild each past week as it stood, then compare with what happened. T
   - A player who is Out or on IR and projected 0 this week (not on a bye) is Skip, never Add free (Q-040).
   - A K or DEF add never drops an RB, WR or TE worth 8+ points a week (season average or the next weeks'
     projection), and a paid K or DEF claim is skipped when a free agent at that position helps as much (Q-041).
-- **Reserve:** $5, held back from all bids together; $0 in the last 3 weeks.
+- **Reserve:** from `warroom/rules.json` (Michael's number; $5 until he sets one), held back from all bids together.
+
+## Nov 12 revamp (Michael approved plan parts 1-3; `tests/test_warroom_revamp.py`)
+Replayed on every past waiver run (weeks 2-9, Michael's real roster and FAAB each time, prices fitted only on earlier
+weeks, scored against the bids that really happened): +12.1 points of title odds for $26 spent, against +7.4 for the
+old prices with the same rules and +13.6 for $182 for what Michael actually bid.
+- **Rival-by-rival prices** (`rivalWin`, fitted in `build.py` `rival_model` every build from every past waiver run):
+  each surviving rival's chance to claim a player (by the player's rank among that run's targets and the lineup points
+  he'd add for that rival) and his bid as a share of HIS OWN money, with his habits and biggest share so far. A bid wins
+  only if it beats every rival; ties lose (Michael is last in waiver order), so any rival claim beats a $0 claim and a
+  rival with $0 left can only beat $0. The old one-ladder estimate was right on average but its 10-30% chances won 1 in
+  79 in weeks 6-9 (Nacua, Javonte, Taylor, Pickens and Warren went 0 for 5); this model's 20% bids won 17-26%. It runs a
+  little cautious in the middle (says 60%, won ~70%). The $ per point of win odds is now set at the 50% price (at the
+  80% price the honest prices inflated it and the replay spent $205).
+- **Calls by honest chance:** Bid 50%+, Coin flip 25-50%, Long shot 10-25% (worth a try, expect to lose), Skip under
+  10% at every bid worth making.
+- **Backups** (`addBackups`): with a full roster a claim that shares a drop with one that already won fails, so a
+  lower claim on the same drop only runs if every claim above it on that drop lost (no team in this league ever won two
+  claims with one drop; 84 such claims failed). Backups go strictly below the claims they back up and never raise the
+  most you can spend: `worst_case_spend` = the top bid of each drop's chain.
+- **His rules** (`warroom/rules.json`): `reserve`; `league_winners` (only these can go above `big_bid_share` of his FAAB,
+  at least `big_bid_min`); K, DEF and any add worth under `marginal_pts_per_week` lineup points a week go in at $0;
+  never drop a player in this week's lineup unless the add starts in his place (Try a move falls back to the cheapest
+  drop when nothing else is left, and its verdict says if that's bad).
+- **One answer:** the page's "Your moves" box shows `bids.json`'s `claim_list` (the 20,000-season build the guide and
+  the 7:11am push read) while the controls are at their defaults, and says when it's showing the page's own numbers.
+  Every claim and free add has a one-line `why_line` with anything to check first (an injury tag: news from the last
+  48 hours; projected 0 with no tag; a bye).
 - **Simulations:** the page runs 6,000 seasons so the controls respond quickly; `bids.json` uses 20,000.
 
 ### bids.json fields the Tuesday checks and the AI write-up use
 - **Per-row amounts:**
-  - `bid`: the amount to claim. With `call` Bid or Coin flip, 0 means a $0 claim (since Nov 10); with any
-    other call, don't claim.
+  - `bid`: the amount to claim. With `call` Bid, Coin flip, Long shot or Backup, 0 means a $0 claim (since Nov 10);
+    with any other call, don't claim.
   - `win_chance`: the chance that bid wins.
   - `drop` / `drop_id`: who to drop for it.
   - `value`: the player's worth to you in $.
@@ -97,7 +124,11 @@ The test: rebuild each past week as it stood, then compare with what happened. T
 - **Rivals:** `likely_rival_bids` (top 3) are on the same scale as `win_chance` since Nov 10 (Q-039): each rival's
   guessed bid × (est_price / raw estimate), because past claims went for less than the raw guesses (often $0:
   nobody claimed him). `raw` keeps the unscaled guess.
-- **Labels:** `call` (Bid / Coin flip / Priced out / Skip / Add free) and `why`, plus `bye_week`.
+- **Labels:** `call` (Bid / Coin flip / Long shot / Backup / Priced out / Skip / Add free), `why`, `why_line`, plus `bye_week`.
+- **Backups:** `chain_drop`, `chain_order`, `fires_if` on each row.
+- **The list to enter, in order:** `claim_list` (order, name, bid, drop, win_chance, kind claim/backup, fires_if, why);
+  `worst_case_spend`; `can_outbid` per row (rivals with the money to beat that bid and their chance to claim);
+  `rules` (reserve, league_winners, big_bid_cap, marginal, starters).
 - **Budget block:** `budget.spendable`, `budget.recommended_bids_total` and `budget.dollars_per_win_point`.
 
 ## Known limits

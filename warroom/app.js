@@ -21,7 +21,7 @@ const SORTS = {
   chance: ['Win chance', r => isBid(r) ? r.chance : -1], value: ['Value to you', r => r.freed ? r.value : -1],
   season: ['Season gain', r => r.gR], name: ['Name', r => D.P[r.s].n],
 };
-const CLAIMS = new Set(['Bid', 'Coin flip', 'Add free']);
+const CLAIMS = new Set(['Bid', 'Coin flip', 'Long shot', 'Backup', 'Add free']);
 let BIDROWS = [], MONEY = null;
 
 function renderBids() {
@@ -48,14 +48,15 @@ function drawBids() {
   const rows = BIDROWS, money = MONEY;
   // how many recommended moves would drop the same player (a claim whose drop is gone fails in Sleeper)
   const dropUse = {};
-  for (const r of rows) if (!r.added && CLAIMS.has(r.call) && r.drop) dropUse[r.drop] = (dropUse[r.drop] || 0) + 1;
+  // (a backup shares its drop on purpose: it only runs if the claim above it lost)
+  for (const r of rows) if (!r.added && CLAIMS.has(r.call) && r.call !== 'Backup' && r.drop) dropUse[r.drop] = (dropUse[r.drop] || 0) + 1;
   const key = SORTS[VIEW.sort] ? SORTS[VIEW.sort][1] : SORTS.dwin[1];
   const out = rows.filter(r => (!VIEW.pos || D.P[r.s].p === VIEW.pos)
       && (VIEW.show === 'all' || (VIEW.show === 'freed' && r.freed) || (VIEW.show === 'fa' && !r.freed) || (VIEW.show === 'claims' && (r.added || CLAIMS.has(r.call)))))
     .sort((a, b) => (b.added - a.added) || (VIEW.sort === 'name' ? key(a).localeCompare(key(b)) : key(b) - key(a)) || (b.dWin - a.dWin));
   $('bidbar').innerHTML = bidBar();
-  const pill = c => `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Priced out': 'p-bad' }[c] || 'p-mute'}">${c}</span>`;
-  const drop = r => r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) + (dropUse[r.drop] > 1 && CLAIMS.has(r.call) ? ` <span class="pill p-warn" title="More than one move here drops this player">used ${dropUse[r.drop]}×</span>` : '') : '—';
+  const pill = c => `<span class="pill ${{ 'Bid': 'p-good', 'Add free': 'p-good', 'Coin flip': 'p-warn', 'Long shot': 'p-warn', 'Backup': 'p-mute', 'Priced out': 'p-bad' }[c] || 'p-mute'}">${c}</span>`;
+  const drop = r => r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) + (dropUse[r.drop] > 1 && CLAIMS.has(r.call) && r.call !== 'Backup' ? ` <span class="pill p-warn" title="More than one move here drops this player">used ${dropUse[r.drop]}×</span>` : '') : '—';
   const opts = r => r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && isBid(r) ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && isBid(r) ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0';
   const rivals = r => rivalBids(r).slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
   const tag = p => `<b>${esc(p.n)}</b> <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`;
@@ -177,12 +178,25 @@ function renderMarket() {
 // everything made for him is one tap from Sports HQ.
 const GUIDE_URL = 'https://docs.google.com/document/d/1Pa67152FLY8IQ70neRnnHZ4lFFT6XqWZwvWk1iF-tT8/edit';
 
-// "Your moves" box: every claim and the best free adds, each with its own drop, the total vs what you can spend, the
-// deadline, how to place them, and the written guide. Same rows and calls as the table below.
+// The Tuesday list (bids.json, the same numbers the written guide and the 7:11am push use). The "Your moves" box shows
+// it while the controls are at their defaults, so the page, the guide and the push give one answer (Nov 12 revamp);
+// with changed controls it shows this page's own numbers and says so.
+let TUESDAY = null, LASTTOP = null;
+fetch('bids.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.claim_list) { TUESDAY = j; renderHeader(LASTTOP); } }).catch(() => {});
+const atDefaults = () => S.sd === SD_MEASURED && S.aggr === 1 && S.reserve === RULES.reserve && !(S.dpp > 0) && !S.adds.size;
+
+// "Your moves" box: the claims in the order to enter them in Sleeper (highest bid first; backups right after the claim
+// they back up), each with its drop, win chance and a one-line why; the best free adds; the most you can spend; the
+// deadline; the written guide.
 function planHtml() {
   const name = s => s && D.P[s] ? esc(D.P[s].n) : 'your weakest player';
-  const claims = BIDROWS.filter(r => !r.added && r.freed && isBid(r)).sort((a, b) => b.ev - a.ev);
+  const live = claimList(BIDROWS);
+  const claims = live.filter(r => r.call !== 'Backup');
   const claimBy = Object.fromEntries(claims.map(r => [r.drop, r]));
+  const fromJson = TUESDAY && atDefaults();
+  const list = fromJson ? TUESDAY.claim_list.map(c => ({ ...c, name: esc(c.name), drop: c.drop ? esc(c.drop) : 'your weakest player' }))
+    : live.map(r => ({ name: esc(D.P[r.s].n), pos: D.P[r.s].p, team: D.P[r.s].t, bid: r.bid, drop: name(r.drop), win_chance: r.chance,
+        kind: r.call === 'Backup' ? 'backup' : 'claim', fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null, why: whyLine(r), call: r.call }));
   // the best free add at each position, two at most (two backup QBs is never the plan)
   const seen = new Set();
   const free = BIDROWS.filter(r => !r.added && !r.freed && r.call === 'Add free' && r.dWin > 0).sort((a, b) => b.dWin - a.dWin)
@@ -190,16 +204,22 @@ function planHtml() {
     // a second free add whose drop the first already uses can't happen too (Nov 11: Jacobs and Cousins both dropped Marks)
     .filter((r, i, a) => i === 0 || r.drop !== a[0].drop);
   const li = [];
-  for (const r of claims) li.push(`<li><b>Claim ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) for <b>$${r.bid}</b>, drop ${name(r.drop)}: ${pct(r.chance)} to win${r.call === 'Coin flip' ? ' (coin flip)' : ''}.</li>`);
+  const label = c => c.win_chance >= .5 ? '' : c.win_chance >= .25 ? ' (coin flip)' : ' (long shot: expect to lose)';
+  for (const c of list) li.push(`<li><b>${c.kind === 'backup' ? 'Backup: claim' : 'Claim'} ${c.name}</b> (${c.pos} ${c.team}) for <b>$${c.bid}</b>, drop ${c.drop}: `
+    + `${pct(c.win_chance || 0)} to win${c.kind === 'backup' ? `, only runs if ${esc(c.fires_if)}` : label(c)}.`
+    + (c.why ? `<div class="sub">${esc(c.why)}</div>` : '') + '</li>');
   // a free add happens now, so its drop is gone before the claims run: say which claim then needs another drop
   for (const r of free) li.push(`<li><b>Add ${esc(D.P[r.s].n)}</b> (${D.P[r.s].p} ${D.P[r.s].t}) now for $0, drop ${name(r.drop)}`
     + (claimBy[r.drop] ? ` (your ${esc(D.P[claimBy[r.drop].s].n)} claim also drops him: give that claim another drop, or skip this add)` : '') + '.</li>');
-  const total = claims.reduce((a, r) => a + r.bid, 0);
+  const worst = fromJson ? TUESDAY.worst_case_spend : (() => { const c = {}; for (const r of live) c[r.drop] = Math.max(c[r.drop] || 0, r.bid); return Object.values(c).reduce((a, b) => a + b, 0); })();
   const open = D.cut && D.cut.freed_status === 'on waivers';
   const when = open && D.waivers ? `before waivers run (${esc(D.waivers)})` : 'this week (nothing on waivers until the next cut)';
   return `<div class="plan"><p><b>Your moves ${when}:</b></p>`
     + (li.length ? `<ol>${li.join('')}</ol>` : '<p>Nothing worth claiming or adding this week.</p>')
-    + (claims.length ? `<p class="sub">Claims total $${total} of the $${MONEY.spend} you can spend ($${S.reserve} kept in reserve). In Sleeper: Players, search the name, Claim, enter the bid, pick the drop. Each claim needs its own drop.</p>` : '')
+    + (list.length ? `<p class="sub">The most these claims can cost: $${worst} of the $${MONEY.spend} you can spend ($${S.reserve} always kept back). `
+      + `In Sleeper's classic site, enter them in this order: Players, search the name, Claim, enter the bid, pick the drop. `
+      + `Claims that share a drop are backups: once one of them wins, the rest fail, so you never pay twice.</p>` : '')
+    + (list.length ? `<p class="sub">${fromJson ? `Same list as your written guide and Tuesday push (built ${esc(TUESDAY.data_as_of)}).` : 'From this page\'s settings and quicker simulation, not the Tuesday list: reset the controls to see that.'}</p>` : '')
     + `<p class="sub"><a href="${GUIDE_URL}" target="_blank" rel="noopener">Written guide: the full breakdown with news, rivals and why &rarr;</a></p></div>`;
 }
 
@@ -212,10 +232,6 @@ function renderHeader(top) {
   $('kpis').innerHTML = [['FAAB left', '$' + me.faab], ['Wk ' + W0 + ' cut risk', pct(s.pCut[W0])], ['Exp. weeks left', fmt(s.expWeeks, 1)], ['Win odds', pct(s.pWin)]].map(([a, b]) => `<div class="kpi"><b>${b}</b><span>${a}</span></div>`).join('');
   const order = ALIVE.slice().sort((a, b) => BASE.sim[b].pCut[W0] - BASE.sim[a].pCut[W0]).slice(0, 3);
   let t = `<p><b>Week ${W0} cut watch:</b> ${order.map(x => `${esc(tname(x))}${x === ME ? ' (you)' : ''} ${pct(BASE.sim[x].pCut[W0])}`).join(' · ')}.</p>`;
-  if (top) {
-    const p = D.P[top.s];
-    t += `<p><b>Best claim:</b> ${esc(p.n)} (${p.p} ${p.t}) adds ${fmt(top.dWin * 100, 1)} points of win odds after dropping ${top.drop && D.P[top.drop] ? esc(D.P[top.drop].n) : 'your weakest player'}. Bid $${top.bid} (wins about ${pct(top.chance)} of the time); he's worth $${top.value} to you and usually goes for $${top.price}–$${top.price80}.</p>`;
-  }
   $('headline').innerHTML = planHtml() + t;
 }
 
@@ -227,7 +243,7 @@ const ctl = [['sd', v => S.sd = +v, v => v + ' pts' + (+v === SD_MEASURED ? ' (m
 let timer = null;
 function rerender() {
   computeBase();
-  const top = renderBids(); renderLineup(); renderSurv(); renderForecast(); renderRivals(); renderMarket(); renderHeader(top);
+  const top = LASTTOP = renderBids(); renderLineup(); renderSurv(); renderForecast(); renderRivals(); renderMarket(); renderHeader(top);
 }
 for (const [id, set, lab, start] of ctl) {
   const el = $(id), o = $(id + 'O');
