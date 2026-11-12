@@ -166,8 +166,7 @@ class Score(unittest.TestCase):
 class Trial(unittest.TestCase):
     """The value-source trial: site vs DARKO minutes vs shrunk on the same mornings, and the rule to switch one on."""
     # DARKO gives Next Guy 1.75x his minutes (PTS raw 15 -> 26.25, z 1 -> 3.25): he passes Add Guy
-    DAYS = {"2026-11-05": {"asof": "2026-11-04", "how": "backfill", "m": {"3": 1.9}},
-            "2026-11-06": {"asof": "2026-11-05", "how": "daily", "m": {"3": 1.9}}}
+    DAYS = {"2026-11-05": {"how": "backfill", "m": {"3": 1.9}}, "2026-11-06": {"how": "daily", "m": {"3": 1.9}}}
 
     def test_darko_and_shrunk_sources_on_a_morning(self):
         m = hist()[0]
@@ -188,7 +187,7 @@ class Trial(unittest.TestCase):
         self.assertEqual(wk["site"], wk["shrunk"])                               # no src/projection in the fixture
         self.assertEqual((wk["darko_minutes"]["swap"], wk["darko_minutes"]["n_swap"]), (-0.5, 1))   # Next Guy for Drop Guy
         self.assertEqual(t["diff"]["2026-11-08"]["darko_minutes"]["swap"], -3.0)
-        self.assertEqual((t["mornings"], t["first"], t["lag"], t["ready"]), (2, "2026-11-05", 1, []))
+        self.assertEqual((t["mornings"], t["first"], t["ready"]), (2, "2026-11-05", []))
         self.assertEqual(t["gate"]["darko_minutes"]["weeks"], 1)
         only_one = ab.trial(None, hist=hist(), pool=POOL, dates=DATES, today=dt.date(2026, 11, 9), days={"2026-11-06": self.DAYS["2026-11-06"]})
         self.assertEqual(only_one["mornings"], 1)                                # mornings without a reading are left out

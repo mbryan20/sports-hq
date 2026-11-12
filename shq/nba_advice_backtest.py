@@ -510,7 +510,8 @@ def trial(previous=None, hist=None, pool=None, dates=None, today=None, days=None
     """The nightly value-source trial: the site's values, DARKO minutes and shrunk, replayed on the same mornings (every
     morning with a DARKO reading) and scored as compare_sources() does. Complete weeks are stored (`previous`: last
     night's result) and stand once stored. {"v", "weeks": {week: {source: ...}}, "diff", "gate", "ready", "mornings",
-    "first", "match", "match_swaps", "lag"}."""
+    "first", "match", "match_swaps"}. DARKO minutes only moves the players the snapshot keeps (my roster, named by that
+    morning's advice, the next-ranked free agents); anyone else keeps the site's value."""
     from . import darko
     today = today or now_utc().astimezone(TZ).date()
     if pool is None or dates is None:
@@ -529,12 +530,9 @@ def trial(previous=None, hist=None, pool=None, dates=None, today=None, days=None
     diff = {wk: {s: {k: sub(x[s][k], x["site"][k]) for k in ("stream", "swap", "err")} for s in x if s != "site"}
             for wk, x in sorted(weeks.items())}
     gate = ready_sources(weeks)
-    lag = [(dt.date.fromisoformat(d) - dt.date.fromisoformat(days[d]["asof"])).days for d in days
-           if days[d].get("asof") and days[d].get("how") == "daily"]
     return {"v": TRIAL_V, "weeks": dict(sorted(weeks.items())), "diff": diff, "gate": gate,
             "ready": [s for s, g in gate.items() if g["ready"]], "mornings": len(hist),
-            "first": min(days) if days else None, "match": cmp["match"], "match_swaps": cmp["match_swaps"],
-            "lag": r2(mean(lag)) if lag else None}
+            "first": min(days) if days else None, "match": cmp["match"], "match_swaps": cmp["match_swaps"]}
 
 
 # ---------- runs ----------

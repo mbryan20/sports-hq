@@ -400,10 +400,6 @@ def main():
     ctx = Context(now)
     status["week"] = ctx.week
 
-    # DARKO's projected minutes, once a day from 7am CT: the value-source trial's snapshot (shq/darko.py; never fails)
-    dk = darko.track(now)
-    if dk:
-        notes.append(dk)
     prev_views = (load_json(DATA / "lineups.json", {}) or {}).get("leagues", {})
     league_views, radar_queue, outage = {}, [], []
     for cfg in LEAGUES:
@@ -488,6 +484,11 @@ def main():
                 errors.append(f"{lg.name} injury watch: {type(e).__name__}: {e}")
     status["actions"] = actions
 
+    # DARKO's projected minutes, once a day from 7am CT, for the players the basketball advice uses: the value-source
+    # trial's snapshot (shq/darko.py; never fails)
+    dk = darko.track(now, darko.run_blocks(leagues, league_views))
+    if dk:
+        notes.append(dk)
     save_json(DATA / "lineups.json", {"updated": iso(now), "week": ctx.week, "leagues": league_views})
     try:   # the Players page: NBA category values (shq/nba_values.py), football ranks (shq/nfl_players.py)
         nba_values.save(DATA / "players.json", {lg.name: getattr(lg, "values", None) for lg in leagues

@@ -177,11 +177,11 @@ class ValueSource(unittest.TestCase):
                 site = nba_values.build(league(), source="site")
                 self.assertEqual([p["v"] for p in none["players"]], [p["v"] for p in site["players"]])
                 self.assertIn("no recent DARKO reading", none["basis"])
-                darko.record("2026-10-28", [{"name": "Bench Guy", "min": 45.0}, {"name": "Star", "min": 15.0}], "2026-10-27",
-                             {"6": 30.0, "1": 30.0}, {"6": "Bench Guy", "1": "Star"})
+                darko.record("2026-10-28", [{"name": "Bench Guy", "min": 45.0}, {"name": "Star", "min": 15.0}],
+                             {"6": 30.0, "1": 30.0}, {"6": "Bench Guy", "1": "Star"}, {"6", "1"})
                 b = nba_values.build(league(), source="darko_minutes")
         by, sb = nba_values.by_id(b), nba_values.by_id(site)
-        self.assertIn("minutes from DARKO (darko.app), as of 2026-10-27", b["basis"])
+        self.assertIn("minutes from DARKO (darko.app), read 2026-10-28", b["basis"])
         self.assertEqual(b["source"], "darko_minutes")
         self.assertEqual((b["repl"], b["scale"]), (site["repl"], site["scale"]))    # the league's scale and waiver level stay
         # 1.5x the minutes: more points and assists, but his 33% shooting and turnovers weigh more too

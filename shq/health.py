@@ -695,10 +695,8 @@ def trial_notes(t):
         notes.append("No complete week yet with a DARKO reading on its mornings: each is scored once its fantasy week is over.")
     same = (f"Same mornings for all three: {t.get('mornings', 0)} league mornings with a DARKO reading since "
             f"{t.get('first') or 'n/a'} (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then "
-            "read once a day from 7am CT")
-    if t.get("lag") is not None:
-        same += (f"; the daily readings had DARKO's ratings through games {t['lag']} days back on average, 1 = up to "
-                 "date")
+            "read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best "
+            "free agents per league")
     same += ")."
     if t.get("match") is not None and t.get("match_swaps") is not None:
         same += (f" The replay of the site's own values reproduces {t['match']:.0%} of the streamers and "

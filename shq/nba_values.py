@@ -125,8 +125,8 @@ def source_basis(source, used, asof):
     if source == "darko_minutes":
         if not used:
             return " Value source: DARKO minutes is switched on but there is no recent DARKO reading, so these are the site's values."
-        return (f" Value source: minutes from DARKO (darko.app), as of {asof}: each player's per-game line is rescaled to "
-                f"DARKO's projected minutes ({used} players; factor kept within {M_RANGE[0]}–{M_RANGE[1]}).")
+        return (f" Value source: minutes from DARKO (darko.app), read {asof}: the per-game lines of {used} players (mine, "
+                f"the waiver options) are rescaled to DARKO's projected minutes (factor kept within {M_RANGE[0]}–{M_RANGE[1]}).")
     if source == "shrunk":
         return (f" Value source: shrunk: a player valued on this season's games is pulled toward his ESPN projection by "
                 f"games played (weight games / (games + {SHRINK_K})).")
@@ -191,7 +191,7 @@ def build(league, sc=None, source=None):
             factors, asof = {}, None
             if source == "darko_minutes":
                 from . import darko
-                factors, asof, _ = darko.today_factors(today.isoformat())
+                factors, asof = darko.today_factors(today.isoformat())
             vals = alternative(source, vals, src, pool, cats, scale, factors)
             order = sorted(vals, key=lambda i: -vals[i][0])
             extra = source_basis(source, sum(1 for i in vals if i in factors), asof)

@@ -16,11 +16,15 @@ Read lightly: at most once a day (state/nba_darko.json says whether today is don
 a failed one too), one try, a generic User-Agent, never fails a run.
 
 Never republished: DARKO's numbers stay in .cache (not committed, never on the site). What is committed
-(state/nba_darko.json) is our own derived number per ESPN player id: his minutes factor = DARKO's projected minutes /
-the minutes in the line his value is built on (this season's average, or ESPN's projection before 5 games), one entry a
-day, KEEP_DAYS days. The site credits "minutes from DARKO (darko.app)" whenever the switch uses it.
+(state/nba_darko.json, this repo is public) is only our own derived number for the players the advice and the backtest
+need: his minutes factor = DARKO's projected minutes / the minutes in the line his value is built on (this season's
+average, or ESPN's projection before 5 games), rounded to STEP, for the players on my two basketball rosters, the ones
+that morning's swaps and streamers named, and the TOP_FA best free agents by value in each league (keep_ids). No DARKO
+dates, minutes or names. One entry a day, KEEP_DAYS days. The site credits "minutes from DARKO (darko.app)" whenever
+the switch uses it.
 
-    py -m shq.darko               today's read (once a day) and the snapshot; prints what it got, not DARKO's table
+    py -m shq.darko               today's read (once a day); prints what it got, not DARKO's table (the run keeps
+                                  the snapshot, after the basketball tabs are built)
     py -m shq.darko --backfill    also each backtest morning without a snapshot (one read per day, ever)"""
 import datetime as dt
 import json
@@ -40,7 +44,9 @@ CACHE_DIR = CACHE / "darko"
 KEEP_DAYS = 60          # snapshot days kept (the comparison stores finished weeks in health.json, so older ones can go)
 SNAP_HOUR = 7           # the day's reading is taken from the first run at or after 7am CT (before the 8am advice)
 STALE_DAYS = 3          # with the switch on, an older snapshot than this is not used (site values instead)
-V = 1
+STEP = 0.05             # factors are kept to the nearest 0.05
+TOP_FA = 10             # free agents kept per league besides the ones the advice named (the next-ranked options)
+V = 2                   # 2: only the players the advice and backtest need, factors to 0.05, no DARKO as-of date
 
 
 # ---------- the read ----------
@@ -121,20 +127,56 @@ def key(name):
     return name_key(plain)
 
 
-def factors(rows, lines, names):
-    """{ESPN id: DARKO's projected minutes / the minutes in his value line}, 2 decimals. lines: {id: minutes};
-    names: {id: name}. Matched by name; a name two ESPN players share is skipped, and so is a line under 1 minute."""
+def step(x):
+    """A factor rounded to STEP (0.05): coarse on purpose, it is ours, not DARKO's number."""
+    return round(round(x / STEP) * STEP, 2)
+
+
+def factors(rows, lines, names, keep=None):
+    """{ESPN id: DARKO's projected minutes / the minutes in his value line, to the nearest STEP} for the ids in `keep`
+    (all when None). lines: {id: minutes}; names: {id: name}. Matched by name; a name two ESPN players share is skipped,
+    and so is a line under 1 minute."""
     by_key = {}
     for pid, n in names.items():
         by_key.setdefault(key(n), []).append(pid)
     out = {}
     for r in rows or []:
         ids = by_key.get(key(r["name"])) or []
-        if len(ids) != 1:
+        if len(ids) != 1 or (keep is not None and ids[0] not in keep):
             continue
         lm = lines.get(ids[0]) or 0
         if lm >= 1 and r["min"] > 0:
-            out[ids[0]] = round(r["min"] / lm, 2)
+            out[ids[0]] = step(r["min"] / lm)
+    return out
+
+
+def named(block, adv):
+    """ESPN ids a morning's Waiver adds swaps (add and drop) and streamers named, from the shown lines."""
+    from . import nba_advice_backtest as ab
+    idx, out = ab.name_index(block), set()
+    for line in (adv or {}).get("adds") or []:
+        s = ab.parse_swap(line)
+        for n in ((s["add"], s["drop"]) if s else ()):
+            p = ab.find(idx, n)
+            if p:
+                out.add(str(p["id"]))
+    for line in ((adv or {}).get("games") or {}).get("streamers") or []:
+        s = ab.parse_streamer(line)
+        p = ab.find(idx, s["name"]) if s else None
+        if p:
+            out.add(str(p["id"]))
+    return out
+
+
+def keep_ids(blocks):
+    """Who the snapshot keeps: [(players.json league block, ids its advice named)] -> my roster in that league (the drops),
+    the players named, and the TOP_FA best free agents by value (the next-ranked options)."""
+    out = set()
+    for block, names_ in blocks:
+        players = (block or {}).get("players") or []
+        out |= {str(p["id"]) for p in players if p.get("own") == "me"} | set(names_ or ())
+        fas = sorted((p for p in players if not p.get("own")), key=lambda p: -(p.get("v") or 0))
+        out |= {str(p["id"]) for p in fas[:TOP_FA]}
     return out
 
 
@@ -152,15 +194,16 @@ def save(snap):
     SNAP.write_text(f"{{\"v\":{V},\"days\":{{\n{body}\n}}}}\n", encoding="utf-8", newline="\n")
 
 
-def record(day, rows, asof, lines, names, how="daily"):
-    """Store one day's factors (an existing day is kept). Returns the day's entry or None."""
-    f = factors(rows, lines, names)
+def record(day, rows, lines, names, keep, how="daily"):
+    """Store one day's factors for the `keep` ids (an existing day is kept). Returns the day's entry or None. Only our
+    factor and how it was read ("daily" / "backfill") are stored: no DARKO date, minutes or names."""
+    f = factors(rows, lines, names, keep)
     if not f:
         return None
     snap = load()
     days = snap.setdefault("days", {})
     if day not in days:
-        days[day] = {"asof": asof, "how": how, "m": f}
+        days[day] = {"how": how, "m": dict(sorted(f.items()))}
         save(snap)
     return days[day]
 
@@ -176,30 +219,42 @@ def pool_lines(pool):
     return lines, names
 
 
-def track(now=None, pool=None, get=None):
-    """The run's daily reading: from SNAP_HOUR CT, once a day, read DARKO and keep today's factors for every player in
-    the ESPN pool it matches. Returns a one-line status for the run notes. Never raises."""
+def track(now=None, blocks=(), pool=None, get=None):
+    """The run's daily reading, after the basketball tabs are built: from SNAP_HOUR CT, once a day, read DARKO and
+    keep today's factors for keep_ids(blocks) (blocks: [(league values block, ids its advice named)]). Returns a
+    one-line status for the run notes. Never raises."""
     try:
         now = now or now_utc()
         local = now.astimezone(TZ)
         day = local.date().isoformat()
-        if day in (load().get("days") or {}):
+        if day in (load().get("days") or {}) or local.hour < SNAP_HOUR:
             return None
-        if local.hour < SNAP_HOUR:
+        keep = keep_ids(blocks)
+        if not keep:
             return None
-        rows, asof = fetch(day, get=get)
+        rows, _ = fetch(day, get=get)
         if not rows:
             return f"darko: no reading today ({error(day) or 'read failed'})"
         if pool is None:
             from . import radar
             pool = radar.fetch_pool()
         lines, names = pool_lines(pool)
-        e = record(day, rows, asof, lines, names)
+        e = record(day, rows, lines, names, keep)
         prune(local.date())
-        return f"darko: {len(e['m']) if e else 0} players' minutes factors for {day} (DARKO as of {asof})"
+        return f"darko: {len(e['m']) if e else 0} players' minutes factors for {day}"
     except Exception:
         traceback.print_exc()
         return None
+
+
+def run_blocks(leagues, views):
+    """track()'s blocks from a run: each basketball league's values block and the players its advice names."""
+    out = []
+    for lg in leagues:
+        block = getattr(lg, "values", None)
+        if getattr(lg, "sport", "nfl") == "nba" and block:
+            out.append((block, named(block, (views.get(lg.name) or {}).get("advice"))))
+    return out
 
 
 def prune(today, keep=14):
@@ -215,33 +270,41 @@ def error(day):
 
 
 def today_factors(day, stale=STALE_DAYS):
-    """(factors, DARKO's as-of date, snapshot day) for the live switch: the newest snapshot on or before `day` within
-    `stale` days, else ({}, None, None). Reads only the committed snapshot, never the network."""
+    """(factors, snapshot day) for the live switch: the newest snapshot on or before `day` within `stale` days, else
+    ({}, None). Reads only the committed snapshot, never the network."""
     days = load().get("days") or {}
     d = dt.date.fromisoformat(day)
     for k in sorted(days, reverse=True):
         kd = dt.date.fromisoformat(k)
         if kd <= d and (d - kd).days <= stale:
-            return days[k].get("m") or {}, days[k].get("asof"), k
-    return {}, None, None
+            return days[k].get("m") or {}, k
+    return {}, None
+
+
+def morning_blocks(hist):
+    """{day: (lines, names, keep)} from backtest mornings (history()): that morning's players.json minutes, and who the
+    snapshot keeps (my roster, named by that morning's swaps and streamers, the next-ranked free agents)."""
+    by_day = {}
+    for m in hist:
+        lines, names, blocks = by_day.setdefault(m["day"], ({}, {}, []))
+        for p in m["block"].get("players") or []:
+            if p.get("min"):
+                lines[str(p["id"])], names[str(p["id"])] = p["min"], p["name"]
+        ids = {str(s["add_id"]) for s in m["swaps"]} | {str(s["drop_id"]) for s in m["swaps"] if s["drop_id"]}
+        blocks.append((m["block"], ids | {str(s["id"]) for s in m["streamers"]}))
+    return {d: (lines, names, keep_ids(blocks)) for d, (lines, names, blocks) in by_day.items()}
 
 
 def backfill(hist, get=None):
     """For backtest mornings without a snapshot: DARKO's Time Machine as of that morning (one read per day, cached),
-    factors against the minutes in that morning's players.json (both leagues). Returns the days added."""
-    by_day = {}
-    for m in hist:
-        lines, names = by_day.setdefault(m["day"], ({}, {}))
-        for p in m["block"].get("players") or []:
-            if p.get("min"):
-                lines[str(p["id"])], names[str(p["id"])] = p["min"], p["name"]
+    factors against the minutes in that morning's players.json for the players it keeps. Returns the days added."""
     have = load().get("days") or {}
     added = []
-    for day, (lines, names) in sorted(by_day.items()):
+    for day, (lines, names, keep) in sorted(morning_blocks(hist).items()):
         if day in have:
             continue
-        rows, asof = fetch(day, get=get)
-        if rows and record(day, rows, asof, lines, names, how="backfill"):
+        rows, _ = fetch(day, get=get)
+        if rows and record(day, rows, lines, names, keep, how="backfill"):
             added.append(day)
     return added
 
@@ -263,15 +326,11 @@ def main(argv):
             v = sorted(f.values())
             print(f"Matched to the ESPN pool: {len(f)} of {len(rows)}; minutes factor median {v[len(v) // 2]:.2f}, "
                   f"{sum(x >= 1.15 for x in v)} at 1.15+ (more minutes), {sum(x <= 0.85 for x in v)} at 0.85 or less")
-        had = day in (load().get("days") or {})
-        msg = track(now)
-        print(msg or (f"snapshot for {day}: already kept" if had else f"snapshot: not taken (before {SNAP_HOUR}am CT)"))
     if "--backfill" in argv:
         from . import nba_advice_backtest as ab
         print("backfilled:", backfill(ab.history()) or "nothing missing")
     snap = load().get("days") or {}
-    print("snapshot days:", ", ".join(f"{d} ({snap[d].get('how')}, as of {snap[d].get('asof')}, {len(snap[d]['m'])})"
-                                       for d in sorted(snap)) or "none")
+    print("snapshot days:", ", ".join(f"{d} ({snap[d].get('how')}, {len(snap[d]['m'])} players)" for d in sorted(snap)) or "none")
 
 
 if __name__ == "__main__":
