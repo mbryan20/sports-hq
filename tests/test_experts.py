@@ -178,6 +178,7 @@ class LeaguePage(unittest.TestCase):
         self.assertNotIn("Wr Bob", b["names"])                         # a free agent no line names isn't
         self.assertTrue(b["published"])
         self.assertIn("Sleeper's projections", b["basis"])
+        self.assertIn("only by a number, not a name", b["basis"])   # Michael asked which experts: say plainly ESPN doesn't name them
         lg11 = self.league(self.ranks(11))
         lg11.ctx.week = 11
         b11 = experts.block(lg11, [])
