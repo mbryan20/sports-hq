@@ -314,6 +314,7 @@ def build_yahoo(W, slate):
                     "model": pm, "market": pk, "wager": tbs, "why": why, "source": rsrc or src_link(g, []),
                     "key": f"{sg['away']}@{sg['home']}", "pick_team": pick})
     n_dogs = len(chosen)
+    kept_dogs = [o["pick_team"] for i, o in enumerate(out) if i in kept and bool(picks[i]) != bool(fav_home[i])]
     watch = upset_watch(rows, picks, set(chosen) | set(kept), pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
     return {
         "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": yahoo_deadline(y),
@@ -324,7 +325,9 @@ def build_yahoo(W, slate):
             f"TB2 fewest points: <b>{fewest[0][0]}</b> ({fewest[0][1]*100:.0f}%), alt {fewest[1][0]} ({fewest[1][1]*100:.0f}%)",
             f"TB2 locks {y['tb2_deadline']}",
         ],
-        "notes": [f"Underdogs: {n_dogs}. Pool sim (10k): P(win week) {max(curve)*100:.1f}% vs {curve[0]*100:.1f}% all favorites; {len(eligible)} dogs passed the 4-pt / 2-signal rule.",
+        "notes": [(f"Underdogs: {n_dogs + len(kept_dogs)} ({len(kept_dogs)} your saved picks kept for season value: {', '.join(kept_dogs)}). "
+                   if kept_dogs else f"Underdogs: {n_dogs}. ")
+                  + f"Pool sim (10k, before kept picks): P(win week) {max(curve)*100:.1f}% vs {curve[0]*100:.1f}% all favorites; {len(eligible)} dogs passed the 4-pt / 2-signal rule.",
                   f"Group: you {y['standings']['me']} pts, rank {y['standings']['rank']}, leader {y['standings']['leader']}."]
                  + watch,
     }
@@ -385,6 +388,9 @@ def season_flips(rows, picks, fav_home, p_true, pub_home):
     return base, vals, combo, games, meta, idx, prof
 
 
+MIN_GAIN = 0.05   # season win-chance points; smaller gains are inside the 20k-season sim's noise (~0.1 pt)
+
+
 def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
     """Where Michael saved the other side and the card's own season sim says that side raises his chance to win
     the group, the card keeps his pick instead of telling him to switch (Nov 12: the card said 'switch Kansas to
@@ -399,7 +405,7 @@ def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
     base, vals, _combo, games, _meta, idx, _prof = sv
     kept = {}
     for j, i in enumerate(idx):
-        if i in chosen or vals[j] <= 0:
+        if i in chosen or vals[j] < MIN_GAIN:
             continue
         sg = rows[i]["sg"]
         mine = saved.get(f"{sg['away']}@{sg['home']}")
@@ -411,8 +417,7 @@ def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
         picks[i] = not bool(picks[i])
         g = games[j]
         p_side = (1 - g["p_fav"]) if not g["my_dog"] else g["p_fav"]   # the flipped side's win chance
-        kept[i] = (f"Your pick kept: {mine} wins {p_side * 100:.0f}%, "
-                   f"season chance {base * 100:.1f}%→{base * 100 + vals[j]:.1f}%")
+        kept[i] = f"Your pick kept: {mine} wins {p_side * 100:.0f}%, adds {vals[j]:.2f} pts season chance"
     return kept
 
 
@@ -426,8 +431,9 @@ def group_value(rows, picks, fav_home, p_true, pub_home, y):
     out = [f"Chance to win the group this season: {base * 100:.1f}% (you're #{st['rank']}, {st['leader'] - st['me']} back; "
            f"simulated against each member's own pick habits over the last {len(prof['weeks'])} weeks)."]
     order = sorted(range(len(games)), key=lambda i: -vals[i])
-    shown = [i for i in order if vals[i] > 0][:5] or order[:3]
-    out.append("Value of taking the other side (open games):")
+    shown = [i for i in order if vals[i] >= MIN_GAIN][:5] or order[:3]
+    out.append("Value of taking the other side (open games; your call: the card takes an underdog only by the "
+               "4-pt / 2-signal rule or when you saved it):")
     for i in shown:
         (fav, dog), kick = meta[i]
         g = games[i]
@@ -438,7 +444,8 @@ def group_value(rows, picks, fav_home, p_true, pub_home, y):
                    f"{(1 - g['pub_dog'] if g['my_dog'] else g['pub_dog']) * 100:.0f}% of Yahoo players on {side}")
     if combo > 0:
         n_pos = sum(1 for v in vals if v > 0)
-        out.append(f"All {n_pos} switches that help (top {len(shown)} above) together: {base * 100:.1f}% → {base * 100 + combo:.1f}%.")
+        out.append(f"All {n_pos} switches with any gain (incl. ones under {MIN_GAIN} pts, not listed) together: "
+                   f"{base * 100:.1f}% → {base * 100 + combo:.1f}%.")
     else:
         out.append("No other side raises your chance this week: the card's picks are the best for the season.")
     return out
@@ -481,7 +488,7 @@ def upset_watch(rows, picks, chosen, pub_home, limit=4):
     cands.sort(key=lambda t: t[0])
     if not cands:
         return []
-    return ["Upset watch (favorites our numbers barely back; your call):"] + [t for _, t in cands[:limit]]
+    return ["Upset watch (favorites our stats doubt or disagree with; your call):"] + [t for _, t in cands[:limit]]
 
 
 def build_cfp(W, slate):

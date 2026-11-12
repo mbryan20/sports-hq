@@ -63,9 +63,14 @@ class KeepSavedPick(unittest.TestCase):
     def test_kept_when_season_value_positive(self):
         kept, picks = self.run_keep(0.17)
         self.assertFalse(picks[0])
-        self.assertEqual(kept, {0: "Your pick kept: Kansas wins 49%, season chance 0.8%→1.0%"})
+        self.assertEqual(kept, {0: "Your pick kept: Kansas wins 49%, adds 0.17 pts season chance"})
 
     def test_switch_stands_when_season_value_negative(self):
         kept, picks = self.run_keep(-0.05)
+        self.assertTrue(picks[0])
+        self.assertEqual(kept, {})
+
+    def test_switch_stands_when_gain_is_inside_sim_noise(self):
+        kept, picks = self.run_keep(0.03)
         self.assertTrue(picks[0])
         self.assertEqual(kept, {})
