@@ -224,7 +224,7 @@ def _q_label(p, nba):
     Nov 10: "Questionable" while the note said probable)."""
     if not nba:
         return "Questionable"
-    if (p.get("gd") or {}).get("src") == "nba" and not p.get("conflict"):   # today's official word (Q-057)
+    if (p.get("gd") or {}).get("src") == "nba" and not p.get("conflict"):   # today's official word (Q-058)
         return p["why"][0].lower() + p["why"][1:]
     word = espn_word((p.get("news") or {}).get("note"))
     return "day-to-day" + (f" (ESPN: {word})" if word else "")

@@ -148,7 +148,7 @@ def first_line(blocked, room, text):
 
 def status_text(p):
     """'day-to-day (ESPN: questionable), next game counted at 50%' for an add or drop who isn't fully healthy; today's
-    official word is added when the NBA injury report or Sleeper decided it (Q-057)."""
+    official word is added when the NBA injury report or Sleeper decided it (Q-058)."""
     gd = (p.get("gd") or {}).get("t")
     today = f"; today: {gd[0].lower()}{gd[1:]}" if gd else ""
     if not p.get("inj"):

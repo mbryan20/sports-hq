@@ -339,7 +339,7 @@ class EspnLeague:
         if sport == "nba" and self.captured:  # NBA periods are days; roll a morning snapshot forward
             self.period += (ctx.now.astimezone(TZ).date() - self.captured.astimezone(TZ).date()).days
         self.week = data["matchup_period"] if sport == "nba" else ctx.week
-        # NBA: today's status from the official injury report and Sleeper on top of ESPN's (Q-057)
+        # NBA: today's status from the official injury report and Sleeper on top of ESPN's (Q-058)
         self.gd = None
         if sport == "nba" and hasattr(ctx, "nba_gameday"):
             self.gd = ctx.nba_gameday(any(t.get("games", {}).get(self.period) for t in self.sched.values()))

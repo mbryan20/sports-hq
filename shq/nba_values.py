@@ -118,7 +118,7 @@ def build(league, sc=None):
     in "cats" order), st (per-game stats in the same order), inj, play (chance he plays his next game), word (ESPN's
     probable/questionable/doubtful), dmin (minutes, last 3 games vs before), pct (% rostered),
     age (years, None when ESPN's rosters don't list him), and gd {"s": status or None, "t": "Out (rest) per NBA injury
-    report, 5:30pm"} only when today's official report or Sleeper decided his status (shq/nba_status.py, Q-057)."""
+    report, 5:30pm"} only when today's official report or Sleeper decided his status (shq/nba_status.py, Q-058)."""
     sc = sc or radar.scan_for(league)
     pool, roles = sc["pool"], sc.get("roles") or {}
     cats = league_cats(league)

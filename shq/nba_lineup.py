@@ -10,7 +10,7 @@ follows these moves (radar.agree(), Q-047), so the two never disagree.
 The push: at most one a day for both leagues together, sent on the first run inside LEAD before the earliest tip-off
 among the moves, and only when there is a move. An out starter in it isn't pushed again by the injury watch.
 
-Game-day status (Q-057, shq/nba_status.py): a starter the official NBA injury report lists Out today (a rest day too) is a
+Game-day status (Q-058, shq/nba_status.py): a starter the official NBA injury report lists Out today (a rest day too) is a
 move like any other out starter, so it rides in that one push if it hasn't gone out yet. Once today's push is out, a
 change after it shows only on the site (the move is marked "new since today's lineup push"), and the injury watch doesn't
 push a starter whose Out the official report backs (run.injury_watch): never a second NBA lineup push in a day."""

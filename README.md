@@ -94,7 +94,7 @@ The footer shows the last cloud run and when each laptop job last delivered.
   live in `state/alerts.json` / `state/pick_lines_sent.json`; before a real push the run also reads `origin/main`'s copy,
   and `commit_data.sh` merges those files key by key (`shq/statemerge.py`), so a laptop kick and a cron loop never
   push the same alert twice. Anything not pushed is still on the site.
-- **NBA game-day status** (`shq/nba_status.py`, Q-057): on top of ESPN's injury report, the NBA's official injury report
+- **NBA game-day status** (`shq/nba_status.py`, Q-058): on top of ESPN's injury report, the NBA's official injury report
   (newest PDF from official.nba.com, re-read at most every 10 min, hourly on days without games) and Sleeper's public NBA
   players file (every 45 min on game days, 6h otherwise), both cached in `.cache` and never allowed to fail a run. For
   today's game the official report wins when it's newer than ESPN's note; Sleeper fills gaps; disagreement with nothing

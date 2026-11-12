@@ -121,7 +121,7 @@ def injury_watch(league, now):
         locks = ct_label(out["kickoff"])
         nba = getattr(league, "sport", "nfl") == "nba"
         # NBA: an Out the official injury report backs (a rest day, a late scratch) gets at most the day's one lineup
-        # push (shq/nba_lineup.py); once that has gone out, it's on the site only, never a second push (Q-057)
+        # push (shq/nba_lineup.py); once that has gone out, it's on the site only, never a second push (Q-058)
         if nba and (out.get("gd") or {}).get("src") == "nba" and nba_lineup.pushed_today(now):
             actions.append(f"site only (after today's NBA lineup push): {out['name']}")
             continue

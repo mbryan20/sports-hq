@@ -1,4 +1,4 @@
-"""Q-057: game-day NBA status from the official NBA injury report and Sleeper (shq/nba_status.py), merged into ESPN's,
+"""Q-058: game-day NBA status from the official NBA injury report and Sleeper (shq/nba_status.py), merged into ESPN's,
 and how it feeds the one NBA lineup push a day. Fixtures only: no network, no real push."""
 import datetime as dt
 import os

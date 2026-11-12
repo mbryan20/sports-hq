@@ -1,4 +1,4 @@
-"""Game-day NBA status from two free sources, merged into each NBA player's ESPN status (Q-057). Pure reads, no AI.
+"""Game-day NBA status from two free sources, merged into each NBA player's ESPN status (Q-058). Pure reads, no AI.
 
 Sources (both read lightly, cached in .cache, and never allowed to fail a run: a source that's down counts as silent):
 - The NBA's official injury report: the season's index page on official.nba.com links one PDF per update (about every
