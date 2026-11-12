@@ -166,8 +166,8 @@ class Score(unittest.TestCase):
 class Trial(unittest.TestCase):
     """The value-source trial: site vs DARKO minutes vs shrunk on the same mornings, and the rule to switch one on."""
     # DARKO gives Next Guy 1.75x his minutes (PTS raw 15 -> 26.25, z 1 -> 3.25): he passes Add Guy
-    DAYS = {"2026-11-05": {"asof": "2026-11-04", "how": "time machine", "m": {"3": 1.9}},
-            "2026-11-06": {"asof": "2026-11-05", "how": "live", "m": {"3": 1.9}}}
+    DAYS = {"2026-11-05": {"asof": "2026-11-04", "how": "backfill", "m": {"3": 1.9}},
+            "2026-11-06": {"asof": "2026-11-05", "how": "daily", "m": {"3": 1.9}}}
 
     def test_darko_and_shrunk_sources_on_a_morning(self):
         m = hist()[0]

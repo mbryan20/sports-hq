@@ -530,7 +530,7 @@ def trial(previous=None, hist=None, pool=None, dates=None, today=None, days=None
             for wk, x in sorted(weeks.items())}
     gate = ready_sources(weeks)
     lag = [(dt.date.fromisoformat(d) - dt.date.fromisoformat(days[d]["asof"])).days for d in days
-           if days[d].get("asof") and days[d].get("how") == "live"]
+           if days[d].get("asof") and days[d].get("how") == "daily"]
     return {"v": TRIAL_V, "weeks": dict(sorted(weeks.items())), "diff": diff, "gate": gate,
             "ready": [s for s, g in gate.items() if g["ready"]], "mornings": len(hist),
             "first": min(days) if days else None, "match": cmp["match"], "match_swaps": cmp["match_swaps"],

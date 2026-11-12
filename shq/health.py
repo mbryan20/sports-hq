@@ -694,10 +694,10 @@ def trial_notes(t):
     if not t.get("weeks"):
         notes.append("No complete week yet with a DARKO reading on its mornings: each is scored once its fantasy week is over.")
     same = (f"Same mornings for all three: {t.get('mornings', 0)} league mornings with a DARKO reading since "
-            f"{t.get('first') or 'n/a'} (state/nba_darko.json: the first ones from DARKO's Time Machine as of that morning, "
-            "then one live reading a day from 7am CT")
+            f"{t.get('first') or 'n/a'} (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then "
+            "read once a day from 7am CT")
     if t.get("lag") is not None:
-        same += (f"; the live readings had DARKO's ratings through games {t['lag']} days back on average, 1 = up to "
+        same += (f"; the daily readings had DARKO's ratings through games {t['lag']} days back on average, 1 = up to "
                  "date")
     same += ")."
     if t.get("match") is not None and t.get("match_swaps") is not None:

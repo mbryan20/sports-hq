@@ -86,7 +86,7 @@ class Fetch(Tmp):
         rows, asof = darko.fetch("2026-11-12", get=self.get(LIST_PAGE))
         self.assertEqual((len(rows), asof), (2, "2026-11-10"))
         url, params, headers = self.calls[0]
-        self.assertEqual((url, params), ("https://www.darko.app/projections/__data.json", None))
+        self.assertEqual((url, params), ("https://www.darko.app/projections/__data.json", {"asof": "2026-11-12"}))
         self.assertNotIn("sports", headers["User-Agent"].lower())
         again = darko.fetch("2026-11-12", get=self.get(COLUMN_PAGE))   # same day: the cached read
         self.assertEqual((len(again[0]), len(self.calls)), (2, 1))
@@ -98,16 +98,10 @@ class Fetch(Tmp):
             self.assertEqual(darko.fetch("2026-11-12", get=self.get(ConnectionError("down"))), (None, None))
             self.assertEqual(darko.fetch("2026-11-12", get=self.get(LIST_PAGE)), (None, None))
         self.assertEqual(len(self.calls), 1)
-        self.assertIn("down", json.loads((darko.CACHE_DIR / "live.json").read_text())["error"])
+        self.assertIn("down", darko.error("2026-11-12"))
         with mock.patch("traceback.print_exc"):
             self.assertEqual(darko.fetch("2026-11-13", get=self.get({}, status=503)), (None, None))
             self.assertEqual(darko.fetch("2026-11-14", get=self.get({"nodes": []})), (None, None))   # page changed
-
-    def test_time_machine_reads_are_kept_for_good(self):
-        darko.fetch("2026-11-12", asof="2026-11-06", get=self.get(LIST_PAGE))
-        self.assertEqual(self.calls[0][1], {"asof": "2026-11-06"})
-        darko.fetch("2026-11-20", asof="2026-11-06", get=self.get(LIST_PAGE))
-        self.assertEqual(len(self.calls), 1)
 
 
 class Factors(Tmp):
@@ -126,7 +120,7 @@ class Factors(Tmp):
         days = darko.load()["days"]
         self.assertEqual(len(days), darko.KEEP_DAYS)
         self.assertNotIn("2026-10-01", days)
-        self.assertEqual(days["2026-11-30"], {"asof": "x", "how": "live", "m": {"1": 1.5}})
+        self.assertEqual(days["2026-11-30"], {"asof": "x", "how": "daily", "m": {"1": 1.5}})
         self.assertEqual(len(text.splitlines()), darko.KEEP_DAYS + 2)
         darko.record("2026-11-30", [{"name": "A", "min": 10.0}], "y", {"1": 20.0}, {"1": "A"})   # a kept day stands
         self.assertEqual(darko.load()["days"]["2026-11-30"]["m"], {"1": 1.5})
@@ -150,9 +144,14 @@ class Track(Tmp):
         self.assertEqual(self.calls, [])                                               # before 7am: no read
         msg = darko.track(self.at(8), pool=self.POOL, get=self.get(LIST_PAGE))
         self.assertIn("2 players", msg)
-        self.assertEqual(darko.load()["days"]["2026-11-12"], {"asof": "2026-11-10", "how": "live", "m": {"1": 1.03, "2": 0.5}})
+        self.assertEqual(darko.load()["days"]["2026-11-12"], {"asof": "2026-11-10", "how": "daily", "m": {"1": 1.03, "2": 0.5}})
         self.assertIsNone(darko.track(self.at(9), pool=self.POOL, get=self.get(LIST_PAGE)))
         self.assertEqual(len(self.calls), 1)
+        old = darko.CACHE_DIR / "asof-2026-10-01.json"                                  # cached reads 14+ days old go
+        old.write_text("{}")
+        darko.track(self.at(8) + dt.timedelta(days=1), pool=self.POOL, get=self.get(LIST_PAGE))
+        self.assertFalse(old.exists())
+        self.assertTrue((darko.CACHE_DIR / "asof-2026-11-12.json").exists())
 
     def test_never_fails_a_run(self):
         with mock.patch("traceback.print_exc"):
@@ -167,7 +166,7 @@ class Track(Tmp):
         darko.record("2026-11-07", [{"name": "A", "min": 1.0}], "z", {"1": 1.0}, {"1": "A"})
         self.assertEqual(darko.backfill(hist, get=self.get(LIST_PAGE)), ["2026-11-06"])
         self.assertEqual([c[1] for c in self.calls], [{"asof": "2026-11-06"}])
-        self.assertEqual(darko.load()["days"]["2026-11-06"], {"asof": "2026-11-10", "how": "time machine", "m": {"1": 2.05}})
+        self.assertEqual(darko.load()["days"]["2026-11-06"], {"asof": "2026-11-10", "how": "backfill", "m": {"1": 2.05}})
 
 
 if __name__ == "__main__":

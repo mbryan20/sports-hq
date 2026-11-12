@@ -3,12 +3,17 @@
 "sources", via shq/nba_advice_backtest.py trial()). Free read, no AI, no sign-in.
 
 Source: the JSON darko.app's Projections page loads (https://www.darko.app/projections/__data.json: the page's own
-SvelteKit data, the rows its "Download CSV" button turns into a CSV in the browser). x_minutes = DARKO's forecast of a
-player's minutes a game when he plays (darko.app/about). darko.app has no robots.txt (404) and no terms page (checked
-Nov 12, 2026); its FAQ says the data can be downloaded. Past mornings come from its Time Machine (?asof=YYYY-MM-DD).
+SvelteKit data, the rows its "Download CSV" button turns into a CSV in the browser), always through its Time Machine
+(?asof=YYYY-MM-DD): each player's minutes forecast for his latest game on or before that day, made before that game.
+x_minutes = DARKO's forecast of a player's minutes a game when he plays (darko.app/about). darko.app has no robots.txt
+(404) and no terms page (checked Nov 12, 2026); its FAQ says the data can be downloaded.
+Why the Time Machine, also for today: the live board (no asof) is a different number. On Nov 12 its minutes ran 2.6
+below players' season averages (median) and missed the Nov 11 games by 4.4 minutes (median), while the Time Machine's
+ran 0.7 above and missed by 3.5 (it looks like the live board counts the chance a player sits). The same Time Machine
+read as of each morning keeps the live switch and the backtest on one number, and it never sees the game it forecasts.
 
-Read lightly: at most once a day (state/nba_darko.json says whether today is done; .cache/darko/ keeps the read), one
-try, a generic User-Agent, never fails a run.
+Read lightly: at most once a day (state/nba_darko.json says whether today is done; .cache/darko/ keeps each day's read,
+a failed one too), one try, a generic User-Agent, never fails a run.
 
 Never republished: DARKO's numbers stay in .cache (not committed, never on the site). What is committed
 (state/nba_darko.json) is our own derived number per ESPN player id: his minutes factor = DARKO's projected minutes /
@@ -16,7 +21,7 @@ the minutes in the line his value is built on (this season's average, or ESPN's 
 day, KEEP_DAYS days. The site credits "minutes from DARKO (darko.app)" whenever the switch uses it.
 
     py -m shq.darko               today's read (once a day) and the snapshot; prints what it got, not DARKO's table
-    py -m shq.darko --backfill    also each backtest morning without a snapshot, from the Time Machine (once per day)"""
+    py -m shq.darko --backfill    also each backtest morning without a snapshot (one read per day, ever)"""
 import datetime as dt
 import json
 import sys
@@ -82,18 +87,16 @@ def decode(payload):
     return rows, asof if isinstance(asof, str) else None
 
 
-def fetch(day, asof=None, get=None):
-    """(rows, DARKO's as-of date) for `day` (the live board) or for a past morning (`asof`, the Time Machine), or
-    (None, None). One read per day: a cached read of the same day is reused, and so is a failed one (no retry until
-    tomorrow). Never raises."""
-    name = f"asof-{asof}.json" if asof else "live.json"
-    path = CACHE_DIR / name
+def fetch(day, get=None):
+    """(rows, DARKO's as-of date) from the Time Machine as of `day`, or (None, None). One read per day, ever: the
+    day's cached read is reused, a failed one too (no retry). Never raises."""
+    path = CACHE_DIR / f"asof-{day}.json"
     hit = load_json(path)
-    if hit and (asof or hit.get("day") == day):
+    if hit:
         return hit.get("rows"), hit.get("asof")
     rows, got, err = None, None, None
     try:
-        r = (get or requests.get)(URL, params={"asof": asof} if asof else None, headers=HEADERS, timeout=30)
+        r = (get or requests.get)(URL, params={"asof": day}, headers=HEADERS, timeout=30)
         r.raise_for_status()
         rows, got = decode(r.json())
         rows = rows or None
@@ -149,7 +152,7 @@ def save(snap):
     SNAP.write_text(f"{{\"v\":{V},\"days\":{{\n{body}\n}}}}\n", encoding="utf-8", newline="\n")
 
 
-def record(day, rows, asof, lines, names, how="live"):
+def record(day, rows, asof, lines, names, how="daily"):
     """Store one day's factors (an existing day is kept). Returns the day's entry or None."""
     f = factors(rows, lines, names)
     if not f:
@@ -186,16 +189,29 @@ def track(now=None, pool=None, get=None):
             return None
         rows, asof = fetch(day, get=get)
         if not rows:
-            return f"darko: no reading today ({(load_json(CACHE_DIR / 'live.json') or {}).get('error') or 'read failed'})"
+            return f"darko: no reading today ({error(day) or 'read failed'})"
         if pool is None:
             from . import radar
             pool = radar.fetch_pool()
         lines, names = pool_lines(pool)
         e = record(day, rows, asof, lines, names)
+        prune(local.date())
         return f"darko: {len(e['m']) if e else 0} players' minutes factors for {day} (DARKO as of {asof})"
     except Exception:
         traceback.print_exc()
         return None
+
+
+def prune(today, keep=14):
+    """Drop cached reads older than `keep` days (their factors are in the snapshot), so .cache stays small."""
+    cut = (today - dt.timedelta(days=keep)).isoformat()
+    for f in CACHE_DIR.glob("asof-*.json"):
+        if f.stem[5:] < cut:
+            f.unlink(missing_ok=True)
+
+
+def error(day):
+    return (load_json(CACHE_DIR / f"asof-{day}.json") or {}).get("error")
 
 
 def today_factors(day, stale=STALE_DAYS):
@@ -224,8 +240,8 @@ def backfill(hist, get=None):
     for day, (lines, names) in sorted(by_day.items()):
         if day in have:
             continue
-        rows, asof = fetch(day, asof=day, get=get)
-        if rows and record(day, rows, asof, lines, names, how="time machine"):
+        rows, asof = fetch(day, get=get)
+        if rows and record(day, rows, asof, lines, names, how="backfill"):
             added.append(day)
     return added
 
@@ -235,8 +251,7 @@ def main(argv):
     day = now.astimezone(TZ).date().isoformat()
     rows, asof = fetch(day)
     if not rows:
-        err = (load_json(CACHE_DIR / "live.json") or {}).get("error")
-        print(f"DARKO read for {day}: none ({err or 'no rows'})")
+        print(f"DARKO read for {day}: none ({error(day) or 'no rows'})")
     else:
         mins = sorted(r["min"] for r in rows)
         print(f"DARKO read for {day}: {len(rows)} players, DARKO as of {asof}; projected minutes median "
