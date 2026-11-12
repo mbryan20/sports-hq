@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-12T08:55:21Z",
+ "generated": "2026-11-12T17:08:01Z",
  "summary": {
-  "ok": 12,
+  "ok": 15,
   "watch": 2,
   "drift": 0,
   "weak": 0,
   "waiting": 7,
-  "info": 9,
+  "info": 21,
   "errors": 0
  },
  "flags": [
@@ -184,6 +184,1419 @@
     "Weeks 1-9: 15973 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.5%, experts 56.8%, blend 57.9%; the blend beat Sleeper in 5 of 9 weeks.",
     "Start/sit stays on Sleeper's projections; the experts are shown next to each call (switch when the blend is 1%+ better in 70%+ of weeks).",
     "Our lineup moves: 1 of 2 right; the experts disagreed on 1 and we were right on 1 of those."
+   ]
+  },
+  {
+   "id": "moved",
+   "title": "Traded, injured and new starters",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "moved.zeroed",
+     "label": "Hurt, traded or new-starter players we projected at 0 who scored 5+",
+     "value": 0,
+     "n": 132,
+     "unit": "",
+     "baseline": 0,
+     "baseline_set": "2026-11-12",
+     "tolerance": 2,
+     "status": "ok",
+     "week": 9
+    },
+    {
+     "id": "moved.inactive",
+     "label": "Hurt, traded or new-starter players we projected at 5+ who did not play",
+     "value": 0,
+     "n": 132,
+     "unit": "",
+     "baseline": 0,
+     "baseline_set": "2026-11-12",
+     "tolerance": 2,
+     "status": "ok",
+     "week": 9
+    },
+    {
+     "id": "moved.mae",
+     "label": "Their average projection miss",
+     "value": 3.7,
+     "n": 132,
+     "unit": "pts",
+     "status": "info",
+     "week": 9
+    },
+    {
+     "id": "moved.others_mae",
+     "label": "Everyone else's average projection miss",
+     "value": 4.1,
+     "n": 293,
+     "unit": "pts",
+     "status": "info",
+     "week": 9
+    },
+    {
+     "id": "moved.mae_gap",
+     "label": "Their miss minus everyone else's",
+     "value": -0.4,
+     "n": 132,
+     "unit": "pts",
+     "baseline": -0.4,
+     "baseline_set": "2026-11-12",
+     "tolerance": 1.5,
+     "status": "ok",
+     "week": 9
+    }
+   ],
+   "details": {
+    "weeks": {
+     "9": {
+      "v": 1,
+      "week": 9,
+      "players_version": "bd5d89a",
+      "players_as_of": "2026-11-06T01:07:06Z",
+      "teams_from": "Sleeper's week-7 projections",
+      "n": 132,
+      "n_others": 293,
+      "tagged": 127,
+      "new_team": 0,
+      "new_starters": 6,
+      "zeroed": 0,
+      "inactive": 0,
+      "mae": 3.7,
+      "others_mae": 4.1,
+      "mae_n": 44,
+      "others_mae_n": 281,
+      "flagged": [],
+      "flagged_total": 0,
+      "group": [
+       {
+        "name": "Christian McCaffrey",
+        "team": "SF",
+        "proj": 22.4,
+        "actual": 22.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Amon-Ra St. Brown",
+        "team": "DET",
+        "proj": 20.3,
+        "actual": 16.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Christian Watson",
+        "team": "GB",
+        "proj": 15.9,
+        "actual": 30.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Garrett Wilson",
+        "team": "NYJ",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Malik Nabers",
+        "team": "NYG",
+        "proj": 15.5,
+        "actual": 8.3,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Rashee Rice",
+        "team": "KC",
+        "proj": 15.5,
+        "actual": 9.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "A.J. Brown",
+        "team": "NE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "DJ Moore",
+        "team": "BUF",
+        "proj": 12.7,
+        "actual": 6.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Mike Evans",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Bhayshul Tuten",
+        "team": "JAX",
+        "proj": 13.4,
+        "actual": 8.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Travis Kelce",
+        "team": "KC",
+        "proj": 13.1,
+        "actual": 17.3,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Michael Wilson",
+        "team": "ARI",
+        "proj": 13.0,
+        "actual": 12.0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "DeVonta Smith",
+        "team": "PHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "George Pickens",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Saquon Barkley",
+        "team": "PHI",
+        "proj": 12.5,
+        "actual": 8.2,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Gardner Minshew II",
+        "team": "ARI",
+        "proj": 11.2,
+        "actual": 6.0,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Emeka Egbuka",
+        "team": "TB",
+        "proj": 10.4,
+        "actual": 6.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Kyler Murray",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Harold Fannin Jr.",
+        "team": "CLE",
+        "proj": 11.3,
+        "actual": 12.2,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Cam Skattebo",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Denzel Boston",
+        "team": "CLE",
+        "proj": 10.7,
+        "actual": 15.8,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Sam Darnold",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Dalton Kincaid",
+        "team": "BUF",
+        "proj": 9.5,
+        "actual": 5.8,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Breece Hall",
+        "team": "NYJ",
+        "proj": 10.6,
+        "actual": 11.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Shedeur Sanders",
+        "team": "CLE",
+        "proj": 13.2,
+        "actual": 22.7,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Tanner McKee",
+        "team": "PHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Hunter Henry",
+        "team": "NE",
+        "proj": 7.6,
+        "actual": 6.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jake Ferguson",
+        "team": "DAL",
+        "proj": 8.3,
+        "actual": 10.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Pat Bryant",
+        "team": "DEN",
+        "proj": 7.3,
+        "actual": 15.6,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "David Montgomery",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Travis Etienne Jr.",
+        "team": "NO",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Kyle Monangai",
+        "team": "CHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Deebo Samuel Sr.",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jordyn Tyson",
+        "team": "NO",
+        "proj": 4.8,
+        "actual": 4.0,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Mason Taylor",
+        "team": "NYJ",
+        "proj": 7.6,
+        "actual": 2.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Keon Coleman",
+        "team": "BUF",
+        "proj": 8.1,
+        "actual": 4.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Demarcus Robinson",
+        "team": "SF",
+        "proj": 8.0,
+        "actual": 5.2,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Tyler Huntley",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Kenny Gainwell",
+        "team": "TB",
+        "proj": 7.1,
+        "actual": 10.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "TreVeyon Henderson",
+        "team": "NE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Dontayvion Wicks",
+        "team": "PHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Rashid Shaheed",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Joe Fagnano",
+        "team": "BAL",
+        "proj": 10.1,
+        "actual": 0.7,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Treylon Burks",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Drew Lock",
+        "team": "SEA",
+        "proj": 16.9,
+        "actual": 12.6,
+        "played": true,
+        "why": [
+         "tagged Q",
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Deshaun Watson",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Ty Johnson",
+        "team": "BUF",
+        "proj": 4.9,
+        "actual": 5.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Terrance Ferguson",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Colby Parkinson",
+        "team": "LAR",
+        "proj": 7.1,
+        "actual": 5.3,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Brian Robinson Jr.",
+        "team": "ATL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "MarShawn Lloyd",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Mack Hollins",
+        "team": "NE",
+        "proj": 7.7,
+        "actual": 12.6,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jonathon Brooks",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Alec Pierce",
+        "team": "IND",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jaylen Wright",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Alvin Kamara",
+        "team": "NO",
+        "proj": 12.4,
+        "actual": 7.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Sione Vaki",
+        "team": "DET",
+        "proj": 4.6,
+        "actual": 4.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Joe Milton",
+        "team": "PHI",
+        "proj": 11.9,
+        "actual": 12.2,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Davante Adams",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jacory Croskey-Merritt",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Carson Wentz",
+        "team": "MIN",
+        "proj": 14.4,
+        "actual": -1.8,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "David Njoku",
+        "team": "LAC",
+        "proj": 1.5,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Andrei Iosivas",
+        "team": "CIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jauan Jennings",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Romeo Doubs",
+        "team": "NE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jalen McMillan",
+        "team": "TB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Joshua Palmer",
+        "team": "BUF",
+        "proj": 2.7,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Dyami Brown",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "KaVontae Turpin",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "CJ Donaldson",
+        "team": "NO",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Zonovan Knight",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyrell Shavers",
+        "team": "BUF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged PUP"
+        ]
+       },
+       {
+        "name": "Lil'Jordan Humphrey",
+        "team": "DEN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Christian Kirk",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Tank Bigsby",
+        "team": "PHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "John Bates",
+        "team": "WAS",
+        "proj": 1.8,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Zachariah Branch",
+        "team": "ATL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Xavier Legette",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Skyy Moore",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Will Kacmarek",
+        "team": "MIA",
+        "proj": 1.4,
+        "actual": 1.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jordan Whittington",
+        "team": "LAR",
+        "proj": 0.6,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Luke Schoonmaker",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jeremy McNichols",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Tyler Badie",
+        "team": "DEN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Kaytron Allen",
+        "team": "MIA",
+        "proj": 2.5,
+        "actual": 5.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "James Conner",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jalen Tolbert",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Cade Stover",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Pharaoh Brown",
+        "team": "IND",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "AJ Dillon",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Drew Ogletree",
+        "team": "IND",
+        "proj": 0.7,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Joe Royer",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Dont'e Thornton Jr.",
+        "team": "LV",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Brenen Thompson",
+        "team": "LAC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Tip Reiman",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Ian Thomas",
+        "team": "LV",
+        "proj": 0.6,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Elijah Sarratt",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Brevin Jordan",
+        "team": "HOU",
+        "proj": 0.4,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jacob Saylors",
+        "team": "DET",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Adam Randall",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Velus Jones Jr.",
+        "team": "SEA",
+        "proj": 0.4,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Taylen Green",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Terry McLaurin",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jalen Hurts",
+        "team": "PHI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyquan Thornton",
+        "team": "KC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Ty Simpson",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Chris Brazzell II",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "De'Zhaun Stribling",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "De'Von Achane",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Riley Leonard",
+        "team": "IND",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jaylin Noel",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "RJ Harvey",
+        "team": "DEN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Trey Benson",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Kendrick Bourne",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Ricky Pearsall",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Raheim Sanders",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Isaac Guerendo",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyrone Tracy Jr.",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Elijah Arroyo",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Demond Claiborne",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Lamar Jackson",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jaxson Dart",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Calvin Austin III",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jayden Reed",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Brandon Aiyuk",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jake Tonges",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jayden Higgins",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Dameon Pierce",
+        "team": "FA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Isiah Pacheco",
+        "team": "DET",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jeremiyah Love",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Chris Brooks",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Malik Davis",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       }
+      ]
+     }
+    },
+    "through_week": 10
+   },
+   "notes": [
+    "Week 9: 132 players were hurt, on a new team or newly starting going in (127 injury tags, 0 new teams, 6 new starting QBs). 0 we projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 3.7 pts for them vs 4.1 for everyone else.",
+    "How: who is in the group comes from the players file as it stood before the week's first kickoff; our projection is what the file showed just before his own game (one league's number per player, Sleeper leagues first, actual points in that league's scoring); \"played\" means Sleeper recorded a game for him. New team = a team other than in Sleeper's week-7 projections. Byes are left out. Under 10 players in a week the checks are info only."
    ]
   },
   {
@@ -467,7 +1880,7 @@
        "n": 40,
        "cov50": 0.33,
        "cov80": 0.68,
-       "est_mae": 16.4
+       "est_mae": 16.3
       },
       "pos TE": {
        "n": 29,
@@ -491,13 +1904,13 @@
        "n": 118,
        "cov50": 0.6,
        "cov80": 0.83,
-       "est_mae": 5.3
+       "est_mae": 5.2
       },
       "estimate $10+": {
        "n": 53,
        "cov50": 0.49,
        "cov80": 0.81,
-       "est_mae": 18.1
+       "est_mae": 18.0
       },
       "estimate under $10": {
        "n": 159,
@@ -1730,6 +3143,858 @@
    },
    "notes": [
     "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 5 mornings (state/nba_owned.json starts Nov 3); shown flags alone 3.04 (n=5)."
+   ]
+  },
+  {
+   "id": "swaps",
+   "title": "NBA waiver swaps and streamers",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "swap.gain",
+     "label": "Waiver swaps: value gained over keeping the drop (z per game of the add, rest of the week)",
+     "value": 0.1,
+     "n": 8,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "swap.hit",
+     "label": "Waiver swaps where the add out-produced the drop (rest of the week)",
+     "value": 0.5,
+     "n": 8,
+     "unit": "%",
+     "status": "info"
+    },
+    {
+     "id": "swap.est_err",
+     "label": "Waiver swaps: average miss of the shown \"+N this week\" vs what happened",
+     "value": 7.73,
+     "n": 8,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "swap.est_bias",
+     "label": "Waiver swaps: what happened minus the shown \"+N\" (below 0 = the site promised too much)",
+     "value": -5.35,
+     "n": 8,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "stream.edge",
+     "label": "Streamers: value over the next one listed (z per game of the higher-ranked, rest of the week)",
+     "value": 1.56,
+     "n": 12,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "stream.order",
+     "label": "Streamer pairs where the higher-ranked one did better",
+     "value": 0.83,
+     "n": 12,
+     "unit": "%",
+     "status": "info"
+    }
+   ],
+   "details": {
+    "swaps": [
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|Kevin Porter Jr.|2991350",
+      "drop": "Kevin Porter Jr.",
+      "add": "Alex Caruso",
+      "dead": true,
+      "when": "this week",
+      "est": 1.2,
+      "add_games": 2,
+      "add_stats": {
+       "actual": -5.8,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.62
+      },
+      "drop_stats": {
+       "actual": 0.0,
+       "played": 0,
+       "exp_games": 0,
+       "exp_pg": 0.0
+      },
+      "gain": -5.8,
+      "gain_pg": -2.9,
+      "hit": false,
+      "err": -7.0
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|4065732|3936099",
+      "drop": "De'Andre Hunter",
+      "add": "Derrick Jones Jr.",
+      "dead": false,
+      "when": "this week",
+      "est": 7.1,
+      "add_games": 1,
+      "add_stats": {
+       "actual": -7.18,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.19
+      },
+      "drop_stats": {
+       "actual": 1.07,
+       "played": 1,
+       "exp_games": 2,
+       "exp_pg": -2.95
+      },
+      "gain": -8.25,
+      "gain_pg": -8.25,
+      "hit": false,
+      "err": -15.35
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4432194|4433137",
+      "drop": "Day'Ron Sharpe",
+      "add": "Ziaire Williams",
+      "dead": false,
+      "when": "this week",
+      "est": 5.0,
+      "add_games": 2,
+      "add_stats": {
+       "actual": 0.63,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.33
+      },
+      "drop_stats": {
+       "actual": 8.0,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": -2.15
+      },
+      "gain": -7.37,
+      "gain_pg": -3.69,
+      "hit": false,
+      "err": -12.37
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|Kevin Porter Jr.|3907498",
+      "drop": "Kevin Porter Jr.",
+      "add": "Matisse Thybulle",
+      "dead": true,
+      "when": "this week",
+      "est": 2.6,
+      "add_games": 1,
+      "add_stats": {
+       "actual": 4.65,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.59
+      },
+      "drop_stats": {
+       "actual": 0.0,
+       "played": 0,
+       "exp_games": 0,
+       "exp_pg": 0.0
+      },
+      "gain": 4.65,
+      "gain_pg": 4.65,
+      "hit": true,
+      "err": 2.05
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|4065732|4066436",
+      "drop": "De'Andre Hunter",
+      "add": "De'Anthony Melton",
+      "dead": false,
+      "when": "this week",
+      "est": 6.8,
+      "add_games": 1,
+      "add_stats": {
+       "actual": -7.73,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.17
+      },
+      "drop_stats": {
+       "actual": -1.1,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -4.65
+      },
+      "gain": -6.63,
+      "gain_pg": -6.63,
+      "hit": false,
+      "err": -13.43
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|3908845|4433137",
+      "drop": "John Collins",
+      "add": "Ziaire Williams",
+      "dead": false,
+      "when": "this week",
+      "est": 3.4,
+      "add_games": 1,
+      "add_stats": {
+       "actual": 0.4,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.42
+      },
+      "drop_stats": {
+       "actual": -0.84,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -1.94
+      },
+      "gain": 1.24,
+      "gain_pg": 1.24,
+      "hit": true,
+      "err": -2.16
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|4065732|4397077",
+      "drop": "De'Andre Hunter",
+      "add": "Jaxson Hayes",
+      "dead": false,
+      "when": "this week",
+      "est": 6.8,
+      "add_games": 1,
+      "add_stats": {
+       "actual": 3.75,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.31
+      },
+      "drop_stats": {
+       "actual": -1.04,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -4.46
+      },
+      "gain": 4.79,
+      "gain_pg": 4.79,
+      "hit": true,
+      "err": -2.01
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|3064482|4277919",
+      "drop": "Bobby Portis",
+      "add": "Mo Bamba",
+      "dead": false,
+      "when": "this week",
+      "est": 4.1,
+      "add_games": 1,
+      "add_stats": {
+       "actual": 3.12,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 3.8
+      },
+      "drop_stats": {
+       "actual": -8.46,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -0.27
+      },
+      "gain": 11.58,
+      "gain_pg": 11.58,
+      "hit": true,
+      "err": 7.48
+     }
+    ],
+    "streamers": [
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|2991350|3936099",
+      "pick": "Alex Caruso",
+      "next": "Derrick Jones Jr.",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.0,
+      "pick_stats": {
+       "actual": -5.8,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.62
+      },
+      "next_stats": {
+       "actual": -7.18,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.19
+      },
+      "edge": 1.38,
+      "edge_pg": 0.69,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|3936099|5107173",
+      "pick": "Derrick Jones Jr.",
+      "next": "Danny Wolf",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.0,
+      "pick_stats": {
+       "actual": -7.18,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.19
+      },
+      "next_stats": {
+       "actual": -10.45,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.59
+      },
+      "edge": 3.27,
+      "edge_pg": 3.27,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4433137|4278355",
+      "pick": "Ziaire Williams",
+      "next": "Obi Toppin",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.7,
+      "pick_stats": {
+       "actual": 0.63,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.33
+      },
+      "next_stats": {
+       "actual": -3.3,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -0.01
+      },
+      "edge": 3.93,
+      "edge_pg": 1.96,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-06",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4278355|4433083",
+      "pick": "Obi Toppin",
+      "next": "Cam Spencer",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.2,
+      "pick_stats": {
+       "actual": -3.3,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -0.01
+      },
+      "next_stats": {
+       "actual": -4.57,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": -0.19
+      },
+      "edge": 1.27,
+      "edge_pg": 1.27,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|3907498|4066436",
+      "pick": "Matisse Thybulle",
+      "next": "De'Anthony Melton",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.4,
+      "pick_stats": {
+       "actual": 4.65,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.59
+      },
+      "next_stats": {
+       "actual": -7.73,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.17
+      },
+      "edge": 12.38,
+      "edge_pg": 12.38,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|4066436|4397077",
+      "pick": "De'Anthony Melton",
+      "next": "Jaxson Hayes",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -7.73,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.17
+      },
+      "next_stats": {
+       "actual": 3.48,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.05
+      },
+      "edge": -11.21,
+      "edge_pg": -11.21,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4433137|4066211",
+      "pick": "Ziaire Williams",
+      "next": "Robert Williams III",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.2,
+      "pick_stats": {
+       "actual": 0.4,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.42
+      },
+      "next_stats": {
+       "actual": 0,
+       "played": 0,
+       "exp_games": 1,
+       "exp_pg": 1.23
+      },
+      "edge": 0.4,
+      "edge_pg": 0.4,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-07",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4066211|5107173",
+      "pick": "Robert Williams III",
+      "next": "Danny Wolf",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.5,
+      "pick_stats": {
+       "actual": 0,
+       "played": 0,
+       "exp_games": 1,
+       "exp_pg": 1.23
+      },
+      "next_stats": {
+       "actual": -10.64,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.33
+      },
+      "edge": 10.64,
+      "edge_pg": 10.64,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|3907498|4397077",
+      "pick": "Matisse Thybulle",
+      "next": "Jaxson Hayes",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.3,
+      "pick_stats": {
+       "actual": 4.5,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.65
+      },
+      "next_stats": {
+       "actual": 3.75,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.31
+      },
+      "edge": 0.75,
+      "edge_pg": 0.75,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-08|4397077|3936099",
+      "pick": "Jaxson Hayes",
+      "next": "Derrick Jones Jr.",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.2,
+      "pick_stats": {
+       "actual": 3.75,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.31
+      },
+      "next_stats": {
+       "actual": -8.58,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.14
+      },
+      "edge": 12.33,
+      "edge_pg": 12.33,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|4277919|3907498",
+      "pick": "Mo Bamba",
+      "next": "Matisse Thybulle",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 1.9,
+      "pick_stats": {
+       "actual": 3.12,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 3.8
+      },
+      "next_stats": {
+       "actual": -0.98,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.9
+      },
+      "edge": 4.1,
+      "edge_pg": 4.1,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-08",
+      "week": "2026-11-08",
+      "partial": false,
+      "key": "Ball is Life|2026-11-08|3907498|4397189",
+      "pick": "Matisse Thybulle",
+      "next": "Jalen Smith",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -0.98,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.9
+      },
+      "next_stats": {
+       "actual": 16.88,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.79
+      },
+      "edge": -17.86,
+      "edge_pg": -17.86,
+      "hit": false
+     }
+    ],
+    "pending": 30,
+    "lost": 0,
+    "done": [
+     "3-Ball BB|2026-11-06",
+     "Ball is Life|2026-11-06",
+     "3-Ball BB|2026-11-07",
+     "Ball is Life|2026-11-07",
+     "3-Ball BB|2026-11-08",
+     "Ball is Life|2026-11-08"
+    ],
+    "unmatched": [],
+    "v": 1,
+    "summary": {
+     "swaps": {
+      "n": 8,
+      "gain": 0.1,
+      "gain_total": -0.72,
+      "hits": 4,
+      "hit_rate": 0.5,
+      "est": 4.62,
+      "est_err": 7.73,
+      "est_bias": -5.35,
+      "dead": 2,
+      "adds": [
+       1.8,
+       -0.82,
+       1.0
+      ],
+      "drops": [
+       -2.74,
+       -0.34,
+       0.88
+      ]
+     },
+     "streamers": {
+      "n": 12,
+      "edge": 1.56,
+      "edge_total": 1.78,
+      "hits": 10,
+      "hit_rate": 0.83,
+      "est_edge": 0.38,
+      "picks": [
+       1.9,
+       0.94,
+       1.0
+      ]
+     },
+     "weeks": {
+      "2026-11-08": {
+       "swaps": {
+        "n": 8,
+        "gain": 0.1,
+        "gain_total": -0.72,
+        "hits": 4,
+        "hit_rate": 0.5,
+        "est": 4.62,
+        "est_err": 7.73,
+        "est_bias": -5.35,
+        "dead": 2,
+        "adds": [
+         1.8,
+         -0.82,
+         1.0
+        ],
+        "drops": [
+         -2.74,
+         -0.34,
+         0.88
+        ]
+       },
+       "streamers": {
+        "n": 12,
+        "edge": 1.56,
+        "edge_total": 1.78,
+        "hits": 10,
+        "hit_rate": 0.83,
+        "est_edge": 0.38,
+        "picks": [
+         1.9,
+         0.94,
+         1.0
+        ]
+       }
+      }
+     },
+     "pending": 30,
+     "lost": 0,
+     "unmatched": []
+    }
+   },
+   "notes": [
+    "8 swaps judged: the add out-produced the drop in 4 (50%); gained +0.10 z per game of the add (-0.72 over the week). The site showed +4.62 on average and the result was -5.35 from that (average miss 7.73).",
+    "12 streamer pairs judged (each streamer vs the next one listed): the higher-ranked did better in 10 (83%), by +1.56 z per game; the list promised +0.38 over the week, it came out +1.78.",
+    "Week ending 2026-11-08: 8 swaps, gain +0.10/g, add ahead in 4; 12 streamer pairs, edge +1.56/g.",
+    "Under 20 judged swaps or streamer pairs a check is info only: no baseline is set yet.",
+    "Waiting for their week to finish: 30 shown swaps or streamer pairs (a repeat on a later morning counts again here, once when judged).",
+    "How: what the basketball tabs showed at the first data commit from 8am CT, judged over the rest of that fantasy week on ESPN's game logs, in the league's categories weighted by that morning's need, above a waiver-level player (the \"+N this week\" units); a missed game adds 0. A swap or pair shown on several mornings of a week counts once."
+   ]
+  },
+  {
+   "id": "sources",
+   "title": "NBA value-source trial: site vs DARKO minutes vs shrunk",
+   "status": "ok",
+   "checks": [
+    {
+     "id": "src.darko_gain",
+     "label": "Value trial: DARKO minutes' swap gain minus the site's (z per add game)",
+     "value": 2.96,
+     "n": 9,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "src.darko_err",
+     "label": "Value trial: DARKO minutes' \"+N\" miss minus the site's (below 0 = closer)",
+     "value": -1.86,
+     "n": 9,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "src.shrunk_gain",
+     "label": "Value trial: shrunk values' swap gain minus the site's (z per add game)",
+     "value": -2.0,
+     "n": 6,
+     "unit": "z",
+     "status": "info"
+    },
+    {
+     "id": "src.shrunk_err",
+     "label": "Value trial: shrunk values' \"+N\" miss minus the site's (below 0 = closer)",
+     "value": 1.46,
+     "n": 6,
+     "unit": "z",
+     "status": "info"
+    }
+   ],
+   "details": {
+    "v": 1,
+    "weeks": {
+     "2026-11-08": {
+      "site": {
+       "stream": -0.62,
+       "swap": 0.1,
+       "n_stream": 14,
+       "n_swap": 8,
+       "err": 7.73,
+       "bias": -5.34
+      },
+      "darko_minutes": {
+       "stream": -1.04,
+       "swap": 3.06,
+       "n_stream": 14,
+       "n_swap": 9,
+       "err": 5.87,
+       "bias": -1.61
+      },
+      "shrunk": {
+       "stream": -1.43,
+       "swap": -1.9,
+       "n_stream": 17,
+       "n_swap": 6,
+       "err": 9.19,
+       "bias": -5.84
+      }
+     }
+    },
+    "diff": {
+     "2026-11-08": {
+      "darko_minutes": {
+       "stream": -0.42,
+       "swap": 2.96,
+       "err": -1.86
+      },
+      "shrunk": {
+       "stream": -0.81,
+       "swap": -2.0,
+       "err": 1.46
+      }
+     }
+    },
+    "gate": {
+     "darko_minutes": {
+      "weeks": 1,
+      "n": 9,
+      "gain": 3.06,
+      "err": 5.87,
+      "ref_gain": 0.1,
+      "ref_err": 7.73,
+      "ready": false
+     },
+     "shrunk": {
+      "weeks": 1,
+      "n": 6,
+      "gain": -1.9,
+      "err": 9.19,
+      "ref_gain": 0.1,
+      "ref_err": 7.73,
+      "ready": false
+     }
+    },
+    "ready": [],
+    "mornings": 14,
+    "first": "2026-11-06",
+    "match": 1.0,
+    "match_swaps": 0.67
+   },
+   "notes": [
+    "Ready to switch on: none yet (the switch is \"site\").",
+    "Rule: a source switches on after 2+ complete fantasy weeks and 20+ of its swaps judged, with a higher swap gain per add game and a smaller miss on its own \"+N\" than the site's values over those weeks (pooled by swaps).",
+    "DARKO minutes: 1 complete weeks, 9 swaps: gain +3.06/g vs the site's +0.10, miss 5.87 vs 7.73.",
+    "shrunk: 1 complete weeks, 6 swaps: gain -1.90/g vs the site's +0.10, miss 9.19 vs 7.73.",
+    "Week ending 2026-11-08: site swaps +0.10/g (n=8, miss 7.73), streamers -0.62/g; DARKO minutes swaps +3.06/g (n=9, miss 5.87), streamers -1.04/g; shrunk swaps -1.90/g (n=6, miss 9.19), streamers -1.43/g.",
+    "Same mornings for all three: 14 league mornings with a DARKO reading since 2026-11-06 (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best free agents per league). The replay of the site's own values reproduces 100% of the streamers and 67% of the swaps shown.",
+    "How: each morning's picks replayed under each source with the site's rules, judged like the swaps above (league units, need-weighted, above a waiver-level player). DARKO minutes = each line rescaled to DARKO's projected minutes (darko.app; only our minutes factor is kept); shrunk = a season average pulled toward ESPN's season projection by games played (tonight's projection, not that morning's)."
    ]
   },
   {
