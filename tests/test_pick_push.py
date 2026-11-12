@@ -158,3 +158,47 @@ class AutoChecks(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ChangedSince(unittest.TestCase):
+    """Nov 12: every redraft's push opens with what moved since the last card, per pool, with the reason."""
+    def prev(self):
+        return {"meta": {"generated": "Wed Nov 11, 09:33 PM CT", "generated_iso": "a", "week": 11}, "cards": cards()}
+
+    def test_lists_each_change_with_reason(self):
+        new = cards()
+        new[2]["rows"][1].update(pick="Wisconsin", pick_team="Wisconsin", why="Your pick kept")
+        new[0]["rows"][1]["wager"] = "$700"
+        lines = push.since_lines(new, self.prev())
+        self.assertEqual(lines[0], "Changed since Wed Nov 11, 09:33 PM:")
+        self.assertIn("BTO: Florida @ Georgia: wager $660 → $700", lines)
+        self.assertIn("Yahoo: Wisconsin @ Iowa: Iowa → Wisconsin (Your pick kept)", lines)
+
+    def test_says_when_nothing_changed(self):
+        self.assertEqual(push.since_lines(cards(), self.prev()),
+                         ["Changed since Wed Nov 11, 09:33 PM:", "no pick, line or wager changed."])
+        self.assertEqual(push.since_lines(cards(), None), [])
+
+    def test_push_leads_with_it(self):
+        new = cards()
+        new[2]["rows"][1].update(pick="Wisconsin", pick_team="Wisconsin")
+        _, msg, _ = push.message(new, slate(), "DRAFT", due=("bto",), now=WED, prev=self.prev())
+        self.assertTrue(msg.startswith("Changed since Wed Nov 11, 09:33 PM:\nYahoo: Wisconsin @ Iowa: Iowa → Wisconsin"))
+
+    def test_prev_card_skips_the_current_version(self):
+        import json as _j
+        docs = {"s1": {"meta": {"generated_iso": "now", "week": 11}}, "s2": {"meta": {"generated_iso": "then", "week": 11}}}
+
+        def git(*a):
+            if a[0] == "log":
+                return "s1\ns2\n"
+            return _j.dumps(docs[a[1].split(":")[0]])
+        self.assertEqual(push.prev_card({"generated_iso": "now", "week": 11}, git)["meta"]["generated_iso"], "then")
+        self.assertIsNone(push.prev_card({"generated_iso": "now", "week": 12}, git))
+
+    def test_ats_package_swap_is_one_line(self):
+        new = cards()
+        new[1]["rows"] = [row("Ole Miss@Oklahoma", "Oklahoma +1.5", "11,904", why="Pool +1.5 vs market -1.5")]
+        lines = push.since_lines(new, self.prev())
+        self.assertIn("CFP: Auburn @ Ole Miss Auburn +13.5 11,904 → Ole Miss @ Oklahoma Oklahoma +1.5 11,904 "
+                      "(Pool +1.5 vs market -1.5)", lines)

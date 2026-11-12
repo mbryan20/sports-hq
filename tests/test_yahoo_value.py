@@ -41,3 +41,31 @@ class GroupValue(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class KeepSavedPick(unittest.TestCase):
+    """Nov 12: the card said 'switch Kansas to West Virginia' while its own season sim said Kansas raised Michael's
+    chance to win the group (0.8% -> 1.0%). A saved pick the season sim favors is kept, with no CHANGE line."""
+    def run_keep(self, val):
+        import numpy as np
+        from pp import cards as C
+        rows = [{"sg": {"away": "Kansas", "home": "West Virginia"}}]
+        picks = np.array([True])
+        orig = C.season_flips
+        C.season_flips = lambda *a: (0.008, [val], val, [{"p_fav": 0.51, "my_dog": False}], [], [0], {})
+        try:
+            kept = C.keep_saved_picks(rows, picks, [], [True], [0.51], [0.96],
+                                      {"saved": {"picks": {"Kansas@West Virginia": "Kansas"}}})
+        finally:
+            C.season_flips = orig
+        return kept, picks
+
+    def test_kept_when_season_value_positive(self):
+        kept, picks = self.run_keep(0.17)
+        self.assertFalse(picks[0])
+        self.assertEqual(kept, {0: "Your pick kept: Kansas wins 49%, season chance 0.8%→1.0%"})
+
+    def test_switch_stands_when_season_value_negative(self):
+        kept, picks = self.run_keep(-0.05)
+        self.assertTrue(picks[0])
+        self.assertEqual(kept, {})

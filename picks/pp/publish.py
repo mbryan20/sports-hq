@@ -5,7 +5,7 @@ Usage: py -m pp.publish --stage draft|final|refresh|postmortem [--title ...] [--
 import argparse, json, os, subprocess, time
 from pathlib import Path
 import requests
-from .push import load as push_load, message as push_message
+from .push import load as push_load, message as push_message, prev_card
 
 ROOT = Path(__file__).resolve().parent.parent
 REPO = "mbryan20/sports-hq"
@@ -83,7 +83,8 @@ def main():
     else:
         # standalone push: CHANGE / Differs lines, one line per pool due before the next run, the page link
         title, msg, urgent = push_message(cards["cards"], slate, meta["stage_label"],
-                                          a.due.split(",") if a.due else None, final_call=meta.get("stage") != "draft")
+                                          a.due.split(",") if a.due else None, final_call=meta.get("stage") != "draft",
+                                          prev=prev_card(meta))
         if a.title and not urgent:
             title = a.title
         if (meta.get("checked") or {}).get("stage") != meta.get("stage"):

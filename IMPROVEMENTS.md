@@ -1117,6 +1117,16 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-061 · Picks: keep a saved Yahoo pick the card's own season numbers favor; every push says what changed since the last card
+- **Status:** shipped (Thu Nov 12 redraft). Found when Ops asked for a picks redraft: Wednesday's card told Michael
+  "switch Kansas to West Virginia" while its own "value of taking the other side" note said Kansas raised his chance
+  to win the group (0.8% -> 1.0%) and its stats gave Kansas 54%. `pp.cards.keep_saved_picks` now keeps any saved Yahoo
+  pick whose season value is positive (reason "Your pick kept: <team> wins N%, season chance a% -> b%"), drops it from
+  Upset watch, and the CHANGE line no longer fires. First run kept Kansas, Texas A&M and Cincinnati.
+- `pp.push` opens every card push with "Changed since <previous card time>:" and one line per pool change
+  (old -> new, with the new card's reason), or "no pick, line or wager changed". The previous card comes from git.
+- Tests: tests/test_yahoo_value.py KeepSavedPick, tests/test_pick_push.py ChangedSince.
+
 ### Q-060 · NBA values: try DARKO's projected minutes (and shrunk short-sample values) behind a switch, decided by the backtest
 - **Status:** shipped (d7244b1, Thu Nov 12). Switch off (`NBA_VALUE_SOURCE = "site"`): nothing changes on the site. The
   nightly model health shows the trial from the next run; first numbers (one complete week, ending Nov 8): swaps per add

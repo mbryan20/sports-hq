@@ -268,6 +268,7 @@ def build_yahoo(W, slate):
         sims_tb2.append((sg["home"], sg["away"], ah if h_is_home else aa, aa if h_is_home else ah))
     p_true, fav_home, pub_home = map(np.array, (p_true, fav_home, pub_home))
     picks, chosen, curve = P.yahoo_optimize(p_true, fav_home, eligible, pub_home, n_opp=y["group_size"] - 1)
+    kept = keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y)
 
     tb1 = {}
     for away, home in y["tb1"]:
@@ -287,7 +288,9 @@ def build_yahoo(W, slate):
         pk = None if r["pk"] is None else (r["pk"] if home_pick else 1 - r["pk"])
         is_dog = i in chosen
         rwhy, rsrc = research_why(S, g, pick)
-        if is_dog:
+        if i in kept:
+            why = kept[i]
+        elif is_dog:
             why = short(f"Upset: {', '.join(r['signals'])}; group on favorite")
         elif rwhy:
             why = rwhy
@@ -311,7 +314,7 @@ def build_yahoo(W, slate):
                     "model": pm, "market": pk, "wager": tbs, "why": why, "source": rsrc or src_link(g, []),
                     "key": f"{sg['away']}@{sg['home']}", "pick_team": pick})
     n_dogs = len(chosen)
-    watch = upset_watch(rows, picks, chosen, pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
+    watch = upset_watch(rows, picks, set(chosen) | set(kept), pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
     return {
         "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": yahoo_deadline(y),
         "rows": out,
@@ -357,14 +360,15 @@ def cite(a):
     return f'<a href="{html.escape(a.get("source") or "")}">{html.escape(site)}{day}</a>' if site else "no source"
 
 
-def group_value(rows, picks, fav_home, p_true, pub_home, y):
-    """Season-long value of taking the other side in each open game (pp.yahoo_value), as card notes."""
+def season_flips(rows, picks, fav_home, p_true, pub_home):
+    """Season-long value of flipping each open game's pick (pp.yahoo_value). Returns None without a group
+    profile, else (base, vals, combo, games, meta, row_index) with one entry per open game."""
     from . import yahoo_value as V
     prof = V.load_profile()
     if not prof:
-        return []
+        return None
     now = datetime.now(timezone.utc)
-    games, meta = [], []
+    games, meta, idx = [], [], []
     for i, r in enumerate(rows):
         start = r["g"].get("startDate")
         if r["mk"] is None or (start and datetime.fromisoformat(start.replace("Z", "+00:00")) <= now):
@@ -374,9 +378,50 @@ def group_value(rows, picks, fav_home, p_true, pub_home, y):
                       "pub_dog": (1 - pub_home[i]) if fh else pub_home[i], "my_dog": bool(picks[i]) != fh})
         sg = r["sg"]
         meta.append(((sg["home"], sg["away"]) if fh else (sg["away"], sg["home"]), sg["kick"]))
+        idx.append(i)
     if not games:
-        return []
+        return None
     base, vals, combo = V.season_values(games, prof)
+    return base, vals, combo, games, meta, idx, prof
+
+
+def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
+    """Where Michael saved the other side and the card's own season sim says that side raises his chance to win
+    the group, the card keeps his pick instead of telling him to switch (Nov 12: the card said 'switch Kansas to
+    West Virginia' while its own notes said Kansas raised his chance 0.8% -> 1.0%). Flips picks in place.
+    Returns {row index: reason}."""
+    saved = ((y.get("saved") or {}).get("picks")) or {}
+    if not saved:
+        return {}
+    sv = season_flips(rows, picks, fav_home, p_true, pub_home)
+    if not sv:
+        return {}
+    base, vals, _combo, games, _meta, idx, _prof = sv
+    kept = {}
+    for j, i in enumerate(idx):
+        if i in chosen or vals[j] <= 0:
+            continue
+        sg = rows[i]["sg"]
+        mine = saved.get(f"{sg['away']}@{sg['home']}")
+        card_side = sg["home"] if picks[i] else sg["away"]
+        if not mine or norm(mine) == norm(card_side):
+            continue
+        if norm(mine) not in (norm(sg["home"]), norm(sg["away"])):
+            continue
+        picks[i] = not bool(picks[i])
+        g = games[j]
+        p_side = (1 - g["p_fav"]) if not g["my_dog"] else g["p_fav"]   # the flipped side's win chance
+        kept[i] = (f"Your pick kept: {mine} wins {p_side * 100:.0f}%, "
+                   f"season chance {base * 100:.1f}%→{base * 100 + vals[j]:.1f}%")
+    return kept
+
+
+def group_value(rows, picks, fav_home, p_true, pub_home, y):
+    """Season-long value of taking the other side in each open game (pp.yahoo_value), as card notes."""
+    sv = season_flips(rows, picks, fav_home, p_true, pub_home)
+    if not sv:
+        return []
+    base, vals, combo, games, meta, _idx, prof = sv
     st = y["standings"]
     out = [f"Chance to win the group this season: {base * 100:.1f}% (you're #{st['rank']}, {st['leader'] - st['me']} back; "
            f"simulated against each member's own pick habits over the last {len(prof['weeks'])} weeks)."]

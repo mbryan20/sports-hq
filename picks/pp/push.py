@@ -12,7 +12,7 @@ Inputs: data/cards.json (the card) and slates/<year>-wNN.json, where the laptop 
 
 Usage: py -m pp.push [--week NN] [--due bto,cfp,yahoo]   (prints the push; pp.publish sends it)
 """
-import argparse, json, re
+import argparse, json, re, subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -218,14 +218,69 @@ def compose(cards, slate, due=None, now=None, final_call=False):
     return alerts, body
 
 
-def message(cards, slate, stage_label, due=None, now=None, final_call=False):
-    """-> (title, body, urgent). Order: CHANGE / Differs, picks that moved since the last post, pool lines, link."""
+def prev_card(meta, git=None):
+    """The last committed card before this one (another generated time, same week), or None. Used for the push's
+    'Changed since <time>:' lead (Nov 12: Michael wanted every redraft to say what moved and why)."""
+    def run(*a):
+        return subprocess.run(("git",) + a, cwd=ROOT.parent, capture_output=True, text=True, encoding="utf-8").stdout
+    git = git or run
+    for sha in git("log", "-n", "12", "--format=%H", "--", "picks/data/cards.json").split():
+        try:
+            doc = json.loads(git("show", f"{sha}:picks/data/cards.json"))
+        except ValueError:
+            continue
+        m = doc.get("meta") or {}
+        if m.get("generated_iso") != meta.get("generated_iso"):
+            return doc if m.get("week") == meta.get("week") else None
+    return None
+
+
+SINCE_FIELDS = {"pick", "line", "wager", "added", "dropped"}
+
+
+def since_lines(cards, prev):
+    """'Changed since Wed Nov 11, 09:33 PM CT:' then one line per changed pick/line/wager, per pool, with the new
+    card's reason; or one line saying nothing changed. [] without a previous card."""
+    if not prev:
+        return []
+    from .history import extract, diff_pool
+    old = extract(prev)
+    new = extract({"cards": cards})
+    why = {(c["id"], r.get("key")): r.get("why") or "" for c in cards for r in c.get("rows") or []}
+    def bet(r):
+        return f"{r['game']} {r['pick']}" + (f" {r['wager']}" if r.get("wager") else "")
+
+    out = []
+    for pid in ("bto", "cfp", "yahoo"):
+        if pid not in new:
+            continue
+        diffs = [d for d in diff_pool(old.get(pid), new[pid], pid) if SINCE_FIELDS & set(d["fields"])]
+        added = [d for d in diffs if "added" in d["fields"]]
+        dropped = [d for d in diffs if "dropped" in d["fields"]]
+        if added and dropped:  # the ATS package moved to other games: one line, old bets -> new bets
+            o = "; ".join(bet(old[pid]["rows"][d["key"]]) for d in dropped)
+            n = "; ".join(bet(new[pid]["rows"][d["key"]]) for d in added)
+            w = "; ".join(filter(None, (why.get((pid, d["key"])) for d in added)))
+            out.append(f"{LABEL[pid]}: {o} → {n}" + (f" ({w})" if w else ""))
+            diffs = [d for d in diffs if d not in added and d not in dropped]
+        for d in diffs:
+            w = why.get((pid, d["key"])) if {"pick", "line", "added"} & set(d["fields"]) else ""
+            text = re.sub(r", (?:win|cover|market) [^,]*", "", d["text"])   # odds wiggles aren't changes
+            out.append(f"{LABEL[pid]}: {text}" + (f" ({w})" if w else ""))
+    when = ((prev.get("meta") or {}).get("generated") or "the last card").replace(" CT", "")
+    return [f"Changed since {when}:"] + (out or ["no pick, line or wager changed."])
+
+
+def message(cards, slate, stage_label, due=None, now=None, final_call=False, prev=None):
+    """-> (title, body, urgent). Order: changed since the last card, CHANGE / Differs, picks that moved since the
+    last post, pool lines, link."""
     alerts, body = compose(cards, slate, due, now, final_call)
+    since = since_lines(cards, prev)
     moved = [f"{r['pick']} (was {r['was']})" for c in cards for r in c["rows"] if r.get("changed")]
     n = sum(a.startswith("CHANGE") for a in alerts)
     title = f"Pool Picks {stage_label}: {n} change{'s' if n != 1 else ''}" if n else f"Pool Picks {stage_label} posted"
     extra = ["Card changed since last post: " + "; ".join(moved)] if moved else []
-    msg = "\n".join(alerts + extra + body + [PAGE])
+    msg = "\n".join(since + alerts + extra + body + [PAGE])
     return title, msg, bool(alerts or moved)
 
 
@@ -248,7 +303,7 @@ def main():
     a = ap.parse_args()
     cards, slate = load(a.week)
     title, msg, _ = message(cards["cards"], slate, cards["meta"]["stage_label"], a.due.split(",") if a.due else None,
-                            final_call=a.final_call)
+                            final_call=a.final_call, prev=prev_card(cards["meta"]))
     print(title)
     print(msg)
 
