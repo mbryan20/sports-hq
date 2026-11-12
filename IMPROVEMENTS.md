@@ -1117,6 +1117,37 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-059 · Model health: did the NBA waiver swaps and streamers pay off?
+- **Status:** shipped (16eb792, Thu Nov 12). Shows from the next nightly model-health run (info until 20 swaps and 20
+  streamer pairs are judged, about two more weeks). Not dispatched.
+- **Area:** `shq/nba_advice_backtest.py` (new), `shq/health.py` (`swaps_health`, `swaps_checks`, `swaps_notes`; section
+  `swaps`, checks `swap.*`, `stream.*`), `tests/test_nba_advice_backtest.py` (new), `reviews/2026-11-12-nba-swaps-backtest.md`,
+  README
+- **Rank:** —
+- **Added:** 2026-11-12 by a Sports HQ build session (Michael via Claude Ops: measure the swaps and streamers first; it
+  gates the DARKO-minutes change, "turn it on only if the backtest shows a gain over at least 2 weeks")
+- **Design:** what the site advised = the first `docs/data/lineups.json` commit at or after 8am CT each day (both
+  basketball leagues' `advice.adds` swaps and `advice.games.streamers`, parsed from the shown lines) with the
+  `docs/data/players.json` committed with it (names to ESPN ids, category z-scores, that morning's league z scale and
+  waiver level). Each item is judged once its fantasy week is over (the advice's own span; "next week" uses the next
+  span), on the radar's ESPN pool game logs, in the "+N" units: each game's z on that morning's scale, weighted by that
+  morning's need as `nba_swaps.weights` did, minus the waiver level, summed over games played (a missed game adds 0).
+  Swap gain = add's actual worth − drop's (dead spot 0), per game of the add; hit = add out-produced the drop; estimate
+  error = shown "+N" vs actual (MAE judged, bias shown). Streamers: each vs the next one listed, per game of the
+  higher-ranked. A repeat on a later morning of the same week counts once. Scored items are stored in health.json's
+  section details and carried forward (ESPN keeps 20 game logs per player; a window the logs rolled past is not scored).
+  Tolerances are wide (1.5 z per game, 0.2 hit rate, 4 z miss) because single games are noisy; floors: gain 0, hit 50%,
+  streamer edge 0. `compare_sources()` / `compare()` replay the picks under another value source (fn(player, morning) ->
+  z list) on the same history and give per-week differences; the replay of the site's own values reproduces 100% of the
+  streamers and 67% of the swaps shown (it skips the radar's protected risers and today's Lineup moves).
+- **Checked:** 9 fixture tests (fake lineups/players git history and game logs: 8am selection, parsing incl. dead spot,
+  IR head and nested day-to-day text, dedupe, partial weeks, carry-over, rolled-off logs, the compare hook, info-until-n
+  and baseline); full suite 490 OK. Real history, week ending Nov 8 (Nov 6–8 mornings): 8 swaps, +0.10 z per add game,
+  add beat the drop 4 of 8 (50%), shown +4.6 vs actual −0.7 (miss 7.7, bias −5.4: adds valued +1.8/g produced −0.8/g,
+  drops −2.7/g produced −0.3/g); 12 streamer pairs, edge +1.56 z per game, higher-ranked better in 10 of 12.
+- **Undo:** `git revert 16eb792` and this entry (the section disappears from the next health.json; its baselines, if any
+  were set, stay unused in `state/health_baselines.json`).
+
 ### Q-058 · NBA rest days and late scratches arrived late: status came only from ESPN
 - **Status:** shipped (e363165, Thu Nov 12; renumbered in ded7042). Live from the next cloud run. Not dispatched.
 - **Area:** `shq/nba_status.py` (new), `shq/leagues.py` (`Context.nba_gameday`, `EspnLeague._player`/`gameday`, `view`
