@@ -521,15 +521,33 @@ def build_bto_slate(W, slate):
                 why = ats_why(S, sg["home"] if side_home else sg["away"]); src = src_link(g, why)
             cands.append({"sg": sg, "home": side_home, "margin": mm, "line": line, "p": p_cover(mm, line), "src": src, "why": why,
                           "mkt_line": market_side_line(W, sg, g, side_home)})
-    big = max((c for c in cands if c["sg"].get("big")), key=lambda c: c["p"])
-    others = sorted((c for c in cands if not c["sg"].get("big") and c["sg"] is not big["sg"]), key=lambda c: -c["p"])
-    seen, pick = set(), [big]
-    for c in others:
-        k = id(c["sg"])
-        if k not in seen:
-            seen.add(k); pick.append(c)
-        if len(pick) == {"three": 3, "one": 1}.get(b["mode"], 4):
-            break
+    if b["mode"] == "one":
+        # One Bet: exactly 1 game, Big Game not required, all 4 line points on it. Rank each side by its
+        # cover chance after the line points (Nov 11: the old loop always seeded the Big Game and only
+        # checked the count after adding a second game, so it put all 16 games on the card).
+        ranked = sorted(((P.allocate_line_points([c["margin"]], [c["line"]])[1][0], i) for i, c in enumerate(cands)), reverse=True)
+        pick = [cands[ranked[0][1]]]
+        alts, seen = [], {id(pick[0]["sg"])}
+        for p1, i in ranked[1:]:
+            c = cands[i]
+            if id(c["sg"]) in seen:
+                continue
+            seen.add(id(c["sg"]))
+            team = c["sg"]["home"] if c["home"] else c["sg"]["away"]
+            alts.append(f"Also worth a look: {team} {c['line']+4:+g} (LP 4), cover {p1*100:.0f}%")
+            if len(alts) == 2:
+                break
+    else:
+        alts = []
+        big = max((c for c in cands if c["sg"].get("big")), key=lambda c: c["p"])
+        others = sorted((c for c in cands if not c["sg"].get("big") and c["sg"] is not big["sg"]), key=lambda c: -c["p"])
+        seen, pick = set(), [big]
+        for c in others:
+            k = id(c["sg"])
+            if k not in seen:
+                seen.add(k); pick.append(c)
+            if len(pick) == {"three": 3}.get(b["mode"], 4):
+                break
     lp, probs = P.allocate_line_points([c["margin"] for c in pick], [c["line"] for c in pick])
     best, table = P.bto_plan(b["balance"], b["field"], probs, b["mode"], b.get("weeks_left", 6))
     rows = []
@@ -541,7 +559,7 @@ def build_bto_slate(W, slate):
                      if c["why"] else gap_why(c["line"], c["mkt_line"], p, l),
                      "source": c["src"], "key": f"{c['sg']['away']}@{c['sg']['home']}", "pick_team": team})
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
-            "notes": [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."]}
+            "notes": [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
 
 
 def build_survivor():
