@@ -152,6 +152,9 @@ body.trading main { padding-bottom: 46vh; }
     if (p.dmin == null) return "";
     return p.dmin >= RISE ? `<span class="tr-up">▲${Math.round(p.dmin)}</span>` : p.dmin <= -RISE ? `<span class="tr-dn">▼${Math.round(-p.dmin)}</span>` : "";
   }
+  // today's status from the NBA injury report or Sleeper (shq/nba_status.py): our derived word only, the reason on hover
+  const GD_WORD = { OUT: "Out", D: "Doubtful", Q: "Q", SUSP: "Susp" };
+  const gdChip = p => p.gd ? ` <span class="chip ${/OUT|D|SUSP/.test(p.gd.s || "") ? "bad" : p.gd.s ? "q" : ""}" title="${esc(p.gd.t)}">${esc(GD_WORD[p.gd.s] || p.gd.t.split(" ")[0])} today</span>` : "";
   function detail(L, p) {
     const src = p.src === "season" ? `this season's averages (${p.gp} games)` : `ESPN's season projection (${p.gp} game${p.gp === 1 ? "" : "s"} played so far)`;
     const owner = p.own === "me" ? "yours" : p.own ? p.own : "free agent";
@@ -159,7 +162,7 @@ body.trading main { padding-bottom: 46vh; }
       <tr><th>per game</th>${L.cats.map((c, i) => `<td>${statTxt(c, p.st[i])}</td>`).join("")}</tr>
       <tr><th>value (z)</th>${L.cats.map((c, i) => `<td class="${zc(p.z[i])}">${sgn(p.z[i])}</td>`).join("")}</tr></table>`;
     return `<b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)}${p.age ? ` · age ${Math.floor(p.age)}` : ""} · ${esc(owner)}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
-      Value ${sgn(p.v)} per game (#${p.rk}) · this week ${sgn(p.wk)} (${p.g[0]} game${p.g[0] === 1 ? "" : "s"} left${p.out ? ", out" : ""}; ${p.g[1]} next week${p.b2b ? `, ${p.b2b} back-to-back${p.b2b > 1 ? "s" : ""}` : ""})<br>
+      ${p.gd ? `Today: ${esc(p.gd.t)}<br>` : ""}Value ${sgn(p.v)} per game (#${p.rk}) · this week ${sgn(p.wk)} (${p.g[0]} game${p.g[0] === 1 ? "" : "s"} left${p.out ? ", out" : ""}; ${p.g[1]} next week${p.b2b ? `, ${p.b2b} back-to-back${p.b2b > 1 ? "s" : ""}` : ""})<br>
       ${p.min} min${p.dmin != null ? ` (last 3 games ${sgn(p.dmin)} vs before)` : ""} · ${p.pct}% rostered on ESPN · from ${src}
       ${cats}<a href="https://www.espn.com/nba/player/gamelog/_/id/${esc(p.id)}" target="_blank" rel="noopener">ESPN game log</a>`;
   }
@@ -303,7 +306,7 @@ body.trading main { padding-bottom: 46vh; }
     const body = shown.map(p => {
       const strip = wide ? "" : `<span class="strip">${L.cats.map((c, i) => `<i class="${zc(p.z[i])}" title="${esc(c)} ${sgn(p.z[i])}"></i>`).join("")}</span>`;
       const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${st.trade && p.own ? pickBtn(p) : p.rk}</td>
-        <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${p.out ? "bad" : "q"}">${esc(p.inj === "Day-To-Day" ? "DTD" : p.inj)}</span>` : ""}</div>
+        <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${p.out ? "bad" : "q"}">${esc(p.inj === "Day-To-Day" ? "DTD" : p.inj)}</span>` : ""}${gdChip(p)}</div>
           <div class="sb">${esc(p.pos)} · ${esc(p.team)}${p.src === "proj" ? " · proj" : ""} ${wide ? "" : trendTxt(p)}</div>${strip}</td>
         ${st.cats.length ? `<td class="v">${sgn(fit(L, p))}</td>` : ""}
         <td class="v ${p.v >= 0 ? "pos" : "neg"}">${sgn(p.v)}</td><td class="${p.wk > 0 ? "pos" : p.wk < 0 ? "neg" : ""}">${sgn(p.wk)}</td>

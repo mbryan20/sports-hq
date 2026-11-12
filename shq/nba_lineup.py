@@ -8,7 +8,12 @@ category value instead of points (category leagues have none). The trend radar's
 follows these moves (radar.agree(), Q-047), so the two never disagree.
 
 The push: at most one a day for both leagues together, sent on the first run inside LEAD before the earliest tip-off
-among the moves, and only when there is a move. An out starter in it isn't pushed again by the injury watch."""
+among the moves, and only when there is a move. An out starter in it isn't pushed again by the injury watch.
+
+Game-day status (Q-057, shq/nba_status.py): a starter the official NBA injury report lists Out today (a rest day too) is a
+move like any other out starter, so it rides in that one push if it hasn't gone out yet. Once today's push is out, a
+change after it shows only on the site (the move is marked "new since today's lineup push"), and the injury watch doesn't
+push a starter whose Out the official report backs (run.injury_watch): never a second NBA lineup push in a day."""
 import datetime as dt
 
 from . import notify
@@ -36,7 +41,8 @@ def _why(s):
     if s["bye"]:
         return "no game today"
     if s["status"] in OUTISH:
-        return s["status"]
+        # the game-day reason when the NBA injury report or Sleeper decided it: "Out (rest) per NBA injury report, 5:30pm"
+        return s["why"] if s.get("gd") and s.get("why") else s["status"]
     return None
 
 
@@ -72,12 +78,32 @@ def moves(league, now):
 def _move(b, s, why, lock):
     sit = s["slot"] if s.get("empty") else s["name"]
     return {"start": b["name"], "start_key": b.get("key"), "sit": sit, "sit_id": s["id"], "slot": s["slot"], "why": why, "lock": lock,
+            "out": s["status"] in OUTISH and not s.get("empty"),
             "text": f"Start {b['name']} ({b['team']} {b['opp'] or ''}, {ct_label(b['kickoff'])}) over {sit} at {s['slot']}: {why}"}
 
 
+def _day(now):
+    return now.astimezone(TZ).date().isoformat()
+
+
+def _key(league, m, now):
+    return f"nba-lineup:{_day(now)}:{league.key}:{m['sit_id']}:{m['start_key'] or m['start']}"
+
+
+def pushed_today(now):
+    """True once today's one NBA lineup push has gone out (this checkout's alert state)."""
+    return f"nba-lineup:{_day(now)}" in (notify.seen() or {})
+
+
 def lines(league, now):
-    """The league tab's "Lineup moves" for NBA."""
-    return [m["text"] for m in moves(league, now)]
+    """The league tab's "Lineup moves" for NBA. After today's push, a move that wasn't in it says so: it's on the site
+    only (no second push)."""
+    ms = moves(league, now)
+    if not ms or not pushed_today(now):
+        return [m["text"] for m in ms]
+    seen = notify.seen() or {}
+    return [m["text"] + ("" if _key(league, m, now) in seen else " (new since today's lineup push; not pushed)")
+            for m in ms]
 
 
 def send(leagues, now):
@@ -88,16 +114,18 @@ def send(leagues, now):
     first = min(m["lock"] for _, m in found)
     if not (first - LEAD <= now < first):
         return None
-    day = now.astimezone(TZ).date().isoformat()
+    day = _day(now)
     n = len(found)
     title = f"NBA lineup: {n} change{'s' if n != 1 else ''} before {ct_label(first).split(' ')[1]} tip"
     body = "\n".join(f"{lg.name}: {m['text']}" for lg, m in found) + "\nESPN lineups lock at each player's tip-off."
     if not notify.push_once(f"nba-lineup:{day}", title, body, priority=4, tags=["basketball"]):
         return None
-    # the injury watch would push an out starter's swap again 2h before his tip: it's in this push already
+    # the injury watch would push an out starter's swap again 2h before his tip: it's in this push already. Each move
+    # in it is recorded too, so a later move shows on the site as "new since today's lineup push" (lines()).
     seen = load_json(notify.ALERTS, {}) or {}
     for lg, m in found:
-        if m["why"] in OUTISH:
+        if m["out"]:
             seen.setdefault(f"{lg.key}:w{lg.week}:{m['sit_id']}:swap", iso(now))
+        seen.setdefault(_key(lg, m, now), iso(now))
     save_json(notify.ALERTS, seen)
     return title

@@ -38,6 +38,8 @@ def _problem(p, nba):
     if p["bye"]:
         return "no game today" if nba else "on BYE"
     if p["status"] in DEAD:
+        if p.get("gd") and p.get("why"):   # NBA game-day status already reads "Out (rest) per NBA injury report, 5:30pm"
+            return p["why"]
         return p["status"] + (f" ({p['why']})" if p.get("why") else "")
     return None
 
@@ -222,6 +224,8 @@ def _q_label(p, nba):
     Nov 10: "Questionable" while the note said probable)."""
     if not nba:
         return "Questionable"
+    if (p.get("gd") or {}).get("src") == "nba" and not p.get("conflict"):   # today's official word (Q-057)
+        return p["why"][0].lower() + p["why"][1:]
     word = espn_word((p.get("news") or {}).get("note"))
     return "day-to-day" + (f" (ESPN: {word})" if word else "")
 

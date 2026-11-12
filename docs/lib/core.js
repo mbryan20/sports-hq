@@ -310,7 +310,9 @@
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });
     expOn = null;
-    const roster = sec("Starters", lg.starters.map(prow).join(""), { count: L.total ? `${L.locked}/${L.total} locked` : "" })
+    // NBA: where today's statuses come from (the NBA injury report and Sleeper on top of ESPN's; shq/nba_status.py)
+    const roster = sec("Starters", lg.starters.map(prow).join("") + (lg.status_basis ? `<p class="basis">${esc(lg.status_basis)}</p>` : ""),
+      { count: L.total ? `${L.locked}/${L.total} locked` : "" })
       + sec("Bench", lg.bench.length ? lg.bench.map(prow).join("") : `<p class="note">Empty</p>`, { open: false, count: lg.bench.length });
     return `<div class="detail">${stale}
       <div class="dhead"><div><h2>${S.dot(L.state)}${esc(name)}</h2><div class="meta">${esc(L.meta)}${src ? " · " + esc(src) : ""} · built ${esc(a.built || "")}</div></div>${fb}</div>
