@@ -204,6 +204,8 @@ def games_plan(league, cats):
 
 def ir_room(items, swaps):
     """The IR fix names the drop that makes room for him when the roster is full (the same one Waiver adds names)."""
+    if (swaps or {}).get("hold"):   # rule 6: he stays in IR (Waiver adds says why), so no "move him out" fix
+        return [i for i in items if not (i["urgent"] and " out of IR: " in i["text"])]
     room = (swaps or {}).get("room") or []
     if not room:
         return items

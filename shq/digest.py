@@ -168,7 +168,15 @@ def _room(league, fa, used, spots, keep=None):
 def league_items(league, now):
     nba = getattr(league, "sport", "nfl") == "nba"
     items, used, spots = [], set(), [getattr(league, "open_spots", 0) or 0]
-    for p in getattr(league, "ir_blocked", []):
+    ir = getattr(league, "ir_blocked", [])
+    for p in ir:
+        if nba and p.get("bye") and len(ir) > spots[0]:
+            # rule 6 (fantasy-rules.md, Nov 12, Ajay Mitchell): never move him out of IR on a day he has no game when
+            # that forces a drop; he stays, and the pickups wait (shq/nba_swaps.py says the same in Waiver adds)
+            items.append({"league": league.name, "urgent": False,
+                          "text": f"Leave {p['name']} in IR today: he has no game, and moving him out would force a drop "
+                                  "(roster full). ESPN blocks adds and drops until he moves, so no pickups today" + cite(p)})
+            continue
         # first and urgent in every league: it blocks every add and drop, including the fixes below (Stempak and
         # Ball is Life, Nov 10); in football he may also be a missed starter
         items.append({"league": league.name, "urgent": True,
