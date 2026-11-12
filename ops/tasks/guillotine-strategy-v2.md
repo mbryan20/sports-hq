@@ -3,9 +3,9 @@ title: "Guillotine bid strategy (v2)"
 kind: claude.ai cloud routine attached to the mbryan20/sports-hq repo (read-only)
 routine_id: trig_01SSdrwq7mFaMPruMyzSxLJ9
 cron: "CRON_TZ=America/Chicago 0 6 * * 2"   # Tue 6:00am CT only, no Monday-night run yet; reads the Tue 5:40am CT War Room v2 build
-model: Fable 5.1
+model: Fable 5.2
 connectors: Google Drive, Google Docs
-status: CREATED 2026-10-31; prompt updated 2026-11-03 (model bid/drop as given, Win % column, bid options). Writes the Doc "Guillotine bid strategy (v2)" and sends no push; the 7:11am bid check sends the push.
+status: CREATED 2026-10-31; prompt updated 2026-11-03 (model bid/drop as given, Win % column, bid options), 2026-11-10 (stale-model rule, Doc folder), 2026-11-12 (step 1 reads ops/tasks/guillotine-tuesday-rules.md). Synced to the live routine 2026-11-12. Writes the Doc "Guillotine bid strategy (v2)" and sends no push; the 7:11am bid check sends the push.
 ---
 
 
@@ -13,7 +13,7 @@ Guillotine bid strategy (v2) for Michael (Sleeper "Damon's Guillotine League 202
 
 STRICTLY READ-ONLY on Sleeper and every fantasy site: never bid, claim, add, drop or trade. Don't edit or commit to the repo. Don't touch the older Doc "Guillotine bid strategy" (id 1zAMWjqX2n-y_s_S3RTfi6owMLCEeb2uLqtblW9cC7as). SEND NO PUSH OR NOTIFICATION. The laptop task is the only push.
 
-1. MODEL OUTPUT. The sports-hq repo is checked out. Run `git pull -q` and read docs/war-room-v2/bids.json (the same file is at https://mbryan20.github.io/sports-hq/war-room-v2/bids.json) and the "How the model decides" and "bids.json fields" sections of warroom/README.md:
+1. MODEL OUTPUT. The sports-hq repo is checked out. Run `git pull -q`, then read ops/tasks/guillotine-tuesday-rules.md and follow it (where it differs from steps 3 and 4 below, it wins: claim_list order, backups, Long shot calls, his caps, ";backup" machine lines). Then read docs/war-room-v2/bids.json (the same file is at https://mbryan20.github.io/sports-hq/war-room-v2/bids.json) and the "How the model decides" and "bids.json fields" sections of warroom/README.md:
    - data_as_of, last_sleeper_move, week (the coming week), cut (team, week, confirmed)
    - cut_risks (every surviving team's FAAB, boldness, cut risk, expected weeks left)
    - freed_players, my_roster (with next-week projections), my_faab, reserve, budget (spendable, recommended_bids_total, dollars_per_win_point)
@@ -32,7 +32,7 @@ STRICTLY READ-ONLY on Sleeper and every fantasy site: never bid, claim, add, dro
    - One line why per claim, with its win chance.
    Flag any rival in cut_risks with a lot of FAAB and high boldness; they set the price.
 
-4. GOOGLE DOC "Guillotine bid strategy (v2)". Find it in Google Drive by that exact title; create it if missing. Replace all its contents each run. Keep it short and phone-readable:
+4. GOOGLE DOC "Guillotine bid strategy (v2)". Find it in Google Drive by that exact title (it lives in My Drive › Claude Home › For Michael); create it there if missing, never at the top of My Drive. Replace all its contents each run. Keep it short and phone-readable:
    - Line 1: "Updated <weekday> <date> <time> CT · data as of <data_as_of>"
    - Headline: this week's cut (confirmed or projected), Michael's cut risk and expected weeks left, FAAB left and spendable.
    - Bids for Wednesday's waivers: a table with Player | Pos/Team | Bid | Win % | Drop | Why. Mark any bid that differs from the model ("model said $X") and why. Total at the bottom vs spendable.
@@ -49,3 +49,5 @@ STRICTLY READ-ONLY on Sleeper and every fantasy site: never bid, claim, add, dro
    - Footer: "Model: https://mbryan20.github.io/sports-hq/war-room-v2/"
 
 5. Final message: the Doc link, the bid lines, and anything that failed.
+
+ADDED Nov 10: If bids.json data_as_of does not name last week's cut as confirmed, the model is stale: write only the header, the stale warning, injury notes and the watch list, put NO BID lines in Machine lines, and say the 7:11am task will use the rebuilt model. Never price a player from name value; use this season's average and the model's est_price. Only list players who are in bids.json or freed_players.
