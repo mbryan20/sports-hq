@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T01:43:02Z",
+ "updated": "2026-11-12T01:47:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -231,7 +231,7 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Geno Smith (QB, NYJ, 20.5/gm, value 162) for David Montgomery (RB, your RB3, 9.4/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +24 pts over the next 4 weeks",
+     "Add Geno Smith (QB, NYJ, 20.5/gm, value 140) for David Montgomery (RB, your RB3, 9.4/gm): starts at QB over Matthew Stafford, lineup +2.7/gm, +24 pts over the next 4 weeks",
      "Add Giants (DEF, NYG, 7.0 proj this week), drop Chiefs (5.9 proj)"
     ],
     "trades": {
@@ -263,7 +263,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "Domo Arigato": {
@@ -719,7 +719,7 @@
     "adds": [
      "Add Dominic Zvada (K, NYG, 8.5 proj this week), drop Wil Lutz (0 proj). Bid $0\u20131",
      "Add Indianapolis Colts (DEF, IND, 8.0 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131",
-     "Add J.K. Dobbins (RB, DEN, 7.0/gm, value 1,052) for Tutu Atwell (WR, your WR6, 6.3/gm): fills in at RB in week 11, +4.1 pts over the next 4 weeks. Bid $1\u20133"
+     "Add J.K. Dobbins (RB, DEN, 7.0/gm, value 1,056) for Jalen Nailor (WR, your WR10, 3.3/gm): fills in at RB in week 11, +4.1 pts over the next 4 weeks. Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -737,8 +737,8 @@
         "Bo Nix (QB)",
         "Parker Washington (WR)"
        ],
-       "give_value": 7381,
-       "get_value": 6679,
+       "give_value": 7390,
+       "get_value": 6694,
        "my_gain": 1.3,
        "their_gain": 0.5,
        "cut": true,
@@ -753,8 +753,8 @@
         "Tory Horton (WR)",
         "Juwan Johnson (TE)"
        ],
-       "give_value": 1757,
-       "get_value": 1756,
+       "give_value": 1780,
+       "get_value": 1784,
        "my_gain": 0.5,
        "their_gain": 1.3,
        "cut": true,
@@ -802,7 +802,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "Guillotine": {
@@ -1092,12 +1092,28 @@
        "get": [
         "Jaxon Smith-Njigba (WR)"
        ],
-       "give_value": 10086,
-       "get_value": 10060,
+       "give_value": 9886,
+       "get_value": 9915,
        "my_gain": 1.4,
        "their_gain": 0.5,
        "cut": false,
        "why": "Jaxon Smith-Njigba starts for you; Chuba Hubbard and Tee Higgins start for them over Jadarian Price (7.4/gm)"
+      },
+      {
+       "team": "robert8063",
+       "give": [
+        "Braelon Allen (RB)",
+        "Dallas Goedert (TE)"
+       ],
+       "get": [
+        "Sam LaPorta (TE)"
+       ],
+       "give_value": 1481,
+       "get_value": 1564,
+       "my_gain": 1.0,
+       "their_gain": 0.9,
+       "cut": false,
+       "why": "Sam LaPorta starts for you; Braelon Allen and Dallas Goedert start for them over Jadarian Price (7.4/gm)"
       },
       {
        "team": "robert8063",
@@ -1108,28 +1124,12 @@
        "get": [
         "Saquon Barkley (RB)"
        ],
-       "give_value": 2728,
-       "get_value": 2634,
+       "give_value": 2887,
+       "get_value": 2691,
        "my_gain": 0.8,
        "their_gain": 0.6,
        "cut": false,
        "why": "Saquon Barkley starts for you; Brenton Strange and Tony Pollard start for them over Jadarian Price (7.4/gm)"
-      },
-      {
-       "team": "Off with his head (damonhawk1)",
-       "give": [
-        "Javonte Williams (RB)"
-       ],
-       "get": [
-        "Luther Burden III (WR)",
-        "Garrett Wilson (WR)"
-       ],
-       "give_value": 6191,
-       "get_value": 6587,
-       "my_gain": 0.5,
-       "their_gain": 0.6,
-       "cut": true,
-       "why": "Luther Burden III and Garrett Wilson start for you; Javonte Williams starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -1168,7 +1168,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p",
+    "built": "Wed 7:47p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -1976,7 +1976,7 @@
     ],
     "moves": [],
     "adds": [
-     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,090) for Kaytron Allen (RB, your RB8, 1.6/gm): fills in at TE in week 10, +8.6 pts over the next 4 weeks"
+     "Add Pat Freiermuth (TE, PIT, 9.9/gm, value 1,087) for Kaytron Allen (RB, your RB8, 1.6/gm): fills in at TE in week 10, +8.6 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1994,8 +1994,8 @@
        "get": [
         "Jameson Williams (WR)"
        ],
-       "give_value": 2734,
-       "get_value": 2860,
+       "give_value": 2745,
+       "get_value": 2742,
        "my_gain": 1.8,
        "their_gain": 0.8,
        "cut": false,
@@ -2010,8 +2010,8 @@
         "A.J. Brown (WR)",
         "Mike Evans (WR)"
        ],
-       "give_value": 3700,
-       "get_value": 3901,
+       "give_value": 3770,
+       "get_value": 3880,
        "my_gain": 0.7,
        "their_gain": 2.0,
        "cut": true,
@@ -2026,8 +2026,8 @@
        "get": [
         "Patrick Mahomes (QB)"
        ],
-       "give_value": 5071,
-       "get_value": 5143,
+       "give_value": 5126,
+       "get_value": 5152,
        "my_gain": 1.0,
        "their_gain": 0.6,
        "cut": false,
@@ -2083,7 +2083,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "Stempak": {
@@ -2413,9 +2413,9 @@
      "Start Zay Flowers (14.6) over Chase Brown (13.6) at FLEX, +1.0"
     ],
     "adds": [
-     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,597) for Chig Okonkwo (TE, your TE3, 9.1/gm): better backup QB, +7.3 pts over the next 4 weeks",
-     "Add A.J. Brown (WR, NE, 13.5/gm, value 1,691) for Josh Downs (WR, your WR5, 6.6/gm): fills in at WR in week 10, +1.4 pts over the next 4 weeks",
-     "Add Jordan Mason (RB, MIN, 9.2/gm, value 550) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup RB, +0.2 pts over the next 4 weeks"
+     "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,214) for Chig Okonkwo (TE, your TE3, 9.1/gm): better backup QB, +7.3 pts over the next 4 weeks",
+     "Add A.J. Brown (WR, NE, 13.5/gm, value 1,528) for Josh Downs (WR, your WR5, 6.6/gm): fills in at WR in week 10, +1.4 pts over the next 4 weeks",
+     "Add Jordan Mason (RB, MIN, 9.2/gm, value 536) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup RB, +0.2 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2434,8 +2434,8 @@
         "Luther Burden III (WR)",
         "George Kittle (TE)"
        ],
-       "give_value": 6221,
-       "get_value": 6119,
+       "give_value": 6054,
+       "get_value": 6229,
        "my_gain": 3.4,
        "their_gain": 2.3,
        "cut": true,
@@ -2447,15 +2447,15 @@
         "Chase Brown (RB)"
        ],
        "get": [
-        "Travis Kelce (TE)",
-        "Jalen Coker (WR)"
+        "DJ Moore (WR)",
+        "Travis Kelce (TE)"
        ],
-       "give_value": 2746,
-       "get_value": 2538,
-       "my_gain": 2.5,
-       "their_gain": 3.2,
+       "give_value": 2900,
+       "get_value": 2936,
+       "my_gain": 2.4,
+       "their_gain": 3.3,
        "cut": true,
-       "why": "Travis Kelce and Jalen Coker start for you; Chase Brown starts for them over Tyler Allgeier (11.0/gm)"
+       "why": "Travis Kelce and DJ Moore start for you; Chase Brown starts for them over Tyler Allgeier (11.0/gm)"
       },
       {
        "team": "Robert's Rowdy Team",
@@ -2465,8 +2465,8 @@
        "get": [
         "Harold Fannin Jr. (TE)"
        ],
-       "give_value": 1208,
-       "get_value": 1319,
+       "give_value": 1238,
+       "get_value": 1246,
        "my_gain": 1.4,
        "their_gain": 0.6,
        "cut": false,
@@ -2510,7 +2510,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "Bro-vid19": {
@@ -2787,8 +2787,8 @@
     ],
     "moves": [],
     "adds": [
-     "Add Bryce Young (QB, CAR, 17.8/gm, value 855) for Brenton Strange (TE, your TE2, 11.0/gm): better backup QB, +3.5 pts over the next 4 weeks",
-     "Add Malik Washington (WR, MIA, 9.8/gm, value 383) for Rashid Shaheed (WR, your WR6, 6.2/gm): better backup WR, +2 pts over the next 4 weeks",
+     "Add Bryce Young (QB, CAR, 17.8/gm, value 807) for Brenton Strange (TE, your TE2, 11.0/gm): better backup QB, +3.5 pts over the next 4 weeks",
+     "Add Malik Washington (WR, MIA, 9.8/gm, value 439) for Rashid Shaheed (WR, your WR6, 6.2/gm): better backup WR, +2 pts over the next 4 weeks",
      "Add Dominic Zvada (K, NYG, 10.8 proj this week), drop Andre Szmyt (9.5 proj)"
     ],
     "trades": {
@@ -2803,17 +2803,17 @@
        "team": "Inglorious Staffords",
        "give": [
         "Drake London (WR)",
-        "Aaron Jones Sr. (RB)"
+        "KC Concepcion (WR)"
        ],
        "get": [
         "Bucky Irving (RB)"
        ],
-       "give_value": 5586,
-       "get_value": 6131,
+       "give_value": 5616,
+       "get_value": 6001,
        "my_gain": 2.9,
-       "their_gain": 0.9,
+       "their_gain": 1.7,
        "cut": false,
-       "why": "Bucky Irving starts for you; Drake London and Aaron Jones Sr. start for them over Cooper Kupp (7.2/gm)"
+       "why": "Bucky Irving starts for you; Drake London and KC Concepcion start for them over Cooper Kupp (7.2/gm)"
       },
       {
        "team": "Inglorious Staffords",
@@ -2823,8 +2823,8 @@
        "get": [
         "Kenneth Walker III (RB)"
        ],
-       "give_value": 9196,
-       "get_value": 9613,
+       "give_value": 9157,
+       "get_value": 9689,
        "my_gain": 2.4,
        "their_gain": 1.3,
        "cut": false,
@@ -2839,8 +2839,8 @@
        "get": [
         "Kyren Williams (RB)"
        ],
-       "give_value": 5380,
-       "get_value": 5394,
+       "give_value": 5455,
+       "get_value": 5016,
        "my_gain": 1.6,
        "their_gain": 1.3,
        "cut": false,
@@ -2881,7 +2881,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "3-Ball BB": {
@@ -3736,7 +3736,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   },
   "Ball is Life": {
@@ -4415,7 +4415,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Wed 7:43p"
+    "built": "Wed 7:47p"
    }
   }
  }
