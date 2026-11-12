@@ -24,53 +24,59 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install numpy requests
+      # Fresh = the laptop posted after this slot opened (2h before the cron time); see pp/backup.py. A late run
+      # (GitHub ran this 8h late on Nov 12) with fresh=1 builds nothing, pushes nothing and sends nothing.
       - name: Decide stage and whether the laptop already posted
         id: s
+        env:
+          SLOT: ${{ github.event.schedule }}
+          STAGE_IN: ${{ github.event.inputs.stage }}
         run: |
-          case "${{ github.event.schedule }}" in
-            "45 3 * * 4") st=draft;; "45 2 * * 5") st=final;; "45 3 * * 6") st=final;; "45 14 * * 6") st=refresh;;
-            *) st="${{ github.event.inputs.stage }}";;
-          esac
-          # Fresh = the laptop posted after this slot opened (2h before the cron time). Measured from the slot,
-          # not from now: GitHub can run a schedule hours late (Oct 30: 9h), and an age rule then overwrote a
-          # researched card with a model-only one.
-          fresh=$(SLOT="${{ github.event.schedule }}" python - <<'PY'
-          import datetime as d, json, os
-          m = json.load(open("data/cards.json"))["meta"]
-          made = d.datetime.fromisoformat(m.get("generated_iso", "2000-01-01T00:00:00+00:00"))
-          now = d.datetime.now(d.timezone.utc)
-          cron = os.environ.get("SLOT", "").split()
-          if len(cron) == 5:
-              mi, hr, dow = int(cron[0]), int(cron[1]), int(cron[4])      # cron: 0 = Sunday
-              slot = now.replace(hour=hr, minute=mi, second=0, microsecond=0)
-              slot -= d.timedelta(days=((now.isoweekday() % 7) - dow) % 7)
-              if slot > now:
-                  slot -= d.timedelta(days=7)
-          else:
-              slot = now
-          print(int(made >= slot - d.timedelta(hours=2)))
-          PY
-          )
-          echo "stage=$st" >> $GITHUB_OUTPUT; echo "fresh=$fresh" >> $GITHUB_OUTPUT
+          set -o pipefail
+          python -m pp.backup decide --cron "$SLOT" --stage "$STAGE_IN" | tee -a "$GITHUB_OUTPUT"
+      # No CFBD key here (Q-055): pp.http serves the saved CFBD copies of any age, and market.lines falls back to
+      # the saved season lines + ESPN's scoreboard, so a missing key no longer kills the card.
       - name: Build backup card
+        id: build
         if: steps.s.outputs.fresh == '0' || github.event_name == 'workflow_dispatch'
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           BACKUP: "1"
-        run: python -m pp.cards --stage ${{ steps.s.outputs.stage }}
+        run: |
+          set -o pipefail
+          python -m pp.cards --stage ${{ steps.s.outputs.stage }} 2>&1 | tee "$RUNNER_TEMP/build.log"
       - name: Commit, push, notify
+        id: push
         if: steps.s.outputs.fresh == '0' || github.event_name == 'workflow_dispatch'
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SLOT: ${{ github.event.schedule }}
         run: |
+          # the laptop's card may have landed while this built: then leave it alone and say nothing
+          git fetch -q origin main
+          if [ "${{ github.event_name }}" = "schedule" ] && git show origin/main:picks/data/cards.json > "$RUNNER_TEMP/origin_cards.json" \
+             && [ "$(python -m pp.backup fresh --cron "$SLOT" --cards "$RUNNER_TEMP/origin_cards.json")" = "1" ]; then
+            echo "The laptop's card for this slot reached main while the backup built; not posting the backup."; exit 0
+          fi
           git config user.name "pool-picks-bot"; git config user.email "actions@users.noreply.github.com"
           git add -A -- . ../docs/picks && git commit -m "Picks backup card: ${{ steps.s.outputs.stage }}" && git pull --rebase && git push
           sleep 90
-          curl -s -H "Title: Picks BACKUP card posted" -H "Tags: warning" -H "Click: https://mbryan20.github.io/sports-hq/picks/" \
+          curl -s -o /dev/null -H "Title: Picks BACKUP card posted" -H "Tags: warning" -H "Click: https://mbryan20.github.io/sports-hq/picks/" \
             -d "Laptop run missed; model-only card (no fresh injury research)." "https://ntfy.sh/$NTFY_TOPIC"
+      # Plain words: "No picks card reached the site for the <slot> slot, and the backup couldn't build one: <reason>."
+      # Never when the laptop's card for this slot was already on the site (fresh=1 on a scheduled run).
       - name: Notify on failure
-        if: failure()
+        if: failure() && (steps.s.outputs.fresh != '1' || github.event_name == 'workflow_dispatch')
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SLOT: ${{ github.event.schedule }}
+          STAGE_IN: ${{ github.event.inputs.stage }}
+          OUTCOME_DECIDE: ${{ steps.s.outcome }}
+          OUTCOME_BUILD: ${{ steps.build.outcome }}
+          OUTCOME_PUSH: ${{ steps.push.outcome }}
         run: |
-          curl -s -H "Title: Picks backup failed" -H "Tags: x" -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "Backup card build failed. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"
+          msg=$(python3 -m pp.backup fail --cron "$SLOT" --stage "$STAGE_IN" --log "$RUNNER_TEMP/build.log") \
+            || msg="No picks card reached the site for this slot, and the backup couldn't build one: the workflow failed before it could say why (tap for the log)."
+          echo "$msg"
+          curl -s -o /dev/null -H "Title: Picks backup failed" -H "Tags: x" -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -d "$msg" "https://ntfy.sh/$NTFY_TOPIC"

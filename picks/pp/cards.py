@@ -11,7 +11,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 import numpy as np
 from . import model as M
-from .market import lines
+from .market import lines, NOTE as MARKET_NOTE
+from .http import STALE as HTTP_STALE
 from .lines import overlay
 from .names import norm
 from .push import compose as push_compose, _kick_dt
@@ -65,7 +66,8 @@ class Week:
         self.games = [g for g in M.games(YEAR) if g["week"] == week]
         self.by_pair = {(norm(g["awayTeam"]), norm(g["homeTeam"])): g for g in self.games}
         # CFBD lines (cached up to 6h, keeps the opener) with ESPN's current line on top
-        self.lines = overlay(lines(YEAR, week, max_age_h=6), week, YEAR, self.games)
+        # (no CFBD key/budget: a saved copy of any age, else ESPN's scoreboard; market.NOTE says which)
+        self.lines = overlay(lines(YEAR, week, max_age_h=6, games=self.games), week, YEAR, self.games)
         self.research, self.notes, self.researched_at = load_research(week)
         self.rng = np.random.default_rng(2026 * 100 + week)
         self._sims = {}
@@ -794,6 +796,17 @@ def rerender(week=None):
     print(json.dumps({"rerendered": week, "breakdowns": len(games)}))
 
 
+def degraded_notes():
+    """Model-check lines when CFBD couldn't be called this build (Q-055): where the lines came from, and one line
+    for team stats served from saved copies."""
+    out = list(MARKET_NOTE)
+    other = [(ep, why) for ep, why, _ in HTTP_STALE if ep != "/lines"]
+    if other:
+        out.append(f"CFBD unavailable at build ({other[0][1]}); team stats from saved copies "
+                   f"({', '.join(sorted({ep for ep, _ in other}))}).")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", default="draft", choices=["draft", "final", "refresh"])
@@ -819,6 +832,7 @@ def main():
     srcs = sorted({W.lines[g["id"]]["src"] for g in W.games if (W.lines.get(g["id"]) or {}).get("src")})
     calib.append(f"Market lines: {srcs[-1]} for {sum(1 for g in W.games if (W.lines.get(g['id']) or {}).get('src'))} games; CFBD consensus for the rest."
                  if srcs else "Market lines: CFBD consensus (ESPN odds unavailable at build).")
+    calib += degraded_notes()
     stage_label = {"draft": "DRAFT", "final": "FINAL", "refresh": "SAT REFRESH"}[a.stage]
     if os.environ.get("BACKUP"):
         stage_label += " - BACKUP (no fresh research)"
