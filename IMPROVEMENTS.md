@@ -1117,6 +1117,34 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-055 · Picks backup card can't build without a CFBD key, and its failure push doesn't say why
+- **Status:** shipped (39dcb9e, Thu Nov 12). Not yet seen in a real backup run (next slot: Thu 8pm BTO final, only if the
+  laptop misses it). The workflow was not dispatched (it would overwrite the researched card).
+- **Area:** `picks/pp/http.py`, `picks/pp/market.py`, `picks/pp/model.py`, `picks/pp/weather.py`, `picks/pp/cards.py`,
+  `picks/pp/backup.py` (new), `.github/workflows/picks-backup.yml`, `tests/test_picks_backup.py` (new)
+- **Rank:** —
+- **Added:** 2026-11-12 (run 43212798455: the Wed 9pm draft backup ran 8h late and failed on
+  `RuntimeError: CFBD /lines not cached and no key/budget`; the `CFBD_API_KEY` secret is empty and this week's /lines
+  call is gitignored, so the backup could never build a card)
+- **Design:** (1) `pp.http.cfbd`: when CFBD can't be called (no key, monthly budget used up, HTTP/network error) the saved
+  copy of that call is used at any age; nothing saved raises `CFBDUnavailable` with the reason in plain words.
+  (2) `pp.market.lines(year, week)`: this week's saved CFBD lines at any age (card: "used saved CFBD lines as of <time>";
+  "save time unknown" in Actions, whose checkout resets file times); else the saved season-wide CFBD /lines for the week,
+  with ESPN's public college scoreboard (`groups=80&limit=300`, `competitions[0].odds[0]`) on top, in `consensus()` shape,
+  matched by CFBD game id or `pp.names.norm` (as `pp.lines.find`), flipped when ESPN lists home/away the other way;
+  nothing anywhere raises `LinesUnavailable` (plain words). The card's Model check names the source. (3) Other CFBD calls
+  on the card path: `/games` and game stats use saved copies (tracked in git); `/teams/fbs` falls back to the schedule's
+  FBS teams, `/ratings/sp` to a level prior, `/player/returning` to the usual 60%, `/venues` to no weather; `/talent`,
+  season stats and current SP+ were already optional. NFL lines (BTO NFL games) never used CFBD: ESPN, then the slate's
+  researched line. (4) Pushes: failure says "No picks card reached the site for the <slot> slot, and the backup couldn't
+  build one: <reason>." (reason from the build log or the failed step); success text unchanged. A scheduled run whose slot
+  already has the laptop's card (fresh=1) sends nothing, and before pushing a backup it re-checks origin/main and stands
+  down if the laptop's card landed meanwhile.
+- **Checked:** the backup build run locally the way Actions runs it (no key, only the git-tracked CFBD cache): card built
+  for week 11 with "used older saved CFBD lines (save time unknown) for 7 games and ESPN's scoreboard for 61 games"
+  (local outputs reverted, nothing posted). 18 new fixture tests (no network).
+- **Undo:** `git revert 39dcb9e` (and this entry).
+
 ### Q-054 · A place to ask about a specific move, for every team (Try a move + Ask Claude)
 - **Status:** shipped (5fe47f8, Wed Nov 11 ~9:10am CT). Ask Claude answers once the `CLAUDE_CODE_OAUTH_TOKEN` secret is added
   (Michael's one step); until then its box replies "not set up yet". Try a move needs nothing.

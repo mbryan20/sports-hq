@@ -9,7 +9,7 @@ Points: OLS map from expected EPA/success/home field to points, fit on 2025 walk
 import json
 from functools import lru_cache
 import numpy as np
-from .http import cfbd
+from .http import cfbd, CFBDUnavailable
 
 STATS = (("ppa", 5), ("sr", 6), ("pts", 7))
 LAMBDA = {"ppa": 3.0, "sr": 3.0, "pts": 3.0}  # prior worth ~3 games of data
@@ -22,6 +22,8 @@ def games(year):
     return [g for g in cfbd("/games", max_age_h=age, year=year, classification="fbs") if g.get("seasonType") == "regular" or g.get("seasonType") is None]
 
 
+# Q-055: with no CFBD key (the backup card in GitHub Actions) pp.http serves saved copies of any age. When nothing
+# is saved, the extras below fall back so a missing key never kills the card; games/adv have no stand-in.
 @lru_cache(None)
 def adv(year):
     return cfbd("/stats/game/advanced", max_age_h=20 if year >= 2026 else 24 * 365, year=year, excludeGarbageTime="true")
@@ -29,17 +31,29 @@ def adv(year):
 
 @lru_cache(None)
 def fbs_teams(year):
-    return {t["school"] for t in cfbd("/teams/fbs", year=year)}
+    try:
+        return {t["school"] for t in cfbd("/teams/fbs", year=year)}
+    except CFBDUnavailable as ex:  # stand-in: every team the FBS schedule lists as FBS
+        print(ex, "- FBS teams taken from the schedule")
+        return {g[f"{s}Team"] for g in games(year) for s in ("home", "away") if g.get(f"{s}Classification") == "fbs"}
 
 
 @lru_cache(None)
 def _sp(year):
-    return {r["team"]: r for r in cfbd("/ratings/sp", year=year)}
+    try:
+        return {r["team"]: r for r in cfbd("/ratings/sp", year=year)}
+    except CFBDUnavailable as ex:  # _prior then starts every team level
+        print(ex, "- no SP+ prior")
+        return {}
 
 
 @lru_cache(None)
 def _ret(year):
-    return {r["team"]: r for r in cfbd("/player/returning", year=year)}
+    try:
+        return {r["team"]: r for r in cfbd("/player/returning", year=year)}
+    except CFBDUnavailable as ex:  # _prior then assumes the usual ~60% returning
+        print(ex, "- returning production assumed")
+        return {}
 
 
 def _loc(g, team):
@@ -73,6 +87,8 @@ def _prior(year, teams):
     from pathlib import Path
     sc = json.loads((Path(__file__).resolve().parent.parent / PRIOR_SCALE_FILE).read_text())
     sp, ret = _sp(year - 1), _ret(year)
+    if not sp:  # no SP+ saved and CFBD unreachable: a level prior (the season's games carry the ratings)
+        return {t: {k: (0.0, 0.0) for k in sc} for t in teams}
     offs = np.array([v["offense"]["rating"] for v in sp.values()])
     defs = np.array([v["defense"]["rating"] for v in sp.values()])
     mo, md = offs.mean(), defs.mean()

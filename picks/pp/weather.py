@@ -1,12 +1,16 @@
 """Open-Meteo kickoff weather and a modest scoring adjustment (wind, rain, cold). Domes skipped."""
 from datetime import datetime, timedelta
 from functools import lru_cache
-from .http import cfbd, get_json
+from .http import cfbd, get_json, CFBDUnavailable
 
 
 @lru_cache(None)
 def venues():
-    return {v["id"]: v for v in cfbd("/venues")}
+    try:
+        return {v["id"]: v for v in cfbd("/venues")}
+    except CFBDUnavailable as ex:  # Q-055: no venues -> no weather tweak, breakdowns say "venue unknown"
+        print(ex, "- no weather")
+        return {}
 
 
 def kickoff_weather(game):
