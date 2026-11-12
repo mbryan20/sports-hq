@@ -280,7 +280,7 @@ def message(cards, slate, stage_label, due=None, now=None, final_call=False, pre
     since = since_lines(cards, prev)
     moved = [f"{r['pick']} (was {r['was']})" for c in cards for r in c["rows"] if r.get("changed")]
     n = sum(a.startswith("CHANGE") for a in alerts)
-    title = f"Pool Picks {stage_label}: {n} change{'s' if n != 1 else ''}" if n else f"Pool Picks {stage_label} posted"
+    title = f"Pool Picks {stage_label}: {n} change{'s' if n != 1 else ''} to your saved picks" if n else f"Pool Picks {stage_label} posted"
     extra = ["Card changed since last post: " + "; ".join(moved)] if moved else []
     msg = "\n".join(since + alerts + extra + body + [PAGE])
     return title, msg, bool(alerts or moved)

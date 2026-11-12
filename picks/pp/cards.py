@@ -491,6 +491,36 @@ def upset_watch(rows, picks, chosen, pub_home, limit=4):
     return ["Upset watch (favorites our stats doubt or disagree with; your call):"] + [t for _, t in cands[:limit]]
 
 
+def cfp_legal_plans(table, balance, min_wager):
+    """(best, alternate) among sizes the pool allows: every bet at least min_wager (Nov 12: notes offered
+    2 x 10,713 when the minimum was 11,904). The alternate is the best legal row with a different
+    (bets, fraction); None when there is none."""
+    legal = [r for r in table if int(balance * r["frac"] / r["bets"]) >= min_wager] or table[:1]
+    legal = sorted(legal, key=lambda r: (-r["p_first"], -r["p_top3"]))
+    best = legal[0]
+    alt = next((r for r in legal[1:] if (r["bets"], r["frac"]) != (best["bets"], best["frac"])), None)
+    return best, alt
+
+
+def cross_pool_notes(cards):
+    """When Yahoo (who wins) and an ATS pool (who covers) take different teams in one game, say so on the ATS card,
+    so the two picks don't read as a contradiction."""
+    y = next((c for c in cards if c["id"] == "yahoo"), None)
+    if not y:
+        return
+    by_teams = {frozenset(norm(t) for t in r["key"].split("@")): r for r in y["rows"]}
+    for c in cards:
+        if c["id"] not in ("cfp", "bto"):
+            continue
+        for r in c["rows"]:
+            yr = by_teams.get(frozenset(norm(t) for t in r["key"].split("@")))
+            if yr and norm(yr["pick_team"]) != norm(r["pick_team"]):
+                c.setdefault("notes", []).append(
+                    f"{r['game']}: Yahoo has {yr['pick_team']} to win ({yr['model'] * 100:.0f}%); {c['title'].split(' ')[0]} "
+                    f"takes {r['pick']} ({r['why']}). "
+                    f"Different questions: who wins vs who covers.")
+
+
 def build_cfp(W, slate):
     c = slate["cfp"]
     if not c.get("games"):
@@ -515,8 +545,9 @@ def build_cfp_slate(W, slate):
         cands.append({"sg": sg, "g": g, "S": S, "home": sh, "p": ph if sh else 1 - ph, "mkt": W.lines.get(g["id"]),
                       "line": home_line if sh else -home_line, "mkt_line": market_side_line(W, sg, g, sh)})
     cands.sort(key=lambda x: -x["p"])
-    best, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands],
-                             weeks_left=c.get("weeks_left", 6), rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True))
+    _, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands],
+                          weeks_left=c.get("weeks_left", 6), rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True))
+    best, alt = cfp_legal_plans(table, c["balance"], c.get("min_wager", 0))
     nb = best["bets"]; stake = int(c["balance"] * best["frac"] / nb)
     rows = []
     for x in cands[:nb]:
@@ -524,8 +555,6 @@ def build_cfp_slate(W, slate):
         rows.append({"game": f"{x['sg']['away']} @ {x['sg']['home']}", "pick": f"{team} {x['line']:+g}", "model": x["p"], "market": 0.5,
                      "wager": f"{stake:,}", "why": short(f"{x['S']['why'][0]['team']}: {x['S']['why'][0]['reason']}") if x["S"]["why"] else gap_why(x["line"], x["mkt_line"], x["p"]),
                      "source": src_link(x["g"], x["S"]["why"]), "key": f"{x['sg']['away']}@{x['sg']['home']}", "pick_team": team})
-    alt = sorted(table, key=lambda r: -r["p_first"])[1]
-
     def side(x):
         team = x["sg"]["home"] if x["home"] else x["sg"]["away"]
         why = short(f"{x['S']['why'][0]['team']}: {x['S']['why'][0]['reason']}") if x["S"]["why"] else "next-best edge vs pool line"
@@ -533,12 +562,12 @@ def build_cfp_slate(W, slate):
 
     # the next-best sides, so a primary pick never hides options worth a look (each has a breakdown below)
     alts = [f"Also worth a look: {side(x)}" for x in cands[nb:nb + 3]]
-    if alt["bets"] > 1:
+    if alt and alt["bets"] > 1:
         alts.append(f"Split option: {' + '.join(side(x).split(' (')[0] for x in cands[:alt['bets']])}, "
                     f"{int(c['balance'] * alt['frac'] / alt['bets']):,} each → P(1st) {alt['p_first']*100:.1f}%.")
     return {"id": "cfp", "title": "CFP 2026 points pool", "deadline": "Locks Sat 11:00am CT", "rows": rows,
             "notes": [f"Sizing sim (10k seasons): {nb} bet(s), {best['frac']*100:.0f}% of {c['balance']:,} → P(1st) {best['p_first']*100:.1f}%, P(top 3) {best['p_top3']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else ""),
-                      f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → P(1st) {alt['p_first']*100:.1f}%."]
+                      ] + ([f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → P(1st) {alt['p_first']*100:.1f}%."] if alt else [])
                      + alts + ([c["note"]] if c.get("note") else [])}
 
 
@@ -588,7 +617,10 @@ def build_bto_slate(W, slate):
                 continue
             seen.add(id(c["sg"]))
             team = c["sg"]["home"] if c["home"] else c["sg"]["away"]
-            alts.append(f"Also worth a look: {team} {c['line']+4:+g} (LP 4), cover {p1*100:.0f}%")
+            mine = {x["key"] for x in (b.get("saved") or {}).get("bets") or []}
+            alts.append(f"Also worth a look: {team} {c['line']+4:+g} (LP 4), cover {p1*100:.0f}%"
+                        + (" (other side of your saved bet)" if f"{c['sg']['away']}@{c['sg']['home']}" in mine
+                           and norm(team) not in {parse_pick(x["pick"])[0] for x in b["saved"]["bets"]} else ""))
             if len(alts) == 2:
                 break
     else:
@@ -615,7 +647,7 @@ def build_bto_slate(W, slate):
     vs = saved_vs_card(cands, (b.get("saved") or {}).get("bets"), rows)
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
             **({"saved_vs": vs} if vs else {}),
-            "notes": ([f"Your saved bet differs. {vs[0].upper() + vs[1:]}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
+            "notes": ([f"Your saved bet differs. {vs[0].upper() + vs[1:]}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}{'' if len(rows) == 1 else ', ' + best['split'] + ' split'} → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
 
 
 def saved_vs_card(cands, saved_bets, rows):
@@ -904,6 +936,7 @@ def main():
     builders = {"yahoo": lambda: build_yahoo(W, slate), "bto": lambda: build_bto(W, slate),
                 "cfp": lambda: build_cfp(W, slate), "survivor": build_survivor}
     cards = [builders[p]() for p in a.pools.split(",")]
+    cross_pool_notes(cards)
     for c in cards:
         mark_changes(c, a.stage, week)
     cards.sort(key=lambda c: not any(r.get("changed") for r in c["rows"]))

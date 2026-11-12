@@ -111,7 +111,7 @@ class Message(unittest.TestCase):
         sl["decisions"] = {"differs": [{"date": "Oct 23", "old": "CFP all on one game", "new": "split", "because": "two stale lines"}]}
         title, msg, urgent = push.message(cards(), sl, "DRAFT", due=("bto", "cfp", "yahoo"), now=WED)
         lines = msg.split("\n")
-        self.assertEqual(title, "Pool Picks DRAFT: 1 change")
+        self.assertEqual(title, "Pool Picks DRAFT: 1 change to your saved picks")
         self.assertTrue(lines[0].startswith("CHANGE: CFP: yours Georgia -11.5"))
         self.assertTrue(lines[1].startswith("Differs from your decision on Oct 23: CFP all on one game → split, because"))
         self.assertEqual(lines[2], "BTO (locks Fri 8pm): your saved picks match")
