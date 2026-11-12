@@ -16,6 +16,11 @@ Models and checks:
   against the real cut (from docs/data/lineups.json and docs/war-room-v2/bids.json history).
 - NBA trend radar (`shq/radar_backtest.py`, last 14 mornings): role held over the next 3 team games for the free agents
   the site showed (and, info only, every flag), value vs the old suggestion ranked by that morning's % rostered.
+- NBA waiver swaps and streamers (`shq/nba_advice_backtest.py`): every "Drop X, add Y: +N this week" swap and every
+  streamer the basketball tabs showed (first data commit from 8am CT, docs/data/lineups.json history), judged over the
+  rest of that fantasy week on ESPN's game logs in the league's own units: value gained over keeping the drop, how often
+  the add out-produced him, the shown "+N" vs what happened, and each streamer vs the next one listed. Scored items are
+  kept in this file's details and carried forward night to night; info only until SWAP_N of them.
 - Pool Picks: the stored walk-forward backtest (picks/backtest/) and the graded postmortems.
 - Traded, injured and new starters (Q-043's rules), once per completed week from week 9: every QB/RB/WR/TE in
   docs/data/players_nfl.json as committed before the first kickoff who had an injury tag (or a state/ir_seen.json record),
@@ -70,6 +75,15 @@ CHECKS = {
     "radar.held": ("Radar free agents shown on the site whose bigger role held (next 3 team games)", "higher", 0.15, "%"),
     "radar.held_all": ("Every flagged free agent whose bigger role held, shown or not", None, 0, "%"),
     "radar.edge": ("Radar flags' value over the old suggestion (z per game, next 3 team games)", "higher", 0.5, "z"),
+    # NBA waiver swaps and streamers, each judged over the rest of the fantasy week it was shown for (z = the league's
+    # category z-scores, need-weighted as the site weighted them, above a waiver-level player; the "+N" units). Single
+    # games are noisy (one swap's gain per game spread about 6 z in the first week), so the tolerances are wide.
+    "swap.gain": ("Waiver swaps: value gained over keeping the drop (z per game of the add, rest of the week)", "higher", 1.5, "z"),
+    "swap.hit": ("Waiver swaps where the add out-produced the drop (rest of the week)", "higher", 0.2, "%"),
+    "swap.est_err": ("Waiver swaps: average miss of the shown \"+N this week\" vs what happened", "lower", 4.0, "z"),
+    "swap.est_bias": ("Waiver swaps: what happened minus the shown \"+N\" (below 0 = the site promised too much)", None, 0, "z"),
+    "stream.edge": ("Streamers: value over the next one listed (z per game of the higher-ranked, rest of the week)", "higher", 1.5, "z"),
+    "stream.order": ("Streamer pairs where the higher-ranked one did better", None, 0, "%"),
     "picks.brier_gap": ("College model Brier minus the market's (0 = as good as the market)", "lower", 0.01, ""),
     "picks.stale_cover": ("Stale-line (1.5+ pt) picks that covered, college", "higher", 0.05, "%"),
     "picks.card_ats": ("Posted card picks that won against the spread", "higher", 0.08, "%"),
@@ -92,11 +106,14 @@ MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win
          # the same names), so 20 would never be reached; every flag and the edge get ~25-40.
          "radar.held": 10, "radar.held_all": 20, "radar.edge": 20,
          "exp.calls_right": 10, "exp.calls_vs_experts": 5,
+         # swaps: ~10 distinct a week over both leagues; streamer pairs ~20. Under SWAP_N they show as info (swaps_checks)
+         "swap.gain": 20, "swap.hit": 20, "swap.est_err": 20, "swap.est_bias": 20, "stream.edge": 20, "stream.order": 20,
          # under 10 players in a week the moved.* checks are shown as info (build, moved)
          "moved.zeroed": 10, "moved.inactive": 10, "moved.mae": 10, "moved.mae_gap": 10}
 # A stored baseline measured on fewer than MIN_N outcomes is re-set from the next measurement that has enough.
 # the simple alternative a check must beat whatever its baseline says: a value on the wrong side is "weak"
 FLOORS = {"wr.cut_skill": 0.0, "gd.v2_skill": 0.0, "gd.dash_skill": 0.0, "wr.proj_edge": 0.0, "radar.edge": 0.0,
+          "swap.gain": 0.0, "swap.hit": 0.5, "stream.edge": 0.0,     # no better than keeping the drop / a coin toss
           "picks.card_ats": 0.524}     # 52.4% wins against the spread breaks even at -110
 
 
@@ -572,6 +589,59 @@ def radar_health(inputs=None):
     from . import radar_backtest as rb
     pool, now_ids, txns, cats, last, dates, owned = inputs or rb.inputs()
     return rb.summary(rb.run(pool, now_ids, txns, cats, last, dates, owned))
+
+
+# ---------- NBA waiver swaps and streamers ----------
+SWAP_N = 20     # scored swaps (or streamer pairs) before the checks are judged against a baseline
+
+
+def swaps_health(previous=None, **kw):
+    """shq/nba_advice_backtest.py on last night's stored items (`previous`, this section's details) plus whatever
+    finished since."""
+    from . import nba_advice_backtest as ab
+    return ab.health(previous, **kw)
+
+
+def swaps_checks(s, j):
+    """The section's checks from the backtest summary; a check under its MIN_N is shown as info, not judged, and
+    sets no baseline."""
+    sw, st = s["swaps"], s["streamers"]
+
+    def info(cid, value, n):
+        row = j(cid, value, n)
+        if row["status"] == "waiting" and value is not None:
+            row["status"] = "info"
+        return row
+    return [info("swap.gain", sw["gain"], sw["n"]), info("swap.hit", sw["hit_rate"], sw["n"]),
+            info("swap.est_err", sw["est_err"], sw["n"]), info("swap.est_bias", sw["est_bias"], sw["n"]),
+            info("stream.edge", st["edge"], st["n"]), info("stream.order", st["hit_rate"], st["n"])]
+
+
+def swaps_notes(s):
+    sw, st = s["swaps"], s["streamers"]
+    if not sw["n"] and not st["n"]:
+        return ["No finished week yet: each swap and streamer is judged once the fantasy week it was shown for is over."]
+    f = lambda x: f"{x:+.2f}" if x is not None else "n/a"
+    notes = [f"{sw['n']} swaps judged: the add out-produced the drop in {sw['hits']} ({sw['hit_rate']:.0%}); gained "
+             f"{f(sw['gain'])} z per game of the add ({f(sw['gain_total'])} over the week). The site showed {f(sw['est'])} on "
+             f"average and the result was {f(sw['est_bias'])} from that (average miss {sw['est_err']})." if sw["n"] else
+             "No swap judged yet.",
+             f"{st['n']} streamer pairs judged (each streamer vs the next one listed): the higher-ranked did better in "
+             f"{st['hits']} ({st['hit_rate']:.0%}), by {f(st['edge'])} z per game; the list promised {f(st['est_edge'])} over "
+             f"the week, it came out {f(st['edge_total'])}." if st["n"] else "No streamer pair judged yet."]
+    for wk, x in s["weeks"].items():
+        notes.append(f"Week ending {wk}: {x['swaps']['n']} swaps, gain {f(x['swaps']['gain'])}/g, add ahead in "
+                     f"{x['swaps']['hits']}; {x['streamers']['n']} streamer pairs, edge {f(x['streamers']['edge'])}/g.")
+    if sw["n"] < SWAP_N or st["n"] < SWAP_N:
+        notes.append(f"Under {SWAP_N} judged swaps or streamer pairs a check is info only: no baseline is set yet.")
+    notes.append(f"Waiting for their week to finish: {s['pending']} shown swaps or streamer pairs (a repeat on a later "
+                 "morning counts again here, once when judged)."
+                 + (f" Names the players file didn't have (left out): {', '.join(s['unmatched'])}." if s["unmatched"] else ""))
+    notes.append("How: what the basketball tabs showed at the first data commit from 8am CT, judged over the rest of that "
+                 "fantasy week on ESPN's game logs, in the league's categories weighted by that morning's need, above a "
+                 "waiver-level player (the \"+N this week\" units); a missed game adds 0. A swap or pair shown on several "
+                 "mornings of a week counts once.")
+    return notes
 
 
 # ---------- Pool Picks ----------
@@ -1103,6 +1173,11 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
                  f"shown flags alone {sh['edge']} (n={sh['edge_n']})."]
         return checks, h, notes
 
+    def swaps():
+        prev = next((s.get("details") or {} for s in (load_json(OUT) or {}).get("sections") or [] if s.get("id") == "swaps"), {})
+        h = swaps_health(prev)
+        return swaps_checks(h["summary"], j), h, swaps_notes(h["summary"])
+
     def pk():
         h = picks_health()
         checks = [j("picks.brier_gap", h["brier_gap"], h["backtest_n"] or 0), j("picks.stale_cover", h["stale_cover"], h["stale_n"] or 0),
@@ -1148,6 +1223,7 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
         section("recs", "Our guillotine bids vs what happened", recs),
         section("guillotine", "Guillotine cut odds as shown (dashboard vs War Room v2)", gd),
         section("radar", "NBA trend radar", nba),
+        section("swaps", "NBA waiver swaps and streamers", swaps),
         section("picks", "Pool Picks", pk),
     ]
     flags = [{"section": s["id"], **c} for s in sections for c in s["checks"] if c["status"] in ("drift", "weak", "watch", "error")]

@@ -109,7 +109,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
   happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
   waiver run out, by position and season stage); our bids vs the waiver results (would they have won, what winners paid);
-  the cut odds the dashboard and v2 showed before kickoff; the NBA radar backtest; Pool Picks' stored backtest and graded
+  the cut odds the dashboard and v2 showed before kickoff; the NBA radar backtest; the NBA Waiver adds swaps and streamers
+  as shown each morning vs the rest of that week's games (`shq/nba_advice_backtest.py`: gain over the drop, hit rate,
+  "+N" miss, streamer order; info until 20 are judged); Pool Picks' stored backtest and graded
   cards; start/sit pair accuracy of Sleeper vs ESPN's experts vs a blend, and our own "Start X over Y" calls vs what happened (`shq/experts.py`). Each check is compared with `state/health_baselines.json` (set from its first measurement): ok / watch / drift,
   or weak when it doesn't beat the simple alternative. No push; the nightly improvement pass reads it.
 
