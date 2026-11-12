@@ -64,6 +64,13 @@ class SavedVsCard(unittest.TestCase):
         mine["bets"][0]["wager"] = 1000
         self.assertEqual(push.compare_ats(cards()[0], mine)[0], "differ")
 
+    def test_change_line_carries_cover_comparison(self):
+        card = dict(cards()[0], saved_vs="cover chance: yours SF -0.5 58% vs card MIN +8.5 (LP 4) 68%")
+        mine = {"read": "x", "bets": [{"key": "SF@DAL", "pick": "SF -0.5", "wager": 3070}]}
+        st, line = push.compare_ats(card, mine)
+        self.assertEqual(st, "differ")
+        self.assertIn("; cover chance: yours SF -0.5 58% vs card MIN +8.5 (LP 4) 68%)", line)
+
     def test_no_card_rows_is_not_a_change(self):
         card = {"id": "bto", "rows": [], "status": "Slate not read from the site yet (laptop run missed)."}
         self.assertEqual(push.compare_ats(card, BTO_SAME), ("nocard", None))

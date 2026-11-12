@@ -15,7 +15,7 @@ from .market import lines, NOTE as MARKET_NOTE
 from .http import STALE as HTTP_STALE
 from .lines import overlay
 from .names import norm
-from .push import compose as push_compose, _kick_dt
+from .push import compose as push_compose, _kick_dt, parse_pick
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
@@ -612,8 +612,32 @@ def build_bto_slate(W, slate):
                      "wager": f"${s:,}", "why": (short(f"{c['why'][0]['team']}: {c['why'][0]['reason']}") if "team" in c["why"][0] else short(c["why"][0]["reason"]))
                      if c["why"] else gap_why(c["line"], c["mkt_line"], p, l),
                      "source": c["src"], "key": f"{c['sg']['away']}@{c['sg']['home']}", "pick_team": team})
+    vs = saved_vs_card(cands, (b.get("saved") or {}).get("bets"), rows)
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
-            "notes": [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
+            **({"saved_vs": vs} if vs else {}),
+            "notes": ([f"Your saved bet differs: {vs}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
+
+
+def saved_vs_card(cands, saved_bets, rows):
+    """'Your SF -0.5 covers 58% vs the card's MIN +8.5 (LP 4) 68%' when his saved ATS bets differ from the card,
+    so the CHANGE line says how much the card's pick beats his, not only why it likes its own. None if they match
+    or a saved bet isn't on the slate."""
+    card_k = {(r["key"], norm(r["pick_team"])) for r in rows}
+    mine = []
+    for bet in saved_bets or []:
+        team, line = parse_pick(bet["pick"])
+        if line is None:
+            return None
+        c = next((c for c in cands if f"{c['sg']['away']}@{c['sg']['home']}" == bet["key"]
+                  and norm(c["sg"]["home"] if c["home"] else c["sg"]["away"]) == team), None)
+        if c is None:
+            return None
+        mine.append((bet["key"], team, bet["pick"], p_cover(c["margin"], line)))
+    if not mine or {(k, t) for k, t, _, _ in mine} == card_k:
+        return None
+    yours = "; ".join(f"{pk} {pc * 100:.0f}%" for _, _, pk, pc in mine)
+    ours = "; ".join(f"{r['pick']} {r['model'] * 100:.0f}%" for r in rows)
+    return f"cover chance: yours {yours} vs card {ours}"
 
 
 def build_survivor():

@@ -92,6 +92,8 @@ def compare_ats(card, saved):
         return "match", None
     new = [r for r in card["rows"] if mine.get(r["key"]) != card_b[r["key"]]]
     reason = new[0]["why"] if new else "card drops some of your bets"
+    if card.get("saved_vs"):
+        reason += f"; {card['saved_vs']}"
     yours = "; ".join(f"{b['pick']} {fmt_wager(card['id'], b['wager'])}" for b in bets)
     ours = "; ".join(f"{r['pick']} {r['wager']}" for r in card["rows"])
     return "differ", f"CHANGE: {LABEL[card['id']]}: yours {yours} → card {ours} ({reason})"
