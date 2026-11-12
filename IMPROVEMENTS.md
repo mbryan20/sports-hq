@@ -1117,6 +1117,42 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-060 · NBA values: try DARKO's projected minutes (and shrunk short-sample values) behind a switch, decided by the backtest
+- **Status:** shipped (d7244b1, Thu Nov 12). Switch off (`NBA_VALUE_SOURCE = "site"`): nothing changes on the site. The
+  nightly model health shows the trial from the next run; first numbers (one complete week, ending Nov 8): swaps per add
+  game site +0.10 (n=8, "+N" miss 7.73), DARKO minutes +2.32 (n=10, miss 4.56), shrunk -1.90 (n=6, miss 9.19). Not
+  ready (1 week, under 20 swaps). Not dispatched.
+- **Area:** `shq/darko.py` (new), `shq/nba_values.py` (`minutes_z`, `shrunk_z`, `alternative`, `build(source=)`),
+  `shq/config.py` (`NBA_VALUE_SOURCE`), `shq/run.py` (daily `darko.track`), `shq/nba_advice_backtest.py` (`trial`,
+  `ready_sources`, `darko_source`, `shrunk_source`; `compare_sources` now scores each source's own "+N" miss),
+  `shq/health.py` (section `sources`, checks `src.*`), `state/nba_darko.json` (new), `tests/test_darko.py` (new), README
+- **Rank:** —
+- **Added:** 2026-11-12 by a Sports HQ build session (Michael via Claude Ops: "build DARKO minutes behind a switch, and
+  turn it on only if the backtest shows a gain over at least 2 weeks of data"; never republish DARKO's tables, credit
+  DARKO, read lightly)
+- **Design:** DARKO source = the JSON darko.app's Projections page loads (`/projections/__data.json`, the rows behind its
+  "Download CSV" button), always through its Time Machine (`?asof=<CT date>`): each player's pre-game minutes forecast
+  for his latest game on or before that morning. Checked first: no robots.txt (404), no terms page; the FAQ says the
+  data can be downloaded. The live board (no asof) is a different number (Nov 12: 2.6 min below season averages,
+  4.4 min miss on Nov 11's games vs the Time Machine's +0.7 and 3.5; it looks like it counts the chance a player sits),
+  so the Time Machine keeps the live switch and the backtest on one number with no peek at the game. One read a day
+  from 7am CT (the committed snapshot says whether today is done; `.cache/darko/` keeps reads 14 days, a failed one
+  too: no retry), generic User-Agent, never fails a run. Committed: only our minutes factor per ESPN id (DARKO
+  minutes / the minutes in his value line), 60 days, one day per line; matched by name without accents (a name two
+  ESPN players share is skipped); 470 of 528 matched today. Nov 6-11 backfilled once (6 reads).
+  Sources (scale and waiver level stay the site's, as the backtest replays them): `darko_minutes` z' = s(m(mean + sd s
+  z) - mean)/sd per category with m clamped to 0.5-1.75 (per-minute production kept, so a bad shooter with more
+  minutes hurts FG% more); `shrunk` = a season-valued player's z pulled toward his ESPN season projection's z with
+  weight gp / (gp + 10) (K not tuned on the backtest). When on, the basis says "minutes from DARKO (darko.app), as of
+  <date>"; DARKO's minutes are never shown.
+  Trial (`trial()`): the three sources replayed with the site's rules on the same mornings (those with a DARKO factor),
+  scored like the swaps backtest; complete weeks are stored in health.json and stand. Rule
+  (`ready_sources`): 2+ complete weeks, 20+ of the source's swaps, and over those weeks (pooled by swaps) a higher
+  swap gain per add game AND a smaller miss on its own "+N" than the site's. The note then says "Ready to switch on:
+  <source>"; switching is the one config line, made by a session after Michael is told. Caveat: shrunk uses tonight's
+  ESPN projection for past mornings (ESPN's in-season projection updates are not confirmed).
+- **Verify:** health.json section `sources` each night; when the note says ready, tell Michael, then set the line.
+
 ### Q-059 · Model health: did the NBA waiver swaps and streamers pay off?
 - **Status:** shipped (16eb792, Thu Nov 12). Shows from the next nightly model-health run (info until 20 swaps and 20
   streamer pairs are judged, about two more weeks). Not dispatched.
