@@ -1117,6 +1117,34 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-056 · Picks page: see what changed between card versions through the week, with line movement charts
+- **Status:** shipped (855f18a, Thu Nov 12). The section and card charts show on the live page from the next card
+  build that runs this `pp.cards` (the page's HTML carries the one `<script>` tag); the line files grow from the next
+  cloud stale-line scan.
+- **Area:** `picks/pp/history.py` (new), `picks/pp/cards.py` (`write` rebuilds the history; one `<script>` tag in
+  `render`), `picks/pp/lines.py` (`run` appends each scan), `docs/picks/changes.js` (new), `docs/picks/changes.json`,
+  `picks/data/card_versions.json`, `docs/data/pick_line_history/2026-wNN.json` (new), `tests/test_pick_history.py` (new)
+- **Rank:** —
+- **Added:** 2026-11-12 by a Sports HQ build session (Michael, Thu 7:25am: "see quickly and visually ... what has changed
+  between iterations throughout the week ... line movements over time and public money information")
+- **Design:** (1) **What changed this week** (section above "Pool lines vs market now", jump link under the alerts):
+  every version of `picks/data/cards.json` in git (drafts, redrafts, finals, refresh, backup cards; identical rebuilds
+  folded; restores marked) plus the uncommitted build, grouped by the card's "Week of" dates, last 4 weeks (week picker).
+  Pool tabs (BTO, CFP, Yahoo, Survivor), one at a time: a timeline of versions, the change lines ("Kansas → West Virginia",
+  "line -7.5 → -6.5", "cover 58% → 54%", wager, added/dropped, tiebreakers), and per game a small table (versions side by
+  side: pick, line, market, cover/win %, wager) with changed cells in red. Win/cover moves under 3 points (Yahoo) or
+  2 (BTO/CFP) don't count as changes; Yahoo shows only changed games until "Show all". A "Public %" row appears when cells
+  carry a `pub` value (left for the public-betting plan). (2) **Line charts:** market spread (blue, DraftKings via ESPN)
+  and pool line (orange dashed), from the picked team's side, step lines per scan, opening line as a hollow dot, D/F/R
+  ticks when each card posted, tap for the value at that time; a sparkline under each BTO/CFP pick (Yahoo only when the
+  market moved). Data: `pp.lines` (run.yml, Wed-Sat every 2h, 30 min Sat 6-11am) appends one point per game when its line
+  changes, plus Yahoo games' market and ESPN openers; seeded from the 52 committed `pick_lines.json` snapshots (week 9 from
+  Sat Oct 31, weeks 10-11 from Wednesday 12:45am). One JSON line per file so a data-commit conflict keeps one side whole.
+  The cloud backup card (shallow checkout) adds its version via `card_versions.json`. Inline SVG, light and dark.
+- **Checked:** 13 fixture tests (version diffs, week grouping, shallow rebuild, series building, the `pp.lines` hook);
+  full suite passes. Browser at 375px and desktop, light and dark: no console errors, no sideways scroll.
+- **Undo:** `git revert` the commit (removes the section, the charts and the hooks; the data files go with it).
+
 ### Q-055 · Picks backup card can't build without a CFBD key, and its failure push doesn't say why
 - **Status:** shipped (39dcb9e, Thu Nov 12). Not yet seen in a real backup run (next slot: Thu 8pm BTO final, only if the
   laptop misses it). The workflow was not dispatched (it would overwrite the researched card).
