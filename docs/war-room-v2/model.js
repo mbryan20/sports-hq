@@ -17,7 +17,11 @@ const ALIVE = Object.keys(D.teams).filter(t => t !== CUT);
 const POSMEAN = (() => { const m = {}; for (const p of ['K','DEF']) { const v = Object.values(D.P).filter(x => x.p === p && x.own && x.g >= 3).map(x => x.a); m[p] = v.reduce((a, b) => a + b, 0) / Math.max(1, v.length); } return m; })();
 const POSCAP = (() => { const m = {}; for (const h of D.hist) for (const [r, b] of h.bids) m[h.p] = Math.max(m[h.p] || 0, b); return m; })();
 const SD_MEASURED = (D.sd && D.sd.measured) || 23, SD_GROWTH = (D.sd && D.sd.growth) || 0;
-const S = { sd: SD_MEASURED, aggr: 1, reserve: LAST - W0 < 3 ? 0 : 5, dpp: 0, sims: 6000, adds: new Set() };   // dpp 0 = auto
+// Michael's rules (warroom/rules.json, read by build.py into D.rules; playbook "Michael's rules"): the reserve he sets,
+// big money only for players he has named league-winners, marginal claims at $0, never drop a likely starter for an add
+// who wouldn't start in his place.
+const RULES = Object.assign({ reserve: 5, league_winners: [], big_bid_share: 0.25, big_bid_min: 3, marginal_pts_per_week: 2 }, D.rules || {});
+const S = { sd: SD_MEASURED, aggr: 1, reserve: RULES.reserve, dpp: 0, sims: 6000, adds: new Set() };   // dpp 0 = auto
 const tname = t => (D.teams[t] ? D.teams[t].n : (D.dead[t] || ('R'+t)));
 const pname = s => D.P[s] ? D.P[s].n : s;
 const MIN_WIN = 0.003;    // win odds a move must add to be worth a claim: below this the simulation can't tell it from noise
@@ -67,12 +71,17 @@ function keeper(d) {
   const near = NEAR.length ? NEAR.reduce((a, w) => a + proj(d, w), 0) / NEAR.length : 0;
   return Math.max(p.a || 0, near) >= KEEP_FLOOR;
 }
-function bestDrop(t, s, skip) {
+// Never a likely starter either (his rule 7, Nov 12 revamp): someone in this week's lineup is a drop only when the add
+// takes a starting spot that week himself (leg 3 replay: a $0 Kyler Murray claim would have dropped J.K. Dobbins).
+function startsFor(t, s, d, w) { return lineup(roster(t, [s], d), w).st.some(x => x.s === s); }
+function bestDrop(t, s, skip, anyone = false) {
   let best = null, bestTot = -1e9;
   const kd = D.P[s] && (D.P[s].p === 'K' || D.P[s].p === 'DEF');
+  const starters = new Set(anyone ? [] : lineup(roster(t), W0).st.map(x => x.s).filter(Boolean));
   for (const d of roster(t)) {
     if (d === s || S.adds.has(d) || (skip && skip.has(d))) continue;
     if (kd && keeper(d)) continue;
+    if (starters.has(d) && !startsFor(t, s, d, W0)) continue;
     const tot = WEEKS.reduce((a, w) => a + lineup(roster(t, [s], d), w).tot, 0);
     if (tot > bestTot) { bestTot = tot; best = d; }
   }
@@ -129,17 +138,60 @@ function threats(s) {
 }
 // the model's raw estimate: one more than the boldest rival it expects (calibrated by the ladder below)
 const rawEstimate = th => (th.length ? th[0].bid : 0) + 1;
-// chance that a bid of b beats every rival, from how past winning bids compared with the model's estimate
-// for the same claim (D.ladder: sorted ratios winning bid / estimate; "hi" for estimates of $10+)
-function winChance(b, est) {
+// ---------- rival-by-rival prices (Nov 12 revamp) ----------
+// The ladder below was right on average but far too hopeful for stars late in the season: its 10-30% "coin flips"
+// won 1 time in 79 in weeks 6-9 (Nacua, Javonte, Taylor, Pickens and Warren went 0 for 5), because players nobody
+// claimed ($0) were pooled with stars. D.rival_model (fitted by build.py from every past waiver run) instead asks
+// each rival: how likely is he to claim this player (by how good the player is and how much he'd help that rival),
+// and what share of HIS OWN money would he bid (capped by his budget and his own habits). A bid wins only if it beats
+// every rival: ties go to the better waiver spot, and Michael is last, so any rival claim beats or ties a $0 claim.
+const RANK_TIER = rk => rk === 1 ? 0 : rk <= 3 ? 1 : rk <= 8 ? 2 : 3;      // the target's rank among this week's freed players
+const NEED_TIER = g => g < 1 ? 0 : g < 3 ? 1 : g < 6 ? 2 : 3;              // lineup points a week he'd add for that rival
+function claimChance(rk, g) { const M = D.rival_model, k = rk + ',' + NEED_TIER(g); return k in M.q ? M.q[k] : M.q_base; }
+// chance a rival with budget B bids b or more, given he claims
+function bidsAtLeast(rk, t, B, b) {
+  if (b <= 0) return 1;
+  if (b > B) return 0;
+  const M = D.rival_model, xs = M.shares[rk] || M.all, sc = M.scale[t] ?? 1, cap = (M.cap[t] ?? 1) * 1.15;
+  let c = 0; for (const x of xs) if (Math.min(cap, x * sc) * B >= b - 0.5) c++;
+  return xs.length ? c / xs.length : 0;
+}
+const rivalModel = r => !!(D.rival_model && r && r.rk !== undefined && r.needs);
+function rivalWin(b, r) {
+  let p = 1;
+  for (const t of ALIVE) {
+    if (t === ME) continue;
+    p *= 1 - claimChance(r.rk, r.needs[t] || 0) * bidsAtLeast(r.rk, t, D.teams[t].faab, b);
+  }
+  return p;
+}
+// each rival's chance to claim him and the bid he'd likely make (the middle of his range), richest threat first
+function rivalOdds(r) {
+  if (!rivalModel(r)) return [];
+  const out = [];
+  for (const t of ALIVE) {
+    if (t === ME) continue;
+    const B = D.teams[t].faab, q = claimChance(r.rk, r.needs[t] || 0);
+    let lo = 0, hi = B;                                     // median bid if he claims: the b where P(bid >= b) crosses 50%
+    while (lo < hi) { const m = Math.ceil((lo + hi) / 2); if (bidsAtLeast(r.rk, t, B, m) >= 0.5) lo = m; else hi = m - 1; }
+    out.push({ t, claim: q, bid: lo, faab: B });
+  }
+  return out.sort((a, b) => b.claim * (b.bid + 1) - a.claim * (a.bid + 1));
+}
+
+// chance that a bid of b beats every rival. With D.rival_model and a priced row (r.rk, r.needs): rival by rival.
+// Otherwise the old ladder: how past winning bids compared with the model's estimate for the same claim
+// (D.ladder: sorted ratios winning bid / estimate; "hi" for estimates of $10+)
+function winChance(b, est, r) {
+  if (rivalModel(r)) return rivalWin(b, r);
   const xs = D.ladder ? (est >= 10 && D.ladder.hi.length ? D.ladder.hi : D.ladder.lo) : null;
   if (!xs || !xs.length) return b >= est ? 0.5 : 0;
   let c = 0;
   for (const x of xs) if (x * est < b || (b === 0 && x === 0)) c++;
   return c / xs.length;
 }
-function priceFor(chance, est, cap = 999) {
-  for (let b = 0; b <= cap; b++) if (winChance(b, est) >= chance) return b;
+function priceFor(chance, est, cap = 999, r = null) {
+  for (let b = 0; b <= cap; b++) if (winChance(b, est, r) >= chance) return b;
   return null;
 }
 // Likely rival bids on the same scale as the win chance (Q-039). threats() guesses each rival's bid from his
@@ -147,13 +199,18 @@ function priceFor(chance, est, cap = 999) {
 // ladder measures. So each guess is scaled by (price that wins half of comparable claims) / (raw estimate);
 // `raw` keeps the unscaled guess. Without a ladder the guesses are shown as they are.
 function rivalBids(r) {
+  if (rivalModel(r)) return rivalOdds(r).filter(x => x.claim >= 0.05).map(x => ({ t: x.t, bid: x.bid, raw: x.bid, claim: x.claim, faab: x.faab }));
   const th = r.th || [];
   if (!th.length) return [];
   const f = D.ladder && r.est ? (priceFor(.5, r.est) ?? r.est) / r.est : 1;
   return th.map(x => ({ t: x.t, bid: Math.round(x.bid * f), raw: x.bid }));
 }
 // a waiver claim the model recommends (a $0 claim is still a claim: it needs a drop and can beat no claim)
-const isBid = r => r.call === 'Bid' || r.call === 'Coin flip';
+// Calls by honest win chance (Nov 12): Bid 50%+, Coin flip 25-50%, Long shot 10-25% (worth a try, expect to lose);
+// under 10% at every bid worth making is Skip. Before, "Coin flip" covered anything under 50% and its 10-30% bids on stars
+// won 1 time in 79.
+const isBid = r => r.call === 'Bid' || r.call === 'Coin flip' || r.call === 'Long shot' || r.call === 'Backup';
+const MIN_CHANCE = 0.10;
 // out this week and projected 0 for an injury (not a bye): Out or on IR (Q-040)
 function outNow(s) {
   const p = D.P[s];
@@ -165,9 +222,9 @@ function outNow(s) {
 // (= chance x (value - bid): what that bid is worth to you on average; negative means overpaying).
 function bidOptions(r, value, spend) {
   const faab = D.teams[ME].faab;      // the 80% price is shown even above what you can spend, up to your FAAB
-  const amts = new Set([r.bid, priceFor(.25, r.est), priceFor(.5, r.est), priceFor(.8, r.est, faab), Math.min(value, spend)]
+  const amts = new Set([r.bid, priceFor(.25, r.est, 999, r), priceFor(.5, r.est, 999, r), priceFor(.8, r.est, faab, r), Math.min(value, spend)]
     .filter(b => b !== null && (b > 0 || (b === r.bid && isBid(r))) && b <= faab));
-  return [...amts].sort((a, b) => a - b).map(b => { const p = winChance(b, r.est); return { bid: b, chance: p, payoff: p * (value - b) }; });
+  return [...amts].sort((a, b) => a - b).map(b => { const p = winChance(b, r.est, r); return { bid: b, chance: p, payoff: p * (value - b) }; });
 }
 
 let BASE = null;
@@ -198,15 +255,25 @@ function candidates() {
     if (S.adds.has(s)) { rows.push({ s, freed: freed.includes(s), added: true }); continue; }
     const drop = bestDrop(ME, s), mine = roster(ME, [s], drop);
     const g1 = lineup(mine, W0).tot - myBaseTot[0];
-    let gR = 0; WEEKS.forEach((w, i) => gR += lineup(mine, w).tot - myBaseTot[i]);
+    let gR = 0, gN = 0; WEEKS.forEach((w, i) => { const g = lineup(mine, w).tot - myBaseTot[i]; gR += g; if (i < NEAR.length) gN += g; });
     if (gR < 0.5 && !freed.includes(s)) continue;
-    rows.push({ s, freed: freed.includes(s), g1, gR, drop });
+    rows.push({ s, freed: freed.includes(s), g1, gR, gNear: gN / Math.max(1, NEAR.length), drop });
   }
   const perPos = {};
   const pick = rows.filter(r => !r.added).sort((a, b) => b.gR - a.gR).filter(r => { if (r.freed) return true; const p = D.P[r.s].p; perPos[p] = (perPos[p] || 0) + 1; return perPos[p] <= 3; }).slice(0, 24);
   rows.splice(0, rows.length, ...rows.filter(r => r.added), ...pick);
   pick.forEach(r => { gains(r); if (r.freed) { r.th = threats(r.s); r.est = rawEstimate(r.th); } });
+  rankFreed(pick.filter(r => r.freed));
   return rows;
+}
+// rival-model inputs for freed rows: rank tier among this week's freed players (by projected points over the next
+// weeks) and the lineup points each rival would gain
+function rankFreed(rows) {
+  const base = s => NEAR.reduce((a, w) => a + proj(s, w), 0) / Math.max(1, NEAR.length);
+  rows.slice().sort((a, b) => base(b.s) - base(a.s)).forEach((r, i) => {
+    r.rk = RANK_TIER(i + 1);
+    r.needs = {}; for (const t of ALIVE) if (t !== ME) r.needs[t] = rivalGain(t, r.s);
+  });
 }
 // extra expected weeks and win odds from adding r.s and dropping r.drop
 function gains(r) {
@@ -227,7 +294,7 @@ function gainsOnTop(r, prior) {
 // see, and take the ratio of the deal where the money would run out. S.dpp overrides it.
 function autoDpp(rows) {
   const spend = Math.max(0, D.teams[ME].faab - S.reserve), runs = Math.max(1, Math.round(BASE.sim[ME].expWeeks));
-  const deals = rows.filter(r => r.freed && r.dWin > 0.0005).map(r => ({ v: r.dWin * 100, c: Math.max(1, priceFor(.8, r.est) || r.est) }))
+  const deals = rows.filter(r => r.freed && r.dWin > 0.0005).map(r => ({ v: r.dWin * 100, c: Math.max(1, priceFor(rivalModel(r) ? .5 : .8, r.est, 999, r) || r.est) }))
     .sort((a, b) => b.v / b.c - a.v / a.c);
   let used = 0, rate = null;
   for (const d of deals) { rate = d.c / d.v; used += runs * d.c; if (used >= spend) break; }
@@ -235,25 +302,44 @@ function autoDpp(rows) {
 }
 const dollarsPerPoint = rows => S.dpp > 0 ? S.dpp : autoDpp(rows);
 
+function isMarginal(r) {
+  const p = D.P[r.s];
+  return !!p && (p.p === 'K' || p.p === 'DEF' || (r.gNear !== undefined && r.gNear < RULES.marginal_pts_per_week));
+}
+function bigCap(s) {
+  const p = D.P[s], faab = D.teams[ME].faab;
+  if (p && (RULES.league_winners || []).some(n => n.toLowerCase() === p.n.toLowerCase())) return 1e9;
+  return Math.max(RULES.big_bid_min, Math.floor(faab * RULES.big_bid_share));
+}
 // The call for every candidate. Freed players (on waivers): value = win odds added x $ per point; the bid is the
 // amount with the best (chance of winning) x (value - bid); then all bids together must fit FAAB minus reserve.
 function decideAll(rows) {
   const faab = D.teams[ME].faab, spend = Math.max(0, faab - S.reserve), dpp = dollarsPerPoint(rows);
   const price = r => {        // value, best bid and call for one candidate at its current drop
     if (outNow(r.s)) return Object.assign(r, { call: 'Skip', bid: 0, value: 0, chance: null, options: [],
-      price: r.freed ? (priceFor(.5, r.est) ?? r.est) : 0, price80: r.freed ? (priceFor(.8, r.est) ?? r.est) : 0,
+      price: r.freed ? (priceFor(.5, r.est, 999, r) ?? r.est) : 0, price80: r.freed ? (priceFor(.8, r.est, 999, r) ?? r.est) : 0,
       why: 'out this week (injury or IR): not worth a roster spot now' });
     if (!r.freed) return Object.assign(r, { call: r.dWin >= MIN_WIN ? 'Add free' : 'Skip', bid: 0, value: 0, price: 0, price80: 0, chance: null,
       why: r.dWin >= MIN_WIN ? 'free agent' : 'adds too little to matter' });
-    const value = dpp ? Math.floor(r.dWin * 100 * dpp) : 0, cap = Math.min(spend, value);
+    const value = dpp ? Math.floor(r.dWin * 100 * dpp) : 0;
+    // his rules: a marginal claim (K, DEF, or under a couple of lineup points a week) goes in at $0; above the big-bid
+    // line only for a player he has named a league-winner
+    const marginal = isMarginal(r), big = bigCap(r.s);
+    const cap = marginal ? 0 : Math.min(spend, value, big);
     // $0 counts with its own payoff: a $1 bid that wins no more often than $0 buys nothing (Q-038)
-    const p0 = winChance(0, r.est);
-    let best = { b: 0, ev: p0 * value, p: p0 };
-    for (let b = 1; b <= cap; b++) { const p = winChance(b, r.est), ev = p * (value - b); if (ev > best.ev + 1e-9) best = { b, ev, p }; }
-    const small = value < 1 || r.dWin < MIN_WIN, call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : best.p >= .5 ? 'Bid' : 'Coin flip';
-    Object.assign(r, { call, bid: call === 'Bid' || call === 'Coin flip' ? best.b : 0, chance: best.p, value, ev: best.ev,
-      price: priceFor(.5, r.est) ?? r.est, price80: priceFor(.8, r.est) ?? r.est,
-      why: small ? 'adds too little to matter' : best.ev <= 0 ? 'likely price is above his value to you' : '' });
+    const p0 = winChance(0, r.est, r);
+    const bestUpTo = c => { let x = { b: 0, ev: p0 * value, p: p0 }; for (let b = 1; b <= c; b++) { const p = winChance(b, r.est, r), ev = p * (value - b); if (ev > x.ev + 1e-9) x = { b, ev, p }; } return x; };
+    const best = bestUpTo(cap);
+    // the cap bites when the bid it would make without the big-bid line is above that line
+    const free = !marginal && big < Math.min(spend, value) ? bestUpTo(Math.min(spend, value)) : best, bites = free.b > big;
+    const small = value < 1 || r.dWin < MIN_WIN, slim = best.p < MIN_CHANCE;
+    const call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : slim ? 'Skip' : best.p >= .5 ? 'Bid' : best.p >= .25 ? 'Coin flip' : 'Long shot';
+    Object.assign(r, { call, bid: isBid({ call }) ? best.b : 0, chance: best.p, value, ev: best.ev,
+      price: priceFor(.5, r.est, 999, r) ?? r.est, price80: priceFor(.8, r.est, 999, r) ?? r.est, marginal, capped: bites ? big : null,
+      why: small ? 'adds too little to matter' : best.ev <= 0 ? 'likely price is above his value to you'
+        : slim ? `under ${MIN_CHANCE * 100}% to win at any bid worth making`
+        : marginal ? `marginal (${D.P[r.s].p === 'K' || D.P[r.s].p === 'DEF' ? D.P[r.s].p : `+${(r.gNear || 0).toFixed(1)} lineup pts a week`}): $0 claim, your rule`
+        : bites ? `capped at $${big} (would bid $${free.b}): big money only for players you've named league-winners` : '' });
     r.options = small ? [] : bidOptions(r, value, spend);
     return r;
   };
@@ -291,7 +377,81 @@ function decideAll(rows) {
     if (used + r.bid > spend) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
     used += r.bid; drops.add(r.drop); taken.push(r);
   }
+  addBackups(rows, taken, price);
   return { dpp, spend, used };
+}
+
+// Backups (Sleeper's copy rule, Nov 12 revamp): with a full roster, a claim that shares a drop with a claim that already
+// won fails ("too many players"), so a lower claim on the same drop only runs if every claim above it on that drop lost.
+// A backup never raises what you can spend: the most a chain of claims on one drop can cost is its top bid. In this
+// league's history no team ever won two claims with one drop (84 such claims failed). Backups go strictly lower than
+// the claims above them, so Sleeper's own order (highest bid first) runs them in the right order; $0 backups run in
+// your list order. Michael already does this by hand (45 of his backups never needed to fire).
+const MAX_BACKUPS = 3;
+function addBackups(rows, taken, price) {
+  const chains = {};
+  for (const x of taken) if (x.drop) (chains[x.drop] = chains[x.drop] || []).push(x);
+  const order = () => Object.values(chains).forEach(c => { c.sort((a, b) => b.bid - a.bid); c.forEach((x, i) => { x.chain = x.drop; x.chainOrder = i + 1; }); });
+  order();
+  if (!Object.keys(chains).length) return;
+  const inChain = new Set(taken);
+  const pool = rows.filter(r => !r.added && r.freed && !inChain.has(r) && r.dWin >= MIN_WIN && !outNow(r.s) && r.est !== undefined);
+  for (let n = 0; n < MAX_BACKUPS; n++) {
+    let best = null;
+    for (const r of pool) {
+      if (inChain.has(r)) continue;
+      for (const [d, chain] of Object.entries(chains)) {
+        const kd = ['K', 'DEF'].includes(D.P[r.s].p);
+        if (r.s === d || (kd && keeper(d))) continue;
+        if (lineup(roster(ME), W0).st.some(x => x.s === d) && !startsFor(ME, r.s, d, W0)) continue;
+        const low = Math.min(...chain.map(x => x.bid));
+        const cand = Object.assign({}, r, { drop: d });
+        if (d !== r.drop) { if (!BASE) continue; gains(cand); }   // (no simulation loaded: only its own drop can be judged)
+        price(cand);
+        if (!isBid(cand) && cand.call !== 'Priced out') continue;
+        // the best bid under the chain's lowest (or $0 behind a $0 claim)
+        const cap = Math.min(low > 0 ? low - 1 : 0, cand.marginal ? 0 : 1e9, bigCap(r.s));
+        let b0 = { b: 0, ev: winChance(0, cand.est, cand) * cand.value, p: winChance(0, cand.est, cand) };
+        for (let b = 1; b <= cap; b++) { const p = winChance(b, cand.est, cand), ev = p * (cand.value - b); if (ev > b0.ev + 1e-9) b0 = { b, ev, p }; }
+        const lose = chain.reduce((a, x) => a * (1 - (x.chance ?? 0)), 1), gain = lose * b0.ev;
+        if (b0.ev > 0 && b0.p >= MIN_CHANCE && gain > 0.05 && (!best || gain > best.gain)) best = { gain, r, d, cand, b0, chain };
+      }
+    }
+    if (!best) break;
+    const { r, d, cand, b0, chain } = best;
+    Object.assign(r, { drop: d, dW: cand.dW, dWin: cand.dWin, value: cand.value, call: 'Backup', bid: b0.b, chance: b0.p, ev: b0.ev,
+      price: cand.price, price80: cand.price80, marginal: cand.marginal, options: [],
+      firesIf: chain.map(x => x.s), why: `backup: runs only if you lose ${chain.map(x => pname(x.s)).join(' and ')} (same drop)` });
+    chain.push(r); inChain.add(r); order();
+  }
+}
+
+// One line on why, for every claim and free add (his rule: a plain reason on each move), plus anything to check first.
+function whyLine(r) {
+  const p = D.P[r.s], bits = [];
+  if (r.drop !== undefined) {
+    const starts = WEEKS.filter(w => startsFor(ME, r.s, r.drop, w)).length;
+    bits.push(starts ? `starts for you ${starts} of the next ${WEEKS.length} weeks` : 'bench depth (starts no week as rosters stand)');
+  }
+  if (r.dWin) bits.push(`${r.dWin >= 0 ? '+' : ''}${(r.dWin * 100).toFixed(1)} pts of title odds`);
+  if (r.freed && isBid(r) && rivalModel(r)) {
+    const can = rivalOdds(r).filter(x => x.faab >= r.bid && x.claim >= 0.05).slice(0, 2);
+    bits.push(can.length ? `can be outbid by ${can.map(x => `${tname(x.t)} ($${x.faab}, ${Math.round(x.claim * 100)}% to claim)`).join(', ')}` : 'no rival likely to outbid this');
+  }
+  const flags = [];
+  if (p.inj) flags.push(`${p.inj}: check news from the last 48 hours`);
+  else if (proj(r.s, W0) === 0 && !(p.bye || []).includes(W0)) flags.push(`projected 0 in week ${W0} with no injury tag: check news`);
+  if ((p.bye || []).some(w => w >= W0 && w <= W0 + 1)) flags.push(`bye week ${(p.bye || []).find(w => w >= W0)}`);
+  // his rules first: why the bid is capped or $0
+  if (r.capped) bits.unshift(`capped at $${r.capped}: big money only for players you've named league-winners`);
+  else if (r.marginal && isBid(r)) bits.unshift('$0 claim: a marginal add (your rule)');
+  return bits.join('; ') + (flags.length ? ` (${flags.join('; ')})` : '');
+}
+// The claims as you'd enter them in Sleeper: highest bid first (Sleeper runs them in that order), backups right after
+// the claims they back up, $0 claims last in this order (your drag order breaks ties).
+function claimList(rows) {
+  return rows.filter(r => !r.added && r.freed && isBid(r))
+    .sort((a, b) => b.bid - a.bid || (a.chain === b.chain ? (a.chainOrder || 0) - (b.chainOrder || 0) : (b.ev || 0) - (a.ev || 0)));
 }
 
 // Everything the AI write-up and the Tuesday checks need, at the default settings.
@@ -308,12 +468,16 @@ function exportBids() {
     // est_price: the bid that would have won about half of comparable past claims; price_80: about 80%
     est_price: r.freed ? r.price : 0, price_80: r.freed ? r.price80 : 0, value: r.freed ? r.value : 0,
     bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(money.spend, r.value) : 0,
-    call: r.call, why: r.why || null,
+    call: r.call, why: r.why || null, why_line: r.dW !== undefined ? whyLine(r) : null,
+    chain_drop: r.chain && D.P[r.chain] ? D.P[r.chain].n : null, chain_order: r.chainOrder || null,
+    fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null,
     // chance of winning at every bid from $0 to your FAAB (index = bid), for the side-by-side bookmark
-    win_curve: r.freed && r.est ? Array.from({ length: D.teams[ME].faab + 1 }, (_, b) => Math.round(winChance(b, r.est) * 100) / 100) : null,
+    win_curve: r.freed && r.est ? Array.from({ length: D.teams[ME].faab + 1 }, (_, b) => Math.round(winChance(b, r.est, r) * 100) / 100) : null,
+    // rivals with the money to beat this bid (ties go to them: you are last in waiver order) and their chance to claim him
+    can_outbid: r.freed ? rivalOdds(r).filter(x => x.faab >= r.bid && x.claim >= 0.05).map(x => ({ team: tname(x.t), faab: x.faab, claim_chance: r3(x.claim) })) : [],
     bid_options: (r.options || []).map(o => ({ bid: o.bid, win_chance: r3(o.chance), avg_payoff: r1(o.payoff), recommended: o.bid === r.bid,
       over_spendable: o.bid > money.spend })),
-    likely_rival_bids: rivalBids(r).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid, raw: x.raw })) }));
+    likely_rival_bids: rivalBids(r).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid, raw: x.raw, ...(x.claim !== undefined ? { claim_chance: r3(x.claim) } : {}) })) }));
   const sim = BASE.sim;
   return {
     league: D.league, data_as_of: D.asof, last_sleeper_move: D.data_as_of, week: W0, last_week: LAST,
@@ -325,7 +489,8 @@ function exportBids() {
     budget: { spendable: money.spend, recommended_bids_total: money.used, dollars_per_win_point: money.dpp ? r1(money.dpp) : null },
     settings: { projections: 'Sleeper weekly', score_sd: S.sd, score_sd_measured_from: D.sd ? D.sd.n : null, sd_growth_per_week: SD_GROWTH,
                 rival_aggression: S.aggr, value: 'win odds (winner takes all)', sims: S.sims,
-                price_ladder_claims: D.ladder ? D.ladder.lo.length + D.ladder.hi.length : 0 },
+                price_ladder_claims: D.ladder ? D.ladder.lo.length + D.ladder.hi.length : 0,
+                price_model: D.rival_model ? `rival by rival (fitted on ${D.rival_model.n} rival-player chances)` : 'ladder' },
     me: { cut_risk_next_week: r3(sim[ME].pCut[W0]), expected_weeks_left: r1(sim[ME].expWeeks), win_odds: r3(sim[ME].pWin),
           projected_next_week: r1(BASE.projs[ME][W0]) },
     cut_risks: ALIVE.slice().sort((a, b) => sim[b].pCut[W0] - sim[a].pCut[W0]).map(t => ({
@@ -336,6 +501,15 @@ function exportBids() {
       return L.st.filter(x => x.s).map(x => ({ slot: x.slot, ...player(x.s), proj_next_week: r1(x.v) }))
         .concat(roster(ME).filter(s => D.P[s] && !on.has(s)).map(s => ({ slot: 'BN', ...player(s), proj_next_week: r1(proj(s, W0)) }))); })(),
     bids, names: D.names || {},
+    // the list to enter in Sleeper, in order (Sleeper runs claims highest bid first; ties in this order)
+    claim_list: claimList(rows).map((r, i) => ({ order: i + 1, name: D.P[r.s].n, pos: D.P[r.s].p, team: D.P[r.s].t, sleeper_id: r.s,
+      bid: r.bid, drop: r.drop ? pname(r.drop) : null, drop_id: r.drop || null, win_chance: r.chance !== null ? r3(r.chance) : null,
+      kind: r.call === 'Backup' ? 'backup' : 'claim', fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null,
+      why: whyLine(r) })),
+    worst_case_spend: (() => { const c = {}; for (const r of claimList(rows)) c[r.drop] = Math.max(c[r.drop] || 0, r.bid); return Object.values(c).reduce((a, b) => a + b, 0); })(),
+    rules: { reserve: S.reserve, league_winners: RULES.league_winners, big_bid_cap: bigCap(null),
+             marginal: `K, DEF and adds worth under ${RULES.marginal_pts_per_week} lineup pts a week go in at $0`,
+             starters: 'never drops a player in this week\'s lineup unless the add starts in his place' },
   };
 }
 
@@ -364,7 +538,7 @@ function tryMove(adds, drops) {
   const mine = new Set(roster(ME)), used = new Set(drops.filter(Boolean)), picked = [];
   adds.forEach((s, i) => {
     let d = drops[i] && mine.has(drops[i]) ? drops[i] : null, auto = false;
-    if (!d) { d = bestDrop(ME, s, new Set([...used, ...adds])); auto = true; if (d) used.add(d); }
+    if (!d) { const sk = new Set([...used, ...adds]); d = bestDrop(ME, s, sk) || bestDrop(ME, s, sk, true); auto = true; if (d) used.add(d); }
     picked.push({ s, drop: d, auto });
   });
   const A = picked.map(x => x.s), Dr = picked.map(x => x.drop).filter(Boolean);
@@ -387,6 +561,7 @@ function tryMove(adds, drops) {
       const solo = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, [x.s], x.drop) }), n)[ME];
       const th = threats(x.s), row = { s: x.s, freed: true, drop: x.drop, th, est: rawEstimate(th), dW: solo.expWeeks - base.expWeeks,
         dWin: solo.pWin - base.pWin, gR: 0 };
+      rankFreed([row].concat(freedPlayers().filter(f => f !== x.s).map(f => ({ s: f }))));
       const keep = S.dpp; S.dpp = RATE || keep; decideAll([row]); S.dpp = keep;
       Object.assign(a, { call: row.call, bid: row.bid, chance: row.chance, price: row.price, price80: row.price80, value: row.value });
     }
@@ -425,7 +600,7 @@ function tryMove(adds, drops) {
     if (a.status === 'owned') R.push(`${a.name} is on ${a.owner}'s roster: not available to add.`);
     else if (a.status === 'yours') R.push(`${a.name} is already on your roster.`);
     else if (a.status === 'waivers') R.push(`${a.name} is on waivers until ${D.waivers}: likely price $${a.price} (wins about half of similar claims) to $${a.price80} (about 80%). `
-      + `He's worth $${a.value} to you; ` + (a.call === 'Bid' || a.call === 'Coin flip' ? `bid $${a.bid} (${pc(a.chance)} to win).` : `the bids table says ${a.call.toLowerCase()}.`));
+      + `He's worth $${a.value} to you; ` + (isBid(a) ? `bid $${a.bid} (${pc(a.chance)} to win${a.call === 'Long shot' ? ', a long shot' : ''}).` : `the bids table says ${a.call.toLowerCase()}.`));
     else R.push(`${a.name} is a free agent: add him now for $0` + (out.open ? '' : ' (nothing is on waivers until the next cut)') + '.');
     if (a.autoDrop && a.drop) R.push(`No drop picked for ${a.name}: the model drops ${pname(a.drop)} (costs you the fewest points).`);
   }
@@ -436,3 +611,10 @@ function tryMove(adds, drops) {
 
 // Calibration helper for build.py: the raw estimate for each past claim, rebuilt as of that waiver run.
 function rawEstimates(sids) { PJ = {}; return sids.map(s => rawEstimate(threats(s))); }
+// ...and what build.py fits the rival-by-rival model on: each target's projected points (to rank them) and the lineup
+// points it would add for every surviving rival
+function rivalInputs(sids) {
+  PJ = {};
+  return sids.map(s => ({ base: NEAR.reduce((a, w) => a + proj(s, w), 0) / Math.max(1, NEAR.length),
+    needs: Object.fromEntries(ALIVE.filter(t => t !== ME).map(t => [t, Math.round(rivalGain(t, s) * 100) / 100])) }));
+}
