@@ -615,7 +615,7 @@ def build_bto_slate(W, slate):
     vs = saved_vs_card(cands, (b.get("saved") or {}).get("bets"), rows)
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
             **({"saved_vs": vs} if vs else {}),
-            "notes": ([f"Your saved bet differs: {vs}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
+            "notes": ([f"Your saved bet differs. {vs[0].upper() + vs[1:]}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}, {best['split']} split → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
 
 
 def saved_vs_card(cands, saved_bets, rows):
