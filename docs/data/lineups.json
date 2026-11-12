@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T08:54:53Z",
+ "updated": "2026-11-12T09:42:32Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -263,7 +263,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "Domo Arigato": {
@@ -803,7 +803,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "Guillotine": {
@@ -1170,7 +1170,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a",
+    "built": "Thu 3:42a",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -1178,8 +1178,8 @@
      "rank": 5,
      "gap": 18.1,
      "proj": 138.9,
-     "cut": 0.079,
-     "survive": 0.921,
+     "cut": 0.078,
+     "survive": 0.922,
      "faab": 10,
      "reserve": 5,
      "waivers": "Wed 2:15a",
@@ -1198,7 +1198,7 @@
         "team": "CAR",
         "proj": 22.5,
         "gain": 1.2,
-        "cut_with": 0.073,
+        "cut_with": 0.072,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1209,7 +1209,7 @@
       ],
       "freed": {
        "team": "GoodFellas (GoodFellas77)",
-       "cut": 0.232,
+       "cut": 0.227,
        "players": [
         {
          "name": "Trevor Lawrence",
@@ -1218,7 +1218,7 @@
          "team": "JAX",
          "proj": 25.7,
          "gain": 4.4,
-         "cut_with": 0.061,
+         "cut_with": 0.059,
          "freed_from": "GoodFellas (GoodFellas77)",
          "price": 21,
          "max": 2,
@@ -1241,7 +1241,7 @@
          "team": "BUF",
          "proj": 14.6,
          "gain": 4.2,
-         "cut_with": 0.062,
+         "cut_with": 0.06,
          "freed_from": "GoodFellas (GoodFellas77)",
          "price": 31,
          "max": 2,
@@ -1268,7 +1268,7 @@
          "team": "NO",
          "proj": 13.4,
          "gain": 3.9,
-         "cut_with": 0.063,
+         "cut_with": 0.061,
          "freed_from": "GoodFellas (GoodFellas77)",
          "price": 21,
          "max": 2,
@@ -1315,7 +1315,7 @@
       {
        "name": "GoodFellas (GoodFellas77)",
        "proj": 120.8,
-       "cut": 0.232,
+       "cut": 0.227,
        "faab": 16,
        "bold": 0.74,
        "me": false
@@ -1323,7 +1323,7 @@
       {
        "name": "Aniasin1",
        "proj": 121.4,
-       "cut": 0.217,
+       "cut": 0.214,
        "faab": 4,
        "bold": 0.93,
        "me": false
@@ -1331,7 +1331,7 @@
       {
        "name": "robert8063",
        "proj": 125.7,
-       "cut": 0.175,
+       "cut": 0.171,
        "faab": 23,
        "bold": 0.62,
        "me": false
@@ -1339,7 +1339,7 @@
       {
        "name": "CodyRust",
        "proj": 135.8,
-       "cut": 0.095,
+       "cut": 0.094,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -1347,15 +1347,23 @@
       {
        "name": "michaelbryan",
        "proj": 138.9,
-       "cut": 0.079,
+       "cut": 0.078,
        "faab": 10,
        "bold": 0.58,
        "me": true
       },
       {
+       "name": "Swegs4",
+       "proj": 141.0,
+       "cut": 0.067,
+       "faab": 3,
+       "bold": 1.0,
+       "me": false
+      },
+      {
        "name": "Off with his head (damonhawk1)",
        "proj": 142.3,
-       "cut": 0.057,
+       "cut": 0.056,
        "faab": 87,
        "bold": 0.42,
        "me": false
@@ -1363,23 +1371,15 @@
       {
        "name": "SteelRob420",
        "proj": 143.7,
-       "cut": 0.057,
+       "cut": 0.055,
        "faab": 0,
-       "bold": 1.0,
-       "me": false
-      },
-      {
-       "name": "Swegs4",
-       "proj": 145.6,
-       "cut": 0.049,
-       "faab": 3,
        "bold": 1.0,
        "me": false
       },
       {
        "name": "JHED1979",
        "proj": 147.6,
-       "cut": 0.04,
+       "cut": 0.038,
        "faab": 22,
        "bold": 0.77,
        "me": false
@@ -2089,7 +2089,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "Stempak": {
@@ -2420,8 +2420,8 @@
     ],
     "adds": [
      "Add Justin Herbert (QB, LAC, 15.2/gm, value 1,595) for Chig Okonkwo (TE, your TE3, 9.1/gm): better backup QB, +7.3 pts over the next 4 weeks",
-     "Add A.J. Brown (WR, NE, 13.5/gm, value 1,759) for Josh Downs (WR, your WR5, 6.6/gm): fills in at WR in week 10, +1.4 pts over the next 4 weeks",
-     "Add Jordan Mason (RB, MIN, 9.2/gm, value 477) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup RB, +0.2 pts over the next 4 weeks"
+     "Add Wan'Dale Robinson (WR, TEN, 11.1/gm, value 431) for Josh Downs (WR, your WR5, 6.6/gm): better backup WR, +1.9 pts over the next 4 weeks",
+     "Add Jordan Mason (RB, MIN, 9.2/gm, value 477) for Rhamondre Stevenson (RB, your RB5, 7.9/gm): better backup RB, +0.9 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2511,12 +2511,12 @@
       "David Montgomery": "not ranked to play this week, RB20 lately",
       "Justin Herbert": "QB25 this week",
       "Jordan Mason": "RB36 this week, RB25 lately",
-      "A.J. Brown": "not ranked to play this week, WR19 lately"
+      "Wan'Dale Robinson": "WR45 this week, WR38 lately"
      },
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "Bro-vid19": {
@@ -2887,7 +2887,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "3-Ball BB": {
@@ -3714,7 +3714,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   },
   "Ball is Life": {
@@ -4409,7 +4409,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Thu 2:54a"
+    "built": "Thu 3:42a"
    }
   }
  }
