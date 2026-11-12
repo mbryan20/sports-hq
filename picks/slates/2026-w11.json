@@ -253,7 +253,7 @@
   "read_at": "2026-11-11T21:20:00-06:00",
   "status": "Read Wed 11/11 ~9:15pm (signed in): 25 games and kicks unchanged; 25 of 25 saved, TB1 and TB2 entered. Rank 8/14, 151 pts.",
   "saved": {
-   "read": "2026-11-11T21:20:00-06:00",
+   "read": "2026-11-12T10:45:00-06:00",
    "picks": {
     "Florida St.@Pittsburgh": "Pittsburgh",
     "Houston@Colorado": "Houston",
@@ -267,7 +267,7 @@
     "Nebraska@Rutgers": "Nebraska",
     "Alabama@Vanderbilt": "Alabama",
     "Kansas St.@TCU": "TCU",
-    "Tennessee@Texas A&M": "Tennessee",
+    "Tennessee@Texas A&M": "Texas A&M",
     "USC@Indiana": "Indiana",
     "Michigan@Oregon": "Oregon",
     "Missouri@Georgia": "Georgia",
@@ -282,11 +282,11 @@
     "Texas Tech@Oklahoma St.": "Oklahoma St."
    },
    "tb1": {
-    "Texas@LSU": "Texas 17, LSU 20",
-    "USC@Indiana": "USC 23, Indiana 27"
+    "Texas@LSU": "Texas 21, LSU 24",
+    "USC@Indiana": "USC 24, Indiana 31"
    },
    "tb2": {
-    "most": "Oklahoma St.",
+    "most": "Boise St.",
     "fewest": "Northwestern"
    }
   }
@@ -431,7 +431,7 @@
     "adj_home_pts": 0,
     "why": [
      {
-      "reason": "MIN traded for Cousins Nov 10; likely starter, not committed",
+      "reason": "Cousins expected to start; pool MIN +4.5 vs market +3",
       "source": "https://www.nfl.com/news/vikings-wont-commit-to-kirk-cousins-starting-packers"
      },
      {
@@ -606,8 +606,14 @@
   ],
   "field_note": "Leaderboard balances above 0 excluding Michael (27 players); 21 more at 0.",
   "saved": {
-   "read": "2026-11-11T21:20:00-06:00",
-   "bets": []
+   "read": "2026-11-12T10:45:00-06:00",
+   "bets": [
+    {
+     "key": "USC@Indiana",
+     "pick": "Indiana -3.5",
+     "wager": 3070
+    }
+   ]
   },
   "weeks_left_note": "Rules/Playoffs pages don't state the regular-season length; cards default to 6.",
   "nfl_notes": [
@@ -794,13 +800,24 @@
   "rebuy_window": false,
   "min_wager": 11904,
   "saved": {
-   "read": "2026-11-11T21:20:00-06:00",
-   "bets": []
+   "read": "2026-11-12T10:45:00-06:00",
+   "bets": [
+    {
+     "key": "Alabama@Vanderbilt",
+     "pick": "Alabama -15.5",
+     "wager": 11904
+    },
+    {
+     "key": "USC@Indiana",
+     "pick": "Indiana -7.5",
+     "wager": 11904
+    }
+   ]
   },
   "deadline": "2026-11-14T11:00:00-06:00"
  },
  "decisions": {
-  "read": "2026-11-11T21:25:00-06:00",
+  "read": "2026-11-12T10:50:00-06:00",
   "differs": []
  }
 }
