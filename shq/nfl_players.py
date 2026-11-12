@@ -90,7 +90,8 @@ def build(league):
                  "every rostered player and the best free agents. Experts: ESPN's fantasy analysts' consensus position rank "
                  "this week (their PPR ranks averaged; QB/RB/WR/TE) and lately (median of their last 3 weekly ranks, weeks he "
                  "was out or on a bye skipped); "
-                 "green/red = they rank him 10+ spots (QB/TE 6+) better/worse than our this-week rank."
+                 "green/red = they rank him 10+ spots (QB/TE 6+) better/worse than our this-week rank. "
+                 "Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. "
                  + (" Other teams' rosters aren't readable here yet (Yahoo API pending), so ranks are among your roster and "
                     "the free agents only." if partial else ""),
     }

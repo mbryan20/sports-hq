@@ -342,6 +342,7 @@ def block(league, lines, moves=None):
         "basis": f"{WHO}: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by "
                  f"{MIN_EXPERTS}+ of them; QB/RB/WR/TE). \"Lately\" = median of their last {LATELY} weekly ranks with him as a real option (weeks he was out or on a bye skipped). "
                  "Big disagreement = " + ", ".join(f"{k} {v}+" for k, v in BIG.items()) + " spots. "
+                 + "Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. "
                  + ("" if ranks.published else f"Week {ranks.week}'s ranks aren't out yet (ESPN usually posts them Tuesday-Wednesday). ")
                  + "Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better "
                    "of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly "
