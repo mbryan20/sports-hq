@@ -1328,8 +1328,10 @@ Measure (the health.json check that should move), Design, Decision.
 - **Undo:** `git revert 39dcb9e` (and this entry).
 
 ### Q-054 · A place to ask about a specific move, for every team (Try a move + Ask Claude)
-- **Status:** shipped (5fe47f8, Wed Nov 11 ~9:10am CT). Ask Claude answers once the `CLAUDE_CODE_OAUTH_TOKEN` secret is added
-  (Michael's one step); until then its box replies "not set up yet". Try a move needs nothing.
+- **Status:** shipped (5fe47f8, Wed Nov 11 ~9:10am CT). Ask Claude is live: Michael added the `CLAUDE_CODE_OAUTH_TOKEN`
+  secret Thu Nov 12 ~7:40pm CT, and his Montgomery question (issue #4) got a real, sourced answer at 7:50pm. Same evening:
+  the answer is recorded onto the newest asks.json (a re-run had hit a merge conflict) and a re-ask button (Run workflow
+  with an issue number) was added. Try a move needs nothing.
 - **Area:** `docs/lib/move.js` (new), `docs/lib/core.js` (box on each league page), `docs/move/` (new page), `docs/index.html`
   (bar under the totals), `warroom/model.js` (`tryMove`, `playerList`), `warroom/app.js` + template, `warroom/build.py`
   (publishes `data.json` + `model.js`; `--repage`), `warroom/trymove.js`, `shq/asks.py`, `.github/workflows/ask.yml`,

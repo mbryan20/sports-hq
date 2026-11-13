@@ -110,8 +110,9 @@ The footer shows the last cloud run and when each laptop job last delivered.
 - `picks-backup.yml` posts a model-only picks card if a laptop picks run misses its slot (needs the
   `CFBD_API_KEY` secret). `test.yml` runs the tests on every push. `feedback.yml` logs site feedback issues to FEEDBACK.md.
   `ask.yml` (Q-054) answers a league page's "Ask Claude" question (an issue from the owner, label `ask` / title "Ask:") with
-  `anthropics/claude-code-action` (Opus; needs the `CLAUDE_CODE_OAUTH_TOKEN` secret from `claude setup-token`; without it the
-  box says "not set up yet"), writes `docs/data/asks.json`, comments the answer and closes the issue. No schedule.
+  `anthropics/claude-code-action` (Opus; uses the `CLAUDE_CODE_OAUTH_TOKEN` secret, set Nov 12, first real answer Nov 12
+  ~7:50pm CT on issue #4), writes `docs/data/asks.json`, comments the answer and closes the issue. No schedule. To answer
+  an existing question again (e.g. after a failure): Actions > Ask Claude > Run workflow with its issue number.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what
   happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one
@@ -167,8 +168,8 @@ Add an entry to `LEAGUES` in `shq/config.py` (platform sleeper / espn). ESPN pri
 ## Open items
 - Yahoo Fantasy API: applied 2026-10-24, pending. When approved, Kosmonauts switches to the API on its own and
   pushes "Yahoo access is live". Yahoo grants read-only access, so Kosmonauts swaps stay "make this swap" pushes.
-- Secrets: `YAHOO_CLIENT_ID`, `YAHOO_CLIENT_SECRET`, `YAHOO_REFRESH_TOKEN`, `TOKEN_KEY`, `NTFY_TOPIC`, and
-  `CFBD_API_KEY` (still to add, for the picks backup), `CLAUDE_CODE_OAUTH_TOKEN` (still to add, for Ask Claude).
+- Secrets: `YAHOO_CLIENT_ID`, `YAHOO_CLIENT_SECRET`, `YAHOO_REFRESH_TOKEN`, `TOKEN_KEY`, `NTFY_TOPIC`,
+  `CLAUDE_CODE_OAUTH_TOKEN` (Ask Claude, added Nov 12), and `CFBD_API_KEY` (still to add, for the picks backup).
 
 ## Local
 ```
