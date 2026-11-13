@@ -2,7 +2,9 @@
 
 Run by `.github/workflows/ask.yml` when Michael types a question in a league page's "Ask Claude" box. The question is in
 `.ask/question.json`: `league`, `question`, `move` (the add/drop he had on screen in Try a move, if any), `asked`.
-Write the answer to `.ask/answer.md` and nothing else: the workflow records it in `docs/data/asks.json` (shown under
+`image_files` lists screenshots he attached (`.ask/img/1.png` ...): Read every one before answering, and use what
+they show (a news blurb, a Fix now line, a lineup screen). If `images_failed` is set, say in one line that a screenshot
+couldn't be opened. Write the answer to `.ask/answer.md` and nothing else: the workflow records it in `docs/data/asks.json` (shown under
 that league) and on the GitHub issue. Do not edit any other file, run git, or post anything.
 
 ## Who you're answering

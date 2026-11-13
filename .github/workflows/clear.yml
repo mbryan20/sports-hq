@@ -1,0 +1,54 @@
+name: Clear a Fix now line
+
+# A league page's Fix now line has a Clear button (docs/lib/core.js). It hides the line on that device at once and
+# opens a pre-filled GitHub issue: label "clear", title "Clear: <league>: <line>". This records it in
+# docs/data/cleared.json (shq/cleared.py), so every build leaves that line out of Fix now, the Today check and the
+# texts on every device for a week, or until the problem changes (a new status brings it back). No AI, no secrets.
+# Public repo: only the owner's own issues count.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: clear
+  cancel-in-progress: false
+
+jobs:
+  record:
+    if: github.event.issue.user.login == 'mbryan20' && github.event.issue.author_association == 'OWNER' && (contains(github.event.issue.labels.*.name, 'clear') || startsWith(github.event.issue.title, 'Clear:'))
+    runs-on: ubuntu-latest
+    env:
+      N: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Record and commit
+        # issue text only ever reaches the script through env vars, never the shell; recorded onto the newest
+        # cleared.json each try, so it never conflicts. Only cleared.json is committed; no rebase.
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_CREATED: ${{ github.event.issue.created_at }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          git config user.name "sports-hq-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git checkout -q -f -B clear-line origin/main
+            python -m shq.cleared record
+            git add docs/data/cleared.json
+            git commit -q -m "Clear #$N recorded" || exit 0
+            git push -q origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "$N" -R "$GITHUB_REPOSITORY" --comment "Cleared on every device and left out of the texts for a week, or until the problem changes. The league page updates in a minute or two."

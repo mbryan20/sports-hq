@@ -283,7 +283,7 @@
     function askDraw() {
       $a.innerHTML = `<label for="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}">Ask Claude about ${esc(name)}</label>
         <textarea id="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}" data-askq rows="2" placeholder="e.g. Is he worth adding this week while nobody else wants him?">${esc(st.draft)}</textarea>
-        <div class="mv-row"><button class="mv-btn go" data-ask>Ask</button><span class="mv-fine">For news and gut calls the numbers can't settle. Opens GitHub with your question filled in: tap <b>Create</b>. The answer shows here in a few minutes. Questions and answers are public on GitHub, like Feedback: sports only.</span></div>
+        <div class="mv-row"><button class="mv-btn go" data-ask>Ask</button><span class="mv-fine">For news and gut calls the numbers can't settle. Opens GitHub with your question filled in: tap <b>Create</b>. <b>Screenshots:</b> paste (Ctrl+V) or drag them into GitHub's text box before you tap Create (on a phone, use its attach button); Claude looks at each one. The answer shows here in a few minutes. Questions, screenshots and answers are public on GitHub, like Feedback: sports only.</span></div>
         <div class="mv-answers"></div>`;
       answers();
     }
@@ -296,9 +296,9 @@
       const waiting = (Array.isArray(open) ? open : []).filter(i => (i.body || "").includes(`League: ${name}\n`) || (i.body || "").endsWith(`League: ${name}`))
         .filter(i => !doneIds.has(i.number));
       const when = iso => { try { return new Date(iso).toLocaleString("en-US", { weekday: "short", hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" }); } catch (e) { return ""; } };
-      box.innerHTML = waiting.map(i => `<div class="mv-ans"><div class="q">${esc((i.body || "").split("\n\n")[0])}</div><div class="m">Asked ${esc(when(i.created_at))} · Claude is answering (a few minutes)</div></div>`).join("")
+      box.innerHTML = waiting.map(i => `<div class="mv-ans"><div class="q">${esc((i.body || "").replace(/!\[[^\]]*\]\([^)]*\)|<img[^>]*>/g, "").trim().split("\n\n")[0])}</div><div class="m">Asked ${esc(when(i.created_at))} · Claude is answering (a few minutes)</div></div>`).join("")
         + done.slice(0, 6).map((x, k) => `<details class="mv-ans"${k ? "" : " open"}><summary class="q">${esc(x.q)}</summary><div class="a">${esc(x.a)}</div>
-          <div class="m">${esc(when(x.answered))}${x.issue ? ` · <a href="https://github.com/${REPO}/issues/${x.issue}" target="_blank" rel="noopener">thread</a>` : ""}</div></details>`).join("");
+          <div class="m">${esc(when(x.answered))}${x.shots ? ` · ${x.shots} screenshot${x.shots > 1 ? "s" : ""}` : ""}${x.issue ? ` · <a href="https://github.com/${REPO}/issues/${x.issue}" target="_blank" rel="noopener">thread</a>` : ""}</div></details>`).join("");
     }
     M.refreshAnswers = M.refreshAnswers || {};
     M.refreshAnswers[name] = () => $a && answers();
@@ -310,7 +310,9 @@
       const body = `${q}\n\n---\nLeague: ${name}\n` + (move ? `Move on screen: ${move}${verdict ? " → " + verdict : ""}\n` : "") + `Page: ${typeof location !== "undefined" ? location.href.split("#")[0] : ""}\n`;
       const title = `Ask: ${name}: ${q.replace(/\s+/g, " ").slice(0, 70)}`;
       const u = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title, body, labels: "ask" });
-      try { navigator.clipboard && navigator.clipboard.writeText(`${title}\n\n${body}`).catch(() => {}); } catch (e) {}
+      // the clipboard is left alone so a screenshot he just copied can be pasted on GitHub (Nov 12); only a question too
+      // long for the link is copied there instead
+      if (u.length > 7000) { try { navigator.clipboard && navigator.clipboard.writeText(`${title}\n\n${body}`).catch(() => {}); } catch (e) {} }
       window.open(u, "_blank", "noopener");
       st.draft = ""; const ta = $a.querySelector("textarea"); if (ta) ta.value = "";
       // GitHub takes a moment: look again for the new question a few times

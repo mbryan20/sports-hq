@@ -30,6 +30,44 @@ class Parse(unittest.TestCase):
         self.assertEqual(q["league"], "Stempak")
 
 
+SHOT = "https://github.com/user-attachments/assets/0f1e2d3c-aaaa-bbbb-cccc-123456789abc"
+
+
+class Screenshots(unittest.TestCase):
+    """Nov 12: screenshots pasted into the GitHub issue reach Claude; only GitHub's image hosts are fetched."""
+    def test_found_and_taken_out_of_the_question(self):
+        body = (f"Montgomery still shows out?\n\n![Screenshot 2026-11-12]({SHOT})\n<img width=\"400\" alt=\"x\" src=\"{SHOT}2\" />\n"
+                "![evil](https://evil.example/a.png)\n\n---\nLeague: Stempak\n")
+        q = asks.parse("Ask: Stempak: Montgomery", body, 7, None, names=["Stempak"])
+        self.assertEqual(q["images"], [SHOT, SHOT + "2"])
+        self.assertEqual(q["question"], "Montgomery still shows out?")
+
+    def test_screenshot_only_question(self):
+        q = asks.parse("Ask: Stempak: ", f"![s]({SHOT})\n\n---\nLeague: Stempak\n", 8, None, names=["Stempak"])
+        self.assertEqual(q["question"], "(see the screenshot)")
+
+    def test_at_most_four(self):
+        self.assertEqual(len(asks.images("".join(f"![a]({SHOT}{i})" for i in range(9)))), asks.MAX_IMAGES)
+
+    def test_download_keeps_images_only(self):
+        class R:
+            def __init__(self, kind, data): self.headers, self.data = {"Content-Type": kind}, data
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+            def read(self, n): return self.data[:n]
+        answers = {SHOT: R("image/png", b"\x89PNG..."), SHOT + "2": R("text/html", b"<html>")}
+        with tempfile.TemporaryDirectory() as d:
+            q = asks.fetch_images({"images": [SHOT, SHOT + "2"]}, d, opener=lambda req, timeout: answers[req.full_url])
+            self.assertEqual([Path(f).name for f in q["image_files"]], ["1.png"])
+            self.assertEqual(q["images_failed"], 1)
+
+    def test_record_counts_them(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "a.json"
+            row = asks.record({"issue": 1, "league": "Stempak", "question": "Q", "images": [SHOT]}, "A", p)["leagues"]["Stempak"][0]
+            self.assertEqual(row["shots"], 1)
+
+
 class Record(unittest.TestCase):
     def setUp(self):
         fd, name = tempfile.mkstemp(suffix=".json")

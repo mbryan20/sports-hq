@@ -6,7 +6,7 @@
   const TZ = "America/Chicago";
   const BASE = new URL("../", document.currentScript.src);   // docs/ (this file is docs/lib/core.js)
   const REPO = "mbryan20/sports-hq";
-  const FILES = ["lineups", "weekly", "status", "digest", "pick_lines"];
+  const FILES = ["lineups", "weekly", "status", "digest", "pick_lines", "cleared"];
   const BAD = { OUT: "bad", IR: "bad", PUP: "bad", SUSP: "bad", NA: "bad", INACTIVE: "bad", EMPTY: "bad", "NO TEAM": "bad", D: "d", Q: "q", BYE: "bye", "NO GAME": "off" };
 
   const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO,
@@ -53,6 +53,7 @@
   S.start = function (render) {
     const go = () => S.load().then(() => { render(S.data); paintStatus(); });
     S.reload = go;
+    S.rerender = () => { render(S.data); paintStatus(); };
     document.addEventListener("visibilitychange", () => { if (!document.hidden) go(); });
     setInterval(go, 5 * 60 * 1000);
     document.addEventListener("click", e => { if (e.target.closest("[data-reload]")) go(); });
@@ -82,6 +83,34 @@
     const limit = b.max > 0 ? `you'd stop at $${b.max}` : "over your reserve";
     return `${b.call[0].toUpperCase() + b.call.slice(1)}: ${who} · rivals may go $${b.price}, ${limit}`;
   };
+  // ---------- cleared Fix now lines (Nov 12; shq/cleared.py, .github/workflows/clear.yml) ----------
+  // Clear hides a line on this device at once (localStorage) and opens a pre-filled GitHub issue; once he taps Create,
+  // data/cleared.json carries it to every device and the builds leave it out of the texts. A line is matched by the
+  // problem part only (before " → ", no ESPN note), letters only: same rule as shq/cleared.py key().
+  const CLEAR_DAYS = 7, CLEAR_KEY = "shq-cleared";
+  S.clearKey = t => String(t || "").replace(/\s*\[ESPN[^\]]*\]/g, "").split(" → ")[0].toLowerCase().replace(/[^a-z]+/g, " ").trim();
+  const localCleared = () => { try { return JSON.parse(S.get(CLEAR_KEY) || "{}"); } catch { return {}; } };
+  const clearedSet = d => {
+    const now = Date.now(), out = new Map();
+    for (const i of d?.cleared?.items || []) if (new Date(i.until) > now) out.set(`${i.league}|${i.key}`, { ...i, synced: true });
+    for (const [k, v] of Object.entries(localCleared())) if (new Date(v.until) > now && !out.has(k)) out.set(k, v);
+    return out;
+  };
+  S.isCleared = (league, text, d = S.data) => clearedSet(d).has(`${league}|${S.clearKey(text)}`);
+  S.clearedFor = (league, d = S.data) => [...clearedSet(d).values()].filter(v => v.league === league);
+  S.clearLine = function (league, text) {
+    const m = localCleared(), k = `${league}|${S.clearKey(text)}`;
+    m[k] = { league, key: S.clearKey(text), text, until: new Date(Date.now() + CLEAR_DAYS * 864e5).toISOString() };
+    S.set(CLEAR_KEY, JSON.stringify(m));
+    const title = `Clear: ${league}: ${text.replace(/\s+/g, " ").slice(0, 70)}`;
+    const body = `${text}\n\n---\nLeague: ${league}\nPage: ${location.href.split("#")[0]}\n`;
+    openTab(`https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title, body, labels: "clear" }), "_blank", "noopener");
+  };
+  S.unclearLine = function (league, key) {
+    const m = localCleared();
+    delete m[`${league}|${key}`];
+    S.set(CLEAR_KEY, JSON.stringify(m));
+  };
   // the bids worth acting on (priced-out players stay on the league page only)
   const actBids = g => (g?.bids || []).filter(b => b.call !== "priced out" && b.call !== "skip");
   S.offerText = offerText;
@@ -91,7 +120,7 @@
     for (const [name, lg] of Object.entries(d.lineups?.leagues || {})) {
       const a = lg.advice || {};
       const g = a.guillotine, c = a.cats;
-      const fixes = a.fixes || [], moves = a.moves || [], adds = realAdds(a.adds), offers = a.trades?.offers || [];
+      const fixes = (a.fixes || []).filter(t => !S.isCleared(name, t, d)), moves = a.moves || [], adds = realAdds(a.adds), offers = a.trades?.offers || [];
       const chase = (c?.chase || []).filter(t => !/^No category/i.test(t));
       const starters = lg.starters || [];
       const open = starters.filter(p => !p.started && p.kickoff).map(p => p.kickoff).sort();
@@ -302,7 +331,14 @@
     const src = lg.roster_synced ? `roster read ${kick(lg.roster_synced)}` : lg.snapshot ? `ESPN read ${kick(lg.snapshot)}` : "";
     const stale = lg.stale ? `<p class="note"><b>Showing last good data</b>: the latest refresh failed.</p>` : "";
     expOn = a.experts?.names || null;   // tags every list below; cleared once the page is built
-    const fixes = L.fixes.length ? ul(L.fixes, "fix") : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`;
+    // each fix can be cleared (a stale injury note, a move already made); cleared ones are listed underneath to undo
+    const clr = t => `<button class="clr" data-clearfix="${esc(name)}" data-text="${esc(t)}" aria-label="Clear this line">Clear</button>`;
+    const gone = S.clearedFor(name);
+    const goneHTML = gone.length ? `<details class="cleared"><summary>${gone.length} cleared</summary><ul class="tips muted">${gone.map(v =>
+      `<li>${esc(v.text)} <span class="sub-wrap">${v.synced ? "cleared everywhere" : "cleared on this device"} until ${esc(new Date(v.until).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: TZ }))}</span>`
+      + (v.synced ? "" : ` <button class="clr" data-unclear="${esc(name)}" data-key="${esc(v.key)}">Undo</button>`) + `</li>`).join("")}</ul></details>` : "";
+    const fixes = (L.fixes.length ? `<ul class="tips fix">${L.fixes.map(t => `<li>${esc(t)}${expTag(t, expOn)}${clr(t)}</li>`).join("")}</ul>`
+      : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`) + goneHTML;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
       + sec("Try a move · Ask Claude", `<div class="mv-host" data-mv="${esc(name)}"></div>`, { cls: "trymove" })
       + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
@@ -323,7 +359,8 @@
   S.todayHTML = function (d = S.data) {
     const g = d.digest;
     if (!g?.items) return `<p class="note">The daily check posts at 8am CT.</p>`;
-    const items = g.items.length ? g.items : [{ league: "All leagues", text: "Every lineup looks set.", urgent: false }];
+    const kept = g.items.filter(i => !S.isCleared(i.league, i.text, d));
+    const items = kept.length ? kept : [{ league: "All leagues", text: "Every lineup looks set.", urgent: false }];
     const old = !S.digestToday(d);
     const upd = g.updated && !old ? ` · updated ${kick(g.updated)} to match the league pages` : "";
     return `<div class="meta">${esc(g.title)} · ${esc(kick(g.generated))}${esc(upd)}${old ? " · <b>not from today</b>" : ""}</div><ul class="tips">${
@@ -545,6 +582,16 @@
     openTab(f.url, "_blank", "noopener");
     fbClose();
   }
+  // Fix now: Clear / Undo (S.clearLine), then redraw from the data already loaded
+  document.addEventListener("click", e => {
+    const c = e.target.closest("[data-clearfix], [data-unclear]");
+    if (!c) return;
+    e.stopPropagation();
+    e.preventDefault();
+    if (c.dataset.clearfix != null) S.clearLine(c.dataset.clearfix, c.dataset.text);
+    else S.unclearLine(c.dataset.unclear, c.dataset.key);
+    S.rerender?.();
+  }, true);
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-fb]");
     if (!b) return;

@@ -1117,6 +1117,19 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-063 · Clear a Fix now line; screenshots in Ask Claude
+- **Status:** built Thu Nov 12 ~8:30pm CT at Michael's request (his Ask on issue #4: "Need the ability to clear items
+  like this on fix now and also to send screenshots").
+- **Clear:** each Fix now line has a Clear button: hidden on that device at once, and a pre-filled GitHub issue
+  (label `clear`) that `clear.yml` records in docs/data/cleared.json, so builds leave it out of Fix now, Today and the
+  texts everywhere for 7 days or until the problem changes (key = the problem part, letters only; shq/cleared.py).
+  Cleared lines list under "N cleared" with Undo (this device).
+- **Screenshots:** paste or drag them into the GitHub page the Ask box opens; ask.yml downloads them (GitHub's image
+  hosts only, up to 4, no token sent) and Claude reads each one. The Ask button no longer overwrites the clipboard, so
+  a copied screenshot survives.
+- Not yet verified end to end: no real Clear or screenshot issue has been opened (that would post publicly as Michael).
+- Tests: tests/test_cleared.py, tests/test_asks.py (Screenshots).
+
 ### Q-062 · War Room revamp: honest win chances, backup claims, Michael's rules as hard checks
 - **Status:** built Thu Nov 12 for Tuesday Nov 17's bids (Michael approved plan parts 1-3 through Claude Ops). Details
   in warroom/README.md "Nov 12 revamp". Rival-by-rival prices fitted every build; calls Bid / Coin flip / Long shot /

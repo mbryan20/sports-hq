@@ -113,6 +113,10 @@ The footer shows the last cloud run and when each laptop job last delivered.
   `anthropics/claude-code-action` (Opus; uses the `CLAUDE_CODE_OAUTH_TOKEN` secret, set Nov 12, first real answer Nov 12
   ~7:50pm CT on issue #4), writes `docs/data/asks.json`, comments the answer and closes the issue. No schedule. To answer
   an existing question again (e.g. after a failure): Actions > Ask Claude > Run workflow with its issue number.
+  Screenshots pasted into the issue are downloaded (GitHub's image hosts only, up to 4) and Claude reads them.
+  `clear.yml` records a Fix now line Michael cleared (the Clear button; label `clear` / title "Clear:") in
+  `docs/data/cleared.json` (`shq/cleared.py`); builds leave it out of Fix now, Today and the texts for 7 days or until
+  the problem changes. The button hides it on that device at once.
 - Model health (`model-health.yml` → `shq/health.py`, nightly; the laptop starts it at 2:55am CT, GitHub's 2:50am cron is the fallback): re-tests every model against what
   happened and writes `docs/data/health.json`: War Room v2's projection error (Sleeper vs the old blend), score swing (and
   2-4 weeks ahead, from the page's git history), cut-prediction log-loss vs a coin toss, price-ladder coverage (leave one

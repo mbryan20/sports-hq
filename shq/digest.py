@@ -6,7 +6,7 @@ otherwise it just updates the Today tab."""
 import datetime as dt
 import traceback
 
-from . import radar, waivers
+from . import cleared, radar, waivers
 from .common import ct_label
 from .config import DIGEST_HOUR, DIGEST_PUSH_UNTIL, TZ
 from .status import OUTISH, espn_word
@@ -216,6 +216,8 @@ def league_items(league, now):
     standing = standing_item(league)
     if standing:
         items.append(standing)
+    # lines Michael cleared with the Fix now Clear button stay out of the page, the Today check and the texts
+    items = cleared.drop(league.name, items, now)
     captured = getattr(league, "captured", None)  # laptop-read leagues (Kosmonauts, private ESPN)
     if captured and any(i["urgent"] for i in items):
         items.append({"league": league.name, "urgent": False,
