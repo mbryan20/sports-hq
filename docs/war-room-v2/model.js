@@ -20,7 +20,10 @@ const SD_MEASURED = (D.sd && D.sd.measured) || 23, SD_GROWTH = (D.sd && D.sd.gro
 // Michael's rules (warroom/rules.json, read by build.py into D.rules; playbook "Michael's rules"): the reserve he sets,
 // big money only for players he has named league-winners, marginal claims at $0, never drop a likely starter for an add
 // who wouldn't start in his place.
-const RULES = Object.assign({ reserve: 5, league_winners: [], big_bid_share: 0.25, big_bid_min: 3, marginal_pts_per_week: 2 }, D.rules || {});
+// Reserve (rule 13, Nov 12): kept while he's likely to survive; when his cut risk this week reaches
+// release_reserve_at_cut_risk, a claim that lowers that risk by release_min_survival_gain or more may spend it.
+const RULES = Object.assign({ reserve: 5, release_reserve_at_cut_risk: 0.25, release_min_survival_gain: 0.02,
+  league_winners: [], big_bid_share: 0.25, big_bid_min: 3, marginal_pts_per_week: 2 }, D.rules || {});
 const S = { sd: SD_MEASURED, aggr: 1, reserve: RULES.reserve, dpp: 0, sims: 6000, adds: new Set() };   // dpp 0 = auto
 const tname = t => (D.teams[t] ? D.teams[t].n : (D.dead[t] || ('R'+t)));
 const pname = s => D.P[s] ? D.P[s].n : s;
@@ -279,7 +282,12 @@ function rankFreed(rows) {
 function gains(r) {
   const sm = simulate(Object.assign({}, BASE.projs, { [ME]: teamProj(ME, [r.s], r.drop) }), Math.max(500, Math.round(S.sims / 2)))[ME];
   r.dW = sm.expWeeks - BASE.quick.expWeeks; r.dWin = sm.pWin - BASE.quick.pWin;
+  r.dCut = BASE.quick.pCut[W0] - sm.pCut[W0];      // how much this add lowers his chance of being cut this week
 }
+// rule 13: is his cut risk this week high enough that the reserve may go on a claim that keeps him alive?
+const myCutRisk = () => (BASE && BASE.sim ? BASE.sim[ME].pCut[W0] : 0);
+const reserveReleased = () => myCutRisk() >= RULES.release_reserve_at_cut_risk;
+const savesMe = r => r.dCut !== undefined && r.dCut >= RULES.release_min_survival_gain;
 
 // extra expected weeks and win odds from r on top of earlier claims `prior` ([{s, drop}]) that all won (Q-053)
 function gainsOnTop(r, prior) {
@@ -315,7 +323,10 @@ function bigCap(s) {
 // amount with the best (chance of winning) x (value - bid); then all bids together must fit FAAB minus reserve.
 function decideAll(rows) {
   const faab = D.teams[ME].faab, spend = Math.max(0, faab - S.reserve), dpp = dollarsPerPoint(rows);
+  // rule 13: only a claim that lowers his cut risk this week may dip into the reserve, and only when that risk is high
+  const released = reserveReleased(), spendFor = r => (released && savesMe(r) ? faab : spend);
   const price = r => {        // value, best bid and call for one candidate at its current drop
+    r.spendCap = spendFor(r);
     if (outNow(r.s)) return Object.assign(r, { call: 'Skip', bid: 0, value: 0, chance: null, options: [],
       price: r.freed ? (priceFor(.5, r.est, 999, r) ?? r.est) : 0, price80: r.freed ? (priceFor(.8, r.est, 999, r) ?? r.est) : 0,
       why: 'out this week (injury or IR): not worth a roster spot now' });
@@ -325,13 +336,13 @@ function decideAll(rows) {
     // his rules: a marginal claim (K, DEF, or under a couple of lineup points a week) goes in at $0; above the big-bid
     // line only for a player he has named a league-winner
     const marginal = isMarginal(r), big = bigCap(r.s);
-    const cap = marginal ? 0 : Math.min(spend, value, big);
+    const cap = marginal ? 0 : Math.min(r.spendCap, value, big);
     // $0 counts with its own payoff: a $1 bid that wins no more often than $0 buys nothing (Q-038)
     const p0 = winChance(0, r.est, r);
     const bestUpTo = c => { let x = { b: 0, ev: p0 * value, p: p0 }; for (let b = 1; b <= c; b++) { const p = winChance(b, r.est, r), ev = p * (value - b); if (ev > x.ev + 1e-9) x = { b, ev, p }; } return x; };
     const best = bestUpTo(cap);
     // the cap bites when the bid it would make without the big-bid line is above that line
-    const free = !marginal && big < Math.min(spend, value) ? bestUpTo(Math.min(spend, value)) : best, bites = free.b > big;
+    const free = !marginal && big < Math.min(r.spendCap, value) ? bestUpTo(Math.min(r.spendCap, value)) : best, bites = free.b > big;
     const small = value < 1 || r.dWin < MIN_WIN, slim = best.p < MIN_CHANCE;
     const call = small ? 'Skip' : best.ev <= 0 ? 'Priced out' : slim ? 'Skip' : best.p >= .5 ? 'Bid' : best.p >= .25 ? 'Coin flip' : 'Long shot';
     Object.assign(r, { call, bid: isBid({ call }) ? best.b : 0, chance: best.p, value, ev: best.ev,
@@ -340,7 +351,7 @@ function decideAll(rows) {
         : slim ? `under ${MIN_CHANCE * 100}% to win at any bid worth making`
         : marginal ? `marginal (${D.P[r.s].p === 'K' || D.P[r.s].p === 'DEF' ? D.P[r.s].p : `+${(r.gNear || 0).toFixed(1)} lineup pts a week`}): $0 claim, your rule`
         : bites ? `capped at $${big} (would bid $${free.b}): big money only for players you've named league-winners` : '' });
-    r.options = small ? [] : bidOptions(r, value, spend);
+    r.options = small ? [] : bidOptions(r, value, r.spendCap);
     return r;
   };
   rows.filter(r => !r.added && r.dW !== undefined).forEach(price);
@@ -374,11 +385,12 @@ function decideAll(rows) {
       if (!isBid(r)) { r.why = `adds little if your ${names} claim wins (${Math.round(pAny * 100)}%)`; continue; }
       r.why = (why ? why + '; ' : '') + `valued with your ${names} claim in mind`;
     }
-    if (used + r.bid > spend) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
+    if (used + r.bid > r.spendCap) { Object.assign(r, { call: 'Skip', bid: 0, why: 'your other bids use the budget' }); continue; }
+    r.usesReserve = used + r.bid > spend;
     used += r.bid; drops.add(r.drop); taken.push(r);
   }
   addBackups(rows, taken, price);
-  return { dpp, spend, used };
+  return { dpp, spend, used, released };
 }
 
 // Backups (Sleeper's copy rule, Nov 12 revamp): with a full roster, a claim that shares a drop with a claim that already
@@ -443,6 +455,7 @@ function whyLine(r) {
   else if (proj(r.s, W0) === 0 && !(p.bye || []).includes(W0)) flags.push(`projected 0 in week ${W0} with no injury tag: check news`);
   if ((p.bye || []).some(w => w >= W0 && w <= W0 + 1)) flags.push(`bye week ${(p.bye || []).find(w => w >= W0)}`);
   // his rules first: why the bid is capped or $0
+  if (r.usesReserve) bits.unshift(`uses your reserve: your cut risk this week is ${Math.round(myCutRisk() * 100)}% and this lowers it ${Math.round((r.dCut || 0) * 100)} pts (your rule)`);
   if (r.capped) bits.unshift(`capped at $${r.capped}: big money only for players you've named league-winners`);
   else if (r.marginal && isBid(r)) bits.unshift('$0 claim: a marginal add (your rule)');
   return bits.join('; ') + (flags.length ? ` (${flags.join('; ')})` : '');
@@ -467,7 +480,8 @@ function exportBids() {
     extra_weeks_alive: Math.round(r.dW * 100) / 100, extra_win_odds: r3(r.dWin),
     // est_price: the bid that would have won about half of comparable past claims; price_80: about 80%
     est_price: r.freed ? r.price : 0, price_80: r.freed ? r.price80 : 0, value: r.freed ? r.value : 0,
-    bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(money.spend, r.value) : 0,
+    bid: r.bid, win_chance: r.freed && r.chance !== null ? r3(r.chance) : null, your_max: r.freed ? Math.min(r.spendCap ?? money.spend, r.value) : 0,
+    cut_risk_drop: r.dCut !== undefined ? r3(r.dCut) : null, uses_reserve: !!r.usesReserve,
     call: r.call, why: r.why || null, why_line: r.dW !== undefined ? whyLine(r) : null,
     chain_drop: r.chain && D.P[r.chain] ? D.P[r.chain].n : null, chain_order: r.chainOrder || null,
     fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null,
@@ -476,7 +490,7 @@ function exportBids() {
     // rivals with the money to beat this bid (ties go to them: you are last in waiver order) and their chance to claim him
     can_outbid: r.freed ? rivalOdds(r).filter(x => x.faab >= r.bid && x.claim >= 0.05).map(x => ({ team: tname(x.t), faab: x.faab, claim_chance: r3(x.claim) })) : [],
     bid_options: (r.options || []).map(o => ({ bid: o.bid, win_chance: r3(o.chance), avg_payoff: r1(o.payoff), recommended: o.bid === r.bid,
-      over_spendable: o.bid > money.spend })),
+      over_spendable: o.bid > (r.spendCap ?? money.spend) })),
     likely_rival_bids: rivalBids(r).slice(0, 3).map(x => ({ team: tname(x.t), bid: x.bid, raw: x.raw, ...(x.claim !== undefined ? { claim_chance: r3(x.claim) } : {}) })) }));
   const sim = BASE.sim;
   return {
@@ -486,7 +500,8 @@ function exportBids() {
     // everywhere except projected-freed rows, which are planning numbers for after the cut
     waivers_open: !!D.cut && D.cut.freed_status === 'on waivers', next_waiver_run: D.next_waiver_run,
     waivers: D.waivers, my_team: tname(ME), my_faab: D.teams[ME].faab, reserve: S.reserve,
-    budget: { spendable: money.spend, recommended_bids_total: money.used, dollars_per_win_point: money.dpp ? r1(money.dpp) : null },
+    budget: { spendable: money.spend, recommended_bids_total: money.used, dollars_per_win_point: money.dpp ? r1(money.dpp) : null,
+              reserve_released: !!money.released, my_cut_risk: r3(myCutRisk()) },
     settings: { projections: 'Sleeper weekly', score_sd: S.sd, score_sd_measured_from: D.sd ? D.sd.n : null, sd_growth_per_week: SD_GROWTH,
                 rival_aggression: S.aggr, value: 'win odds (winner takes all)', sims: S.sims,
                 price_ladder_claims: D.ladder ? D.ladder.lo.length + D.ladder.hi.length : 0,
@@ -507,7 +522,11 @@ function exportBids() {
       kind: r.call === 'Backup' ? 'backup' : 'claim', fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null,
       why: whyLine(r) })),
     worst_case_spend: (() => { const c = {}; for (const r of claimList(rows)) c[r.drop] = Math.max(c[r.drop] || 0, r.bid); return Object.values(c).reduce((a, b) => a + b, 0); })(),
-    rules: { reserve: S.reserve, league_winners: RULES.league_winners, big_bid_cap: bigCap(null),
+    rules: { reserve: S.reserve,
+             reserve_rule: `keeps $${S.reserve} while your cut risk this week is under ${Math.round(RULES.release_reserve_at_cut_risk * 100)}%; ` +
+               `at ${Math.round(RULES.release_reserve_at_cut_risk * 100)}% or more, a claim that lowers it by ${Math.round(RULES.release_min_survival_gain * 100)}+ pts may use it` +
+               ` (now ${Math.round(myCutRisk() * 100)}%: ${money.released ? 'released' : 'kept'})`,
+             league_winners: RULES.league_winners, big_bid_cap: bigCap(null),
              marginal: `K, DEF and adds worth under ${RULES.marginal_pts_per_week} lineup pts a week go in at $0`,
              starters: 'never drops a player in this week\'s lineup unless the add starts in his place' },
   };
