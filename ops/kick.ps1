@@ -15,6 +15,8 @@
 #
 # Every run writes exactly one line to %LOCALAPPDATA%\sports-hq-kick.log (last 500 kept): started / skipped / FAILED.
 # Read it from Michael's own PowerShell window or a scheduled task: a Claude app shell sees the app's private copy.
+# So the same line is also copied to the repo's .cache\sports-hq-kick.log (gitignored; C:\Claude isn't redirected for
+# the app), which any Claude session can read (Nov 12: Ops found no log line since Nov 5 while the kicks were working).
 # If that file can't be written, the line goes to %TEMP%\sports-hq-kick.log, else to the repo's .cache\sports-hq-kick.log
 # (gitignored), so a failure is never silent.
 #
@@ -42,6 +44,8 @@ $help = "see ops/designs/Q-014.md, 'Sign-in for the scheduled tasks'"
 # weren't missing: they were in the real folder, which a Claude app shell doesn't see
 $local = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [Environment]::GetFolderPath("LocalApplicationData") }
 if (-not $local -and $env:USERPROFILE) { $local = Join-Path $env:USERPROFILE "AppData\Local" }
+# the readable copy, only for the real runs (a test that passes -Log never writes into the repo)
+$Mirror = if (-not $Log) { Join-Path (Split-Path $PSScriptRoot -Parent) ".cache\sports-hq-kick.log" } else { "" }
 if (-not $Log) { $Log = if ($local) { Join-Path $local "sports-hq-kick.log" } else { "" } }
 if (-not $TokenFile) { $TokenFile = if ($local) { Join-Path $local "sports-hq-kick.token" } else { "" } }
 if (-not $AlertFile) { $AlertFile = if ($local) { Join-Path $local "sports-hq-kick.alerted" } elseif ($env:TEMP) { Join-Path $env:TEMP "sports-hq-kick.alerted" } else { "" } }
@@ -53,6 +57,15 @@ if (-not (Test-Path $Gh)) { $Gh = "gh" }
 
 function Write-Log([string]$msg) {
   $line = "{0:yyyy-MM-dd HH:mm:ss} {1}: {2}" -f (Get-Date), $Workflow, (($msg -replace "\s+", " ").Trim())
+  if ($Mirror) {
+    try {
+      $dir = Split-Path $Mirror -Parent
+      if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -ErrorAction Stop | Out-Null }
+      $old = @()
+      if (Test-Path $Mirror) { $old = @(Get-Content $Mirror -Tail 499 -ErrorAction Stop) }
+      Set-Content -Path $Mirror -Value ($old + $line) -Encoding utf8 -ErrorAction Stop
+    } catch {}
+  }
   $why = "no log folder (LOCALAPPDATA and USERPROFILE empty)"
   if ($Log) {
     try {
