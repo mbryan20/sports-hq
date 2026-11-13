@@ -8,9 +8,16 @@ name: Ask Claude
 # never on comments or edits). Claude only reads, searches and writes .ask/answer.md; this workflow commits asks.json
 # and posts the one comment (guardrails agreed with Claude Ops, Nov 11).
 # Needs the CLAUDE_CODE_OAUTH_TOKEN secret (`claude setup-token`); without it the box answers "not set up yet".
+# Re-ask (Nov 12): Actions > Ask Claude > Run workflow with an issue number answers that existing question again
+# (same owner + "ask" label checks), e.g. after a failed run. No new public issue needed.
 on:
   issues:
     types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "Issue number of an existing Ask question to answer again"
+        required: true
 
 permissions:
   contents: write
@@ -22,11 +29,14 @@ concurrency:
 
 jobs:
   answer:
-    if: github.event.issue.user.login == 'mbryan20' && github.event.issue.author_association == 'OWNER' && contains(github.event.issue.labels.*.name, 'ask')
+    if: >-
+      (github.event_name == 'issues' && github.event.issue.user.login == 'mbryan20' && github.event.issue.author_association == 'OWNER' && contains(github.event.issue.labels.*.name, 'ask'))
+      || (github.event_name == 'workflow_dispatch' && github.actor == 'mbryan20')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
       HAS_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+      N: ${{ github.event.issue.number || inputs.issue }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,13 +45,31 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - name: Load the issue (re-ask only)
+        # same checks as a new issue: opened by mbryan20, labelled "ask"; its text goes to env vars, never the shell
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue view "$N" -R "$GITHUB_REPOSITORY" --json number,createdAt,title,body,author,labels > .issue.json
+          python - <<'EOF'
+          import json, os, secrets
+          i = json.load(open(".issue.json", encoding="utf-8"))
+          assert i["author"]["login"] == "mbryan20", "not Michael's issue"
+          assert any(l["name"] == "ask" for l in i["labels"]), "not an Ask question"
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              for k, v in (("ISSUE_NUMBER", str(i["number"])), ("ISSUE_CREATED", i["createdAt"]),
+                           ("ISSUE_TITLE", i["title"]), ("ISSUE_BODY", i["body"] or "")):
+                  d = "EOF_" + secrets.token_hex(8)
+                  f.write(f"{k}<<{d}\n{v}\n{d}\n")
+          EOF
       - name: Read the question
         # issue text only ever reaches the script through env vars, never the shell
         env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_CREATED: ${{ github.event.issue.created_at }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || env.ISSUE_NUMBER }}
+          ISSUE_CREATED: ${{ github.event.issue.created_at || env.ISSUE_CREATED }}
+          ISSUE_TITLE: ${{ github.event.issue.title || env.ISSUE_TITLE }}
+          ISSUE_BODY: ${{ github.event.issue.body || env.ISSUE_BODY }}
         run: mkdir -p .ask && python -m shq.asks parse > .ask/question.json && cat .ask/question.json
       - name: Claude answers
         if: env.HAS_TOKEN == 'true'
@@ -60,22 +88,24 @@ jobs:
         if: env.HAS_TOKEN != 'true'
         run: |
           printf '%s\n' "Claude can't answer here yet: Sports HQ's Ask box needs its one-time sign-in (the CLAUDE_CODE_OAUTH_TOKEN secret on GitHub). Try a move above works without it." > .ask/answer.md
-      - name: Record the answer
-        run: python -m shq.asks record .ask/question.json .ask/answer.md
-      - name: Commit (merge, never rebase)
-        env:
-          N: ${{ github.event.issue.number }}
+      - name: Record the answer and commit
+        # Record onto the newest asks.json each try (a re-run starts from an old checkout, and other answers may land
+        # meanwhile), so asks.json never conflicts. Only asks.json is ever committed; no rebase.
         run: |
           git config user.name "sports-hq-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data/asks.json
-          git commit -q -m "Ask #$N answered"
-          for i in 1 2 3 4 5; do git pull -q --no-rebase --no-edit && git push -q && exit 0; sleep 5; done
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git checkout -q -f -B ask-answer origin/main
+            python -m shq.asks record .ask/question.json .ask/answer.md
+            git add docs/data/asks.json
+            git commit -q -m "Ask #$N answered" || exit 0
+            git push -q origin HEAD:main && exit 0
+            sleep 5
+          done
           exit 1
       - name: Answer on the issue and close it
         env:
           GH_TOKEN: ${{ github.token }}
-          N: ${{ github.event.issue.number }}
         run: |
           { cat .ask/answer.md 2>/dev/null; printf '\n\n---\nAlso on the league page (Try a move · Ask Claude) in a minute or two.\n'; } > .ask/comment.md
           gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body-file .ask/comment.md

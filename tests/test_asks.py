@@ -86,6 +86,12 @@ class Workflow(unittest.TestCase):
                 self.assertRegex(line.strip(), r"^ISSUE_(BODY|TITLE): ")
         self.assertIn("git add docs/data/asks.json", y)
         self.assertNotIn("--rebase", y.replace("--no-rebase", ""))
+        # re-ask (workflow_dispatch): only Michael can start it, and only for his own "ask" issue
+        self.assertIn("github.event_name == 'workflow_dispatch' && github.actor == 'mbryan20'", y)
+        self.assertIn('assert i["author"]["login"] == "mbryan20"', y)
+        self.assertIn('assert any(l["name"] == "ask" for l in i["labels"])', y)
+        # the answer is recorded onto the newest asks.json each try, so a re-run never hits a merge conflict
+        self.assertIn("git checkout -q -f -B ask-answer origin/main", y)
 
 
 if __name__ == "__main__":
