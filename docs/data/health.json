@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T08:55:24Z",
+ "generated": "2026-11-13T16:47:37Z",
  "summary": {
   "ok": 14,
   "watch": 2,
@@ -3794,7 +3794,7 @@
       "hit": false
      }
     ],
-    "pending": 30,
+    "pending": 34,
     "lost": 0,
     "done": [
      "3-Ball BB|2026-11-06",
@@ -3879,7 +3879,7 @@
        }
       }
      },
-     "pending": 30,
+     "pending": 34,
      "lost": 0,
      "unmatched": []
     }
@@ -3889,7 +3889,7 @@
     "12 streamer pairs judged (each streamer vs the next one listed): the higher-ranked did better in 10 (83%), by +1.56 z per game; the list promised +0.38 over the week, it came out +1.78.",
     "Week ending 2026-11-08: 8 swaps, gain +0.10/g, add ahead in 4; 12 streamer pairs, edge +1.56/g.",
     "Under 20 judged swaps or streamer pairs a check is info only: no baseline is set yet.",
-    "Waiting for their week to finish: 30 shown swaps or streamer pairs (a repeat on a later morning counts again here, once when judged).",
+    "Waiting for their week to finish: 34 shown swaps or streamer pairs (a repeat on a later morning counts again here, once when judged).",
     "How: what the basketball tabs showed at the first data commit from 8am CT, judged over the rest of that fantasy week on ESPN's game logs, in the league's categories weighted by that morning's need, above a waiver-level player (the \"+N this week\" units); a missed game adds 0. A swap or pair shown on several mornings of a week counts once."
    ]
   },
@@ -3996,7 +3996,7 @@
      }
     },
     "ready": [],
-    "mornings": 14,
+    "mornings": 16,
     "first": "2026-11-06",
     "match": 1.0,
     "match_swaps": 0.67
@@ -4007,7 +4007,7 @@
     "DARKO minutes: 1 complete weeks, 9 swaps: gain +3.06/g vs the site's +0.10, miss 5.87 vs 7.73.",
     "shrunk: 1 complete weeks, 6 swaps: gain -1.90/g vs the site's +0.10, miss 9.19 vs 7.73.",
     "Week ending 2026-11-08: site swaps +0.10/g (n=8, miss 7.73), streamers -0.62/g; DARKO minutes swaps +3.06/g (n=9, miss 5.87), streamers -1.04/g; shrunk swaps -1.90/g (n=6, miss 9.19), streamers -1.43/g.",
-    "Same mornings for all three: 14 league mornings with a DARKO reading since 2026-11-06 (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best free agents per league). The replay of the site's own values reproduces 100% of the streamers and 67% of the swaps shown.",
+    "Same mornings for all three: 16 league mornings with a DARKO reading since 2026-11-06 (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best free agents per league). The replay of the site's own values reproduces 100% of the streamers and 67% of the swaps shown.",
     "How: each morning's picks replayed under each source with the site's rules, judged like the swaps above (league units, need-weighted, above a waiver-level player). DARKO minutes = each line rescaled to DARKO's projected minutes (darko.app; only our minutes factor is kept); shrunk = a season average pulled toward ESPN's season projection by games played (tonight's projection, not that morning's)."
    ]
   },
