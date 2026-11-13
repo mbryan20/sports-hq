@@ -5,7 +5,7 @@ routine_id: trig_01SSdrwq7mFaMPruMyzSxLJ9
 cron: "CRON_TZ=America/Chicago 0 6 * * 2"   # Tue 6:00am CT only, no Monday-night run yet; reads the Tue 5:40am CT War Room v2 build
 model: Fable 5.2
 connectors: Google Drive, Google Docs
-status: CREATED 2026-10-31; prompt updated 2026-11-03 (model bid/drop as given, Win % column, bid options), 2026-11-10 (stale-model rule, Doc folder), 2026-11-12 (step 1 reads ops/tasks/guillotine-tuesday-rules.md). Synced to the live routine 2026-11-12. Writes the Doc "Guillotine bid strategy (v2)" and sends no push; the 7:11am bid check sends the push.
+status: CREATED 2026-10-31; prompt updated 2026-11-03 (model bid/drop as given, Win % column, bid options), 2026-11-10 (stale-model rule, Doc folder), 2026-11-12 (step 1 reads ops/tasks/guillotine-tuesday-rules.md; ~7:15pm CT: steps 1 and 3 use claim_list, Long shot/Backup calls, worst_case_spend). Synced to the live routine 2026-11-12. Writes the Doc "Guillotine bid strategy (v2)" and sends no push; the 7:11am bid check sends the push.
 ---
 
 
@@ -17,7 +17,7 @@ STRICTLY READ-ONLY on Sleeper and every fantasy site: never bid, claim, add, dro
    - data_as_of, last_sleeper_move, week (the coming week), cut (team, week, confirmed)
    - cut_risks (every surviving team's FAAB, boldness, cut risk, expected weeks left)
    - freed_players, my_roster (with next-week projections), my_faab, reserve, budget (spendable, recommended_bids_total, dollars_per_win_point)
-   - bids: per player sleeper_id, name, pos, team, call (Bid = worth it with at least 50% to win / Coin flip = worth it but under 50% / Priced out = likely price above his value / Skip / Add free), bid (the amount to claim; 0 = don't claim), win_chance (for that bid), bid_options (the bids worth comparing, each with win_chance, avg_payoff = chance x (value - bid), recommended, over_spendable), drop / drop_id (each claim's own drop), value (worth to him in $), est_price (the likely price: about half of comparable past claims won at or below it), price_80, your_max (= value, capped at spendable), why, bye_week, extra_weeks_alive
+   - bids: per player sleeper_id, name, pos, team, call (Bid = 50%+ to win / Coin flip = 25-50% / Long shot = 10-25% / Backup = runs only if the claims in fires_if lost / Priced out = likely price above his value / Skip / Add free), bid (the amount to claim; on a Bid, Coin flip, Long shot or Backup row 0 means a $0 claim), claim_list (the claims in the order to enter them), worst_case_spend, win_chance (for that bid), bid_options (the bids worth comparing, each with win_chance, avg_payoff = chance x (value - bid), recommended, over_spendable), drop / drop_id (each claim's own drop), value (worth to him in $), est_price (the likely price: about half of comparable past claims won at or below it), price_80, your_max (= value, capped at spendable), why, bye_week, extra_weeks_alive
    Freshness:
    - If data_as_of doesn't show the most recent week as final (Monday night included), put "Model not updated since <data_as_of>" at the top of the Doc and carry on.
    - If cut.confirmed is false, the cut and freed list are projected. Say so.
@@ -26,9 +26,9 @@ STRICTLY READ-ONLY on Sleeper and every fantasy site: never bid, claim, add, dro
 2. NEWS AND RANKINGS. For every player in bids with call Bid, Coin flip or Add free, every freed player, and Michael's likely starters, check current injury, role and transaction news with web search: team injury reports, beat reporters, FantasyPros rest-of-season and weekly 0.5 PPR rankings. Note anything the model can't know: a new starter, a return from IR, a trade, a suspension, a depth-chart change. The model uses Sleeper's projections, past points, byes and the injury report.
 
 3. DECIDE. Start from the model's numbers and keep them unless step 2 gives a stated reason. Michael's rule: "The goal is not to win every bid, its to spend money wisely... We should bid what we think is right and see what happens." So:
-   - Claims = every Bid or Coin flip row with bid > 0, at the model's `bid` with the model's `drop`. The bid is chosen for best chance-to-win x (value - bid), so it is often below est_price. Do NOT use est_price + $1 and don't raise a bid just to win it.
+   - Claims = every item of `claim_list`, in its order, at the model's `bid` with the model's `drop` ($0 claims included). The bid is chosen for best chance-to-win x (value - bid), so it is often below est_price. Do NOT use est_price + $1 and don't raise a bid just to win it.
    - Change a bid, value or drop only for news the model can't know (say why, and "model said $X"); never bid above value. Never drop a player he needs to start this week.
-   - The model's bids already fit budget.spendable (FAAB minus reserve) with distinct drops. If your changes push the total over spendable, cut the lowest-value claim.
+   - The model's claims already fit budget.spendable (FAAB minus his reserve). Claims sharing a drop are backups and only one can win, so compare worst_case_spend (the top bid of each drop's chain) with spendable, not the sum. If your changes push it over spendable, cut the lowest-value claim.
    - One line why per claim, with its win chance.
    Flag any rival in cut_risks with a lot of FAAB and high boldness; they set the price.
 
