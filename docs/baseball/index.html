@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baseball · Sports HQ</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../lib/core.css">
+<style>
+/* Baseball: the 3-Ball Dynasty prospect watch list (data/mlb_prospects.json, shq/mlb_prospects.py) and, from the
+   2027 season, the baseball leagues' trend radar. Plan: plans/baseball.md. */
+main { padding: 10px 12px 80px; max-width: 1100px; margin: 0 auto; }
+.intro { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; margin-bottom: 10px; font-size: 13.5px; line-height: 1.45; }
+.intro b { font-weight: 700; }
+.intro .muted { color: var(--muted); font-size: 12.5px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+.filters button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 11px; font-size: 13px; font-weight: 600; color: var(--text); }
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.filters input { flex: 1 1 140px; min-width: 0; font: inherit; font-size: 13px; color: var(--text); background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.p { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 10px; display: grid; grid-template-columns: 34px 1fr auto; gap: 2px 10px; align-items: baseline; }
+.p .rk { font-weight: 800; font-size: 16px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.p .nm { font-weight: 700; font-size: 14.5px; }
+.p .meta { color: var(--muted); font-size: 12px; font-weight: 500; margin-left: 4px; }
+.p .pct { font-weight: 800; font-size: 15px; text-align: right; font-variant-numeric: tabular-nums; }
+.p .why { grid-column: 2 / 4; font-size: 12.5px; line-height: 1.4; }
+.p .tags { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 4px; font-size: 11.5px; }
+.tag { border-radius: 6px; padding: 1px 6px; background: var(--card2); border: 1px solid var(--line); color: var(--muted); font-weight: 600; }
+.tag.fa { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.tag.mine { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tag.edge { border-color: var(--warn, #c90); color: var(--warn, #c90); }
+.summary { font-size: 12px; color: var(--muted); margin: 2px 2px 6px; }
+details.bt { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 12px; margin-top: 14px; font-size: 13px; }
+details.bt summary { font-weight: 700; cursor: pointer; }
+details.bt table { border-collapse: collapse; font-size: 12.5px; margin: 6px 0; font-variant-numeric: tabular-nums; }
+details.bt td, details.bt th { padding: 3px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+details.bt td.l, details.bt th.l { text-align: left; }
+</style>
+</head>
+<body data-layout="Baseball" data-view="baseball">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1><a href="../" style="color:inherit;text-decoration:none">Sports HQ</a></h1><span class="tag">Baseball</span></div>
+  <div class="links"><a class="pill" href="../">Home</a><a class="pill hide-sm" href="../players/">Players</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div></header>
+<main id="main"><p class="note">Loading the prospect watch list…</p></main>
+<footer class="foot" data-foot></footer>
+<button class="fbfab" data-fb="idea" data-spot="Baseball page">💬 Feedback</button>
+<script src="../lib/core.js"></script>
+<script>
+"use strict";
+(function () {
+  const S = SHQ, esc = S.esc, main = document.getElementById("main");
+  let data = null, who = "all", kind = "all", q = "";
+  const pct = x => x == null ? "–" : Math.round(100 * x) + "%";
+
+  function rows() {
+    return data.players.filter(p =>
+      (who === "all" || (who === "mine" ? p.mine : who === "espn" ? !p.mine && p.espn_roster : who === "noespn" ? !p.espn_roster && !p.mine : true))
+      && (kind === "all" || (kind === "h" ? !["SP", "RP"].includes(p.pos) : ["SP", "RP"].includes(p.pos)))
+      && (!q || (p.name + " " + p.org + " " + p.pos).toLowerCase().includes(q)));
+  }
+
+  function card(p) {
+    const tb = p.mine ? `<span class="tag mine">Yours</span>`
+      : p.espn_roster ? `<span class="tag">On ${esc(p.espn_roster)}'s ESPN roster</span>`
+      : `<span class="tag fa">Not on a 3-Ball ESPN roster</span>`;
+    const tags = [tb,
+      p.pipeline ? `<span class="tag">Pipeline #${p.pipeline}</span>` : `<span class="tag">Not on Pipeline Top 100</span>`,
+      p.edge ? `<span class="tag edge">${esc(p.edge)}</span>` : "",
+      p.espn_owned != null ? `<span class="tag">ESPN ${p.espn_owned}% rostered</span>` : "",
+      p.forty_man ? `<span class="tag">40-man</span>` : "",
+      p.blockers && p.blockers.length ? `<span class="tag">Blocked by ${esc(p.blockers.join(", "))}</span>` : ""].join("");
+    return `<div class="p"><span class="rk">${p.rank}</span>
+      <span class="nm">${esc(p.name)}<span class="meta">${esc(p.pos)} · ${esc(p.org)} · ${p.age} · ${esc(p.level)}</span></span>
+      <span class="pct" title="Model's chance he is a useful MLB player within two seasons">${pct(p.p_useful)}</span>
+      <span class="why">${esc(p.why)}</span><span class="tags">${tags}</span></div>`;
+  }
+
+  function backtest() {
+    const b = data.backtest || {}, out = [];
+    for (const g of ["hitting", "pitching"]) {
+      const t = (b[g] || {}).test || {};
+      for (const y of Object.keys(t)) {
+        const r = t[y], k = r.pipeline_ranked;
+        const models = Object.keys(r).filter(m => typeof r[m] === "object" && "auc" in r[m]);
+        const miss = r["useful but not on Pipeline"];
+        out.push(`<p><b>${g === "hitting" ? "Hitters" : "Pitchers"}, ${y} prospects</b> (n=${r.n}, ${r.useful} became useful by ${+y + 2}${miss ? `; ${miss.n} of them weren't on Pipeline's Top 100 and the stats model had ${miss["in stats top 50"]} in its top 50` : ""}):</p>
+          <table><tr><th class="l">Method</th><th>AUC</th><th>Hits in top 25</th><th>top 50</th><th>top ${k}</th></tr>
+          ${models.map(m => `<tr><td class="l">${esc(m)}</td><td>${r[m].auc}</td><td>${r[m].top25}</td><td>${r[m].top50}</td><td>${r[m]["top" + k]}</td></tr>`).join("")}</table>`);
+      }
+    }
+    return out.join("");
+  }
+
+  function draw() {
+    const list = rows();
+    main.innerHTML = `<div class="intro"><b>3-Ball Dynasty: prospect watch list</b> (your team: Ragonk Force). Ranked by the model's chance each prospect is a useful
+      MLB player within two seasons (hitters: a 350+ PA season with .750+ OPS or 20+ SB; pitchers: 100+ IP at ERA 4.00 or better, or 20+ saves+holds at 3.50 or better).
+      It weighs how he hit or pitched against his level, how young he was for it, the level, and MLB Pipeline's rank.
+      <span class="muted"><br>2026 minor-league stats and Arizona Fall League, Pipeline's current Top 100. Built ${esc(data.built || "")}. Estimates, not facts: the backtest is below.
+      Who holds each prospect in the league sheet's minor-league spots is private league data, so it is only in your Doc
+      <a href="https://docs.google.com/document/d/10vc6n8yOs6ahjzJY1KsXqUyZFiwodn8Pn4za6fb-VRo/edit">3-Ball baseball prospect watch list</a> (draft targets, your minors, trade targets).
+      "Not on a 3-Ball ESPN roster" can still mean another team holds him in the sheet. Ideas only: nothing is sent to ESPN.</span></div>
+      <div class="filters">
+        ${[["all", "All"], ["mine", "Mine"], ["noespn", "Not on an ESPN roster"], ["espn", "On other ESPN rosters"]].map(([k, l]) => `<button data-who="${k}" aria-pressed="${who === k}">${l}</button>`).join("")}
+        ${[["all", "Hitters + pitchers"], ["h", "Hitters"], ["p", "Pitchers"]].map(([k, l]) => `<button data-kind="${k}" aria-pressed="${kind === k}">${l}</button>`).join("")}
+        <input type="search" placeholder="Search name, team, position" value="${esc(q)}">
+      </div>
+      <div class="summary">${list.length} of ${data.players.length} prospects</div>
+      <div class="list">${list.map(card).join("") || `<p class="note">No prospects match.</p>`}</div>
+      <details class="bt"><summary>How well the model did (backtest)</summary>
+        <p>Weights fit on the 2021 and 2022 prospect classes, then scored on 2023 and 2024 without refitting. AUC: 0.5 is a coin flip, 1.0 perfect.
+        "Pipeline rank only" uses MLB Pipeline's next preseason Top 100. Full write-up: plans/baseball.md in the repo.</p>${backtest()}</details>`;
+    main.querySelectorAll("[data-who]").forEach(b => b.onclick = () => { who = b.dataset.who; draw(); });
+    main.querySelectorAll("[data-kind]").forEach(b => b.onclick = () => { kind = b.dataset.kind; draw(); });
+    const inp = main.querySelector("input[type=search]");
+    inp.oninput = () => { q = inp.value.trim().toLowerCase(); const pos = inp.selectionStart; draw(); const n = main.querySelector("input[type=search]"); n.focus(); n.setSelectionRange(pos, pos); };
+  }
+
+  fetch("../data/mlb_prospects.json?" + Date.now()).then(r => r.json()).then(d => { data = d; draw(); })
+    .catch(() => { main.innerHTML = `<p class="note">Couldn't load the watch list. Pull to refresh.</p>`; });
+})();
+</script>
+</body>
+</html>

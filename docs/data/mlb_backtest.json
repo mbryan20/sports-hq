@@ -1,0 +1,263 @@
+{
+ "hitters": {
+  "2025": {
+   "predict": {
+    "n": 560,
+    "r_woba": 0.2646509406197562,
+    "r_xwoba": 0.3579272962639431,
+    "r_blend": 0.32675971304425266
+   },
+   "buy_low": {
+    "flag": 80,
+    "flag_up": 57,
+    "flag_good": 24,
+    "base": 163,
+    "base_up": 87,
+    "base_good": 44
+   },
+   "sell_high": {
+    "flag": 29,
+    "flag_down": 26,
+    "flag_still": 11,
+    "base": 105,
+    "base_down": 69,
+    "base_still": 51
+   },
+   "barrel_jump": {
+    "n": 450,
+    "all_rose": 132,
+    "brl": 84,
+    "brl_rose": 35,
+    "woba": 118,
+    "woba_rose": 56,
+    "both": 47,
+    "both_rose": 25,
+    "woba_only": 71,
+    "woba_only_rose": 31
+   },
+   "playing_time": {
+    "flag": 13,
+    "flag_regular": 5,
+    "already": 297,
+    "already_regular": 242
+   }
+  },
+  "2026": {
+   "predict": {
+    "n": 563,
+    "r_woba": 0.17173805238413123,
+    "r_xwoba": 0.2651227286616118,
+    "r_blend": 0.2292419218643816
+   },
+   "buy_low": {
+    "flag": 77,
+    "flag_up": 60,
+    "flag_good": 35,
+    "base": 165,
+    "base_up": 88,
+    "base_good": 54
+   },
+   "sell_high": {
+    "flag": 32,
+    "flag_down": 25,
+    "flag_still": 9,
+    "base": 116,
+    "base_down": 71,
+    "base_still": 60
+   },
+   "barrel_jump": {
+    "n": 454,
+    "all_rose": 146,
+    "brl": 53,
+    "brl_rose": 23,
+    "woba": 113,
+    "woba_rose": 58,
+    "both": 33,
+    "both_rose": 17,
+    "woba_only": 80,
+    "woba_only_rose": 41
+   },
+   "playing_time": {
+    "flag": 12,
+    "flag_regular": 7,
+    "already": 275,
+    "already_regular": 227
+   }
+  },
+  "all": {
+   "predict": {
+    "n": 1123,
+    "r_woba": 0.21822891038323358,
+    "r_xwoba": 0.30931718687205917,
+    "r_blend": 0.2769567567276496
+   },
+   "buy_low": {
+    "flag": 157,
+    "flag_up": 117,
+    "flag_good": 59,
+    "base": 328,
+    "base_up": 175,
+    "base_good": 98
+   },
+   "sell_high": {
+    "flag": 61,
+    "flag_down": 51,
+    "flag_still": 20,
+    "base": 221,
+    "base_down": 140,
+    "base_still": 111
+   },
+   "barrel_jump": {
+    "n": 904,
+    "all_rose": 278,
+    "brl": 137,
+    "brl_rose": 58,
+    "woba": 231,
+    "woba_rose": 114,
+    "both": 80,
+    "both_rose": 42,
+    "woba_only": 151,
+    "woba_only_rose": 72
+   },
+   "playing_time": {
+    "flag": 25,
+    "flag_regular": 12,
+    "already": 572,
+    "already_regular": 469
+   }
+  }
+ },
+ "pitchers": {
+  "2025": {
+   "predict": {
+    "n": 538,
+    "r_woba": 0.24601976393341782,
+    "r_xwoba": 0.246533597446007,
+    "r_k": -0.33511192863855077
+   },
+   "unlucky": {
+    "flag": 42,
+    "flag_better": 25,
+    "flag_good": 14,
+    "base": 96,
+    "base_better": 56,
+    "base_good": 32
+   },
+   "velo_jump": {
+    "n": 363,
+    "all_imp": 93,
+    "velo": 32,
+    "velo_imp": 11,
+    "k": 56,
+    "k_imp": 20,
+    "drop": 70,
+    "drop_worse": 27,
+    "all_worse": 127
+   }
+  },
+  "2026": {
+   "predict": {
+    "n": 548,
+    "r_woba": 0.2856055547192724,
+    "r_xwoba": 0.29766221246307895,
+    "r_k": -0.32679341667765205
+   },
+   "unlucky": {
+    "flag": 48,
+    "flag_better": 37,
+    "flag_good": 16,
+    "base": 91,
+    "base_better": 58,
+    "base_good": 32
+   },
+   "velo_jump": {
+    "n": 360,
+    "all_imp": 115,
+    "velo": 18,
+    "velo_imp": 8,
+    "k": 63,
+    "k_imp": 29,
+    "drop": 50,
+    "drop_worse": 17,
+    "all_worse": 114
+   }
+  },
+  "all": {
+   "predict": {
+    "n": 1086,
+    "r_woba": 0.26632750276409994,
+    "r_xwoba": 0.2727340340127428,
+    "r_k": -0.3311971998954563
+   },
+   "unlucky": {
+    "flag": 90,
+    "flag_better": 62,
+    "flag_good": 30,
+    "base": 187,
+    "base_better": 114,
+    "base_good": 64
+   },
+   "velo_jump": {
+    "n": 723,
+    "all_imp": 208,
+    "velo": 50,
+    "velo_imp": 19,
+    "k": 119,
+    "k_imp": 49,
+    "drop": 120,
+    "drop_worse": 44,
+    "all_worse": 241
+   }
+  }
+ },
+ "market_2026": {
+  "buy_low": {
+   "free_agents_flagged": 34,
+   "became_useful": 8,
+   "added_later": 2,
+   "median_days_before_add": 46.0
+  },
+  "buy_low_base": {
+   "free_agents_flagged": 82,
+   "became_useful": 17,
+   "added_later": 6,
+   "median_days_before_add": 64.5
+  },
+  "barrel_jump": {
+   "free_agents_flagged": 20,
+   "became_useful": 6,
+   "added_later": 3,
+   "median_days_before_add": 68
+  },
+  "woba_jump": {
+   "free_agents_flagged": 32,
+   "became_useful": 11,
+   "added_later": 4,
+   "median_days_before_add": 80.0
+  },
+  "playing_time": {
+   "free_agents_flagged": 6,
+   "became_useful": 1,
+   "added_later": 0,
+   "median_days_before_add": null
+  },
+  "velo_jump": {
+   "free_agents_flagged": 9,
+   "became_useful": 1,
+   "added_later": 0,
+   "median_days_before_add": null
+  },
+  "k_jump": {
+   "free_agents_flagged": 23,
+   "became_useful": 8,
+   "added_later": 2,
+   "median_days_before_add": 60.0
+  },
+  "unlucky_p": {
+   "free_agents_flagged": 31,
+   "became_useful": 6,
+   "added_later": 0,
+   "median_days_before_add": null
+  }
+ }
+}

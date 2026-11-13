@@ -113,7 +113,11 @@ function render(d) {
     <article class="tile extra" tabindex="0" data-go="players/" data-spot="Players tile">
       <div class="t-head"><h3>Players</h3><span class="meta">Football · basketball</span></div>
       <p class="t-top">Every player in each league, sortable and filterable, with stats and values.</p>
-      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Players tile")}</div></article>`;
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Players tile")}</div></article>
+    <article class="tile extra" tabindex="0" data-go="baseball/" data-spot="Baseball tile">
+      <div class="t-head"><h3>Baseball</h3><span class="meta">3-Ball Dynasty · offseason</span></div>
+      <p class="t-top">Prospect watch list for the 3-Ball draft: who's young for his level and producing, ranked with a backtested model.</p>
+      <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Baseball tile")}</div></article>`;
   document.getElementById("main").innerHTML = kpis
     + `<a class="trybar" href="move/" data-spot="Try a move bar"><b>Try a move · Ask Claude</b><span>Add X, drop Y: worth it? Any league →</span></a>`
     + `<div class="sechead"><h2>Leagues</h2><span class="meta">tap a tile for the full page</span></div><section class="grid">${tiles}</section>`

@@ -509,7 +509,7 @@
       m.innerHTML = `<div class="lm-h">Layout</div>` + LAYOUTS.map(l => `<a role="menuitemradio" aria-checked="${l.id === view()}" href="${esc(S.url(l.path))}">
           <span class="lm-letter">${l.id.toUpperCase()}</span><span class="lm-tx"><b>${esc(l.name)}</b>${l.id === "a" ? `<span class="lm-def">main page</span>` : ""}<span class="lm-d">${esc(l.desc)}</span></span>
           <span class="lm-tick" aria-hidden="true">${l.id === view() ? "✓" : ""}</span></a>`).join("")
-        + `<div class="lm-f"><a href="${esc(S.url("move/"))}">Try a move</a><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("war-room-v2/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
+        + `<div class="lm-f"><a href="${esc(S.url("move/"))}">Try a move</a><a href="${esc(S.url("players/"))}">Players</a><a href="${esc(S.url("baseball/"))}">Baseball</a><a href="${esc(S.url("war-room-v2/"))}">War Room</a><a href="${esc(S.url("wrapups/"))}">Wrap-up</a><a href="${esc(S.url("lab/"))}">Layouts lab</a></div>`;
       document.body.appendChild(m);
     }
     const r = btn.getBoundingClientRect(), w = Math.min(360, innerWidth - 24);
