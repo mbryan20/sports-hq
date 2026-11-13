@@ -1,6 +1,8 @@
 {
- "_about": "Michael's War Room rules (guillotine playbook). Change a number here and the next build uses it. reserve: dollars always kept back. league_winners: players he has named worth big money; everyone else is capped at big_bid_share of his FAAB (at least big_bid_min). marginal_pts_per_week: a claim adding fewer lineup points a week than this (and any K or DEF) goes in at $0.",
+ "_about": "Michael's War Room rules (guillotine playbook; fantasy-rules.md rule 13 for the reserve). Change a number here and the next build uses it. reserve: dollars kept back while he is likely to survive. release_reserve_at_cut_risk: when the model's chance he is cut THIS week is at or above this (0.25 = 1 in 4; an average team now is about 1 in 9), a claim that lowers that chance by at least release_min_survival_gain (0.02 = 2 points) may spend the reserve; other claims never touch it. league_winners: players he has named worth big money; everyone else is capped at big_bid_share of his FAAB (at least big_bid_min). marginal_pts_per_week: a claim adding fewer lineup points a week than this (and any K or DEF) goes in at $0.",
  "reserve": 5,
+ "release_reserve_at_cut_risk": 0.25,
+ "release_min_survival_gain": 0.02,
  "league_winners": [],
  "big_bid_share": 0.25,
  "big_bid_min": 3,

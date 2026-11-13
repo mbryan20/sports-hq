@@ -21,7 +21,10 @@ Nov 12 (warroom/README.md "Nov 12 revamp", IMPROVEMENTS Q-062).
    every item whose `why` says "check news". If a player is ruled out for the coming week and isn't worth holding, drop
    his claim and say why.
 6. **His rules (bids.json `rules`).**
-   - The reserve is always kept.
+   - The reserve depends on survival (his rule, Nov 12): keep `reserve` ($5) while his cut risk this week is under
+     `release_reserve_at_cut_risk` (25%). At 25% or more, only a claim that lowers that risk (bids `uses_reserve`,
+     `cut_risk_drop`) may spend it; budget `reserve_released` says which applies. Never suggest spending it on any
+     other claim, and never leave him at $0 while he is under 25%.
    - Anyone not on `league_winners` is capped at `big_bid_cap`. Never suggest going above it; if a player looks worth
      more, say so and ask Michael whether he is a league-winner.
    - K, DEF and marginal adds stay at $0. Don't suggest $1, even if it raises the chance.

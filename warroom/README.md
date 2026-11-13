@@ -83,7 +83,13 @@ The test: rebuild each past week as it stood, then compare with what happened. T
   - A player who is Out or on IR and projected 0 this week (not on a bye) is Skip, never Add free (Q-040).
   - A K or DEF add never drops an RB, WR or TE worth 8+ points a week (season average or the next weeks'
     projection), and a paid K or DEF claim is skipped when a free agent at that position helps as much (Q-041).
-- **Reserve:** from `warroom/rules.json` (Michael's number; $5 until he sets one), held back from all bids together.
+- **Reserve:** from `warroom/rules.json`, held back from all bids together while Michael is likely to survive. Rule 13
+  (Nov 12, his words: "as long as we have a decent chance at surviving having a little bit of money is better than
+  having none"): when his chance of being cut this week reaches `release_reserve_at_cut_risk` (25%, about twice an
+  average team's with 9 left), a claim that lowers that chance by `release_min_survival_gain` (2 points) or more may
+  spend it. bids.json: `budget.reserve_released`, `budget.my_cut_risk`, per row `cut_risk_drop` and `uses_reserve`,
+  `rules.reserve_rule`. The 25% isn't fitted: only 2 weeks of past cut forecasts exist, and his own risk never passed
+  8% in them.
 
 ## Nov 12 revamp (Michael approved plan parts 1-3; `tests/test_warroom_revamp.py`)
 Replayed on every past waiver run (weeks 2-9, Michael's real roster and FAAB each time, prices fitted only on earlier

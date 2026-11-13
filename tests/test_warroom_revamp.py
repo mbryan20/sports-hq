@@ -148,7 +148,33 @@ class Rules(unittest.TestCase):
     def test_rules_file_is_valid(self):
         with open("warroom/rules.json", encoding="utf-8") as f:
             r = json.load(f)
-        self.assertTrue({"reserve", "league_winners", "big_bid_share", "big_bid_min", "marginal_pts_per_week"} <= set(r))
+        self.assertTrue({"reserve", "release_reserve_at_cut_risk", "release_min_survival_gain", "league_winners",
+                         "big_bid_share", "big_bid_min", "marginal_pts_per_week"} <= set(r))
+        self.assertTrue(0 < r["release_reserve_at_cut_risk"] < 1)
+
+
+class ConditionalReserve(unittest.TestCase):
+    """Rule 13 (Michael, Nov 12): keep the reserve while he's likely to survive; when his cut risk this week is high,
+    a claim that lowers it may spend the reserve. Only survival claims ever touch it."""
+    # a rival with $10 who always claims, at $1-$9; the player is worth $50 to Michael ($10 FAAB, $5 reserve) and is
+    # on his league-winner list so the big-bid line doesn't bind
+    MODEL = dict(HALF, q_base=1.0, shares={"0": [i / 10 for i in range(1, 10)]}, all=[0.9])
+
+    def bid(self, cut_risk, cut_drop):
+        D = league(players={"x": {}}, model=self.MODEL, rival_faab=10, rules={"league_winners": ["x"]})
+        row = (f"{{s: 'x', freed: true, dW: 0, dWin: 0.5, dCut: {cut_drop}, gR: 10, gNear: 10, est: 5, drop: 'a', th: [],"
+               " rk: 0, needs: {'2': 10}}")
+        return run_js(D, f"S.dpp = 1; BASE = {{sim: {{[ME]: {{pCut: {{[W0]: {cut_risk}}}}}}}}};"
+                         f"const rows = [{row}]; const m = decideAll(rows); [rows[0].bid, !!rows[0].usesReserve, m.released]")
+
+    def test_safe_keeps_the_reserve(self):
+        self.assertEqual(self.bid(0.06, 0.05), [5, False, False])
+
+    def test_high_risk_releases_it_for_a_claim_that_keeps_him_alive(self):
+        self.assertEqual(self.bid(0.30, 0.05), [10, True, True])
+
+    def test_high_risk_never_spends_it_on_a_claim_that_doesnt_help_survival(self):
+        self.assertEqual(self.bid(0.30, 0.01), [5, False, True])
 
 
 if __name__ == "__main__":
