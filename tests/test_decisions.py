@@ -69,6 +69,7 @@ class Skips(unittest.TestCase):
         self.assertEqual(keep, lines[1:])                        # x2's until passed: suggested again
         self.assertEqual(gone[0]["tag"], "You skipped this (Not worth it, Nov 14)")
         self.assertEqual(decisions.split("Kosmonauts", lines, NOW, path=p)[1], [])   # other leagues untouched
+        self.assertEqual(len(decisions.split("Domo Arigato", lines, NOW, path=p)[1]), 1)   # Sleeper's name for it
 
     def test_advice_lists_skip_and_record(self):
         p = write([{"league": "Guillotine", "move": "add Geno Smith, drop Woody Marks", "reason": "bad", "at": "2026-11-14T15:00:00Z"}])

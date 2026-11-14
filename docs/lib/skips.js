@@ -6,7 +6,9 @@
 (function () {
   const REASONS = { bad: 'Bad advice', handled: 'Already handled', notworth: 'Not worth it', notnow: 'Not now', other: 'Skipped' };
   const nm = s => String(s || '').trim().toLowerCase().replace(/\.+$/, '').replace(/\s+(jr|sr|ii|iii|iv|v)\.?$/, '').replace(/[^a-z]/g, '');
-  const lg = s => String(s || '').toLowerCase().replace(/\s+/g, '');
+  // Sleeper's own name for the league Sports HQ calls Domo Arigato
+  const ALIAS = { "sunday'sbest": 'domoarigato', sundaysbest: 'domoarigato' };
+  const lg = s => { const k = String(s || '').toLowerCase().replace(/\s+/g, ''); return ALIAS[k] || k; };
   function key(text) {
     const raw = String(text || '').toLowerCase();
     const arrow = raw.indexOf(' → ');

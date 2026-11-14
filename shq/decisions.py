@@ -10,7 +10,8 @@ An empty or missing file means no skips. Every build reads it once. A move that 
   - comes back only when `until` has passed or the entry is removed (an undo in HQ removes it).
 
 MATCHING RULE (HQ writes `move` so it matches; same rule both sides):
-  league: Sports HQ's league name, case and spaces ignored ("Sunday's Best", "Kosmonauts", "3-Ball FB", ...).
+  league: Sports HQ's league name, case and spaces ignored ("Kosmonauts", "Domo Arigato", "3-Ball FB", ...). The Sleeper
+          league's own name "Sunday's Best" counts as "Domo Arigato" (Sports HQ names that league after his team).
   move:   reduced to a key, the action plus the players, so numbers, slots, times and reasons never matter:
     1. lowercase; drop anything in (...) or [...]; cut at the first " → ", ": ", " — ", ", +", " before ", "; ".
     2. "start A over B ..." / "play A over B"            -> "start|a|b"
@@ -71,8 +72,12 @@ def move_key(text):
     return _words(t)
 
 
+LEAGUE_ALIAS = {"sunday'sbest": "domoarigato", "sundaysbest": "domoarigato"}
+
+
 def _league(s):
-    return re.sub(r"\s+", "", str(s or "").lower())
+    k = re.sub(r"\s+", "", str(s or "").lower())
+    return LEAGUE_ALIAS.get(k, k)
 
 
 def _when(s):
