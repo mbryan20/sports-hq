@@ -199,6 +199,10 @@
 .mv .mv-ask{border-top:1px solid var(--line,#ccd);padding-top:8px;display:grid;gap:6px}
 .mv .mv-ans{border:1px solid var(--line,#ccd);border-radius:8px;padding:6px 9px;background:var(--card2,transparent)}
 .mv .mv-ans .q{font-weight:650} .mv .mv-ans .a{white-space:pre-wrap;margin-top:3px} .mv .mv-ans .m{font-size:11px;color:var(--muted,#667)}`;
+  // Opens a normal new tab (Nov 14). window.open(url, "_blank", "noopener") counts as a popup request in Chrome (any
+  // window-features text does), so GitHub and claude.ai opened in a small separate window. A link click opens a tab.
+  function newTab(u) { const a = document.createElement("a"); a.href = u; a.target = "_blank"; a.rel = "noopener";
+    a.style.display = "none"; document.body.appendChild(a); a.click(); a.remove(); }
   function style() {
     if (typeof document === "undefined" || document.getElementById("mv-css")) return;
     const s = document.createElement("style"); s.id = "mv-css"; s.textContent = CSS; document.head.appendChild(s);
@@ -314,7 +318,7 @@
         const ctx = `League: ${name}\n` + (move ? `Move on screen: ${move}${verdict ? " → " + verdict : ""}\n` : "");
         const u = window.SHQASK && SHQASK.homeUrl ? SHQASK.homeUrl(q, ctx)
           : "https://claude.ai/new?" + new URLSearchParams({ q: `Sports HQ question (private chat).\n\n${q}\n\n---\n${ctx}Page: ${location.href.split("#")[0]}` });
-        window.open(u, "_blank", "noopener");
+        newTab(u);
         return;
       }
       const title = `Ask: ${name}: ${q.replace(/\s+/g, " ").slice(0, 70)}`;
@@ -322,7 +326,7 @@
       // the clipboard is left alone so a screenshot he just copied can be pasted on GitHub (Nov 12); only a question too
       // long for the link is copied there instead
       if (u.length > 7000) { try { navigator.clipboard && navigator.clipboard.writeText(`${title}\n\n${body}`).catch(() => {}); } catch (e) {} }
-      window.open(u, "_blank", "noopener");
+      newTab(u);
       st.draft = ""; const ta = $a.querySelector("textarea"); if (ta) ta.value = "";
       // GitHub takes a moment: look again for the new question a few times
       [20, 60, 180].forEach(s => setTimeout(answers, s * 1000));

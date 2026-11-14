@@ -12,7 +12,11 @@
   const S = window.SHQ = { data: {}, url: p => new URL(p, BASE).href, TZ, REPO,
     // written guides kept outside the site, linked wherever their subject shows (Michael, Nov 10: one tap, no asking)
     GUIDE: { guillotine: "https://docs.google.com/document/d/1Pa67152FLY8IQ70neRnnHZ4lFFT6XqWZwvWk1iF-tT8/edit" } };
-  const openTab = window.open.bind(window);   // kept before any layout script can shadow the global open()
+  // Opens a normal new tab (Nov 14). window.open(url, "_blank", "noopener") counts as a popup request in Chrome (any
+  // window-features text does), so GitHub and claude.ai opened in a small separate window. A link click opens a tab.
+  const openTab = u => { const a = document.createElement("a"); a.href = u; a.target = "_blank"; a.rel = "noopener";
+    a.style.display = "none"; document.body.appendChild(a); a.click(); a.remove(); }
+  S.newTab = openTab;
 
   // ---------- helpers ----------
   const esc = S.esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -104,7 +108,7 @@
     S.set(CLEAR_KEY, JSON.stringify(m));
     const title = `Clear: ${league}: ${text.replace(/\s+/g, " ").slice(0, 70)}`;
     const body = `${text}\n\n---\nLeague: ${league}\nPage: ${location.href.split("#")[0]}\n`;
-    openTab(`https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title, body, labels: "clear" }), "_blank", "noopener");
+    openTab(`https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title, body, labels: "clear" }));
   };
   S.unclearLine = function (league, key) {
     const m = localCleared();
@@ -579,7 +583,7 @@
   function fbSend(text) {
     const f = S.feedbackURL(fb.mood, fb.spot, text);
     try { navigator.clipboard?.writeText(`${f.title}\n\n${f.body}`).catch(() => {}); } catch {}
-    openTab(f.url, "_blank", "noopener");
+    openTab(f.url);
     fbClose();
   }
   // Fix now: Clear / Undo (S.clearLine), then redraw from the data already loaded

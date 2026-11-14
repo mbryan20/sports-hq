@@ -316,7 +316,10 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
   const dayTxt = s => { if (!s) return ""; const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(s) ? s + "T12:00:00" : s);
     return isNaN(d) ? String(s) : d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); };
   const rosSrc = name => (ros?.sources || []).find(x => x.name === name);
-  const rosSrcTxt = () => { const s = (ros?.sources || []).map(x => esc(x.name) + (x.as_of ? ` (${esc(dayTxt(x.as_of))})` : "")).join(", ");
+  // rule 15 (Nov 14): only experts who updated in the last week and rank well for accuracy (shq/ros.py); name them
+  const rosSrcTxt = () => { const m = ros?.method?.RB;
+    if (m && m.experts && m.experts.length) return ` (average of ${m.experts.length} FantasyPros experts who updated in the last 7 days and rank in the top 50 for accuracy: ${m.experts.map(e => `${esc(e.name)} #${e.accuracy_rank}, ${esc(e.updated)}`).join("; ")})`;
+    const s = (ros?.sources || []).map(x => esc(x.name) + (x.as_of ? ` (${esc(dayTxt(x.as_of))})` : "")).join(", ");
     return s ? ` (${s})` : ""; };
   const rrCell = r => !r || (!r.rank && !tierTxt(r.tier)) ? "–" : `${esc(r.rank || "–")}${tierTxt(r.tier) ? `<small>${esc(tierTxt(r.tier))}</small>` : ""}`;
   function rosLine(p) {
@@ -324,7 +327,7 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
     const r = rosFor(p);
     if (!r) return `<div class="why muted">Experts' rest of season: not in their rankings.</div>`;
     const s = rosSrc(r.source), link = s && /^https?:\/\//.test(s.url || "") ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(r.source)}</a>` : esc(r.source || "");
-    return `<div class="why"><b>Experts' rest of season:</b> ${esc(r.rank || "unranked")}${r.tier != null && r.tier !== "" ? `, tier ${esc(r.tier)}` : ""}${r.why ? ` · ${esc(r.why)}` : ""}${r.basis ? ` <span class="muted">(${esc(r.basis)})</span>` : ""}
+    return `<div class="why"><b>Experts' rest of season:</b> ${esc(r.rank || "unranked")}${r.fp_rank && r.fp_rank !== r.rank ? ` (FantasyPros default ${esc(r.fp_rank)})` : ""}${r.tier != null && r.tier !== "" ? `, tier ${esc(r.tier)}` : ""}${r.why ? ` · ${esc(r.why)}` : ""}${r.basis ? ` <span class="muted">(${esc(r.basis)})</span>` : ""}
       <br><span class="muted">${link ? `Source: ${link}${s?.as_of ? `, ${esc(dayTxt(s.as_of))}` : ""}` : ""}${r.news_date ? ` · news from ${esc(dayTxt(r.news_date))}` : ""}${r.dynasty ? ` · dynasty: ${esc(r.dynasty)}` : ""}</span></div>`;
   }
   // a plain word for where his rank sits in this league

@@ -9,6 +9,11 @@
 (function () {
   const A = window.SHQASK = window.SHQASK || {};
   const REPO = "mbryan20/sports-hq", SITE = "https://mbryan20.github.io/sports-hq/";
+  // Opens a normal new tab (Nov 14). window.open(url, "_blank", "noopener") counts as a popup request in Chrome (any
+  // window-features text does), so GitHub and claude.ai opened in a small separate window. A link click opens a tab.
+  function newTab(u) { const a = document.createElement("a"); a.href = u; a.target = "_blank"; a.rel = "noopener";
+    a.style.display = "none"; document.body.appendChild(a); a.click(); a.remove(); }
+  A.newTab = newTab;
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   // the private chat starts with no memory of Sports HQ, so the prompt says where the public data is
   A.homeUrl = function (q, ctx) {
@@ -41,7 +46,7 @@
       <p class="fine">${A.PUBLIC_NOTE}</p><div class="ans"></div></div>`;
     const ta = el.querySelector("textarea"), ctx = () => (typeof o.context === "function" ? o.context() : o.context) || "";
     const go = home => { const q = ta.value.trim(); if (!q) { ta.focus(); return; }
-      window.open(home ? A.homeUrl(q, ctx()) : A.workUrl(o.topic, q, ctx()), "_blank", "noopener");
+      newTab(home ? A.homeUrl(q, ctx()) : A.workUrl(o.topic, q, ctx()));
       if (!home) [20, 60, 180].forEach(s => setTimeout(answers, s * 1000)); };
     el.querySelector("button.work").onclick = () => go(false);
     el.querySelector("button.home").onclick = () => go(true);

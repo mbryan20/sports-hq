@@ -14,7 +14,8 @@ class WhatsNew(unittest.TestCase):
     def test_every_item_says_what_why_notice_and_undo(self):
         d = json.loads((DOCS / "data/whatsnew.json").read_text(encoding="utf-8"))
         ns = [x["n"] for x in d["items"]]
-        self.assertEqual(ns, list(range(1, len(ns) + 1)))
+        self.assertEqual(sorted(ns), list(range(1, len(ns) + 1)))
+        self.assertEqual(ns, sorted(ns, reverse=True))          # newest first
         for x in d["items"]:
             for k in ("title", "changed", "why", "notice", "undo", "area", "date"):
                 self.assertTrue(x.get(k), (x["n"], k))
