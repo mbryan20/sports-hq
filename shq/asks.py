@@ -21,11 +21,15 @@ KEEP = 20            # answers kept per league (older ones stay in the GitHub is
 MAX_ANSWER = 6000    # characters shown on the page
 
 
+# pages with an Ask box that aren't leagues (docs/lib/ask.js, Nov 14): their answers show under their own box
+TOPICS = ["Pool Picks", "Players", "What's new"]
+
+
 def leagues():
     try:
-        return list(json.loads(LINEUPS.read_text(encoding="utf-8"))["leagues"])
+        return list(json.loads(LINEUPS.read_text(encoding="utf-8"))["leagues"]) + TOPICS
     except Exception:
-        return []
+        return list(TOPICS)
 
 
 # Screenshots (Nov 12): pasted or dropped into the GitHub issue box, they land in the body as Markdown or <img> links on

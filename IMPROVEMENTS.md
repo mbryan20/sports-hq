@@ -1252,6 +1252,20 @@ Measure (the health.json check that should move), Design, Decision.
 ## Done
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
 
+### Q-066 · Player views explained, ROS ranks, handcuff rule 14, Ask at home
+- **Status:** built Sat Nov 14 morning at Michael's request (via Claude Ops: "I don't know what all I am looking at here ...
+  at least 20 improvements ... Rest of season rankings and thoughts"). 25 items, listed on docs/whats-new/ (data/whatsnew.json).
+- **Handcuffs (fantasy rule 14):** warroom/model.js counts a 12% weekly miss chance for every starting RB (25% Q, 75% D) with a
+  same-team backup filling in at his own average from the weeks the starter missed; a handcuff is dropped only when the add's
+  lineup points are 2x his insurance and the move costs nothing this week (handcuffCheck, shown in the bids table, Try a move
+  and bids.json handcuff_check). Football card code: shq/waivers.py cuff_check, shq/swap.py handcuff_of.
+- **Explained:** ? on every War Room and Players column; player cards; ROS ranks tab; docs/data/ros.json (FantasyPros ROS
+  consensus snapshot, Nov 12-14; not refreshed automatically yet).
+- **Ask:** docs/lib/ask.js and move.js: "Ask at work (GitHub, public)" and "Ask at home (private)" (claude.ai/new?q= prefill).
+  Pool Picks has a key for the CHANGE lines and its own Ask box.
+- Not verified: the home button with a signed-in claude.ai (link built per Anthropic's support article); ros.json goes stale
+  until a job refreshes it.
+
 ### Q-046 · Site polish: wrap-up cuts mid-word and margins off by 0.1, stale picks card unlabeled, small phone taps
 - **Status:** verified (ae9cd9f)
 - **Area:** `shq/wrapup_render.py` (`short`), `shq/wrapup.py` (`margin`, `h2h_line`), `docs/wrapups/` (index, weeks 8-9

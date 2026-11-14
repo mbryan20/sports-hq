@@ -155,7 +155,8 @@ def _room(league, fa, used, spots, keep=None):
         try:
             bench = [b for b in league.bench if b["id"] not in used and _key(b["name"]) not in (keep or ())]
             found = waivers.adds(league.starters, bench, [fa], league.slots,
-                                 dynasty=bool(getattr(league, "dynasty", False)), limit=1)
+                                 dynasty=bool(getattr(league, "dynasty", False)), limit=1,
+                                 guillotine=getattr(league, "format", None) == "guillotine")   # rule 14: survive first
             drop = found[0]["drop"] if found else None
         except Exception:
             traceback.print_exc()

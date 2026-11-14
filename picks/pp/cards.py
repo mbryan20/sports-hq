@@ -815,6 +815,23 @@ def old_card_html(meta):
             "<script>(function(){var b=document.getElementById('oldcard');"
             "if(b&&Date.now()>=Date.parse(b.getAttribute('data-over'))){b.hidden=false;document.body.classList.add('oldcard');}})();</script>")
 
+# How to read the CHANGE lines, and an Ask box (Nov 14). Michael: "Not sure based on the quick detail and don't see a way
+# to ask about it". Plain words for the shorthand, then Ask at work (GitHub, public) or at home (private claude.ai chat):
+# docs/lib/ask.js. Answers file under "Pool Picks" (shq/asks.py TOPICS).
+READ_HTML = """<details class="howto"><summary>How to read the CHANGE lines</summary><ul>
+<li><b>CHANGE: yours X → card Y</b>: the pick you saved on the pool site (X) differs from today's card (Y). Nothing changes until you change it on the pool site.</li>
+<li><b>Pool -13.5 vs market -16.5</b>: the pool fixed its line when it posted the games; the betting market's line today is in the second number. When the market moved past the pool's line, the pool is giving you free points (here 3).</li>
+<li><b>cover 59%</b>: the chance the pick wins at the pool's line, from the market line plus a small model adjustment. 50% is a coin flip; 55%+ is worth a pick.</li>
+<li><b>Market Oklahoma 56%</b>: the betting market's chance that team wins outright.</li>
+<li><b>80% of group on Ole Miss</b>: the share of the Yahoo pool picking that side. In a pool you need to beat other players, so a slight favourite most of them fade gains you the most when it wins.</li>
+<li><b>dropped: ... market -14</b>: why your saved pick lost its edge (news, then the line it moved to).</li>
+<li><b>Win % model/mkt</b> (tables): our stats model's chance / the betting market's. The card leans on the market, which picked more winners in our backtest (75% vs 70%).</li>
+<li>Tap a game row (▸) for the full breakdown: lines over the week, injuries, matchups and weather.</li></ul></details>
+<div id="askpicks"></div><script src="../lib/ask.js"></script><script>SHQASK.mount(document.getElementById('askpicks'),{topic:'Pool Picks',
+placeholder:'e.g. Why did we switch from Alabama to Boise State? Does the travel delay matter?',
+context:function(){var a=[].map.call(document.querySelectorAll('ul.alerts li'),function(x){return x.textContent});return a.length?'CHANGE lines on screen:\\n'+a.join('\\n')+'\\n':''}});</script>
+"""
+
 
 def render(cards, meta, games=()):
     def pct(x):
@@ -853,11 +870,12 @@ tr.bdr>td{{padding:0 0 8px;background:var(--bd)}}.bd{{padding:4px 6px;font-size:
 .bd h4{{font-size:11px;margin:10px 0 2px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}}.bl{{font-weight:600}}
 table.mt th,table.ag th{{width:auto}}table.mt th:nth-child(1){{width:36%}}table.mt td{{padding:2px}}tr.sh td{{font-weight:700;color:var(--mut);padding-top:6px}}
 table.ag th:nth-child(1){{width:21%}}table.ag th:nth-child(2){{width:39%}}table.ag th:nth-child(4){{width:15%}}.g{{color:var(--acc)}}.r{{color:var(--red)}}
-ul.alerts{{color:var(--red);font-weight:600;margin:8px 0}}.ck{{margin:2px 0 6px}}
+ul.alerts{{color:var(--red);font-weight:600;margin:8px 0}}details.howto{{margin:4px 0 8px;font-size:12px}}details.howto summary{{cursor:pointer;color:var(--acc);font-weight:600}}.ck{{margin:2px 0 6px}}
 </style></head><body><p class="meta"><a href="../">&larr; Sports HQ</a></p><h1>Pool Picks <span class="stage">{html.escape(meta['stage_label'])}</span></h1>
 <p class="meta">{html.escape(meta['week_label'])} · updated {html.escape(meta['generated'])}{(' · breakdowns ' + html.escape(meta['breakdowns'])) if meta.get('breakdowns') else ''}</p>
 {old_card_html(meta)}
 {checks_html(meta)}
+{READ_HTML}
 {''.join(body)}
 {GAPS_HTML}
 <script src="changes.js" defer></script>

@@ -278,12 +278,14 @@
       else if (t.dataset.less != null) { st.pairs.length = 1; st.q[1] = ""; draw(); run(); }
       else if (t.dataset.reset != null) { st.pairs = [{ add: null, drop: "" }]; st.q = ["", ""]; draw(); run(); }
       else if (t.dataset.ask != null) ask();
+      else if (t.dataset.askhome != null) ask(true);
     });
     if ($a) askDraw();
     function askDraw() {
       $a.innerHTML = `<label for="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}">Ask Claude about ${esc(name)}</label>
         <textarea id="mvq-${esc(SHQ.slug ? SHQ.slug(name) : name)}" data-askq rows="2" placeholder="e.g. Is he worth adding this week while nobody else wants him?">${esc(st.draft)}</textarea>
-        <div class="mv-row"><button class="mv-btn go" data-ask>Ask</button><span class="mv-fine">For news and gut calls the numbers can't settle. Opens GitHub with your question filled in: tap <b>Create</b>. <b>Screenshots:</b> paste (Ctrl+V) or drag them into GitHub's text box before you tap Create (on a phone, use its attach button); Claude looks at each one. The answer shows here in a few minutes. Questions, screenshots and answers are public on GitHub, like Feedback: sports only.</span></div>
+        <div class="mv-row"><button class="mv-btn go" data-ask>Ask at work (GitHub, public)</button><button class="mv-btn" data-askhome>Ask at home (private)</button></div>
+        <p class="mv-fine">For news and gut calls the numbers can't settle. <b>At work (GitHub):</b> anyone can read GitHub questions, screenshots and answers, so sports only. It opens GitHub with your question filled in: tap <b>Create</b>. <b>Screenshots:</b> paste (Ctrl+V) or drag them into GitHub's text box before you tap Create (on a phone, use its attach button); Claude looks at each one. The answer shows here in a few minutes. <b>At home (private):</b> opens a new claude.ai chat with your question, the move on screen and this page filled in; tap send. Only you see it, and the answer stays in that chat (claude.ai is blocked at work).</p>
         <div class="mv-answers"></div>`;
       answers();
     }
@@ -302,12 +304,19 @@
     }
     M.refreshAnswers = M.refreshAnswers || {};
     M.refreshAnswers[name] = () => $a && answers();
-    function ask() {
+    function ask(home) {
       const q = String(st.draft || "").trim();
       if (!q) { const ta = $a.querySelector("textarea"); ta && ta.focus(); return; }
       const move = st.pairs.filter(p => p.add).map(p => { const a = byId(p.add), d = byId(p.drop || p.autoDrop); return `add ${a ? a.name : p.add}${d ? ", drop " + d.name : ""}`; }).join("; ");
       const verdict = st.result ? `${M.WORD[st.result.verdict]} (${st.result.head})` : "";
       const body = `${q}\n\n---\nLeague: ${name}\n` + (move ? `Move on screen: ${move}${verdict ? " → " + verdict : ""}\n` : "") + `Page: ${typeof location !== "undefined" ? location.href.split("#")[0] : ""}\n`;
+      if (home) {     // private claude.ai chat (Nov 14): same text, no GitHub; docs/lib/ask.js builds the link when loaded
+        const ctx = `League: ${name}\n` + (move ? `Move on screen: ${move}${verdict ? " → " + verdict : ""}\n` : "");
+        const u = window.SHQASK && SHQASK.homeUrl ? SHQASK.homeUrl(q, ctx)
+          : "https://claude.ai/new?" + new URLSearchParams({ q: `Sports HQ question (private chat).\n\n${q}\n\n---\n${ctx}Page: ${location.href.split("#")[0]}` });
+        window.open(u, "_blank", "noopener");
+        return;
+      }
       const title = `Ask: ${name}: ${q.replace(/\s+/g, " ").slice(0, 70)}`;
       const u = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title, body, labels: "ask" });
       // the clipboard is left alone so a screenshot he just copied can be pasted on GitHub (Nov 12); only a question too

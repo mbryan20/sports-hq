@@ -159,7 +159,8 @@ class WarRoomTryMove(unittest.TestCase):
         got = self.js(D, "S.sims = 2000; const a = tryMove(['ace'], ['m11']), b = tryMove(['dud'], ['m6']);"
                          "[a.verdict, a.g1, a.weeks.length, a.adds[0].status, b.verdict, a.reasons.join(' ')]")
         self.assertEqual(got[0], "worth")
-        self.assertEqual(got[1], 0)                          # his bye week: no change this week
+        self.assertLess(abs(got[1]), 2)                      # his bye week: no lineup change this week, only the injury cover
+                                                             # the dropped TE gave (rule 14 model: a starting RB may miss)
         self.assertEqual(got[2], 4)
         self.assertEqual(got[3], "free")
         self.assertEqual(got[4], "not")

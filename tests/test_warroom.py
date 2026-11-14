@@ -271,7 +271,7 @@ class BidRules(unittest.TestCase):
 
     def test_k_or_def_add_keeps_a_usable_rb(self):
         players = {f"r{i}": {"pw": [15] * 4} for i in range(1, 5)}
-        players.update({"bh": {"a": 11.9, "pw": [8.1] * 4}, "cin": {"p": "DEF", "pw": [6.6] * 4}, "kk": {"p": "K", "pw": [7] * 4},
+        players.update({"bh": {"a": 11.9, "pw": [8.1] * 4, "t": "Y"}, "cin": {"p": "DEF", "pw": [6.6] * 4}, "kk": {"p": "K", "pw": [7] * 4},
                         "min": {"p": "DEF", "pw": [7] * 4}, "rb9": {"pw": [9] * 4}})
         D = self.league(None, roster=["r1", "r2", "r3", "r4", "bh", "cin", "kk"], players=players)
         # bench RB and the old DEF both cost 0 lineup points; the RB is first, so he went before (Breece Hall, Nov 10)

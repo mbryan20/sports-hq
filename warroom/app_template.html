@@ -37,7 +37,7 @@ h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 4px;lett
 h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px;font-weight:600}
 .sub{color:var(--muted);font-size:13px}
 .kpis{display:flex;flex-wrap:wrap;gap:8px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 12px;min-width:96px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 12px;min-width:96px;font:inherit;color:inherit;text-align:left;cursor:pointer}
 .kpi b{display:block;font-family:var(--display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
 .kpi span{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 .callout{background:var(--accent-soft);border-left:4px solid var(--accent);padding:12px 14px;border-radius:4px;display:grid;gap:4px}
@@ -80,6 +80,15 @@ svg text{fill:var(--muted);font-family:var(--mono);font-size:10px}
 .sw{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px}
 select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* tap-to-explain (Nov 14) */
+button.qx{font:600 10px/1 var(--body);width:16px;height:16px;padding:0;border-radius:50%;border:1px solid var(--muted);background:transparent;color:var(--muted);cursor:pointer;vertical-align:middle;text-transform:none;letter-spacing:0}
+@media (pointer:coarse){button.qx{width:22px;height:22px;font-size:12px}}
+#xpop{position:absolute;z-index:10000;background:var(--panel);color:var(--ink);border:1px solid var(--accent);border-radius:8px;padding:10px 30px 10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.25);font-size:13px;line-height:1.45;text-transform:none;letter-spacing:0;white-space:normal}
+#xpop p{margin:4px 0}#xpop .xclose{position:absolute;top:4px;right:6px;border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer}
+#xpop .wks{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0;align-items:baseline}#xpop .wks b{width:100%;font-size:12px}
+#xpop .wks span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:4px;padding:1px 4px}#xpop .wks i{font-style:normal;color:var(--muted);margin-right:3px}
+button.pname{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;text-align:left}
+.hcbox{white-space:normal;font-size:12px;margin-top:4px;padding:6px 8px;border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:3px;max-width:46ch}
 .opts div{white-space:nowrap;font-variant-numeric:tabular-nums}.opts .best{font-weight:600;color:var(--good)}
 .bidbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:4px 0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -135,6 +144,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
     <main style="display:grid;gap:14px;min-width:0">
       <nav class="tabs" aria-label="Views">
         <a href="#bids">Week <span class="wk">?</span> bids</a>
+        <a href="#ros">ROS ranks</a>
         <a href="#forecast">Elimination forecast</a>
         <a href="#rivals">Rivals</a>
         <a href="#market">Bid market</a>
@@ -163,6 +173,19 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
         </div>
       </section>
 
+      <section class="view" id="v-ros" hidden>
+        <div class="panel">
+          <h2>Rest-of-season ranks: your roster</h2>
+          <p class="sub" style="margin:0 0 10px">Every player you have, by position: his rest-of-season rank, a tier, what he projects per game for the weeks left, and one line on why. Tap a name for his week-by-week card.</p>
+          <div class="scroll"><table id="rosT"></table></div>
+        </div>
+        <div class="panel">
+          <h2>Realistic adds</h2>
+          <p class="sub" style="margin:0 0 10px">This week's best free agents and freed players for your team (the top of the bids table), ranked the same way.</p>
+          <div class="scroll"><table id="rosA"></table></div>
+          <p class="note" id="rossrc"></p>
+        </div>
+      </section>
       <section class="view" id="v-forecast" hidden>
         <div class="panel">
           <h2>Who gets cut, week by week</h2>
@@ -203,6 +226,8 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
           <p><b>Elimination.</b> Each simulated week adds random noise (the swing) to every team's projection and cuts the lowest. The swing is measured from how far real scores landed from projections, and grows by about 1¼ points per week further out. Odds come from thousands of simulated seasons. A point in a near week counts more than one late in the season, because you have to survive the near week to use the late one.</p>
           <p><b>Value.</b> The league is winner-take-all, so a player is worth the odds of winning he adds, after dropping your least useful player. That is turned into dollars at the "$ per point of win odds" rate.</p>
           <p><b>Bids.</b> The model guesses the top rival bid (rivals who'd start him, scaled by their boldest past bid as a share of budget). That guess is checked against every past claim to get the chance a given bid wins. Your bid is the amount with the best chance &times; (value &minus; bid). All bids together stay under FAAB minus the reserve, and no two share a drop.</p>
+          <p><b>Injuries and handcuffs (Nov 14, your rule 14).</b> Projections assume every starter plays, so each week also counts a small chance (12%, Claude's estimate for a typical RB; 25% if he's Questionable, 75% if Doubtful) that each starting RB misses the game. If he does, a backup RB from his own NFL team on your roster (his handcuff) scores what he scored in the weeks the starter missed this season, else 85% of the starter's projection. This applies to every team. A handcuff is dropped only when the add's lineup points are at least 2× his insurance over the season and the move costs nothing this week (survive first); never while his starter is hurt. Any drop of a handcuff shows the side-by-side.</p>
+          <p><b>Words used here.</b> <b>FAAB</b>: your waiver budget. <b>Freed</b>: players the cut team had, on waivers until the run. <b>Cut risk</b>: chance of the lowest score this week. <b>Win odds</b>: chance you're last standing. <b>ROS</b>: rest of season. <b>Handcuff</b>: a backup who starts if your starter gets hurt. <b>Backup claim</b>: a claim that only runs if the one above it with the same drop loses. Tap any <b>?</b> on the page for the column it sits in.</p>
           <p><b>Limits.</b> These are simple projections from real 2026 results, not expert rankings. They miss role changes, trades and matchups, and the sim doesn't re-assign freed players. Use them to compare options, not as exact numbers.</p>
         </div>
       </section>
@@ -210,6 +235,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
   </div>
 </div>
 
+<script src="../lib/ask.js"></script>
 <script src="../lib/move.js"></script>
 <script type="application/json" id="data">__DATA__</script>
 <script>

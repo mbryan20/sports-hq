@@ -9,11 +9,13 @@ points gap between a QB and a WR never does.
 - Different position: only when my lineup gains at least MIN_WINDOW_GAIN points over the window, and never
   if the drop leaves that position without a backup (POSITION_FLOOR).
 - Never dropped: anyone in my best lineup, and in dynasty any bench player worth STASH_VALUE or more.
-- Kickers and defenses are streamed: this week only, and they only replace each other."""
+- Kickers and defenses are streamed: this week only, and they only replace each other.
+- A handcuff (rule 14, fantasy-rules.md) is dropped only when the add clearly beats his injury insurance, and the
+  step then spells out the trade-off (cuff_check)."""
 from collections import Counter
 
-from .status import OUTISH
-from .swap import FLEX_SLOTS
+from .status import DEAD, OUTISH
+from .swap import FLEX_SLOTS, handcuff_of
 from .trades import lineup, primary, skill_slots
 
 STASH_VALUE = 750
@@ -26,6 +28,13 @@ INSURANCE_SF_QB = (0.12, 0.05)
 SCAN = 60                 # free agents considered, best score first
 # FAAB range by how much the add lifts my best lineup (points per game): (gain below, % of season budget)
 BID_TIERS = ((1, .01, .03), (2.5, .03, .08), (4, .08, .15), (float("inf"), .15, .25))
+# Rule 14 (fantasy-rules.md, Nov 14: "Braelon Allen is probably the only reason I survived this long"): handcuffs
+MISS_WEEK = 0.12          # Claude's estimate of a typical RB's weekly chance to miss a game
+MISS_TAG = {"D": 0.75, "Q": 0.25}   # this week's chance he misses, by his tag (Out/IR: already in the projections)
+CUFF_SHARE = 0.85         # backup's points as the starter, as a share of the starter's projection (no history)
+CUFF_HIST_MIN = 2         # weeks the starter sat that the backup's own average needs
+CUFF_MARGIN = 2.0         # the add's window gain must beat this many times the insurance
+CUFF_BLOCK = DEAD | {"Q"}  # starter tagged Q/D/Out/IR: his handcuff is never dropped
 
 
 def score(p, dynasty=False, rostered=False):
@@ -101,9 +110,101 @@ def _depth(drop, roster):
     return f"your {pos}{next(i for i, p in enumerate(same, 1) if p is drop)}"
 
 
-def adds(starters, bench, free_agents, slots, *, dynasty=False, open_spots=0, faab=None, budget=0, limit=3):
+def _pts(p, w):
+    """His projection for week w (None on a bye); per game when there are no week-by-week numbers."""
+    if w is None or not p.get("wk"):
+        return p.get("ppg", 0)
+    return dict(p["wk"]).get(w)
+
+
+def _as_starter(cuff, starter, w):
+    """(points, from history) the handcuff scores in a week his starter sits: his own average over past weeks the
+    starter didn't play ("hist": {week: points} for games each played, CUFF_HIST_MIN+ such weeks), else
+    CUFF_SHARE of the starter's projection that week."""
+    mine, his = cuff.get("hist") or {}, starter.get("hist") or {}
+    if mine and his:
+        played = {str(k) for k, x in his.items() if x is not None}
+        sat = [x for k, x in mine.items() if x is not None and str(k) not in played]
+        if len(sat) >= CUFF_HIST_MIN:
+            return sum(sat) / len(sat), True
+    return CUFF_SHARE * (_pts(starter, w) or 0), False
+
+
+def cuff_check(drop, roster, after, slots, weeks, guillotine=False):
+    """Rule 14: None when `drop` isn't a handcuff, else the side-by-side and whether the drop may go ahead ("ok").
+    Each week: the add's lineup gain, and the insurance the handcuff gives = chance his starter misses that week x
+    (my lineup with the handcuff starting − my lineup with whoever would start instead, from the roster after the
+    move). The drop goes ahead only when the add's gain over the window beats CUFF_MARGIN x the insurance, in the
+    guillotine also this week (surviving this week's cut beats upside), and never while the starter is tagged."""
+    starter = handcuff_of(drop, roster)
+    if starter is None:
+        return None
+    tag = starter.get("status")
+    rest = [q for q in after if q is not starter and q is not drop]
+    rows = []
+    for i, w in enumerate(weeks or [None]):
+        span = [w] if w is not None else []
+        gain = round(window_total(slots, after, span) - window_total(slots, roster, span), 1)
+        # this week's tag sets this week's chance; Out/IR is already in the projections
+        miss = (0.0 if tag in OUTISH else MISS_TAG.get(tag, MISS_WEEK)) if i == 0 else MISS_WEEK
+        est, from_hist = _as_starter(drop, starter, w)
+        row = {"week": w, "gain": gain, "miss": miss, "est": est, "hist": from_hist, "ins": 0.0, "instead": None}
+        if _pts(starter, w) is not None:   # their bye: nothing to cover
+            at = lambda qs: [{**q, "ppg": _pts(q, w) or 0} for q in qs if primary(q)]
+            without, wo_picks = lineup(slots, at(rest))
+            with_cuff, w_picks = lineup(slots, at(rest) + [{**drop, "ppg": est}])
+            row["ins"] = round(miss * max(0.0, with_cuff - without), 2)
+            ids = {q["id"] for _, q in w_picks}
+            row["instead"] = next((q for _, q in wo_picks if q["id"] not in ids), None)
+            row["starts"] = any(q["id"] == drop["id"] for _, q in w_picks)
+        rows.append(row)
+    gain, ins = sum(r["gain"] for r in rows), sum(r["ins"] for r in rows)
+    blocked = tag in CUFF_BLOCK or bool(starter.get("conflict"))
+    ok = (not blocked and gain > CUFF_MARGIN * ins
+          and (not guillotine or rows[0]["gain"] >= rows[0]["ins"]))
+    return {"ok": ok, "starter": starter, "cuff": drop, "rows": rows, "gain": round(gain, 1), "ins": round(ins, 1),
+            "blocked": blocked, "guillotine": guillotine}
+
+
+def cuff_text(c, fa):
+    """The rule 14 side-by-side in plain words, for a handcuff drop that passed cuff_check."""
+    cuff, st, rows = c["cuff"]["name"], c["starter"]["name"], c["rows"]
+    live = [r for r in rows if r.get("instead") is not None or r["ins"] > 0] or rows
+    est = sum(r["est"] for r in live) / len(live)
+    hist = f", his own average when {st} sat" if live[0]["hist"] else ""
+    risk = f"{rows[0]['miss']:.0%}/wk" if all(r["miss"] == MISS_WEEK for r in rows) else \
+        f"{c['starter'].get('status')} this week ({rows[0]['miss']:.0%}), then {MISS_WEEK:.0%}/wk"
+    risk += " risk, Claude's estimate of a typical RB's weekly chance to miss a game"
+    text = f"Drops a handcuff: {cuff} ~{est:.0f} pts/wk if {st} sits{hist} ({st}: {risk}); "
+    swap = next((r for r in rows if r.get("instead") is not None and r.get("starts")), None)
+    if swap:
+        who = swap["instead"]
+        text += f"without {cuff}, {who['name']} ({primary(who)}) starts ({who['ppg']:.1f})"
+    elif any(r.get("starts") for r in rows):
+        text += f"without {cuff}, nobody else is left to start in his place"
+    else:
+        text += f"{cuff} wouldn't crack your lineup even then"
+    n = len(rows)
+    when = f"over the next {n} weeks" if rows[0]["week"] is not None else "per game"
+    text += (f"; {fa['name']} adds " + ", ".join(f"{r['gain']:+.1f}" for r in rows) + f" {when}"
+             f" vs {c['ins']:.1f} pts of insurance from {cuff}; worth it because ")
+    ins = sum(r["ins"] for r in rows)   # unrounded: a tiny insurance is still "times", not "none"
+    if ins > 0:
+        text += (f"{fa['name']} gains about {c['gain'] / ins:.0f} times what {cuff} is worth as insurance "
+                 f"(the bar is {CUFF_MARGIN:.0f} times)")
+    else:
+        text += f"{cuff} gives no insurance: he wouldn't start for you even if {st} sat"
+    if c["guillotine"]:
+        r = rows[0]
+        text += f", and he helps more this week ({r['gain']:+.1f} vs {r['ins']:.1f}), which counts most for surviving the cut"
+    return text
+
+
+def adds(starters, bench, free_agents, slots, *, dynasty=False, open_spots=0, faab=None, budget=0, limit=3,
+         guillotine=False):
     """[{"fa", "drop" (None = open roster spot), "edge", "gain" (lineup ppg), "window" (lineup pts over the
-    window), "weeks", "role", "depth", "bid" (lo, hi) or None}], best first."""
+    window), "weeks", "role", "depth", "cuff" (rule 14 side-by-side when the drop is a handcuff, else None),
+    "bid" (lo, hi) or None}], best first. guillotine: a handcuff drop must also win this week (cuff_check)."""
     slots = skill_slots(slots)
     roster = [p for p in starters + bench if not p.get("empty")]
     mine = {id(p) for p in roster}
@@ -153,10 +254,13 @@ def adds(starters, bench, free_agents, slots, *, dynasty=False, open_spots=0, fa
                 # lineup points first; FantasyCalc value breaks ties and counts more in dynasty
                 rank = window + (fa.get("val", 0) - (drop.get("val", 0) if drop else 0)) / (250 if dynasty else 1000)
                 if best is None or rank > best["rank"]:
+                    cuff = cuff_check(drop, roster, after, slots, weeks, guillotine) if drop is not None else None
+                    if cuff and not cuff["ok"]:
+                        continue   # rule 14: keep the handcuff; the next-best drop wins, or no step
                     gain = round(lineup(slots, after)[0] - lineup(slots, roster)[0], 1)
                     best = {"fa": fa, "drop": drop, "edge": edge, "gain": gain, "window": window, "rank": rank,
                             "role": _role(slots, roster, after, fa, weeks),
-                            "depth": _depth(drop, roster) if drop else None}
+                            "depth": _depth(drop, roster) if drop else None, "cuff": cuff}
         if best is None:
             break
         fa, drop = best["fa"], best["drop"]
@@ -193,6 +297,8 @@ def line(a):
             bits.append(f"+{a['window']:g} pts over the next {a['weeks']} weeks")
         if bits:
             text += ": " + ", ".join(bits)
+        if a.get("cuff"):   # rule 14: a handcuff drop always shows its trade-off
+            text += ". " + cuff_text(a["cuff"], fa)
     if a["bid"]:
         lo, hi = a["bid"]
         text += f". Bid ${lo}" + (f"–{hi}" if hi != lo else "")

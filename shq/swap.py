@@ -128,13 +128,35 @@ def start_sit(starters, bench, limit=3, min_gain=1.0):
     return out
 
 
+def _skill_pos(p):
+    return next((x for x in p.get("positions") or [] if x in ("QB", "RB", "WR", "TE")), None)
+
+
+def handcuff_of(p, roster):
+    """The starter `p` backs up, or None. Rule 14 (fantasy-rules.md, Nov 14, Braelon Allen behind Breece Hall): a
+    handcuff is an RB with another RB on the same NFL team on my roster who projects higher rest of season ("ppg"
+    from values.annotate; this week's "proj" where there's none). That teammate is his starter."""
+    if _skill_pos(p) != "RB" or not p.get("team"):
+        return None
+    ros = lambda q: q.get("ppg", q.get("proj") or 0) or 0
+    team = str(p["team"]).upper()
+    return max((q for q in roster if q is not p and q["id"] != p["id"] and not q.get("empty")
+                and _skill_pos(q) == "RB" and str(q.get("team") or "").upper() == team and ros(q) > ros(p)),
+               key=ros, default=None)
+
+
 def fa_adds(roster, free_agents, limit=3):
-    """Top free agents by projected gain over your weakest rostered player at that position."""
-    worst = {}
+    """Top free agents by projected gain over your weakest rostered player at that position.
+    Rule 14: this list has no week-by-week projections to show a handcuff's trade-off, so a handcuff is never the
+    player named; a position whose only candidates are handcuffs gets no add."""
+    worst, cuffs = {}, set()
     for p in roster:
         pos = p["positions"][0] if p["positions"] else None
         # byes and injuries say nothing about whether he's droppable (think dynasty stashes)
         if p["bye"] or p["status"] in OUTISH:
+            continue
+        if handcuff_of(p, roster):
+            cuffs.add(pos)
             continue
         v = p["proj"]
         if pos and (pos not in worst or v < worst[pos][0]):
@@ -144,6 +166,8 @@ def fa_adds(roster, free_agents, limit=3):
         if fa["status"] in OUTISH or fa["bye"] or not fa["positions"]:
             continue
         pos = fa["positions"][0]
+        if pos in cuffs and pos not in worst:   # the only player he'd go "over" is a handcuff: keep him
+            continue
         base, who = worst.get(pos, (0.0, None))
         picks.append((fa["proj"] - base, fa, who))
     picks.sort(key=lambda t: -t[0])

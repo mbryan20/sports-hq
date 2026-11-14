@@ -39,7 +39,7 @@ main { padding: 10px 12px 80px; max-width: 1400px; margin: 0 auto; }
   color: var(--muted); font-weight: 700; padding: 6px 4px; text-align: right; cursor: pointer; user-select: none; white-space: nowrap; border-bottom: 1px solid var(--line); }
 .tbl th.l, .tbl td.l { text-align: left; }
 .tbl th[aria-sort] { color: var(--accent); }
-.tbl th[aria-sort="descending"]::after { content: " ▾"; } .tbl th[aria-sort="ascending"]::after { content: " ▴"; }
+.tbl th[aria-sort="descending"] .lb::after { content: " ▾"; } .tbl th[aria-sort="ascending"] .lb::after { content: " ▴"; }
 .tbl td { padding: 5px 4px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
 .tbl tr.row { cursor: pointer; }
 .tbl tr.row:hover td { background: var(--accent-soft); }
@@ -87,8 +87,31 @@ tr.more td { background: var(--card2); white-space: normal; text-align: left; pa
 .tray .row2 { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 body.trading .fbfab { display: none; }
 body.trading main { padding-bottom: 46vh; }
+/* explain: ⓘ on every column header opens a short plain-English note (the header text still sorts) */
+.tbl th .qi { border: none; background: none; color: var(--muted); font: inherit; font-size: 11px; font-weight: 400; padding: 8px 4px;
+  margin: -8px -2px -8px 0; line-height: 1; cursor: help; text-transform: none; vertical-align: 0; }
+.tbl th .qi:hover, .tbl th .qi[aria-expanded="true"] { color: var(--accent); }
+.pop { position: fixed; z-index: 40; width: max-content; max-width: min(340px, calc(100vw - 24px)); background: var(--card); color: var(--text);
+  border: 1px solid var(--accent); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.35); padding: 8px 30px 9px 11px;
+  font-size: 13px; line-height: 1.45; white-space: normal; text-align: left; }
+.pop .h { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); margin-bottom: 2px; }
+.pop .good { display: block; margin-top: 5px; color: var(--text); }
+.pop .good > b { color: var(--good); }
+.pop .x { position: absolute; top: 4px; right: 4px; border: none; background: none; color: var(--muted); font-size: 14px; padding: 2px 6px; }
+.intro { font-size: 12.5px; margin: 0 2px 6px; line-height: 1.45; }
+details.legend { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 6px 10px; margin-bottom: 8px; font-size: 12.5px; }
+details.legend summary { cursor: pointer; font-weight: 650; font-size: 13px; }
+details.legend ul { margin: 4px 0 2px; padding: 0; list-style: none; }
+details.legend li { padding: 4px 0; line-height: 1.4; border-top: 1px solid var(--line); }
+details.legend li:first-child { border-top: none; }
+details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; margin-right: 4px; }
+.tbl tr.mine td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+.tbl td.rr { line-height: 1.15; } .rr small { display: block; color: var(--muted); font-size: 10.5px; }
+.why { margin-top: 4px; }
 @media (max-width: 420px) { body .brand .tag { display: inline !important; font-size: 13px; } }
-@media (max-width: 760px) { .tbl td, .tbl th { padding-left: 3px; padding-right: 3px; } }
+@media (max-width: 760px) { .tbl td, .tbl th { padding-left: 3px; padding-right: 3px; }
+  .tbl th { letter-spacing: .01em; } .tbl th.wrap { white-space: normal; line-height: 1.15; }
+  .tbl th .qi { padding: 8px 4px; margin: -8px -4px -8px -2px; } }
 </style>
 </head>
 <body data-layout="Players" data-view="players">
@@ -155,6 +178,158 @@ body.trading main { padding-bottom: 46vh; }
   // today's status from the NBA injury report or Sleeper (shq/nba_status.py): our derived word only, the reason on hover
   const GD_WORD = { OUT: "Out", D: "Doubtful", Q: "Q", SUSP: "Susp" };
   const gdChip = p => p.gd ? ` <span class="chip ${/OUT|D|SUSP/.test(p.gd.s || "") ? "bad" : p.gd.s ? "q" : ""}" title="${esc(p.gd.t)}">${esc(GD_WORD[p.gd.s] || p.gd.t.split(" ")[0])} today</span>` : "";
+
+  // ---------- explain: what every column and mark means, in plain words ----------
+  // Facts come from the builders: shq/nba_values.py (Val, Wk, G, b2b, proj), shq/radar.py (▲▼ = last 3 games' minutes
+  // vs before, shown at 5+), shq/nfl_players.py (ROS, Wk, ranks, Experts, Value). tests/test_players_explain.py checks
+  // that every header column below has an entry here.
+  const teamsIn = L => +(((L.basis || "").match(/\((\d+) teams/) || [])[1]) || Object.keys(L.trade?.profiles || {}).length || 10;
+  const vAt = (L, rk) => L.players.find(p => p.rk === rk)?.v;
+  const SHADE = "Cell color: green = he helps you in this category (darker = more), red = he hurts you, no color = about average. Tap the column name to sort by his value in it.";
+  const RATIO_NOTE = "His value counts how many he takes too: a good shooter on many shots helps more than one on few, and a poor shooter on many shots hurts more.";
+  const CAT_HELP = {
+    PTS: "Points per game.", REB: "Rebounds per game.", OREB: "Offensive rebounds per game.", DREB: "Defensive rebounds per game.",
+    AST: "Assists per game.", STL: "Steals per game.", BLK: "Blocks per game.", "3PM": "Three-pointers made per game.",
+    "3PA": "Three-point shots tried per game.", FGM: "Shots made per game (field goals).", FGA: "Shots tried per game (field goals).",
+    FTM: "Free throws made per game.", FTA: "Free throws tried per game.",
+    TO: "Turnovers per game. Fewer is better: this category counts against you, so a low number shows green.",
+    "FG%": "Field-goal percentage: share of his shots that go in (.512 = 51.2%). " + RATIO_NOTE,
+    "FT%": "Free-throw percentage (.865 = 86.5%). " + RATIO_NOTE,
+    "3P%": "Three-point percentage (.380 = 38%). " + RATIO_NOTE,
+    "A/TO": "Assists per turnover. Higher is better; like the percentages, it counts how often he does it too.",
+    DD: "Double-doubles per game (10+ in two stats in one game).", TD: "Triple-doubles per game (10+ in three stats in one game).",
+  };
+  const HELP_NBA = {
+    rk: L => ({ t: "# (rank)", d: "His rank by Val (value per game) among every NBA player ESPN tracks, not just this list. 1 = most valuable. In Trade check mode this spot shows + to add him to a trade.",
+      g: `Lower is better. Top ${teamsIn(L)} = first-round level here; past #${L.n} = below what this league keeps on rosters.` }),
+    name: () => ({ t: "Player", d: "Name, then who has him: <b>yours</b>, <b>FA</b> (free agent: nobody has him, you can add him) or the other team's name. A colored tag is his injury status. Under the name: position · NBA team, and <b>proj</b> when his numbers are ESPN's projection (he has played fewer than 5 games). Tap the row for his full stat line.",
+      g: "Tap the column name to sort A to Z." }),
+    fit: () => ({ t: "Fit", d: `Shows only when you pick categories under “Helps in”. It adds up his value in just those categories (${esc(st.cats.join(" + ") || "none picked")}), to find help where your team is weak.`,
+      g: "Above 0 helps those categories on balance; higher is better." }),
+    v: L => ({ t: "Val (value per game)", d: `How much he helps your team per game across this league's ${L.cats.length} categories (${esc(L.cats.join(", "))}), compared with an average rostered player. Each category is scored by how far above or below that average he is, then the scores are added up. Stats are this season's averages after 5 games, ESPN's projection before that.`,
+      g: `Higher is better. 0 = an average rostered player. Here a top-${teamsIn(L)} player is about ${sgn(vAt(L, teamsIn(L)))}, and waiver level (the best player nobody would keep) is about ${sgn(L.repl)}.` }),
+    wk: L => ({ t: "Wk (this week)", d: `What he adds this week: (his Val minus a waiver player's ${sgn(L.repl)}) × his games left this week. 0 when he's out. So it rewards players with more games left.`,
+      g: "Higher is better. Green = worth more than a free pickup this week; use it to pick who plays." }),
+    g0: () => ({ t: "G (games)", d: "Games left this week · games next week. <b>1·3</b> = 1 game left in this matchup (games already started don't count), 3 next week. <b>b2b</b> = a back-to-back (games on two days in a row) in that stretch; teams sometimes rest players for one of them.",
+      g: "More games = more stats. 4 in a week is a lot; 2 is few." }),
+    min: () => ({ t: "Min (minutes)", d: "Minutes per game (this season, or ESPN's projection when the row says proj). <b>▲9</b> = his last 3 games averaged 9 more minutes than before; <b>▼6</b> = 6 fewer. Shown only for a change of 5+ minutes.",
+      g: "More minutes = more chances to put up stats. A ▲ often comes before his value goes up." }),
+    pct: () => ({ t: "Rost% (rostered)", d: "Share of ESPN fantasy leagues where a team has him, 0 to 100. It is not “rest of season”.",
+      g: "High = most people want him. A free agent with a high number may not last on waivers." }),
+  };
+  const thisWkSrc = L => ((L.basis || "").match(/^This week: (.+?) projections/) || [])[1] || "your league site's";
+  const HELP_NFL = {
+    rk: () => ({ t: "Rk (rest-of-season rank)", d: "His rank at his position by ROS points per game: <b>RB12</b> = the 12th-best running back. Ranked among every rostered player and the best free agents in this league. Kickers and defenses have no rest-of-season number, so they show –.",
+      g: "Lower is better. In a 10 to 12 team league, about the top 12 QBs and TEs and the top 24 to 30 RBs and WRs are starters." }),
+    name: () => ({ t: "Player", d: "Name, then who has him: <b>yours</b>, <b>FA</b> (free agent) or the other team's name. A colored tag is his injury status: Q = questionable, D = doubtful, OUT, IR = injured reserve (out for weeks), PUP = not cleared to practice yet. Under it: position · NFL team · this week's game (<b>vs</b> = at home, <b>@</b> = away) and kickoff time. Tap the row for more.",
+      g: "Tap the column name to sort A to Z." }),
+    ros: () => ({ t: "ROS (rest of season)", d: "Projected fantasy points per game over the next 4 weeks in your league's scoring (Sleeper's projections; bye weeks skipped; an IR player counts 0 for his 4-game minimum). QB, RB, WR and TE only.",
+      g: "Higher is better. The best single number for who to keep, add or trade for." }),
+    proj: L => ({ t: "Wk (this week)", d: `This week's projected points in your league's scoring, from ${esc(thisWkSrc(L))} projections (the same as your lineup page). <b>bye</b> = his team doesn't play this week.`,
+      g: "Higher is better. Use it to set this week's lineup." }),
+    wkrk: () => ({ t: "Wk rk (this week's rank)", d: "His rank at his position by this week's projection: <b>WR8</b> = 8th-best receiver this week. Sort by Wk for the same order.",
+      g: "Lower is better." }),
+    rr: () => ({ t: "ROS rank (experts)", d: `Rest-of-season rank and tier from outside expert rankings${rosSrcTxt()}: <b>RB31</b> = 31st running back for the rest of the season; under it, Claude's one-word tier from that rank and the latest news (Must start, Starter, Flex, Bench depth, Handcuff, Cut candidate). Tap the row for the reason.`,
+      g: "Lower is better. – = not in their rankings." }),
+    exp: () => ({ t: "Experts (this week)", d: "ESPN's fantasy experts' average rank for him at his position this week (usually about 8 experts, PPR scoring; QB, RB, WR, TE). Tap the row to see how many ranked him and their best-to-worst range.",
+      g: "Lower is better. <span class=\"pos\">Green</span> = the experts rank him 10+ spots better than our Wk rk (6+ for QB/TE), so he may beat his projection. <span class=\"neg\">Red</span> = they rank him that much worse." }),
+    explately: () => ({ t: "Exp lately", d: "The middle (median) of the experts' ranks for him over their last 3 weekly lists, skipping weeks he was out or on a bye. Handy before this week's list is out.",
+      g: "Lower is better." }),
+    fc: L => ({ t: "Value (trade value)", d: `FantasyCalc's ${L.dynasty ? "dynasty (long-term, so age matters)" : "redraft (this season only)"} trade value for your league's settings, based on real trades people make. Compare numbers only within this league.`,
+      g: "Higher = more trade value." }),
+    next: () => ({ t: "Next 4", d: "His projected points for each of the next 4 weeks, this week first. <b>bye</b> = no game that week.",
+      g: "Look for byes and easy or tough stretches." }),
+  };
+  function helpFor(L, col) {
+    if (L.kind === "nfl") return HELP_NFL[col]?.(L) || null;
+    if (/^c\d+$/.test(col)) { const c = L.cats[+col.slice(1)]; return { t: esc(c), d: CAT_HELP[c] || `${esc(c)} per game.`, g: (L.rev?.[+col.slice(1)] ? "Lower is better. " : "Higher is better. ") + SHADE }; }
+    return HELP_NBA[col]?.(L) || null;
+  }
+  // one header cell: the name sorts (when it can), the ⓘ explains
+  function hcell(c) {
+    const s = c.sort && st.sort === c.sort ? ` aria-sort="${st.dir < 0 ? "descending" : "ascending"}"` : "";
+    return `<th class="${c.cls || ""}" data-col="${c.col}"${c.sort ? ` data-sort="${c.sort}"` : ""}${s}${c.title ? ` title="${esc(c.title)}"` : ""}>`
+      + `<span class="lb">${c.label}</span><button class="qi" data-explain="${c.col}" aria-label="What is ${esc(c.label)}?" aria-expanded="false">ⓘ</button></th>`;
+  }
+  let pop = null, popY = 0;
+  function closePop() {
+    if (pop) { pop.remove(); pop = null; }
+    main.querySelectorAll(`.qi[aria-expanded="true"]`).forEach(b => b.setAttribute("aria-expanded", "false"));
+  }
+  function showPop(btn) {
+    const col = btn.dataset.explain, again = pop?.dataset.col === col;
+    closePop();
+    if (again) return;
+    const h = helpFor(cur(), col);
+    if (!h) return;
+    pop = document.createElement("div");
+    pop.className = "pop"; pop.setAttribute("role", "dialog"); pop.dataset.col = col;
+    pop.innerHTML = `<button class="x" data-popx aria-label="Close">✕</button><span class="h">${h.t}</span>${h.d}${h.g ? `<span class="good"><b>What's good:</b> ${h.g}</span>` : ""}`;
+    document.body.appendChild(pop);
+    const r = btn.getBoundingClientRect(), w = pop.offsetWidth, ht = pop.offsetHeight;
+    pop.style.left = Math.max(12, Math.min(innerWidth - w - 12, r.left + r.width / 2 - w / 2)) + "px";
+    pop.style.top = (r.bottom + 6 + ht > innerHeight - 8 && r.top - 6 - ht > 8 ? r.top - 6 - ht : r.bottom + 6) + "px";
+    btn.setAttribute("aria-expanded", "true"); popY = scrollY;
+  }
+  document.addEventListener("click", e => { if (pop && (e.target.closest("[data-popx]") || !e.target.closest(".pop, [data-explain], th"))) closePop(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closePop(); });
+  addEventListener("scroll", () => { if (pop && Math.abs(scrollY - popY) > 40) closePop(); }, { passive: true });
+  // "How to read this table": one line per mark, collapsed by default (st.legend remembers it open)
+  const legendHTML = lines => `<details class="legend"${st.legend ? " open" : ""}><summary>How to read this table</summary><ul>`
+    + lines.map(([k, t]) => `<li><span class="k">${k}</span>${t}</li>`).join("") + `</ul></details>`;
+  const LEGEND_NBA = L => [
+    [`<span class="qi">ⓘ</span>`, "Tap ⓘ by a column name for what it means. Tap the name to sort. Tap a row for his full stat line."],
+    [`<span class="pos">+2.1</span> <span class="neg">-1.4</span>`, `Val and Wk: green = better than an average rostered player (Val) or than a free pickup this week (Wk); red = worse.`],
+    ["1·3", "Games left this week · games next week."],
+    [`<span class="b2b">b2b</span>`, "Back-to-back: games on two days in a row coming up; he may sit one."],
+    [`<span class="tr-up">▲9</span> <span class="tr-dn">▼6</span>`, "Minutes up or down in his last 3 games vs before (changes of 5+ minutes only)."],
+    [`<span class="own me">yours</span>`, "Your player. His row also has a blue edge."],
+    [`<span class="own fa">FA</span>`, "Free agent: nobody has him, so you can add him."],
+    [`<span class="own tm">Team</span>`, "The other team that has him."],
+    [`<span class="chip q">DTD</span>`, "Day-to-day: hurt, may miss a game or two. <span class=\"chip bad\">Out</span> = out; Suspension = suspended. These are ESPN's tags."],
+    [`<span class="chip bad">Out today</span>`, "Today's status from the NBA's official injury report or Sleeper (Q = questionable, Probable = likely plays). Tap the row for the reason."],
+    ["proj", "He has played fewer than 5 games, so his numbers are ESPN's projection, not this season's averages."],
+    [`<span class="strip"><i class="z2"></i><i class="z1"></i><i></i><i class="zm2"></i></span>`, `Phone: the small boxes under a name are his ${L.cats.length} categories in order (${esc(L.cats.join(", "))}): green helps, red hurts. Wider screens show the numbers, shaded the same way.`],
+  ];
+  const LEGEND_NFL = () => [
+    [`<span class="qi">ⓘ</span>`, "Tap ⓘ by a column name for what it means. Tap the name to sort. Tap a row for more."],
+    ["RB12", "His rank at his position: the 12th-best running back. Lower is better."],
+    [`<span class="own me">yours</span>`, "Your player. His row also has a blue edge."],
+    [`<span class="own fa">FA</span>`, "Free agent: nobody has him, so you can add him."],
+    [`<span class="own tm">Team</span>`, "The other team that has him."],
+    [`<span class="chip q">Q</span> <span class="chip bad">OUT</span>`, "Injury status: Q = questionable, D = doubtful, OUT = out this week, IR = injured reserve (out for weeks), PUP = not cleared to practice yet."],
+    ["vs NE", "This week's game: vs = at home, @ = away, then kickoff time. <b>bye</b> = no game this week."],
+    [`<span class="pos">WR5</span> <span class="neg">WR40</span>`, "Experts column: green = ESPN's experts rank him 10+ spots better than our this-week rank (6+ for QB/TE); red = that much worse."],
+    ...(ros ? [[`RB31<small class="muted"> Flex</small>`, "ROS rank: outside experts' rest-of-season rank, with Claude's tier word under it (Must start … Cut candidate). Tap the row for why."]] : []),
+    ["–", "No number: not projected or not ranked."],
+  ];
+  // ---------- outside rest-of-season ranks (docs/data/ros.json; optional, the page works without it) ----------
+  let ros = null;
+  const rosKey = (name, pos) => String(name || "").toLowerCase().replace(/[^a-z]/g, "") + "|" + pos;
+  function rosFor(p) {
+    const P = ros?.players, n = p.name || "";
+    if (!P) return null;
+    return P[rosKey(n, p.pos)] || P[rosKey(n.normalize("NFD"), p.pos)] || P[rosKey(n.replace(/\s+(jr|sr|ii|iii|iv|v)\.?$/i, ""), p.pos)] || null;
+  }
+  const rosRankNum = r => { const m = String(r?.rank || "").match(/\d+/); return m ? +m[0] : null; };
+  const tierTxt = t => t == null || t === "" ? "" : /^\d+$/.test(String(t)) ? "T" + t : String(t).slice(0, 14);
+  const dayTxt = s => { if (!s) return ""; const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(s) ? s + "T12:00:00" : s);
+    return isNaN(d) ? String(s) : d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); };
+  const rosSrc = name => (ros?.sources || []).find(x => x.name === name);
+  const rosSrcTxt = () => { const s = (ros?.sources || []).map(x => esc(x.name) + (x.as_of ? ` (${esc(dayTxt(x.as_of))})` : "")).join(", ");
+    return s ? ` (${s})` : ""; };
+  const rrCell = r => !r || (!r.rank && !tierTxt(r.tier)) ? "–" : `${esc(r.rank || "–")}${tierTxt(r.tier) ? `<small>${esc(tierTxt(r.tier))}</small>` : ""}`;
+  function rosLine(p) {
+    if (!ros) return "";
+    const r = rosFor(p);
+    if (!r) return `<div class="why muted">Experts' rest of season: not in their rankings.</div>`;
+    const s = rosSrc(r.source), link = s && /^https?:\/\//.test(s.url || "") ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(r.source)}</a>` : esc(r.source || "");
+    return `<div class="why"><b>Experts' rest of season:</b> ${esc(r.rank || "unranked")}${r.tier != null && r.tier !== "" ? `, tier ${esc(r.tier)}` : ""}${r.why ? ` · ${esc(r.why)}` : ""}${r.basis ? ` <span class="muted">(${esc(r.basis)})</span>` : ""}
+      <br><span class="muted">${link ? `Source: ${link}${s?.as_of ? `, ${esc(dayTxt(s.as_of))}` : ""}` : ""}${r.news_date ? ` · news from ${esc(dayTxt(r.news_date))}` : ""}${r.dynasty ? ` · dynasty: ${esc(r.dynasty)}` : ""}</span></div>`;
+  }
+  // a plain word for where his rank sits in this league
+  const level = (L, p) => p.rk <= teamsIn(L) ? "first-round level" : p.rk <= L.n / 2 ? "top half of rostered players"
+    : p.rk <= L.n ? "bottom half of rostered players" : "waiver level: below what this league keeps";
   function detail(L, p) {
     const src = p.src === "season" ? `this season's averages (${p.gp} games)` : `ESPN's season projection (${p.gp} game${p.gp === 1 ? "" : "s"} played so far)`;
     const owner = p.own === "me" ? "yours" : p.own ? p.own : "free agent";
@@ -162,7 +337,7 @@ body.trading main { padding-bottom: 46vh; }
       <tr><th>per game</th>${L.cats.map((c, i) => `<td>${statTxt(c, p.st[i])}</td>`).join("")}</tr>
       <tr><th>value (z)</th>${L.cats.map((c, i) => `<td class="${zc(p.z[i])}">${sgn(p.z[i])}</td>`).join("")}</tr></table>`;
     return `<b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)}${p.age ? ` · age ${Math.floor(p.age)}` : ""} · ${esc(owner)}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
-      ${p.gd ? `Today: ${esc(p.gd.t)}<br>` : ""}Value ${sgn(p.v)} per game (#${p.rk}) · this week ${sgn(p.wk)} (${p.g[0]} game${p.g[0] === 1 ? "" : "s"} left${p.out ? ", out" : ""}; ${p.g[1]} next week${p.b2b ? `, ${p.b2b} back-to-back${p.b2b > 1 ? "s" : ""}` : ""})<br>
+      ${p.gd ? `Today: ${esc(p.gd.t)}<br>` : ""}Value ${sgn(p.v)} per game (#${p.rk}, ${level(L, p)}) · this week ${sgn(p.wk)} (${p.g[0]} game${p.g[0] === 1 ? "" : "s"} left${p.out ? ", out" : ""}; ${p.g[1]} next week${p.b2b ? `, ${p.b2b} back-to-back${p.b2b > 1 ? "s" : ""}` : ""})<br>
       ${p.min} min${p.dmin != null ? ` (last 3 games ${sgn(p.dmin)} vs before)` : ""} · ${p.pct}% rostered on ESPN · from ${src}
       ${cats}<a href="https://www.espn.com/nba/player/gamelog/_/id/${esc(p.id)}" target="_blank" rel="noopener">ESPN game log</a>`;
   }
@@ -214,7 +389,7 @@ body.trading main { padding-bottom: 46vh; }
       + `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
   }
   // ---------- football: rest-of-season and this-week ranks by position (shq/nfl_players.py) ----------
-  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name"];
+  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name", "rr"];
   // ESPN experts' consensus rank (shq/experts.py): green/red when they rank him far better/worse than our week rank
   const EXP_BIG = { QB: 6, TE: 6, RB: 10, WR: 10 };
   const expCls = p => { if (!p.exp_wk || !p.proj_rk) return ""; const g = p.proj_rk - p.exp_wk, b = EXP_BIG[p.pos] || 10;
@@ -228,11 +403,24 @@ body.trading main { padding-bottom: 46vh; }
       (st.who === "all" || (st.who === "fa" ? !p.own : st.who === "mine" ? p.own === "me" : p.own && p.own !== "me")) &&
       (!pos || p.pos === pos) && (!st.health || (st.health === "ok" ? !p.inj : !!p.inj)) &&
       (!q || p.name.toLowerCase().includes(q) || (p.team || "").toLowerCase() === q));
-    const val = (p, k) => k === "name" ? p.name : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
+    if (st.sort === "rr" && !ros) { st.sort = "ros"; st.dir = -1; }
+    const val = (p, k) => k === "name" ? p.name : k === "rr" ? (n => n ? -n : null)(rosRankNum(rosFor(p))) : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
     all.sort((a, b) => { const x = val(a, st.sort), y = val(b, st.sort);
       return typeof x === "string" ? st.dir * x.localeCompare(y) : st.dir * ((x ?? -1e9) - (y ?? -1e9)); });
     const shown = all.slice(0, st.limit), wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
-    const ncol = 7 + (wide ? 3 : 0);
+    const cols = [
+      { col: "rk", sort: "ros", label: "Rk", title: "Rest-of-season rank at his position" },
+      { col: "name", sort: "name", label: "Player", cls: "l" },
+      { col: "ros", sort: "ros", label: "ROS", title: "Rest of season: projected points per game (next 4 weeks, byes skipped)" },
+      ros && { col: "rr", sort: "rr", label: "ROS rank", cls: "wrap", title: "Outside experts' rest-of-season rank and tier" },
+      { col: "proj", sort: "proj", label: "Wk", title: "This week's projection" },
+      { col: "wkrk", label: "Wk rk", cls: "wrap", title: "This week's rank at his position" },
+      { col: "exp", sort: "exp", label: "Experts", title: "ESPN experts' consensus rank at his position this week" },
+      wide && { col: "explately", label: "Exp lately", cls: "wrap", title: "ESPN experts' median rank over their last 3 weekly ranks" },
+      wide && { col: "fc", sort: "fc", label: "Value", title: "FantasyCalc trade value" },
+      wide && { col: "next", label: "Next 4", cls: "l", title: "Next 4 weeks' projections" },
+    ].filter(Boolean);
+    const ncol = cols.length;
     const opt = (v, t, cur) => `<option value="${v}"${String(cur) === String(v) ? " selected" : ""}>${t}</option>`;
     const n1 = x => x == null ? "–" : Number(x).toFixed(1);
     const rk = (p, k) => p[k + "_rk"] ? `${p.pos}${p[k + "_rk"]}` : "–";
@@ -241,22 +429,23 @@ body.trading main { padding-bottom: 46vh; }
       <select data-f="who" aria-label="Who">${opt("all", "Everyone", st.who)}${opt("fa", "Available", st.who)}${opt("mine", "Mine", st.who)}${opt("taken", "Other teams", st.who)}</select>
       <select data-f="pos" aria-label="Position">${opt("", "All pos", pos)}${NFL_POS.map(x => opt(x, x, pos)).join("")}</select>
       <select data-f="health" aria-label="Health">${opt("", "Any health", st.health)}${opt("ok", "No injury tag", st.health)}${opt("inj", "Injury tag", st.health)}</select></div>`;
-    const head = `<tr>${th("ros", "Rk", "", "Rest-of-season rank at his position")}${th("name", "Player", "l")}
-      ${th("ros", "ROS", "", "Rest of season: projected points per game (next 4 weeks, byes skipped)")}${th("proj", "Wk", "", "This week's projection")}
-      <th title="This week's rank at his position">Wk rk</th>${th("exp", "Experts", "", "ESPN experts' consensus rank at his position this week")}${W(`<th title="ESPN experts' median rank over their last 3 weekly ranks">Exp lately</th>`)}${W(th("fc", "Value", "", "FantasyCalc value"))}${W(`<th class="l" title="Next 4 weeks' projections">Next 4</th>`)}</tr>`;
+    const head = `<tr>${cols.map(hcell).join("")}</tr>`;
     const body = shown.map(p => {
       const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}`;
       const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${rk(p, "ros")}</td>
         <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${/OUT|IR|D/.test(p.inj) ? "bad" : "q"}">${esc(p.inj)}</span>` : ""}</div><div class="sb">${sub}</div></td>
-        <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
+        <td class="v">${n1(p.ros)}</td>${ros ? `<td class="rr">${rrCell(rosFor(p))}</td>` : ""}<td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
         ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td><td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
       const more = st.open[p.id] ? `<tr class="more"><td colspan="${ncol}"><b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${p.own === "me" ? "yours" : p.own ? esc(p.own) : "free agent"}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
         Rest of season ${n1(p.ros)} per game (${rk(p, "ros")}) · this week ${p.opp === "BYE" ? "bye" : `${n1(p.proj)} (${rk(p, "proj")})`}${p.opp && p.opp !== "BYE" ? `, ${esc(p.opp)} ${esc(S.kick(p.kick))}` : ""}<br>
         Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}<br>
-        ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}</td></tr>` : "";
+        ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}${rosLine(p)}</td></tr>` : "";
       return tr + more;
     }).join("");
     main.innerHTML = `<div class="tabs">${tabsHTML()}</div>${filters}
+      <p class="intro"><b>ROS</b> = projected points per game for the next 4 weeks in your scoring; <b>Rk</b> = his rank at his position by it
+        (RB12 = 12th-best running back). <b>Wk</b> = this week's projection. Higher points and lower ranks are better. Tap <span class="muted">ⓘ</span> by any column for what it means.</p>
+      ${legendHTML(LEGEND_NFL(L))}
       <div class="summary"><span>${all.length} player${all.length === 1 ? "" : "s"}${all.length > shown.length ? `, showing ${shown.length}` : ""} · week ${L.week} · tap a row for his full line</span>
         <span>Built ${esc(S.kick(data.nflUpdated || data.updated))}</span></div>
       <table class="tbl"><thead>${head}</thead><tbody>${body || `<tr><td colspan="${ncol}" class="l muted">No player matches these filters.</td></tr>`}</tbody></table>
@@ -265,11 +454,8 @@ body.trading main { padding-bottom: 46vh; }
     const sel = main.querySelector(`[data-f="q"]`);
     if (focusQ) { sel.focus(); sel.setSelectionRange(sel.value.length, sel.value.length); focusQ = false; }
   }
-  function th(k, label, cls = "", title = "") {
-    const s = st.sort === k ? ` aria-sort="${st.dir < 0 ? "descending" : "ascending"}"` : "";
-    return `<th class="${cls}" data-sort="${k}"${s}${title ? ` title="${esc(title)}"` : ""}>${label}</th>`;
-  }
   function render() {
+    closePop();
     if (!data?.leagues || !leagues().length) { main.innerHTML = `<p class="note">No player values yet. They fill in on the next cloud run.</p>`; return; }
     const L = cur();
     if (L.kind === "nfl") return renderNFL(L);
@@ -295,12 +481,19 @@ body.trading main { padding-bottom: 46vh; }
         ${st.cats.length ? `<button class="clear" data-cat="">clear</button>` : ""}</div></div>`;
     // phone: key columns and a category heat strip under each name; the per-category numbers open with the row
     const wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
-    const ncol = 5 + (st.cats.length ? 1 : 0) + (wide ? 2 + L.cats.length : 0);
-    const catCols = W(L.cats.map((c, i) => th("c" + i, esc(c), "", `${c} per game; sorts by its value`)).join(""));
-    const head = `<tr>${th("v", "#", "", "Rank by value per game")}${th("name", "Player", "l")}${st.cats.length ? th("fit", "Fit", "", "Sum of the chosen categories' value") : ""}
-      ${th("v", "Val", "", "Value per game (z-scores, league categories)")}${th("wk", "Wk", "", "This week: value above a waiver-level player × games left")}
-      ${th("g0", "G", "", "Games left this week · next week")}${W(th("min", "Min", "", "Minutes per game; ▲▼ last 3 games vs before"))}${catCols}
-      ${W(th("pct", "Ros%", "", "% rostered on ESPN"))}</tr>`;
+    const cols = [
+      { col: "rk", sort: "v", label: "#", title: "Rank by value per game" },
+      { col: "name", sort: "name", label: "Player", cls: "l" },
+      st.cats.length && { col: "fit", sort: "fit", label: "Fit", title: "Sum of the chosen categories' value" },
+      { col: "v", sort: "v", label: "Val", title: "Value per game across the league's categories" },
+      { col: "wk", sort: "wk", label: "Wk", title: "This week: value above a waiver-level player × games left" },
+      { col: "g0", sort: "g0", label: "G", title: "Games left this week · next week" },
+      wide && { col: "min", sort: "min", label: "Min", title: "Minutes per game; ▲▼ last 3 games vs before" },
+      ...(wide ? L.cats.map((c, i) => ({ col: "c" + i, sort: "c" + i, label: esc(c), title: `${c} per game; sorts by its value` })) : []),
+      wide && { col: "pct", sort: "pct", label: "Rost%", title: "% of ESPN leagues where he's rostered" },
+    ].filter(Boolean);
+    const ncol = cols.length;
+    const head = `<tr>${cols.map(hcell).join("")}</tr>`;
     const inDeal = p => st.give.includes(p.id) || st.get.includes(p.id);
     const pickBtn = p => `<button class="tbtn" data-pick="${esc(p.id)}" aria-pressed="${inDeal(p)}" aria-label="Add to the trade">${inDeal(p) ? "✓" : "+"}</button>`;
     const body = shown.map(p => {
@@ -315,7 +508,12 @@ body.trading main { padding-bottom: 46vh; }
             + `<td>${Math.round(p.pct)}</td>`)}</tr>`;
       return tr + (st.open[p.id] ? `<tr class="more"><td colspan="${ncol}">${detail(L, p)}</td></tr>` : "");
     }).join("");
+    const top = teamsIn(L);
     main.innerHTML = `<div class="tabs">${tabs}</div>${filters}
+      <p class="intro"><b>Val</b> = how much a player helps you per game across this league's ${L.cats.length} categories, compared with an average
+        rostered player (0). Higher is better: here a top-${top} player is about ${sgn(vAt(L, top))}; waiver level is about ${sgn(L.repl)}.
+        Tap <span class="muted">ⓘ</span> by any column for what it means.</p>
+      ${legendHTML(LEGEND_NBA(L))}
       <div class="summary"><span>${all.length} player${all.length === 1 ? "" : "s"}${all.length > shown.length ? `, showing ${shown.length}` : ""}${st.cats.length ? ` who help ${esc(st.cats.join(" + "))} on balance (Fit)` : ""} · tap a row for his full line</span>
         <span>Values built ${esc(S.kick(data.updated))}</span></div>
       <table class="tbl"><thead>${head}</thead><tbody>${body || `<tr><td colspan="${ncol}" class="l muted">No player matches these filters.</td></tr>`}</tbody></table>
@@ -342,6 +540,10 @@ body.trading main { padding-bottom: 46vh; }
     const c = t.closest("[data-cat]");
     if (c) { const k = c.dataset.cat; st.cats = !k ? [] : st.cats.includes(k) ? st.cats.filter(x => x !== k) : [...st.cats, k];
       if (st.cats.length) { st.sort = "fit"; st.dir = -1; } save(); return render(); }
+    const qx = t.closest("[data-explain]");
+    if (qx) { e.preventDefault(); return showPop(qx); }
+    const nh = t.closest("th[data-col]:not([data-sort])");     // a column that can't sort: its name explains too
+    if (nh) return showPop(nh.querySelector("[data-explain]"));
     const h = t.closest("th[data-sort]");
     if (h) { const k = h.dataset.sort; st.dir = st.sort === k ? -st.dir : k === "name" ? 1 : -1; st.sort = k; save(); return render(); }
     if (t.closest("[data-more]")) { st.limit += 150; return render(); }
@@ -353,11 +555,13 @@ body.trading main { padding-bottom: 46vh; }
     if (!f || f === "q") return;
     st[f] = /^g\d$/.test(f) ? +e.target.value : e.target.value; st.limit = 150; save(); render();
   });
+  main.addEventListener("toggle", e => { if (e.target.matches?.("details.legend")) { st.legend = e.target.open; save(); } }, true);
   main.addEventListener("input", e => { if (e.target.dataset.f === "q") { st.q = e.target.value; focusQ = true; save(); render(); } });
   addEventListener("hashchange", () => data && render());
   matchMedia("(max-width: 760px)").addEventListener("change", () => data && render());
   S.start(async () => {
-    const [nba, nfl] = await Promise.all([S.loadFile("players"), S.loadFile("players_nfl")]);
+    const [nba, nfl, rs] = await Promise.all([S.loadFile("players"), S.loadFile("players_nfl"), S.loadFile("ros")]);
+    ros = rs && rs.players && typeof rs.players === "object" && Object.keys(rs.players).length ? rs : null;   // optional file
     if (nba || nfl) data = { updated: nba?.updated || nfl?.updated, nflUpdated: nfl?.updated,
                              leagues: { ...(nba?.leagues || {}), ...(nfl?.leagues || {}) } };
     render();

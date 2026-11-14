@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's new · Sports HQ</title>
+<meta name="theme-color" content="#0b0d12">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../lib/core.css">
+<style>
+/* What's new (Nov 14): every change Michael will see, readable on the work computer too, each with what changed, why,
+   what he'll notice and how to undo it, and an Ask button. Data: data/whatsnew.json (newest first). The same items go
+   to the Changes section of his HQ app. */
+main { padding: 10px 12px 80px; max-width: 900px; margin: 0 auto; }
+.intro { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; margin-bottom: 10px; font-size: 13.5px; line-height: 1.45; }
+.day { font-weight: 800; font-size: 15px; margin: 16px 2px 6px; }
+.it { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 9px 11px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.45; }
+.it h3 { margin: 0 0 4px; font-size: 14.5px; }
+.it h3 .n { color: var(--muted); font-weight: 700; margin-right: 4px; }
+.it dl { display: grid; grid-template-columns: 7.5em 1fr; gap: 2px 8px; margin: 0; }
+.it dt { color: var(--muted); font-size: 12px; font-weight: 700; padding-top: 1px; }
+.it dd { margin: 0; }
+.it .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; font-size: 12.5px; }
+.it .acts a, .it .acts button { font: inherit; font-weight: 600; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; }
+.filters button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 11px; font-size: 13px; font-weight: 600; color: var(--text); }
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.gl { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 12px; margin-top: 16px; font-size: 13.5px; }
+.gl summary { font-weight: 700; cursor: pointer; }
+.gl dl { display: grid; grid-template-columns: 9em 1fr; gap: 4px 10px; }
+.gl dt { font-weight: 700; } .gl dd { margin: 0; }
+@media (max-width: 520px) { .it dl, .gl dl { grid-template-columns: 1fr; } .it dt { padding-top: 4px; } }
+</style>
+</head>
+<body data-layout="What's new" data-view="whatsnew">
+<header class="topbar"><div class="row1">
+  <div class="brand"><h1><a href="../" style="color:inherit;text-decoration:none">Sports HQ</a></h1><span class="tag">What's new</span></div>
+  <div class="links"><a class="pill" href="../">Home</a><a class="pill hide-sm" href="../players/">Players</a>
+    <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
+</div></header>
+<main id="main"><p class="note">Loading…</p></main>
+<footer class="foot" data-foot></footer>
+<script src="../lib/core.js"></script>
+<script src="../lib/ask.js"></script>
+<script>
+"use strict";
+(function () {
+  const S = SHQ, esc = S.esc, main = document.getElementById("main");
+  let data = null, area = "all";
+  const GLOSSARY = [
+    ["ROS", "Rest of season: from this week to the end of the fantasy season."],
+    ["Projection (proj)", "Expected points this week (football) or per game (basketball), in your league's scoring. Sleeper's or ESPN's, as each page says."],
+    ["FAAB", "Your waiver budget. The highest bid wins a claim."],
+    ["Handcuff", "A backup RB who starts if your starter from the same NFL team gets hurt (Braelon Allen behind Breece Hall). Kept unless an add clearly beats the insurance he gives (your rule 14)."],
+    ["Cut risk", "Guillotine: the chance your score is the lowest this week, so you get cut."],
+    ["Win odds", "Guillotine: the chance you're the last team standing, from thousands of simulated seasons."],
+    ["VAL (basketball)", "How much a player helps your team per game across your league's categories, compared with a typical starter."],
+    ["b2b", "Back-to-back: his team plays two days in a row (he may sit one)."],
+    ["DTD / Q / Out", "Day-to-day or Questionable = may play; Out = won't; IR = on the injured list."],
+    ["Cover %", "Pool picks: the chance a pick wins against the pool's point spread."],
+    ["Market", "Betting odds (DraftKings via ESPN): the best single guess of what will happen."],
+    ["Pool line vs market", "The pool fixes its spread when it posts the games; when the market moves past it, the pool is giving free points."],
+  ];
+  function ctxFor(it) { return `About the What's new item "${it.title}" (${it.date}): ${it.changed}\n`; }
+  function draw() {
+    const items = (data.items || []).filter(x => area === "all" || x.area === area);
+    const areas = [...new Set((data.items || []).map(x => x.area))];
+    let html = `<div class="intro"><b>Every change you'll see on Sports HQ</b>, newest first: what changed, why, what you'll notice and how to undo it.
+      Tap <b>Ask about this</b> to ask Claude a question about one (at work: GitHub, public; at home: a private claude.ai chat). To undo one, ask "undo #N".
+      The same items are in the Changes section of your HQ app.</div>
+      <div class="filters">${["all", ...areas].map(a => `<button data-area="${esc(a)}" aria-pressed="${a === area}">${a === "all" ? "All" : esc(a)}</button>`).join("")}</div>`;
+    let day = "";
+    for (const it of items) {
+      if (it.date !== day) { day = it.date; html += `<div class="day">${esc(day)}</div>`; }
+      html += `<article class="it" id="n${esc(it.n)}"><h3><span class="n">#${esc(it.n)}</span>${esc(it.title)}</h3><dl>
+        <dt>What changed</dt><dd>${esc(it.changed)}</dd><dt>Why</dt><dd>${esc(it.why)}</dd>
+        <dt>You'll notice</dt><dd>${esc(it.notice)}</dd><dt>Undo</dt><dd>${esc(it.undo)}</dd></dl>
+        <div class="acts">${it.link ? `<a href="${esc(it.link)}">Open it →</a>` : ""}<button data-askn="${esc(it.n)}">Ask about this</button></div></article>`;
+    }
+    html += `<div id="ask"></div><details class="gl" open><summary>Words used on Sports HQ</summary><dl>${GLOSSARY.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl></details>`;
+    main.innerHTML = html;
+    let cur = null;
+    SHQASK.mount(document.getElementById("ask"), { topic: "What's new", placeholder: "e.g. What does the handcuff check do?", context: () => cur ? ctxFor(cur) : "" });
+    main.querySelectorAll("[data-area]").forEach(b => b.onclick = () => { area = b.dataset.area; draw(); });
+    main.querySelectorAll("[data-askn]").forEach(b => b.onclick = () => {
+      cur = (data.items || []).find(x => String(x.n) === b.dataset.askn);
+      const ta = document.querySelector("#ask textarea"); ta.value = `About #${cur.n} (${cur.title}): `; ta.focus();
+      document.getElementById("ask").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    if (location.hash) { const el = document.querySelector(location.hash); el && el.scrollIntoView(); }
+  }
+  fetch("../data/whatsnew.json?" + Date.now()).then(r => r.json()).then(d => { data = d; draw(); })
+    .catch(() => { main.innerHTML = `<p class="note">Couldn't load the list. Pull to refresh.</p>`; });
+})();
+</script>
+</body>
+</html>

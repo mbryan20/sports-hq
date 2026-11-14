@@ -95,7 +95,7 @@ def adds(league, starting=()):
         budget = 0 if getattr(league, "format", None) == "guillotine" else getattr(league, "faab_budget", 0)
         found = waivers.adds(league.starters, league.bench, league.free_agents, league.slots, dynasty=dynasty,
                              open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
-                             budget=budget)
+                             budget=budget, guillotine=getattr(league, "format", None) == "guillotine")
         return [waivers.line(a) for a in found] or ["No free agent improves your lineup, or beats a backup at his position, right now."]
     if getattr(league, "sport", "nfl") == "nba" and getattr(league, "values", None):
         league.swaps = nba_swaps.build(league, getattr(league, "cats", None), starting)
