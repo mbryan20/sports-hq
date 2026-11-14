@@ -32,6 +32,15 @@ CASES = [
     ("move Ajay Mitchell from IR, dropping Saddiq Bey", "ir|ajaymitchell"),
     ("Move Ajay Mitchell out of IR: ESPN lists him as active, so ESPN blocks adds and drops", "ir|ajaymitchell"),
     ("start Josh Allen over Bo Nix, then bench Nix", "start|joshallen|bonix"),
+    # the fantasy guards' real HQ step lines (HQ app, Nov 14)
+    ("add Tyler Allgeier, drop Dameon Pierce", "add|tylerallgeier|dameonpierce"),
+    ("drop Obi Toppin, add Jordan Goodwin (PHX), start him at UTIL over Dyson Daniels (no game)", "add|jordangoodwin|obitoppin"),
+    ("drop Saddiq Bey (27, no game today), add Paul Reed (DET), start him at F over Matisse Thybulle (no game)", "add|paulreed|saddiqbey"),
+    ("move Jarrett Allen (Day-to-day) from IR to bench, dropping Kevin Porter Jr. (unsigned)", "ir|jarrettallen"),
+    ("drop Kevin Porter Jr., move Brandin Podziemski from IR to bench", "ir|brandinpodziemski"),
+    ("optional: add Jerami Grant, start him at F over Franz Wagner (no ORL game)", "add jerami grant start him at f over franz wagner"),
+    ("move Travis Etienne Jr. to IR if a slot is open", "toir|travisetienne"),
+    ("Before 7:00 PM: add Tyler Allgeier, drop Dameon Pierce", "add|tylerallgeier|dameonpierce"),
 ]
 
 
@@ -56,6 +65,9 @@ class MatchingRule(unittest.TestCase):
         prog = "global.window={};" + js + ";console.log(JSON.stringify(" + json.dumps([c[0] for c in CASES]) + ".map(window.SHQSKIP.key)))"
         out = subprocess.run([node, "-e", prog], check=True, capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(json.loads(out.stdout), [c[1] for c in CASES])
+        prog = "global.window={};" + js + ";console.log(JSON.stringify(" + json.dumps([c[0] for c in CASES]) + ".map(window.SHQSKIP.names)))"
+        out = subprocess.run([node, "-e", prog], check=True, capture_output=True, text=True, encoding="utf-8")
+        self.assertEqual(json.loads(out.stdout), [decisions.names(c[0]) for c in CASES])
 
 
 class Skips(unittest.TestCase):
@@ -97,6 +109,22 @@ class Skips(unittest.TestCase):
             decisions.DECISIONS = old
         self.assertEqual(out, ["Add Ladd McConkey (WR) for Tre Tucker (WR)"])
         self.assertEqual(lg.skipped[0]["tag"], "You skipped this (Bad advice, Nov 14)")
+
+
+class Fallback(unittest.TestCase):
+    def test_same_players_match_when_no_pattern_fits(self):
+        p = write([{"league": "Ragonk Force", "sport": "basketball", "app": "ESPN",
+                    "move": "optional: add Jerami Grant, start him at F over Franz Wagner (no ORL game)", "reason": "notworth",
+                    "at": "2026-11-14T15:00:00Z"},
+                   {"league": "We playin basketball", "move": "move Jarrett Allen from IR to bench, dropping Kevin Porter Jr.",
+                    "at": "2026-11-14T15:00:00Z"}])
+        self.assertEqual(decisions.names("optional: add Jerami Grant, start him at F over Franz Wagner (no ORL game)"),
+                         ["jeramigrant", "franzwagner"])
+        self.assertTrue(decisions.skipped("3-Ball BB", "For BLK: Jerami Grant (ORL, 1.4 blk) over Franz Wagner", NOW, path=p))
+        self.assertFalse(decisions.skipped("3-Ball BB", "For BLK: Jerami Grant (ORL, 1.4 blk)", NOW, path=p))      # both names needed
+        self.assertFalse(decisions.skipped("3-Ball FB", "Jerami Grant over Franz Wagner", NOW, path=p))           # other sport
+        self.assertTrue(decisions.skipped("Ball is Life", "Move Jarrett Allen out of IR: ESPN lists him as active, so ...", NOW, path=p))
+        self.assertFalse(decisions.skipped("Ball is Life", "Start Jarrett Allen (CLE) over X at C", NOW, path=p))   # one name: no fallback
 
 
 class Wiring(unittest.TestCase):

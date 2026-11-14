@@ -13,7 +13,8 @@ MATCHING RULE (HQ writes `move` so it matches; same rule both sides):
   league: Sports HQ's league name or the app's own league name, letters and digits only, case ignored. App names:
           "Sunday's Best" = Domo Arigato, "Damon's Guillotine League 2026" (any name with "guill") = Guillotine,
           "3-Ball Dynasty League" = 3-Ball FB (sport football) or 3-Ball BB (sport basketball),
-          "Stempak Family and Friends 2026" = Stempak, "We playin basketball" = Ball is Life.
+          "Stempak Family and Friends 2026" = Stempak, "We playin basketball" = Ball is Life, his 3-Ball team name
+          "Ragonk Force" = 3-Ball FB or 3-Ball BB by sport.
   move:   reduced to a key, the action plus the players, so numbers, slots, times and reasons never matter:
     1. lowercase; drop anything in (...) or [...]; cut at the first " → ", ": ", " — ", ", +", " before ", "; ".
     2. "start A over B ..." / "play A over B"            -> "start|a|b"
@@ -23,6 +24,10 @@ MATCHING RULE (HQ writes `move` so it matches; same rule both sides):
        an NBA swap "First move X out of IR (...); then drop B (...), add A (...)" -> "add|a|b"
        "move A out of IR" / "move A from IR" / "activate A" (anything after, like ", dropping B") -> ir|A
        a name ends at ",", " and ", " then " or " to " ("drop B, add A, start him" -> add|A|B)
+       "drop B, move A from IR ..." -> ir|A;  "move A to IR ..." -> toir|A
+       a leading "optional:", "maybe:", "if needed:" or "before <time>:" is ignored
+    FALLBACK: no key match, but every player the skip names (two or more: from its key, else its runs of capitalized
+       words) appears in the line -> match. One-player skips (ir|A, toir|A) match by key only.
        anything else                                     -> its words (step 1 text, letters and spaces)
     3. names: letters only, without a trailing Jr/Sr/II/III/IV/V.
   Example: "start Devaughn Vele over Kaelon Black at SUPER_FLEX" and Sports HQ's
@@ -48,6 +53,41 @@ def _words(s):
     return re.sub(r"[^a-z]+", " ", s).strip()
 
 
+PREFIX = re.compile(r"^\s*(?:optional|maybe|if needed|before (?:[^:]*\d:\d\d[^:]*|[^:]+))\s*:\s*", re.I)
+
+
+def _clean(raw):
+    """Lowercased move text without (...)/[...], a leading "optional:"/"before ...:", or anything after the first cut."""
+    t = re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", raw)
+    t = PREFIX.sub("", t)
+    t = re.sub(r"^\s*first move .+?; then ", "", t)        # NBA swap after an IR fix: the swap is the move
+    t = CUTS.split(t)[0]
+    return re.sub(r"\s+", " ", t).strip(" .,")
+
+
+STOP = {"add", "drop", "start", "sit", "bench", "move", "play", "claim", "pick", "up", "optional", "maybe", "before", "then",
+        "him", "over", "for", "and", "at", "from", "to", "into", "ir", "dropping", "adding", "if", "a", "the", "is", "open",
+        "slot", "activate"}
+
+
+def names(text):
+    """Players a move names (letters only), for the fallback: from its key, else from its runs of capitalized words."""
+    k = move_key(text)
+    if "|" in k:
+        return [x for x in k.split("|")[1:] if x]
+    t = re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", str(text or ""))
+    t = PREFIX.sub("", t)
+    out, run = [], []
+    for w in re.findall(r"[A-Za-z][A-Za-z'.\-]*", t) + [""]:
+        if w and (w[0].isupper() or (run and SUFFIX.match(" " + w.lower()))) and w.lower().strip(".") not in STOP:
+            run.append(w)
+            continue
+        if len(run) >= 2:
+            out.append(_name(" ".join(run)))
+        run = []
+    return out
+
+
 def move_key(text):
     """The action and players a move names (see MATCHING RULE)."""
     raw = str(text or "").lower()
@@ -60,13 +100,16 @@ def move_key(text):
             fix = f"start|{_name(m.group(1))}|{_name(who.group(1))}"
     if fix:
         return fix
-    t = re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", raw)
-    t = re.sub(r"^\s*first move .+?; then ", "", t)        # NBA swap after an IR fix: the swap is the move
-    t = CUTS.split(t)[0]
-    t = re.sub(r"\s+", " ", t).strip(" .,")
+    t = _clean(raw)
     m = re.match(r"(?:move|activate) (.+?)(?: (?:out of|from|off) (?:the )?ir\b.*|,.*| and .*)?$", t)
-    if m and (" ir" in t or t.startswith("activate ")):
+    if m and re.search(r" (?:out of|from|off) (?:the )?ir\b", t) or t.startswith("activate "):
+        return f"ir|{_name(m.group(1))}" if m else _words(t)
+    m = re.match(r"drop .+?(?:,| and)? (?:move|activate) (.+?) (?:out of|from|off) (?:the )?ir\b", t)   # "drop B, move A from IR"
+    if m:
         return f"ir|{_name(m.group(1))}"
+    m = re.match(r"move (.+?) (?:to|into) (?:the )?ir\b", t)                                          # "move A to IR if a slot is open"
+    if m:
+        return f"toir|{_name(m.group(1))}"
     m = re.match(r"(?:start|play) (.+?) over (.+?)(?: at .*|,.*| and .*| then .*)?$", t)
     if m:
         return f"start|{_name(m.group(1))}|{_name(m.group(2))}"
@@ -90,7 +133,7 @@ def _league(s, sport=None):
     k = re.sub(r"[^a-z0-9]", "", str(s or "").lower())
     if "guill" in k:
         return "guillotine"
-    if k.startswith("3balldynasty") and SPORT.get(str(sport or "").lower()):
+    if (k.startswith("3balldynasty") or k == "ragonkforce") and SPORT.get(str(sport or "").lower()):   # his 3-Ball team name
         return "3ball" + SPORT[str(sport).lower()]
     return LEAGUE_ALIAS.get(k, k)
 
@@ -129,8 +172,20 @@ def active(now, path=None):
 
 
 def skipped(league, text, now, path=None):
-    """The skip entry this line matches, or None."""
-    return active(now, path).get((_league(league), move_key(text))) if text else None
+    """The skip entry this line matches, or None: the same key, or (fallback) every player the skip names (two or more)
+    appears in the line."""
+    if not text:
+        return None
+    act, lg = active(now, path), _league(league)
+    hit = act.get((lg, move_key(text)))
+    if hit:
+        return hit
+    flat = re.sub(r"[^a-z]", "", str(text).lower())
+    for (l, _), e in act.items():
+        ns = names(e["move"])
+        if l == lg and len(ns) >= 2 and all(n and n in flat for n in ns):
+            return e
+    return None
 
 
 def tag(e):
