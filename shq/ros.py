@@ -45,8 +45,16 @@ def _var(text, name):
     return json.JSONDecoder().raw_decode(text[m.end():])[0]
 
 
+CRAWL_DELAY = 5           # FantasyPros' robots.txt asks for 5 seconds between requests
+_last = [0.0]
+
+
 def _get(url):
     for i in range(3):
+        wait = _last[0] + CRAWL_DELAY - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        _last[0] = time.time()
         try:
             r = session.get(url, headers=UA, timeout=30)
             r.raise_for_status()
