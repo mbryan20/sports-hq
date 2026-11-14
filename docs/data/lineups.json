@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T18:02:20Z",
+ "updated": "2026-11-14T18:40:57Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -13,7 +13,7 @@
    "opponent": null,
    "opp_proj": null,
    "roster_synced": "2026-11-14T13:35:25Z",
-   "proj": 100.5,
+   "proj": 100.6,
    "starters": [
     {
      "slot": "QB",
@@ -119,7 +119,7 @@
      "opp": "vs MIA",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 10.7,
+     "proj": 10.8,
      "status": null,
      "why": "",
      "flags": [],
@@ -185,16 +185,16 @@
      "opp": "@CLE",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 7.6,
-     "status": "Q",
-     "why": "Yahoo: Questionable",
+     "proj": 0,
+     "status": "OUT",
+     "why": "Sleeper: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "exp": "RB22 this week, RB20 lately",
      "news": {
-      "note": "Montgomery (groin) is listed as questionable for Sunday's game against the Browns, while Woody Marks (knee) doesn't have an injury designation.",
-      "at": "2026-11-13T21:08:00Z",
+      "note": "Montgomery (groin) has been downgraded from questionable to out for Sunday's game against the Browns.",
+      "at": "2026-11-14T18:18:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -221,7 +221,7 @@
     }
    ],
    "advice": {
-    "matchup": "100.5 projected",
+    "matchup": "100.6 projected",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -260,7 +260,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    }
   },
   "Domo Arigato": {
@@ -695,7 +695,7 @@
     ],
     "adds": [
      "Add Dominic Zvada (K, NYG, 8.2 proj this week), drop Wil Lutz (0 proj). Bid $0\u20131",
-     "Add Indianapolis Colts (DEF, IND, 8.0 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131",
+     "Add Indianapolis Colts (DEF, IND, 8.1 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131",
      "Add Zonovan Knight (RB, ARI, 8.4/gm, value 534) for Jalen Nailor (WR, your WR10, 3.3/gm): fills in at RB in weeks 10, 11, +3.1 pts over the next 4 weeks. Bid $1\u20133"
     ],
     "trades": {
@@ -743,7 +743,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    }
   },
   "Guillotine": {
@@ -953,7 +953,7 @@
      "opp": "@CLE",
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
-     "proj": 8.2,
+     "proj": 8.7,
      "status": null,
      "why": "",
      "flags": [],
@@ -1085,7 +1085,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p",
+    "built": "Sat 12:40p",
     "guillotine": {
      "week": 10,
      "sims": 5000,
@@ -1113,7 +1113,7 @@
         "team": "LAC",
         "proj": 9.7,
         "gain": 3.3,
-        "cut_with": 0.056,
+        "cut_with": 0.057,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1128,22 +1128,7 @@
         "team": "BUF",
         "proj": 8.4,
         "gain": 2.0,
-        "cut_with": 0.061,
-        "freed_from": null,
-        "price": 0,
-        "max": 0,
-        "call": "add free",
-        "free": true,
-        "rivals": []
-       },
-       {
-        "name": "Malik Washington",
-        "sid": "11610",
-        "pos": "WR",
-        "team": "MIA",
-        "proj": 7.7,
-        "gain": 1.3,
-        "cut_with": 0.064,
+        "cut_with": 0.062,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1165,11 +1150,26 @@
         "call": "add free",
         "free": true,
         "rivals": []
+       },
+       {
+        "name": "Malik Washington",
+        "sid": "11610",
+        "pos": "WR",
+        "team": "MIA",
+        "proj": 7.6,
+        "gain": 1.2,
+        "cut_with": 0.064,
+        "freed_from": null,
+        "price": 0,
+        "max": 0,
+        "call": "add free",
+        "free": true,
+        "rivals": []
        }
       ],
       "freed": {
        "team": "GoodFellas (GoodFellas77)",
-       "cut": 0.224,
+       "cut": 0.226,
        "players": [
         {
          "name": "Rashee Rice",
@@ -1232,7 +1232,7 @@
          "team": "BUF",
          "proj": 16.7,
          "gain": 6.1,
-         "cut_with": 0.045,
+         "cut_with": 0.046,
          "freed_from": "GoodFellas (GoodFellas77)",
          "price": 33,
          "max": 2,
@@ -1279,22 +1279,22 @@
       {
        "name": "GoodFellas (GoodFellas77)",
        "proj": 123.8,
-       "cut": 0.224,
+       "cut": 0.226,
        "faab": 16,
        "bold": 0.74,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 126.3,
-       "cut": 0.165,
+       "proj": 126.4,
+       "cut": 0.166,
        "faab": 3,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "robert8063",
-       "proj": 129.4,
+       "proj": 129.5,
        "cut": 0.151,
        "faab": 23,
        "bold": 0.62,
@@ -1303,23 +1303,23 @@
       {
        "name": "Swegs4",
        "proj": 133.2,
-       "cut": 0.131,
+       "cut": 0.132,
        "faab": 3,
        "bold": 1.0,
        "me": false
       },
       {
        "name": "CodyRust",
-       "proj": 134.6,
-       "cut": 0.123,
+       "proj": 135.3,
+       "cut": 0.12,
        "faab": 0,
        "bold": 0.75,
        "me": false
       },
       {
        "name": "SteelRob420",
-       "proj": 141.1,
-       "cut": 0.072,
+       "proj": 141.4,
+       "cut": 0.07,
        "faab": 0,
        "bold": 1.0,
        "me": false
@@ -1335,14 +1335,14 @@
       {
        "name": "JHED1979",
        "proj": 145.2,
-       "cut": 0.059,
+       "cut": 0.06,
        "faab": 22,
        "bold": 0.77,
        "me": false
       },
       {
        "name": "Off with his head (damonhawk1)",
-       "proj": 164.0,
+       "proj": 163.8,
        "cut": 0.005,
        "faab": 86,
        "bold": 0.42,
@@ -1902,7 +1902,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    }
   },
   "Stempak": {
@@ -2130,15 +2130,15 @@
      "kickoff": "2026-11-15T18:00:00Z",
      "started": false,
      "proj": 11.1,
-     "status": "Q",
-     "why": "ESPN: QUESTIONABLE",
+     "status": "OUT",
+     "why": "ESPN: Out",
      "flags": [
-      "Q"
+      "OUT"
      ],
      "exp": "RB22 this week, RB20 lately",
      "news": {
-      "note": "Montgomery (groin) is listed as questionable for Sunday's game against the Browns, while Woody Marks (knee) doesn't have an injury designation.",
-      "at": "2026-11-13T21:08:00Z",
+      "note": "Montgomery (groin) has been downgraded from questionable to out for Sunday's game against the Browns.",
+      "at": "2026-11-14T18:18:00Z",
       "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
      }
     },
@@ -2320,7 +2320,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    }
   },
   "Bro-vid19": {
@@ -2587,7 +2587,7 @@
     "matchup": "132.9 projected vs Ashton DJENTY",
     "danger": false,
     "fixes": [
-     "Move David Montgomery out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 13 3:08p: Montgomery (groin) is listed as questionable for Sunday's game against the Browns, while Woody Marks (knee) doesn't have an injury designation.]",
+     "Move David Montgomery out of IR: ESPN lists him OUT, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 14 12:18p: Montgomery (groin) has been downgraded from questionable to out for Sunday's game against the Browns.]",
      "Move Rashid Shaheed out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 11 6:02p: Shaheed (knee) was a full participant in Wednesday's practice, John Boyle of the Seahawks' official site reports.]"
     ],
     "moves": [],
@@ -2681,13 +2681,12 @@
       "David Montgomery": "RB22 this week, RB20 lately",
       "Rashid Shaheed": "WR54 this week, WR45 lately",
       "Aaron Rodgers": "QB16 this week, QB18 lately",
-      "Malik Washington": "WR38 this week, WR31 lately",
-      "Woody Marks": "RB26 this week, RB20 lately"
+      "Malik Washington": "WR38 this week, WR31 lately"
      },
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    }
   },
   "3-Ball BB": {
@@ -2878,16 +2877,22 @@
      "kickoff": "2026-11-15T00:30:00Z",
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "Q",
+     "why": "ESPN: DAY_TO_DAY",
+     "flags": [
+      "Q"
+     ],
      "cv": {
       "v": -0.9,
       "rk": 99,
       "wk": 2.7,
       "src": "11 g"
      },
-     "news": null
+     "news": {
+      "note": "Allen (knee) is listed as questionable for Saturday's game against Dallas.",
+      "at": "2026-11-14T18:31:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4066328/jarrett-allen"
+     }
     },
     {
      "slot": "PG",
@@ -3082,7 +3087,8 @@
     "trades": null,
     "notes": [
      "Leave Jalen Suggs in IR today: he has no game, and moving him out would force a drop (roster full). ESPN blocks adds and drops until he moves, so no pickups today",
-     "7 of 10 starters play tonight"
+     "Jarrett Allen (C) is day-to-day (ESPN: questionable), plays Sat 6:30p [ESPN, Nov 14 12:31p: Allen (knee) is listed as questionable for Saturday's game against Dallas.]",
+     "6 of 10 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -3514,9 +3520,9 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (11:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (12:30pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   },
   "Ball is Life": {
    "name": "Ball is Life",
@@ -3541,7 +3547,7 @@
      "started": false,
      "proj": 0.0,
      "status": null,
-     "why": "",
+     "why": "Probable (right wrist sprain) per NBA injury report, 12:30pm",
      "flags": [],
      "cv": {
       "v": 2.05,
@@ -3689,16 +3695,22 @@
      "kickoff": "2026-11-15T00:30:00Z",
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "Q",
+     "why": "ESPN: Day-To-Day",
+     "flags": [
+      "Q"
+     ],
      "cv": {
       "v": -4.26,
       "rk": 192,
       "wk": -0.7,
       "src": "11 g"
      },
-     "news": null
+     "news": {
+      "note": "Watson supplied seven points (2-12 FG, 2-5 3Pt, 1-2 FT), five rebounds, four assists and four blocks over 30 minutes in Wednesday's 115-107 win over the Knicks.",
+      "at": "2026-11-14T18:32:00Z",
+      "url": "https://www.espn.com/nba/player/_/id/4576087/peyton-watson"
+     }
     },
     {
      "slot": "UT",
@@ -3849,7 +3861,8 @@
     ],
     "trades": null,
     "notes": [
-     "7 of 9 starters play tonight"
+     "Peyton Watson (SF) is day-to-day, plays Sat 6:30p [ESPN, Nov 14 12:32p: Watson supplied seven points (2-12 FG, 2-5 3Pt, 1-2 FT), five rebounds, four assists and four blocks over 30 minutes in Wednesday's 115-107 win over the Knicks.]",
+     "6 of 9 starters play tonight"
     ],
     "cats": {
      "rows": [
@@ -4193,9 +4206,9 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Sat 12:02p"
+    "built": "Sat 12:40p"
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (11:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (12:30pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   }
  }
 }
