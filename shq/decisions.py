@@ -10,8 +10,10 @@ An empty or missing file means no skips. Every build reads it once. A move that 
   - comes back only when `until` has passed or the entry is removed (an undo in HQ removes it).
 
 MATCHING RULE (HQ writes `move` so it matches; same rule both sides):
-  league: Sports HQ's league name, case and spaces ignored ("Kosmonauts", "Domo Arigato", "3-Ball FB", ...). The Sleeper
-          league's own name "Sunday's Best" counts as "Domo Arigato" (Sports HQ names that league after his team).
+  league: Sports HQ's league name or the app's own league name, letters and digits only, case ignored. App names:
+          "Sunday's Best" = Domo Arigato, "Damon's Guillotine League 2026" (any name with "guill") = Guillotine,
+          "3-Ball Dynasty League" = 3-Ball FB (sport football) or 3-Ball BB (sport basketball),
+          "Stempak Family and Friends 2026" = Stempak, "We playin basketball" = Ball is Life.
   move:   reduced to a key, the action plus the players, so numbers, slots, times and reasons never matter:
     1. lowercase; drop anything in (...) or [...]; cut at the first " → ", ": ", " — ", ", +", " before ", "; ".
     2. "start A over B ..." / "play A over B"            -> "start|a|b"
@@ -19,6 +21,8 @@ MATCHING RULE (HQ writes `move` so it matches; same rule both sides):
                                                          -> "add|a|b"
        a Fix now line "B ... → start A"                   -> "start|a|b"
        an NBA swap "First move X out of IR (...); then drop B (...), add A (...)" -> "add|a|b"
+       "move A out of IR" / "move A from IR" / "activate A" (anything after, like ", dropping B") -> ir|A
+       a name ends at ",", " and ", " then " or " to " ("drop B, add A, start him" -> add|A|B)
        anything else                                     -> its words (step 1 text, letters and spaces)
     3. names: letters only, without a trailing Jr/Sr/II/III/IV/V.
   Example: "start Devaughn Vele over Kaelon Black at SUPER_FLEX" and Sports HQ's
@@ -60,23 +64,34 @@ def move_key(text):
     t = re.sub(r"^\s*first move .+?; then ", "", t)        # NBA swap after an IR fix: the swap is the move
     t = CUTS.split(t)[0]
     t = re.sub(r"\s+", " ", t).strip(" .,")
-    m = re.match(r"(?:start|play) (.+?) over (.+?)(?: at .*)?$", t)
+    m = re.match(r"(?:move|activate) (.+?)(?: (?:out of|from|off) (?:the )?ir\b.*|,.*| and .*)?$", t)
+    if m and (" ir" in t or t.startswith("activate ")):
+        return f"ir|{_name(m.group(1))}"
+    m = re.match(r"(?:start|play) (.+?) over (.+?)(?: at .*|,.*| and .*| then .*)?$", t)
     if m:
         return f"start|{_name(m.group(1))}|{_name(m.group(2))}"
-    m = (re.match(r"add (.+?)(?:,| and)? (?:drop|for) (.+)$", t) or re.match(r"(?:pick up|claim) (.+?)(?:,| and)? drop (.+)$", t))
+    m = (re.match(r"add (.+?)(?:,| and)? (?:drop|for) (.+?)(?:,| and | then | to |$)", t)
+         or re.match(r"(?:pick up|claim) (.+?)(?:,| and)? drop (.+?)(?:,| and | then | to |$)", t))
     if m:
         return f"add|{_name(m.group(1))}|{_name(m.group(2))}"
-    m = re.match(r"drop (.+?)(?:,| and)? (?:add|for) (.+)$", t)
+    m = re.match(r"drop (.+?)(?:,| and)? (?:add|for|pick up|claim) (.+?)(?:,| and | then | to |$)", t)
     if m:
         return f"add|{_name(m.group(2))}|{_name(m.group(1))}"
     return _words(t)
 
 
-LEAGUE_ALIAS = {"sunday'sbest": "domoarigato", "sundaysbest": "domoarigato"}
+# the apps' own league names -> Sports HQ's (lineups.json "league"); 3-Ball is one name for two sports
+LEAGUE_ALIAS = {"sundaysbest": "domoarigato", "stempakfamilyandfriends2026": "stempak", "stempakfamilyandfriends": "stempak",
+                "weplayinbasketball": "ballislife"}
+SPORT = {"football": "fb", "nfl": "fb", "basketball": "bb", "nba": "bb"}
 
 
-def _league(s):
-    k = re.sub(r"\s+", "", str(s or "").lower())
+def _league(s, sport=None):
+    k = re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+    if "guill" in k:
+        return "guillotine"
+    if k.startswith("3balldynasty") and SPORT.get(str(sport or "").lower()):
+        return "3ball" + SPORT[str(sport).lower()]
     return LEAGUE_ALIAS.get(k, k)
 
 
@@ -109,7 +124,7 @@ def active(now, path=None):
         until = _when(e.get("until")) if e.get("until") else None
         if until and until <= now:
             continue
-        out[(_league(e["league"]), move_key(e["move"]))] = e
+        out[(_league(e["league"], e.get("sport")), move_key(e["move"]))] = e
     return out
 
 

@@ -27,6 +27,11 @@ CASES = [
     ("Kaelon Black (RB) is Out → start Devaughn Vele (9.1) [ESPN Nov 14]", "start|devaughnvele|kaelonblack"),
     ("add KC Concepcion Jr., drop Tre Tucker", "add|kcconcepcion|tretucker"),
     ("Bench Josh Allen", "bench josh allen"),
+    ("drop Tre Tucker, add Ladd McConkey, start him at FLEX", "add|laddmcconkey|tretucker"),
+    ("add Ladd McConkey, drop Tre Tucker, then start him", "add|laddmcconkey|tretucker"),
+    ("move Ajay Mitchell from IR, dropping Saddiq Bey", "ir|ajaymitchell"),
+    ("Move Ajay Mitchell out of IR: ESPN lists him as active, so ESPN blocks adds and drops", "ir|ajaymitchell"),
+    ("start Josh Allen over Bo Nix, then bench Nix", "start|joshallen|bonix"),
 ]
 
 
@@ -70,6 +75,15 @@ class Skips(unittest.TestCase):
         self.assertEqual(gone[0]["tag"], "You skipped this (Not worth it, Nov 14)")
         self.assertEqual(decisions.split("Kosmonauts", lines, NOW, path=p)[1], [])   # other leagues untouched
         self.assertEqual(len(decisions.split("Domo Arigato", lines, NOW, path=p)[1]), 1)   # Sleeper's name for it
+
+    def test_app_league_names(self):
+        p = write([{"league": "3-Ball Dynasty League", "sport": "basketball", "move": "add A, drop B", "at": "2026-11-14T15:00:00Z"},
+                   {"league": "Damon’s Guilltoine League 2026", "sport": "football", "move": "add C, drop D", "at": "2026-11-14T15:00:00Z"},
+                   {"league": "We playin basketball", "sport": "basketball", "move": "add E, drop F", "at": "2026-11-14T15:00:00Z"}])
+        self.assertTrue(decisions.skipped("3-Ball BB", "Add A (x) for B (y)", NOW, path=p))
+        self.assertFalse(decisions.skipped("3-Ball FB", "Add A (x) for B (y)", NOW, path=p))
+        self.assertTrue(decisions.skipped("Guillotine", "add C, drop D", NOW, path=p))
+        self.assertTrue(decisions.skipped("Ball is Life", "add E, drop F", NOW, path=p))
 
     def test_advice_lists_skip_and_record(self):
         p = write([{"league": "Guillotine", "move": "add Geno Smith, drop Woody Marks", "reason": "bad", "at": "2026-11-14T15:00:00Z"}])
