@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T16:47:37Z",
+ "generated": "2026-11-14T08:55:21Z",
  "summary": {
   "ok": 14,
   "watch": 2,
@@ -26,8 +26,8 @@
    "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-   "value": -0.27,
-   "n": 42,
+   "value": -0.7,
+   "n": 45,
    "unit": "z",
    "baseline": 0.34,
    "baseline_set": "2026-11-10",
@@ -1887,19 +1887,19 @@
        "n": 25,
        "cov50": 0.68,
        "cov80": 0.84,
-       "est_mae": 9.9
+       "est_mae": 9.8
       },
       "pos RB": {
        "n": 40,
        "cov50": 0.33,
        "cov80": 0.68,
-       "est_mae": 16.5
+       "est_mae": 16.4
       },
       "pos TE": {
        "n": 29,
        "cov50": 0.66,
        "cov80": 0.9,
-       "est_mae": 5.6
+       "est_mae": 5.5
       },
       "pos WR": {
        "n": 69,
@@ -1917,13 +1917,13 @@
        "n": 118,
        "cov50": 0.6,
        "cov80": 0.81,
-       "est_mae": 5.2
+       "est_mae": 5.1
       },
       "estimate $10+": {
        "n": 52,
        "cov50": 0.5,
        "cov80": 0.79,
-       "est_mae": 18.3
+       "est_mae": 18.2
       },
       "estimate under $10": {
        "n": 160,
@@ -3103,7 +3103,7 @@
      "id": "radar.held",
      "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
      "value": 0.64,
-     "n": 11,
+     "n": 14,
      "unit": "%",
      "baseline": 0.7,
      "baseline_set": "2026-11-10",
@@ -3113,16 +3113,16 @@
     {
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
-     "value": 0.67,
-     "n": 51,
+     "value": 0.65,
+     "n": 54,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": -0.27,
-     "n": 42,
+     "value": -0.7,
+     "n": 45,
      "unit": "z",
      "baseline": 0.34,
      "baseline_set": "2026-11-10",
@@ -3133,30 +3133,30 @@
    ],
    "details": {
     "mornings": 14,
-    "wire_mornings": 6,
-    "wire_value": -4.47,
+    "wire_mornings": 7,
+    "wire_value": -4.15,
     "shown": {
-     "n": 11,
-     "held": 7,
+     "n": 14,
+     "held": 9,
      "held_rate": 0.64,
-     "value": -2.49,
-     "edge_n": 5,
-     "edge": 2.68,
-     "added_later": 2
+     "value": -3.2,
+     "edge_n": 8,
+     "edge": 0.89,
+     "added_later": 3
     },
     "flags": {
-     "n": 51,
-     "held": 34,
-     "held_rate": 0.67,
-     "value": -4.23,
-     "edge_n": 42,
-     "edge": -0.27,
-     "added_later": 6
+     "n": 54,
+     "held": 35,
+     "held_rate": 0.65,
+     "value": -4.36,
+     "edge_n": 45,
+     "edge": -0.7,
+     "added_later": 8
     },
-    "every_value": -5.73
+    "every_value": -5.85
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 6 mornings (state/nba_owned.json starts Nov 3); shown flags alone 2.68 (n=5)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 7 mornings (state/nba_owned.json starts Nov 3); shown flags alone 0.89 (n=8)."
    ]
   },
   {
