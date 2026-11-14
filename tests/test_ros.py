@@ -75,14 +75,38 @@ class Private(unittest.TestCase):
 
     def test_doc_lists_experts_and_ranks_best_first(self):
         data = {"ranks_updated": "2026-11-14T17:00", "method": {"RB": {"experts": [{"name": "A", "accuracy_rank": 3, "updated": "Nov 12"}], "fallback": False}},
-                "players": {"x|RB": {"name": "Hall", "pos": "RB", "team": "NYJ", "rank": "RB19", "fp_rank": "RB18", "why": "w <b>", "basis": "source", "source": "s"},
+                "players": {"x|RB": {"name": "Hall", "pos": "RB", "team": "NYJ", "rank": "RB19", "fp_rank": "RB18", "why": "w", "basis": "source", "source": "s"},
                             "y|RB": {"name": "Allen", "pos": "RB", "team": "NYJ", "rank": "RB3", "fp_rank": "RB3", "why": "v", "basis": "Claude's judgment"}}}
-        h = ros.doc_html(data)
-        self.assertLess(h.index("Allen"), h.index("Hall"))
-        self.assertIn("A (#3 for accuracy, updated Nov 12)", h)
-        self.assertIn("<td>RB18</td>", h)              # FP default shown where it differs
-        self.assertIn("w &lt;b&gt;", h)                # escaped
-        self.assertIn("Claude&#x27;s judgment", h)
+        lines = ros.doc_lines(data)
+        texts = [t for _, t in lines]
+        self.assertEqual(lines[2], ("HEADING_2", "RB"))
+        self.assertIn("A (#3 for accuracy, updated Nov 12)", texts[3])
+        self.assertTrue(texts[4].startswith("RB3 · Allen NYJ"))                  # best first, no FP when equal
+        self.assertTrue(texts[5].startswith("RB19 (FP RB18) · Hall NYJ"))
+
+    def test_doc_refresh_replaces_then_checks_and_styles_from_the_real_doc(self):
+        data = {"players": {"y|RB": {"name": "Allén", "pos": "RB", "rank": "RB3", "why": "v"}}}
+
+        def read(paras, rev):
+            content, i = [], 1
+            for s in paras:
+                n = len((s + "\n").encode("utf-16-le")) // 2
+                content.append({"startIndex": i, "endIndex": i + n, "paragraph": {"elements": [{"textRun": {"content": s + "\n"}}]}})
+                i += n
+            return {"content": {"revisionId": rev, "tabs": [{"documentTab": {"body": {"content": content}}}]}}
+
+        b = ros.doc_replace(data, read(["old", "stuff"], "rev1"))
+        r = b["requests"]
+        self.assertEqual(b["writeControl"], {"requiredRevisionId": "rev1"})
+        self.assertEqual(r[0]["deleteContentRange"]["range"], {"startIndex": 1, "endIndex": 10})
+        lines = r[1]["insertText"]["text"].split("\n")
+        done = ros.doc_finish(data, read(lines, "rev2"))
+        self.assertTrue(done["ok"])
+        styled = [x["updateParagraphStyle"] for x in done["batch"]["requests"]]
+        self.assertEqual([s["paragraphStyle"]["namedStyleType"] for s in styled], ["HEADING_1", "HEADING_2"])
+        self.assertEqual(done["batch"]["writeControl"], {"requiredRevisionId": "rev2"})
+        lines[4] = lines[4].replace("v", "x")                      # a mistyped line is caught
+        self.assertEqual(ros.doc_finish(data, read(lines, "rev3"))["wrong"], [5])
 
 
 if __name__ == "__main__":

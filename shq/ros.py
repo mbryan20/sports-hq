@@ -12,7 +12,9 @@ Fewer than MIN_EXPERTS such experts at a position: the FantasyPros default conse
 
     py -m shq.ros refresh            ranks only (no AI): updates rank/fp_rank/panel in the PRIVATE ros.json, keeps the why lines
     py -m shq.ros merge <file.json>  adds why lines a research run wrote ({key: {why, tier, basis, source, news_date, dynasty}})
-    py -m shq.ros doc                writes ros-doc.html next to it: the body of Michael's private Google Doc
+    py -m shq.ros doc-replace <read> then doc-finish <read>: refresh Michael's private Google Doc (DOC_ID). Each writes
+                                     ros-doc-batch.json (update_doc arguments) from a saved read_doc of the Doc; doc-finish
+                                     also checks every line landed exactly (the text passes through update_doc as typed)
 
 PRIVATE, never in docs/ (Nov 14, Michael chose "1: private Doc"): FantasyPros' terms allow a personal copy but forbid
 republishing, and docs/ is a public website and a public repo. So the ranks file lives outside the repo (SHQ_PRIVATE_DIR, else
@@ -40,7 +42,7 @@ def private_dir():
 
 
 OUT = private_dir() / "ros.json"
-DOC_HTML = OUT.parent / "ros-doc.html"
+DOC_BATCH = OUT.parent / "ros-doc-batch.json"
 MAX_AGE_DAYS = 7          # an expert's ROS ranks count only if he updated them in the last week
 MAX_ACC_RANK = 50         # ... and he's in FantasyPros' top 50 for 2026 in-season accuracy
 MIN_EXPERTS = 3           # fewer usable experts at a position: fall back to FantasyPros' default consensus
@@ -201,14 +203,17 @@ def _num(rank):
     return int(m.group()) if m else 999
 
 
-def doc_html(data):
-    """The private Google Doc's body: who the experts are, then one table per position, best first."""
-    e = html.escape
-    out = ["<h1>Rest-of-season ranks (private)</h1>",
-           f"<p>Updated {e((data.get('ranks_updated') or data.get('updated') or '')[:10])}. Private: built from FantasyPros' public pages "
-           "for your own use (their terms forbid republishing), so it lives here and not on Sports HQ. Your rule 15: only experts who "
-           f"updated their rest-of-season ranks in the last {MAX_AGE_DAYS} days and rank in the top {MAX_ACC_RANK} for 2026 accuracy. "
-           "FP default = FantasyPros' default consensus, shown where it differs.</p>"]
+DOC_ID = "1vRM45a7tMhqsBKvDW2mcLenuzaj6au_FFPIo4MHP9og"     # Drive > Claude Home > For Michael > "Rest-of-season ranks (private)"
+
+
+def doc_lines(data):
+    """The private Google Doc as [(style, text)]: a title, a note, then per position the experts and one line per player."""
+    out = [("HEADING_1", "Rest-of-season ranks (private)"),
+           ("NORMAL_TEXT", f"Updated {(data.get('ranks_updated') or data.get('updated') or '')[:10]}. Private: built from FantasyPros' public "
+                           "pages for your own use (their terms forbid republishing), so it lives here and not on Sports HQ. Your rule 15: only "
+                           f"experts who updated their rest-of-season ranks in the last {MAX_AGE_DAYS} days and rank in the top {MAX_ACC_RANK} "
+                           "for 2026 accuracy. \"FP\" = FantasyPros' default consensus, shown where it differs. Why lines come from recent "
+                           "news (date in brackets) or say Claude's judgment.")]
     method = data.get("method") or {}
     for pos in PAGES:
         rows = sorted((p for p in data.get("players", {}).values() if p.get("pos") == pos), key=lambda p: (_num(p.get("rank")), p.get("name", "")))
@@ -217,18 +222,57 @@ def doc_html(data):
         m = method.get(pos) or {}
         who = ("FantasyPros default consensus (too few fresh, accurate experts)" if m.get("fallback") or not m.get("experts")
                else "; ".join(f"{x['name']} (#{x['accuracy_rank']} for accuracy, updated {x['updated']})" for x in m["experts"]))
-        out.append(f"<h2>{pos}</h2><p>Experts: {e(who)}</p>")
-        out.append("<table><tr><th>Rank</th><th>Player</th><th>FP default</th><th>Tier</th><th>Why</th><th>Basis</th></tr>")
+        out += [("HEADING_2", pos), ("NORMAL_TEXT", f"Experts: {who}")]
         for p in rows:
-            fp = p.get("fp_rank") if p.get("fp_rank") and p.get("fp_rank") != p.get("rank") else ""
-            basis = "Claude's judgment" if p.get("basis") == "Claude's judgment" else (p.get("source") or "")
-            if p.get("news_date"):
-                basis += f" (news {p['news_date']})"
-            why = (p.get("why") or "") + (f" Dynasty: {p['dynasty']}" if p.get("dynasty") else "")
-            out.append(f"<tr><td>{e(p.get('rank') or 'unranked')}</td><td>{e(p.get('name', ''))} {e(p.get('team') or '')}</td><td>{e(fp)}</td>"
-                       f"<td>{e(str(p.get('tier') or ''))}</td><td>{e(why)}</td><td>{e(basis)}</td></tr>")
-        out.append("</table>")
-    return "<html><body>" + "\n".join(out) + "</body></html>"
+            fp = f" (FP {p['fp_rank']})" if p.get("fp_rank") and p.get("fp_rank") != p.get("rank") else ""
+            basis = ("Claude's judgment" if p.get("basis") == "Claude's judgment" else f"news {p['news_date']}" if p.get("news_date")
+                     else "")
+            dyn = f" Dynasty: {p['dynasty']}" if p.get("dynasty") else ""
+            tier = f" · {p['tier']}" if p.get("tier") else ""
+            out.append(("NORMAL_TEXT", f"{p.get('rank') or 'unranked'}{fp} · {p.get('name', '')} {p.get('team') or ''}{tier}: "
+                                       f"{p.get('why') or ''}{dyn}{f' [{basis}]' if basis else ''}"))
+    return out
+
+
+def _u16(s):
+    return len(s.encode("utf-16-le")) // 2
+
+
+def _read(read_doc):
+    """(body endIndex, revisionId, [(paragraph text, startIndex, endIndex)]) from a read_doc result (dict, or the saved file's text)."""
+    d = json.loads(read_doc) if isinstance(read_doc, str) else read_doc
+    c = d.get("content", d)
+    tab = c["tabs"][0]["documentTab"] if c.get("tabs") else c
+    body = tab["body"]["content"]
+    paras = [("".join(e.get("textRun", {}).get("content", "") for e in el["paragraph"]["elements"]).rstrip("\n"), el["startIndex"], el["endIndex"])
+             for el in body if "paragraph" in el]
+    return body[-1]["endIndex"], c["revisionId"], paras
+
+
+def doc_replace(data, read_doc):
+    """Step 1 of a refresh: update_doc arguments that replace the whole body with doc_lines as plain text (one guarded batch)."""
+    end, rev, _ = _read(read_doc)
+    lines = doc_lines(data)
+    text = "\n".join(t.replace("\n", " ") for _, t in lines)
+    reqs = [{"deleteContentRange": {"range": {"startIndex": 1, "endIndex": end - 1}}}] if end > 2 else []
+    reqs.append({"insertText": {"location": {"index": 1}, "text": text}})
+    total = _u16(text) + 1
+    reqs.append({"updateParagraphStyle": {"range": {"startIndex": 1, "endIndex": total}, "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"},
+                                          "fields": "namedStyleType"}})
+    reqs.append({"updateTextStyle": {"range": {"startIndex": 1, "endIndex": total}, "textStyle": {}, "fields": "bold,italic"}})
+    return {"requests": reqs, "writeControl": {"requiredRevisionId": rev}}
+
+
+def doc_finish(data, read_doc):
+    """Step 2, after re-reading: check every line landed exactly, and the update_doc arguments that set the headings
+    (indexes taken from the real document, so they can't drift). {"ok": bool, "wrong": [line numbers], "batch": {...}}."""
+    _, rev, paras = _read(read_doc)
+    want = [(s, t.replace("\n", " ")) for s, t in doc_lines(data)]
+    got = [p for p in paras if p[0] != ""] if len(paras) > len(want) else paras
+    wrong = [i + 1 for i, (w, g) in enumerate(zip(want, got)) if w[1] != g[0]] + list(range(len(got) + 1, len(want) + 1))
+    reqs = [{"updateParagraphStyle": {"range": {"startIndex": g[1], "endIndex": g[2]}, "paragraphStyle": {"namedStyleType": s},
+                                      "fields": "namedStyleType"}} for (s, t), g in zip(want, got) if s != "NORMAL_TEXT" and g[0] == t]
+    return {"ok": not wrong and len(got) == len(want), "wrong": wrong, "batch": {"requests": reqs, "writeControl": {"requiredRevisionId": rev}}}
 
 
 def merge(src, path=OUT):
@@ -252,8 +296,16 @@ if __name__ == "__main__":
     elif sys.argv[1:2] == ["merge"] and len(sys.argv) > 2:
         merge(sys.argv[2])
         print("merged")
-    elif sys.argv[1:2] == ["doc"]:
-        DOC_HTML.write_text(doc_html(load_json(OUT, {"players": {}})), encoding="utf-8")
-        print(DOC_HTML)
+    elif sys.argv[1:2] in (["doc-replace"], ["doc-finish"]) and len(sys.argv) > 2:
+        # py -m shq.ros doc-replace <saved read_doc of DOC_ID>  -> ros-doc-batch.json: send it with update_doc
+        # py -m shq.ros doc-finish <saved read_doc, re-read after that write> -> checks the text, ros-doc-batch.json = headings
+        read, data = open(sys.argv[2], encoding="utf-8").read(), load_json(OUT, {"players": {}})
+        if sys.argv[1] == "doc-replace":
+            DOC_BATCH.write_text(json.dumps(doc_replace(data, read), ensure_ascii=False), encoding="utf-8")
+            print(DOC_BATCH)
+        else:
+            r = doc_finish(data, read)
+            DOC_BATCH.write_text(json.dumps(r["batch"], ensure_ascii=False), encoding="utf-8")
+            print("text OK" if r["ok"] else f"TEXT WRONG on lines {r['wrong'][:20]}: redo doc-replace", "|", DOC_BATCH)
     else:
         print(__doc__)
