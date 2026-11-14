@@ -346,7 +346,10 @@
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
       + sec("Try a move · Ask Claude", `<div class="mv-host" data-mv="${esc(name)}"></div>`, { cls: "trymove" })
       + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
-      + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" }) + expertsHTML(a.experts) + tradesHTML(a.trades)
+      + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" })
+      // moves he skipped on HQ's fantasy cards (docs/data/decisions.json, shq/decisions.py): left out of the lists above
+      + (a.skipped?.length ? sec("You skipped", `<ul class="tips muted">${a.skipped.map(s => `<li>${esc(s.text)} <span class="sub-wrap">${esc(s.tag)}</span></li>`).join("")}</ul>`, { open: false, count: a.skipped.length }) : "")
+      + expertsHTML(a.experts) + tradesHTML(a.trades)
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });
     expOn = null;

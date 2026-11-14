@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, darko, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
+from . import advice, darko, decisions, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -192,12 +192,14 @@ def start_sit_lines(league, fixes=None):
     if fixes is not None:
         moves = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({s['proj']}) at {s['slot']}"
                  for s, b, _ in start_sit(league.starters, league.bench) if not advice._dead(s)]
+        moves = decisions.split(league.name, moves, now_utc())[0]     # never a move he skipped in HQ
         ss = list(fixes) + moves[:max(0, 3 - len(fixes))]
         live = round(sum(p["proj"] for p in league.starters if not advice._dead(p)), 1)
         return ss or [f"Lineup is optimal by projections ({live} pts)."]
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
           + (digest.cite(s) if s["status"] and not s["bye"] else "")
           for s, b, _ in start_sit(league.starters, league.bench)]
+    ss = decisions.split(league.name, ss, now_utc())[0]
     return ss[:3] or [f"Lineup is optimal by projections ({round(sum(p['proj'] for p in league.starters), 1)} pts)."]
 
 

@@ -17,6 +17,11 @@ on:
     - cron: "*/30 20-23,0-3 * * *"    # every evening: NBA tip-offs (6pm-10pm CT)
     - cron: "*/20 13-14 * * *"        # daily 8am CT digest (13 UTC in CDT, 14 UTC in CST)
     - cron: "7 * * * *"               # hourly everywhere else
+  # a Skip on HQ's fantasy cards lands in docs/data/decisions.json (HQ's Go runner pushes it): rebuild at once so the
+  # skipped move leaves the pages within minutes (shq/decisions.py; HQ fantasy live sync, Nov 14)
+  push:
+    branches: [main]
+    paths: [docs/data/decisions.json]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -52,11 +57,12 @@ permissions:
   contents: write
   actions: write    # the Run step checks whether another Sports HQ run is looping, and hands off to a new run (Q-037)
 
-# Scheduled runs share one group (one running, one waiting). Each manual or laptop dispatch (ops/kick.ps1, Q-029) gets its
+# Scheduled runs share one group (one running, one waiting). Each manual or laptop dispatch (ops/kick.ps1, Q-029), and each
+# decisions.json push, gets its
 # own group so it starts at once instead of being replaced by the next queued cron; when another run is already looping
 # it does one pass and stops.
 concurrency:
-  group: sports-hq-run-${{ github.event_name == 'workflow_dispatch' && github.run_id || 'cron' }}
+  group: sports-hq-run-${{ github.event_name != 'schedule' && github.run_id || 'cron' }}
   cancel-in-progress: false
 
 jobs:

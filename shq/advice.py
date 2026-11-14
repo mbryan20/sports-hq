@@ -11,7 +11,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, digest, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
+from . import categories, decisions, digest, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -225,6 +225,7 @@ def dedupe_cat_adds(cats, swaps):
 
 
 def build(league, now):
+    league.skipped = []          # moves he skipped in HQ (shq/decisions.py), filled by digest.league_items and below
     standing = digest.standing_item(league)
     if getattr(league, "sport", "nfl") != "nba":
         valued(league)   # cached; lets a fix's "add X and start him" name the same drop the adds list would
@@ -240,8 +241,10 @@ def build(league, now):
         cats = league.cats = categories.build(league, skip=league.radar["shrink_ids"])
     if nba:
         player_values(league)
-        shown = nba_lineup.moves(league, now)[:3]
-        add_lines = adds(league, [m["start_key"] for m in shown])[:3]   # sets league.swaps; never drops a move's start
+        shown, gone = decisions.split(league.name, nba_lineup.moves(league, now), now, get=lambda m: m["text"])
+        shown = shown[:3]
+        decisions.note(league, gone)
+        add_lines = _unskipped(league, adds(league, [m["start_key"] for m in shown]), now)[:3]   # sets league.swaps; never drops a move's start
         # the radar's verdict follows Lineup moves and Waiver adds: "start him" only when a move backs it, and a riser
         # the swaps drop gets no start verdict at all (Q-047)
         radar.agree(league.radar, shown, league.bench, now, getattr(league, "swaps", None), league.starters)
@@ -251,8 +254,8 @@ def build(league, now):
     else:
         expert_ranks(league)
         football_players(league)
-        moves = _moves(league, now)[:3]
-        add_lines = adds(league)[:3]
+        moves = _unskipped(league, _moves(league, now), now)[:3]
+        add_lines = _unskipped(league, adds(league), now)[:3]
     exp = None if nba else expert_block(league, [i["text"] for i in items] + moves + add_lines)
     return {
         "matchup": _matchup(league),
@@ -268,4 +271,12 @@ def build(league, now):
         "assets": dynasty.block(league.sport, now) if getattr(league, "assets", False) else None,
         "experts": exp,
         "built": ct_label(now),
+        "skipped": list(league.skipped),
     }
+
+
+def _unskipped(league, lines, now):
+    """Lines without the moves he skipped in HQ (noted for the page's "You skipped" list)."""
+    keep, gone = decisions.split(league.name, lines, now)
+    decisions.note(league, gone)
+    return keep

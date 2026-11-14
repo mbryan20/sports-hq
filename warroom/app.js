@@ -58,6 +58,13 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && $('xpop')) $('xpop'
 // in Michael's private Google Doc (his choice, Nov 14: "1: private Doc"; built by shq/ros.py). This page links to it.
 const ROS_DOC = 'https://docs.google.com/document/d/1vRM45a7tMhqsBKvDW2mcLenuzaj6au_FFPIo4MHP9og/edit';
 
+// Moves he skipped on HQ's fantasy cards (docs/data/decisions.json; docs/lib/skips.js, same rule as shq/decisions.py):
+// a skipped claim or add leaves "Your moves" and shows "You skipped this (reason, date)" in the bids table.
+const SHQ_LEAGUE = 'Guillotine';
+const skipOf = (add, drop) => window.SHQSKIP && add && drop ? SHQSKIP.match(SHQ_LEAGUE, `add ${add}, drop ${drop}`) : null;
+const rowSkip = r => r && r.drop && D.P[r.drop] && D.P[r.s] ? skipOf(D.P[r.s].n, D.P[r.drop].n) : null;
+if (window.SHQSKIP) SHQSKIP.load('../data/decisions.json').then(n => { if (n && BASE) rerender(); });
+
 // A player's card: every week so far, every week left, and whether he's a handcuff.
 function playerCard(s) {
   const p = D.P[s]; if (!p) return '';
@@ -137,7 +144,8 @@ function drawBids() {
   const tag = p => { const s = Object.keys(D.P).find(k => D.P[k] === p);
     return `${pbtn(s)} <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`; };
   const btn = r => `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
-  const why = r => r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : '';
+  const why = r => (r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : '')
+    + (rowSkip(r) ? `<div class="sub"><span class="pill p-mute">${esc(SHQSKIP.tag(rowSkip(r)))}</span></div>` : '');
   const bye = p => p.bye.length ? 'Wk ' + p.bye[0] : 'passed';
   const th = (k, lab, cls = '', x = '') => `<th class="${cls}${k ? ' sortable' : ''}"${k ? ` data-sort="${k}" aria-sort="${VIEW.sort === k ? 'descending' : 'none'}"` : ''}>${lab}${VIEW.sort === k ? ' ▾' : ''}${x ? ' ' + qx(x) : ''}</th>`;
   let html = `<thead><tr>${th('name', 'Player', '', 'player')}<th>Source ${qx('source')}</th><th>Bye ${qx('bye')}</th><th class="n">Wk ${W0} gain ${qx('g1')}</th>${th('season', 'Season gain', 'n', 'season')}${th('dwin', '+Win odds', 'n', 'dwin')}<th>Drop ${qx('drop')}</th><th>Likely rival bids ${qx('rivals')}</th>${th('value', 'Value', 'n', 'value')}${th('bid', 'Bid options<br><span class="sub">bid · win chance · avg payoff</span>', '', 'bidopts')}<th>Call ${qx('call')}</th><th></th></tr></thead><tbody>`;
@@ -269,16 +277,16 @@ const atDefaults = () => S.sd === SD_MEASURED && S.aggr === 1 && S.reserve === R
 // deadline; the written guide.
 function planHtml() {
   const name = s => s && D.P[s] ? esc(D.P[s].n) : 'your weakest player';
-  const live = claimList(BIDROWS);
+  const live = claimList(BIDROWS).filter(r => !rowSkip(r));     // never a claim he skipped in HQ
   const claims = live.filter(r => r.call !== 'Backup');
   const claimBy = Object.fromEntries(claims.map(r => [r.drop, r]));
   const fromJson = TUESDAY && atDefaults();
-  const list = fromJson ? TUESDAY.claim_list.map(c => ({ ...c, name: esc(c.name), drop: c.drop ? esc(c.drop) : 'your weakest player' }))
+  const list = fromJson ? TUESDAY.claim_list.filter(c => !skipOf(c.name, c.drop)).map(c => ({ ...c, name: esc(c.name), drop: c.drop ? esc(c.drop) : 'your weakest player' }))
     : live.map(r => ({ name: esc(D.P[r.s].n), pos: D.P[r.s].p, team: D.P[r.s].t, bid: r.bid, drop: name(r.drop), win_chance: r.chance,
         kind: r.call === 'Backup' ? 'backup' : 'claim', fires_if: r.firesIf ? `you lose ${r.firesIf.map(pname).join(' and ')}` : null, why: whyLine(r), call: r.call }));
   // the best free add at each position, two at most (two backup QBs is never the plan)
   const seen = new Set();
-  const free = BIDROWS.filter(r => !r.added && !r.freed && r.call === 'Add free' && r.dWin > 0).sort((a, b) => b.dWin - a.dWin)
+  const free = BIDROWS.filter(r => !r.added && !r.freed && r.call === 'Add free' && r.dWin > 0 && !rowSkip(r)).sort((a, b) => b.dWin - a.dWin)
     .filter(r => !seen.has(D.P[r.s].p) && (seen.add(D.P[r.s].p), true)).slice(0, 2)
     // a second free add whose drop the first already uses can't happen too (Nov 11: Jacobs and Cousins both dropped Marks)
     .filter((r, i, a) => i === 0 || r.drop !== a[0].drop);
@@ -295,6 +303,8 @@ function planHtml() {
   const when = open && D.waivers ? `before waivers run (${esc(D.waivers)})` : 'this week (nothing on waivers until the next cut)';
   return `<div class="plan"><p><b>Your moves ${when}:</b></p>`
     + (li.length ? `<ol>${li.join('')}</ol>` : '<p>Nothing worth claiming or adding this week.</p>')
+    + (() => { const gone = BIDROWS.filter(r => !r.added && rowSkip(r));
+      return gone.length ? `<p class="sub">Left out: ${gone.map(r => `add ${esc(D.P[r.s].n)}, drop ${esc(D.P[r.drop].n)}: ${esc(SHQSKIP.tag(rowSkip(r)))}`).join('; ')}.</p>` : ''; })()
     + (list.length ? `<p class="sub">The most these claims can cost: $${worst} of the $${MONEY.spend} you can spend ($${S.reserve} always kept back). `
       + `In Sleeper's classic site, enter them in this order: Players, search the name, Claim, enter the bid, pick the drop. `
       + `Claims that share a drop are backups: once one of them wins, the rest fail, so you never pay twice.</p>` : '')
