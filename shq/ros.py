@@ -10,20 +10,37 @@ need a FantasyPros account, so this builds its own consensus instead: each FRESH
 ACCURATE (2026 in-season accuracy rank <= MAX_ACC_RANK) expert whose own ROS page is public, averaged rank by rank.
 Fewer than MIN_EXPERTS such experts at a position: the FantasyPros default consensus is used and the file says so.
 
-    py -m shq.ros refresh            ranks only (no AI): updates rank/fp_rank/panel in docs/data/ros.json, keeps the why lines
+    py -m shq.ros refresh            ranks only (no AI): updates rank/fp_rank/panel in the PRIVATE ros.json, keeps the why lines
     py -m shq.ros merge <file.json>  adds why lines a research run wrote ({key: {why, tier, basis, source, news_date, dynasty}})
+    py -m shq.ros doc                writes ros-doc.html next to it: the body of Michael's private Google Doc
 
-Read-only on FantasyPros: public pages, no sign-in, a handful of requests per run."""
+PRIVATE, never in docs/ (Nov 14, Michael chose "1: private Doc"): FantasyPros' terms allow a personal copy but forbid
+republishing, and docs/ is a public website and a public repo. So the ranks file lives outside the repo (SHQ_PRIVATE_DIR, else
+Drive > Claude Home > System - ignore > sports-hq-private, else ~/.sports-hq-private) and only reaches Michael through his
+private Google Doc. The public site shows Sports HQ's own numbers and one link to that Doc.
+
+Read-only on FantasyPros: public pages, no sign-in, a handful of requests per run (5 seconds apart, their robots.txt)."""
 import datetime as dt
 import html
 import json
+import os
 import re
 import sys
 import time
+from pathlib import Path
 
-from .common import DATA, load_json, session
+from .common import load_json, session
 
-OUT = DATA / "ros.json"
+
+def private_dir():
+    if os.environ.get("SHQ_PRIVATE_DIR"):
+        return Path(os.environ["SHQ_PRIVATE_DIR"])
+    drive = Path(r"G:\My Drive\Claude Home\System - ignore")
+    return drive / "sports-hq-private" if drive.exists() else Path.home() / ".sports-hq-private"
+
+
+OUT = private_dir() / "ros.json"
+DOC_HTML = OUT.parent / "ros-doc.html"
 MAX_AGE_DAYS = 7          # an expert's ROS ranks count only if he updated them in the last week
 MAX_ACC_RANK = 50         # ... and he's in FantasyPros' top 50 for 2026 in-season accuracy
 MIN_EXPERTS = 3           # fewer usable experts at a position: fall back to FantasyPros' default consensus
@@ -168,9 +185,50 @@ def refresh(now=None, fetch=_get, path=OUT):
     data["method"] = method
     data["_about_ranks"] = (f"rank: average of the FantasyPros experts who updated their rest-of-season ranks in the last {MAX_AGE_DAYS} days AND "
                             f"rank in the top {MAX_ACC_RANK} for 2026 in-season accuracy (their own public pages; list per position in method). "
-                            "fp_rank: FantasyPros' default consensus. Michael's rule 15 (fantasy-rules.md).")
-    path.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+                            "fp_rank: FantasyPros' default consensus. Michael's rule 15 (fantasy-rules.md). PRIVATE: never publish this file.")
+    _write(path, data)
     return data
+
+
+def _write(path, data):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+
+
+def _num(rank):
+    m = re.search(r"\d+", rank or "")
+    return int(m.group()) if m else 999
+
+
+def doc_html(data):
+    """The private Google Doc's body: who the experts are, then one table per position, best first."""
+    e = html.escape
+    out = ["<h1>Rest-of-season ranks (private)</h1>",
+           f"<p>Updated {e((data.get('ranks_updated') or data.get('updated') or '')[:10])}. Private: built from FantasyPros' public pages "
+           "for your own use (their terms forbid republishing), so it lives here and not on Sports HQ. Your rule 15: only experts who "
+           f"updated their rest-of-season ranks in the last {MAX_AGE_DAYS} days and rank in the top {MAX_ACC_RANK} for 2026 accuracy. "
+           "FP default = FantasyPros' default consensus, shown where it differs.</p>"]
+    method = data.get("method") or {}
+    for pos in PAGES:
+        rows = sorted((p for p in data.get("players", {}).values() if p.get("pos") == pos), key=lambda p: (_num(p.get("rank")), p.get("name", "")))
+        if not rows:
+            continue
+        m = method.get(pos) or {}
+        who = ("FantasyPros default consensus (too few fresh, accurate experts)" if m.get("fallback") or not m.get("experts")
+               else "; ".join(f"{x['name']} (#{x['accuracy_rank']} for accuracy, updated {x['updated']})" for x in m["experts"]))
+        out.append(f"<h2>{pos}</h2><p>Experts: {e(who)}</p>")
+        out.append("<table><tr><th>Rank</th><th>Player</th><th>FP default</th><th>Tier</th><th>Why</th><th>Basis</th></tr>")
+        for p in rows:
+            fp = p.get("fp_rank") if p.get("fp_rank") and p.get("fp_rank") != p.get("rank") else ""
+            basis = "Claude's judgment" if p.get("basis") == "Claude's judgment" else (p.get("source") or "")
+            if p.get("news_date"):
+                basis += f" (news {p['news_date']})"
+            why = (p.get("why") or "") + (f" Dynasty: {p['dynasty']}" if p.get("dynasty") else "")
+            out.append(f"<tr><td>{e(p.get('rank') or 'unranked')}</td><td>{e(p.get('name', ''))} {e(p.get('team') or '')}</td><td>{e(fp)}</td>"
+                       f"<td>{e(str(p.get('tier') or ''))}</td><td>{e(why)}</td><td>{e(basis)}</td></tr>")
+        out.append("</table>")
+    return "<html><body>" + "\n".join(out) + "</body></html>"
 
 
 def merge(src, path=OUT):
@@ -182,7 +240,7 @@ def merge(src, path=OUT):
             continue
         data["players"].setdefault(k, {}).update({x: v[x] for x in v if x in ("why", "tier", "basis", "source", "news_date", "dynasty", "name", "pos", "team")})
     data["updated"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes")
-    path.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    _write(path, data)
     return data
 
 
@@ -194,5 +252,8 @@ if __name__ == "__main__":
     elif sys.argv[1:2] == ["merge"] and len(sys.argv) > 2:
         merge(sys.argv[2])
         print("merged")
+    elif sys.argv[1:2] == ["doc"]:
+        DOC_HTML.write_text(doc_html(load_json(OUT, {"players": {}})), encoding="utf-8")
+        print(DOC_HTML)
     else:
         print(__doc__)

@@ -144,7 +144,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
     <main style="display:grid;gap:14px;min-width:0">
       <nav class="tabs" aria-label="Views">
         <a href="#bids">Week <span class="wk">?</span> bids</a>
-        <a href="#ros">ROS ranks</a>
+        <a href="#ros">Rest of season</a>
         <a href="#forecast">Elimination forecast</a>
         <a href="#rivals">Rivals</a>
         <a href="#market">Bid market</a>
@@ -175,13 +175,13 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
 
       <section class="view" id="v-ros" hidden>
         <div class="panel">
-          <h2>Rest-of-season ranks: your roster</h2>
-          <p class="sub" style="margin:0 0 10px">Every player you have, by position: his rest-of-season rank, a tier, what he projects per game for the weeks left, and one line on why. Tap a name for his week-by-week card.</p>
+          <h2>Rest of season: your roster</h2>
+          <p class="sub" style="margin:0 0 10px">Every player you have, by position: what he projects per game for the weeks left, his season average, and whether he's a handcuff. Experts' rest-of-season ranks are in your private Doc (link at the bottom). Tap a name for his week-by-week card.</p>
           <div class="scroll"><table id="rosT"></table></div>
         </div>
         <div class="panel">
           <h2>Realistic adds</h2>
-          <p class="sub" style="margin:0 0 10px">This week's best free agents and freed players for your team (the top of the bids table), ranked the same way.</p>
+          <p class="sub" style="margin:0 0 10px">This week's best free agents and freed players for your team (the top of the bids table), with the same numbers.</p>
           <div class="scroll"><table id="rosA"></table></div>
           <p class="note" id="rossrc"></p>
         </div>
@@ -1011,7 +1011,6 @@ const EXPLAIN = {
   slot: 'Slot: where he plays in your best lineup this week. BN = bench. FLEX takes an RB, WR or TE.',
   proj: 'Projection: Sleeper\'s expected points for him this week, in this league\'s scoring. 0 = bye, Out or IR.',
   avg: 'Season average: his real points per game played this season.',
-  ros: 'ROS rank: his rest-of-season rank at his position: the average of FantasyPros experts who updated in the last 7 days and rank in the top 50 for accuracy (your rule 15). FP = FantasyPros\' default consensus where it differs. Tap his name for the why.',
   hc: 'Handcuff: a backup RB who starts if your starter from the same NFL team gets hurt (Braelon Allen behind Breece Hall). He is kept unless an add clearly beats the injury insurance he gives (your rule 14).',
   cutwk: 'Cut this week: each team\'s chance of the lowest score this week.',
   cutby: 'Cut by: the chance a team is gone by that week (any of the cuts until then).',
@@ -1043,25 +1042,22 @@ document.addEventListener('click', e => {
 }, true);
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('xpop')) $('xpop').hidden = true; });
 
-// Rest-of-season ranks (docs/data/ros.json, refreshed by research runs): name|POS -> {rank, tier, why, source}
-let ROS = null;
-const rosKey = p => p.n.toLowerCase().replace(/[^a-z]/g, '') + '|' + p.p;
-const rosOf = s => (ROS && D.P[s] ? ROS.players[rosKey(D.P[s])] : null) || null;
-fetch('../data/ros.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.players) { ROS = j; renderRos(); renderLineup(); } }).catch(() => {});
+// Outside experts' rest-of-season ranks are NOT on this public page: their source's terms forbid republishing, so they live
+// in Michael's private Google Doc (his choice, Nov 14: "1: private Doc"; built by shq/ros.py). This page links to it.
+const ROS_DOC = 'https://docs.google.com/document/d/1vRM45a7tMhqsBKvDW2mcLenuzaj6au_FFPIo4MHP9og/edit';
 
-// A player's card: every week so far, every week left, his ROS rank and why, and whether he's a handcuff.
+// A player's card: every week so far, every week left, and whether he's a handcuff.
 function playerCard(s) {
   const p = D.P[s]; if (!p) return '';
   const past = (p.w || []).map((v, i) => `<span><i>W${i + 1}</i>${v === null || v === undefined ? '–' : fmt(v)}</span>`).join('');
   const next = WEEKS.map(w => `<span><i>W${w}</i>${fmt(proj(s, w))}</span>`).join('');
-  const ro = rosOf(s), r = roster(ME), pair = handcuffPairs(r).find(x => x[0] === s || x[1] === s);
+  const r = roster(ME), pair = handcuffPairs(r).find(x => x[0] === s || x[1] === s);
   let hc = '';
   if (pair && pair[1] === s) hc = `<p><b>Handcuff</b> for ${esc(pname(pair[0]))}: about ${fmt(asStarter(pair[0], s, W0))} pts a week if he sits; worth ${fmt(WEEKS.reduce((a, w) => a + insurance(r, s, w), 0))} lineup pts of insurance over the season. Kept unless an add clearly beats that (your rule 14).</p>`;
   else if (pair) hc = `<p>${esc(pname(pair[1]))} is his handcuff on your roster.</p>`;
   const owner = (() => { for (const t of Object.keys(D.teams)) if (D.teams[t].roster.includes(s)) return t === ME ? 'yours' : tname(t); return 'free agent'; })();
   return `<h3 style="margin:0">${esc(p.n)} <span class="pos">${p.p} ${p.t}</span></h3>`
     + `<p class="sub">${esc(owner)}${p.inj ? ' · ' + esc(p.inj) : ''}${p.st === 'RES' ? ' · IR' : ''}${p.bye.length ? ' · bye week ' + p.bye[0] : ''} · season avg ${fmt(p.a)} (${p.g} games) · last 3 avg ${fmt(p.r)}</p>`
-    + (ro ? `<p><b>Rest of season: ${esc(ro.rank || 'unranked')}${ro.fp_rank && ro.fp_rank !== ro.rank ? ` (FantasyPros default ${esc(ro.fp_rank)})` : ''}${ro.tier ? ' · ' + esc(ro.tier) : ''}.</b> ${esc(ro.why || '')} <span class="sub">(${esc(ro.source || ro.basis || '')})</span>${ro.dynasty ? `<br><span class="sub">Dynasty: ${esc(ro.dynasty)}</span>` : ''}</p>` : '')
     + hc + `<div class="wks"><b>Points so far</b>${past}</div><div class="wks"><b>Projected</b>${next}</div>`;
 }
 const pbtn = s => `<button type="button" class="pname" data-x="card-${s}" data-html="${encodeURIComponent(playerCard(s))}">${esc(D.P[s].n)}</button>`;
@@ -1126,8 +1122,8 @@ function drawBids() {
   const drop = r => r.drop && D.P[r.drop] ? esc(D.P[r.drop].n) + (isHandcuff(roster(ME), r.drop) ? ' <span class="pill p-warn">handcuff</span>' : '') + (dropUse[r.drop] > 1 && CLAIMS.has(r.call) && r.call !== 'Backup' ? ` <span class="pill p-warn" data-x="drop" role="button" tabindex="0" title="More than one move here drops this player">used ${dropUse[r.drop]}× ?</span>` : '') + hcLine(r) : '—';
   const opts = r => r.freed ? (r.options || []).map(o => `<div${o.bid === r.bid && isBid(r) ? ' class="best"' : ''}>$${o.bid} · ${pct(o.chance)} · ${o.payoff >= 0 ? '+' : '−'}$${Math.abs(Math.round(o.payoff))}${o.bid === r.bid && isBid(r) ? ' ★' : ''}${o.bid > money.spend ? ' (over budget)' : ''}</div>`).join('') || '—' : '$0';
   const rivals = r => rivalBids(r).slice(0, 3).map(x => `${esc(tname(x.t))} ~$${x.bid}`).join(', ') || (r.freed ? 'No rival needs him much' : '—');
-  const tag = p => { const s = Object.keys(D.P).find(k => D.P[k] === p), ro = rosOf(s);
-    return `${pbtn(s)} <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>${ro && ro.rank ? ` <span class="pill p-mute" title="Rest-of-season rank">ROS ${esc(ro.rank)}</span>` : ''}`; };
+  const tag = p => { const s = Object.keys(D.P).find(k => D.P[k] === p);
+    return `${pbtn(s)} <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + p.inj : ''}${p.st === 'RES' ? ' · IR' : ''}</span>`; };
   const btn = r => `<button class="add" data-s="${r.s}" aria-pressed="${S.adds.has(r.s)}">${S.adds.has(r.s) ? '✓ Added' : '+ Add'}</button>`;
   const why = r => r.why && r.why !== 'free agent' ? '<div class="sub">' + esc(r.why) + '</div>' : '';
   const bye = p => p.bye.length ? 'Wk ' + p.bye[0] : 'passed';
@@ -1165,17 +1161,16 @@ function renderLineup() {
   const L = lineup(roster(ME), W0);
   const on = new Set(L.st.map(x => x.s));
   const r = roster(ME), cuffs = handcuffPairs(r), hcOf = s => cuffs.find(x => x[1] === s);
-  const ros = s => { const o = rosOf(s); return o && o.rank ? esc(o.rank) : ''; };
-  let h = `<thead><tr><th>Slot ${qx('slot')}</th><th>Player ${qx('player')}</th><th class="n">Wk ${W0} proj ${qx('proj')}</th><th class="n">Season avg ${qx('avg')}</th><th>ROS ${qx('ros')}</th></tr></thead><tbody>`;
+  let h = `<thead><tr><th>Slot ${qx('slot')}</th><th>Player ${qx('player')}</th><th class="n">Wk ${W0} proj ${qx('proj')}</th><th class="n">Season avg ${qx('avg')}</th></tr></thead><tbody>`;
   for (const x of L.st) {
     const p = x.s ? D.P[x.s] : null;
     const flag = !p ? '<span class="pill p-bad">Empty</span>' : x.v < 4 ? ' <span class="pill p-bad">Weak</span>' : '';
-    h += `<tr><td class="pos">${x.slot}</td><td>${p ? pbtn(x.s) + ' <span class="pos">' + p.p + ' ' + p.t + '</span>' : ''}${flag}</td><td class="n">${fmt(x.v)}</td><td class="n">${p ? fmt(p.a) : ''}</td><td class="pos">${p ? ros(x.s) : ''}</td></tr>`;
+    h += `<tr><td class="pos">${x.slot}</td><td>${p ? pbtn(x.s) + ' <span class="pos">' + p.p + ' ' + p.t + '</span>' : ''}${flag}</td><td class="n">${fmt(x.v)}</td><td class="n">${p ? fmt(p.a) : ''}</td></tr>`;
   }
   const bench = r.filter(s => !on.has(s) && D.P[s]);
   for (const s of bench) { const p = D.P[s]; const why = p.bye.includes(W0) ? 'bye' : p.inj === 'Out' ? 'out' : p.st === 'RES' ? 'IR' : '';
-    h += `<tr><td class="pos">BN</td><td class="sub">${pbtn(s)} <span class="pos">${p.p} ${p.t}${why ? ' · ' + why : ''}</span>${hcOf(s) ? ` <span class="pill p-warn">handcuff</span> ${qx('hc')}` : ''}</td><td class="n">${fmt(proj(s, W0))}</td><td class="n">${fmt(p.a)}</td><td class="pos">${ros(s)}</td></tr>`; }
-  $('mylineup').innerHTML = h + `<tr><td></td><td><b>Projected total</b></td><td class="n"><b>${fmt(L.tot)}</b></td><td></td><td></td></tr></tbody>`;
+    h += `<tr><td class="pos">BN</td><td class="sub">${pbtn(s)} <span class="pos">${p.p} ${p.t}${why ? ' · ' + why : ''}</span>${hcOf(s) ? ` <span class="pill p-warn">handcuff</span> ${qx('hc')}` : ''}</td><td class="n">${fmt(proj(s, W0))}</td><td class="n">${fmt(p.a)}</td></tr>`; }
+  $('mylineup').innerHTML = h + `<tr><td></td><td><b>Projected total</b></td><td class="n"><b>${fmt(L.tot)}</b></td><td></td></tr></tbody>`;
   const byes = r.filter(s => D.P[s] && D.P[s].bye.includes(W0)).map(s => D.P[s].n + ' (' + D.P[s].p + ')');
   const hcs = cuffs.map(([st, hh]) => `${D.P[hh].n} is ${D.P[st].n}'s handcuff: about ${fmt(asStarter(st, hh, W0))} pts a week if ${D.P[st].n} sits, worth ${fmt(WEEKS.reduce((a, w) => a + insurance(r, hh, w), 0))} lineup pts of insurance over the season, so the model keeps him unless an add clearly beats that (your rule 14).`);
   $('mynote').textContent = [byes.length ? `On bye in week ${W0}: ${byes.join(', ')}.` : '', ...hcs].filter(Boolean).join(' ');
@@ -1308,29 +1303,24 @@ function renderHeader(top) {
   $('headline').innerHTML = planHtml() + t;
 }
 
-// ---------- rest-of-season ranks (Nov 14) ----------
-// His roster and the realistic adds (this week's top candidates), each with a rank, tier and why from docs/data/ros.json
-// (a named source, or Claude's judgment where marked); without that file, the model's own rest-of-season projection.
+// ---------- rest of season (Nov 14) ----------
+// His roster and the realistic adds with Sports HQ's own numbers (Sleeper's projection per game for the weeks left) and the
+// handcuff check. Outside experts' ranks: a link to his private Doc only (see ROS_DOC).
 function renderRos() {
   if (!$('rosT') || !BASE) return;
   const avgLeft = s => WEEKS.reduce((a, w) => a + proj(s, w), 0) / Math.max(1, WEEKS.filter(w => !(D.P[s].bye || []).includes(w)).length);
   const mine = roster(ME).filter(s => D.P[s]), adds = BIDROWS.filter(r => !r.added && r.dWin > 0 && !mine.includes(r.s)).slice(0, 10).map(r => r.s);
   const cuffs = handcuffPairs(roster(ME));
-  const row = (s, who) => { const p = D.P[s], o = rosOf(s), hc = cuffs.find(x => x[1] === s);
+  const row = (s, who) => { const p = D.P[s], hc = cuffs.find(x => x[1] === s);
     return `<tr class="${who === 'mine' ? 'me' : ''}"><td>${pbtn(s)} <span class="pos">${p.p} ${p.t}${p.inj ? ' · ' + esc(p.inj) : ''}</span></td>`
-      + `<td class="pos">${o && o.rank ? esc(o.rank) + (o.fp_rank && o.fp_rank !== o.rank ? `<br><span class="sub">FP ${esc(o.fp_rank)}</span>` : '') : '—'}</td><td>${o && o.tier ? esc(o.tier) : hc ? 'Handcuff' : ''}</td><td class="n">${fmt(avgLeft(s))}</td>`
-      + `<td class="wrap">${o ? esc(o.why || '') + ` <span class="sub">(${esc(o.basis === 'source' ? (o.source || 'source') : "Claude's judgment")})</span>` : hc ? `Handcuff for ${esc(pname(hc[0]))}: ~${fmt(asStarter(hc[0], s, W0))} pts if he sits.` : '<span class="sub">no write-up yet</span>'}</td></tr>`; };
+      + `<td class="n">${fmt(avgLeft(s))}</td><td class="n">${fmt(p.a)}</td>`
+      + `<td class="wrap">${hc ? `Handcuff for ${esc(pname(hc[0]))}: ~${fmt(asStarter(hc[0], s, W0))} pts if he sits.` : ''}</td></tr>`; };
   const posOrder = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF'];
   const sortS = a => a.slice().sort((x, y) => posOrder.indexOf(D.P[x].p) - posOrder.indexOf(D.P[y].p) || avgLeft(y) - avgLeft(x));
-  const head = `<thead><tr><th>Player ${qx('player')}</th><th>ROS rank ${qx('ros')}</th><th>Tier</th><th class="n">Proj/gm left ${qx('proj')}</th><th>Why</th></tr></thead>`;
+  const head = `<thead><tr><th>Player ${qx('player')}</th><th class="n">Proj/gm left ${qx('proj')}</th><th class="n">Season avg ${qx('avg')}</th><th>Note</th></tr></thead>`;
   $('rosT').innerHTML = head + '<tbody>' + sortS(mine).map(s => row(s, 'mine')).join('') + '</tbody>';
   $('rosA').innerHTML = head + '<tbody>' + adds.map(s => row(s, 'add')).join('') + '</tbody>';
-  const panelTxt = m => m && m.experts && m.experts.length ? m.experts.map(e => `${esc(e.name)} (#${e.accuracy_rank} for accuracy, updated ${esc(e.updated)})`).join(', ') : '';
-  $('rossrc').innerHTML = ROS ? (ROS.method ? `Ranks (your rule 15): the average of FantasyPros experts who updated their rest-of-season ranks in the last 7 days and rank in the top 50 for 2026 accuracy: ${panelTxt(ROS.method.RB)}. `
-      + `Positions with too few such experts use FantasyPros' default consensus${Object.entries(ROS.method).filter(([, m]) => m.fallback).map(([p]) => ' (' + p + ')').join('')}. "FP" = FantasyPros' default consensus where it differs. Ranks updated ${esc((ROS.ranks_updated || '').slice(0, 10))}. `
-      : `Ranks: ${(ROS.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>${x.as_of ? ' (' + esc(x.as_of) + ')' : ''}`).join(', ')}. `)
-      + `Why lines from recent news or Claude's judgment where marked (written ${esc((ROS.updated || '').slice(0, 10))}). Proj/gm left: Sleeper's projection per game for the weeks left (byes skipped).`
-    : 'No expert ranks loaded yet: Proj/gm left (Sleeper\'s projection per game for the weeks left) is the ranking for now.';
+  $('rossrc').innerHTML = `Proj/gm left: Sleeper's projection per game for the weeks left (byes skipped). Experts' rest-of-season ranks (your rule 15) are in your private Doc, not on this public page: <a href="${ROS_DOC}" target="_blank" rel="noopener">Rest-of-season ranks (private)</a>.`;
 }
 
 // ---------- wiring ----------

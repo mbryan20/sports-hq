@@ -69,5 +69,21 @@ class Refresh(unittest.TestCase):
         self.assertTrue(out["method"]["QB"]["fallback"])
 
 
+class Private(unittest.TestCase):
+    def test_ranks_file_is_outside_the_public_folder(self):
+        self.assertNotIn("docs", ros.OUT.parts)
+
+    def test_doc_lists_experts_and_ranks_best_first(self):
+        data = {"ranks_updated": "2026-11-14T17:00", "method": {"RB": {"experts": [{"name": "A", "accuracy_rank": 3, "updated": "Nov 12"}], "fallback": False}},
+                "players": {"x|RB": {"name": "Hall", "pos": "RB", "team": "NYJ", "rank": "RB19", "fp_rank": "RB18", "why": "w <b>", "basis": "source", "source": "s"},
+                            "y|RB": {"name": "Allen", "pos": "RB", "team": "NYJ", "rank": "RB3", "fp_rank": "RB3", "why": "v", "basis": "Claude's judgment"}}}
+        h = ros.doc_html(data)
+        self.assertLess(h.index("Allen"), h.index("Hall"))
+        self.assertIn("A (#3 for accuracy, updated Nov 12)", h)
+        self.assertIn("<td>RB18</td>", h)              # FP default shown where it differs
+        self.assertIn("w &lt;b&gt;", h)                # escaped
+        self.assertIn("Claude&#x27;s judgment", h)
+
+
 if __name__ == "__main__":
     unittest.main()

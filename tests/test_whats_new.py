@@ -56,17 +56,21 @@ class PoolPicksKey(unittest.TestCase):
             self.assertIn(s, page)
 
 
-class RosRanks(unittest.TestCase):
-    def test_keys_match_the_pages(self):
-        d = json.loads((DOCS / "data/ros.json").read_text(encoding="utf-8"))
-        self.assertTrue(d["sources"])
-        for k, p in d["players"].items():
-            name, pos = k.split("|")
-            self.assertRegex(name, r"^[a-z]+$")
-            self.assertEqual(pos, p["pos"])
-            self.assertIn(p["basis"], ("source", "Claude's judgment"))
-            self.assertTrue(p["why"])
-        self.assertIn("braelonallen|RB", d["players"])
+class RosRanksStayPrivate(unittest.TestCase):
+    """Michael, Nov 14: "1: private Doc". The experts' ranks never go in docs/ (public site and public repo)."""
+    def test_no_ranks_file_or_wording_under_docs(self):
+        self.assertFalse((DOCS / "data/ros.json").exists())
+        self.assertIn("docs/data/ros.json", (ROOT / ".gitignore").read_text(encoding="utf-8"))
+        for f in DOCS.rglob("*"):
+            if f.is_file() and f.suffix in (".html", ".js", ".json"):
+                text = f.read_text(encoding="utf-8", errors="ignore")
+                self.assertNotIn("FantasyPros", text, f)
+                self.assertNotIn("fp_rank", text, f)
+
+    def test_war_room_links_the_private_doc(self):
+        js = (ROOT / "warroom/app.js").read_text(encoding="utf-8")
+        self.assertNotIn("data/ros.json", js)
+        self.assertIn("docs.google.com/document/d/", js)
 
 
 if __name__ == "__main__":

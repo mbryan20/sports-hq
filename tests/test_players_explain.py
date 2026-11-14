@@ -1,6 +1,6 @@
 """Players page (docs/players/index.html): every column header has a plain-English explanation, the "How to read this
-table" legend is there, and the optional outside ROS ranks (docs/data/ros.json) use the agreed player key. Reads the page
-as text; the key check runs the page's own rosKey through Node (skipped when Node isn't installed)."""
+table" legend is there, and the outside experts' ROS ranks are NOT on the page (private Doc only, Nov 14). Reads the page
+as text."""
 import json
 import os
 import re
@@ -54,7 +54,7 @@ class EveryColumnExplained(unittest.TestCase):
     def test_football_columns(self):
         cols, _ = header_cols(self.text, "function renderNFL(")
         keys = help_keys(self.text, "HELP_NFL")
-        for c in ("rk", "name", "ros", "rr", "proj", "wkrk", "exp", "explately", "fc", "next"):
+        for c in ("rk", "name", "ros", "proj", "wkrk", "exp", "explately", "fc", "next"):
             self.assertIn(c, cols)
         for c in cols:
             self.assertIn(c, keys, f"football column {c!r} has no explanation in HELP_NFL")
@@ -87,20 +87,14 @@ class EveryColumnExplained(unittest.TestCase):
         self.assertEqual(self.text.count('<p class="intro">'), 2)
 
 
-class OutsideRosRanks(unittest.TestCase):
-    def test_optional_file(self):
+class OutsideRosRanksArePrivate(unittest.TestCase):
+    """Michael, Nov 14: "1: private Doc". FantasyPros' terms forbid republishing, and this page is public."""
+    def test_no_expert_ranks_on_the_page(self):
         text = page()
-        self.assertIn('S.loadFile("ros")', text)          # null on a missing file: the page works without it
-        self.assertIn("ros && { col: \"rr\"", text)          # the ROS rank column only when the file has players
-
-    def test_key_matches_schema(self):
-        node = os.environ.get("NODE") or shutil.which("node")
-        if not node:
-            self.skipTest("node not installed")
-        line = next(l for l in page().splitlines() if "const rosKey =" in l).strip()
-        expr = line + "; console.log(JSON.stringify([rosKey('Braelon Allen','RB'), rosKey(\"Ja'Marr Chase\",'WR'), rosKey('Amon-Ra St. Brown','WR')]))"
-        out = subprocess.run([node, "-e", expr], check=True, capture_output=True, text=True, cwd=ROOT)
-        self.assertEqual(json.loads(out.stdout), ["braelonallen|RB", "jamarrchase|WR", "amonrastbrown|WR"])
+        self.assertNotIn('S.loadFile("ros")', text)
+        self.assertNotIn('col: "rr"', text)
+        self.assertNotIn("FantasyPros", text)
+        self.assertIn("docs.google.com/document/d/", text)    # one link to his private Doc
 
 
 if __name__ == "__main__":

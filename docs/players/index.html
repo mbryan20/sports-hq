@@ -15,7 +15,7 @@
 <style>
 /* Players: every player in a league, sortable and filterable. Basketball: data/players.json (shq/nba_values.py);
    football: data/players_nfl.json (shq/nfl_players.py). Dense on purpose:
-   it replaces sifting players on FantasyPros. Phone: the table keeps the key columns and a category heat strip; tap a
+   it replaces sifting players on other sites. Phone: the table keeps the key columns and a category heat strip; tap a
    row for the full stat line. */
 main { padding: 10px 12px 80px; max-width: 1400px; margin: 0 auto; }
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 10px; }
@@ -229,8 +229,6 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       g: "Higher is better. Use it to set this week's lineup." }),
     wkrk: () => ({ t: "Wk rk (this week's rank)", d: "His rank at his position by this week's projection: <b>WR8</b> = 8th-best receiver this week. Sort by Wk for the same order.",
       g: "Lower is better." }),
-    rr: () => ({ t: "ROS rank (experts)", d: `Rest-of-season rank and tier from outside expert rankings${rosSrcTxt()}: <b>RB31</b> = 31st running back for the rest of the season; under it, Claude's one-word tier from that rank and the latest news (Must start, Starter, Flex, Bench depth, Handcuff, Cut candidate). Tap the row for the reason.`,
-      g: "Lower is better. – = not in their rankings." }),
     exp: () => ({ t: "Experts (this week)", d: "ESPN's fantasy experts' average rank for him at his position this week (usually about 8 experts, PPR scoring; QB, RB, WR, TE). Tap the row to see how many ranked him and their best-to-worst range.",
       g: "Lower is better. <span class=\"pos\">Green</span> = the experts rank him 10+ spots better than our Wk rk (6+ for QB/TE), so he may beat his projection. <span class=\"neg\">Red</span> = they rank him that much worse." }),
     explately: () => ({ t: "Exp lately", d: "The middle (median) of the experts' ranks for him over their last 3 weekly lists, skipping weeks he was out or on a bye. Handy before this week's list is out.",
@@ -300,36 +298,11 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
     [`<span class="chip q">Q</span> <span class="chip bad">OUT</span>`, "Injury status: Q = questionable, D = doubtful, OUT = out this week, IR = injured reserve (out for weeks), PUP = not cleared to practice yet."],
     ["vs NE", "This week's game: vs = at home, @ = away, then kickoff time. <b>bye</b> = no game this week."],
     [`<span class="pos">WR5</span> <span class="neg">WR40</span>`, "Experts column: green = ESPN's experts rank him 10+ spots better than our this-week rank (6+ for QB/TE); red = that much worse."],
-    ...(ros ? [[`RB31<small class="muted"> Flex</small>`, "ROS rank: outside experts' rest-of-season rank, with Claude's tier word under it (Must start … Cut candidate). Tap the row for why."]] : []),
     ["–", "No number: not projected or not ranked."],
   ];
-  // ---------- outside rest-of-season ranks (docs/data/ros.json; optional, the page works without it) ----------
-  let ros = null;
-  const rosKey = (name, pos) => String(name || "").toLowerCase().replace(/[^a-z]/g, "") + "|" + pos;
-  function rosFor(p) {
-    const P = ros?.players, n = p.name || "";
-    if (!P) return null;
-    return P[rosKey(n, p.pos)] || P[rosKey(n.normalize("NFD"), p.pos)] || P[rosKey(n.replace(/\s+(jr|sr|ii|iii|iv|v)\.?$/i, ""), p.pos)] || null;
-  }
-  const rosRankNum = r => { const m = String(r?.rank || "").match(/\d+/); return m ? +m[0] : null; };
-  const tierTxt = t => t == null || t === "" ? "" : /^\d+$/.test(String(t)) ? "T" + t : String(t).slice(0, 14);
-  const dayTxt = s => { if (!s) return ""; const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(s) ? s + "T12:00:00" : s);
-    return isNaN(d) ? String(s) : d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); };
-  const rosSrc = name => (ros?.sources || []).find(x => x.name === name);
-  // rule 15 (Nov 14): only experts who updated in the last week and rank well for accuracy (shq/ros.py); name them
-  const rosSrcTxt = () => { const m = ros?.method?.RB;
-    if (m && m.experts && m.experts.length) return ` (average of ${m.experts.length} FantasyPros experts who updated in the last 7 days and rank in the top 50 for accuracy: ${m.experts.map(e => `${esc(e.name)} #${e.accuracy_rank}, ${esc(e.updated)}`).join("; ")})`;
-    const s = (ros?.sources || []).map(x => esc(x.name) + (x.as_of ? ` (${esc(dayTxt(x.as_of))})` : "")).join(", ");
-    return s ? ` (${s})` : ""; };
-  const rrCell = r => !r || (!r.rank && !tierTxt(r.tier)) ? "–" : `${esc(r.rank || "–")}${tierTxt(r.tier) ? `<small>${esc(tierTxt(r.tier))}</small>` : ""}`;
-  function rosLine(p) {
-    if (!ros) return "";
-    const r = rosFor(p);
-    if (!r) return `<div class="why muted">Experts' rest of season: not in their rankings.</div>`;
-    const s = rosSrc(r.source), link = s && /^https?:\/\//.test(s.url || "") ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(r.source)}</a>` : esc(r.source || "");
-    return `<div class="why"><b>Experts' rest of season:</b> ${esc(r.rank || "unranked")}${r.fp_rank && r.fp_rank !== r.rank ? ` (FantasyPros default ${esc(r.fp_rank)})` : ""}${r.tier != null && r.tier !== "" ? `, tier ${esc(r.tier)}` : ""}${r.why ? ` · ${esc(r.why)}` : ""}${r.basis ? ` <span class="muted">(${esc(r.basis)})</span>` : ""}
-      <br><span class="muted">${link ? `Source: ${link}${s?.as_of ? `, ${esc(dayTxt(s.as_of))}` : ""}` : ""}${r.news_date ? ` · news from ${esc(dayTxt(r.news_date))}` : ""}${r.dynasty ? ` · dynasty: ${esc(r.dynasty)}` : ""}</span></div>`;
-  }
+  // Outside experts' rest-of-season ranks are not on this public page (their source's terms forbid republishing): they live in
+  // Michael's private Google Doc (his choice, Nov 14), linked above the football table.
+  const ROS_DOC = "https://docs.google.com/document/d/1vRM45a7tMhqsBKvDW2mcLenuzaj6au_FFPIo4MHP9og/edit";
   // a plain word for where his rank sits in this league
   const level = (L, p) => p.rk <= teamsIn(L) ? "first-round level" : p.rk <= L.n / 2 ? "top half of rostered players"
     : p.rk <= L.n ? "bottom half of rostered players" : "waiver level: below what this league keeps";
@@ -392,7 +365,7 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       + `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
   }
   // ---------- football: rest-of-season and this-week ranks by position (shq/nfl_players.py) ----------
-  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name", "rr"];
+  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name"];
   // ESPN experts' consensus rank (shq/experts.py): green/red when they rank him far better/worse than our week rank
   const EXP_BIG = { QB: 6, TE: 6, RB: 10, WR: 10 };
   const expCls = p => { if (!p.exp_wk || !p.proj_rk) return ""; const g = p.proj_rk - p.exp_wk, b = EXP_BIG[p.pos] || 10;
@@ -406,8 +379,7 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       (st.who === "all" || (st.who === "fa" ? !p.own : st.who === "mine" ? p.own === "me" : p.own && p.own !== "me")) &&
       (!pos || p.pos === pos) && (!st.health || (st.health === "ok" ? !p.inj : !!p.inj)) &&
       (!q || p.name.toLowerCase().includes(q) || (p.team || "").toLowerCase() === q));
-    if (st.sort === "rr" && !ros) { st.sort = "ros"; st.dir = -1; }
-    const val = (p, k) => k === "name" ? p.name : k === "rr" ? (n => n ? -n : null)(rosRankNum(rosFor(p))) : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
+    const val = (p, k) => k === "name" ? p.name : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
     all.sort((a, b) => { const x = val(a, st.sort), y = val(b, st.sort);
       return typeof x === "string" ? st.dir * x.localeCompare(y) : st.dir * ((x ?? -1e9) - (y ?? -1e9)); });
     const shown = all.slice(0, st.limit), wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
@@ -415,7 +387,6 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       { col: "rk", sort: "ros", label: "Rk", title: "Rest-of-season rank at his position" },
       { col: "name", sort: "name", label: "Player", cls: "l" },
       { col: "ros", sort: "ros", label: "ROS", title: "Rest of season: projected points per game (next 4 weeks, byes skipped)" },
-      ros && { col: "rr", sort: "rr", label: "ROS rank", cls: "wrap", title: "Outside experts' rest-of-season rank and tier" },
       { col: "proj", sort: "proj", label: "Wk", title: "This week's projection" },
       { col: "wkrk", label: "Wk rk", cls: "wrap", title: "This week's rank at his position" },
       { col: "exp", sort: "exp", label: "Experts", title: "ESPN experts' consensus rank at his position this week" },
@@ -437,17 +408,18 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}`;
       const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${rk(p, "ros")}</td>
         <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${/OUT|IR|D/.test(p.inj) ? "bad" : "q"}">${esc(p.inj)}</span>` : ""}</div><div class="sb">${sub}</div></td>
-        <td class="v">${n1(p.ros)}</td>${ros ? `<td class="rr">${rrCell(rosFor(p))}</td>` : ""}<td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
+        <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
         ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td><td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
       const more = st.open[p.id] ? `<tr class="more"><td colspan="${ncol}"><b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${p.own === "me" ? "yours" : p.own ? esc(p.own) : "free agent"}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
         Rest of season ${n1(p.ros)} per game (${rk(p, "ros")}) · this week ${p.opp === "BYE" ? "bye" : `${n1(p.proj)} (${rk(p, "proj")})`}${p.opp && p.opp !== "BYE" ? `, ${esc(p.opp)} ${esc(S.kick(p.kick))}` : ""}<br>
         Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}<br>
-        ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}${rosLine(p)}</td></tr>` : "";
+        ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}</td></tr>` : "";
       return tr + more;
     }).join("");
     main.innerHTML = `<div class="tabs">${tabsHTML()}</div>${filters}
       <p class="intro"><b>ROS</b> = projected points per game for the next 4 weeks in your scoring; <b>Rk</b> = his rank at his position by it
-        (RB12 = 12th-best running back). <b>Wk</b> = this week's projection. Higher points and lower ranks are better. Tap <span class="muted">ⓘ</span> by any column for what it means.</p>
+        (RB12 = 12th-best running back). <b>Wk</b> = this week's projection. Higher points and lower ranks are better. Tap <span class="muted">ⓘ</span> by any column for what it means.
+        Experts' rest-of-season ranks: <a href="${ROS_DOC}" target="_blank" rel="noopener">your private Doc</a>.</p>
       ${legendHTML(LEGEND_NFL(L))}
       <div class="summary"><span>${all.length} player${all.length === 1 ? "" : "s"}${all.length > shown.length ? `, showing ${shown.length}` : ""} · week ${L.week} · tap a row for his full line</span>
         <span>Built ${esc(S.kick(data.nflUpdated || data.updated))}</span></div>
@@ -563,8 +535,7 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
   addEventListener("hashchange", () => data && render());
   matchMedia("(max-width: 760px)").addEventListener("change", () => data && render());
   S.start(async () => {
-    const [nba, nfl, rs] = await Promise.all([S.loadFile("players"), S.loadFile("players_nfl"), S.loadFile("ros")]);
-    ros = rs && rs.players && typeof rs.players === "object" && Object.keys(rs.players).length ? rs : null;   // optional file
+    const [nba, nfl] = await Promise.all([S.loadFile("players"), S.loadFile("players_nfl")]);
     if (nba || nfl) data = { updated: nba?.updated || nfl?.updated, nflUpdated: nfl?.updated,
                              leagues: { ...(nba?.leagues || {}), ...(nfl?.leagues || {}) } };
     render();
