@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T15:47:22Z",
+ "updated": "2026-11-15T15:47:26Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -12,7 +12,7 @@
    "league": null,
    "opponent": null,
    "opp_proj": null,
-   "roster_synced": "2026-11-15T13:34:37Z",
+   "roster_synced": "2026-11-14T22:34:32Z",
    "proj": 103.3,
    "starters": [
     {
@@ -84,11 +84,17 @@
      "kickoff": "2026-11-15T14:30:00Z",
      "started": true,
      "proj": 15.9,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "Q",
+     "why": "Yahoo: Questionable",
+     "flags": [
+      "Q"
+     ],
      "exp": "WR4 this week, WR5 lately",
-     "news": null
+     "news": {
+      "note": "St. Brown (ribs) is listed as active Sunday against the Patriots in Munich.",
+      "at": "2026-11-15T13:03:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4374302/amon-ra-st-brown"
+     }
     },
     {
      "slot": "TE",
@@ -1937,7 +1943,11 @@
      "why": "",
      "flags": [],
      "exp": "WR4 this week, WR5 lately",
-     "news": null
+     "news": {
+      "note": "St. Brown (ribs) is listed as active Sunday against the Patriots in Munich.",
+      "at": "2026-11-15T13:03:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4374302/amon-ra-st-brown"
+     }
     },
     {
      "slot": "RB",
@@ -2157,12 +2167,18 @@
      "opp": "@DET",
      "kickoff": "2026-11-15T14:30:00Z",
      "started": true,
-     "proj": 13.5,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "proj": 0.0,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "Q"
+     ],
      "exp": "RB21 this week, RB15 lately",
-     "news": null
+     "news": {
+      "note": "Stevenson (knee) is active for Sunday's game against the Lions in Munich.",
+      "at": "2026-11-15T13:03:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4569173/rhamondre-stevenson"
+     }
     },
     {
      "slot": "BN",
@@ -2172,12 +2188,18 @@
      "opp": "@DET",
      "kickoff": "2026-11-15T14:30:00Z",
      "started": true,
-     "proj": 12.5,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "proj": 12.6,
+     "status": "Q",
+     "why": "ESPN: QUESTIONABLE",
+     "flags": [
+      "Q"
+     ],
      "exp": "WR20 this week, WR19 lately",
-     "news": null
+     "news": {
+      "note": "Brown (knee/ankle) is listed as active for Sunday's game against the Lions in Munich.",
+      "at": "2026-11-15T13:06:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4047646/aj-brown"
+     }
     },
     {
      "slot": "BN",
@@ -3641,7 +3663,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "ESPN: OUT, but ESPN says Day-To-Day: unconfirmed",
+     "why": "ESPN: DAY_TO_DAY",
      "flags": [
       "NO GAME",
       "Q"
@@ -3823,8 +3845,8 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": null,
-     "why": "",
+     "status": "OUT",
+     "why": "Out (left knee strain) per NBA injury report, 9:30am",
      "flags": [
       "NO GAME"
      ],
@@ -3841,16 +3863,21 @@
     "matchup": "vs Fighting Turkeys",
     "danger": false,
     "fixes": [],
-    "moves": [],
+    "moves": [
+     "Start Dyson Daniels (ATL @MIL, Sun 7:00p) over LaMelo Ball at PG: no game today",
+     "Start VJ Edgecombe (PHI vs IND, Sun 12:00p) over Austin Reaves at SG: Out (left heel contusion / bone bruise) per NBA injury report, 9:30am",
+     "Start Darius Garland (LAC vs CHA, Sun 3:30p) over John Collins at UT: no game today"
+    ],
     "adds": [
      "Leave Ajay Mitchell in IR for now: moving him out takes a drop with your roster full, and every player you could drop has a real role. No pickups today (ESPN blocks adds and drops until he moves); take the zero."
     ],
     "trades": null,
     "notes": [
-     "Austin Reaves (PG) Out (left heel contusion / bone bruise) per NBA injury report, 9:30am \u2192 no bench fit; best FA Quentin Grimes (LAL) [ESPN, Nov 14 6:17p: Reaves (heel) has been ruled out for Sunday's game against the Suns, Daniel Starkand of LakersNation.com reports.]",
-     "Jaxson Hayes (C) Out (left knee strain) per NBA injury report, 9:30am \u2192 no bench fit; best FA Quentin Grimes (LAL) [ESPN, Nov 14 6:07p: Hayes (knee) has been ruled out for Sunday's game against the Spurs.]",
-     "5 of 9 starters play tonight",
-     "(roster as of the laptop read Sun 7:35a; check it's still current)"
+     "LaMelo Ball (PG) no game today \u2192 start Dyson Daniels",
+     "Austin Reaves (SG) Out (left heel contusion / bone bruise) per NBA injury report, 9:30am \u2192 start VJ Edgecombe [ESPN, Nov 14 6:17p: Reaves (heel) has been ruled out for Sunday's game against the Suns, Daniel Starkand of LakersNation.com reports.]",
+     "John Collins (UT) no game today \u2192 start Darius Garland",
+     "2 of 9 starters play tonight",
+     "(roster as of the laptop read Sat 4:35p; check it's still current)"
     ],
     "cats": {
      "rows": [
@@ -4070,6 +4097,27 @@
        "fade": false,
        "fade_why": null,
        "fade_clause": ""
+      },
+      {
+       "text": "Kelly Oubre Jr. (SF, IND), free agent, rostered 8% (+3.8% in 3 days): minutes 18 \u2192 29 in his last 3 games (Nov 9\u2013Nov 13) vs 10 before, played 8 of them, usage 18% \u2192 21%, since Tyrese Haliburton went out [ESPN Nov 11: Out, Head coach Rick Carlisle said Wednesday that Haliburton (hamstring) will miss at least 10\u2026]. Fits BLK (losing). 1 game left this week, 3 next week.",
+       "short": "Kelly Oubre Jr. (IND, FA 8%): minutes 18 \u2192 29, usage 18% \u2192 21%; fits BLK (ESPN game logs through Nov 13)",
+       "links": [
+        [
+         "ESPN game log through Nov 13",
+         "https://www.espn.com/nba/player/gamelog/_/id/3133603"
+        ],
+        [
+         "ESPN Nov 11",
+         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "3133603",
+       "name": "Kelly Oubre Jr.",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
       }
      ],
      "shrinking": [],
@@ -4241,7 +4289,7 @@
      "mine": {
       "now": 5,
       "opp": 9,
-      "next": 37
+      "next": 40
      },
      "streamers": [
       "Derrick Jones Jr. (SF/PF, LAC, 13% rostered): 1 game this week (Su), +2.2 this week, helps BLK",
