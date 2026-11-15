@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T17:37:00Z",
+ "updated": "2026-11-15T17:47:00Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -250,7 +250,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    }
   },
@@ -778,7 +778,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    }
   },
@@ -1028,7 +1028,7 @@
     }
    ],
    "advice": {
-    "matchup": "Projected 2 of 9 this week, +30.1 pts vs the lowest other team, 3% chance of being cut",
+    "matchup": "Projected 2 of 9 this week, +41.2 pts vs the lowest other team, 1% chance of being cut",
     "danger": false,
     "fixes": [],
     "moves": [],
@@ -1094,17 +1094,17 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": [],
     "guillotine": {
      "week": 10,
      "sims": 5000,
      "n": 9,
      "rank": 2,
-     "gap": 30.1,
-     "proj": 154.1,
-     "cut": 0.026,
-     "survive": 0.974,
+     "gap": 41.2,
+     "proj": 147.4,
+     "cut": 0.014,
+     "survive": 0.986,
      "faab": 10,
      "reserve": 5,
      "waivers": "Wed 2:15a",
@@ -1123,7 +1123,7 @@
         "team": "LAC",
         "proj": 9.6,
         "gain": 1.3,
-        "cut_with": 0.023,
+        "cut_with": 0.012,
         "freed_from": null,
         "price": 0,
         "max": 0,
@@ -1133,25 +1133,25 @@
        }
       ],
       "freed": {
-       "team": "GoodFellas (GoodFellas77)",
-       "cut": 0.254,
+       "team": "CodyRust",
+       "cut": 0.351,
        "players": [
         {
-         "name": "James Cook III",
-         "sid": "8138",
+         "name": "Christian McCaffrey",
+         "sid": "4034",
          "pos": "RB",
-         "team": "BUF",
-         "proj": 17.0,
-         "gain": 5.9,
-         "cut_with": 0.012,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 34,
-         "max": 2,
+         "team": "SF",
+         "proj": 20.6,
+         "gain": 9.5,
+         "cut_with": 0.005,
+         "freed_from": "CodyRust",
+         "price": 38,
+         "max": 3,
          "call": "priced out",
          "rivals": [
           {
            "name": "Off with his head (damonhawk1)",
-           "bid": 33
+           "bid": 37
           },
           {
            "name": "JHED1979",
@@ -1164,21 +1164,21 @@
          ]
         },
         {
-         "name": "Chris Olave",
-         "sid": "8144",
+         "name": "Nico Collins",
+         "sid": "7569",
          "pos": "WR",
-         "team": "NO",
-         "proj": 13.2,
-         "gain": 4.9,
-         "cut_with": 0.014,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 10,
+         "team": "HOU",
+         "proj": 13.1,
+         "gain": 4.8,
+         "cut_with": 0.008,
+         "freed_from": "CodyRust",
+         "price": 9,
          "max": 2,
          "call": "priced out",
          "rivals": [
           {
            "name": "JHED1979",
-           "bid": 9
+           "bid": 8
           },
           {
            "name": "Off with his head (damonhawk1)",
@@ -1191,29 +1191,29 @@
          ]
         },
         {
-         "name": "Rashee Rice",
-         "sid": "10229",
-         "pos": "WR",
-         "team": "KC",
-         "proj": 12.3,
-         "gain": 4.0,
-         "cut_with": 0.016,
-         "freed_from": "GoodFellas (GoodFellas77)",
-         "price": 7,
+         "name": "Derrick Henry",
+         "sid": "3198",
+         "pos": "RB",
+         "team": "BAL",
+         "proj": 14.9,
+         "gain": 3.8,
+         "cut_with": 0.009,
+         "freed_from": "CodyRust",
+         "price": 19,
          "max": 1,
          "call": "priced out",
          "rivals": [
           {
+           "name": "Off with his head (damonhawk1)",
+           "bid": 18
+          },
+          {
            "name": "JHED1979",
-           "bid": 6
+           "bid": 15
           },
           {
            "name": "robert8063",
-           "bid": 5
-          },
-          {
-           "name": "Swegs4",
-           "bid": 1
+           "bid": 13
           }
          ]
         }
@@ -1242,25 +1242,41 @@
      },
      "teams": [
       {
+       "name": "CodyRust",
+       "proj": 106.1,
+       "cut": 0.351,
+       "faab": 0,
+       "bold": 0.75,
+       "me": false
+      },
+      {
+       "name": "Swegs4",
+       "proj": 117.7,
+       "cut": 0.172,
+       "faab": 3,
+       "bold": 1.0,
+       "me": false
+      },
+      {
        "name": "GoodFellas (GoodFellas77)",
-       "proj": 124.0,
-       "cut": 0.254,
+       "proj": 120.8,
+       "cut": 0.165,
        "faab": 16,
        "bold": 0.74,
        "me": false
       },
       {
        "name": "Aniasin1",
-       "proj": 126.3,
-       "cut": 0.188,
+       "proj": 122.7,
+       "cut": 0.113,
        "faab": 3,
        "bold": 0.93,
        "me": false
       },
       {
        "name": "robert8063",
-       "proj": 134.9,
-       "cut": 0.124,
+       "proj": 127.3,
+       "cut": 0.099,
        "faab": 23,
        "bold": 0.62,
        "me": false
@@ -1268,39 +1284,23 @@
       {
        "name": "SteelRob420",
        "proj": 136.1,
-       "cut": 0.122,
+       "cut": 0.056,
        "faab": 0,
        "bold": 1.0,
-       "me": false
-      },
-      {
-       "name": "Swegs4",
-       "proj": 136.0,
-       "cut": 0.108,
-       "faab": 3,
-       "bold": 1.0,
-       "me": false
-      },
-      {
-       "name": "CodyRust",
-       "proj": 136.7,
-       "cut": 0.108,
-       "faab": 0,
-       "bold": 0.75,
        "me": false
       },
       {
        "name": "JHED1979",
        "proj": 145.8,
-       "cut": 0.071,
+       "cut": 0.03,
        "faab": 22,
        "bold": 0.77,
        "me": false
       },
       {
        "name": "michaelbryan",
-       "proj": 154.1,
-       "cut": 0.026,
+       "proj": 147.4,
+       "cut": 0.014,
        "faab": 10,
        "bold": 0.58,
        "me": true
@@ -1883,7 +1883,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    }
   },
@@ -2164,10 +2164,10 @@
      "kickoff": "2026-11-15T14:30:00Z",
      "started": true,
      "proj": 12.5,
-     "status": "OUT",
-     "why": "ESPN: Out",
+     "status": "Q",
+     "why": "ESPN: Questionable",
      "flags": [
-      "OUT"
+      "Q"
      ],
      "exp": "WR20 this week, WR19 lately",
      "news": {
@@ -2296,7 +2296,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    }
   },
@@ -2662,7 +2662,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    }
   },
@@ -3502,7 +3502,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (11:30am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
@@ -4249,7 +4249,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Sun 11:37a",
+    "built": "Sun 11:47a",
     "skipped": []
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (11:30am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
