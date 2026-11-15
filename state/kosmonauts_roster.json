@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-14T22:34:32Z",
+ "captured": "2026-11-15T13:34:37Z",
  "players": [
   {
    "slot": "QB",
@@ -59,7 +59,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "TE",
@@ -209,18 +209,6 @@
   },
   {
    "slot": "FA",
-   "name": "Baker Mayfield",
-   "yahoo_id": "30971",
-   "key": null,
-   "team": "TB",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Geno Smith",
    "yahoo_id": "26662",
    "key": null,
@@ -237,6 +225,18 @@
    "yahoo_id": "40889",
    "key": null,
    "team": "ATL",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Baker Mayfield",
+   "yahoo_id": "30971",
+   "key": null,
+   "team": "TB",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -413,18 +413,6 @@
   },
   {
    "slot": "FA",
-   "name": "J. Croskey-Merritt",
-   "yahoo_id": "42010",
-   "key": null,
-   "team": "WAS",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "IR"
-  },
-  {
-   "slot": "FA",
    "name": "RJ Harvey",
    "yahoo_id": "41845",
    "key": null,
@@ -441,6 +429,18 @@
    "yahoo_id": "41823",
    "key": null,
    "team": "NE",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "J. Croskey-Merritt",
+   "yahoo_id": "42010",
+   "key": null,
+   "team": "WAS",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -509,18 +509,6 @@
   },
   {
    "slot": "FA",
-   "name": "Ladd McConkey",
-   "yahoo_id": "40908",
-   "key": null,
-   "team": "LAC",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Davante Adams",
    "yahoo_id": "27581",
    "key": null,
@@ -530,6 +518,18 @@
     "WR"
    ],
    "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Ladd McConkey",
+   "yahoo_id": "40908",
+   "key": null,
+   "team": "LAC",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -581,18 +581,6 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
-   "key": null,
-   "team": "SF",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Khalil Shakir",
    "yahoo_id": "34104",
    "key": null,
@@ -605,10 +593,34 @@
   },
   {
    "slot": "FA",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
+   "key": null,
+   "team": "SF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Jordyn Tyson",
    "yahoo_id": "42630",
    "key": null,
    "team": "NO",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Wan'Dale Robinson",
+   "yahoo_id": "33998",
+   "key": null,
+   "team": "TEN",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -633,18 +645,6 @@
    "yahoo_id": "30197",
    "key": null,
    "team": "TB",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Wan'Dale Robinson",
-   "yahoo_id": "33998",
-   "key": null,
-   "team": "TEN",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -917,10 +917,10 @@
   },
   {
    "slot": "FA",
-   "name": "Chase McLaughlin",
-   "yahoo_id": "32417",
+   "name": "Harrison Butker",
+   "yahoo_id": "30346",
    "key": null,
-   "team": "TB",
+   "team": "KC",
    "pos": "K",
    "eligible": [
     "K"
@@ -929,10 +929,10 @@
   },
   {
    "slot": "FA",
-   "name": "Harrison Butker",
-   "yahoo_id": "30346",
+   "name": "Chase McLaughlin",
+   "yahoo_id": "32417",
    "key": null,
-   "team": "KC",
+   "team": "TB",
    "pos": "K",
    "eligible": [
     "K"
@@ -989,10 +989,10 @@
   },
   {
    "slot": "FA",
-   "name": "Andy Borregales",
-   "yahoo_id": "41980",
+   "name": "Ryan Fitzgerald",
+   "yahoo_id": "42262",
    "key": null,
-   "team": "NE",
+   "team": "CAR",
    "pos": "K",
    "eligible": [
     "K"
@@ -1001,10 +1001,10 @@
   },
   {
    "slot": "FA",
-   "name": "Ryan Fitzgerald",
-   "yahoo_id": "42262",
+   "name": "Andy Borregales",
+   "yahoo_id": "41980",
    "key": null,
-   "team": "CAR",
+   "team": "NE",
    "pos": "K",
    "eligible": [
     "K"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-14T22:34:32Z"
+ "fa_captured": "2026-11-15T13:34:37Z"
 }
