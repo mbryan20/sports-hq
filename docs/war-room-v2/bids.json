@@ -1,14 +1,14 @@
 {
  "league": "Damon’s Guilltoine League 2026",
- "data_as_of": "Week 9 final; MoneyManChas cut in week 9 (confirmed); moves through Sun 7:13p CT",
+ "data_as_of": "Week 10 final (Sleeper still scoring); SteelRob420 cut in week 10 (projected, not yet confirmed); moves through Sun 7:13p CT",
  "last_sleeper_move": "2026-11-16T01:13:09Z",
- "week": 10,
+ "week": 11,
  "last_week": 17,
  "cut": {
-  "team": "MoneyManChas",
-  "week": 9,
-  "confirmed": true,
-  "freed_status": "cleared"
+  "team": "SteelRob420",
+  "week": 10,
+  "confirmed": false,
+  "freed_status": "projected"
  },
  "waivers_open": false,
  "next_waiver_run": "2026-11-18T08:15:00Z",
@@ -18,27 +18,27 @@
  "reserve": 5,
  "budget": {
   "spendable": 5,
-  "recommended_bids_total": 0,
-  "dollars_per_win_point": null,
+  "recommended_bids_total": 3,
+  "dollars_per_win_point": 0.7,
   "reserve_released": false,
-  "my_cut_risk": 0.059
+  "my_cut_risk": 0.035
  },
  "settings": {
   "projections": "Sleeper weekly",
   "score_sd": 21.7,
-  "score_sd_measured_from": 126,
+  "score_sd_measured_from": 135,
   "sd_growth_per_week": 1.25,
   "rival_aggression": 1,
   "value": "win odds (winner takes all)",
   "sims": 20000,
-  "price_ladder_claims": 212,
-  "price_model": "rival by rival (fitted on 2552 rival-player chances)"
+  "price_ladder_claims": 210,
+  "price_model": "rival by rival (fitted on 2521 rival-player chances)"
  },
  "me": {
-  "cut_risk_next_week": 0.059,
-  "expected_weeks_left": 4.3,
-  "win_odds": 0.064,
-  "projected_next_week": 137.4
+  "cut_risk_next_week": 0.035,
+  "expected_weeks_left": 3.8,
+  "win_odds": 0.075,
+  "projected_next_week": 135.9
  },
  "cut_risks": [
   {
@@ -46,93 +46,264 @@
    "me": false,
    "faab": 3,
    "boldest_bid_pct": 93,
-   "projected_next_week": 116.7,
-   "cut_risk_next_week": 0.268,
-   "expected_weeks_left": 1.9,
-   "win_odds": 0.003
-  },
-  {
-   "team": "GoodFellas77",
-   "me": false,
-   "faab": 16,
-   "boldest_bid_pct": 74,
-   "projected_next_week": 120.1,
-   "cut_risk_next_week": 0.219,
-   "expected_weeks_left": 3.9,
-   "win_odds": 0.131
-  },
-  {
-   "team": "CodyRust",
-   "me": false,
-   "faab": 0,
-   "boldest_bid_pct": 75,
-   "projected_next_week": 130.9,
-   "cut_risk_next_week": 0.102,
-   "expected_weeks_left": 3.8,
-   "win_odds": 0.057
-  },
-  {
-   "team": "Swegs4",
-   "me": false,
-   "faab": 3,
-   "boldest_bid_pct": 100,
-   "projected_next_week": 131,
-   "cut_risk_next_week": 0.102,
-   "expected_weeks_left": 4.2,
-   "win_odds": 0.107
-  },
-  {
-   "team": "robert8063",
-   "me": false,
-   "faab": 23,
-   "boldest_bid_pct": 62,
-   "projected_next_week": 130.8,
-   "cut_risk_next_week": 0.1,
-   "expected_weeks_left": 3.1,
-   "win_odds": 0.025
-  },
-  {
-   "team": "damonhawk1",
-   "me": false,
-   "faab": 86,
-   "boldest_bid_pct": 42,
-   "projected_next_week": 134.2,
-   "cut_risk_next_week": 0.076,
-   "expected_weeks_left": 5.4,
-   "win_odds": 0.261
-  },
-  {
-   "team": "michaelbryan",
-   "me": true,
-   "faab": 10,
-   "boldest_bid_pct": 58,
-   "projected_next_week": 137.4,
-   "cut_risk_next_week": 0.059,
-   "expected_weeks_left": 4.3,
-   "win_odds": 0.064
+   "projected_next_week": 109,
+   "cut_risk_next_week": 0.274,
+   "expected_weeks_left": 1.5,
+   "win_odds": 0.006
   },
   {
    "team": "JHED1979",
    "me": false,
    "faab": 22,
    "boldest_bid_pct": 77,
-   "projected_next_week": 143.1,
-   "cut_risk_next_week": 0.037,
-   "expected_weeks_left": 4.1,
-   "win_odds": 0.132
+   "projected_next_week": 109.1,
+   "cut_risk_next_week": 0.267,
+   "expected_weeks_left": 3.4,
+   "win_odds": 0.157
   },
   {
-   "team": "SteelRob420",
+   "team": "robert8063",
+   "me": false,
+   "faab": 23,
+   "boldest_bid_pct": 62,
+   "projected_next_week": 114.1,
+   "cut_risk_next_week": 0.193,
+   "expected_weeks_left": 2.6,
+   "win_odds": 0.032
+  },
+  {
+   "team": "Swegs4",
+   "me": false,
+   "faab": 3,
+   "boldest_bid_pct": 100,
+   "projected_next_week": 123.8,
+   "cut_risk_next_week": 0.096,
+   "expected_weeks_left": 4,
+   "win_odds": 0.141
+  },
+  {
+   "team": "GoodFellas77",
+   "me": false,
+   "faab": 16,
+   "boldest_bid_pct": 74,
+   "projected_next_week": 129.4,
+   "cut_risk_next_week": 0.059,
+   "expected_weeks_left": 4.3,
+   "win_odds": 0.19
+  },
+  {
+   "team": "CodyRust",
    "me": false,
    "faab": 0,
-   "boldest_bid_pct": 100,
-   "projected_next_week": 142.9,
-   "cut_risk_next_week": 0.036,
-   "expected_weeks_left": 5.4,
-   "win_odds": 0.221
+   "boldest_bid_pct": 75,
+   "projected_next_week": 130,
+   "cut_risk_next_week": 0.056,
+   "expected_weeks_left": 3.4,
+   "win_odds": 0.072
+  },
+  {
+   "team": "michaelbryan",
+   "me": true,
+   "faab": 10,
+   "boldest_bid_pct": 58,
+   "projected_next_week": 135.9,
+   "cut_risk_next_week": 0.035,
+   "expected_weeks_left": 3.8,
+   "win_odds": 0.075
+  },
+  {
+   "team": "damonhawk1",
+   "me": false,
+   "faab": 86,
+   "boldest_bid_pct": 42,
+   "projected_next_week": 143.1,
+   "cut_risk_next_week": 0.019,
+   "expected_weeks_left": 5.1,
+   "win_odds": 0.328
   }
  ],
- "freed_players": [],
+ "freed_players": [
+  {
+   "sleeper_id": "11584",
+   "name": "Bucky Irving",
+   "pos": "RB",
+   "team": "TB",
+   "injury": null,
+   "ir": false,
+   "season_avg": 16.5,
+   "last3_avg": 23.7,
+   "proj_next_week": 15.7,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "11632",
+   "name": "Malik Nabers",
+   "pos": "WR",
+   "team": "NYG",
+   "injury": null,
+   "ir": false,
+   "season_avg": 12,
+   "last3_avg": 8.8,
+   "proj_next_week": 13.5,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "1466",
+   "name": "Travis Kelce",
+   "pos": "TE",
+   "team": "KC",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 9.5,
+   "proj_next_week": 10.5,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "2747",
+   "name": "Jason Myers",
+   "pos": "K",
+   "team": "SEA",
+   "injury": null,
+   "ir": false,
+   "season_avg": 7.6,
+   "last3_avg": 3.3,
+   "proj_next_week": 0,
+   "bye_week": 11
+  },
+  {
+   "sleeper_id": "4046",
+   "name": "Patrick Mahomes",
+   "pos": "QB",
+   "team": "KC",
+   "injury": null,
+   "ir": false,
+   "season_avg": 20.2,
+   "last3_avg": 25.8,
+   "proj_next_week": 27,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "4199",
+   "name": "Aaron Jones",
+   "pos": "RB",
+   "team": "MIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.7,
+   "last3_avg": 6.5,
+   "proj_next_week": 7.7,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "4983",
+   "name": "D.J. Moore",
+   "pos": "WR",
+   "team": "BUF",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 12.4,
+   "proj_next_week": 11.3,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "5846",
+   "name": "DK Metcalf",
+   "pos": "WR",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 8.4,
+   "last3_avg": 7.3,
+   "proj_next_week": 7.6,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "6794",
+   "name": "Justin Jefferson",
+   "pos": "WR",
+   "team": "MIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 11.5,
+   "last3_avg": 10.3,
+   "proj_next_week": 15.7,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "6813",
+   "name": "Jonathan Taylor",
+   "pos": "RB",
+   "team": "IND",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.2,
+   "last3_avg": 7.6,
+   "proj_next_week": 13.5,
+   "bye_week": 13
+  },
+  {
+   "sleeper_id": "7564",
+   "name": "Ja'Marr Chase",
+   "pos": "WR",
+   "team": "CIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18,
+   "last3_avg": 26.9,
+   "proj_next_week": 18,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "8228",
+   "name": "Jaylen Warren",
+   "pos": "RB",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15,
+   "last3_avg": 14.2,
+   "proj_next_week": 13.3,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "9484",
+   "name": "Tucker Kraft",
+   "pos": "TE",
+   "team": "GB",
+   "injury": null,
+   "ir": false,
+   "season_avg": 7.5,
+   "last3_avg": 6,
+   "proj_next_week": 0,
+   "bye_week": 11
+  },
+  {
+   "sleeper_id": "96",
+   "name": "Aaron Rodgers",
+   "pos": "QB",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.4,
+   "last3_avg": 11.5,
+   "proj_next_week": 21.5,
+   "bye_week": null
+  },
+  {
+   "sleeper_id": "PIT",
+   "name": "PIT DEF",
+   "pos": "DEF",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 8,
+   "last3_avg": 8,
+   "proj_next_week": 8.3,
+   "bye_week": null
+  }
+ ],
  "my_roster": [
   {
    "slot": "QB",
@@ -142,22 +313,9 @@
    "team": "WAS",
    "injury": null,
    "ir": false,
-   "season_avg": 19.2,
-   "last3_avg": 16.9,
-   "proj_next_week": 21.4,
-   "bye_week": null
-  },
-  {
-   "slot": "RB",
-   "sleeper_id": "7594",
-   "name": "Chuba Hubbard",
-   "pos": "RB",
-   "team": "CAR",
-   "injury": null,
-   "ir": false,
-   "season_avg": 16.7,
-   "last3_avg": 13.7,
-   "proj_next_week": 17.6,
+   "season_avg": 19.7,
+   "last3_avg": 17.4,
+   "proj_next_week": 24.2,
    "bye_week": null
   },
   {
@@ -168,10 +326,23 @@
    "team": "DAL",
    "injury": null,
    "ir": false,
-   "season_avg": 16.4,
-   "last3_avg": 16,
-   "proj_next_week": 16.1,
+   "season_avg": 15.5,
+   "last3_avg": 11.3,
+   "proj_next_week": 18.6,
    "bye_week": 14
+  },
+  {
+   "slot": "RB",
+   "sleeper_id": "7594",
+   "name": "Chuba Hubbard",
+   "pos": "RB",
+   "team": "CAR",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18.4,
+   "last3_avg": 21.6,
+   "proj_next_week": 14.5,
+   "bye_week": null
   },
   {
    "slot": "WR",
@@ -179,11 +350,11 @@
    "name": "Amon-Ra St. Brown",
    "pos": "WR",
    "team": "DET",
-   "injury": "Questionable",
+   "injury": null,
    "ir": false,
-   "season_avg": 15.9,
-   "last3_avg": 13.8,
-   "proj_next_week": 15.9,
+   "season_avg": 16.8,
+   "last3_avg": 15.2,
+   "proj_next_week": 15.8,
    "bye_week": null
   },
   {
@@ -194,36 +365,36 @@
    "team": "CIN",
    "injury": null,
    "ir": false,
-   "season_avg": 17,
-   "last3_avg": 24.7,
-   "proj_next_week": 14.6,
+   "season_avg": 16.1,
+   "last3_avg": 19.8,
+   "proj_next_week": 15.6,
    "bye_week": null
   },
   {
    "slot": "WR",
-   "sleeper_id": "8134",
-   "name": "Khalil Shakir",
+   "sleeper_id": "13279",
+   "name": "Carnell Tate",
    "pos": "WR",
-   "team": "BUF",
-   "injury": null,
+   "team": "TEN",
+   "injury": "Out",
    "ir": false,
-   "season_avg": 7.6,
-   "last3_avg": 9.4,
-   "proj_next_week": 8.2,
+   "season_avg": 8.6,
+   "last3_avg": 8.2,
+   "proj_next_week": 10,
    "bye_week": null
   },
   {
    "slot": "TE",
-   "sleeper_id": "3214",
-   "name": "Hunter Henry",
+   "sleeper_id": "9480",
+   "name": "Brenton Strange",
    "pos": "TE",
-   "team": "NE",
+   "team": "JAX",
    "injury": null,
    "ir": false,
-   "season_avg": 7.1,
-   "last3_avg": 6.7,
-   "proj_next_week": 8.1,
-   "bye_week": 11
+   "season_avg": 7.2,
+   "last3_avg": 5.9,
+   "proj_next_week": 7.4,
+   "bye_week": null
   },
   {
    "slot": "K",
@@ -233,9 +404,9 @@
    "team": "DET",
    "injury": null,
    "ir": false,
-   "season_avg": 9.9,
-   "last3_avg": 10,
-   "proj_next_week": 6.8,
+   "season_avg": 9.3,
+   "last3_avg": 8.7,
+   "proj_next_week": 7.1,
    "bye_week": null
   },
   {
@@ -246,23 +417,10 @@
    "team": "GB",
    "injury": null,
    "ir": false,
-   "season_avg": 7.6,
-   "last3_avg": 9.7,
-   "proj_next_week": 7.9,
+   "season_avg": 7.2,
+   "last3_avg": 9,
+   "proj_next_week": 0,
    "bye_week": 11
-  },
-  {
-   "slot": "FLEX",
-   "sleeper_id": "12474",
-   "name": "Woody Marks",
-   "pos": "RB",
-   "team": "HOU",
-   "injury": null,
-   "ir": false,
-   "season_avg": 7.9,
-   "last3_avg": 8.5,
-   "proj_next_week": 11.3,
-   "bye_week": null
   },
   {
    "slot": "FLEX",
@@ -272,10 +430,23 @@
    "team": "TEN",
    "injury": null,
    "ir": false,
-   "season_avg": 13.7,
-   "last3_avg": 23.3,
-   "proj_next_week": 11.1,
+   "season_avg": 14.4,
+   "last3_avg": 27.4,
+   "proj_next_week": 13.5,
    "bye_week": null
+  },
+  {
+   "slot": "FLEX",
+   "sleeper_id": "8155",
+   "name": "Breece Hall",
+   "pos": "RB",
+   "team": "NYJ",
+   "injury": null,
+   "ir": false,
+   "season_avg": 12.1,
+   "last3_avg": 10,
+   "proj_next_week": 11.3,
+   "bye_week": 13
   },
   {
    "slot": "BN",
@@ -285,52 +456,543 @@
    "team": "NYJ",
    "injury": null,
    "ir": false,
-   "season_avg": 10.6,
-   "last3_avg": 14.4,
-   "proj_next_week": 7.1,
+   "season_avg": 10.1,
+   "last3_avg": 10.6,
+   "proj_next_week": 8.2,
    "bye_week": 13
   },
   {
    "slot": "BN",
-   "sleeper_id": "13279",
-   "name": "Carnell Tate",
-   "pos": "WR",
-   "team": "TEN",
-   "injury": "Out",
+   "sleeper_id": "12474",
+   "name": "Woody Marks",
+   "pos": "RB",
+   "team": "HOU",
+   "injury": null,
    "ir": false,
-   "season_avg": 8.6,
-   "last3_avg": 8.2,
+   "season_avg": 7.8,
+   "last3_avg": 7.8,
    "proj_next_week": 0,
    "bye_week": null
   },
   {
    "slot": "BN",
-   "sleeper_id": "8155",
-   "name": "Breece Hall",
-   "pos": "RB",
-   "team": "NYJ",
+   "sleeper_id": "3214",
+   "name": "Hunter Henry",
+   "pos": "TE",
+   "team": "NE",
    "injury": null,
    "ir": false,
-   "season_avg": 11.9,
-   "last3_avg": 9.6,
-   "proj_next_week": 10.6,
-   "bye_week": 13
+   "season_avg": 6.7,
+   "last3_avg": 4.2,
+   "proj_next_week": 0,
+   "bye_week": 11
   },
   {
    "slot": "BN",
-   "sleeper_id": "9480",
-   "name": "Brenton Strange",
-   "pos": "TE",
-   "team": "JAX",
+   "sleeper_id": "8134",
+   "name": "Khalil Shakir",
+   "pos": "WR",
+   "team": "BUF",
    "injury": null,
    "ir": false,
-   "season_avg": 7.1,
-   "last3_avg": 5.5,
-   "proj_next_week": 7.9,
+   "season_avg": 7.5,
+   "last3_avg": 7.7,
+   "proj_next_week": 8.5,
    "bye_week": null
   }
  ],
  "bids": [
+  {
+   "sleeper_id": "6794",
+   "name": "Justin Jefferson",
+   "pos": "WR",
+   "team": "MIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 11.5,
+   "last3_avg": 10.3,
+   "proj_next_week": 15.7,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 6.2,
+   "gain_rest_of_season": 50.8,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.61,
+   "extra_win_odds": 0.06,
+   "est_price": 4,
+   "price_80": 10,
+   "value": 4,
+   "bid": 2,
+   "win_chance": 0.31,
+   "your_max": 4,
+   "cut_risk_drop": 0.015,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Coin flip",
+   "why": null,
+   "why_line": "starts for you 7 of the next 7 weeks; +6.0 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)",
+   "chain_drop": "Woody Marks",
+   "chain_order": 1,
+   "fires_if": null,
+   "win_curve": [
+    0.03,
+    0.16,
+    0.31,
+    0.42,
+    0.54,
+    0.61,
+    0.66,
+    0.7,
+    0.74,
+    0.77,
+    0.82
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.439
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 2,
+     "win_chance": 0.31,
+     "avg_payoff": 0.6,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 4,
+     "win_chance": 0.538,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 10,
+     "win_chance": 0.819,
+     "avg_payoff": -4.9,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.439
+    }
+   ]
+  },
+  {
+   "sleeper_id": "7564",
+   "name": "Ja'Marr Chase",
+   "pos": "WR",
+   "team": "CIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 18,
+   "last3_avg": 26.9,
+   "proj_next_week": 18,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 8.5,
+   "gain_rest_of_season": 50.5,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.6,
+   "extra_win_odds": 0.055,
+   "est_price": 14,
+   "price_80": 20,
+   "value": 3,
+   "bid": 0,
+   "win_chance": 0.028,
+   "your_max": 3,
+   "cut_risk_drop": 0.018,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "under 10% to win at any bid worth making",
+   "why_line": "starts for you 7 of the next 7 weeks; +5.5 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0,
+    0.01,
+    0.03,
+    0.05,
+    0.08,
+    0.11,
+    0.15,
+    0.2,
+    0.26,
+    0.3,
+    0.36
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.345
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.652
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 3,
+     "win_chance": 0.053,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 8,
+     "win_chance": 0.262,
+     "avg_payoff": -1.3,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 18,
+     "raw": 18,
+     "claim_chance": 0.345
+    },
+    {
+     "team": "JHED1979",
+     "bid": 9,
+     "raw": 9,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "robert8063",
+     "bid": 7,
+     "raw": 7,
+     "claim_chance": 0.652
+    }
+   ]
+  },
+  {
+   "sleeper_id": "11584",
+   "name": "Bucky Irving",
+   "pos": "RB",
+   "team": "TB",
+   "injury": null,
+   "ir": false,
+   "season_avg": 16.5,
+   "last3_avg": 23.7,
+   "proj_next_week": 15.7,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 4.4,
+   "gain_rest_of_season": 42.4,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.55,
+   "extra_win_odds": 0.044,
+   "est_price": 14,
+   "price_80": 20,
+   "value": 2,
+   "bid": 0,
+   "win_chance": 0.007,
+   "your_max": 2,
+   "cut_risk_drop": 0.011,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "under 10% to win at any bid worth making",
+   "why_line": "starts for you 7 of the next 7 weeks; +4.4 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0,
+    0.01,
+    0.03,
+    0.05,
+    0.08,
+    0.11,
+    0.15,
+    0.2,
+    0.26,
+    0.3,
+    0.36
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.345
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.652
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 2,
+     "win_chance": 0.028,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 8,
+     "win_chance": 0.262,
+     "avg_payoff": -1.6,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 18,
+     "raw": 18,
+     "claim_chance": 0.345
+    },
+    {
+     "team": "JHED1979",
+     "bid": 9,
+     "raw": 9,
+     "claim_chance": 0.652
+    },
+    {
+     "team": "robert8063",
+     "bid": 7,
+     "raw": 7,
+     "claim_chance": 0.652
+    }
+   ]
+  },
+  {
+   "sleeper_id": "6813",
+   "name": "Jonathan Taylor",
+   "pos": "RB",
+   "team": "IND",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15.2,
+   "last3_avg": 7.6,
+   "proj_next_week": 13.5,
+   "bye_week": 13,
+   "source": "freed (projected)",
+   "gain_next_week": 2.5,
+   "gain_rest_of_season": 31,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.31,
+   "extra_win_odds": 0.036,
+   "est_price": 3,
+   "price_80": 9,
+   "value": 2,
+   "bid": 1,
+   "win_chance": 0.245,
+   "your_max": 2,
+   "cut_risk_drop": 0.006,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Long shot",
+   "why": "drop changed: a better claim uses the first choice",
+   "why_line": "starts for you 6 of the next 7 weeks; +3.6 pts of title odds; can be outbid by damonhawk1 ($86, 25% to claim), JHED1979 ($22, 32% to claim)",
+   "chain_drop": "Hunter Henry",
+   "chain_order": 1,
+   "fires_if": null,
+   "win_curve": [
+    0.06,
+    0.25,
+    0.41,
+    0.53,
+    0.63,
+    0.69,
+    0.73,
+    0.77,
+    0.8,
+    0.82,
+    0.86
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.324
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 1,
+     "win_chance": 0.245,
+     "avg_payoff": 0.2,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 2,
+     "win_chance": 0.41,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 3,
+     "win_chance": 0.526,
+     "avg_payoff": -0.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 9,
+     "win_chance": 0.82,
+     "avg_payoff": -5.7,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.324
+    }
+   ]
+  },
   {
    "sleeper_id": "4227",
    "name": "Harrison Butker",
@@ -338,29 +1000,29 @@
    "team": "KC",
    "injury": null,
    "ir": false,
-   "season_avg": 7.3,
-   "last3_avg": 4.3,
-   "proj_next_week": 5.7,
+   "season_avg": 7,
+   "last3_avg": 5,
+   "proj_next_week": 5.9,
    "bye_week": null,
    "source": "free agent",
-   "gain_next_week": -1.1,
-   "gain_rest_of_season": 45.8,
-   "drop": "Jake Bates",
-   "drop_id": "11539",
-   "extra_weeks_alive": 0.12,
-   "extra_win_odds": 0.019,
+   "gain_next_week": 0,
+   "gain_rest_of_season": 53.5,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.28,
+   "extra_win_odds": 0.033,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": -0.005,
+   "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 8 of the next 8 weeks; +1.9 pts of title odds",
+   "why_line": "starts for you 1 of the next 7 weeks; +3.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -370,35 +1032,821 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "6083",
-   "name": "Matt Gay",
-   "pos": "K",
-   "team": "LV",
+   "sleeper_id": "11632",
+   "name": "Malik Nabers",
+   "pos": "WR",
+   "team": "NYG",
    "injury": null,
    "ir": false,
-   "season_avg": 9.8,
-   "last3_avg": 8.3,
-   "proj_next_week": 7.1,
-   "bye_week": 13,
+   "season_avg": 12,
+   "last3_avg": 8.8,
+   "proj_next_week": 13.5,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 4,
+   "gain_rest_of_season": 28.1,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.33,
+   "extra_win_odds": 0.03,
+   "est_price": 3,
+   "price_80": 9,
+   "value": 1,
+   "bid": 0,
+   "win_chance": 0.066,
+   "your_max": 1,
+   "cut_risk_drop": 0.01,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "under 10% to win at any bid worth making",
+   "why_line": "starts for you 7 of the next 7 weeks; +3.0 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.07,
+    0.24,
+    0.39,
+    0.5,
+    0.61,
+    0.68,
+    0.72,
+    0.76,
+    0.79,
+    0.81,
+    0.85
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.324
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 1,
+     "win_chance": 0.239,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 2,
+     "win_chance": 0.393,
+     "avg_payoff": -0.4,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 3,
+     "win_chance": 0.504,
+     "avg_payoff": -1,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 9,
+     "win_chance": 0.812,
+     "avg_payoff": -6.5,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.439
+    },
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.324
+    }
+   ]
+  },
+  {
+   "sleeper_id": "8228",
+   "name": "Jaylen Warren",
+   "pos": "RB",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 15,
+   "last3_avg": 14.2,
+   "proj_next_week": 13.3,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 2.3,
+   "gain_rest_of_season": 23.1,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.28,
+   "extra_win_odds": 0.026,
+   "est_price": 3,
+   "price_80": 8,
+   "value": 1,
+   "bid": 0,
+   "win_chance": 0.08,
+   "your_max": 1,
+   "cut_risk_drop": 0.006,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "under 10% to win at any bid worth making",
+   "why_line": "starts for you 7 of the next 7 weeks; +2.6 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.08,
+    0.27,
+    0.43,
+    0.54,
+    0.64,
+    0.7,
+    0.74,
+    0.77,
+    0.8,
+    0.82,
+    0.86
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.324
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 1,
+     "win_chance": 0.274,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 3,
+     "win_chance": 0.538,
+     "avg_payoff": -1.1,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 8,
+     "win_chance": 0.8,
+     "avg_payoff": -5.6,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.324
+    }
+   ]
+  },
+  {
+   "sleeper_id": "4983",
+   "name": "D.J. Moore",
+   "pos": "WR",
+   "team": "BUF",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 12.4,
+   "proj_next_week": 11.3,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 1.8,
+   "gain_rest_of_season": 16.9,
+   "drop": "Khalil Shakir",
+   "drop_id": "8134",
+   "extra_weeks_alive": 0.17,
+   "extra_win_odds": 0.016,
+   "est_price": 2,
+   "price_80": 6,
+   "value": 1,
+   "bid": 0,
+   "win_chance": 0.119,
+   "your_max": 1,
+   "cut_risk_drop": 0.005,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Long shot",
+   "why": "drop changed: a better claim uses the first choice; valued with your Justin Jefferson claim in mind",
+   "why_line": "starts for you 6 of the next 7 weeks; +1.6 pts of title odds; can be outbid by JHED1979 ($22, 25% to claim), robert8063 ($23, 32% to claim)",
+   "chain_drop": "Khalil Shakir",
+   "chain_order": 1,
+   "fires_if": null,
+   "win_curve": [
+    0.12,
+    0.35,
+    0.53,
+    0.64,
+    0.73,
+    0.78,
+    0.81,
+    0.84,
+    0.87,
+    0.88,
+    0.91
+   ],
+   "can_outbid": [
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.1
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.247
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 0,
+     "win_chance": 0.119,
+     "avg_payoff": 0.1,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 1,
+     "win_chance": 0.353,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 2,
+     "win_chance": 0.525,
+     "avg_payoff": -0.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 6,
+     "win_chance": 0.815,
+     "avg_payoff": -4.1,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.247
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.324
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.1
+    }
+   ]
+  },
+  {
+   "sleeper_id": "1166",
+   "name": "Kirk Cousins",
+   "pos": "QB",
+   "team": "MIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 19.7,
+   "last3_avg": 20.1,
+   "proj_next_week": 21.8,
+   "bye_week": null,
    "source": "free agent",
-   "gain_next_week": 0.1,
-   "gain_rest_of_season": 5.8,
+   "gain_next_week": 0,
+   "gain_rest_of_season": 10.4,
    "drop": "Hunter Henry",
    "drop_id": "3214",
-   "extra_weeks_alive": 0.05,
-   "extra_win_odds": 0.007,
+   "extra_weeks_alive": 0.06,
+   "extra_win_odds": 0.015,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": 0.001,
+   "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 6 of the next 8 weeks; +0.7 pts of title odds",
+   "why_line": "starts for you 4 of the next 7 weeks; +1.5 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "1466",
+   "name": "Travis Kelce",
+   "pos": "TE",
+   "team": "KC",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 9.5,
+   "proj_next_week": 10.5,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 3.1,
+   "gain_rest_of_season": 15.3,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.17,
+   "extra_win_odds": 0.014,
+   "est_price": 1,
+   "price_80": 2,
+   "value": 0,
+   "bid": 0,
+   "win_chance": 0.371,
+   "your_max": 0,
+   "cut_risk_drop": 0.008,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 7 of the next 7 weeks; +1.4 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.37,
+    0.69,
+    0.81,
+    0.85,
+    0.89,
+    0.91,
+    0.92,
+    0.93,
+    0.95,
+    0.95,
+    0.96
+   ],
+   "can_outbid": [
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.173
+    },
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.173
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.173
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
+    }
+   ],
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "JHED1979",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.173
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "robert8063",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.104
+    }
+   ]
+  },
+  {
+   "sleeper_id": "4046",
+   "name": "Patrick Mahomes",
+   "pos": "QB",
+   "team": "KC",
+   "injury": null,
+   "ir": false,
+   "season_avg": 20.2,
+   "last3_avg": 25.8,
+   "proj_next_week": 27,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 2.8,
+   "gain_rest_of_season": 12.2,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.08,
+   "extra_win_odds": 0.014,
+   "est_price": 6,
+   "price_80": 14,
+   "value": 0,
+   "bid": 0,
+   "win_chance": 0.143,
+   "your_max": 0,
+   "cut_risk_drop": 0.007,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 5 of the next 7 weeks; +1.4 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.14,
+    0.23,
+    0.32,
+    0.39,
+    0.41,
+    0.45,
+    0.5,
+    0.59,
+    0.64,
+    0.68,
+    0.7
+   ],
+   "can_outbid": [
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.628
+    },
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.136
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.199
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.136
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.136
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.136
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.136
+    }
+   ],
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "robert8063",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.628
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 14,
+     "raw": 14,
+     "claim_chance": 0.136
+    },
+    {
+     "team": "JHED1979",
+     "bid": 7,
+     "raw": 7,
+     "claim_chance": 0.199
+    }
+   ]
+  },
+  {
+   "sleeper_id": "9484",
+   "name": "Tucker Kraft",
+   "pos": "TE",
+   "team": "GB",
+   "injury": null,
+   "ir": false,
+   "season_avg": 7.5,
+   "last3_avg": 6,
+   "proj_next_week": 0,
+   "bye_week": 11,
+   "source": "freed (projected)",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 8.6,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.1,
+   "extra_win_odds": 0.009,
+   "est_price": 1,
+   "price_80": 2,
+   "value": 0,
+   "bid": 0,
+   "win_chance": 0.499,
+   "your_max": 0,
+   "cut_risk_drop": 0,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 6 of the next 7 weeks; +0.9 pts of title odds (bye week 11)",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.5,
+    0.77,
+    0.86,
+    0.89,
+    0.91,
+    0.93,
+    0.94,
+    0.95,
+    0.96,
+    0.96,
+    0.97
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
+    }
+   ],
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "robert8063",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "JHED1979",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.087
+    }
+   ]
+  },
+  {
+   "sleeper_id": "6083",
+   "name": "Matt Gay",
+   "pos": "K",
+   "team": "LV",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 8.3,
+   "proj_next_week": 6.5,
+   "bye_week": 13,
+   "source": "free agent",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 5.7,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.04,
+   "extra_win_odds": 0.006,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 5 of the next 7 weeks; +0.6 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "MIN",
+   "name": "MIN DEF",
+   "pos": "DEF",
+   "team": "MIN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 11.3,
+   "last3_avg": 11,
+   "proj_next_week": 6.1,
+   "bye_week": null,
+   "source": "free agent",
+   "gain_next_week": 6.1,
+   "gain_rest_of_season": 11.1,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.11,
+   "extra_win_odds": 0.006,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0.014,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 6 of the next 7 weeks; +0.6 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -416,14 +1864,14 @@
    "ir": false,
    "season_avg": 8.5,
    "last3_avg": 10.2,
-   "proj_next_week": 0,
+   "proj_next_week": 7.4,
    "bye_week": null,
    "source": "free agent",
    "gain_next_week": 0,
-   "gain_rest_of_season": 4.9,
-   "drop": "Brenton Strange",
-   "drop_id": "9480",
-   "extra_weeks_alive": 0.04,
+   "gain_rest_of_season": 5.6,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.06,
    "extra_win_odds": 0.006,
    "est_price": 0,
    "price_80": 0,
@@ -434,9 +1882,9 @@
    "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
-   "call": "Skip",
-   "why": "out this week (injury or IR): not worth a roster spot now",
-   "why_line": "starts for you 7 of the next 8 weeks; +0.6 pts of title odds (Out: check news from the last 48 hours)",
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 5 of the next 7 weeks; +0.6 pts of title odds (Out: check news from the last 48 hours)",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -446,22 +1894,60 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "MIN",
-   "name": "MIN DEF",
-   "pos": "DEF",
-   "team": "MIN",
+   "sleeper_id": "12545",
+   "name": "Tyler Shough",
+   "pos": "QB",
+   "team": "NO",
    "injury": null,
    "ir": false,
-   "season_avg": 10.3,
-   "last3_avg": 7.7,
-   "proj_next_week": 6.7,
+   "season_avg": 18.1,
+   "last3_avg": 15.2,
+   "proj_next_week": 18.9,
    "bye_week": null,
    "source": "free agent",
-   "gain_next_week": -1.2,
-   "gain_rest_of_season": 8.9,
-   "drop": "GB DEF",
-   "drop_id": "GB",
-   "extra_weeks_alive": 0.08,
+   "gain_next_week": 0,
+   "gain_rest_of_season": 4.4,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.02,
+   "extra_win_odds": 0.006,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 1 of the next 7 weeks; +0.6 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "7526",
+   "name": "Jaylen Waddle",
+   "pos": "WR",
+   "team": "DEN",
+   "injury": null,
+   "ir": false,
+   "season_avg": 7.4,
+   "last3_avg": 7.6,
+   "proj_next_week": 9.2,
+   "bye_week": null,
+   "source": "free agent",
+   "gain_next_week": 0.3,
+   "gain_rest_of_season": 6.4,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.1,
    "extra_win_odds": 0.005,
    "est_price": 0,
    "price_80": 0,
@@ -469,12 +1955,155 @@
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": -0.005,
+   "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 8 of the next 8 weeks; +0.5 pts of title odds",
+   "why_line": "starts for you 3 of the next 7 weeks; +0.5 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "PIT",
+   "name": "PIT DEF",
+   "pos": "DEF",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 8,
+   "last3_avg": 8,
+   "proj_next_week": 8.3,
+   "bye_week": null,
+   "source": "freed (projected)",
+   "gain_next_week": 8.3,
+   "gain_rest_of_season": 11.2,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.08,
+   "extra_win_odds": 0.005,
+   "est_price": 0,
+   "price_80": 2,
+   "value": 0,
+   "bid": 0,
+   "win_chance": 0.508,
+   "your_max": 0,
+   "cut_risk_drop": 0.018,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 4 of the next 7 weeks; +0.5 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.51,
+    0.78,
+    0.87,
+    0.9,
+    0.92,
+    0.94,
+    0.95,
+    0.95,
+    0.96,
+    0.97,
+    0.97
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
+    }
+   ],
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "JHED1979",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.087
+    }
+   ]
+  },
+  {
+   "sleeper_id": "DET",
+   "name": "DET DEF",
+   "pos": "DEF",
+   "team": "DET",
+   "injury": null,
+   "ir": false,
+   "season_avg": 6,
+   "last3_avg": 8.7,
+   "proj_next_week": 7.7,
+   "bye_week": null,
+   "source": "free agent",
+   "gain_next_week": 7.7,
+   "gain_rest_of_season": 10.2,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.08,
+   "extra_win_odds": 0.003,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0.017,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 3 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -492,52 +2121,14 @@
    "ir": false,
    "season_avg": 0,
    "last3_avg": 0,
-   "proj_next_week": 6.9,
+   "proj_next_week": 6.8,
    "bye_week": null,
    "source": "free agent",
-   "gain_next_week": -0.1,
-   "gain_rest_of_season": 3.1,
+   "gain_next_week": 0,
+   "gain_rest_of_season": 3.2,
    "drop": "Hunter Henry",
    "drop_id": "3214",
    "extra_weeks_alive": 0.03,
-   "extra_win_odds": 0.004,
-   "est_price": 0,
-   "price_80": 0,
-   "value": 0,
-   "bid": 0,
-   "win_chance": null,
-   "your_max": 0,
-   "cut_risk_drop": -0.001,
-   "uses_reserve": false,
-   "handcuff_check": null,
-   "call": "Add free",
-   "why": "free agent",
-   "why_line": "starts for you 7 of the next 8 weeks; +0.4 pts of title odds",
-   "chain_drop": null,
-   "chain_order": null,
-   "fires_if": null,
-   "win_curve": null,
-   "can_outbid": [],
-   "bid_options": [],
-   "likely_rival_bids": []
-  },
-  {
-   "sleeper_id": "SF",
-   "name": "SF DEF",
-   "pos": "DEF",
-   "team": "SF",
-   "injury": null,
-   "ir": false,
-   "season_avg": 6.6,
-   "last3_avg": 7,
-   "proj_next_week": 6.2,
-   "bye_week": null,
-   "source": "free agent",
-   "gain_next_week": -1.7,
-   "gain_rest_of_season": 6.3,
-   "drop": "GB DEF",
-   "drop_id": "GB",
-   "extra_weeks_alive": 0.04,
    "extra_win_odds": 0.003,
    "est_price": 0,
    "price_80": 0,
@@ -545,12 +2136,12 @@
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": -0.008,
+   "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
-   "call": "Skip",
-   "why": "adds too little to matter",
-   "why_line": "starts for you 8 of the next 8 weeks; +0.3 pts of title odds",
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 6 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -560,35 +2151,35 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "9228",
-   "name": "Bryce Young",
-   "pos": "QB",
-   "team": "CAR",
+   "sleeper_id": "CHI",
+   "name": "CHI DEF",
+   "pos": "DEF",
+   "team": "CHI",
    "injury": null,
    "ir": false,
-   "season_avg": 19.1,
-   "last3_avg": 13.4,
-   "proj_next_week": 23,
+   "season_avg": 7.3,
+   "last3_avg": 8,
+   "proj_next_week": 8.2,
    "bye_week": null,
    "source": "free agent",
-   "gain_next_week": 1.4,
-   "gain_rest_of_season": 2.3,
+   "gain_next_week": 8.2,
+   "gain_rest_of_season": 10.3,
    "drop": "Hunter Henry",
    "drop_id": "3214",
-   "extra_weeks_alive": 0.03,
-   "extra_win_odds": 0.002,
+   "extra_weeks_alive": 0.09,
+   "extra_win_odds": 0.003,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": 0.005,
+   "cut_risk_drop": 0.018,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
    "why": "adds too little to matter",
-   "why_line": "starts for you 2 of the next 8 weeks; +0.2 pts of title odds",
+   "why_line": "starts for you 3 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -598,42 +2189,109 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "CIN",
-   "name": "CIN DEF",
-   "pos": "DEF",
-   "team": "CIN",
+   "sleeper_id": "4199",
+   "name": "Aaron Jones",
+   "pos": "RB",
+   "team": "MIN",
    "injury": null,
    "ir": false,
-   "season_avg": 7,
-   "last3_avg": 5.7,
-   "proj_next_week": 6.4,
+   "season_avg": 9.7,
+   "last3_avg": 6.5,
+   "proj_next_week": 7.7,
    "bye_week": null,
-   "source": "free agent",
-   "gain_next_week": -1.5,
-   "gain_rest_of_season": 4.7,
-   "drop": "GB DEF",
-   "drop_id": "GB",
-   "extra_weeks_alive": 0.04,
-   "extra_win_odds": 0.001,
-   "est_price": 0,
-   "price_80": 0,
+   "source": "freed (projected)",
+   "gain_next_week": 0,
+   "gain_rest_of_season": 3.4,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.06,
+   "extra_win_odds": 0.003,
+   "est_price": 1,
+   "price_80": 2,
    "value": 0,
    "bid": 0,
-   "win_chance": null,
+   "win_chance": 0.489,
    "your_max": 0,
-   "cut_risk_drop": -0.006,
+   "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
    "why": "adds too little to matter",
-   "why_line": "starts for you 8 of the next 8 weeks; +0.1 pts of title odds",
+   "why_line": "starts for you 2 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
-   "win_curve": null,
-   "can_outbid": [],
+   "win_curve": [
+    0.49,
+    0.77,
+    0.86,
+    0.89,
+    0.91,
+    0.93,
+    0.94,
+    0.95,
+    0.96,
+    0.96,
+    0.97
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
+    }
+   ],
    "bid_options": [],
-   "likely_rival_bids": []
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.104
+    },
+    {
+     "team": "JHED1979",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.104
+    }
+   ]
   },
   {
    "sleeper_id": "5022",
@@ -644,15 +2302,53 @@
    "ir": false,
    "season_avg": 8.4,
    "last3_avg": 6.7,
-   "proj_next_week": 0,
-   "bye_week": 10,
+   "proj_next_week": 8.2,
+   "bye_week": null,
+   "source": "free agent",
+   "gain_next_week": 0.8,
+   "gain_rest_of_season": 3.5,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.06,
+   "extra_win_odds": 0.002,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0.002,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 4 of the next 7 weeks; +0.2 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "13296",
+   "name": "Caleb Douglas",
+   "pos": "WR",
+   "team": "MIA",
+   "injury": null,
+   "ir": false,
+   "season_avg": 10,
+   "last3_avg": 8.3,
+   "proj_next_week": 7.4,
+   "bye_week": null,
    "source": "free agent",
    "gain_next_week": 0,
-   "gain_rest_of_season": 1.9,
-   "drop": "Brenton Strange",
-   "drop_id": "9480",
-   "extra_weeks_alive": 0.04,
-   "extra_win_odds": 0,
+   "gain_rest_of_season": 2.1,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.03,
+   "extra_win_odds": 0.001,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
@@ -664,7 +2360,7 @@
    "handcuff_check": null,
    "call": "Skip",
    "why": "adds too little to matter",
-   "why_line": "starts for you 7 of the next 8 weeks; +0.0 pts of title odds (bye week 10)",
+   "why_line": "starts for you 1 of the next 7 weeks; +0.1 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -694,6 +2390,11 @@
    "Kirk Cousins",
    "QB",
    "MIN"
+  ],
+  "1339": [
+   "Zach Ertz",
+   "TE",
+   "PHI"
   ],
   "1373": [
    "Geno Smith",
@@ -805,11 +2506,6 @@
    "RB",
    "BAL"
   ],
-  "3202": [
-   "Austin Hooper",
-   "TE",
-   "ATL"
-  ],
   "3214": [
    "Hunter Henry",
    "TE",
@@ -895,11 +2591,6 @@
    "TE",
    "DEN"
   ],
-  "4144": [
-   "Jonnu Smith",
-   "TE",
-   "GB"
-  ],
   "4147": [
    "Samaje Perine",
    "RB",
@@ -909,11 +2600,6 @@
    "Mack Hollins",
    "WR",
    "NE"
-  ],
-  "4189": [
-   "Eric Saubert",
-   "TE",
-   "SEA"
   ],
   "4195": [
    "Jake Elliott",
@@ -939,6 +2625,16 @@
    "Zane Gonzalez",
    "K",
    "MIA"
+  ],
+  "4314": [
+   "Johnny Mundt",
+   "TE",
+   "PHI"
+  ],
+  "4351": [
+   "Tim Patrick",
+   "WR",
+   "NYJ"
   ],
   "4353": [
    "4353",
@@ -1120,6 +2816,11 @@
    "WR",
    "WAS"
   ],
+  "5938": [
+   "Lil'Jordan Humphrey",
+   "WR",
+   "DEN"
+  ],
   "5947": [
    "Jakobi Meyers",
    "WR",
@@ -1165,20 +2866,25 @@
    "K",
    "LV"
   ],
+  "6109": [
+   "6109",
+   "",
+   ""
+  ],
   "6130": [
    "Devin Singletary",
    "RB",
    "NYG"
   ],
-  "6271": [
-   "Olamide Zaccheaus",
-   "WR",
-   "ATL"
-  ],
   "6427": [
    "Ashton Dulin",
    "WR",
    "IND"
+  ],
+  "6451": [
+   "Stephen Carlson",
+   "TE",
+   "CHI"
   ],
   "6528": [
    "Joey Slye",
@@ -1255,10 +2961,10 @@
    "WR",
    "WAS"
   ],
-  "6865": [
-   "Colby Parkinson",
+  "6869": [
+   "Adam Trautman",
    "TE",
-   "LAR"
+   "DEN"
   ],
   "6904": [
    "Jalen Hurts",
@@ -1290,10 +2996,10 @@
    "K",
    "BUF"
   ],
-  "7075": [
-   "Charlie Woerner",
-   "TE",
-   "ATL"
+  "7049": [
+   "Jauan Jennings",
+   "WR",
+   "MIN"
   ],
   "7083": [
    "Tyler Huntley",
@@ -1310,11 +3016,6 @@
    "WR",
    "IND"
   ],
-  "7521": [
-   "Chris Blair",
-   "WR",
-   "ATL"
-  ],
   "7523": [
    "Trevor Lawrence",
    "QB",
@@ -1329,11 +3030,6 @@
    "Jaylen Waddle",
    "WR",
    "DEN"
-  ],
-  "7531": [
-   "Feleipe Franks",
-   "TE",
-   "CAR"
   ],
   "7535": [
    "Hunter Long",
@@ -1365,11 +3061,6 @@
    "RB",
    "PHI"
   ],
-  "7562": [
-   "Tutu Atwell",
-   "WR",
-   "LAR"
-  ],
   "7564": [
    "Ja'Marr Chase",
    "WR",
@@ -1379,6 +3070,11 @@
    "Kenny Gainwell",
    "RB",
    "TB"
+  ],
+  "7568": [
+   "Brevin Jordan",
+   "TE",
+   "HOU"
   ],
   "7569": [
    "Nico Collins",
@@ -1400,10 +3096,10 @@
    "RB",
    "CAR"
   ],
-  "7595": [
-   "Tylan Wallace",
+  "7596": [
+   "Elijah Moore",
    "WR",
-   "CLE"
+   "PHI"
   ],
   "7600": [
    "Pat Freiermuth",
@@ -1414,11 +3110,6 @@
    "Kylen Granson",
    "TE",
    "TEN"
-  ],
-  "7608": [
-   "Khalil Herbert",
-   "RB",
-   "ATL"
   ],
   "7611": [
    "Rhamondre Stevenson",
@@ -1469,11 +3160,6 @@
    "Luke Farrell",
    "TE",
    "SF"
-  ],
-  "7865": [
-   "Brandon Smith",
-   "WR",
-   "PIT"
   ],
   "7891": [
    "Brock Wright",
@@ -1640,11 +3326,6 @@
    "WR",
    "GB"
   ],
-  "8168": [
-   "Skyy Moore",
-   "WR",
-   "GB"
-  ],
   "8170": [
    "James Mitchell",
    "TE",
@@ -1654,6 +3335,11 @@
    "Greg Dulcich",
    "TE",
    "MIA"
+  ],
+  "8177": [
+   "Grant Calcaterra",
+   "TE",
+   "PHI"
   ],
   "8180": [
    "Jalen Nailor",
@@ -1675,20 +3361,15 @@
    "WR",
    "KC"
   ],
-  "8195": [
-   "Ronnie Rivers",
-   "RB",
-   "LAR"
-  ],
-  "8204": [
-   "Bo Melton",
-   "WR",
-   "GB"
-  ],
   "8210": [
    "Chig Okonkwo",
    "TE",
    "WAS"
+  ],
+  "8219": [
+   "Jelani Woods",
+   "TE",
+   "NYJ"
   ],
   "8225": [
    "Daniel Bellinger",
@@ -1725,15 +3406,15 @@
    "RB",
    "MIN"
   ],
+  "8414": [
+   "Britain Covey",
+   "WR",
+   "PHI"
+  ],
   "8489": [
    "Drew Ogletree",
    "TE",
    "IND"
-  ],
-  "8523": [
-   "Nick Muse",
-   "TE",
-   "ATL"
   ],
   "8527": [
    "Dareke Young",
@@ -1742,11 +3423,6 @@
   ],
   "8676": [
    "Rashid Shaheed",
-   "WR",
-   "SEA"
-  ],
-  "8861": [
-   "Irvin Charles",
    "WR",
    "SEA"
   ],
@@ -1830,10 +3506,10 @@
    "WR",
    "LAR"
   ],
-  "9497": [
-   "Jalin Hyatt",
+  "9494": [
+   "Marvin Mims Jr.",
    "WR",
-   "NYG"
+   "DEN"
   ],
   "9500": [
    "Josh Downs",
@@ -1910,20 +3586,10 @@
    "WR",
    "BAL"
   ],
-  "10210": [
-   "Cameron Latu",
-   "TE",
-   "NE"
-  ],
   "10213": [
    "Tre Tucker",
    "WR",
    "LV"
-  ],
-  "10214": [
-   "Davis Allen",
-   "TE",
-   "LAR"
   ],
   "10218": [
    "Xavier Hutchinson",
@@ -1934,6 +3600,26 @@
    "Chris Rodriguez Jr.",
    "RB",
    "JAX"
+  ],
+  "10220": [
+   "Will Mallory",
+   "TE",
+   "IND"
+  ],
+  "10225": [
+   "Jonathan Mingo",
+   "WR",
+   "DAL"
+  ],
+  "10226": [
+   "Andrei Iosivas",
+   "WR",
+   "CIN"
+  ],
+  "10227": [
+   "Payne Durham",
+   "TE",
+   "TB"
   ],
   "10229": [
    "Rashee Rice",
@@ -1954,6 +3640,11 @@
    "Derius Davis",
    "WR",
    "LAC"
+  ],
+  "10235": [
+   "Roschon Johnson",
+   "RB",
+   "CHI"
   ],
   "10236": [
    "Dalton Kincaid",
@@ -1980,6 +3671,11 @@
    "K",
    "ARI"
   ],
+  "11056": [
+   "Jared Wayne",
+   "WR",
+   "MIA"
+  ],
   "11058": [
    "Blake Grupe",
    "K",
@@ -1995,20 +3691,10 @@
    "WR",
    "CAR"
   ],
-  "11168": [
-   "Xavier Smith",
-   "WR",
-   "LAR"
-  ],
   "11199": [
    "Emari Demercado",
    "RB",
    "HOU"
-  ],
-  "11201": [
-   "Blake Whiteheart",
-   "TE",
-   "CLE"
   ],
   "11237": [
    "Jacob Saylors",
@@ -2025,20 +3711,15 @@
    "K",
    "CLE"
   ],
-  "11280": [
-   "Brady Russell",
-   "RB",
-   "SEA"
-  ],
   "11292": [
    "Tommy DeVito",
    "QB",
    "NE"
   ],
-  "11370": [
-   "Chris Brooks",
-   "RB",
-   "GB"
+  "11377": [
+   "Tyrell Shavers",
+   "WR",
+   "BUF"
   ],
   "11421": [
    "Ryan Miller",
@@ -2054,11 +3735,6 @@
    "Emanuel Wilson",
    "RB",
    "SEA"
-  ],
-  "11439": [
-   "Jaleel McLaughlin",
-   "RB",
-   "CLE"
   ],
   "11510": [
    "11510",
@@ -2135,6 +3811,11 @@
    "RB",
    "NYJ"
   ],
+  "11577": [
+   "Will Shipley",
+   "RB",
+   "PHI"
+  ],
   "11579": [
    "Audric Estime",
    "RB",
@@ -2185,6 +3866,11 @@
    "TE",
    "HOU"
   ],
+  "11600": [
+   "Ja'Tavion Sanders",
+   "TE",
+   "CAR"
+  ],
   "11603": [
    "AJ Barner",
    "TE",
@@ -2205,16 +3891,6 @@
    "WR",
    "MIA"
   ],
-  "11616": [
-   "Jacob Cowing",
-   "WR",
-   "SF"
-  ],
-  "11617": [
-   "Malachi Corley",
-   "WR",
-   "CLE"
-  ],
   "11620": [
    "Rome Odunze",
    "WR",
@@ -2234,6 +3910,11 @@
    "Xavier Legette",
    "WR",
    "CAR"
+  ],
+  "11627": [
+   "Troy Franklin",
+   "WR",
+   "DEN"
   ],
   "11628": [
    "Marvin Harrison Jr.",
@@ -2330,15 +4011,20 @@
    "WR",
    "NO"
   ],
+  "11942": [
+   "Colson Yankoff",
+   "TE",
+   "WAS"
+  ],
+  "11994": [
+   "Kameron Johnson",
+   "WR",
+   "TB"
+  ],
   "12015": [
    "Harrison Mevis",
    "K",
    "BAL"
-  ],
-  "12048": [
-   "George Holani",
-   "RB",
-   "SEA"
   ],
   "12062": [
    "Cam Grandy",
@@ -2470,16 +4156,6 @@
    "TE",
    "TEN"
   ],
-  "12503": [
-   "Isaiah Bond",
-   "WR",
-   "CLE"
-  ],
-  "12504": [
-   "Kaleb Johnson",
-   "RB",
-   "GB"
-  ],
   "12505": [
    "Jalen Royals",
    "WR",
@@ -2529,6 +4205,11 @@
    "Luther Burden III",
    "WR",
    "CHI"
+  ],
+  "12520": [
+   "Xavier Restrepo",
+   "WR",
+   "TEN"
   ],
   "12522": [
    "Cam Ward",
@@ -2590,6 +4271,11 @@
    "WR",
    "TEN"
   ],
+  "12541": [
+   "Dont'e Thornton Jr.",
+   "WR",
+   "LV"
+  ],
   "12542": [
    "Efton Chism III",
    "WR",
@@ -2609,11 +4295,6 @@
    "Tyler Shough",
    "QB",
    "NO"
-  ],
-  "12547": [
-   "Kyle Williams",
-   "WR",
-   "NE"
   ],
   "12634": [
    "Jordan Watkins",
@@ -2650,6 +4331,11 @@
    "K",
    "NE"
   ],
+  "12715": [
+   "Thomas Fidone II",
+   "TE",
+   "NYG"
+  ],
   "12718": [
    "Konata Mumpfield",
    "WR",
@@ -2680,30 +4366,20 @@
    "WR",
    "KC"
   ],
-  "12889": [
-   "Beaux Collins",
-   "WR",
-   "ATL"
-  ],
   "12961": [
    "Ryan Fitzgerald",
    "K",
    "CAR"
   ],
-  "12969": [
-   "Lan Larison",
-   "RB",
-   "NE"
-  ],
-  "13013": [
-   "Mark Redman",
-   "TE",
-   "GB"
-  ],
   "13075": [
    "Myles Price",
    "WR",
    "MIN"
+  ],
+  "13079": [
+   "Jahdae Walker",
+   "WR",
+   "CHI"
   ],
   "13121": [
    "Ben Yurosek",
@@ -2715,25 +4391,20 @@
    "WR",
    "PHI"
   ],
-  "13151": [
-   "Nick Kallerup",
-   "TE",
-   "SEA"
-  ],
   "13264": [
    "Dohnte Meyers",
    "WR",
    "CIN"
   ],
+  "13268": [
+   "Elijah Sarratt",
+   "WR",
+   "BAL"
+  ],
   "13269": [
    "Fernando Mendoza",
    "QB",
    "LV"
-  ],
-  "13270": [
-   "CJ Daniels",
-   "WR",
-   "LAR"
   ],
   "13272": [
    "Carson Beck",
@@ -2755,10 +4426,10 @@
    "WR",
    "NYJ"
   ],
-  "13278": [
-   "Max Klare",
-   "TE",
-   "LAR"
+  "13277": [
+   "CJ Donaldson",
+   "RB",
+   "NO"
   ],
   "13279": [
    "Carnell Tate",
@@ -2789,6 +4460,11 @@
    "Jeremiyah Love",
    "RB",
    "ARI"
+  ],
+  "13288": [
+   "Nicholas Singleton",
+   "RB",
+   "TEN"
   ],
   "13293": [
    "Ja'Kobi Lane",
@@ -2825,6 +4501,16 @@
    "WR",
    "WAS"
   ],
+  "13302": [
+   "Adam Randall",
+   "RB",
+   "BAL"
+  ],
+  "13303": [
+   "Cade Klubnik",
+   "QB",
+   "NYJ"
+  ],
   "13305": [
    "Mike Washington Jr.",
    "RB",
@@ -2835,15 +4521,40 @@
    "TE",
    "HOU"
   ],
+  "13308": [
+   "Bauer Sharp",
+   "TE",
+   "TB"
+  ],
+  "13311": [
+   "Chris Bell",
+   "WR",
+   "MIA"
+  ],
+  "13317": [
+   "Ted Hurst III",
+   "WR",
+   "TB"
+  ],
   "13319": [
    "Oscar Delp",
    "TE",
    "NO"
   ],
+  "13322": [
+   "Sam Roush",
+   "TE",
+   "CHI"
+  ],
   "13324": [
    "Matt Hibner",
    "TE",
    "BAL"
+  ],
+  "13329": [
+   "Malik Benson",
+   "WR",
+   "LV"
   ],
   "13330": [
    "Kenyon Sadiq",
@@ -2875,10 +4586,25 @@
    "WR",
    "CLE"
   ],
+  "13349": [
+   "Eli Stowers",
+   "TE",
+   "PHI"
+  ],
+  "13380": [
+   "Brenen Thompson",
+   "WR",
+   "LAC"
+  ],
   "13394": [
    "Josh Cameron",
    "WR",
    "JAX"
+  ],
+  "13400": [
+   "Justin Joly",
+   "TE",
+   "MIA"
   ],
   "13402": [
    "Skyler Bell",
@@ -2895,6 +4621,11 @@
    "TE",
    "JAX"
   ],
+  "13411": [
+   "Zavion Thomas",
+   "WR",
+   "CHI"
+  ],
   "13413": [
    "Cyrus Allen",
    "WR",
@@ -2905,10 +4636,10 @@
    "RB",
    "SF"
   ],
-  "13418": [
-   "Robert Henry Jr.",
+  "13419": [
+   "Jaydn Ott",
    "RB",
-   "WAS"
+   "KC"
   ],
   "13420": [
    "Bryce Lance",
@@ -2920,6 +4651,11 @@
    "TE",
    "NE"
   ],
+  "13423": [
+   "Eli Heidenreich",
+   "RB",
+   "PIT"
+  ],
   "13424": [
    "Seth McGowan",
    "RB",
@@ -2929,11 +4665,6 @@
    "Jalon Daniels",
    "QB",
    "TB"
-  ],
-  "13429": [
-   "Seydou Traore",
-   "TE",
-   "MIA"
   ],
   "13433": [
    "Riley Nowakowski",
@@ -2965,30 +4696,20 @@
    "WR",
    "NO"
   ],
-  "13545": [
-   "Trey Smack",
-   "K",
-   "GB"
-  ],
   "13557": [
    "Athan Kaliakmanis",
    "QB",
    "WAS"
   ],
-  "13603": [
-   "Gregory Desrosiers",
-   "RB",
-   "NYG"
+  "13577": [
+   "Dallen Bentley",
+   "TE",
+   "DEN"
   ],
   "13670": [
    "Harrison Wallace III",
    "WR",
    "ARI"
-  ],
-  "13770": [
-   "J. Michael Sturdivant",
-   "WR",
-   "GB"
   ],
   "13833": [
    "Dominic Zvada",
@@ -3166,11 +4887,54 @@
    "WAS"
   ]
  },
- "claim_list": [],
- "worst_case_spend": 0,
+ "claim_list": [
+  {
+   "order": 1,
+   "name": "Justin Jefferson",
+   "pos": "WR",
+   "team": "MIN",
+   "sleeper_id": "6794",
+   "bid": 2,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "win_chance": 0.31,
+   "kind": "claim",
+   "fires_if": null,
+   "why": "starts for you 7 of the next 7 weeks; +6.0 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)"
+  },
+  {
+   "order": 2,
+   "name": "Jonathan Taylor",
+   "pos": "RB",
+   "team": "IND",
+   "sleeper_id": "6813",
+   "bid": 1,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "win_chance": 0.245,
+   "kind": "claim",
+   "fires_if": null,
+   "why": "starts for you 6 of the next 7 weeks; +3.6 pts of title odds; can be outbid by damonhawk1 ($86, 25% to claim), JHED1979 ($22, 32% to claim)"
+  },
+  {
+   "order": 3,
+   "name": "D.J. Moore",
+   "pos": "WR",
+   "team": "BUF",
+   "sleeper_id": "4983",
+   "bid": 0,
+   "drop": "Khalil Shakir",
+   "drop_id": "8134",
+   "win_chance": 0.119,
+   "kind": "claim",
+   "fires_if": null,
+   "why": "starts for you 6 of the next 7 weeks; +1.6 pts of title odds; can be outbid by JHED1979 ($22, 25% to claim), robert8063 ($23, 32% to claim)"
+  }
+ ],
+ "worst_case_spend": 3,
  "rules": {
   "reserve": 5,
-  "reserve_rule": "keeps $5 while your cut risk this week is under 25%; at 25% or more, a claim that lowers it by 2+ pts may use it (now 6%: kept)",
+  "reserve_rule": "keeps $5 while your cut risk this week is under 25%; at 25% or more, a claim that lowers it by 2+ pts may use it (now 4%: kept)",
   "league_winners": [],
   "big_bid_cap": 3,
   "marginal": "K, DEF and adds worth under 2 lineup pts a week go in at $0",
@@ -3182,7 +4946,7 @@
     "starter": "Breece Hall",
     "starter_miss_chance": 0.12,
     "as_starter": 15.2,
-    "insurance_rest_of_season": 5
+    "insurance_rest_of_season": 5.1
    }
   ]
  }
