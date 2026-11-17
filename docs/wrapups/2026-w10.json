@@ -2,37 +2,37 @@
  "week": 10,
  "cfb_week": 11,
  "season": 2026,
- "edition": "sunday",
- "generated": "2026-11-16T06:03:50Z",
- "generated_label": "Mon Nov 16, 12:03a CT",
+ "edition": "final",
+ "generated": "2026-11-17T14:02:19Z",
+ "generated_label": "Tue Nov 17, 8:02a CT",
  "leagues": [
   {
    "name": "Kosmonauts",
    "sport": "nfl",
-   "line": "Your starters scored about 121.9; Yahoo's score isn't readable until the API is approved, so no W/L here; 1 still to play (proj 13.4)",
-   "score": "~121.9",
-   "note": "Lineup as of the laptop's Yahoo read Sun 7:34a CT; points from Sleeper's stats with Kosmonauts scoring, so they can differ slightly from Yahoo's",
+   "line": "Your starters scored about 101.6; Yahoo's score isn't readable until the API is approved, so no W/L here",
+   "score": "~101.6",
+   "note": "Lineup as of the laptop's Yahoo read Tue 7:33a CT; points from Sleeper's stats with Kosmonauts scoring, so they can differ slightly from Yahoo's",
    "next": [
-    "Byes in week 11: Matthew Stafford (QB)",
-    "Waiver: Add Geno Smith (QB, NYJ, 19.9/gm, value 217) for Travis Etienne Jr. (RB, your RB4, 8.7/gm): starts at QB over Matthew Stafford, lineup +2.2/gm, +21.9 pts over the next 4 weeks"
+    "Waiver: Add Dallas Goedert (TE, PHI, 8.7/gm, value 554) for Emmett Johnson (RB, your RB4, 6.8/gm): starts at TE over Tyler Warren, lineup +0.2/gm, +8.4 pts over the next 4 weeks"
    ],
    "injuries": [
     {
-     "text": "Carnell Tate (OUT, bench): Tate (shoulder) has been ruled out for Sunday's game against the Jaguars, Jim Wyatt of the Titans' official...",
-     "source": "ESPN, Nov 13",
-     "url": "https://www.espn.com/nfl/player/_/id/4871023/carnell-tate"
+     "text": "Geno Smith (Q): Smith (ankle) underwent tests Monday that did not reveal any major injuries, but he will continue to be...",
+     "source": "ESPN, Nov 16",
+     "url": "https://www.espn.com/nfl/player/_/id/15864/geno-smith"
     }
    ],
-   "bench": "12.0 pts left on the bench: Chase Brown (24.3) over Bhayshul Tuten (18.8) at RB",
-   "bench_pts": 12.0,
+   "bench": "34.2 pts left on the bench: Emmett Johnson (32.1) over Bhayshul Tuten (18.8) at RB",
+   "bench_pts": 34.2,
    "boom": [
-    "Emmett Johnson 32.1 (proj 15.2)",
+    "Chase Brown 24.3 (proj 11.6)",
     "Amon-Ra St. Brown 23.8 (proj 15.9)"
    ],
    "bust": [
+    "Geno Smith 5.9 (proj 19.8)",
     "Tyler Warren 1.4 (proj 9.8)"
    ],
-   "vs_proj": 31.5
+   "vs_proj": 1.6
   },
   {
    "name": "Domo Arigato",
@@ -40,11 +40,11 @@
    "result": "L",
    "line": "Lost 113.6-186.8 vs Buttered Toast!, by 73.2",
    "score": "113.6-186.8",
-   "standing": "11th of 12 (2-7; leader 7-2), before this week",
+   "standing": "11th of 12 (2-8, no change; leader 8-2)",
    "next": [
-    "Byes in week 11: Zach Charbonnet (RB)",
-    "Waiver: Add Dominic Zvada (K, NYG, 8.2 proj this week), drop Wil Lutz (0 proj). Bid $0\u20131",
-    "Trade idea: offer mattschadegg Tyler Shough (QB) + Tetairoa McMillan (WR) for Joe Burrow (QB) (you +2.5/gm, them +2.9/gm)"
+    "Fix: Zach Charbonnet (RB) on BYE \u2192 start Chris Rodriguez Jr. (5.9 proj) [ESPN, Nov 15]",
+    "Start/sit: Start Caleb Williams (20.4) over Kaelon Black (4.8) at SUPER_FLEX, +15.6",
+    "Waiver: Add Zonovan Knight (RB, ARI, 8.2/gm, value 400) for Jaylen Wright (RB, your RB6, 2.5/gm): fills in at RB in week 11, +1.9 pts over the next 4 weeks. Bid $1\u20133"
    ],
    "injuries": [],
    "bench": "2.7 pts left on the bench: Malachi Fields (9.2) over Tetairoa McMillan (6.5) at WR",
@@ -63,21 +63,21 @@
    "name": "Guillotine",
    "sport": "nfl",
    "result": "survived",
-   "line": "On track to survive, 4th of 9 with projected 152.0, 33.3 over the lowest team (SteelRob420, projected 118.7); you're done",
+   "line": "Survived, 4th of 9 with 152.0, 33.3 over the lowest team (SteelRob420, 118.7)",
    "score": "152.0, cut line 118.7",
    "standing": "4th of 9 this week (last week 5th of 10)",
    "chart": {
-    "title": "Week 10 scores (Monday players at projection)",
+    "title": "Week 10 scores",
     "bars": [
      {
-      "label": "Off with his head (damonhawk1)",
-      "value": 179.1,
+      "label": "robert8063",
+      "value": 177.1,
       "me": false,
       "low": false
      },
      {
-      "label": "robert8063",
-      "value": 177.1,
+      "label": "Off with his head (damonhawk1)",
+      "value": 174.8,
       "me": false,
       "low": false
      },
@@ -101,13 +101,13 @@
      },
      {
       "label": "CodyRust",
-      "value": 141.6,
+      "value": 143.2,
       "me": false,
       "low": false
      },
      {
       "label": "JHED1979",
-      "value": 136.2,
+      "value": 131.2,
       "me": false,
       "low": false
      },
@@ -126,22 +126,12 @@
     ]
    },
    "next": [
-    "Byes in week 11: Hunter Henry (TE), Green Bay Packers (DEF)",
-    "Waiver: Add Harrison Butker (K, KC, 5.7 proj) now, no claim needed, drop Jake Bates (War Room v2: add free, +-1.1 pts this week)",
-    "Trade idea: offer Off with his head (damonhawk1) Javonte Williams (RB) for Cam Skattebo (RB) + Garrett Wilson (WR) (you +1.7/gm, them +0.5/gm)"
+    "Fix: Hunter Henry (TE) on BYE \u2192 start Brenton Strange (7.3 proj) [ESPN, Nov 15]",
+    "Fix: Green Bay Packers (DEF) on BYE \u2192 no bench fit: add Chicago Bears (CHI, 8.2 proj), drop Green Bay Packers (0.0 proj), and start him",
+    "Waiver: Add Justin Jefferson (WR, MIN, 15.7 proj) on waivers, drop Woody Marks (War Room v2: coin flip, bid $2, +6.2 pts this week; claims run Wed 2:15a CT)",
+    "Trade idea: offer robert8063 Tony Pollard (RB) + Breece Hall (RB) for Bhayshul Tuten (RB) (you +0.5/gm, them +0.5/gm)"
    ],
-   "injuries": [
-    {
-     "text": "Woody Marks (OUT, bench): Coach DeMeco Ryans acknowledged after Sunday's 27-24 loss to the Browns that Marks (concussion) is unlikely...",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nfl/player/_/id/4429059/woody-marks"
-    },
-    {
-     "text": "Carnell Tate (OUT, bench): Tate (shoulder) has been ruled out for Sunday's game against the Jaguars, Jim Wyatt of the Titans' official...",
-     "source": "ESPN, Nov 13",
-     "url": "https://www.espn.com/nfl/player/_/id/4871023/carnell-tate"
-    }
-   ],
+   "injuries": [],
    "bench": "4.7 pts left on the bench: Brenton Strange (7.9) over Hunter Henry (3.2) at TE",
    "bench_pts": 4.7,
    "boom": [
@@ -156,14 +146,15 @@
   {
    "name": "3-Ball FB",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs The MONSTARS; their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "4th of 10 (5-4; leader 8-1), before this week",
+   "result": "W",
+   "line": "Won 179.4-86.8 vs The MONSTARS, by 92.6",
+   "score": "179.4-86.8",
+   "standing": "3rd of 10 (6-4, up 1; leader 9-1)",
    "next": [
-    "Byes in week 11: Jayden Daniels (QB), Denzel Boston (WR), Christian Watson (WR), Chig Okonkwo (TE)",
-    "Waiver: Add Malik Washington (WR, MIA, 9.5/gm, value 1,209) for Treylon Burks (WR, your WR8, 6.5/gm): fills in at WR in week 11, +1.2 pts over the next 4 weeks",
-    "Trade idea: offer The MONSTARS Cam Skattebo (RB) + Tre Tucker (WR) for Bhayshul Tuten (RB) (you +1.1/gm, them +0.5/gm)"
+    "Fix: Move Kenneth Walker III out of IR: ESPN lists him Questionable, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 15]",
+    "Byes in week 11: Jayden Daniels (QB), Treylon Burks (WR), Chig Okonkwo (TE)",
+    "Start/sit: Start Tre Tucker (8.2) over Xavier Worthy (7.0) at WR, +1.2",
+    "Trade idea: offer The Guppies Tyler Shough (QB) + Dallas Goedert (TE) for Zay Flowers (WR) (you +2.6/gm, them +0.6/gm)"
    ],
    "injuries": [],
    "bench": "6.7 pts left on the bench: Fernando Mendoza (13.9) over Tyler Shough (10.0) at OP",
@@ -181,106 +172,91 @@
   {
    "name": "Stempak",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs Sacked again; still to play for you: Josh Allen, Amon-Ra St. Brown, James Cook III +8 more (proj 176.7); their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "5th of 8 (4-5; leader 6-3), before this week",
-   "note": "ESPN read by the laptop Sun 7:35a CT",
+   "result": "W",
+   "line": "Won 198.2-179.2 vs Sacked again, by 19.0",
+   "score": "198.2-179.2",
+   "standing": "3rd of 8 (5-5, up 2; leader 6-4)",
+   "note": "ESPN read by the laptop Tue 7:34a CT",
    "next": [
-    "Byes in week 11: Christian Watson (WR), Seahawks D/ST (D/ST), Drew Lock (QB)",
-    "Waiver: Add Justin Herbert (QB, LAC, 15.5/gm, value 1,180) for Rhamondre Stevenson (RB, your RB4, 13.3/gm): better backup QB, +6.3 pts over the next 4 weeks",
-    "Trade idea: offer Jonesing for more Chase Brown (RB) + Dalton Kincaid (TE) for George Kittle (TE) (you +4.3/gm, them +2.1/gm)"
+    "Fix: Seahawks D/ST (D/ST) on BYE \u2192 no bench fit: add Chiefs D/ST (KC, 8.2 proj), drop Seahawks D/ST (0.0 proj), and start him",
+    "Start/sit: Start Chase Brown (15.7) over Emmett Johnson (9.3) at FLEX, +6.4",
+    "Waiver: Add Justin Herbert (QB, LAC, 16.5/gm, value 1,823) for Drew Lock (QB, your QB3, 0.0/gm): better backup QB, +7.9 pts over the next 4 weeks",
+    "Trade idea: offer Jonesing for more Chase Brown (RB) for George Kittle (TE) (you +2.9/gm, them +2.6/gm)"
    ],
-   "injuries": [
-    {
-     "text": "David Montgomery (OUT, bench): Texans head coach DeMeco Ryans said Sunday that he's \"not certain\" if Montgomery (groin) will be able to play...",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nfl/player/_/id/4035538/david-montgomery"
-    }
+   "injuries": [],
+   "bench": "25.3 pts left on the bench: Chase Brown (28.3) over Javonte Williams (7.7) at FLEX",
+   "bench_pts": 25.3,
+   "boom": [
+    "Emmett Johnson 36.1 (proj 18.6)",
+    "Cam Little 19.0 (proj 9.8)"
    ],
-   "bench": null,
-   "bench_pts": 0.0,
-   "boom": [],
-   "bust": [],
-   "vs_proj": 0
+   "bust": [
+    "Christian Watson 6.7 (proj 15.7)",
+    "Javonte Williams 7.7 (proj 15.0)"
+   ],
+   "vs_proj": 16.6
   },
   {
    "name": "Bro-vid19",
    "sport": "nfl",
-   "result": "trailing",
-   "line": "Tied 0.0-0.0 vs Ashton DJENTY; still to play for you: Ja'Marr Chase, Nico Collins, Drake London +7 more (proj 133.4); their Monday players may still be out",
-   "score": "0.0-0.0",
-   "standing": "2nd of 12 (7-2; leader 8-1), before this week",
-   "note": "ESPN read by the laptop Sun 7:35a CT",
+   "result": "W",
+   "line": "Won 158.2-113.7 vs Ashton DJENTY, by 44.5",
+   "score": "158.2-113.7",
+   "standing": "2nd of 12 (8-2, no change; leader 9-1)",
+   "note": "ESPN read by the laptop Tue 7:34a CT",
    "next": [
-    "Fix: Move Rashid Shaheed out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 15]",
-    "Byes in week 11: Drake London (WR)",
-    "Waiver: Add Aaron Rodgers (QB, PIT, 15.7/gm, value 391) for Kaleb Johnson (RB, your RB5, 2.8/gm): better backup QB, +3.8 pts over the next 4 weeks",
-    "Trade idea: offer Inglorious Staffords Jaylen Warren (RB) + KC Concepcion (WR) for Bucky Irving (RB) (you +3.1/gm, them +1.7/gm)"
+    "Fix: Move David Montgomery out of IR: ESPN lists him as active, so ESPN blocks adds and drops until he's on your bench; do this before any add or drop [ESPN, Nov 16]",
+    "Waiver: Add Aaron Rodgers (QB, PIT, 14.6/gm, value 293) for Kaleb Johnson (RB, your RB5, 0.6/gm): better backup QB, +3.5 pts over the next 4 weeks",
+    "Trade idea: offer Inglorious Staffords Jaylen Warren (RB) + KC Concepcion (WR) for Bucky Irving (RB) (you +3.6/gm, them +1.5/gm)"
    ],
-   "injuries": [
-    {
-     "text": "Drake London (Q): London is being evaluated for a possible concussion during Sunday's game against the Chiefs, Tori McElhaney...",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nfl/player/_/id/4426502/drake-london"
-    },
-    {
-     "text": "Garrett Wilson (Q): Wilson (concussion) caught seven of 14 targets for 106 yards and lost a fumble in Sunday's 31-12 loss to the...",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nfl/player/_/id/4569618/garrett-wilson"
-    }
+   "injuries": [],
+   "bench": "10.5 pts left on the bench: Aaron Jones Sr. (12.5) over Jordan Mason (5.9) at RB",
+   "bench_pts": 10.5,
+   "boom": [
+    "Joe Burrow 33.2 (proj 19.0)",
+    "Ja'Marr Chase 34.1 (proj 22.9)"
    ],
-   "bench": null,
-   "bench_pts": 0.0,
-   "boom": [],
-   "bust": [],
-   "vs_proj": 0
+   "bust": [
+    "Travis Kelce 5.0 (proj 11.6)",
+    "Jaylen Warren 9.1 (proj 15.5)"
+   ],
+   "vs_proj": 24.7
   },
   {
    "name": "3-Ball BB",
    "sport": "nba",
-   "result": "leading",
-   "line": "Leading 8-0 vs Team Duke, Sunday's games still counting",
-   "score": "8-0-0",
-   "standing": "4th of 10 (14-10, up 1; leader 22-2)",
+   "result": "W",
+   "line": "Won 8-0 vs Team Duke (matchup 4)",
+   "score": "8-0",
+   "standing": "3rd of 10 (22-10, up 1; leader 28-4)",
    "next": [
-    "Waiver: Leave Jarrett Allen in IR for now: moving him out takes a drop with your roster full, and he has no game today. ESPN blocks adds and drops until he moves, so no pickups today; move him on a day he plays.",
-    "Categories: REB is close. Keep in the lineup: Walker Kessler (3 games, 10.9/g) and Khaman Maluach (3 games, 5.8/g)."
+    "Waiver: Leave Kingston Flemings in IR for now: moving him out takes a drop with your roster full, and he has no game today. ESPN blocks adds and drops until he moves, so no pickups today; move him on a day he plays.",
+    "Categories: FG% is close. Keep in the lineup: Ayo Dosunmu (3 games, .516 on 13.4 FGA/g) and Derrick Jones Jr. (3 games, .534 on 8.0 FGA/g)."
    ],
    "injuries": [
     {
-     "text": "De'Aaron Fox (OUT): Fox (hip) has been ruled out for Sunday's game against the Jazz.",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nba/player/_/id/4066259/deaaron-fox"
+     "text": "Jonathan Kuminga (Q): Kuminga (shoulder) exited in the fourth quarter of Monday's 106-98 win over Portland and did not return. He...",
+     "source": "ESPN, Nov 16",
+     "url": "https://www.espn.com/nba/player/_/id/4433247/jonathan-kuminga"
     }
    ]
   },
   {
    "name": "Ball is Life",
    "sport": "nba",
-   "result": "W",
-   "line": "Won 7-0-1 vs Giddey's Kiddies (matchup 3)",
-   "score": "7-0-1",
-   "standing": "2nd of 12 (11-3-2, up 4; leader 14-2)",
+   "result": "L",
+   "line": "Lost 3-5 vs Fighting Turkeys (matchup 4)",
+   "score": "3-5",
+   "standing": "3rd of 12 (14-8-2, down 1; leader 19-5)",
    "next": [
-    "Start/sit: Start LaMelo Ball (MIN vs POR, Mon 7:00p) over Austin Reaves at PG: no game today",
-    "Waiver: Leave Ajay Mitchell in IR for now: moving him out takes a drop with your roster full, and he has no game today. ESPN blocks adds and drops until he moves, so no pickups today; move him on a day he plays."
+    "Waiver: Drop John Collins (value -4.2/g, 26 min/g), add Derrick Jones Jr. (SF/PF, LAC, value -1.3/g, 29 min/g, 15% rostered): +2.9/g for the rest of the season (helps 3PM, FG%, STL).",
+    "Categories: BLK is close. Keep in the lineup: John Collins (4 games, 0.9/g) and Jaden McDaniels (3 games, 0.9/g)."
    ],
    "injuries": [
     {
-     "text": "Austin Reaves (OUT): Reaves (heel) has been ruled out for Sunday's game against the Suns, Daniel Starkand of LakersNation.com...",
-     "source": "ESPN, Nov 14",
-     "url": "https://www.espn.com/nba/player/_/id/4066457/austin-reaves"
-    },
-    {
-     "text": "Jaxson Hayes (OUT): Hayes (knee) has been ruled out for Sunday's game against the Spurs.",
-     "source": "ESPN, Nov 14",
+     "text": "Jaxson Hayes (OUT): Hayes (knee) has been ruled out for Tuesday's game against the Clippers.",
+     "source": "ESPN, Nov 16",
      "url": "https://www.espn.com/nba/player/_/id/4397077/jaxson-hayes"
-    },
-    {
-     "text": "Santi Aldama (OUT): Aldama (ankle) is out for Sunday's game against the Celtics.",
-     "source": "ESPN, Nov 15",
-     "url": "https://www.espn.com/nba/player/_/id/4593125/santi-aldama"
     }
    ]
   }
@@ -484,24 +460,24 @@
  },
  "warroom": {
   "lines": [
-   "Week 9 cut: MoneyManChas (confirmed).",
-   "You next week (week 10): 6% cut risk, projected 137.1, about 4.2 weeks left, 6% to win it.",
-   "Most at risk: Aniasin1 28%, GoodFellas (GoodFellas77) 23%, Swegs4 11%.",
+   "Week 10 cut: SteelRob420 (confirmed).",
+   "You next week (week 11): 4% cut risk, projected 135.0, about 3.8 weeks left, 7% to win it.",
+   "Most at risk: JHED1979 28%, Aniasin1 27%, robert8063 19%.",
    "Bids before waivers Wed 2:15a CT ($10 left): Harrison Butker (K) free add; Kirk Cousins (QB) free add; Matt Gay (K) free add."
   ],
-  "source": "War Room v2, Week 9 final; MoneyManChas cut in week 9 (confirmed); moves through Sun 12:18p CT"
+  "source": "War Room v2, Week 10 final; SteelRob420 cut in week 10 (confirmed); moves through Mon 11:56p CT"
  },
  "numbers": [
-  "Projections: your starters beat them in 4 of 6 football leagues (+81.5 pts in all, finished games only).",
+  "Projections: your starters beat them in 6 of 6 football leagues (+92.9 pts in all, finished games only).",
   "BTO Beat the Odds: card picks were rated to win 0.7 of 1; they won 1.",
   "Yahoo pick'em (Kosmos, 14): card picks were rated to win 16.8 of 25; they won 15.",
   "CFP 2026 points pool: card picks were rated to win 1.2 of 2; they won 1.",
   "Stale-line scanner: no flags this week."
  ],
  "headline": [
-  "Head-to-head: 1-1, plus 4 still open (3-Ball FB trailing, Stempak trailing, Bro-vid19 trailing, 3-Ball BB leading).",
-  "Guillotine: on track to survive, 4th of 9 with projected 152.0, 33.3 over the lowest team (SteelRob420, projected 118.7).",
+  "Head-to-head: 4-2.",
+  "Guillotine: survived, 4th of 9 with 152.0, 33.3 over the lowest team (SteelRob420, 118.7).",
   "Picks card: BTO 1-0, Yahoo 15-10, CFP 1-1 (card as posted; your entries are graded Tuesday night).",
-  "Most left on a bench: 12.0 in Kosmonauts."
+  "Most left on a bench: 34.2 in Kosmonauts."
  ]
 }
