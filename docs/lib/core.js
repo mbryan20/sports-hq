@@ -271,6 +271,18 @@
   }
   S.expTag = expTag;
   const li = t => `<li>${esc(t)}${expTag(t, expOn)}</li>`;
+  // Skip / Comment on one suggested item (opens the site's pre-filled feedback issue; Feedback #5)
+  const skipBtns = (league, t) => `<span class="skc"><button class="clr" data-skipitem="${esc(league)}" data-text="${esc(t)}" aria-label="Skip this suggestion">Skip</button><button class="clr" data-cmtitem="${esc(league)}" data-text="${esc(t)}" aria-label="Comment on this suggestion">Comment</button></span>`;
+  const ula = (items, league, cls = "") => items?.length ? `<ul class="tips ${cls}">${items.map(t => `<li>${esc(t)}${expTag(t, expOn)}${skipBtns(league, t)}</li>`).join("")}</ul>` : "";
+  S.fixesHTML = function (d = S.data) {
+    const fixes = S.feed(d).filter(i => i.kind === "fix");
+    if (!fixes.length) return `<h2>Fixes</h2><p class="note">Nothing to fix right now.</p>`;
+    const by = new Map();
+    fixes.forEach(i => by.set(i.league, [...(by.get(i.league) || []), i.text]));
+    return `<h2>Fixes <span class="count">${fixes.length}</span></h2><p class="meta">What needs attention now. Clear a line once it's handled, Skip it, or Comment.</p>`
+      + [...by].map(([lg, items]) => `<div class="fixgrp"><h3>${esc(lg)} <button class="clr" data-open-league="${esc(lg)}">Open league</button></h3><ul class="tips fix">${items.map(t =>
+        `<li>${esc(t)}<button class="clr" data-clearfix="${esc(lg)}" data-text="${esc(t)}" aria-label="Clear this line">Clear</button>${skipBtns(lg, t)}</li>`).join("")}</ul></div>`).join("");
+  };
   const sec = (title, body, { open = true, cls = "", count = "" } = {}) => body ? `<details class="sec ${cls}"${open ? " open" : ""}>
     <summary><span>${title}</span>${count !== "" ? `<span class="count">${count}</span>` : ""}</summary>${body}</details>` : "";
   const ul = (items, cls = "") => items?.length ? `<ul class="tips ${cls}">${items.map(li).join("")}</ul>` : "";
@@ -355,12 +367,12 @@
     const goneHTML = gone.length ? `<details class="cleared"><summary>${gone.length} cleared</summary><ul class="tips muted">${gone.map(v =>
       `<li>${esc(v.text)} <span class="sub-wrap">${v.synced ? "cleared everywhere" : "cleared on this device"} until ${esc(new Date(v.until).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: TZ }))}</span>`
       + (v.synced ? "" : ` <button class="clr" data-unclear="${esc(name)}" data-key="${esc(v.key)}">Undo</button>`) + `</li>`).join("")}</ul></details>` : "";
-    const fixes = (L.fixes.length ? `<ul class="tips fix">${L.fixes.map(t => `<li>${esc(t)}${expTag(t, expOn)}${clr(t)}</li>`).join("")}</ul>`
+    const fixes = (L.fixes.length ? `<ul class="tips fix">${L.fixes.map(t => `<li>${esc(t)}${expTag(t, expOn)}${clr(t)}${skipBtns(name, t)}</li>`).join("")}</ul>`
       : `<ul class="tips"><li class="ok">Lineup is set, nothing to fix.</li></ul>`) + goneHTML;
     const todo = sec("Fix now", fixes, { cls: L.fixes.length ? "hot" : "", count: L.fixes.length || "" })
       + sec("Try a move · Ask Claude", `<div class="mv-host" data-mv="${esc(name)}"></div>`, { cls: "trymove" })
-      + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ul(L.moves), { count: L.moves.length || "" })
-      + sec("Waiver adds", ul(a.adds), { count: L.adds.length || "" })
+      + guillotineHTML(L.g) + catsHTML(L.c) + gamesHTML(a.games) + radarHTML(a.radar) + sec("Lineup moves", ula(L.moves, name), { count: L.moves.length || "" })
+      + sec("Waiver adds", ula(a.adds, name), { count: L.adds.length || "" })
       // moves he skipped on HQ's fantasy cards (docs/data/decisions.json, shq/decisions.py): left out of the lists above
       + (a.skipped?.length ? sec("You skipped", `<ul class="tips muted">${a.skipped.map(s => `<li>${esc(s.text)} <span class="sub-wrap">${esc(s.tag)}</span></li>`).join("")}</ul>`, { open: false, count: a.skipped.length }) : "")
       + expertsHTML(a.experts) + tradesHTML(a.trades)
@@ -637,6 +649,18 @@
     if (c.dataset.clearfix != null) S.clearLine(c.dataset.clearfix, c.dataset.text);
     else S.unclearLine(c.dataset.unclear, c.dataset.key);
     S.rerender?.();
+  }, true);
+  // Skip / Comment on one suggestion: Skip opens the pre-filled issue straight away, Comment opens the feedback sheet
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-skipitem], [data-cmtitem]");
+    if (!b) return;
+    e.stopPropagation();
+    e.preventDefault();
+    const skip = b.dataset.skipitem != null, lg = b.dataset.skipitem ?? b.dataset.cmtitem, t = b.dataset.text || "";
+    const spot = `${lg} · ${skip ? "skip" : "comment on"}: ${t.replace(/\s+/g, " ").slice(0, 80)}`;
+    if (!skip) return fbOpen("idea", spot);
+    try { navigator.clipboard?.writeText(`Skip: ${t}`).catch(() => {}); } catch {}
+    openTab(S.feedbackURL("dislike", spot, `Skip: ${t}`).url);
   }, true);
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-fb]");

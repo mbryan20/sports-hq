@@ -83,9 +83,9 @@ function render(d) {
   const picks = feed.filter(i => i.kind === "pick");
   const locks = Ls.map(L => L.nextLock).filter(Boolean).sort();
   const g = Ls.find(L => L.g)?.g;
-  const kpi = (v, k, cls = "", spot = k) => `<div class="kpi ${cls}" data-spot="KPI ${esc(spot)}"><div class="v">${v}</div><div class="k">${esc(k)}</div></div>`;
+  const kpi = (v, k, cls = "", spot = k, open = "") => `<div class="kpi ${cls}${open ? " tappable" : ""}"${open ? ` data-open-key="${open}" tabindex="0" role="button"` : ""} data-spot="KPI ${esc(spot)}"><div class="v">${v}</div><div class="k">${esc(k)}</div></div>`;
   const kpis = `<section class="kpis">
-    ${kpi(fixes, "Fixes now", fixes ? "bad" : "good")}
+    ${kpi(fixes, "Fixes now", fixes ? "bad" : "good", "Fixes now", "fixes")}
     ${kpi(moves, "Lineup moves", moves ? "warn" : "")}
     ${kpi(picks.length, "Picks to change", picks.length ? "warn" : "")}
     ${g ? kpi(SHQ.pct(g.survive), "Guillotine survive", g.cut > 0.2 ? "bad" : "good") : ""}
@@ -144,7 +144,7 @@ function render(d) {
 let current = null;
 function openLeague(key) {
   current = key;
-  const html = key === "today" ? `<h2>Today</h2>${SHQ.todayHTML()}` : key === "weekly" ? `<h2>Weekly plan</h2>${SHQ.weeklyHTML()}` : SHQ.detail(key);
+  const html = key === "fixes" ? SHQ.fixesHTML() : key === "today" ? `<h2>Today</h2>${SHQ.todayHTML()}` : key === "weekly" ? `<h2>Weekly plan</h2>${SHQ.weeklyHTML()}` : SHQ.detail(key);
   SHQ.drawer.open(html, "lg=" + encodeURIComponent(key));
 }
 const reopen = () => current && openLeague(current);
@@ -153,12 +153,15 @@ function openFromHash() {
   if (m) openLeague(decodeURIComponent(m[1]));
 }
 document.getElementById("main").addEventListener("click", e => {
+  const k = e.target.closest("[data-open-key]");
+  if (k) return openLeague(k.dataset.openKey);
   const t = e.target.closest(".tile");
   if (!t || e.target.closest("a[href]")) return;   // a link inside a tile (the War Room guide) opens itself
   if (t.dataset.go) location.href = t.dataset.go;
   else openLeague(t.dataset.league || t.dataset.open);
 });
-document.getElementById("main").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.classList.contains("tile")) e.target.click(); });
+document.getElementById("main").addEventListener("keydown", e => { if (e.key === "Enter" && (e.target.classList.contains("tile") || e.target.dataset.openKey)) e.target.click(); });
+document.addEventListener("click", e => { const b = e.target.closest("[data-open-league]"); if (b) { e.preventDefault(); openLeague(b.dataset.openLeague); } });
 SHQ.start(render);
 </script>
 </body>
