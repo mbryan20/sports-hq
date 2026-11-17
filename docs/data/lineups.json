@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T01:07:00Z",
+ "updated": "2026-11-17T01:07:24Z",
  "week": 10,
  "leagues": {
   "Kosmonauts": {
@@ -214,8 +214,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Dallas Goedert (TE, PHI, 8.7/gm, value 429) for Travis Etienne Jr. (RB, your RB4, 8.5/gm): fills in at TE in week 13, +7 pts over the next 4 weeks",
-     "Add Jordyn Tyson (WR, NO, 8.7/gm, value 1,413) for Carnell Tate (WR, your WR3, 7.5/gm): fills in at WR in week 13"
+     "Add Dallas Goedert (TE, PHI, 8.7/gm, value 501) for Travis Etienne Jr. (RB, your RB4, 8.5/gm): fills in at TE in week 13, +7.1 pts over the next 4 weeks",
+     "Add Jordyn Tyson (WR, NO, 8.7/gm, value 1,607) for Carnell Tate (WR, your WR3, 7.5/gm): fills in at WR in week 13"
     ],
     "trades": {
      "lines": [
@@ -673,7 +673,7 @@
     "adds": [
      "Add Dominic Zvada (K, NYG, 8.2 proj this week), drop Wil Lutz (0 proj). Bid $0\u20131",
      "Add Indianapolis Colts (DEF, IND, 8.1 proj this week), drop Philadelphia Eagles (0.0 proj). Bid $0\u20131",
-     "Add Zonovan Knight (RB, ARI, 8.2/gm, value 513) for Jalen Nailor (WR, your WR10, 3.3/gm): fills in at RB in week 11, +2.1 pts over the next 4 weeks. Bid $1\u20133"
+     "Add Zonovan Knight (RB, ARI, 8.2/gm, value 493) for Jalen Nailor (WR, your WR10, 3.3/gm): fills in at RB in week 11, +2.2 pts over the next 4 weeks. Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -691,8 +691,8 @@
        "get": [
         "Joe Burrow (QB)"
        ],
-       "give_value": 7707,
-       "get_value": 7495,
+       "give_value": 7602,
+       "get_value": 7634,
        "my_gain": 3.2,
        "their_gain": 1.8,
        "cut": false,
@@ -707,28 +707,28 @@
        "get": [
         "Kyren Williams (RB)"
        ],
-       "give_value": 3395,
-       "get_value": 3723,
+       "give_value": 3339,
+       "get_value": 3613,
        "my_gain": 2.7,
        "their_gain": 2.6,
        "cut": false,
        "why": "Kyren Williams starts for you; Zach Charbonnet and Rhamondre Stevenson start for them over Tyjae Spears (6.2/gm)"
       },
       {
-       "team": "Kratos1738",
+       "team": "Ride\u2019n the Chubba train",
        "give": [
-        "Stefon Diggs (WR)",
-        "Kenyon Sadiq (TE)"
+        "Garrett Wilson (WR)"
        ],
        "get": [
-        "Tyler Warren (TE)"
+        "Ryan Flournoy (WR)",
+        "George Kittle (TE)"
        ],
-       "give_value": 3562,
-       "get_value": 3624,
+       "give_value": 3851,
+       "get_value": 3671,
        "my_gain": 0.7,
-       "their_gain": 0.9,
-       "cut": false,
-       "why": "Tyler Warren starts for you; Stefon Diggs starts for them"
+       "their_gain": 0.7,
+       "cut": true,
+       "why": "George Kittle starts for you; Garrett Wilson starts for them over Emmett Johnson (10.0/gm)"
       }
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
@@ -1037,7 +1037,7 @@
     "trades": {
      "lines": [
       "Weak spot: WR (Khalil Shakir 8.2/gm, 8th of 9)",
-      "Weak spot: TE (Brenton Strange 7.9/gm, 9th of 9)",
+      "Weak spot: TE (Brenton Strange 8.0/gm, 9th of 9)",
       "Trade deadline: week 11."
      ],
      "offers": [
@@ -1050,8 +1050,8 @@
         "Drake London (WR)",
         "Garrett Wilson (WR)"
        ],
-       "give_value": 7784,
-       "get_value": 7278,
+       "give_value": 8148,
+       "get_value": 7425,
        "my_gain": 1.6,
        "their_gain": 0.6,
        "cut": true,
@@ -1060,34 +1060,18 @@
       {
        "team": "Off with his head (damonhawk1)",
        "give": [
-        "Tee Higgins (WR)"
-       ],
-       "get": [
-        "Luther Burden III (WR)",
-        "Stefon Diggs (WR)"
-       ],
-       "give_value": 6064,
-       "get_value": 5520,
-       "my_gain": 0.8,
-       "their_gain": 1.4,
-       "cut": true,
-       "why": "Luther Burden III and Stefon Diggs start for you; Tee Higgins starts for them"
-      },
-      {
-       "team": "Swegs4",
-       "give": [
         "Chuba Hubbard (RB)"
        ],
        "get": [
-        "A.J. Brown (WR)",
-        "Chase Brown (RB)"
+        "Jonah Coleman (RB)",
+        "Stefon Diggs (WR)"
        ],
-       "give_value": 5116,
-       "get_value": 5269,
-       "my_gain": 0.8,
-       "their_gain": 0.9,
+       "give_value": 5100,
+       "get_value": 4598,
+       "my_gain": 1.2,
+       "their_gain": 1.0,
        "cut": true,
-       "why": "Chase Brown and A.J. Brown start for you; Chuba Hubbard starts for them"
+       "why": "Jonah Coleman and Stefon Diggs start for you; Chuba Hubbard starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -1732,28 +1716,12 @@
        "get": [
         "Zay Flowers (WR)"
        ],
-       "give_value": 4780,
-       "get_value": 4436,
+       "give_value": 4694,
+       "get_value": 4412,
        "my_gain": 0.9,
        "their_gain": 0.7,
        "cut": false,
        "why": "Zay Flowers starts for you; Tyler Shough and Dallas Goedert start for them over Emmett Johnson (10.0/gm)"
-      },
-      {
-       "team": "The MONSTARS",
-       "give": [
-        "Parker Washington (WR)",
-        "Tre Tucker (WR)"
-       ],
-       "get": [
-        "Chris Olave (WR)"
-       ],
-       "give_value": 4958,
-       "get_value": 4738,
-       "my_gain": 0.6,
-       "their_gain": 1.4,
-       "cut": false,
-       "why": "Chris Olave starts for you; Parker Washington and Tre Tucker start for them over Rashid Shaheed (6.4/gm)"
       },
       {
        "team": "The MONSTARS",
@@ -1764,10 +1732,10 @@
        "get": [
         "Bhayshul Tuten (RB)"
        ],
-       "give_value": 3855,
-       "get_value": 3898,
-       "my_gain": 0.6,
-       "their_gain": 1.4,
+       "give_value": 3936,
+       "get_value": 3947,
+       "my_gain": 0.5,
+       "their_gain": 1.5,
        "cut": false,
        "why": "Bhayshul Tuten starts for you; Denzel Boston and Ollie Gordon II start for them over Rashid Shaheed (6.4/gm)"
       }
@@ -2135,8 +2103,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Justin Herbert (QB, LAC, 15.8/gm, value 1,240) for Rhamondre Stevenson (RB, your RB4, 13.1/gm): better backup QB, +7 pts over the next 4 weeks",
-     "Add Jordan Mason (RB, MIN, 10.2/gm, value 543) for David Montgomery (RB, your RB6, 8.4/gm): better backup RB"
+     "Add Justin Herbert (QB, LAC, 15.8/gm, value 1,786) for Rhamondre Stevenson (RB, your RB4, 13.1/gm): better backup QB, +7 pts over the next 4 weeks",
+     "Add Jordan Mason (RB, MIN, 10.2/gm, value 533) for David Montgomery (RB, your RB6, 8.4/gm): better backup RB"
     ],
     "trades": {
      "lines": [
@@ -2155,8 +2123,8 @@
        "get": [
         "George Kittle (TE)"
        ],
-       "give_value": 3643,
-       "get_value": 3333,
+       "give_value": 3651,
+       "get_value": 3358,
        "my_gain": 3.6,
        "their_gain": 2.1,
        "cut": false,
@@ -2170,8 +2138,8 @@
        "get": [
         "Trey McBride (TE)"
        ],
-       "give_value": 5783,
-       "get_value": 6091,
+       "give_value": 5689,
+       "get_value": 6110,
        "my_gain": 3.5,
        "their_gain": 0.5,
        "cut": false,
@@ -2186,8 +2154,8 @@
        "get": [
         "Travis Kelce (TE)"
        ],
-       "give_value": 1928,
-       "get_value": 1767,
+       "give_value": 1819,
+       "get_value": 1692,
        "my_gain": 2.3,
        "their_gain": 2.6,
        "cut": false,
@@ -2491,9 +2459,9 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 15.5/gm, value 315) for Kaleb Johnson (RB, your RB5, 2.8/gm): better backup QB, +3.7 pts over the next 4 weeks",
-     "Add Keon Coleman (WR, BUF, 8.4/gm, value 123) for Juwan Johnson (TE, your TE3, 8.9/gm): better backup WR, +2.6 pts over the next 4 weeks",
-     "Add Kimani Vidal (RB, LAC, 7.3/gm) for Audric Estime (RB, your RB4, 4.5/gm): better backup RB, +0.8 pts over the next 4 weeks"
+     "Add Aaron Rodgers (QB, PIT, 15.6/gm, value 313) for Kaleb Johnson (RB, your RB5, 2.8/gm): better backup QB, +3.7 pts over the next 4 weeks",
+     "Add Keon Coleman (WR, BUF, 8.4/gm, value 129) for Juwan Johnson (TE, your TE3, 8.9/gm): better backup WR, +2.6 pts over the next 4 weeks",
+     "Add Kimani Vidal (RB, LAC, 7.2/gm) for Audric Estime (RB, your RB4, 4.5/gm): better backup RB, +0.8 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -2510,12 +2478,28 @@
        "get": [
         "Bucky Irving (RB)"
        ],
-       "give_value": 5773,
-       "get_value": 6227,
-       "my_gain": 3.3,
-       "their_gain": 1.5,
+       "give_value": 6294,
+       "get_value": 6192,
+       "my_gain": 3.4,
+       "their_gain": 1.4,
        "cut": false,
        "why": "Bucky Irving starts for you; Jaylen Warren and KC Concepcion start for them over Cooper Kupp (6.2/gm)"
+      },
+      {
+       "team": "Daaaaaarrrrrrrnnnnn Tuten!",
+       "give": [
+        "Nico Collins (WR)",
+        "Brenton Strange (TE)"
+       ],
+       "get": [
+        "Javonte Williams (RB)"
+       ],
+       "give_value": 4803,
+       "get_value": 5258,
+       "my_gain": 2.1,
+       "their_gain": 0.6,
+       "cut": false,
+       "why": "Javonte Williams starts for you; Nico Collins and Brenton Strange start for them over Pat Freiermuth (8.0/gm)"
       },
       {
        "team": "Inglorious Staffords",
@@ -2523,30 +2507,14 @@
         "Garrett Wilson (WR)"
        ],
        "get": [
-        "Cam Skattebo (RB)",
-        "Matthew Stafford (QB)"
+        "Cam Skattebo (RB)"
        ],
-       "give_value": 3482,
-       "get_value": 3479,
+       "give_value": 3463,
+       "get_value": 3411,
        "my_gain": 1.0,
        "their_gain": 4.1,
-       "cut": true,
-       "why": "Cam Skattebo starts for you; Garrett Wilson starts for them over Cooper Kupp (6.2/gm)"
-      },
-      {
-       "team": "Likley a Swift Bateman",
-       "give": [
-        "Drake London (WR)"
-       ],
-       "get": [
-        "D'Andre Swift (RB)"
-       ],
-       "give_value": 4492,
-       "get_value": 4732,
-       "my_gain": 1.8,
-       "their_gain": 0.6,
        "cut": false,
-       "why": "D'Andre Swift starts for you; Drake London starts for them over Malik Washington (9.6/gm)"
+       "why": "Cam Skattebo starts for you; Garrett Wilson starts for them over Cooper Kupp (6.2/gm)"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2671,7 +2639,7 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -2.73,
+      "v": -2.74,
       "rk": 141,
       "wk": 2.9,
       "src": "13 g"
@@ -2691,7 +2659,7 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -2.95,
+      "v": -2.96,
       "rk": 151,
       "wk": 2.2,
       "src": "13 g"
@@ -2711,9 +2679,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 3.11,
-      "rk": 22,
-      "wk": 20.4,
+      "v": 3.25,
+      "rk": 21,
+      "wk": 20.8,
       "src": "13 g"
      },
      "news": null
@@ -2753,7 +2721,7 @@
      "cv": {
       "v": 2.12,
       "rk": 33,
-      "wk": 17.4,
+      "wk": 17.5,
       "src": "13 g"
      },
      "news": null
@@ -2772,7 +2740,7 @@
      "flags": [],
      "cv": {
       "v": -0.06,
-      "rk": 74,
+      "rk": 75,
       "wk": 10.9,
       "src": "11 g"
      },
@@ -2817,7 +2785,7 @@
      "cv": {
       "v": -5.18,
       "rk": 220,
-      "wk": -6.0,
+      "wk": -5.9,
       "src": "13 g"
      },
      "news": null
@@ -2837,7 +2805,7 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 4.08,
+      "v": 4.07,
       "rk": 15,
       "wk": 23.3,
       "src": "14 g"
@@ -2949,7 +2917,7 @@
      ],
      "cv": {
       "v": -1.08,
-      "rk": 102,
+      "rk": 103,
       "wk": 7.8,
       "src": "11 g"
      },
@@ -3312,8 +3280,8 @@
       "next": 48
      },
      "streamers": [
-      "Jamal Shead (PG, TOR, 7% rostered): 3 games this week (Tu/We/Fr, back-to-back), +7.5 this week, helps AST, STL",
-      "T.J. McConnell (PG, IND, 8% rostered): 3 games this week (We/Fr/Su), +5.7 this week, helps AST",
+      "Jamal Shead (PG, TOR, 7% rostered): 3 games this week (Tu/We/Fr, back-to-back), +7.6 this week, helps AST, STL",
+      "T.J. McConnell (PG, IND, 8% rostered): 3 games this week (We/Fr/Su), +5.8 this week, helps AST",
       "Quenton Jackson (PG/SG, IND, 4% rostered): 3 games this week (We/Fr/Su), +5.7 this week, helps STL"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
@@ -3384,7 +3352,7 @@
      "cv": {
       "v": 2.52,
       "rk": 26,
-      "wk": 18.4,
+      "wk": 18.5,
       "src": "13 g"
      },
      "news": null
@@ -3402,7 +3370,7 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": 1.36,
+      "v": 1.35,
       "rk": 44,
       "wk": 14.9,
       "src": "13 g"
@@ -3422,9 +3390,9 @@
      "why": "",
      "flags": [],
      "cv": {
-      "v": -0.76,
+      "v": -0.84,
       "rk": 96,
-      "wk": 5.7,
+      "wk": 5.6,
       "src": "14 g"
      },
      "news": null
@@ -3549,7 +3517,7 @@
      "cv": {
       "v": 4.09,
       "rk": 14,
-      "wk": 23.1,
+      "wk": 0.0,
       "src": "12 g"
      },
      "news": {
@@ -3573,9 +3541,9 @@
       "NO GAME"
      ],
      "cv": {
-      "v": 1.45,
-      "rk": 42,
-      "wk": 15.2,
+      "v": 1.46,
+      "rk": 41,
+      "wk": 15.3,
       "src": "14 g"
      },
      "news": null
@@ -3595,7 +3563,7 @@
       "NO GAME"
      ],
      "cv": {
-      "v": -0.02,
+      "v": -0.03,
       "rk": 72,
       "wk": 10.8,
       "src": "12 g"
@@ -4039,7 +4007,7 @@
      },
      "streamers": [
       "Derrick Jones Jr. (SF/PF, LAC, 13% rostered): 3 games this week (Tu/Th/Sa), +3.3 this week, helps BLK, FG%, 3PM",
-      "Robert Williams III (C, POR, 5% rostered): 3 games this week (Tu/Th/Sa), +3.0 this week, helps FG%, BLK, REB",
+      "Robert Williams III (C, POR, 5% rostered): 3 games this week (Tu/Th/Sa), +3.1 this week, helps FG%, BLK, REB",
       "Ziaire Williams (SG/SF, LAL, 7% rostered): 3 games this week (Tu/We/Fr, back-to-back), +1.2 this week, helps FG%, STL"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
