@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-17T13:33:05Z",
+ "captured": "2026-11-17T22:34:55Z",
  "players": [
   {
    "slot": "QB",
@@ -209,18 +209,6 @@
   },
   {
    "slot": "FA",
-   "name": "Michael Penix Jr.",
-   "yahoo_id": "40889",
-   "key": null,
-   "team": "ATL",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Baker Mayfield",
    "yahoo_id": "30971",
    "key": null,
@@ -230,6 +218,18 @@
     "QB"
    ],
    "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Michael Penix Jr.",
+   "yahoo_id": "40889",
+   "key": null,
+   "team": "ATL",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
   },
   {
    "slot": "FA",
@@ -341,10 +341,10 @@
   },
   {
    "slot": "FA",
-   "name": "Rico Dowdle",
-   "yahoo_id": "33100",
+   "name": "David Montgomery",
+   "yahoo_id": "31905",
    "key": null,
-   "team": "PIT",
+   "team": "HOU",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -353,10 +353,10 @@
   },
   {
    "slot": "FA",
-   "name": "David Montgomery",
-   "yahoo_id": "31905",
+   "name": "Rico Dowdle",
+   "yahoo_id": "33100",
    "key": null,
-   "team": "HOU",
+   "team": "PIT",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -433,7 +433,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "IR"
+   "status": "IR-Return"
   },
   {
    "slot": "FA",
@@ -569,22 +569,22 @@
   },
   {
    "slot": "FA",
-   "name": "Omar Cooper Jr.",
-   "yahoo_id": "42652",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
    "key": null,
-   "team": "NYJ",
+   "team": "SF",
    "pos": "WR",
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
-   "name": "Wan'Dale Robinson",
-   "yahoo_id": "33998",
+   "name": "Omar Cooper Jr.",
+   "yahoo_id": "42652",
    "key": null,
-   "team": "TEN",
+   "team": "NYJ",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -605,18 +605,6 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
-   "key": null,
-   "team": "SF",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Khalil Shakir",
    "yahoo_id": "34104",
    "key": null,
@@ -626,6 +614,18 @@
     "WR"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Wan'Dale Robinson",
+   "yahoo_id": "33998",
+   "key": null,
+   "team": "TEN",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "IR"
   },
   {
    "slot": "FA",
@@ -725,10 +725,10 @@
   },
   {
    "slot": "FA",
-   "name": "Juwan Johnson",
-   "yahoo_id": "33113",
+   "name": "Mark Andrews",
+   "yahoo_id": "31056",
    "key": null,
-   "team": "NO",
+   "team": "BAL",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -737,10 +737,10 @@
   },
   {
    "slot": "FA",
-   "name": "Mark Andrews",
-   "yahoo_id": "31056",
+   "name": "Juwan Johnson",
+   "yahoo_id": "33113",
    "key": null,
-   "team": "BAL",
+   "team": "NO",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -989,18 +989,6 @@
   },
   {
    "slot": "FA",
-   "name": "Ryan Fitzgerald",
-   "yahoo_id": "42262",
-   "key": null,
-   "team": "CAR",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Andy Borregales",
    "yahoo_id": "41980",
    "key": null,
@@ -1013,22 +1001,10 @@
   },
   {
    "slot": "FA",
-   "name": "Harrison Mevis",
-   "yahoo_id": "41312",
+   "name": "Ryan Fitzgerald",
+   "yahoo_id": "42262",
    "key": null,
-   "team": "BAL",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": "Inactive"
-  },
-  {
-   "slot": "FA",
-   "name": "Jason Sanders",
-   "yahoo_id": "31199",
-   "key": null,
-   "team": "NYJ",
+   "team": "CAR",
    "pos": "K",
    "eligible": [
     "K"
@@ -1037,10 +1013,34 @@
   },
   {
    "slot": "FA",
+   "name": "Harrison Mevis",
+   "yahoo_id": "41312",
+   "key": null,
+   "team": "LAR",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": "Inactive"
+  },
+  {
+   "slot": "FA",
    "name": "Chad Ryland",
    "yahoo_id": "40159",
    "key": null,
    "team": "ARI",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jason Sanders",
+   "yahoo_id": "31199",
+   "key": null,
+   "team": "NYJ",
    "pos": "K",
    "eligible": [
     "K"
@@ -1181,18 +1181,6 @@
   },
   {
    "slot": "FA",
-   "name": "Panthers",
-   "yahoo_id": "100029",
-   "key": null,
-   "team": "CAR",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Jets",
    "yahoo_id": "100020",
    "key": null,
@@ -1205,10 +1193,10 @@
   },
   {
    "slot": "FA",
-   "name": "Titans",
-   "yahoo_id": "100010",
+   "name": "Panthers",
+   "yahoo_id": "100029",
    "key": null,
-   "team": "TEN",
+   "team": "CAR",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1226,7 +1214,19 @@
     "DEF"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Titans",
+   "yahoo_id": "100010",
+   "key": null,
+   "team": "TEN",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
   }
  ],
- "fa_captured": "2026-11-17T13:33:05Z"
+ "fa_captured": "2026-11-17T22:34:55Z"
 }
