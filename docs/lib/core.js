@@ -50,10 +50,16 @@
   // one data file on demand (the Players page's players.json is too big to load on every page)
   S.loadFile = f => fetch(S.url(`data/${f}.json?t=${Date.now()}`), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
   S.load = async function () {
+    const alerts = fetch(S.url(`picks/alerts.json?t=${Date.now()}`), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
     const got = await Promise.all(FILES.map(S.loadFile));
     FILES.forEach((f, i) => { if (got[i]) S.data[f] = got[i]; });
+    const pa = await alerts;
+    if (pa) S.data.pick_alerts = pa;
     return S.data;
   };
+  // Michael's own pages (private: only he can open them)
+  S.HQ = "https://claude.ai/artifact/RMES5QXJbfnJuqouufBUSq";
+  S.HQ_WORK = "https://docs.google.com/spreadsheets/d/1S7q-h3EeMULK_oq5z-twwS3P6m2I3NkNJU7neJfwN14/edit";
   S.start = function (render) {
     const go = () => S.load().then(() => { render(S.data); paintStatus(); });
     S.reload = go;
@@ -166,6 +172,13 @@
     }));
   };
 
+  // the picks page's red CHANGE lines (docs/picks/alerts.json, picks/pp/cards.py write_alerts), until that card's week is over
+  S.pickAlerts = function (d = S.data, now = Date.now()) {
+    const a = d.pick_alerts;
+    if (!a?.alerts?.length || !a.over || new Date(a.over) <= now) return [];
+    return a.alerts.map(t => t.replace(/^CHANGE:\s*/, "Change on the pool site: "));
+  };
+
   // today's digest only counts if it was built today (CT)
   S.digestToday = function (d = S.data) {
     const g = d.digest;
@@ -191,6 +204,7 @@
       L.offers.slice(0, 1).forEach(o => push("trade", offerText(o)));
     }
     S.pickGaps(d).filter(r => r.big).forEach(r => items.push({ kind: "pick", league: "Picks", text: r.text + `. Closes ${kick(r.closes)}`, href: S.url("picks/") }));
+    S.pickAlerts(d).forEach(t => items.push({ kind: "pick", league: "Picks", text: t, href: S.url("picks/") }));
     const dg = S.digestToday(d);
     (dg?.items || []).filter(i => i.league === "Picks" && i.urgent).forEach(i => items.push({ kind: "pick", league: "Picks", text: i.text, href: S.url("picks/") }));
     return items.sort((x, y) => RANK[x.kind] - RANK[y.kind]);
@@ -421,9 +435,34 @@
     }
     return !(made > 0);
   };
+  // links to his HQ on every page (usability fix P3, Nov 17)
+  S.hqLinks = () => `<div class="foot-hq"><a href="${S.HQ}" target="_blank" rel="noopener">Your HQ ↗</a> · <a href="${S.HQ_WORK}" target="_blank" rel="noopener">HQ at work (Sheet) ↗</a></div>`;
+  // One "do this now" list (usability fixes P1 + P2, Nov 17): fixes, cut risk, lineup moves and picks to change, in feed
+  // order, from the same feed the top counts use; plus the nearest deadlines.
+  S.doNow = function (d = S.data) {
+    return S.feed(d).filter(i => ["fix", "risk", "move", "pick"].includes(i.kind));
+  };
+  S.deadlines = function (d = S.data, now = Date.now()) {
+    const out = [];
+    const locks = S.leagues(d).map(L => L.nextLock && { t: L.nextLock, what: `${L.name} lineup locks` }).filter(Boolean);
+    out.push(...locks);
+    S.pickGaps(d).forEach(r => out.push({ t: r.closes, what: "a pick closes" }));
+    return out.filter(x => x.t && new Date(x.t) > now).sort((a, b) => new Date(a.t) - new Date(b.t));
+  };
+  S.doNowHTML = function (d = S.data) {
+    const items = S.doNow(d), next = S.deadlines(d)[0];
+    const g = S.leagues(d).find(L => L.g)?.g;
+    const dl = [next ? `Next: ${esc(next.what)} ${esc(kick(next.t))}` : "", g?.waivers ? `Guillotine waivers ${esc(g.waivers)} CT` : ""]
+      .filter(Boolean).map(x => `<span class="dn-next">${x}</span>`).join("");
+    if (!items.length) return `<section class="donow clear" data-spot="Do this now"><b>Nothing to do right now.</b>${dl}</section>`;
+    const li = i => `<li><span class="kind ${i.kind}">${S.KINDS[i.kind]}</span><a href="${i.href || "#lg=" + encodeURIComponent(i.league)}">${esc(i.league)}: ${esc(i.text)}</a></li>`;
+    return `<section class="donow" data-spot="Do this now"><div class="dn-head"><b>Do this now (${items.length})</b>${dl}</div>
+      <ol>${items.slice(0, 3).map(li).join("")}</ol>${items.length > 3 ? `<details><summary>${items.length - 3} more</summary><ol start="4">${items.slice(3).map(li).join("")}</ol></details>` : ""}</section>`;
+  };
+
   S.footHTML = function () {
     const s = S.data.status;
-    if (!s) return "";
+    if (!s) return S.hqLinks();
     const bits = [`Last run ${kick(s.last_run)}`, `Week ${s.week}`];
     if (s.next_kickoff) bits.push(`next kickoff ${kick(s.next_kickoff)}`);
     if (s.watch_active) bits.push("injury watch ON");
@@ -432,7 +471,7 @@
       const stale = /^Picks cards/.test(j.job) ? S.picksStale(j.last) : !j.last || (Date.now() - new Date(j.last)) / 3600000 > 30;
       return `<span class="${stale ? "stale" : ""}">${esc(j.job.replace(/ \(laptop.*\)/, ""))}: ${j.last ? esc(ago(j.last)) : "not yet"}</span>`;
     }).join("");
-    return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>`;
+    return `<div>${bits.join(" · ")}</div>${errs}<div class="jobs">${jobs}</div>${S.hqLinks()}`;
   };
 
   // ---------- Try a move + Ask Claude (lib/move.js, Q-054): loaded the first time a league page shows its box ----------

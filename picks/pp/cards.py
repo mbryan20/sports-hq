@@ -827,7 +827,7 @@ READ_HTML = """<details class="howto"><summary>How to read the CHANGE lines</sum
 <li><b>dropped: ... market -14</b>: why your saved pick lost its edge (news, then the line it moved to).</li>
 <li><b>Win % model/mkt</b> (tables): our stats model's chance / the betting market's. The card leans on the market, which picked more winners in our backtest (75% vs 70%).</li>
 <li>Tap a game row (▸) for the full breakdown: lines over the week, injuries, matchups and weather.</li></ul></details>
-<div id="askpicks"></div><script src="../lib/ask.js"></script><script>SHQASK.mount(document.getElementById('askpicks'),{topic:'Pool Picks',
+<details class="howto"><summary>Ask Claude about these picks</summary><div id="askpicks"></div></details><script src="../lib/ask.js"></script><script>SHQASK.mount(document.getElementById('askpicks'),{topic:'Pool Picks',
 placeholder:'e.g. Why did we switch from Alabama to Boise State? Does the travel delay matter?',
 context:function(){var a=[].map.call(document.querySelectorAll('ul.alerts li'),function(x){return x.textContent});return a.length?'CHANGE lines on screen:\\n'+a.join('\\n')+'\\n':''}});</script>
 """
@@ -851,15 +851,21 @@ def render(cards, meta, games=()):
                  + "".join(rows) + "</tbody></table>") if rows else ""
         extra = "".join(f"<li>{t}</li>" for t in c.get("tiebreakers", []) + c.get("notes", []))
         status = f"<p class='st'>{html.escape(c['status'])}</p>" if c.get("status") else ""
-        body.append(f"<section><h2>{html.escape(c['title'])}</h2><p class='dl'>{html.escape(c.get('deadline',''))}</p>{status}{table}"
-                    + (f"<ul>{extra}</ul>" if extra else "") + "</section>")
+        n_chg = sum(1 for r in c["rows"] if r.get("changed"))
+        line = f"{len(c['rows'])} pick{'s' if len(c['rows']) != 1 else ''}" + (f" · {n_chg} changed" if n_chg else "")
+        body.append(f"<details class='pool'{' open' if n_chg else ''}><summary><h2>{html.escape(c['title'])}</h2>"
+                    f"<span class='dl'>{html.escape(line)}{' · ' + html.escape(c.get('deadline', '')) if c.get('deadline') else ''}</span></summary>"
+                    f"{status}{table}" + (f"<ul>{extra}</ul>" if extra else "") + "</details>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pool Picks</title><style>
+<title>Pool Picks</title><link rel="icon" href="../icons/icon-192.png"><style>
 :root{{--bg:#fff;--fg:#111;--mut:#666;--line:#ddd;--acc:#0b5;--red:#c00;--chg:#fde8e8;--bd:#f4f6f5}}
 @media (prefers-color-scheme:dark){{:root{{--bg:#111;--fg:#eee;--mut:#999;--line:#333;--acc:#3d8;--red:#f66;--chg:#3a1414;--bd:#1b1e1d}}}}
 *{{box-sizing:border-box}}body{{margin:0;padding:12px 8px 40px;background:var(--bg);color:var(--fg);font:13px/1.35 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}}
 h1{{font-size:18px;margin:0 0 2px}}h2{{font-size:15px;margin:18px 0 2px}}.meta,.dl,.mk,.was{{color:var(--mut);font-size:11px}}
-.st{{margin:4px 0;font-weight:600}}table{{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}}
+.st{{margin:4px 0;font-weight:600}}details.pool>summary{{cursor:pointer;list-style:none;padding:6px 0;border-bottom:1px solid var(--line)}}
+details.pool>summary::-webkit-details-marker{{display:none}}details.pool>summary h2{{display:inline;margin:0 8px 0 0}}
+details.pool>summary::before{{content:"\25B8 ";color:var(--acc)}}details.pool[open]>summary::before{{content:"\25BE "}}
+@media (max-width:520px){{table:not(.gt):not(.ag) th:nth-child(6),table:not(.gt):not(.ag) td:nth-child(6){{display:none}}}}table{{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}}
 th,td{{border-bottom:1px solid var(--line);padding:4px 2px;vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere;text-align:left}}
 th{{font-size:10.5px;color:var(--mut)}}th:nth-child(1){{width:23%}}th:nth-child(2){{width:19%}}th:nth-child(3){{width:12%}}th:nth-child(4){{width:13%}}th:nth-child(5){{width:25%}}th:nth-child(6){{width:8%}}
 tr.chg td{{background:var(--chg);color:var(--red)}}a{{color:var(--acc)}}ul{{padding-left:16px;margin:6px 0}}li{{margin:2px 0}}
@@ -908,11 +914,20 @@ def write(cards, meta, games):
     (ROOT / "data/cards.json").write_text(json.dumps({"meta": meta, "cards": cards, "game_stats": stats}, indent=1, default=str))
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "index.html").write_text(render(cards, meta, games), encoding="utf-8")
+    write_alerts(meta)
     try:  # the week's card history (docs/picks/changes.json, pp.history); never blocks a card
         from . import history
         history.write()
     except Exception as ex:
         print("card history skipped:", repr(ex))
+
+
+def write_alerts(meta):
+    """docs/picks/alerts.json: the page's red CHANGE / Differs lines and when this card's week is over, so the home
+    page counts and lists the same picks to change (Nov 17 usability fix P1). Same text the public page already shows."""
+    over = card_over(meta)
+    (DOCS / "alerts.json").write_text(json.dumps({"generated": meta.get("generated_iso"), "over": over.isoformat() if over else None,
+                                                  "alerts": list(meta.get("alerts") or [])}, ensure_ascii=False), encoding="utf-8")
 
 
 def rerender(week=None):

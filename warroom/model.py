@@ -247,7 +247,7 @@ def build(now, nfl=None, fetch=get_json, players=None):
     asof = (f"Week {played} final" + {"espn": " (just finished; Sleeper still scoring)", "nflverse": " (Sleeper still scoring)"}.get(source, "")
             + f"; {cut_txt}; moves through {ct_label(parse_iso(iso_ms(last_tx)))} CT")
     return {
-        "league": lg.get("name"), "P": keep, "teams": teams, "dead": dead, "hist": hist, "budget": before,
+        "league": (lg.get("name") or "").replace("Guilltoine", "Guillotine"), "P": keep, "teams": teams, "dead": dead, "hist": hist, "budget": before,
         "bye": {t: v for t, v in nfl.bye.items()}, "me": me, "cut": cut, "week": W0,
         "last_week": last,
         "sd": dict(zip(("measured", "n"), measure_sd(weekly, proj, lambda s: (db.get(s) or {}).get("position") or keep.get(s, {}).get("p"))),

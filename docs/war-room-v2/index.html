@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>Guillotine War Room v2</title>
+<link rel="icon" href="../icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -53,7 +54,16 @@ h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute
 .ctl label output{font-family:var(--mono);color:var(--accent);font-weight:500}
 .ctl small{color:var(--muted);font-size:11.5px;line-height:1.35}
 input[type=range]{width:100%;accent-color:var(--accent)}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tabs a{white-space:nowrap;flex:none}
+/* overview first on a phone (usability fix P2, Nov 17): long sections open on a tap */
+details.fold{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:0 12px}
+details.fold>summary{cursor:pointer;font-weight:700;padding:10px 0;list-style:none}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:" +";color:var(--muted)} details.fold[open]>summary::after{content:" \2013"}
+details.card>summary{list-style:none;cursor:pointer} details.card>summary::-webkit-details-marker{display:none}
+details.card .brief{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.card[open]>summary{margin-bottom:4px}
 .tabs a{padding:8px 12px;text-decoration:none;color:var(--muted);font-weight:600;font-size:13px;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tabs a[aria-current="page"]{color:var(--ink);border-color:var(--accent)}
 .tabs a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -124,8 +134,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
   <div class="callout" id="headline"></div>
 
   <div class="grid">
-    <aside class="rail" aria-label="Model controls">
-      <h3>Model controls</h3>
+    <aside class="rail" aria-label="Model controls"><details class="fold" id="railfold"><summary>Model controls</summary>
       <div class="ctl"><label for="sd">Weekly score swing (SD) <output id="sdO"></output></label>
         <input id="sd" type="range" min="10" max="40" step="0.1" value="22">
         <small>How far a team's real score lands from its projection. Default = measured from this league's games so far; it grows a little for weeks further out.</small></div>
@@ -139,7 +148,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
         <input id="dpp" type="range" min="0" max="40" step="0.5" value="0">
         <small>What 1 percentage point of winning the league is worth in FAAB (winner takes all). 0 = auto: the rate at which your money would run out on deals like this week's over the weeks you're expected to survive.</small></div>
       <p class="note" style="margin:0">Players you mark <b>+ Add</b> join your roster in every projection and simulation.</p>
-    </aside>
+    </details></aside>
 
     <main style="display:grid;gap:14px;min-width:0">
       <nav class="tabs" aria-label="Views">
@@ -152,11 +161,10 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
       </nav>
 
       <section class="view" id="v-bids">
-        <div class="panel" id="trypanel">
-          <h2>Try a move</h2>
+        <details class="fold" id="trypanel"><summary>Try a move · Ask Claude</summary>
           <p class="sub" style="margin:0 0 8px">Pick any player to add and one of yours to drop (or let the model pick): the change in your win odds, cut risk and each week's lineup, and the claim price when he's on waivers. Two moves at once work too. Ask Claude underneath for news and gut calls.</p>
           <div id="trymove"></div>
-        </div>
+        </details>
         <div class="panel">
           <h2>Who to bid on this week</h2>
           <p class="sub" style="margin:0 0 6px"><a href="compare.html">See your Sleeper claims next to these numbers &rarr;</a></p>
@@ -165,7 +173,7 @@ th.sortable{cursor:pointer;text-decoration:underline dotted;text-underline-offse
           <div class="sub" id="bidcount" style="margin:4px 0 8px"></div>
           <div class="scroll bidtable"><table id="cand"></table></div>
           <div class="cards" id="cards"></div>
-          <p class="note"><b>Bid options</b> lists the amounts worth comparing for each player on waivers: the bids that won about 25%, 50% and 80% of comparable claims in this league, his full value to you, and the recommended bid (★). For each: the chance it wins, and the average payoff = chance × (his value − the bid), i.e. what that bid is worth to you on average. Bidding more wins more often but leaves less of his value; a negative payoff means overpaying. ★ is the amount with the highest average payoff, so it's often below the likely price: the aim is to spend wisely, not to win every claim. Each claim has its own drop. Free agents cost $0 once waivers clear. This page simulates 6,000 seasons so the controls respond quickly; the bids file the Tuesday checks read uses 20,000, so amounts can differ by a dollar or two.</p>
+          <details class="fold"><summary>How to read the bids</summary><p class="note"><b>Bid options</b> lists the amounts worth comparing for each player on waivers: the bids that won about 25%, 50% and 80% of comparable claims in this league, his full value to you, and the recommended bid (★). For each: the chance it wins, and the average payoff = chance × (his value − the bid), i.e. what that bid is worth to you on average. Bidding more wins more often but leaves less of his value; a negative payoff means overpaying. ★ is the amount with the highest average payoff, so it's often below the likely price: the aim is to spend wisely, not to win every claim. Each claim has its own drop. Free agents cost $0 once waivers clear. This page simulates 6,000 seasons so the controls respond quickly; the bids file the Tuesday checks read uses 20,000, so amounts can differ by a dollar or two.</p></details>
         </div>
         <div class="two">
           <div class="panel"><h2>Your week <span class="wk">?</span> lineup</h2><div class="scroll"><table id="mylineup"></table></div><p class="note" id="mynote"></p></div>
@@ -1167,12 +1175,15 @@ function drawBids() {
     html += `<tr><td>${tag(p)}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye(p)}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
       + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${drop(r)}</td><td class="wrap">${rivals(r)}</td>`
       + `<td class="n">${r.freed ? '$' + r.value : '—'}</td><td class="opts">${opts(r)}</td><td>${pill(r.call)}${why(r)}</td><td>${btn(r)}</td></tr>`;
-    cards += `<div class="card"><div class="top"><div>${tag(p)}<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div></div>${pill(r.call)}</div>`
-      + `<div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds ${qx('dwin')}</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
+    // phone (usability fix P2, Nov 17): one line per player (call, bid, drop); tap opens the rest in place
+    const brief = (r.freed && isBid(r) ? `Bid $${r.bid} (${pct(r.chance)} to win)` : `${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}% win odds`)
+      + (r.drop ? ` · drop ${D.P[r.drop] ? D.P[r.drop].n : r.drop}` : '');
+    cards += `<details class="card"><summary><div class="top"><div>${tag(p)}<div class="sub brief">${esc(brief)}</div></div>${pill(r.call)}</div></summary>`
+      + `<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div><div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds ${qx('dwin')}</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
       + (r.freed && isBid(r) ? `<div class="bidline">Bid <b>$${r.bid}</b> (${pct(r.chance)} to win)</div>` : '')
       + `<div class="sub">Drop ${qx('drop')}: ${drop(r)}</div>`
       + (r.freed ? `<div class="opts">${opts(r)}</div><div class="sub">Rivals: ${rivals(r)}</div>` : '')
-      + `${why(r)}<div class="foot"><span class="sub">Call ${qx('call')}</span>${btn(r)}</div></div>`;
+      + `${why(r)}<div class="foot"><span class="sub">Call ${qx('call')}</span>${btn(r)}</div></details>`;
   }
   $('cand').innerHTML = html + '</tbody>';
   $('cards').innerHTML = cards || '<p class="sub">No players match.</p>';
@@ -1382,6 +1393,8 @@ route(); rerender();
 // Try a move (Q-054): the shared box (docs/lib/move.js) on this page's own model; it keeps working without it
 if (window.SHQ && SHQ.move) SHQ.move.mount($('trymove'), 'Guillotine', { engine: SHQ.move.wrEngine({ playerList, tryMove }) });
 else $('trypanel').hidden = true;
+// wide screens keep the model controls and Try a move open; a phone starts with them folded (usability fix P2, Nov 17)
+if (window.matchMedia && matchMedia('(min-width:861px)').matches) { $('railfold').open = true; $('trypanel').open = true; }
 
 </script>
 </body>

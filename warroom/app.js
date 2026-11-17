@@ -160,12 +160,15 @@ function drawBids() {
     html += `<tr><td>${tag(p)}</td><td>${r.freed ? 'Freed' : 'Free agent'}</td><td>${bye(p)}</td><td class="n">${fmt(r.g1)}</td><td class="n">${fmt(r.gR, 0)}</td>`
       + `<td class="n">${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</td><td class="sub">${drop(r)}</td><td class="wrap">${rivals(r)}</td>`
       + `<td class="n">${r.freed ? '$' + r.value : '—'}</td><td class="opts">${opts(r)}</td><td>${pill(r.call)}${why(r)}</td><td>${btn(r)}</td></tr>`;
-    cards += `<div class="card"><div class="top"><div>${tag(p)}<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div></div>${pill(r.call)}</div>`
-      + `<div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds ${qx('dwin')}</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
+    // phone (usability fix P2, Nov 17): one line per player (call, bid, drop); tap opens the rest in place
+    const brief = (r.freed && isBid(r) ? `Bid $${r.bid} (${pct(r.chance)} to win)` : `${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}% win odds`)
+      + (r.drop ? ` · drop ${D.P[r.drop] ? D.P[r.drop].n : r.drop}` : '');
+    cards += `<details class="card"><summary><div class="top"><div>${tag(p)}<div class="sub brief">${esc(brief)}</div></div>${pill(r.call)}</div></summary>`
+      + `<div class="sub">${r.freed ? 'On waivers' : 'Free agent'} · bye ${bye(p)}</div><div class="facts"><span><b>${r.dWin >= 0 ? '+' : ''}${fmt(r.dWin * 100, 1)}%</b> win odds ${qx('dwin')}</span>${r.freed ? `<span><b>$${r.value}</b> value</span>` : ''}<span>+${fmt(r.g1)} wk ${W0} · +${fmt(r.gR, 0)} season</span></div>`
       + (r.freed && isBid(r) ? `<div class="bidline">Bid <b>$${r.bid}</b> (${pct(r.chance)} to win)</div>` : '')
       + `<div class="sub">Drop ${qx('drop')}: ${drop(r)}</div>`
       + (r.freed ? `<div class="opts">${opts(r)}</div><div class="sub">Rivals: ${rivals(r)}</div>` : '')
-      + `${why(r)}<div class="foot"><span class="sub">Call ${qx('call')}</span>${btn(r)}</div></div>`;
+      + `${why(r)}<div class="foot"><span class="sub">Call ${qx('call')}</span>${btn(r)}</div></details>`;
   }
   $('cand').innerHTML = html + '</tbody>';
   $('cards').innerHTML = cards || '<p class="sub">No players match.</p>';
@@ -375,3 +378,5 @@ route(); rerender();
 // Try a move (Q-054): the shared box (docs/lib/move.js) on this page's own model; it keeps working without it
 if (window.SHQ && SHQ.move) SHQ.move.mount($('trymove'), 'Guillotine', { engine: SHQ.move.wrEngine({ playerList, tryMove }) });
 else $('trypanel').hidden = true;
+// wide screens keep the model controls and Try a move open; a phone starts with them folded (usability fix P2, Nov 17)
+if (window.matchMedia && matchMedia('(min-width:861px)').matches) { $('railfold').open = true; $('trypanel').open = true; }

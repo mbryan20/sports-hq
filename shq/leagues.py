@@ -94,6 +94,12 @@ class Context:
         return self._gd
 
 
+def fix_name(name):
+    """The app's own league name, spelled right (Sleeper's guillotine league is "Damon's Guilltoine League 2026").
+    Skip matching keys on "guill", so either spelling still matches (shq/decisions.py)."""
+    return name.replace("Guilltoine", "Guillotine") if isinstance(name, str) else name
+
+
 def name_key(name):
     words = re.sub(r"[^a-z ]", "", (name or "").lower().replace("-", " ")).split()
     return " ".join(w for w in words if w not in ("jr", "sr", "ii", "iii", "iv", "v"))
@@ -465,7 +471,7 @@ def view(league, advice=None):
         "name": league.name, "platform": league.platform, "week": league.week,
         "sport": getattr(league, "sport", "nfl"), "format": getattr(league, "format", None),
         "snapshot": iso(league.captured) if getattr(league, "captured", None) and not getattr(league, "saved", False) else None,
-        "league": getattr(league, "league_name", None),
+        "league": fix_name(getattr(league, "league_name", None)),
         "opponent": league.opponent, "opp_proj": league.opp_proj,
         "roster_synced": iso(league.captured) if getattr(league, "saved", False) else None,
         # category leagues have no points: no team projection (the page shows the category outlook instead)

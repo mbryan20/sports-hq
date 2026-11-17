@@ -50,12 +50,23 @@ main { padding: 14px 16px 80px; max-width: 1560px; margin: 0 auto; }
 .trybar span { color: var(--muted); font-size: 13px; }
 .sechead { display: flex; align-items: baseline; justify-content: space-between; margin: 18px 2px 10px; }
 .sechead h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+/* "Do this now" (usability fix P2, Nov 17): the first thing on the page, from the same list as the counts below */
+.donow { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: var(--r); padding: 10px 14px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.donow.clear { border-left-color: var(--good); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.donow .dn-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.donow .dn-next { color: var(--muted); font-size: 13px; }
+.donow ol { margin: 6px 0 0; padding-left: 20px; font-size: 13.5px; line-height: 1.4; }
+.donow li { margin: 3px 0; overflow-wrap: anywhere; }
+.donow li a { color: var(--text); text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.donow li { display: flex; gap: 6px; align-items: baseline; } .donow li .kind { flex: none; } .donow li a:hover { text-decoration: underline; }
+.donow .kind { margin-right: 6px; vertical-align: 1px; }
+.donow details summary { cursor: pointer; color: var(--accent); font-size: 13px; margin-top: 4px; }
 </style>
 </head>
 <body data-layout="A · Scoreboard" data-view="a">
 <header class="topbar"><div class="row1">
   <div class="brand"><h1>Sports HQ</h1><div data-picker></div></div>
-  <div class="links"><a class="pill" href="picks/">Picks</a><a class="pill hide-sm" href="players/">Players</a><a class="pill hide-sm" href="war-room-v2/">War Room</a><a class="pill hide-sm" href="wrapups/">Wrap-up</a>
+  <div class="links"><a class="pill" href="picks/">Picks</a><a class="pill hide-sm" href="players/">Players</a><a class="pill hide-sm" href="war-room-v2/">War Room</a><a class="pill hide-sm" href="wrapups/">Wrap-up</a><a class="pill" href="https://claude.ai/artifact/RMES5QXJbfnJuqouufBUSq" target="_blank" rel="noopener" title="Your HQ (private)">HQ ↗</a>
     <button class="pill icon" data-theme-toggle aria-label="Switch light or dark">◐</button><button class="pill" data-reload>—</button></div>
 </div></header>
 <main id="main"><p class="note">Loading…</p></main>
@@ -66,15 +77,17 @@ main { padding: 14px 16px 80px; max-width: 1560px; margin: 0 auto; }
 "use strict";
 const { esc } = SHQ;
 function render(d) {
-  const Ls = SHQ.leagues(d), feed = SHQ.feed(d), gaps = SHQ.pickGaps(d);
-  const fixes = feed.filter(i => i.kind === "fix").length, moves = feed.filter(i => i.kind === "move").length;
+  // one list behind the strip, the counts, the Today tile and the Pool Picks tile, so they can't disagree (P1, Q-018)
+  const Ls = SHQ.leagues(d), feed = SHQ.feed(d);
+  const fixes = feed.filter(i => i.kind === "fix" || i.kind === "risk").length, moves = feed.filter(i => i.kind === "move").length;
+  const picks = feed.filter(i => i.kind === "pick");
   const locks = Ls.map(L => L.nextLock).filter(Boolean).sort();
   const g = Ls.find(L => L.g)?.g;
   const kpi = (v, k, cls = "", spot = k) => `<div class="kpi ${cls}" data-spot="KPI ${esc(spot)}"><div class="v">${v}</div><div class="k">${esc(k)}</div></div>`;
   const kpis = `<section class="kpis">
     ${kpi(fixes, "Fixes now", fixes ? "bad" : "good")}
     ${kpi(moves, "Lineup moves", moves ? "warn" : "")}
-    ${kpi(gaps.filter(r => r.big).length, "Pick edges", gaps.some(r => r.big) ? "warn" : "")}
+    ${kpi(picks.length, "Picks to change", picks.length ? "warn" : "")}
     ${g ? kpi(SHQ.pct(g.survive), "Guillotine survive", g.cut > 0.2 ? "bad" : "good") : ""}
     ${kpi(locks[0] ? esc(SHQ.kick(locks[0])) : "—", "Next lock", "small")}
   </section>`;
@@ -88,7 +101,7 @@ function render(d) {
   const today = SHQ.digestToday(d);
   const picksTile = `<article class="tile extra" tabindex="0" data-go="picks/" data-spot="Picks tile">
       <div class="t-head"><h3>Pool Picks</h3><span class="meta">BTO · CFP · Yahoo</span></div>
-      ${gaps.length ? `<ul class="tips">${gaps.slice(0, 3).map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="t-top muted">No stale-line edges open right now.</p>`}
+      ${picks.length ? `<ul class="tips">${picks.slice(0, 3).map(r => `<li>${esc(r.text)}</li>`).join("")}</ul>` : `<p class="t-top muted">Nothing to change in your picks right now.</p>`}
       <div class="t-foot"><span class="meta">Open the cards →</span>${SHQ.fbButtons("Picks tile")}</div></article>`;
   const extras = `<article class="tile extra" tabindex="0" data-go="move/" data-spot="Try a move tile">
       <div class="t-head"><h3>Try a move · Ask Claude</h3><span class="meta">every league</span></div>
@@ -96,7 +109,7 @@ function render(d) {
       <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Try a move tile")}</div></article>
     <article class="tile extra" tabindex="0" data-open="today" data-spot="Today tile">
       <div class="t-head"><h3>Today</h3><span class="meta">${d.digest ? esc(SHQ.kick(d.digest.updated || d.digest.generated)) : ""}</span></div>
-      <p class="t-top">${today ? esc(today.title) : "Today's 8am check hasn't posted yet."}</p>
+      <p class="t-top">${fixes ? `Now: ${fixes} to fix` : "Now: nothing to fix"}${today ? ` · the morning check said ${esc(today.title.replace(/^Today: /, ""))}${(today.items || []).filter(i => i.urgent).length > fixes ? " (the rest are done or locked)" : ""}` : " · today's morning check hasn't posted yet"}</p>
       <div class="t-foot"><span class="meta">Daily check →</span>${SHQ.fbButtons("Today tile")}</div></article>
     <article class="tile extra" tabindex="0" data-open="weekly" data-spot="Weekly tile">
       <div class="t-head"><h3>Weekly plan</h3><span class="meta">${d.weekly ? "Week " + d.weekly.week : ""}</span></div>
@@ -122,7 +135,7 @@ function render(d) {
       <div class="t-head"><h3>Baseball</h3><span class="meta">3-Ball Dynasty · offseason</span></div>
       <p class="t-top">Prospect watch list for the 3-Ball draft: who's young for his level and producing, ranked with a backtested model.</p>
       <div class="t-foot"><span class="meta">Open →</span>${SHQ.fbButtons("Baseball tile")}</div></article>`;
-  document.getElementById("main").innerHTML = kpis
+  document.getElementById("main").innerHTML = SHQ.doNowHTML(d) + kpis
     + `<a class="trybar" href="move/" data-spot="Try a move bar"><b>Try a move · Ask Claude</b><span>Add X, drop Y: worth it? Any league →</span></a>`
     + `<div class="sechead"><h2>Leagues</h2><span class="meta">tap a tile for the full page</span></div><section class="grid">${tiles}</section>`
     + `<div class="sechead"><h2>Pools and plans</h2></div><section class="grid">${picksTile}${extras}</section>`;
