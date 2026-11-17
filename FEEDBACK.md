@@ -15,6 +15,7 @@ Feedback typed straight into a new issue titled "Feedback: …" lands here too.
 
 - 2026-10-31 👍 Like · Lab page · Layout A · 1920px, dark: "generally pretty easy to use on the computer - a good start" ([#2](https://github.com/mbryan20/sports-hq/issues/2))
 - 2026-10-31 👎 Dislike · Lab page · Layout D · 1920px, dark: "Right now it is very noisy - maybe useful on nfl game days. I will check then. This should not be the default by any means." ([#3](https://github.com/mbryan20/sports-hq/issues/3))
-- 2026-11-15 👎 Dislike · A · Scoreboard · Domo Arigato detail · 402px, dark: "No where to say skip or comment on what I think about something. Also, on the main part if I click on fixes I’d like to be taken to some sort of screen or presented with a pop up that shows what needs to be fixed or addressed so I can quickly address that and move on." ([#5](https://github.com/mbryan20/sports-hq/issues/5))
 
 ## Handled
+
+- 2026-11-15 👎 Dislike · A · Scoreboard · Domo Arigato detail · 402px, dark: "No where to say skip or comment on what I think about something. Also, on the main part if I click on fixes I’d like to be taken to some sort of screen or presented with a pop up that shows what needs to be fixed or addressed so I can quickly address that and move on." ([#5](https://github.com/mbryan20/sports-hq/issues/5)) — **Handled 2026-11-17 (commit de0e3b4):** each fix, lineup move and waiver add on a league page now has Skip (opens a pre-filled feedback issue) and Comment (opens the feedback sheet) buttons; tapping the "Fixes now" total on the main page opens a pop-up listing every fix by league with Clear / Skip / Comment and an Open league link.
