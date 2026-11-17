@@ -18,10 +18,10 @@
  "reserve": 5,
  "budget": {
   "spendable": 5,
-  "recommended_bids_total": 2,
+  "recommended_bids_total": 3,
   "dollars_per_win_point": 0.7,
   "reserve_released": false,
-  "my_cut_risk": 0.035
+  "my_cut_risk": 0.038
  },
  "settings": {
   "projections": "Sleeper weekly",
@@ -35,9 +35,9 @@
   "price_model": "rival by rival (fitted on 2506 rival-player chances)"
  },
  "me": {
-  "cut_risk_next_week": 0.035,
+  "cut_risk_next_week": 0.038,
   "expected_weeks_left": 3.8,
-  "win_odds": 0.075,
+  "win_odds": 0.074,
   "projected_next_week": 135
  },
  "cut_risks": [
@@ -47,19 +47,19 @@
    "faab": 22,
    "boldest_bid_pct": 77,
    "projected_next_week": 108.4,
-   "cut_risk_next_week": 0.262,
-   "expected_weeks_left": 3.5,
-   "win_odds": 0.157
+   "cut_risk_next_week": 0.275,
+   "expected_weeks_left": 3.4,
+   "win_odds": 0.155
   },
   {
    "team": "Aniasin1",
    "me": false,
    "faab": 3,
    "boldest_bid_pct": 93,
-   "projected_next_week": 109.4,
-   "cut_risk_next_week": 0.25,
+   "projected_next_week": 109.1,
+   "cut_risk_next_week": 0.269,
    "expected_weeks_left": 1.6,
-   "win_odds": 0.005
+   "win_odds": 0.006
   },
   {
    "team": "robert8063",
@@ -67,19 +67,9 @@
    "faab": 23,
    "boldest_bid_pct": 62,
    "projected_next_week": 114.1,
-   "cut_risk_next_week": 0.178,
+   "cut_risk_next_week": 0.19,
    "expected_weeks_left": 2.6,
    "win_odds": 0.032
-  },
-  {
-   "team": "CodyRust",
-   "me": false,
-   "faab": 0,
-   "boldest_bid_pct": 75,
-   "projected_next_week": 120.6,
-   "cut_risk_next_week": 0.113,
-   "expected_weeks_left": 3.2,
-   "win_odds": 0.068
   },
   {
    "team": "Swegs4",
@@ -87,9 +77,9 @@
    "faab": 3,
    "boldest_bid_pct": 100,
    "projected_next_week": 123.3,
-   "cut_risk_next_week": 0.092,
-   "expected_weeks_left": 4,
-   "win_odds": 0.143
+   "cut_risk_next_week": 0.099,
+   "expected_weeks_left": 3.9,
+   "win_odds": 0.141
   },
   {
    "team": "GoodFellas77",
@@ -97,9 +87,19 @@
    "faab": 16,
    "boldest_bid_pct": 74,
    "projected_next_week": 129.4,
-   "cut_risk_next_week": 0.053,
+   "cut_risk_next_week": 0.057,
    "expected_weeks_left": 4.3,
    "win_odds": 0.191
+  },
+  {
+   "team": "CodyRust",
+   "me": false,
+   "faab": 0,
+   "boldest_bid_pct": 75,
+   "projected_next_week": 130.6,
+   "cut_risk_next_week": 0.053,
+   "expected_weeks_left": 3.4,
+   "win_odds": 0.072
   },
   {
    "team": "michaelbryan",
@@ -107,9 +107,9 @@
    "faab": 10,
    "boldest_bid_pct": 58,
    "projected_next_week": 135,
-   "cut_risk_next_week": 0.035,
+   "cut_risk_next_week": 0.038,
    "expected_weeks_left": 3.8,
-   "win_odds": 0.075
+   "win_odds": 0.074
   },
   {
    "team": "damonhawk1",
@@ -117,7 +117,7 @@
    "faab": 86,
    "boldest_bid_pct": 42,
    "projected_next_week": 143.2,
-   "cut_risk_next_week": 0.017,
+   "cut_risk_next_week": 0.018,
    "expected_weeks_left": 5.1,
    "win_odds": 0.329
   }
@@ -518,20 +518,20 @@
    "gain_rest_of_season": 50.8,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "extra_weeks_alive": 0.6,
-   "extra_win_odds": 0.06,
+   "extra_weeks_alive": 0.61,
+   "extra_win_odds": 0.061,
    "est_price": 4,
    "price_80": 10,
-   "value": 3,
-   "bid": 1,
-   "win_chance": 0.162,
-   "your_max": 3,
-   "cut_risk_drop": 0.014,
+   "value": 4,
+   "bid": 2,
+   "win_chance": 0.312,
+   "your_max": 4,
+   "cut_risk_drop": 0.016,
    "uses_reserve": false,
    "handcuff_check": null,
-   "call": "Long shot",
+   "call": "Coin flip",
    "why": null,
-   "why_line": "starts for you 7 of the next 7 weeks; +6.0 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)",
+   "why_line": "starts for you 7 of the next 7 weeks; +6.1 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)",
    "chain_drop": "Woody Marks",
    "chain_order": 1,
    "fires_if": null,
@@ -539,9 +539,9 @@
     0.03,
     0.16,
     0.31,
-    0.42,
+    0.43,
     0.53,
-    0.61,
+    0.62,
     0.66,
     0.7,
     0.74,
@@ -552,7 +552,7 @@
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "JHED1979",
@@ -567,7 +567,7 @@
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "Swegs4",
@@ -582,37 +582,23 @@
    ],
    "bid_options": [
     {
-     "bid": 1,
-     "win_chance": 0.162,
-     "avg_payoff": 0.3,
+     "bid": 2,
+     "win_chance": 0.312,
+     "avg_payoff": 0.6,
      "recommended": true,
      "over_spendable": false
     },
     {
-     "bid": 2,
-     "win_chance": 0.31,
-     "avg_payoff": 0.3,
-     "recommended": false,
-     "over_spendable": false
-    },
-    {
-     "bid": 3,
-     "win_chance": 0.425,
+     "bid": 4,
+     "win_chance": 0.532,
      "avg_payoff": 0,
      "recommended": false,
      "over_spendable": false
     },
     {
-     "bid": 4,
-     "win_chance": 0.53,
-     "avg_payoff": -0.5,
-     "recommended": false,
-     "over_spendable": false
-    },
-    {
      "bid": 10,
-     "win_chance": 0.816,
-     "avg_payoff": -5.7,
+     "win_chance": 0.817,
+     "avg_payoff": -4.9,
      "recommended": false,
      "over_spendable": true
     }
@@ -622,7 +608,7 @@
      "team": "damonhawk1",
      "bid": 6,
      "raw": 6,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "JHED1979",
@@ -654,7 +640,7 @@
    "gain_rest_of_season": 50.4,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "extra_weeks_alive": 0.59,
+   "extra_weeks_alive": 0.6,
    "extra_win_odds": 0.056,
    "est_price": 14,
    "price_80": 20,
@@ -662,7 +648,7 @@
    "bid": 0,
    "win_chance": 0.028,
    "your_max": 3,
-   "cut_risk_drop": 0.018,
+   "cut_risk_drop": 0.02,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
@@ -774,7 +760,7 @@
    "gain_rest_of_season": 42.6,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "extra_weeks_alive": 0.55,
+   "extra_weeks_alive": 0.56,
    "extra_win_odds": 0.044,
    "est_price": 14,
    "price_80": 20,
@@ -782,7 +768,7 @@
    "bid": 0,
    "win_chance": 0.007,
    "your_max": 2,
-   "cut_risk_drop": 0.011,
+   "cut_risk_drop": 0.013,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
@@ -900,9 +886,9 @@
    "price_80": 9,
    "value": 2,
    "bid": 1,
-   "win_chance": 0.245,
+   "win_chance": 0.247,
    "your_max": 2,
-   "cut_risk_drop": 0.007,
+   "cut_risk_drop": 0.008,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Long shot",
@@ -912,7 +898,7 @@
    "chain_order": 1,
    "fires_if": null,
    "win_curve": [
-    0.05,
+    0.06,
     0.25,
     0.41,
     0.53,
@@ -928,22 +914,22 @@
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "robert8063",
      "faab": 23,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "Swegs4",
@@ -953,20 +939,20 @@
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     }
    ],
    "bid_options": [
     {
      "bid": 1,
-     "win_chance": 0.245,
+     "win_chance": 0.247,
      "avg_payoff": 0.2,
      "recommended": true,
      "over_spendable": false
     },
     {
      "bid": 2,
-     "win_chance": 0.41,
+     "win_chance": 0.411,
      "avg_payoff": 0,
      "recommended": false,
      "over_spendable": false
@@ -980,8 +966,8 @@
     },
     {
      "bid": 9,
-     "win_chance": 0.822,
-     "avg_payoff": -5.8,
+     "win_chance": 0.821,
+     "avg_payoff": -5.7,
      "recommended": false,
      "over_spendable": true
     }
@@ -991,19 +977,19 @@
      "team": "damonhawk1",
      "bid": 6,
      "raw": 6,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "JHED1979",
      "bid": 3,
      "raw": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "robert8063",
      "bid": 2,
      "raw": 2,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     }
    ]
   },
@@ -1024,7 +1010,7 @@
    "drop": "Hunter Henry",
    "drop_id": "3214",
    "extra_weeks_alive": 0.28,
-   "extra_win_odds": 0.034,
+   "extra_win_odds": 0.033,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
@@ -1036,7 +1022,7 @@
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 1 of the next 7 weeks; +3.4 pts of title odds",
+   "why_line": "starts for you 1 of the next 7 weeks; +3.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1061,15 +1047,15 @@
    "gain_rest_of_season": 27.9,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "extra_weeks_alive": 0.33,
+   "extra_weeks_alive": 0.34,
    "extra_win_odds": 0.03,
    "est_price": 3,
    "price_80": 9,
    "value": 1,
    "bid": 0,
-   "win_chance": 0.066,
+   "win_chance": 0.067,
    "your_max": 1,
-   "cut_risk_drop": 0.009,
+   "cut_risk_drop": 0.011,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
@@ -1086,7 +1072,7 @@
     0.6,
     0.68,
     0.72,
-    0.76,
+    0.75,
     0.78,
     0.81,
     0.85
@@ -1095,7 +1081,7 @@
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "robert8063",
@@ -1105,54 +1091,54 @@
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "Swegs4",
      "faab": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "CodyRust",
      "faab": 0,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     }
    ],
    "bid_options": [
     {
      "bid": 1,
-     "win_chance": 0.239,
+     "win_chance": 0.238,
      "avg_payoff": 0,
      "recommended": false,
      "over_spendable": false
     },
     {
      "bid": 2,
-     "win_chance": 0.393,
+     "win_chance": 0.391,
      "avg_payoff": -0.4,
      "recommended": false,
      "over_spendable": false
     },
     {
      "bid": 3,
-     "win_chance": 0.504,
+     "win_chance": 0.502,
      "avg_payoff": -1,
      "recommended": false,
      "over_spendable": false
     },
     {
      "bid": 9,
-     "win_chance": 0.814,
+     "win_chance": 0.812,
      "avg_payoff": -6.5,
      "recommended": false,
      "over_spendable": true
@@ -1163,7 +1149,7 @@
      "team": "damonhawk1",
      "bid": 6,
      "raw": 6,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "robert8063",
@@ -1175,7 +1161,7 @@
      "team": "JHED1979",
      "bid": 3,
      "raw": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     }
    ]
   },
@@ -1201,9 +1187,9 @@
    "price_80": 9,
    "value": 1,
    "bid": 0,
-   "win_chance": 0.08,
+   "win_chance": 0.081,
    "your_max": 1,
-   "cut_risk_drop": 0.006,
+   "cut_risk_drop": 0.008,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
@@ -1219,47 +1205,47 @@
     0.54,
     0.63,
     0.7,
-    0.74,
+    0.73,
     0.77,
     0.8,
-    0.83,
+    0.82,
     0.86
    ],
    "can_outbid": [
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "robert8063",
      "faab": 23,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "Swegs4",
      "faab": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "CodyRust",
      "faab": 0,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     }
    ],
    "bid_options": [
@@ -1272,14 +1258,14 @@
     },
     {
      "bid": 3,
-     "win_chance": 0.538,
+     "win_chance": 0.536,
      "avg_payoff": -1.1,
      "recommended": false,
      "over_spendable": false
     },
     {
      "bid": 9,
-     "win_chance": 0.825,
+     "win_chance": 0.824,
      "avg_payoff": -6.6,
      "recommended": false,
      "over_spendable": true
@@ -1290,19 +1276,153 @@
      "team": "damonhawk1",
      "bid": 6,
      "raw": 6,
-     "claim_chance": 0.247
+     "claim_chance": 0.253
     },
     {
      "team": "JHED1979",
      "bid": 3,
      "raw": 3,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
     },
     {
      "team": "robert8063",
      "bid": 2,
      "raw": 2,
-     "claim_chance": 0.324
+     "claim_chance": 0.321
+    }
+   ]
+  },
+  {
+   "sleeper_id": "4983",
+   "name": "D.J. Moore",
+   "pos": "WR",
+   "team": "BUF",
+   "injury": null,
+   "ir": false,
+   "season_avg": 9.6,
+   "last3_avg": 12.4,
+   "proj_next_week": 11.2,
+   "bye_week": null,
+   "source": "freed",
+   "gain_next_week": 1.7,
+   "gain_rest_of_season": 17.1,
+   "drop": "Khalil Shakir",
+   "drop_id": "8134",
+   "extra_weeks_alive": 0.17,
+   "extra_win_odds": 0.016,
+   "est_price": 2,
+   "price_80": 6,
+   "value": 1,
+   "bid": 0,
+   "win_chance": 0.118,
+   "your_max": 1,
+   "cut_risk_drop": 0.005,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Long shot",
+   "why": "drop changed: a better claim uses the first choice; valued with your Justin Jefferson claim in mind",
+   "why_line": "starts for you 6 of the next 7 weeks; +1.6 pts of title odds; can be outbid by JHED1979 ($22, 25% to claim), robert8063 ($23, 32% to claim)",
+   "chain_drop": "Khalil Shakir",
+   "chain_order": 1,
+   "fires_if": null,
+   "win_curve": [
+    0.12,
+    0.35,
+    0.52,
+    0.64,
+    0.72,
+    0.78,
+    0.81,
+    0.84,
+    0.86,
+    0.88,
+    0.9
+   ],
+   "can_outbid": [
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.253
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.321
+    },
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.099
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.253
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.321
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.321
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.253
+    }
+   ],
+   "bid_options": [
+    {
+     "bid": 0,
+     "win_chance": 0.118,
+     "avg_payoff": 0.1,
+     "recommended": true,
+     "over_spendable": false
+    },
+    {
+     "bid": 1,
+     "win_chance": 0.351,
+     "avg_payoff": 0,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 2,
+     "win_chance": 0.524,
+     "avg_payoff": -0.5,
+     "recommended": false,
+     "over_spendable": false
+    },
+    {
+     "bid": 6,
+     "win_chance": 0.814,
+     "avg_payoff": -4.1,
+     "recommended": false,
+     "over_spendable": true
+    }
+   ],
+   "likely_rival_bids": [
+    {
+     "team": "JHED1979",
+     "bid": 3,
+     "raw": 3,
+     "claim_chance": 0.253
+    },
+    {
+     "team": "robert8063",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.321
+    },
+    {
+     "team": "damonhawk1",
+     "bid": 6,
+     "raw": 6,
+     "claim_chance": 0.099
     }
    ]
   },
@@ -1323,7 +1443,7 @@
    "drop": "Hunter Henry",
    "drop_id": "3214",
    "extra_weeks_alive": 0.06,
-   "extra_win_odds": 0.016,
+   "extra_win_odds": 0.015,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
@@ -1335,7 +1455,7 @@
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 4 of the next 7 weeks; +1.6 pts of title odds",
+   "why_line": "starts for you 4 of the next 7 weeks; +1.5 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1343,140 +1463,6 @@
    "can_outbid": [],
    "bid_options": [],
    "likely_rival_bids": []
-  },
-  {
-   "sleeper_id": "4983",
-   "name": "D.J. Moore",
-   "pos": "WR",
-   "team": "BUF",
-   "injury": null,
-   "ir": false,
-   "season_avg": 9.6,
-   "last3_avg": 12.4,
-   "proj_next_week": 11.2,
-   "bye_week": null,
-   "source": "freed",
-   "gain_next_week": 1.7,
-   "gain_rest_of_season": 16.8,
-   "drop": "Khalil Shakir",
-   "drop_id": "8134",
-   "extra_weeks_alive": 0.18,
-   "extra_win_odds": 0.016,
-   "est_price": 2,
-   "price_80": 6,
-   "value": 1,
-   "bid": 0,
-   "win_chance": 0.107,
-   "your_max": 1,
-   "cut_risk_drop": 0.005,
-   "uses_reserve": false,
-   "handcuff_check": null,
-   "call": "Long shot",
-   "why": "drop changed: a better claim uses the first choice; valued with your Justin Jefferson claim in mind",
-   "why_line": "starts for you 6 of the next 7 weeks; +1.6 pts of title odds; can be outbid by JHED1979 ($22, 25% to claim), robert8063 ($23, 32% to claim)",
-   "chain_drop": "Khalil Shakir",
-   "chain_order": 1,
-   "fires_if": null,
-   "win_curve": [
-    0.11,
-    0.35,
-    0.53,
-    0.64,
-    0.72,
-    0.78,
-    0.82,
-    0.84,
-    0.86,
-    0.88,
-    0.9
-   ],
-   "can_outbid": [
-    {
-     "team": "JHED1979",
-     "faab": 22,
-     "claim_chance": 0.247
-    },
-    {
-     "team": "robert8063",
-     "faab": 23,
-     "claim_chance": 0.324
-    },
-    {
-     "team": "damonhawk1",
-     "faab": 86,
-     "claim_chance": 0.099
-    },
-    {
-     "team": "GoodFellas77",
-     "faab": 16,
-     "claim_chance": 0.247
-    },
-    {
-     "team": "Swegs4",
-     "faab": 3,
-     "claim_chance": 0.324
-    },
-    {
-     "team": "Aniasin1",
-     "faab": 3,
-     "claim_chance": 0.324
-    },
-    {
-     "team": "CodyRust",
-     "faab": 0,
-     "claim_chance": 0.324
-    }
-   ],
-   "bid_options": [
-    {
-     "bid": 0,
-     "win_chance": 0.107,
-     "avg_payoff": 0.1,
-     "recommended": true,
-     "over_spendable": false
-    },
-    {
-     "bid": 1,
-     "win_chance": 0.353,
-     "avg_payoff": 0,
-     "recommended": false,
-     "over_spendable": false
-    },
-    {
-     "bid": 2,
-     "win_chance": 0.526,
-     "avg_payoff": -0.5,
-     "recommended": false,
-     "over_spendable": false
-    },
-    {
-     "bid": 6,
-     "win_chance": 0.815,
-     "avg_payoff": -4.1,
-     "recommended": false,
-     "over_spendable": true
-    }
-   ],
-   "likely_rival_bids": [
-    {
-     "team": "JHED1979",
-     "bid": 3,
-     "raw": 3,
-     "claim_chance": 0.247
-    },
-    {
-     "team": "robert8063",
-     "bid": 2,
-     "raw": 2,
-     "claim_chance": 0.324
-    },
-    {
-     "team": "damonhawk1",
-     "bid": 6,
-     "raw": 6,
-     "claim_chance": 0.099
-    }
-   ]
   },
   {
    "sleeper_id": "1466",
@@ -1491,18 +1477,18 @@
    "bye_week": null,
    "source": "freed",
    "gain_next_week": 3.2,
-   "gain_rest_of_season": 15.4,
+   "gain_rest_of_season": 15.6,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "extra_weeks_alive": 0.17,
+   "extra_weeks_alive": 0.18,
    "extra_win_odds": 0.015,
    "est_price": 1,
    "price_80": 2,
    "value": 0,
    "bid": 0,
-   "win_chance": 0.362,
+   "win_chance": 0.369,
    "your_max": 0,
-   "cut_risk_drop": 0.008,
+   "cut_risk_drop": 0.009,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
@@ -1512,7 +1498,7 @@
    "chain_order": null,
    "fires_if": null,
    "win_curve": [
-    0.36,
+    0.37,
     0.69,
     0.81,
     0.85,
@@ -1520,7 +1506,7 @@
     0.91,
     0.92,
     0.93,
-    0.94,
+    0.95,
     0.95,
     0.96
    ],
@@ -1528,37 +1514,37 @@
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.175
+     "claim_chance": 0.177
     },
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "robert8063",
      "faab": 23,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.175
+     "claim_chance": 0.177
     },
     {
      "team": "Swegs4",
      "faab": 3,
-     "claim_chance": 0.175
+     "claim_chance": 0.177
     },
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "CodyRust",
      "faab": 0,
-     "claim_chance": 0.104
+     "claim_chance": 0.087
     }
    ],
    "bid_options": [],
@@ -1567,19 +1553,19 @@
      "team": "JHED1979",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.175
+     "claim_chance": 0.177
     },
     {
      "team": "damonhawk1",
      "bid": 2,
      "raw": 2,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "robert8063",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     }
    ]
   },
@@ -1599,20 +1585,20 @@
    "gain_rest_of_season": 12.6,
    "drop": "Hunter Henry",
    "drop_id": "3214",
-   "extra_weeks_alive": 0.08,
-   "extra_win_odds": 0.014,
+   "extra_weeks_alive": 0.09,
+   "extra_win_odds": 0.015,
    "est_price": 6,
    "price_80": 14,
    "value": 0,
    "bid": 0,
    "win_chance": 0.149,
    "your_max": 0,
-   "cut_risk_drop": 0.008,
+   "cut_risk_drop": 0.009,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
    "why": "adds too little to matter",
-   "why_line": "starts for you 5 of the next 7 weeks; +1.4 pts of title odds",
+   "why_line": "starts for you 5 of the next 7 weeks; +1.5 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1705,19 +1691,19 @@
    "drop": "Woody Marks",
    "drop_id": "12474",
    "extra_weeks_alive": 0.1,
-   "extra_win_odds": 0.01,
+   "extra_win_odds": 0.009,
    "est_price": 0,
    "price_80": 2,
    "value": 0,
    "bid": 0,
-   "win_chance": 0.502,
+   "win_chance": 0.503,
    "your_max": 0,
    "cut_risk_drop": 0,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Skip",
    "why": "adds too little to matter",
-   "why_line": "starts for you 6 of the next 7 weeks; +1.0 pts of title odds (bye week 11)",
+   "why_line": "starts for you 6 of the next 7 weeks; +0.9 pts of title odds (bye week 11)",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1738,37 +1724,37 @@
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "robert8063",
      "faab": 23,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     },
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     },
     {
      "team": "Swegs4",
      "faab": 3,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     },
     {
      "team": "CodyRust",
      "faab": 0,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     }
    ],
    "bid_options": [],
@@ -1777,19 +1763,19 @@
      "team": "damonhawk1",
      "bid": 2,
      "raw": 2,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "robert8063",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "JHED1979",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     }
    ]
   },
@@ -1809,8 +1795,8 @@
    "gain_rest_of_season": 5.7,
    "drop": "Hunter Henry",
    "drop_id": "3214",
-   "extra_weeks_alive": 0.05,
-   "extra_win_odds": 0.007,
+   "extra_weeks_alive": 0.04,
+   "extra_win_odds": 0.006,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
@@ -1822,7 +1808,7 @@
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 5 of the next 7 weeks; +0.7 pts of title odds",
+   "why_line": "starts for you 5 of the next 7 weeks; +0.6 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1855,12 +1841,50 @@
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": 0.014,
+   "cut_risk_drop": 0.015,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
    "why_line": "starts for you 6 of the next 7 weeks; +0.6 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": null,
+   "can_outbid": [],
+   "bid_options": [],
+   "likely_rival_bids": []
+  },
+  {
+   "sleeper_id": "5844",
+   "name": "T.J. Hockenson",
+   "pos": "TE",
+   "team": "MIN",
+   "injury": "Out",
+   "ir": false,
+   "season_avg": 8.5,
+   "last3_avg": 10.2,
+   "proj_next_week": 7.4,
+   "bye_week": null,
+   "source": "free agent",
+   "gain_next_week": 0.1,
+   "gain_rest_of_season": 5.7,
+   "drop": "Woody Marks",
+   "drop_id": "12474",
+   "extra_weeks_alive": 0.06,
+   "extra_win_odds": 0.006,
+   "est_price": 0,
+   "price_80": 0,
+   "value": 0,
+   "bid": 0,
+   "win_chance": null,
+   "your_max": 0,
+   "cut_risk_drop": 0.001,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Add free",
+   "why": "free agent",
+   "why_line": "starts for you 6 of the next 7 weeks; +0.6 pts of title odds (Out: check news from the last 48 hours)",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -1908,149 +1932,6 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "5844",
-   "name": "T.J. Hockenson",
-   "pos": "TE",
-   "team": "MIN",
-   "injury": "Out",
-   "ir": false,
-   "season_avg": 8.5,
-   "last3_avg": 10.2,
-   "proj_next_week": 7.4,
-   "bye_week": null,
-   "source": "free agent",
-   "gain_next_week": 0.1,
-   "gain_rest_of_season": 5.7,
-   "drop": "Woody Marks",
-   "drop_id": "12474",
-   "extra_weeks_alive": 0.06,
-   "extra_win_odds": 0.006,
-   "est_price": 0,
-   "price_80": 0,
-   "value": 0,
-   "bid": 0,
-   "win_chance": null,
-   "your_max": 0,
-   "cut_risk_drop": 0,
-   "uses_reserve": false,
-   "handcuff_check": null,
-   "call": "Add free",
-   "why": "free agent",
-   "why_line": "starts for you 6 of the next 7 weeks; +0.6 pts of title odds (Out: check news from the last 48 hours)",
-   "chain_drop": null,
-   "chain_order": null,
-   "fires_if": null,
-   "win_curve": null,
-   "can_outbid": [],
-   "bid_options": [],
-   "likely_rival_bids": []
-  },
-  {
-   "sleeper_id": "PIT",
-   "name": "PIT DEF",
-   "pos": "DEF",
-   "team": "PIT",
-   "injury": null,
-   "ir": false,
-   "season_avg": 8,
-   "last3_avg": 8,
-   "proj_next_week": 8.3,
-   "bye_week": null,
-   "source": "freed",
-   "gain_next_week": 8.3,
-   "gain_rest_of_season": 11.2,
-   "drop": "Hunter Henry",
-   "drop_id": "3214",
-   "extra_weeks_alive": 0.09,
-   "extra_win_odds": 0.005,
-   "est_price": 0,
-   "price_80": 2,
-   "value": 0,
-   "bid": 0,
-   "win_chance": 0.512,
-   "your_max": 0,
-   "cut_risk_drop": 0.018,
-   "uses_reserve": false,
-   "handcuff_check": null,
-   "call": "Skip",
-   "why": "adds too little to matter",
-   "why_line": "starts for you 4 of the next 7 weeks; +0.5 pts of title odds",
-   "chain_drop": null,
-   "chain_order": null,
-   "fires_if": null,
-   "win_curve": [
-    0.51,
-    0.79,
-    0.87,
-    0.9,
-    0.92,
-    0.94,
-    0.95,
-    0.95,
-    0.96,
-    0.97,
-    0.97
-   ],
-   "can_outbid": [
-    {
-     "team": "damonhawk1",
-     "faab": 86,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "robert8063",
-     "faab": 23,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "JHED1979",
-     "faab": 22,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "Swegs4",
-     "faab": 3,
-     "claim_chance": 0.104
-    },
-    {
-     "team": "Aniasin1",
-     "faab": 3,
-     "claim_chance": 0.104
-    },
-    {
-     "team": "GoodFellas77",
-     "faab": 16,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "CodyRust",
-     "faab": 0,
-     "claim_chance": 0.086
-    }
-   ],
-   "bid_options": [],
-   "likely_rival_bids": [
-    {
-     "team": "damonhawk1",
-     "bid": 2,
-     "raw": 2,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "robert8063",
-     "bid": 1,
-     "raw": 1,
-     "claim_chance": 0.086
-    },
-    {
-     "team": "JHED1979",
-     "bid": 1,
-     "raw": 1,
-     "claim_chance": 0.086
-    }
-   ]
-  },
-  {
    "sleeper_id": "7526",
    "name": "Jaylen Waddle",
    "pos": "WR",
@@ -2089,6 +1970,111 @@
    "likely_rival_bids": []
   },
   {
+   "sleeper_id": "PIT",
+   "name": "PIT DEF",
+   "pos": "DEF",
+   "team": "PIT",
+   "injury": null,
+   "ir": false,
+   "season_avg": 8,
+   "last3_avg": 8,
+   "proj_next_week": 8.3,
+   "bye_week": null,
+   "source": "freed",
+   "gain_next_week": 8.3,
+   "gain_rest_of_season": 11.2,
+   "drop": "Hunter Henry",
+   "drop_id": "3214",
+   "extra_weeks_alive": 0.09,
+   "extra_win_odds": 0.005,
+   "est_price": 0,
+   "price_80": 2,
+   "value": 0,
+   "bid": 0,
+   "win_chance": 0.511,
+   "your_max": 0,
+   "cut_risk_drop": 0.02,
+   "uses_reserve": false,
+   "handcuff_check": null,
+   "call": "Skip",
+   "why": "adds too little to matter",
+   "why_line": "starts for you 4 of the next 7 weeks; +0.5 pts of title odds",
+   "chain_drop": null,
+   "chain_order": null,
+   "fires_if": null,
+   "win_curve": [
+    0.51,
+    0.78,
+    0.87,
+    0.9,
+    0.92,
+    0.94,
+    0.95,
+    0.95,
+    0.96,
+    0.97,
+    0.97
+   ],
+   "can_outbid": [
+    {
+     "team": "damonhawk1",
+     "faab": 86,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "faab": 23,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "JHED1979",
+     "faab": 22,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "Swegs4",
+     "faab": 3,
+     "claim_chance": 0.102
+    },
+    {
+     "team": "Aniasin1",
+     "faab": 3,
+     "claim_chance": 0.102
+    },
+    {
+     "team": "GoodFellas77",
+     "faab": 16,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
+    }
+   ],
+   "bid_options": [],
+   "likely_rival_bids": [
+    {
+     "team": "damonhawk1",
+     "bid": 2,
+     "raw": 2,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "robert8063",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.087
+    },
+    {
+     "team": "JHED1979",
+     "bid": 1,
+     "raw": 1,
+     "claim_chance": 0.087
+    }
+   ]
+  },
+  {
    "sleeper_id": "DET",
    "name": "DET DEF",
    "pos": "DEF",
@@ -2105,19 +2091,19 @@
    "drop": "Hunter Henry",
    "drop_id": "3214",
    "extra_weeks_alive": 0.09,
-   "extra_win_odds": 0.004,
+   "extra_win_odds": 0.003,
    "est_price": 0,
    "price_80": 0,
    "value": 0,
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": 0.017,
+   "cut_risk_drop": 0.018,
    "uses_reserve": false,
    "handcuff_check": null,
    "call": "Add free",
    "why": "free agent",
-   "why_line": "starts for you 3 of the next 7 weeks; +0.4 pts of title odds",
+   "why_line": "starts for you 3 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
    "fires_if": null,
@@ -2188,11 +2174,11 @@
    "bid": 0,
    "win_chance": null,
    "your_max": 0,
-   "cut_risk_drop": 0.017,
+   "cut_risk_drop": 0.019,
    "uses_reserve": false,
    "handcuff_check": null,
-   "call": "Add free",
-   "why": "free agent",
+   "call": "Skip",
+   "why": "adds too little to matter",
    "why_line": "starts for you 3 of the next 7 weeks; +0.3 pts of title odds",
    "chain_drop": null,
    "chain_order": null,
@@ -2224,7 +2210,7 @@
    "price_80": 2,
    "value": 0,
    "bid": 0,
-   "win_chance": 0.483,
+   "win_chance": 0.495,
    "your_max": 0,
    "cut_risk_drop": 0,
    "uses_reserve": false,
@@ -2236,7 +2222,7 @@
    "chain_order": null,
    "fires_if": null,
    "win_curve": [
-    0.48,
+    0.49,
     0.77,
     0.86,
     0.89,
@@ -2252,37 +2238,37 @@
     {
      "team": "damonhawk1",
      "faab": 86,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     },
     {
      "team": "robert8063",
      "faab": 23,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "JHED1979",
      "faab": 22,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "Swegs4",
      "faab": 3,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "Aniasin1",
      "faab": 3,
-     "claim_chance": 0.104
-    },
-    {
-     "team": "CodyRust",
-     "faab": 0,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "GoodFellas77",
      "faab": 16,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
+    },
+    {
+     "team": "CodyRust",
+     "faab": 0,
+     "claim_chance": 0.087
     }
    ],
    "bid_options": [],
@@ -2291,19 +2277,19 @@
      "team": "damonhawk1",
      "bid": 2,
      "raw": 2,
-     "claim_chance": 0.086
+     "claim_chance": 0.087
     },
     {
      "team": "robert8063",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     },
     {
      "team": "JHED1979",
      "bid": 1,
      "raw": 1,
-     "claim_chance": 0.104
+     "claim_chance": 0.102
     }
    ]
   },
@@ -4400,6 +4386,11 @@
    "WR",
    "CIN"
   ],
+  "13268": [
+   "Elijah Sarratt",
+   "WR",
+   "BAL"
+  ],
   "13269": [
    "Fernando Mendoza",
    "QB",
@@ -4589,6 +4580,11 @@
    "Eli Stowers",
    "TE",
    "PHI"
+  ],
+  "13380": [
+   "Brenen Thompson",
+   "WR",
+   "LAC"
   ],
   "13394": [
    "Josh Cameron",
@@ -4888,13 +4884,13 @@
    "pos": "WR",
    "team": "MIN",
    "sleeper_id": "6794",
-   "bid": 1,
+   "bid": 2,
    "drop": "Woody Marks",
    "drop_id": "12474",
-   "win_chance": 0.162,
+   "win_chance": 0.312,
    "kind": "claim",
    "fires_if": null,
-   "why": "starts for you 7 of the next 7 weeks; +6.0 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)"
+   "why": "starts for you 7 of the next 7 weeks; +6.1 pts of title odds; can be outbid by damonhawk1 ($86, 32% to claim), JHED1979 ($22, 44% to claim)"
   },
   {
    "order": 2,
@@ -4905,7 +4901,7 @@
    "bid": 1,
    "drop": "Hunter Henry",
    "drop_id": "3214",
-   "win_chance": 0.245,
+   "win_chance": 0.247,
    "kind": "claim",
    "fires_if": null,
    "why": "starts for you 6 of the next 7 weeks; +3.6 pts of title odds; can be outbid by damonhawk1 ($86, 25% to claim), JHED1979 ($22, 32% to claim)"
@@ -4919,13 +4915,13 @@
    "bid": 0,
    "drop": "Khalil Shakir",
    "drop_id": "8134",
-   "win_chance": 0.107,
+   "win_chance": 0.118,
    "kind": "claim",
    "fires_if": null,
    "why": "starts for you 6 of the next 7 weeks; +1.6 pts of title odds; can be outbid by JHED1979 ($22, 25% to claim), robert8063 ($23, 32% to claim)"
   }
  ],
- "worst_case_spend": 2,
+ "worst_case_spend": 3,
  "rules": {
   "reserve": 5,
   "reserve_rule": "keeps $5 while your cut risk this week is under 25%; at 25% or more, a claim that lowers it by 2+ pts may use it (now 4%: kept)",
