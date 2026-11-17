@@ -15,6 +15,7 @@ Feedback typed straight into a new issue titled "Feedback: …" lands here too.
 
 - 2026-10-31 👍 Like · Lab page · Layout A · 1920px, dark: "generally pretty easy to use on the computer - a good start" ([#2](https://github.com/mbryan20/sports-hq/issues/2))
 - 2026-10-31 👎 Dislike · Lab page · Layout D · 1920px, dark: "Right now it is very noisy - maybe useful on nfl game days. I will check then. This should not be the default by any means." ([#3](https://github.com/mbryan20/sports-hq/issues/3))
+- 2026-11-17 💡 Idea / want · A · Scoreboard · Domo Arigato · comment on: Zach Charbonnet (RB) on BYE → start Chris Rodriguez Jr. (5.9 proj) [ESPN, Nov 15 · 402px, dark: "Note that this league is a dynasty league and there is no prize for getting anything worse than 3rd except a worse draft pick. At the same time outright tanking looks bad. We should be considering the next years draft picks as part of what we don’t our team is fully out of it." ([#6](https://github.com/mbryan20/sports-hq/issues/6))
 
 ## Handled
 
