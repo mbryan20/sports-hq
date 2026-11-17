@@ -4,6 +4,13 @@ Read by the three Tuesday bid jobs: the 6:00am "Guillotine bid strategy (v2)" ro
 7:30pm safety net. Where these rules and a job's own prompt differ, these rules win. Michael approved this plan on
 Nov 12 (warroom/README.md "Nov 12 revamp", IMPROVEMENTS Q-062).
 
+0. **Handcuffs and doubt** (Michael's fantasy rules 12, 14 and 16; added Nov 16). Never push, write as a Doc FREE/BID
+   line, or suggest an add whose drop is in bids.json `rules.my_handcuffs` (today: Braelon Allen, behind Breece Hall)
+   unless that row's `handcuff_check.ok` is true AND you show the side by side in one line (his insurance vs what the
+   add brings, and when). Otherwise write "Left out: keeps Braelon Allen (rule 14)". In this league surviving this week
+   beats later upside: don't push an "Add free" line whose `extra_weeks_alive` and `gain_next_week` are both 0 (rule 12:
+   when in doubt, leave it out). Never push a move listed in docs/data/decisions.json (rule 16; his HQ Skips land there).
+
 1. **The list is `claim_list` in bids.json, in its order.** Each item: order, name, sleeper_id, bid, drop, drop_id,
    win_chance, kind (`claim` or `backup`), fires_if, why. Use the bid and drop as given (never est_price + $1). Add or
    remove a claim only for news (rule 5), and say "model said $X" when you do.
