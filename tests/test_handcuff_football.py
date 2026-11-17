@@ -61,6 +61,13 @@ class Handcuff(unittest.TestCase):
                     "worth it because Stud RB gains about ", "times what Braelon Allen is worth as insurance"):
             self.assertIn(bit, text)
 
+    def test_an_add_that_only_helps_late_keeps_him(self):
+        # Nov 16 (Cousins for Allen): nothing gained in the first 3 weeks, so Allen stays even for a big late gain
+        starters, bench = team()
+        late = pl("Late RB", "RB", 22, "ATL", wk=[0, 0, 0, 40])
+        self.assertNotIn("Braelon Allen", drops(waivers.adds(starters, bench, [late], SLOTS)))
+        self.assertEqual((waivers.CUFF_MARGIN, waivers.CUFF_MIN_GAP, waivers.CUFF_SOON), (2.5, 8.0, 3))
+
     def test_never_dropped_while_his_starter_is_tagged(self):
         # (c) Hall Questionable (or worse): Allen stays whatever the add is worth
         for tag in ("Q", "D", "OUT", "IR"):

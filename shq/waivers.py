@@ -12,6 +12,7 @@ points gap between a QB and a WR never does.
 - Kickers and defenses are streamed: this week only, and they only replace each other.
 - A handcuff (rule 14, fantasy-rules.md) is dropped only when the add clearly beats his injury insurance, and the
   step then spells out the trade-off (cuff_check)."""
+import math
 from collections import Counter
 
 from .status import DEAD, OUTISH
@@ -33,7 +34,9 @@ MISS_WEEK = 0.12          # Claude's estimate of a typical RB's weekly chance to
 MISS_TAG = {"D": 0.75, "Q": 0.25}   # this week's chance he misses, by his tag (Out/IR: already in the projections)
 CUFF_SHARE = 0.85         # backup's points as the starter, as a share of the starter's projection (no history)
 CUFF_HIST_MIN = 2         # weeks the starter sat that the backup's own average needs
-CUFF_MARGIN = 2.0         # the add's window gain must beat this many times the insurance
+CUFF_MARGIN = 2.5         # the add's window gain must be at least this many times the insurance (2.0 until Nov 16)
+CUFF_MIN_GAP = 8.0        # ... and this many points more than it (Nov 16: "clearly wins", rule 14)
+CUFF_SOON = 3             # ... and help the lineup in one of the first CUFF_SOON weeks
 CUFF_BLOCK = DEAD | {"Q"}  # starter tagged Q/D/Out/IR: his handcuff is never dropped
 
 
@@ -134,8 +137,9 @@ def cuff_check(drop, roster, after, slots, weeks, guillotine=False):
     """Rule 14: None when `drop` isn't a handcuff, else the side-by-side and whether the drop may go ahead ("ok").
     Each week: the add's lineup gain, and the insurance the handcuff gives = chance his starter misses that week x
     (my lineup with the handcuff starting − my lineup with whoever would start instead, from the roster after the
-    move). The drop goes ahead only when the add's gain over the window beats CUFF_MARGIN x the insurance, in the
-    guillotine also this week (surviving this week's cut beats upside), and never while the starter is tagged."""
+    move). The drop goes ahead only when the add's gain over the window is at least CUFF_MARGIN x the insurance and
+    CUFF_MIN_GAP points more, it helps in one of the first CUFF_SOON weeks, in the guillotine also this week (surviving
+    this week's cut beats upside), never while the starter is tagged, and never on missing numbers (rule 12)."""
     starter = handcuff_of(drop, roster)
     if starter is None:
         return None
@@ -160,7 +164,10 @@ def cuff_check(drop, roster, after, slots, weeks, guillotine=False):
         rows.append(row)
     gain, ins = sum(r["gain"] for r in rows), sum(r["ins"] for r in rows)
     blocked = tag in CUFF_BLOCK or bool(starter.get("conflict"))
-    ok = (not blocked and gain > CUFF_MARGIN * ins
+    nums = bool(rows) and all(isinstance(r["gain"], (int, float)) and math.isfinite(r["gain"]) and math.isfinite(r["ins"])
+                              for r in rows)
+    ok = (nums and not blocked and gain >= CUFF_MARGIN * ins and gain - ins >= CUFF_MIN_GAP
+          and any(r["gain"] > 0 for r in rows[:CUFF_SOON])
           and (not guillotine or rows[0]["gain"] >= rows[0]["ins"]))
     return {"ok": ok, "starter": starter, "cuff": drop, "rows": rows, "gain": round(gain, 1), "ins": round(ins, 1),
             "blocked": blocked, "guillotine": guillotine}
@@ -191,7 +198,7 @@ def cuff_text(c, fa):
     ins = sum(r["ins"] for r in rows)   # unrounded: a tiny insurance is still "times", not "none"
     if ins > 0:
         text += (f"{fa['name']} gains about {c['gain'] / ins:.0f} times what {cuff} is worth as insurance "
-                 f"(the bar is {CUFF_MARGIN:.0f} times)")
+                 f"(the bar is {CUFF_MARGIN:g} times and {CUFF_MIN_GAP:g}+ pts more)")
     else:
         text += f"{cuff} gives no insurance: he wouldn't start for you even if {st} sat"
     if c["guillotine"]:

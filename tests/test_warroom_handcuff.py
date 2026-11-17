@@ -81,5 +81,62 @@ class Handcuffs(unittest.TestCase):
         self.assertAlmostEqual(got[1], 2.04, places=2)
 
 
+# Nov 16: War Room v2 listed "Kirk Cousins, Add free, drop Braelon Allen" at 10.5 vs 5.1 (2.06x, just over the old 2x
+# line), with nothing gained in weeks 10-13. "Clearly wins" is now 2.5x AND 8+ pts more, help within 3 weeks, nothing lost
+# this week, and missing numbers keep him (rules 12 and 14).
+COUSINS = [{"w": 10, "add": 0, "ins": 0}, {"w": 11, "add": 0, "ins": 0.8}, {"w": 12, "add": 0, "ins": 0.9},
+           {"w": 13, "add": 0, "ins": 0}, {"w": 14, "add": 0.3, "ins": 0.9}, {"w": 15, "add": 2.4, "ins": 0.8},
+           {"w": 16, "add": 5.3, "ins": 1}, {"w": 17, "add": 2.5, "ins": 0.7}]
+
+
+class ClearlyWins(unittest.TestCase):
+    def clear(self, weeks, hurt=False):
+        import json
+        return run_js(roster_league([1] * 4), f"cuffClear({json.dumps(weeks)}, {str(hurt).lower()})")
+
+    def test_rules_file_sets_the_bar(self):
+        import json
+        from pathlib import Path
+        hc = json.loads((Path(__file__).resolve().parents[1] / "warroom/rules.json").read_text(encoding="utf-8"))["handcuff"]
+        self.assertEqual((hc["clear_margin"], hc["min_gap"], hc["soon_weeks"]), (2.5, 8, 3))
+
+    def test_todays_cousins_numbers_keep_allen(self):
+        self.assertEqual(self.clear(COUSINS), {"ok": False, "why": "soon"})        # nothing in weeks 10-12
+        early = [dict(x) for x in COUSINS]
+        early[1]["add"] = 0.1                                                     # help in week 11: still 10.6 vs 5.1
+        self.assertEqual(self.clear(early), {"ok": False, "why": "margin"})
+
+    def test_a_clear_win_still_passes(self):
+        weeks = [{"w": 10, "add": 3, "ins": 0.5}, {"w": 11, "add": 4, "ins": 0.8}, {"w": 12, "add": 4, "ins": 0.9},
+                 {"w": 13, "add": 4, "ins": 0.8}]
+        self.assertEqual(self.clear(weeks), {"ok": True, "why": ""})                # 15 vs 3: 5x and 12 more
+        self.assertEqual(self.clear(weeks, hurt=True)["ok"], False)
+
+    def test_ratio_alone_or_gap_alone_is_not_enough(self):
+        small = [{"w": 10, "add": 1, "ins": 0.1}, {"w": 11, "add": 1, "ins": 0.1}, {"w": 12, "add": 1, "ins": 0.1}]
+        self.assertEqual(self.clear(small)["why"], "margin")                       # 10x, but only 2.7 pts more
+        close = [{"w": 10, "add": 6, "ins": 4}, {"w": 11, "add": 6, "ins": 4}, {"w": 12, "add": 6, "ins": 4}]
+        self.assertEqual(self.clear(close)["why"], "margin")                       # 6 more, but only 1.5x
+
+    def test_missing_numbers_keep_him(self):
+        self.assertEqual(self.clear([])["why"], "data")
+        self.assertEqual(self.clear([{"w": 10, "add": None, "ins": 1}])["why"], "data")
+
+    def test_late_only_add_never_drops_him_and_says_why(self):
+        D = roster_league([0, 0, 0, 60])                  # a star who only helps in the last week
+        got = run_js(D, "computeBase(); [bestDrop(ME, 'add'), handcuffCheck(ME, 'add', 'allen')]")
+        self.assertNotEqual(got[0], "allen")
+        self.assertFalse(got[1]["ok"])
+        self.assertTrue(got[1]["verdict"].startswith("Keep Braelon Allen"))   # this week's insurance already wins
+
+    def test_no_drop_that_passes_every_rule_means_skip(self):
+        D = roster_league([1] * 4)
+        got = run_js(D, "computeBase(); S.dpp = 1; const rows = [{s: 'add', freed: false, dW: 0.1, dWin: 0.05, gR: 30, drop: null},"
+                        " {s: 'wr4', freed: false, dW: 0.1, dWin: 0.05, gR: 30, drop: 'marks'}]; decideAll(rows);"
+                        " rows.map(r => [r.call, r.why])")
+        self.assertEqual(got[0], ["Skip", "no drop passes your rules (your handcuff stays: rule 14)"])
+        self.assertEqual(got[1][0], "Add free")           # a row with a drop is unaffected
+
+
 if __name__ == "__main__":
     unittest.main()

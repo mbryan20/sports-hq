@@ -14,7 +14,9 @@
       "Doubtful": 0.75
     },
     "as_starter_share": 0.85,
-    "clear_margin": 2
+    "clear_margin": 2.5,
+    "min_gap": 8,
+    "soon_weeks": 3
   },
-  "_about_handcuff": "Fantasy rule 14 (Nov 14). base_miss: chance a starting RB misses any given week (Claude's estimate for a typical RB); tag_miss: this week's chance when he's tagged; as_starter_share: a handcuff's points as the starter when he has no 2+ weeks of filling in this season (share of the starter's projection); clear_margin: a handcuff is dropped only when the add's lineup points over the season are at least this many times his insurance, and the move costs nothing this week."
+  "_about_handcuff": "Fantasy rule 14 (Nov 14). base_miss: chance a starting RB misses any given week (Claude's estimate for a typical RB); tag_miss: this week's chance when he's tagged; as_starter_share: a handcuff's points as the starter when he has no 2+ weeks of filling in this season (share of the starter's projection); clear_margin and min_gap: a handcuff is dropped only when the add's lineup points over the season are at least clear_margin times his insurance AND min_gap points more (Nov 16: 2.5x and 8, up from 2x; Cousins at 10.5 vs 5.1 must not drop Braelon Allen); soon_weeks: the add must also help the lineup in at least one of the next soon_weeks weeks; the move must cost nothing this week; missing data means keep him (rule 12)."
 }

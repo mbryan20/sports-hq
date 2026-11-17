@@ -73,7 +73,7 @@ function roster(t, extra, drop) {
 // when he's tagged this week; 0 when he's already projected 0 (bye, Out, IR: already in the projections).
 // As the starter: the handcuff's own average in the weeks the starter missed this season (2+ such weeks), else
 // as_starter_share of the starter's projection.
-const HC = Object.assign({ base_miss: 0.12, tag_miss: { Questionable: 0.25, Doubtful: 0.75 }, as_starter_share: 0.85, clear_margin: 2 }, RULES.handcuff || {});
+const HC = Object.assign({ base_miss: 0.12, tag_miss: { Questionable: 0.25, Doubtful: 0.75 }, as_starter_share: 0.85, clear_margin: 2.5, min_gap: 8, soon_weeks: 3 }, RULES.handcuff || {});
 const STR = {};
 const strength = s => { if (s in STR) return STR[s]; const v = WEEKS.map(w => (D.P[s].pw || [])[w - W0] || 0).filter(x => x > 0).sort((a, b) => a - b); return STR[s] = v.length ? v[Math.floor(v.length / 2)] : D.P[s].a || 0; };
 const backs = (st, h) => h !== st && D.P[h] && D.P[h].p === 'RB' && D.P[h].t && D.P[h].t === D.P[st].t && strength(st) > strength(h);
@@ -124,9 +124,21 @@ const insurance = (r, h, w) => Math.max(0, injuryAdj(r, w) - injuryAdj(r.filter(
 const weekTot = (r, w) => { const L = lineup(r, w); return L.tot + injuryAdj(r, w, L); };
 function teamProj(t, extra, drop) { const o = {}; for (const w of WEEKS) o[w] = weekTot(roster(t, extra, drop), w); return o; }
 // Rule 14's side-by-side for dropping handcuff h to add s: (a) what h scores if his starter misses time and the starter's
-// risk, (b) what s adds week by week, (c) who starts instead without h. ok = s clearly wins even after the insurance:
-// his lineup points (without the insurance) are at least clear_margin x the insurance over the season, and this week he
-// costs nothing net (survival beats upside in a guillotine league); never while the starter is hurt this week.
+// risk, (b) what s adds week by week, (c) who starts instead without h. ok = s clearly wins even after the insurance
+// (cuffClear): his lineup points over the season are at least clear_margin x the insurance AND min_gap points more, he
+// helps the lineup in one of the next soon_weeks weeks, and this week he costs nothing net (survival beats upside in a
+// guillotine league); never while the starter is hurt this week; missing numbers = keep him (rule 12, Nov 16).
+function cuffClear(weeks, hurt) {
+  const nums = weeks.length > 0 && weeks.every(x => Number.isFinite(x.add) && Number.isFinite(x.ins));
+  if (!nums) return { ok: false, why: 'data' };
+  const add = weeks.reduce((a, x) => a + x.add, 0), ins = weeks.reduce((a, x) => a + x.ins, 0);
+  if (hurt) return { ok: false, why: 'hurt' };
+  if (weeks[0].add - weeks[0].ins < 0) return { ok: false, why: 'week' };
+  if (!weeks.slice(0, HC.soon_weeks).some(x => x.add > 0)) return { ok: false, why: 'soon' };
+  if (!(add >= HC.clear_margin * ins && add - ins >= HC.min_gap)) return { ok: false, why: 'margin' };
+  return { ok: true, why: '' };
+}
+const BAR = () => `${HC.clear_margin}x and ${HC.min_gap}+ pts more`;
 function handcuffCheck(t, s, h) {
   const r0 = roster(t), pair = handcuffPairs(r0).find(x => x[1] === h);
   if (!pair) return null;
@@ -134,17 +146,20 @@ function handcuffCheck(t, s, h) {
   const weeks = WEEKS.map(w => ({ w, add: Math.round((lineup(r1, w).tot - lineup(r0, w).tot) * 10) / 10, ins: Math.round(insurance(r0, h, w) * 10) / 10 }));
   const add = weeks.reduce((a, x) => a + x.add, 0), ins = weeks.reduce((a, x) => a + x.ins, 0);
   const hurt = ['Questionable', 'Doubtful', 'Out'].includes(P.inj) || P.st === 'RES';
-  const thisWeek = weeks[0] ? weeks[0].add - weeks[0].ins : 0;
-  const ok = !hurt && thisWeek >= 0 && add >= HC.clear_margin * ins && add - ins > 0;
+  const clear = cuffClear(weeks, hurt), ok = clear.ok;
+  const gainWeeks = weeks.filter(x => x.add > 0).map(x => x.w);
   // who starts if the starter sits and the handcuff is gone
   const noBoth = r0.filter(x => x !== st && x !== h), on = new Set(lineup(r0, W0).st.map(x => x.s));
   const sub = lineup(noBoth, W0).st.find(x => x.s && !on.has(x.s));
   const missed = f.n;
   const asSt = Math.round(asStarter(st, h, W0) * 10) / 10;
-  const verdict = hurt ? `Keep ${D.P[h].n}: ${P.n} is ${P.inj || 'on IR'} this week, so ${D.P[h].n} may be your starter.`
-    : ok ? `Drop ${D.P[h].n}: ${D.P[s].n} adds ${Math.round(add)} lineup pts over the season, more than ${HC.clear_margin}x the ${fmt1(ins)} pts of insurance ${D.P[h].n} gives, and costs nothing this week.`
-    : thisWeek < 0 ? `Keep ${D.P[h].n}: this week the insurance (${fmt1(weeks[0].ins)} pts) is worth more than what ${D.P[s].n} adds (${fmt1(weeks[0].add)}), and surviving this week comes first.`
-    : `Keep ${D.P[h].n}: ${D.P[s].n} adds ${Math.round(add)} lineup pts over the season, not clearly more than the ${fmt1(ins)} pts of insurance ${D.P[h].n} gives (needs ${HC.clear_margin}x).`;
+  const H = D.P[h].n, A = D.P[s].n;
+  const verdict = clear.why === 'data' ? `Keep ${H}: not enough data to show ${A} clearly wins (when in doubt, leave it out).`
+    : clear.why === 'hurt' ? `Keep ${H}: ${P.n} is ${P.inj || 'on IR'} this week, so ${H} may be your starter.`
+    : ok ? `Drop ${H}: ${A} adds ${fmt1(add)} lineup pts over the season vs ${fmt1(ins)} pts of insurance from ${H} (bar: ${BAR()}), helps your lineup within ${HC.soon_weeks} weeks, and costs nothing this week.`
+    : clear.why === 'week' ? `Keep ${H}: this week the insurance (${fmt1(weeks[0].ins)} pts) is worth more than what ${A} adds (${fmt1(weeks[0].add)}), and surviving this week comes first.`
+    : clear.why === 'soon' ? `Keep ${H}: ${A} adds nothing to your lineup in the next ${HC.soon_weeks} weeks${gainWeeks.length ? ` (his gain is all in weeks ${gainWeeks[0]}-${gainWeeks[gainWeeks.length - 1]})` : ''}, and surviving now comes first.`
+    : `Keep ${H}: ${A} adds ${fmt1(add)} lineup pts over the season vs ${fmt1(ins)} pts of insurance from ${H}; dropping him needs ${BAR()}.`;
   return { handcuff: D.P[h].n, starter: P.n, starter_tag: P.inj || (P.st === 'RES' ? 'IR' : ''), starter_missed: missed,
     miss_chance: missChance(st, W0), as_starter: asSt, as_starter_basis: f.n >= 2 ? `his average in the ${f.n} weeks ${P.n} missed` : `${Math.round(HC.as_starter_share * 100)}% of ${P.n}'s projection`,
     weeks, add_total: Math.round(add * 10) / 10, insurance_total: Math.round(ins * 10) / 10,
@@ -417,6 +432,9 @@ function decideAll(rows) {
   const released = reserveReleased(), spendFor = r => (released && savesMe(r) ? faab : spend);
   const price = r => {        // value, best bid and call for one candidate at its current drop
     r.spendCap = spendFor(r);
+    // every candidate drop broke one of his rules (rule 14 keeps the handcuff, rule 7 the starters): no move
+    if (r.drop === null) return Object.assign(r, { call: 'Skip', bid: 0, value: 0, price: 0, price80: 0, chance: null, options: [],
+      why: 'no drop passes your rules (your handcuff stays: rule 14)' });
     if (outNow(r.s)) return Object.assign(r, { call: 'Skip', bid: 0, value: 0, chance: null, options: [],
       price: r.freed ? (priceFor(.5, r.est, 999, r) ?? r.est) : 0, price80: r.freed ? (priceFor(.8, r.est, 999, r) ?? r.est) : 0,
       why: 'out this week (injury or IR): not worth a roster spot now' });
@@ -623,7 +641,7 @@ function exportBids() {
              league_winners: RULES.league_winners, big_bid_cap: bigCap(null),
              marginal: `K, DEF and adds worth under ${RULES.marginal_pts_per_week} lineup pts a week go in at $0`,
              starters: 'never drops a player in this week\'s lineup unless the add starts in his place',
-             handcuffs: `a backup RB behind his own starter is dropped only when the add's lineup points are at least ${HC.clear_margin}x his injury insurance and the move costs nothing this week (fantasy rule 14)`,
+             handcuffs: `a backup RB behind his own starter is dropped only when the add clearly wins: over the season at least ${BAR()} than his injury insurance, helps your lineup within ${HC.soon_weeks} weeks, and costs nothing this week; missing data keeps him (fantasy rules 12 and 14)`,
              my_handcuffs: handcuffPairs(roster(ME)).map(([st, h]) => ({ handcuff: pname(h), starter: pname(st), starter_miss_chance: r3(missChance(st, W0)),
                as_starter: r1(asStarter(st, h, W0)), insurance_rest_of_season: r1(WEEKS.reduce((a, w) => a + insurance(roster(ME), h, w), 0)) })) },
   };
