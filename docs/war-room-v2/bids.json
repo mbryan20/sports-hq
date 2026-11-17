@@ -49,7 +49,7 @@
    "projected_next_week": 116.7,
    "cut_risk_next_week": 0.268,
    "expected_weeks_left": 1.9,
-   "win_odds": 0.004
+   "win_odds": 0.003
   },
   {
    "team": "GoodFellas77",
@@ -79,7 +79,7 @@
    "projected_next_week": 131,
    "cut_risk_next_week": 0.102,
    "expected_weeks_left": 4.2,
-   "win_odds": 0.106
+   "win_odds": 0.107
   },
   {
    "team": "robert8063",
@@ -99,7 +99,7 @@
    "projected_next_week": 134.2,
    "cut_risk_next_week": 0.076,
    "expected_weeks_left": 5.4,
-   "win_odds": 0.26
+   "win_odds": 0.261
   },
   {
    "team": "michaelbryan",
@@ -370,99 +370,6 @@
    "likely_rival_bids": []
   },
   {
-   "sleeper_id": "1166",
-   "name": "Kirk Cousins",
-   "pos": "QB",
-   "team": "MIN",
-   "injury": null,
-   "ir": false,
-   "season_avg": 20,
-   "last3_avg": 21.4,
-   "proj_next_week": 17.9,
-   "bye_week": null,
-   "source": "free agent",
-   "gain_next_week": 0,
-   "gain_rest_of_season": 5.5,
-   "drop": "Braelon Allen",
-   "drop_id": "11576",
-   "extra_weeks_alive": 0,
-   "extra_win_odds": 0.01,
-   "est_price": 0,
-   "price_80": 0,
-   "value": 0,
-   "bid": 0,
-   "win_chance": null,
-   "your_max": 0,
-   "cut_risk_drop": 0,
-   "uses_reserve": false,
-   "handcuff_check": {
-    "handcuff": "Braelon Allen",
-    "starter": "Breece Hall",
-    "starter_tag": "",
-    "starter_missed": 5,
-    "miss_chance": 0.12,
-    "as_starter": 15.2,
-    "as_starter_basis": "his average in the 5 weeks Breece Hall missed",
-    "weeks": [
-     {
-      "w": 10,
-      "add": 0,
-      "ins": 0
-     },
-     {
-      "w": 11,
-      "add": 0,
-      "ins": 0.8
-     },
-     {
-      "w": 12,
-      "add": 0,
-      "ins": 0.9
-     },
-     {
-      "w": 13,
-      "add": 0,
-      "ins": 0
-     },
-     {
-      "w": 14,
-      "add": 0.3,
-      "ins": 0.9
-     },
-     {
-      "w": 15,
-      "add": 2.4,
-      "ins": 0.8
-     },
-     {
-      "w": 16,
-      "add": 5.3,
-      "ins": 1
-     },
-     {
-      "w": 17,
-      "add": 2.5,
-      "ins": 0.7
-     }
-    ],
-    "add_total": 10.5,
-    "insurance_total": 5.1,
-    "instead": null,
-    "ok": true,
-    "verdict": "Drop Braelon Allen: Kirk Cousins adds 11 lineup pts over the season, more than 2x the 5.1 pts of insurance Braelon Allen gives, and costs nothing this week."
-   },
-   "call": "Add free",
-   "why": "free agent",
-   "why_line": "drops a handcuff (your rule 14): Braelon Allen ~15.2 pts if Breece Hall sits; Drop Braelon Allen: Kirk Cousins adds 11 lineup pts over the season, more than 2x the 5.1 pts of insurance Braelon Allen gives, and costs nothing this week.; starts for you 4 of the next 8 weeks; +1.0 pts of title odds",
-   "chain_drop": null,
-   "chain_order": null,
-   "fires_if": null,
-   "win_curve": null,
-   "can_outbid": [],
-   "bid_options": [],
-   "likely_rival_bids": []
-  },
-  {
    "sleeper_id": "6083",
    "name": "Matt Gay",
    "pos": "K",
@@ -516,7 +423,7 @@
    "gain_rest_of_season": 4.9,
    "drop": "Brenton Strange",
    "drop_id": "9480",
-   "extra_weeks_alive": 0.05,
+   "extra_weeks_alive": 0.04,
    "extra_win_odds": 0.006,
    "est_price": 0,
    "price_80": 0,
@@ -630,7 +537,7 @@
    "gain_rest_of_season": 6.3,
    "drop": "GB DEF",
    "drop_id": "GB",
-   "extra_weeks_alive": 0.03,
+   "extra_weeks_alive": 0.04,
    "extra_win_odds": 0.003,
    "est_price": 0,
    "price_80": 0,
@@ -988,11 +895,6 @@
    "TE",
    "DEN"
   ],
-  "4080": [
-   "Zay Jones",
-   "WR",
-   "ARI"
-  ],
   "4144": [
    "Jonnu Smith",
    "TE",
@@ -1317,11 +1219,6 @@
    "Justin Herbert",
    "QB",
    "LAC"
-  ],
-  "6798": [
-   "Jalen Reagor",
-   "WR",
-   "MIA"
   ],
   "6801": [
    "Tee Higgins",
@@ -1848,11 +1745,6 @@
    "WR",
    "SEA"
   ],
-  "8799": [
-   "Zaire Mitchell-Paden",
-   "TE",
-   "CLE"
-  ],
   "8861": [
    "Irvin Charles",
    "WR",
@@ -2042,11 +1934,6 @@
    "Chris Rodriguez Jr.",
    "RB",
    "JAX"
-  ],
-  "10228": [
-   "Charlie Jones",
-   "WR",
-   "NYG"
   ],
   "10229": [
    "Rashee Rice",
@@ -2438,20 +2325,10 @@
    "K",
    "MIN"
   ],
-  "11820": [
-   "Devin Culp",
-   "TE",
-   "MIN"
-  ],
   "11834": [
    "Devaughn Vele",
    "WR",
    "NO"
-  ],
-  "11911": [
-   "Jeshaun Jones",
-   "WR",
-   "MIN"
   ],
   "12015": [
    "Harrison Mevis",
@@ -2808,11 +2685,6 @@
    "WR",
    "ATL"
   ],
-  "12897": [
-   "Nate Carter",
-   "RB",
-   "KC"
-  ],
   "12961": [
    "Ryan Fitzgerald",
    "K",
@@ -2848,20 +2720,10 @@
    "TE",
    "SEA"
   ],
-  "13210": [
-   "Drake Dabney",
-   "TE",
-   "GB"
-  ],
   "13264": [
    "Dohnte Meyers",
    "WR",
    "CIN"
-  ],
-  "13268": [
-   "Elijah Sarratt",
-   "WR",
-   "BAL"
   ],
   "13269": [
    "Fernando Mendoza",
@@ -3133,11 +2995,6 @@
    "K",
    "NYG"
   ],
-  "13904": [
-   "Jacob De Jesus",
-   "WR",
-   "KC"
-  ],
   "13968": [
    "Drew Stevens",
    "K",
@@ -3318,7 +3175,7 @@
   "big_bid_cap": 3,
   "marginal": "K, DEF and adds worth under 2 lineup pts a week go in at $0",
   "starters": "never drops a player in this week's lineup unless the add starts in his place",
-  "handcuffs": "a backup RB behind his own starter is dropped only when the add's lineup points are at least 2x his injury insurance and the move costs nothing this week (fantasy rule 14)",
+  "handcuffs": "a backup RB behind his own starter is dropped only when the add clearly wins: over the season at least 2.5x and 8+ pts more than his injury insurance, helps your lineup within 3 weeks, and costs nothing this week; missing data keeps him (fantasy rules 12 and 14)",
   "my_handcuffs": [
    {
     "handcuff": "Braelon Allen",
