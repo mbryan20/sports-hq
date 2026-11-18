@@ -1,15 +1,28 @@
 {
- "generated": "2026-11-17T17:55:23Z",
+ "generated": "2026-11-18T08:55:21Z",
  "summary": {
-  "ok": 15,
-  "watch": 2,
-  "drift": 1,
+  "ok": 14,
+  "watch": 4,
+  "drift": 0,
   "weak": 4,
   "waiting": 5,
   "info": 18,
   "errors": 0
  },
  "flags": [
+  {
+   "section": "moved",
+   "id": "moved.mae_gap",
+   "label": "Their miss minus everyone else's",
+   "value": 0.4,
+   "n": 134,
+   "unit": "pts",
+   "baseline": -0.4,
+   "baseline_set": "2026-11-12",
+   "tolerance": 1.5,
+   "status": "watch",
+   "week": 10
+  },
   {
    "section": "warroom",
    "id": "wr.cut_skill",
@@ -24,11 +37,22 @@
    "floor": 0.0
   },
   {
+   "section": "warroom",
+   "id": "wr.ladder_cov50",
+   "label": "Bids at the ladder's 50% price that won",
+   "value": 0.59,
+   "n": 229,
+   "unit": "%",
+   "target": 0.5,
+   "tolerance": 0.15,
+   "status": "watch"
+  },
+  {
    "section": "recs",
    "id": "rec.win_brier",
    "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
-   "value": 0.17,
-   "n": 9,
+   "value": 0.154,
+   "n": 11,
    "unit": "",
    "baseline": 0.125,
    "baseline_set": "2026-11-04",
@@ -50,22 +74,10 @@
   },
   {
    "section": "radar",
-   "id": "radar.held",
-   "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-   "value": 0.47,
-   "n": 15,
-   "unit": "%",
-   "baseline": 0.7,
-   "baseline_set": "2026-11-10",
-   "tolerance": 0.15,
-   "status": "drift"
-  },
-  {
-   "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-   "value": -2.64,
-   "n": 55,
+   "value": -2.24,
+   "n": 59,
    "unit": "z",
    "baseline": 0.34,
    "baseline_set": "2026-11-10",
@@ -90,8 +102,8 @@
    "section": "picks",
    "id": "picks.card_ats",
    "label": "Posted card picks that won against the spread",
-   "value": 0.678,
-   "n": 59,
+   "value": 0.655,
+   "n": 87,
    "unit": "%",
    "baseline": 0.733,
    "baseline_set": "2026-11-04",
@@ -203,7 +215,7 @@
       "8": {
        "sleeper": 0.5908,
        "experts": 0.5644,
-       "blend": 0.5905,
+       "blend": 0.5911,
        "n": 1740
       },
       "9": {
@@ -223,7 +235,7 @@
      "experts": 0.5677,
      "blend": 0.578,
      "edge": 0.0036,
-     "blend_wins": 5
+     "blend_wins": 6
     },
     "calls": {
      "n": 4,
@@ -254,7 +266,7 @@
     ]
    },
    "notes": [
-    "Weeks 1-10: 17639 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.4%, experts 56.8%, blend 57.8%; the blend beat Sleeper in 5 of 10 weeks.",
+    "Weeks 1-10: 17639 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.4%, experts 56.8%, blend 57.8%; the blend beat Sleeper in 6 of 10 weeks.",
     "Start/sit stays on Sleeper's projections; the experts are shown next to each call (switch when the blend is 1%+ better in 70%+ of weeks).",
     "Our lineup moves: 2 of 4 right; the experts disagreed on 2 and we were right on 1 of those."
    ]
@@ -262,61 +274,61 @@
   {
    "id": "moved",
    "title": "Traded, injured and new starters",
-   "status": "ok",
+   "status": "watch",
    "checks": [
     {
      "id": "moved.zeroed",
      "label": "Hurt, traded or new-starter players we projected at 0 who scored 5+",
      "value": 0,
-     "n": 132,
+     "n": 134,
      "unit": "",
      "baseline": 0,
      "baseline_set": "2026-11-12",
      "tolerance": 2,
      "status": "ok",
-     "week": 9
+     "week": 10
     },
     {
      "id": "moved.inactive",
      "label": "Hurt, traded or new-starter players we projected at 5+ who did not play",
      "value": 0,
-     "n": 132,
+     "n": 134,
      "unit": "",
      "baseline": 0,
      "baseline_set": "2026-11-12",
      "tolerance": 2,
      "status": "ok",
-     "week": 9
+     "week": 10
     },
     {
      "id": "moved.mae",
      "label": "Their average projection miss",
-     "value": 3.7,
-     "n": 132,
+     "value": 4.9,
+     "n": 134,
      "unit": "pts",
      "status": "info",
-     "week": 9
+     "week": 10
     },
     {
      "id": "moved.others_mae",
      "label": "Everyone else's average projection miss",
-     "value": 4.1,
-     "n": 293,
+     "value": 4.5,
+     "n": 260,
      "unit": "pts",
      "status": "info",
-     "week": 9
+     "week": 10
     },
     {
      "id": "moved.mae_gap",
      "label": "Their miss minus everyone else's",
-     "value": -0.4,
-     "n": 132,
+     "value": 0.4,
+     "n": 134,
      "unit": "pts",
      "baseline": -0.4,
      "baseline_set": "2026-11-12",
      "tolerance": 1.5,
-     "status": "ok",
-     "week": 9
+     "status": "watch",
+     "week": 10
     }
    ],
    "details": {
@@ -1663,13 +1675,1377 @@
         ]
        }
       ]
+     },
+     "10": {
+      "v": 1,
+      "week": 10,
+      "players_version": "7c47a57",
+      "players_as_of": "2026-11-13T01:07:09Z",
+      "teams_from": "Sleeper's week-8 projections",
+      "n": 134,
+      "n_others": 260,
+      "tagged": 126,
+      "new_team": 4,
+      "new_starters": 5,
+      "zeroed": 0,
+      "inactive": 0,
+      "mae": 4.9,
+      "others_mae": 4.5,
+      "mae_n": 52,
+      "others_mae_n": 252,
+      "flagged": [],
+      "flagged_total": 0,
+      "group": [
+       {
+        "name": "Kenneth Walker III",
+        "team": "KC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Amon-Ra St. Brown",
+        "team": "DET",
+        "proj": 19.5,
+        "actual": 25.8,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Patrick Mahomes",
+        "team": "KC",
+        "proj": 19.6,
+        "actual": 35.4,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Kirk Cousins",
+        "team": "MIN",
+        "proj": 14.6,
+        "actual": 16.4,
+        "played": true,
+        "why": [
+         "new team (LV to MIN)"
+        ]
+       },
+       {
+        "name": "Bhayshul Tuten",
+        "team": "JAX",
+        "proj": 13.8,
+        "actual": 20.3,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Garrett Wilson",
+        "team": "NYJ",
+        "proj": 14.2,
+        "actual": 14.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Deshaun Watson",
+        "team": "CLE",
+        "proj": 14.9,
+        "actual": 21.4,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "J.J. McCarthy",
+        "team": "NYG",
+        "proj": 16.1,
+        "actual": 18.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "A.J. Brown",
+        "team": "NE",
+        "proj": 14.3,
+        "actual": 4.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Justin Herbert",
+        "team": "LAC",
+        "proj": 14.1,
+        "actual": 16.3,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "George Pickens",
+        "team": "DAL",
+        "proj": 13.5,
+        "actual": 43.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Ladd McConkey",
+        "team": "LAC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Carson Beck",
+        "team": "ARI",
+        "proj": 10.6,
+        "actual": 1.4,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Tony Pollard",
+        "team": "TEN",
+        "proj": 12.1,
+        "actual": 23.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jacoby Brissett",
+        "team": "BAL",
+        "proj": 13.2,
+        "actual": 12.8,
+        "played": true,
+        "why": [
+         "new team (ARI to BAL)",
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Carnell Tate",
+        "team": "TEN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Kyle McCord",
+        "team": "MIA",
+        "proj": 12.0,
+        "actual": 11.8,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "Fernando Mendoza",
+        "team": "LV",
+        "proj": 11.4,
+        "actual": 13.9,
+        "played": true,
+        "why": [
+         "new starter (projected 0 the week before)"
+        ]
+       },
+       {
+        "name": "T.J. Hockenson",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Mike Evans",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Harold Fannin Jr.",
+        "team": "CLE",
+        "proj": 10.8,
+        "actual": 16.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Denzel Boston",
+        "team": "CLE",
+        "proj": 10.7,
+        "actual": 2.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Sam Darnold",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "David Montgomery",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Omar Cooper Jr.",
+        "team": "NYJ",
+        "proj": 8.5,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Dalton Kincaid",
+        "team": "BUF",
+        "proj": 9.6,
+        "actual": 7.8,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Travis Etienne Jr.",
+        "team": "NO",
+        "proj": 8.4,
+        "actual": 6.4,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jakobi Meyers",
+        "team": "JAX",
+        "proj": 9.7,
+        "actual": 6.4,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Hunter Henry",
+        "team": "NE",
+        "proj": 10.0,
+        "actual": 4.2,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Deebo Samuel Sr.",
+        "team": "SF",
+        "proj": 10.9,
+        "actual": 25.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jordan Addison",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Josh Jacobs",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Adonai Mitchell",
+        "team": "NYJ",
+        "proj": 7.6,
+        "actual": 8.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyler Higbee",
+        "team": "LAR",
+        "proj": 8.5,
+        "actual": 10.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Zonovan Knight",
+        "team": "ARI",
+        "proj": 8.2,
+        "actual": 1.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Woody Marks",
+        "team": "HOU",
+        "proj": 12.1,
+        "actual": 7.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Pat Freiermuth",
+        "team": "PIT",
+        "proj": 8.8,
+        "actual": 11.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Rhamondre Stevenson",
+        "team": "NE",
+        "proj": 12.4,
+        "actual": 1.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Josh Downs",
+        "team": "KC",
+        "proj": 7.4,
+        "actual": 14.3,
+        "played": true,
+        "why": [
+         "new team (IND to KC)"
+        ]
+       },
+       {
+        "name": "Xavier Worthy",
+        "team": "KC",
+        "proj": 8.2,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Chris Rodriguez Jr.",
+        "team": "JAX",
+        "proj": 7.7,
+        "actual": 0.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Keaton Mitchell",
+        "team": "LAC",
+        "proj": 6.1,
+        "actual": -0.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Treylon Burks",
+        "team": "WAS",
+        "proj": 5.5,
+        "actual": 4.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Keenan Allen",
+        "team": "SF",
+        "proj": 6.4,
+        "actual": 11.1,
+        "played": true,
+        "why": [
+         "new team (IND to SF)"
+        ]
+       },
+       {
+        "name": "Tyjae Spears",
+        "team": "TEN",
+        "proj": 5.6,
+        "actual": 3.8,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jacory Croskey-Merritt",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Colby Parkinson",
+        "team": "LAR",
+        "proj": 7.3,
+        "actual": 3.1,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Drew Lock",
+        "team": "SEA",
+        "proj": 15.9,
+        "actual": 13.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Rashod Bateman",
+        "team": "BAL",
+        "proj": 5.5,
+        "actual": 7.2,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tre' Harris",
+        "team": "LAC",
+        "proj": 7.6,
+        "actual": 13.6,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jonathon Brooks",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "David Njoku",
+        "team": "LAC",
+        "proj": 5.0,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Andrei Iosivas",
+        "team": "CIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Savion Williams",
+        "team": "GB",
+        "proj": 4.5,
+        "actual": 4.7,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Chris Bell",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Sione Vaki",
+        "team": "DET",
+        "proj": 4.2,
+        "actual": 5.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jake Ferguson",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Romeo Doubs",
+        "team": "NE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Marvin Harrison Jr.",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "TreVeyon Henderson",
+        "team": "NE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Roman Wilson",
+        "team": "PIT",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jauan Jennings",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Xavier Legette",
+        "team": "CAR",
+        "proj": 3.4,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Chris Brooks",
+        "team": "GB",
+        "proj": 5.4,
+        "actual": 1.3,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "KaVontae Turpin",
+        "team": "DAL",
+        "proj": 2.3,
+        "actual": 2.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyrone Tracy Jr.",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Tyrell Shavers",
+        "team": "BUF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged PUP"
+        ]
+       },
+       {
+        "name": "Tyler Goodson",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Zachariah Branch",
+        "team": "ATL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "CJ Donaldson",
+        "team": "NO",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Davis Allen",
+        "team": "LAR",
+        "proj": 3.5,
+        "actual": 8.9,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Pierre Strong Jr.",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Michael Pittman Jr.",
+        "team": "PIT",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Will Kacmarek",
+        "team": "MIA",
+        "proj": 1.1,
+        "actual": 1.5,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Emanuel Wilson",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jared Wayne",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Nicholas Singleton",
+        "team": "TEN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Mo Alie-Cox",
+        "team": "IND",
+        "proj": 0.9,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Brenen Thompson",
+        "team": "LAC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Luke Musgrave",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jonathan Mingo",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Dont'e Thornton Jr.",
+        "team": "LV",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Joshua Palmer",
+        "team": "BUF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Dyami Brown",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jaydn Ott",
+        "team": "KC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jelani Woods",
+        "team": "NYJ",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Colson Yankoff",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Elijah Sarratt",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Cameron Latu",
+        "team": "NE",
+        "proj": 0.5,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Justin Joly",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "James Conner",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Ja'Tavion Sanders",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Adam Randall",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Demond Claiborne",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Taylen Green",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Terry McLaurin",
+        "team": "WAS",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Malik Willis",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Tyquan Thornton",
+        "team": "KC",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Will Howard",
+        "team": "PIT",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Ty Simpson",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Chris Brazzell II",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "De'Zhaun Stribling",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "De'Von Achane",
+        "team": "MIA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Riley Leonard",
+        "team": "IND",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Jaylin Noel",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Christian Kirk",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Drew Allar",
+        "team": "PIT",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Davante Adams",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Puka Nacua",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Michael Wilson",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Trey Benson",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Terrance Ferguson",
+        "team": "LAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Kendrick Bourne",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Ricky Pearsall",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Raheim Sanders",
+        "team": "CLE",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Isaac Guerendo",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Elijah Arroyo",
+        "team": "SEA",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Lamar Jackson",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jaxson Dart",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Calvin Austin III",
+        "team": "NYG",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jayden Reed",
+        "team": "GB",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Brandon Aiyuk",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "AJ Dillon",
+        "team": "CAR",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Alec Pierce",
+        "team": "IND",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Skyy Moore",
+        "team": "GB",
+        "proj": 1.3,
+        "actual": 0,
+        "played": true,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jake Tonges",
+        "team": "SF",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Jayden Higgins",
+        "team": "HOU",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Kyler Murray",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged OUT"
+        ]
+       },
+       {
+        "name": "Isiah Pacheco",
+        "team": "DET",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Jeremiyah Love",
+        "team": "ARI",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Brian Robinson Jr.",
+        "team": "ATL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged IR"
+        ]
+       },
+       {
+        "name": "Tyler Huntley",
+        "team": "BAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Carson Wentz",
+        "team": "MIN",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       },
+       {
+        "name": "Malik Davis",
+        "team": "DAL",
+        "proj": 0.0,
+        "actual": 0.0,
+        "played": false,
+        "why": [
+         "tagged Q"
+        ]
+       }
+      ]
      }
     },
     "through_week": 11
    },
    "notes": [
+    "Week 10: 134 players were hurt, on a new team or newly starting going in (126 injury tags, 4 new teams, 5 new starting QBs). 0 we projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 4.9 pts for them vs 4.5 for everyone else.",
     "Week 9: 132 players were hurt, on a new team or newly starting going in (127 injury tags, 0 new teams, 6 new starting QBs). 0 we projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 3.7 pts for them vs 4.1 for everyone else.",
-    "How: who is in the group comes from the players file as it stood before the week's first kickoff; our projection is what the file showed just before his own game (one league's number per player, Sleeper leagues first, actual points in that league's scoring); \"played\" means Sleeper recorded a game for him. New team = a team other than in Sleeper's week-7 projections. Byes are left out. Under 10 players in a week the checks are info only."
+    "How: who is in the group comes from the players file as it stood before the week's first kickoff; our projection is what the file showed just before his own game (one league's number per player, Sleeper leagues first, actual points in that league's scoring); \"played\" means Sleeper recorded a game for him. New team = a team other than in Sleeper's week-8 projections. Byes are left out. Under 10 players in a week the checks are info only."
    ]
   },
   {
@@ -1762,8 +3138,8 @@
     {
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
-     "value": 8.4,
-     "n": 209,
+     "value": 8.1,
+     "n": 229,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -1773,18 +3149,18 @@
     {
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
-     "value": 0.57,
-     "n": 209,
+     "value": 0.59,
+     "n": 229,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
-     "status": "ok"
+     "status": "watch"
     },
     {
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
      "value": 0.82,
-     "n": 209,
+     "n": 229,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -1937,70 +3313,70 @@
      }
     },
     "prices": {
-     "n": 209,
-     "cov50": 0.57,
+     "n": 229,
+     "cov50": 0.59,
      "cov80": 0.82,
-     "est_mae": 8.4,
+     "est_mae": 8.1,
      "by": {
       "pos DEF": {
-       "n": 27,
-       "cov50": 0.63,
-       "cov80": 0.96,
-       "est_mae": 2.2
+       "n": 29,
+       "cov50": 0.66,
+       "cov80": 0.93,
+       "est_mae": 2.1
       },
       "pos K": {
-       "n": 22,
-       "cov50": 0.91,
-       "cov80": 0.95,
-       "est_mae": 3.3
+       "n": 24,
+       "cov50": 0.92,
+       "cov80": 0.96,
+       "est_mae": 3.2
       },
       "pos QB": {
-       "n": 25,
-       "cov50": 0.68,
-       "cov80": 0.84,
+       "n": 28,
+       "cov50": 0.71,
+       "cov80": 0.86,
        "est_mae": 9.8
       },
       "pos RB": {
-       "n": 38,
-       "cov50": 0.34,
-       "cov80": 0.66,
-       "est_mae": 17.4
+       "n": 43,
+       "cov50": 0.37,
+       "cov80": 0.7,
+       "est_mae": 16.0
       },
       "pos TE": {
-       "n": 28,
-       "cov50": 0.64,
-       "cov80": 0.89,
-       "est_mae": 5.4
+       "n": 30,
+       "cov50": 0.7,
+       "cov80": 0.9,
+       "est_mae": 5.3
       },
       "pos WR": {
-       "n": 69,
-       "cov50": 0.49,
-       "cov80": 0.77,
-       "est_mae": 8.2
+       "n": 75,
+       "cov50": 0.51,
+       "cov80": 0.75,
+       "est_mae": 8.0
       },
-      "legs 1-4": {
-       "n": 91,
+      "legs 1-5": {
+       "n": 113,
        "cov50": 0.53,
-       "cov80": 0.8,
-       "est_mae": 12.5
+       "cov80": 0.79,
+       "est_mae": 11.1
       },
-      "legs 5-9": {
-       "n": 118,
-       "cov50": 0.6,
-       "cov80": 0.83,
+      "legs 6-10": {
+       "n": 116,
+       "cov50": 0.66,
+       "cov80": 0.84,
        "est_mae": 5.2
       },
       "estimate $10+": {
-       "n": 55,
-       "cov50": 0.47,
-       "cov80": 0.8,
-       "est_mae": 17.6
+       "n": 62,
+       "cov50": 0.52,
+       "cov80": 0.79,
+       "est_mae": 16.6
       },
       "estimate under $10": {
-       "n": 154,
-       "cov50": 0.6,
-       "cov80": 0.82,
-       "est_mae": 5.1
+       "n": 167,
+       "cov50": 0.62,
+       "cov80": 0.83,
+       "est_mae": 5.0
       }
      }
     }
@@ -2018,16 +3394,16 @@
     {
      "id": "rec.would_win",
      "label": "Our recommended bids that would have won",
-     "value": 0.22,
-     "n": 9,
+     "value": 0.18,
+     "n": 11,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "rec.win_brier",
      "label": "Win-chance accuracy of our bids (Brier, 0 = perfect)",
-     "value": 0.17,
-     "n": 9,
+     "value": 0.154,
+     "n": 11,
      "unit": "",
      "baseline": 0.125,
      "baseline_set": "2026-11-04",
@@ -2037,8 +3413,8 @@
     {
      "id": "rec.est_mae",
      "label": "Likely-price miss vs what winners paid",
-     "value": 7.6,
-     "n": 7,
+     "value": 6.0,
+     "n": 17,
      "unit": "$",
      "baseline": 8.3,
      "baseline_set": "2026-11-04",
@@ -2048,8 +3424,8 @@
     {
      "id": "gd.dash_price_mae",
      "label": "Dashboard likely-price miss vs what winners paid",
-     "value": 10.2,
-     "n": 16,
+     "value": 8.5,
+     "n": 24,
      "unit": "$",
      "baseline": 12.4,
      "baseline_set": "2026-11-04",
@@ -2060,7 +3436,8 @@
    "details": {
     "runs": [
      8,
-     9
+     9,
+     10
     ],
     "winners_paid": {
      "1": [
@@ -2515,20 +3892,52 @@
      ],
      "10": [
       {
-       "player": "KC Concepcion Jr.",
+       "player": "Justin Jefferson",
        "pos": "WR",
-       "winner": "Aniasin1",
-       "paid": 1,
-       "bids": 2,
-       "second": 0
+       "winner": "damonhawk1",
+       "paid": 24,
+       "bids": 8,
+       "second": 21
       },
       {
-       "player": "Caleb Williams",
-       "pos": "QB",
+       "player": "Ja'Marr Chase",
+       "pos": "WR",
        "winner": "damonhawk1",
-       "paid": 1,
-       "bids": 2,
-       "second": 0
+       "paid": 24,
+       "bids": 8,
+       "second": 21
+      },
+      {
+       "player": "Bucky Irving",
+       "pos": "RB",
+       "winner": "JHED1979",
+       "paid": 21,
+       "bids": 7,
+       "second": 4
+      },
+      {
+       "player": "Jaylen Warren",
+       "pos": "RB",
+       "winner": "robert8063",
+       "paid": 4,
+       "bids": 7,
+       "second": 11
+      },
+      {
+       "player": "Malik Nabers",
+       "pos": "WR",
+       "winner": "robert8063",
+       "paid": 4,
+       "bids": 7,
+       "second": 4
+      },
+      {
+       "player": "Jonathan Taylor",
+       "pos": "RB",
+       "winner": "Swegs4",
+       "paid": 3,
+       "bids": 6,
+       "second": 11
       }
      ]
     },
@@ -2862,6 +4271,186 @@
       "paid": 0,
       "my_bid": null,
       "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Justin Jefferson",
+      "call": "Coin flip",
+      "bid": 2,
+      "win_chance": 0.312,
+      "est_price": 4,
+      "value": 4,
+      "would_win": false,
+      "top_rival_bid": 24,
+      "winner": "damonhawk1",
+      "paid": 24,
+      "my_bid": 2,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Ja'Marr Chase",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.028,
+      "est_price": 14,
+      "value": 3,
+      "would_win": false,
+      "top_rival_bid": 24,
+      "winner": "damonhawk1",
+      "paid": 24,
+      "my_bid": 3,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Bucky Irving",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.007,
+      "est_price": 14,
+      "value": 2,
+      "would_win": false,
+      "top_rival_bid": 21,
+      "winner": "JHED1979",
+      "paid": 21,
+      "my_bid": 1,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Jonathan Taylor",
+      "call": "Coin flip",
+      "bid": 1,
+      "win_chance": 0.258,
+      "est_price": 3,
+      "value": 2,
+      "would_win": false,
+      "top_rival_bid": 3,
+      "winner": "Swegs4",
+      "paid": 3,
+      "my_bid": 1,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Malik Nabers",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.067,
+      "est_price": 3,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": 4,
+      "winner": "robert8063",
+      "paid": 4,
+      "my_bid": 1,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Jaylen Warren",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.061,
+      "est_price": 3,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": 4,
+      "winner": "robert8063",
+      "paid": 4,
+      "my_bid": 1,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "D.J. Moore",
+      "call": "Long shot",
+      "bid": 0,
+      "win_chance": 0.118,
+      "est_price": 2,
+      "value": 1,
+      "would_win": false,
+      "top_rival_bid": 4,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 10,
+      "player": "Travis Kelce",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.34,
+      "est_price": 1,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 0,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 10,
+      "player": "Patrick Mahomes",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.149,
+      "est_price": 6,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": 0,
+      "winner": "CodyRust",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Tucker Kraft",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.503,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "PIT DEF",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.511,
+      "est_price": 0,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 10,
+      "player": "Aaron Jones",
+      "call": "Skip",
+      "bid": 0,
+      "win_chance": 0.494,
+      "est_price": 1,
+      "value": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
      }
     ],
     "dash_rows": [
@@ -3088,15 +4677,127 @@
       "paid": 0,
       "my_bid": null,
       "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Pittsburgh Steelers",
+      "call": "bid",
+      "bid": 2,
+      "est_price": 2,
+      "max": 3,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": "michaelbryan",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": true
+     },
+     {
+      "leg": 10,
+      "player": "Chicago Bears",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": 0,
+      "winner": "Aniasin1",
+      "paid": 0,
+      "my_bid": 0,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Ja'Marr Chase",
+      "call": "priced out",
+      "bid": 0,
+      "est_price": 38,
+      "max": 3,
+      "would_win": false,
+      "top_rival_bid": 24,
+      "winner": "damonhawk1",
+      "paid": 24,
+      "my_bid": 3,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Detroit Lions",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Carolina Panthers",
+      "call": "add free",
+      "bid": 0,
+      "est_price": 0,
+      "max": 0,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Buffalo Bills",
+      "call": "bid",
+      "bid": 2,
+      "est_price": 2,
+      "max": 3,
+      "would_win": true,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "David Montgomery",
+      "call": "priced out",
+      "bid": 0,
+      "est_price": 12,
+      "max": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
+     },
+     {
+      "leg": 10,
+      "player": "Zay Flowers",
+      "call": "priced out",
+      "bid": 0,
+      "est_price": 10,
+      "max": 1,
+      "would_win": false,
+      "top_rival_bid": null,
+      "winner": null,
+      "paid": 0,
+      "my_bid": null,
+      "i_won": false
      }
     ],
-    "would_win": 0.22,
-    "n_rec": 9,
-    "brier": 0.17,
-    "est_mae": 7.6,
-    "n_est": 7,
-    "dash_est_mae": 10.2,
-    "n_dash": 16,
+    "would_win": 0.18,
+    "n_rec": 11,
+    "brier": 0.154,
+    "est_mae": 6.0,
+    "n_est": 17,
+    "dash_est_mae": 8.5,
+    "n_dash": 24,
     "bargains_skipped": [
      {
       "leg": 8,
@@ -3201,32 +4902,32 @@
   {
    "id": "radar",
    "title": "NBA trend radar",
-   "status": "drift",
+   "status": "weak",
    "checks": [
     {
      "id": "radar.held",
      "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-     "value": 0.47,
-     "n": 15,
+     "value": 0.64,
+     "n": 14,
      "unit": "%",
      "baseline": 0.7,
      "baseline_set": "2026-11-10",
      "tolerance": 0.15,
-     "status": "drift"
+     "status": "ok"
     },
     {
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
      "value": 0.6,
-     "n": 63,
+     "n": 60,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": -2.64,
-     "n": 55,
+     "value": -2.24,
+     "n": 59,
      "unit": "z",
      "baseline": 0.34,
      "baseline_set": "2026-11-10",
@@ -3237,30 +4938,30 @@
    ],
    "details": {
     "mornings": 14,
-    "wire_mornings": 9,
-    "wire_value": -2.38,
+    "wire_mornings": 10,
+    "wire_value": -2.47,
     "shown": {
-     "n": 15,
-     "held": 7,
-     "held_rate": 0.47,
-     "value": -3.47,
-     "edge_n": 12,
-     "edge": -1.4,
-     "added_later": 4
+     "n": 14,
+     "held": 9,
+     "held_rate": 0.64,
+     "value": -3.09,
+     "edge_n": 14,
+     "edge": -0.63,
+     "added_later": 6
     },
     "flags": {
-     "n": 63,
-     "held": 38,
+     "n": 60,
+     "held": 36,
      "held_rate": 0.6,
-     "value": -4.51,
-     "edge_n": 55,
-     "edge": -2.64,
-     "added_later": 13
+     "value": -4.71,
+     "edge_n": 59,
+     "edge": -2.24,
+     "added_later": 15
     },
-    "every_value": -5.65
+    "every_value": -5.55
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 9 mornings (state/nba_owned.json starts Nov 3); shown flags alone -1.4 (n=12)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 10 mornings (state/nba_owned.json starts Nov 3); shown flags alone -0.63 (n=14)."
    ]
   },
   {
@@ -5421,8 +7122,8 @@
     {
      "id": "picks.card_ats",
      "label": "Posted card picks that won against the spread",
-     "value": 0.678,
-     "n": 59,
+     "value": 0.655,
+     "n": 87,
      "unit": "%",
      "baseline": 0.733,
      "baseline_set": "2026-11-04",
@@ -5441,21 +7142,22 @@
     "graded_weeks": [
      8,
      9,
-     10
+     10,
+     11
     ],
     "card": {
-     "w": 40,
-     "l": 19,
+     "w": 57,
+     "l": 30,
      "p": 0
     },
-    "card_ats": 0.678,
-    "card_n": 59,
+    "card_ats": 0.655,
+    "card_n": 87,
     "entered": {
-     "w": 50,
-     "l": 38,
+     "w": 67,
+     "l": 49,
      "p": 0
     },
-    "entered_rate": 0.568
+    "entered_rate": 0.578
    },
    "notes": [
     "Backtest 2026_w1-8.json is re-run by the laptop (needs the CFBD key); this job reads it."
