@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T15:02:20Z",
+ "updated": "2026-11-18T16:02:19Z",
  "week": 11,
  "leagues": {
   "Kosmonauts": {
@@ -229,9 +229,9 @@
     ],
     "moves": [],
     "adds": [
-     "Add Brenton Strange (TE, JAX, 8.0/gm, value 421) for Emmett Johnson (RB, your RB4, 6.8/gm): fills in at TE in week 13, +7.6 pts over the next 4 weeks",
-     "Add Justin Herbert (QB, LAC, 17.9/gm, value 215) for J.J. McCarthy (QB, your QB2, 16.6/gm): starts at QB over Matthew Stafford, lineup +1.2/gm, +2.3 pts over the next 4 weeks",
-     "Add Geno Smith (QB, NYJ, 18.7/gm, value 74) for Matthew Stafford (QB, your QB2, 16.7/gm): starts at QB over Justin Herbert, lineup +0.8/gm, +2.3 pts over the next 4 weeks"
+     "Add Brenton Strange (TE, JAX, 8.0/gm, value 408) for Emmett Johnson (RB, your RB4, 6.8/gm): fills in at TE in week 13, +7.6 pts over the next 4 weeks",
+     "Add Justin Herbert (QB, LAC, 17.9/gm, value 239) for J.J. McCarthy (QB, your QB2, 16.5/gm): starts at QB over Matthew Stafford, lineup +1.2/gm, +2.3 pts over the next 4 weeks",
+     "Add Geno Smith (QB, NYJ, 18.7/gm, value 64) for Matthew Stafford (QB, your QB2, 16.7/gm): starts at QB over Justin Herbert, lineup +0.8/gm, +2.6 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -267,7 +267,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    }
   },
@@ -695,8 +695,8 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Corey Kiner (RB, NE, 6.6/gm, value 959) for Jaylen Wright (RB, your RB7, 2.5/gm): better backup RB, +0.2 pts over the next 4 weeks. Bid $1\u20133",
-     "Add Reggie Virgil (WR, ARI, 4.8/gm, value 683) for Tutu Atwell (WR, your WR9, 4.1/gm): better backup WR. Bid $1\u20133"
+     "Add Corey Kiner (RB, NE, 6.6/gm, value 948) for Jaylen Wright (RB, your RB7, 2.5/gm): better backup RB, +0.1 pts over the next 4 weeks. Bid $1\u20133",
+     "Add Reggie Virgil (WR, ARI, 4.8/gm, value 706) for Tutu Atwell (WR, your WR9, 4.1/gm): better backup WR. Bid $1\u20133"
     ],
     "trades": {
      "lines": [
@@ -744,7 +744,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    }
   },
@@ -1014,11 +1014,27 @@
     ],
     "trades": {
      "lines": [
-      "Weak spot: WR (DJ Moore 11.1/gm, 6th of 8)",
-      "Weak spot: TE (Travis Kelce 10.1/gm, 6th of 8)",
+      "Weak spot: WR (DJ Moore 11.2/gm, 6th of 8)",
+      "Weak spot: TE (Travis Kelce 10.0/gm, 6th of 8)",
       "Trade deadline: week 11."
      ],
      "offers": [
+      {
+       "team": "Aniasin1",
+       "give": [
+        "Breece Hall (RB)",
+        "Travis Kelce (TE)"
+       ],
+       "get": [
+        "Isaiah Likely (TE)"
+       ],
+       "give_value": 4130,
+       "get_value": 3760,
+       "my_gain": 0.5,
+       "their_gain": 2.1,
+       "cut": false,
+       "why": "Isaiah Likely starts for you; Breece Hall and Travis Kelce start for them over Rico Dowdle (7.2/gm)"
+      },
       {
        "team": "Off with his head (damonhawk1)",
        "give": [
@@ -1028,8 +1044,8 @@
         "Cam Skattebo (RB)",
         "Garrett Wilson (WR)"
        ],
-       "give_value": 5884,
-       "get_value": 5730,
+       "give_value": 5829,
+       "get_value": 5773,
        "my_gain": 0.8,
        "their_gain": 0.6,
        "cut": true,
@@ -1072,7 +1088,7 @@
      ],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": [],
     "guillotine": {
      "week": 11,
@@ -1190,15 +1206,15 @@
       },
       {
        "name": "robert8063",
-       "proj": 127.8,
-       "cut": 0.189,
+       "proj": 127.7,
+       "cut": 0.19,
        "faab": 15,
        "bold": 0.74,
        "me": false
       },
       {
        "name": "CodyRust",
-       "proj": 136.0,
+       "proj": 135.9,
        "cut": 0.11,
        "faab": 0,
        "bold": 0.75,
@@ -1206,16 +1222,16 @@
       },
       {
        "name": "GoodFellas (GoodFellas77)",
-       "proj": 139.7,
-       "cut": 0.092,
+       "proj": 139.6,
+       "cut": 0.093,
        "faab": 16,
        "bold": 0.88,
        "me": false
       },
       {
        "name": "Swegs4",
-       "proj": 149.0,
-       "cut": 0.051,
+       "proj": 149.2,
+       "cut": 0.05,
        "faab": 0,
        "bold": 1.0,
        "me": false
@@ -1782,7 +1798,7 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Malik Washington (WR, MIA, 9.9/gm, value 1,198) for Treylon Burks (WR, your WR7, 6.8/gm): fills in at WR in weeks 11, 14, +2.1 pts over the next 4 weeks"
+     "Add Malik Washington (WR, MIA, 9.9/gm, value 1,196) for Treylon Burks (WR, your WR7, 6.8/gm): fills in at WR in weeks 11, 14, +2.2 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
@@ -1800,12 +1816,12 @@
        "get": [
         "Nico Collins (WR)"
        ],
-       "give_value": 4505,
-       "get_value": 4112,
-       "my_gain": 3.3,
-       "their_gain": 0.7,
+       "give_value": 4544,
+       "get_value": 4159,
+       "my_gain": 3.4,
+       "their_gain": 0.5,
        "cut": false,
-       "why": "Nico Collins starts for you; Tyler Shough and Chig Okonkwo start for them over Adonai Mitchell (8.3/gm)"
+       "why": "Nico Collins starts for you; Tyler Shough and Chig Okonkwo start for them over Mike Gesicki (8.4/gm)"
       },
       {
        "team": "The MONSTARS",
@@ -1816,8 +1832,8 @@
        "get": [
         "Bhayshul Tuten (RB)"
        ],
-       "give_value": 3785,
-       "get_value": 4052,
+       "give_value": 3779,
+       "get_value": 4055,
        "my_gain": 1.5,
        "their_gain": 1.4,
        "cut": false,
@@ -1832,10 +1848,10 @@
        "get": [
         "Bryce Young (QB)"
        ],
-       "give_value": 3319,
-       "get_value": 3209,
-       "my_gain": 0.9,
-       "their_gain": 1.0,
+       "give_value": 3362,
+       "get_value": 3188,
+       "my_gain": 1.1,
+       "their_gain": 0.8,
        "cut": false,
        "why": "Bryce Young starts for you; Tre Tucker starts for them over Rashid Shaheed (6.3/gm)"
       }
@@ -1888,7 +1904,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    }
   },
@@ -2195,12 +2211,12 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Dallas Goedert (TE, PHI, 10.5/gm, value 477) for Emmett Johnson (RB, your RB7, 7.7/gm): starts at TE over Dalton Kincaid, lineup +0.6/gm, +4.3 pts over the next 4 weeks"
+     "Add Dallas Goedert (TE, PHI, 10.5/gm, value 499) for Emmett Johnson (RB, your RB7, 7.7/gm): starts at TE over Dalton Kincaid, lineup +0.6/gm, +4.3 pts over the next 4 weeks"
     ],
     "trades": {
      "lines": [
       "Weak spot: TE (Dalton Kincaid 9.9/gm, 8th of 8)",
-      "Surplus: Rhamondre Stevenson (RB), 12.9/gm beyond your rest-of-season starters, would start for 5 of 7 teams",
+      "Surplus: Rhamondre Stevenson (RB), 12.8/gm beyond your rest-of-season starters, would start for 5 of 7 teams",
       "Surplus: Ollie Gordon II (RB), 12.6/gm beyond your rest-of-season starters, would start for 5 of 7 teams",
       "Trade deadline: Dec 2."
      ],
@@ -2208,33 +2224,34 @@
       {
        "team": "Jonesing for more",
        "give": [
-        "Chase Brown (RB)"
-       ],
-       "get": [
-        "George Kittle (TE)"
-       ],
-       "give_value": 3168,
-       "get_value": 3511,
-       "my_gain": 1.8,
-       "their_gain": 3.4,
-       "cut": false,
-       "why": "George Kittle starts for you; Chase Brown starts for them over Tyler Allgeier (10.0/gm)"
-      },
-      {
-       "team": "Jonesing for more",
-       "give": [
-        "David Montgomery (RB)",
-        "Emmett Johnson (RB)"
+        "Dalton Kincaid (TE)",
+        "David Montgomery (RB)"
        ],
        "get": [
         "Travis Kelce (TE)"
        ],
-       "give_value": 1641,
-       "get_value": 1542,
+       "give_value": 1638,
+       "get_value": 1490,
        "my_gain": 2.3,
        "their_gain": 1.2,
        "cut": false,
        "why": "Travis Kelce starts for you; David Montgomery starts for them over Tyler Allgeier (10.0/gm)"
+      },
+      {
+       "team": "Jonesing for more",
+       "give": [
+        "Chase Brown (RB)",
+        "Jaylen Waddle (WR)"
+       ],
+       "get": [
+        "George Kittle (TE)"
+       ],
+       "give_value": 3900,
+       "get_value": 3572,
+       "my_gain": 1.6,
+       "their_gain": 3.5,
+       "cut": false,
+       "why": "George Kittle starts for you; Chase Brown starts for them over Tyler Allgeier (10.0/gm)"
       },
       {
        "team": "Last Resort",
@@ -2244,10 +2261,10 @@
        "get": [
         "Brock Bowers (TE)"
        ],
-       "give_value": 6224,
-       "get_value": 6553,
+       "give_value": 6388,
+       "get_value": 6299,
        "my_gain": 2.4,
-       "their_gain": 0.6,
+       "their_gain": 0.5,
        "cut": false,
        "why": "Brock Bowers starts for you; James Cook III starts for them"
       }
@@ -2284,7 +2301,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    }
   },
@@ -2555,13 +2572,13 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Aaron Rodgers (QB, PIT, 15.0/gm, value 296) for Audric Estime (RB, your RB6, 3.3/gm): better backup QB, +3.6 pts over the next 4 weeks",
-     "Add Chris Godwin Jr. (WR, TB, 8.7/gm, value 60) for RJ Harvey (RB, your RB5, 4.1/gm): better backup WR, +3.2 pts over the next 4 weeks",
+     "Add Aaron Rodgers (QB, PIT, 14.9/gm, value 266) for Audric Estime (RB, your RB6, 3.3/gm): better backup QB, +3.6 pts over the next 4 weeks",
+     "Add Chris Godwin Jr. (WR, TB, 8.7/gm, value 63) for RJ Harvey (RB, your RB5, 4.1/gm): better backup WR, +3.2 pts over the next 4 weeks",
      "Add Cameron Dicker (K, LAC, 10.2 proj this week), drop Ryan Fitzgerald (8.1 proj)"
     ],
     "trades": {
      "lines": [
-      "Surplus: KC Concepcion (WR), 10.9/gm beyond your rest-of-season starters, would start for 7 of 11 teams",
+      "Surplus: KC Concepcion (WR), 11.0/gm beyond your rest-of-season starters, would start for 7 of 11 teams",
       "Trade deadline: Dec 2."
      ],
      "offers": [
@@ -2574,10 +2591,10 @@
        "get": [
         "Ollie Gordon II (RB)"
        ],
-       "give_value": 1805,
-       "get_value": 1717,
+       "give_value": 1799,
+       "get_value": 1638,
        "my_gain": 1.4,
-       "their_gain": 1.2,
+       "their_gain": 1.3,
        "cut": false,
        "why": "Ollie Gordon II starts for you; KC Concepcion starts for them over Jakobi Meyers (9.6/gm)"
       },
@@ -2590,27 +2607,28 @@
        "get": [
         "Brock Bowers (TE)"
        ],
-       "give_value": 5962,
-       "get_value": 6272,
-       "my_gain": 1.1,
-       "their_gain": 1.5,
+       "give_value": 5691,
+       "get_value": 5969,
+       "my_gain": 1.2,
+       "their_gain": 1.4,
        "cut": false,
        "why": "Brock Bowers starts for you; Jaylen Warren and Travis Kelce start for them over Jadarian Price (7.9/gm)"
       },
       {
-       "team": "Likley a Swift Bateman",
+       "team": "Henry \"not charles\" Barkley",
        "give": [
-        "Ja'Marr Chase (WR)"
+        "Garrett Wilson (WR)"
        ],
        "get": [
-        "Christian McCaffrey (RB)"
+        "Saquon Barkley (RB)",
+        "Jakobi Meyers (WR)"
        ],
-       "give_value": 9283,
-       "get_value": 9367,
-       "my_gain": 0.5,
-       "their_gain": 0.6,
-       "cut": false,
-       "why": "Christian McCaffrey starts for you; Ja'Marr Chase starts for them over Emeka Egbuka (10.2/gm)"
+       "give_value": 3256,
+       "get_value": 3099,
+       "my_gain": 0.7,
+       "their_gain": 2.2,
+       "cut": true,
+       "why": "Saquon Barkley starts for you; Garrett Wilson starts for them"
       }
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
@@ -2644,7 +2662,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    }
   },
@@ -2914,21 +2932,21 @@
      "kickoff": null,
      "started": false,
      "proj": 0.0,
-     "status": "OUT",
-     "why": "ESPN: OUT",
+     "status": "Q",
+     "why": "ESPN: DAY_TO_DAY",
      "flags": [
       "NO GAME",
-      "OUT"
+      "Q"
      ],
      "cv": {
       "v": -3.96,
       "rk": 175,
-      "wk": 0.0,
+      "wk": -0.3,
       "src": "14 g"
      },
      "news": {
       "note": "Kuminga (shoulder) is out for Tuesday's game against Portland.",
-      "at": "2026-11-17T19:03:00Z",
+      "at": "2026-11-18T15:04:00Z",
       "url": "https://www.espn.com/nba/player/_/id/4433247/jonathan-kuminga"
      }
     },
@@ -3028,7 +3046,7 @@
      "Start Matisse Thybulle (LAL vs UTAH, Wed 9:00p) over Sandro Mamukelashvili at F: +3.0 value/g"
     ],
     "adds": [
-     "Drop Sandro Mamukelashvili (value -4.2/g, 24 min/g, 27), add Nolan Traore (PG, BKN, value -2.5/g, 23 min/g, 20, 11% rostered): +1.8/g for the rest of the season, 7 years younger (helps STL, PTS, AST)."
+     "Leave Walker Kessler in IR for now: moving him out takes a drop with your roster full, and every player you could drop has a real role. No pickups today (ESPN blocks adds and drops until he moves); take the zero."
     ],
     "trades": null,
     "notes": [
@@ -3041,14 +3059,14 @@
        "me": ".788",
        "opp": ".844",
        "now": "L",
-       "outlook": "close"
+       "outlook": "lose"
       },
       {
        "cat": "REB",
        "me": "84",
        "opp": "69",
        "now": "W",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "PTS",
@@ -3062,7 +3080,7 @@
        "me": "10",
        "opp": "9",
        "now": "W",
-       "outlook": "close"
+       "outlook": "win"
       },
       {
        "cat": "3PM",
@@ -3076,7 +3094,7 @@
        "me": "12",
        "opp": "14",
        "now": "L",
-       "outlook": "lose"
+       "outlook": "close"
       },
       {
        "cat": "AST",
@@ -3094,26 +3112,27 @@
       }
      ],
      "now": "5-3-0",
-     "proj": "1-3",
+     "proj": "2-2",
      "close": 4,
      "games_left": [
-      37,
+      39,
       40
      ],
      "chase": [
       "AST is close. Keep in the lineup: Josh Giddey (3 games, 8.5/g) and Franz Wagner (3 games, 8.3/g).",
-      "BLK is close. Keep in the lineup: Jarrett Allen (2 games, 1.3/g) and Shai Gilgeous-Alexander (3 games, 0.9/g).",
-      "FT% is close. Keep in the lineup: Devin Booker (2 games, .941 on 6.5 FTA/g) and Shai Gilgeous-Alexander (3 games, .865 on 7.9 FTA/g)."
+      "3PM is close. Keep in the lineup: Brandin Podziemski (3 games, 2.8/g) and Shai Gilgeous-Alexander (3 games, 2.4/g).",
+      "STL is close. Keep in the lineup: Franz Wagner (3 games, 1.2/g) and Brandin Podziemski (3 games, 1.2/g)."
      ],
      "adds": [
-      "For BLK: Mo Bamba (C, UTAH), 3 games left, 1.7/g",
-      "For FT%: Jordan Poole (PG/SG, NO), 3 games left, .888 on 5.0 FTA/g"
+      "For AST: Jamal Shead (PG, TOR), 2 games left, 6.5/g",
+      "For 3PM: De'Anthony Melton (PG/SG, GS), 3 games left, 2.2/g",
+      "For STL: Naji Marshall (SF/PF, DAL), 3 games left, 1.3/g"
      ]
     },
     "radar": {
      "rising": [
       {
-       "text": "Mikal Bridges (SF, NY), on your bench, keep him on the bench for now (no game today; his season value -5.2/g doesn't beat your weakest starter, Sandro Mamukelashvili, at -4.2/g, by 1+): minutes 24 \u2192 30 in his last 3 games (Nov 13\u2013Nov 17) vs 11 before, usage 15% \u2192 19%; no teammate's injury behind it and it hasn't lasted 4 straight games yet, so this may fade. Fits STL (losing). 3 games left this week, 3 next week (back-to-back Sat\u2013Sun).",
+       "text": "Mikal Bridges (SF, NY), on your bench, keep him on the bench for now (no game today; his season value -5.2/g doesn't beat your weakest starter, Sandro Mamukelashvili, at -4.2/g, by 1+): minutes 24 \u2192 30 in his last 3 games (Nov 13\u2013Nov 17) vs 11 before, usage 15% \u2192 19%; no teammate's injury behind it and it hasn't lasted 4 straight games yet, so this may fade. Fits STL (close). 3 games left this week, 3 next week (back-to-back Sat\u2013Sun).",
        "short": "Mikal Bridges (NY, your bench): minutes 24 \u2192 30, usage 15% \u2192 19%; fits STL; may fade (ESPN game logs through Nov 17)",
        "links": [
         [
@@ -3131,28 +3150,7 @@
        "verdict": "keep him on the bench for now (no game today; his season value -5.2/g doesn't beat your weakest starter, Sandro Mamukelashvili, at -4.2/g, by 1+)"
       },
       {
-       "text": "Mo Bamba (C, UTAH), free agent, rostered 20% (+16.8% in 3 days): minutes 12 \u2192 29 in his last 3 games (Nov 13\u2013Nov 17) vs 12 before, played 8 of them, usage 13% \u2192 16%, started 2 of 3 (0 of 12 before), since Lauri Markkanen went out [ESPN Nov 11: Out, Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be\u2026]. Fits BLK (close), REB (losing). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
-       "short": "Mo Bamba (UTAH, FA 20%): minutes 12 \u2192 29, usage 13% \u2192 16%, now starting; fits BLK, REB (ESPN game logs through Nov 17)",
-       "links": [
-        [
-         "ESPN game log through Nov 17",
-         "https://www.espn.com/nba/player/gamelog/_/id/4277919"
-        ],
-        [
-         "ESPN Nov 11",
-         "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
-        ]
-       ],
-       "where": "fa",
-       "push": true,
-       "id": "4277919",
-       "name": "Mo Bamba",
-       "fade": false,
-       "fade_why": null,
-       "fade_clause": ""
-      },
-      {
-       "text": "Jordan Poole (SG, NO), free agent, rostered 11% (+0.1% in 3 days): minutes 10 \u2192 25 in his last 3 games (Nov 13\u2013Nov 16) vs 12 before, played 6 of them, since Trey Murphy III went out [ESPN Nov 17: Out, Murphy (knee) has been ruled out for Wednesday's game against Detroit.]. Fits FT% (close), AST (close). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
+       "text": "Jordan Poole (SG, NO), free agent, rostered 11% (+0.1% in 3 days): minutes 10 \u2192 25 in his last 3 games (Nov 13\u2013Nov 16) vs 12 before, played 6 of them, since Trey Murphy III went out [ESPN Nov 17: Out, Murphy (knee) has been ruled out for Wednesday's game against Detroit.]. Fits FT% (losing), AST (close). 3 games left this week, 3 next week (back-to-back Fri\u2013Sat).",
        "short": "Jordan Poole (NO, FA 11%): minutes 10 \u2192 25; fits FT%, AST (ESPN game logs through Nov 16)",
        "links": [
         [
@@ -3173,7 +3171,28 @@
        "fade_clause": ""
       },
       {
-       "text": "Jamal Shead (PG, TOR), free agent, rostered 8% (+0.2% in 3 days): minutes 24 \u2192 23 in his last 3 games (Nov 12\u2013Nov 17) vs 11 before, usage 16% \u2192 23%, since Kawhi Leonard went out [ESPN Nov 17: Out, Leonard (knee) has progressed in his strength and conditioning program but will miss at\u2026]. Fits AST (close), STL (losing). 2 games left this week, 3 next week.",
+       "text": "Mo Bamba (C, UTAH), free agent, rostered 21% (+17.0% in 3 days): minutes 12 \u2192 29 in his last 3 games (Nov 13\u2013Nov 17) vs 12 before, played 8 of them, usage 13% \u2192 16%, started 2 of 3 (0 of 12 before), since Lauri Markkanen went out [ESPN Nov 11: Out, Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be\u2026]. Fits REB (close). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "short": "Mo Bamba (UTAH, FA 21%): minutes 12 \u2192 29, usage 13% \u2192 16%, now starting; fits REB (ESPN game logs through Nov 17)",
+       "links": [
+        [
+         "ESPN game log through Nov 17",
+         "https://www.espn.com/nba/player/gamelog/_/id/4277919"
+        ],
+        [
+         "ESPN Nov 11",
+         "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+        ]
+       ],
+       "where": "fa",
+       "push": true,
+       "id": "4277919",
+       "name": "Mo Bamba",
+       "fade": false,
+       "fade_why": null,
+       "fade_clause": ""
+      },
+      {
+       "text": "Jamal Shead (PG, TOR), free agent, rostered 8% (+0.1% in 3 days): minutes 24 \u2192 23 in his last 3 games (Nov 12\u2013Nov 17) vs 11 before, usage 16% \u2192 23%, since Kawhi Leonard went out [ESPN Nov 17: Out, Leonard (knee) has progressed in his strength and conditioning program but will miss at\u2026]. Fits AST (close), STL (close). 2 games left this week, 3 next week.",
        "short": "Jamal Shead (TOR, FA 8%): minutes 24 \u2192 23, usage 16% \u2192 23%; fits AST, STL (ESPN game logs through Nov 17)",
        "links": [
         [
@@ -3194,22 +3213,22 @@
        "fade_clause": ""
       },
       {
-       "text": "Kelly Oubre Jr. (SF, IND), free agent, rostered 8% (+1.3% in 3 days): minutes 18 \u2192 31 in his last 3 games (Nov 11\u2013Nov 15) vs 11 before, played 9 of them, usage 18% \u2192 21%, since Tyrese Haliburton went out [ESPN Nov 17: Out, Head coach Rick Carlisle said Tuesday that Haliburton (hamstring) is \"getting there,\" but\u2026]. Fits BLK (close). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
-       "short": "Kelly Oubre Jr. (IND, FA 8%): minutes 18 \u2192 31, usage 18% \u2192 21%; fits BLK (ESPN game logs through Nov 15)",
+       "text": "Josh Okogie (SF, UTAH), free agent, rostered 0%: minutes 17 \u2192 24 in his last 3 games (Nov 13\u2013Nov 17) vs 12 before, played 11 of them, usage 12% \u2192 14%, since Lauri Markkanen went out [ESPN Nov 11: Out, Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be\u2026]. Fits FT% (losing). 3 games left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "short": "Josh Okogie (UTAH, FA 0%): minutes 17 \u2192 24, usage 12% \u2192 14%; fits FT% (ESPN game logs through Nov 17)",
        "links": [
         [
-         "ESPN game log through Nov 15",
-         "https://www.espn.com/nba/player/gamelog/_/id/3133603"
+         "ESPN game log through Nov 17",
+         "https://www.espn.com/nba/player/gamelog/_/id/4065663"
         ],
         [
-         "ESPN Nov 17",
-         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+         "ESPN Nov 11",
+         "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
         ]
        ],
        "where": "fa",
        "push": true,
-       "id": "3133603",
-       "name": "Kelly Oubre Jr.",
+       "id": "4065663",
+       "name": "Josh Okogie",
        "fade": false,
        "fade_why": null,
        "fade_clause": ""
@@ -3217,15 +3236,6 @@
      ],
      "shrinking": [],
      "injuries": [
-      {
-       "text": "Austin Reaves (LAL) is out [ESPN Nov 16: Out, Reaves (heel) is out for Tuesday's game against the Hornets, Dave McMenamin of ESPN.com\u2026]. In 3 games without him: Jake LaRavia (FA) 22 \u2192 29 min, usage 11% \u2192 13%.",
-       "links": [
-        [
-         "ESPN Nov 16",
-         "https://www.espn.com/nba/player/_/id/4066457/austin-reaves"
-        ]
-       ]
-      },
       {
        "text": "Jaylen Brown (PHI) is out [ESPN Nov 17: Out, Brown is out for Wednesday's game against the Magic with a left hamstring strain.]. In 1 game without him: Anfernee Simons (FA) 21 \u2192 31 min, usage 18% \u2192 21%.",
        "links": [
@@ -3252,17 +3262,25 @@
          "https://www.espn.com/nba/player/_/id/4432573/paolo-banchero"
         ]
        ]
+      },
+      {
+       "text": "Tyrese Haliburton (IND) is out [ESPN Nov 17: Out, Head coach Rick Carlisle said Tuesday that Haliburton (hamstring) is \"getting there,\" but\u2026]. In 10 games without him: Aaron Nesmith (FA) 15 \u2192 26 min, usage 24% \u2192 20%; Kobe Brown (FA) 0 \u2192 8 min.",
+       "links": [
+        [
+         "ESPN Nov 17",
+         "https://www.espn.com/nba/player/_/id/4396993/tyrese-haliburton"
+        ]
+       ]
       }
      ],
      "keep": [],
      "shrink_ids": [],
      "need": [
-      "FT% (close)",
-      "REB (losing)",
+      "FT% (losing)",
+      "REB (close)",
       "PTS (losing)",
-      "BLK (close)",
       "3PM (close)",
-      "STL (losing)",
+      "STL (close)",
       "AST (close)"
      ],
      "basis": "ESPN game logs through Nov 17; last 3 games vs his earlier games this season (a missed game counts as 0 min); usage % from ESPN box scores; injuries from ESPN's injury report. Ideas only: nothing is sent."
@@ -3386,14 +3404,14 @@
       ]
      },
      "mine": {
-      "now": 37,
+      "now": 39,
       "opp": 40,
       "next": 47
      },
      "streamers": [
+      "Collin Gillespie (PG, PHX, 35% rostered): 2 games this week (We/Fr), +6.3 this week, helps STL, 3PM",
       "De'Anthony Melton (PG/SG, GS, 10% rostered): 3 games this week (We/Th/Su, back-to-back), +5.5 this week, helps 3PM",
-      "Mo Bamba (C, UTAH, 20% rostered): 3 games this week (We/Fr/Su), +4.1 this week, helps BLK, FG%",
-      "Jordan Poole (PG/SG, NO, 11% rostered): 3 games this week (We/Fr/Sa, back-to-back), +3.1 this week, helps FT%"
+      "Jordan Goodwin (PG/SG, PHX, 3% rostered): 2 games this week (We/Fr), +4.7 this week, helps STL"
      ],
      "basis": "Games from ESPN's NBA schedule; yours and theirs count a game only when a starting spot is free that day. Streamers: free agents worth the most over those games, on the categories you need this week (the Players page \"Wk\", need-weighted)."
     },
@@ -3410,10 +3428,10 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (8:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:00am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   },
   "Ball is Life": {
    "name": "Ball is Life",
@@ -3518,7 +3536,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "Questionable (right elbow inflammation / soreness) per NBA injury report, 8:45am",
+     "why": "Questionable (right elbow inflammation / soreness) per NBA injury report, 10:00am",
      "flags": [
       "Q"
      ],
@@ -3564,7 +3582,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "Questionable (low back contusion) per NBA injury report, 8:45am",
+     "why": "Questionable (low back contusion) per NBA injury report, 10:00am",
      "flags": [
       "Q"
      ],
@@ -3697,20 +3715,20 @@
      "kickoff": "2026-11-19T03:00:00Z",
      "started": false,
      "proj": 0.0,
-     "status": "OUT",
-     "why": "ESPN: OUT",
+     "status": "Q",
+     "why": "ESPN: OUT, but ESPN says Day-To-Day: unconfirmed",
      "flags": [
-      "OUT"
+      "Q"
      ],
      "cv": {
       "v": -1.88,
       "rk": 119,
-      "wk": 0.0,
+      "wk": 5.5,
       "src": "12 g"
      },
      "news": {
       "note": "Hayes (knee) has been ruled out for Tuesday's game against the Clippers.",
-      "at": "2026-11-17T01:08:00Z",
+      "at": "2026-11-18T14:59:00Z",
       "url": "https://www.espn.com/nba/player/_/id/4397077/jaxson-hayes"
      }
     },
@@ -3748,8 +3766,8 @@
     ],
     "trades": null,
     "notes": [
-     "Draymond Green (UT) is questionable (right elbow inflammation / soreness) per NBA injury report, 8:45am, plays Wed 7:00p [ESPN, Nov 17 11:49p: Green is questionable for Wednesday's game in Dallas due to inflammation in his right elbow.]",
-     "Peyton Watson (SF) is questionable (low back contusion) per NBA injury report, 8:45am, plays Wed 6:00p [ESPN, Nov 17 4:13p: Watson (back) is listed as questionable for Wednesday's game against Memphis.]",
+     "Draymond Green (UT) is questionable (right elbow inflammation / soreness) per NBA injury report, 10:00am, plays Wed 7:00p [ESPN, Nov 17 11:49p: Green is questionable for Wednesday's game in Dallas due to inflammation in his right elbow.]",
+     "Peyton Watson (SF) is questionable (low back contusion) per NBA injury report, 10:00am, plays Wed 6:00p [ESPN, Nov 17 4:13p: Watson (back) is listed as questionable for Wednesday's game against Memphis.]",
      "7 of 9 starters play tonight"
     ],
     "cats": {
@@ -4095,10 +4113,10 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Wed 9:02a",
+    "built": "Wed 10:02a",
     "skipped": []
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (8:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:00am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   }
  }
 }
