@@ -47,6 +47,16 @@ class SavedRoster(unittest.TestCase):
         with self.assertRaises(ValueError):
             parse("BN|Somebody|7|MIA|RB|\n")  # no starters → page layout changed
 
+    def test_empty_qb_slot_is_saved_and_flagged(self):
+        text = TEXT.replace("QB|Matthew Stafford|9265|LAR|QB|\n", "") + "BN|Matthew Stafford|9265|LAR|QB|\n"
+        players = parse(text)
+        self.assertEqual((players[0]["slot"], players[0]["yahoo_id"]), ("QB", ""))
+        lg = SavedYahooLeague(Ctx(), {"captured": "2026-10-25T13:00:00Z", "players": players})
+        self.assertTrue(lg.starters[0]["empty"])
+        self.assertEqual(lg.starters[0]["name"], "Empty")
+        with self.assertRaises(ValueError):   # no QB anywhere on the roster → still a layout problem
+            parse(text.replace("BN|Matthew Stafford|9265|LAR|QB|\n", ""))
+
     def test_name_key(self):
         self.assertEqual(name_key("Travis Etienne Jr."), "travis etienne")
         self.assertEqual(name_key("Amon-Ra St. Brown"), "amon ra st brown")

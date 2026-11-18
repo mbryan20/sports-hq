@@ -38,8 +38,13 @@ def parse(text):
     """The roster lines (FA lines are skipped)."""
     players = [p for p in _lines(text) if p["slot"] != "FA"]
     starters = [p for p in players if p["slot"] not in ("BN", "IR", "IR+")]
-    if len(starters) < 6 or not any(p["slot"] == "QB" for p in starters):
+    if len(starters) < 6 or not any(p["pos"] == "QB" for p in players):
         raise ValueError(f"only {len(starters)} starters parsed; page layout may have changed")
+    if not any(p["slot"] == "QB" for p in starters):
+        # Nov 18: the QB slot really was empty (Geno dropped, QBs left on the bench). The snippet skips empty
+        # slots, so save it as an empty starter: the lineup guard then flags "empty slot" with the bench fix.
+        players.insert(0, {"slot": "QB", "name": "", "yahoo_id": "", "key": None, "team": "", "pos": "QB",
+                           "eligible": ["QB"], "status": None})
     return players
 
 
