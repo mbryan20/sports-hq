@@ -159,6 +159,7 @@ class SleeperLeague:
         self.key, self.name, self.week, self.format = f"sleeper:{lg['league_id']}", name, ctx.week, fmt
         self.ctx, self.league_name = ctx, lg["name"]
         self.scoring = lg["scoring_settings"]
+        self.settings = lg.get("settings") or {}   # playoff seeds and weeks, for draft-pick mode (shq/draft_race.py)
         self.team_count = lg.get("total_rosters") or 12
         rosters = sleeper.rosters(lg["league_id"])
         mine = next(r for r in rosters if r["owner_id"] == uid)
@@ -175,6 +176,7 @@ class SleeperLeague:
         self.slots = slots
         self.open_spots = max(0, len(lg["roster_positions"]) - len([p for p in mine.get("players") or [] if p not in held]))
         names = {u["user_id"]: (u.get("metadata") or {}).get("team_name") or u.get("display_name") for u in users}
+        self.team_names = {r["roster_id"]: names.get(r["owner_id"]) for r in rosters}
         # every other live roster, for the trade finder (guillotined teams have no players left)
         self.others = [{"name": names.get(r["owner_id"]) or f"Team {r['roster_id']}",
                         "players": [mp(pid, "BN") for pid in r["players"]]}

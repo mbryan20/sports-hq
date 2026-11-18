@@ -11,7 +11,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, decisions, digest, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
+from . import categories, decisions, digest, draft_race, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -43,8 +43,10 @@ def _dead(p):
 def _moves(league, now):
     if getattr(league, "sport", "nfl") == "nba":
         return nba_lineup.lines(league, now)
+    draft = draft_race.active(league)   # rule 17: out of the race, only a clear gap still shows (never a tank)
     return [f"Start {b['name']} ({b['proj']}) over {s['name']} ({s['proj']}) at {s['slot']}, +{round(gain, 1)}"
-            for s, b, gain in start_sit(league.starters, league.bench) if not _dead(s)]
+            for s, b, gain in start_sit(league.starters, league.bench) if not _dead(s)
+            and (not draft or draft_race.keep_move(gain))]
 
 
 def valued(league):
@@ -96,6 +98,10 @@ def adds(league, starting=()):
         found = waivers.adds(league.starters, league.bench, league.free_agents, league.slots, dynasty=dynasty,
                              open_spots=getattr(league, "open_spots", 0), faab=getattr(league, "faab", None),
                              budget=budget, guillotine=getattr(league, "format", None) == "guillotine")
+        if draft_race.active(league):   # rule 17: out of the race, a pickup must add long-term value, not points
+            found = [a for a in found if draft_race.keep_add(a)]
+            return [waivers.line(a) for a in found] or [
+                "Draft-pick mode: no free agent adds clear long-term value over your weakest bench player."]
         return [waivers.line(a) for a in found] or ["No free agent improves your lineup, or beats a backup at his position, right now."]
     if getattr(league, "sport", "nfl") == "nba" and getattr(league, "values", None):
         league.swaps = nba_swaps.build(league, getattr(league, "cats", None), starting)
@@ -231,6 +237,9 @@ def build(league, now):
         valued(league)   # cached; lets a fix's "add X and start him" name the same drop the adds list would
     items = [i for i in digest.league_items(league, now) if not (standing and i["text"] == standing["text"])]
     notes = [i["text"] for i in items if not i["urgent"]]
+    race = getattr(league, "race", None)
+    if race and race.get("out"):   # rule 17 (shq/draft_race.py): out of the race, the page says so and what pick he holds
+        notes = ([race["text"]] if race.get("text") else []) + [race["pick_line"]] + notes
     faab = getattr(league, "faab", None)
     if faab is not None:
         notes.append(f"FAAB left: ${faab}")
@@ -258,7 +267,9 @@ def build(league, now):
         add_lines = _unskipped(league, adds(league), now)[:3]
     exp = None if nba else expert_block(league, [i["text"] for i in items] + moves + add_lines)
     return {
-        "matchup": _matchup(league),
+        "matchup": _matchup(league) + (f" · Out of the playoff race: draft pick #{race['pick']} now"
+                                       if race and race.get("out") and _matchup(league) else ""),
+        "draft": race,
         "danger": bool(standing and standing["urgent"]),
         "fixes": [i["text"] for i in items if i["urgent"]],
         "moves": moves,

@@ -38,7 +38,8 @@ YAHOO_SCORING = {
 # espn (public leagues read directly; private=True ones come from the laptop's ESPN snapshot).
 LEAGUES = [
     {"name": "Kosmonauts", "sport": "nfl", "platform": "yahoo"},
-    {"name": "Domo Arigato", "sport": "nfl", "platform": "sleeper", "dynasty": True},
+    {"name": "Domo Arigato", "sport": "nfl", "platform": "sleeper", "dynasty": True,
+     "draft_order": "worst_record_fewest_points"},   # rule 17: draft-pick mode once out of the race (shq/draft_race.py)
     {"name": "Guillotine", "sport": "nfl", "platform": "sleeper", "league_id": "1385516543386845184", "format": "guillotine"},
     {"name": "3-Ball FB", "sport": "nfl", "platform": "espn", "league_id": 1829431, "team_id": 10, "season": 2026, "dynasty": True, "assets": True},
     {"name": "Stempak", "sport": "nfl", "platform": "espn", "league_id": 1912619648, "team_id": 8, "season": 2026, "private": True},

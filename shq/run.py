@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 
-from . import advice, darko, decisions, digest, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
+from . import advice, darko, decisions, digest, draft_race, espn, experts, guillotine, nba_lineup, nba_values, notify, pushes, radar, wrapup
 from . import espn_fantasy as ef
 from .common import DATA, ROOT, STATE, ct_label, iso, load_json, now_utc, parse_iso, save_json
 from .config import ESPN_PRIVATE, LEAGUES, TZ, WATCH_LEAD_HOURS, WEEKLY_HOUR, WEEKLY_WEEKDAY
@@ -191,10 +191,13 @@ def start_sit_lines(league, fixes=None):
     from .swap import start_sit
     if fixes is not None:
         moves = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({s['proj']}) at {s['slot']}"
-                 for s, b, _ in start_sit(league.starters, league.bench) if not advice._dead(s)]
+                 for s, b, gain in start_sit(league.starters, league.bench) if not advice._dead(s)
+                 and (not draft_race.active(league) or draft_race.keep_move(gain))]
         moves = decisions.split(league.name, moves, now_utc())[0]     # never a move he skipped in HQ
         ss = list(fixes) + moves[:max(0, 3 - len(fixes))]
         live = round(sum(p["proj"] for p in league.starters if not advice._dead(p)), 1)
+        if not ss and draft_race.active(league):
+            return [f"Lineup is fine as set ({live} pts); draft-pick mode leaves out swaps under {draft_race.DRAFT_KEEP_GAIN:g} pts (rule 17)."]
         return ss or [f"Lineup is optimal by projections ({live} pts)."]
     ss = [f"Start {b['name']} ({b['proj']}) over {s['name']} ({'BYE' if s['bye'] else s['status'] or s['proj']}) at {s['slot']}"
           + (digest.cite(s) if s["status"] and not s["bye"] else "")
@@ -418,6 +421,11 @@ def main():
                     notes.append(f"{name}: ESPN snapshot is stale")
             lg.dynasty = bool(cfg.get("dynasty"))
             lg.assets = bool(cfg.get("assets"))  # 3-Ball: picks and minors from the league sheet
+            if cfg.get("draft_order"):   # rule 17: the draft pick he holds now; draft-pick mode once out of the race
+                try:
+                    lg.race = draft_race.build(lg.settings, lg.rosters, lg.team_names, lg.my_roster_id)
+                except Exception:
+                    traceback.print_exc()
             if cfg.get("format") == "guillotine":
                 guillotine_odds(lg, ctx, now)
             better_news(lg)

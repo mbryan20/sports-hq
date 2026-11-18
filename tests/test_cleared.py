@@ -78,7 +78,11 @@ class Workflow(unittest.TestCase):
                 self.assertRegex(line.strip(), r"^ISSUE_(BODY|TITLE): ")
         self.assertNotIn("--rebase", y)
         self.assertNotIn("${{ secrets", y)
-        self.assertEqual(json.loads((ROOT / "docs" / "data" / "cleared.json").read_text(encoding="utf-8"))["items"], [])
+        # the live file fills as he clears lines (Clear #7, Nov 17), so check its shape, not that it's empty
+        items = json.loads((ROOT / "docs" / "data" / "cleared.json").read_text(encoding="utf-8"))["items"]
+        self.assertIsInstance(items, list)
+        for i in items:
+            self.assertTrue({"league", "key", "until"} <= set(i), i)
 
 
 if __name__ == "__main__":
