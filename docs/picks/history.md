@@ -100,3 +100,24 @@ Entries were read read-only from all three sites in Michael's Chrome; all were s
 - Good decision that lost: the card's largest BTO bet, LSU -2.5 (1.5-point stale pool line plus 2 LP, 62% cover), lost by 18. One blowout doesn't make the stale-line edge wrong.
 - Card vs entries: the biggest value this week came from Michael acting on the Saturday 8am CHANGE alerts. He switched CFP from Notre Dame -7.5 to the card's Iowa +2.5 and Yahoo from Northwestern to Iowa. Notre Dame won by exactly 7, so -7.5 would have lost the whole 11,904 balance. His own departures were a wash: two Yahoo upset-watch picks split 1-1 (Utah St. was the better call, Missouri the worse), and his BTO resizing gained $1,410 on outcome but was slightly worse by the card's numbers. Acting on the alert is repeatable. No evidence yet that his resizing adds value.
 - Lesson: no change. The Saturday 8am saved-picks check is what caught the CFP bust. Keep it as is.
+
+## Week 11 (CFBD 11, Nov 12-16) — graded Tue Nov 17, 2026
+CFP and Yahoo entries were read read-only in Michael's Chrome tonight. **BTO was signed out in Chrome**, so its history and leaderboard weren't read; the BTO entry below is the saved bet read Sat Nov 14 at 7:55am, after the Friday 8pm lock (MIN +8.5, $3,070). Cards graded are the last posted before each pool locked (BTO final Thu Nov 12; CFP and Yahoo Sat 8am refresh).
+
+**Records (card vs entered)**
+- BTO: card 1-0, net +$3,070 (One Bet: MIN +8.5, 4 LP, $3,070). Entered the same; MIN won 20 points outright at GB.
+- CFP: card 1-1, net 0 (Oklahoma +1.5 won 24-17; Boise State -13.5 lost, won only 46-41). Entered the same, 11,904 each.
+- Yahoo: card 15-10; entered 15-10, all 25 picks the same. TB1: Texas 20-LSU 26 (actual 22-21), USC 24-Indiana 31 (actual 13-27). TB2: most Boise St. (46; Texas Tech scored 52), fewest Northwestern (19; Rutgers scored 0). All four wrong.
+
+**Standings**
+- BTO: not read (signed out). Expected $6,140 after the win. Before Week 11 he was #28 of 49, playoff line (#12) $5,050, leader $12,300, so the win likely puts him near the line. Not confirmed until BTO is read.
+- CFP: 23,808 pts, #12 of 95 paid + 26 rebuys, the last paid spot ($45). #11 24,000, #13 23,000; leader 118,640.
+- Yahoo: 166 pts, 6th of 14 (tied 5th-7th). Leader 175, 2nd 174, 4th 169.
+
+**Differences (judged on pre-kickoff information)**
+- None in the final entries. One change before lock: at 7:55am Saturday his saved CFP pair was Alabama -15.5 + Oklahoma +1.5; the 8:11am refresh CHANGE line said drop Alabama (backup QB starting, market had moved to -14, below the pool's -15.5) for the card's Boise State -13.5 (pool 3 points under a -16.5 market). He switched. That was the better call: Alabama -15.5 had become a stale number on the wrong side. Both would have lost (Alabama won by exactly 15, Boise by 5), so the switch cost and gained nothing.
+
+**Process vs outcome**
+- Good decision that lost: Boise State -13.5 was 3 points better than the market and missed the cover by 8.5 when Oregon State scored 41. The edge was sound; one cover doesn't test it.
+- Card vs entries: Michael followed the card in all three pools, including acting on the Saturday CFP CHANGE alert for the second week running. Nothing of his own to grade this week; following the card is repeatable, and it went 17-11 across the three pools with BTO's balance doubled.
+- Lesson: no change. All four Yahoo tiebreaker guesses missed, but tiebreakers only decide ties and one week isn't a pattern.
