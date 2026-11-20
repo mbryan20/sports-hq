@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T01:07:00Z",
+ "updated": "2026-11-20T01:17:00Z",
  "week": 11,
  "leagues": {
   "Kosmonauts": {
@@ -103,7 +103,7 @@
      "pos": "TE",
      "opp": "@HOU",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.1,
      "status": null,
      "why": "",
@@ -228,9 +228,7 @@
      ],
      "offers": []
     },
-    "notes": [
-     "1 starters play today, first locks Thu 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
@@ -254,7 +252,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    }
   },
@@ -742,7 +740,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    }
   },
@@ -901,7 +899,7 @@
      "pos": "K",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 7.9,
      "status": null,
      "why": "",
@@ -946,7 +944,7 @@
      "pos": "RB",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 0,
      "status": "OUT",
      "why": "Sleeper: Out",
@@ -1051,7 +1049,6 @@
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
     "notes": [
-     "1 starters play today, first locks Thu 7:15p",
      "FAAB left: $10"
     ],
     "cats": null,
@@ -1075,15 +1072,15 @@
       "Woody Marks": "not ranked to play this week, RB19 lately",
       "Carnell Tate": "WR16 this week, WR22 lately",
       "Brenton Strange": "TE14 this week, TE9 lately",
-      "Drake Maye": "not ranked to play this week, QB2 lately",
       "Josh Jacobs": "not ranked to play this week, RB15 lately",
+      "Drake Maye": "not ranked to play this week, QB2 lately",
       "Jared Goff": "QB13 this week, QB9 lately",
       "Kirk Cousins": "QB15 this week, QB16 lately"
      },
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": [],
     "guillotine": {
      "week": 11,
@@ -1092,8 +1089,8 @@
      "rank": 2,
      "gap": 36.4,
      "proj": 153.0,
-     "cut": 0.04,
-     "survive": 0.96,
+     "cut": 0.041,
+     "survive": 0.959,
      "faab": 10,
      "reserve": 5,
      "waivers": "Wed 2:15a",
@@ -1107,7 +1104,7 @@
       "bids": [],
       "freed": {
        "team": "Aniasin1",
-       "cut": 0.31,
+       "cut": 0.321,
        "players": [
         {
          "name": "Josh Allen",
@@ -1186,31 +1183,31 @@
       {
        "name": "Aniasin1",
        "proj": 116.6,
-       "cut": 0.31,
+       "cut": 0.321,
        "faab": 3,
        "bold": 0.93,
        "me": false
       },
       {
-       "name": "JHED1979",
-       "proj": 127.6,
-       "cut": 0.192,
-       "faab": 1,
-       "bold": 0.95,
-       "me": false
-      },
-      {
        "name": "robert8063",
        "proj": 127.0,
-       "cut": 0.19,
+       "cut": 0.198,
        "faab": 15,
        "bold": 0.74,
        "me": false
       },
       {
+       "name": "JHED1979",
+       "proj": 127.6,
+       "cut": 0.189,
+       "faab": 1,
+       "bold": 0.95,
+       "me": false
+      },
+      {
        "name": "CodyRust",
-       "proj": 136.3,
-       "cut": 0.105,
+       "proj": 137.5,
+       "cut": 0.091,
        "faab": 0,
        "bold": 0.75,
        "me": false
@@ -1218,7 +1215,7 @@
       {
        "name": "GoodFellas (GoodFellas77)",
        "proj": 140.7,
-       "cut": 0.084,
+       "cut": 0.088,
        "faab": 16,
        "bold": 0.88,
        "me": false
@@ -1226,7 +1223,7 @@
       {
        "name": "Swegs4",
        "proj": 146.2,
-       "cut": 0.058,
+       "cut": 0.051,
        "faab": 0,
        "bold": 1.0,
        "me": false
@@ -1234,7 +1231,7 @@
       {
        "name": "michaelbryan",
        "proj": 153.0,
-       "cut": 0.04,
+       "cut": 0.041,
        "faab": 10,
        "bold": 0.58,
        "me": true
@@ -1242,7 +1239,7 @@
       {
        "name": "Off with his head (damonhawk1)",
        "proj": 161.4,
-       "cut": 0.021,
+       "cut": 0.022,
        "faab": 38,
        "bold": 0.42,
        "me": false
@@ -1563,7 +1560,7 @@
      "pos": "WR/FLEX",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 10.7,
      "status": null,
      "why": "",
@@ -1595,7 +1592,7 @@
      "pos": "QB/OP",
      "opp": "@HOU",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 10.5,
      "status": null,
      "why": "",
@@ -1837,9 +1834,7 @@
      ],
      "basis": "FantasyCalc dynasty values; lineup gain in projected points per game"
     },
-    "notes": [
-     "1 starters play today, first locks Thu 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
@@ -1884,7 +1879,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    }
   },
@@ -2079,7 +2074,7 @@
      "pos": "RB/FLEX",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 13.9,
      "status": null,
      "why": "",
@@ -2270,7 +2265,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    }
   },
@@ -2309,7 +2304,7 @@
      "pos": "WR/FLEX",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 15.8,
      "status": null,
      "why": "",
@@ -2339,7 +2334,7 @@
      "pos": "RB/FLEX",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 13.7,
      "status": null,
      "why": "",
@@ -2523,7 +2518,7 @@
      "pos": "RB/FLEX",
      "opp": "vs IND",
      "kickoff": "2026-11-20T01:15:00Z",
-     "started": false,
+     "started": true,
      "proj": 8.2,
      "status": null,
      "why": "",
@@ -2598,9 +2593,7 @@
      ],
      "basis": "FantasyCalc redraft values; lineup gain in projected points per game"
     },
-    "notes": [
-     "2 starters play today, first locks Thu 7:15p"
-    ],
+    "notes": [],
     "cats": null,
     "radar": null,
     "games": null,
@@ -2628,7 +2621,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    }
   },
@@ -3092,12 +3085,12 @@
      "chase": [
       "BLK is close. Keep in the lineup: Walker Kessler (1 games, 2.1/g) and Shai Gilgeous-Alexander (2 games, 0.9/g).",
       "AST is close. Keep in the lineup: Franz Wagner (2 games, 8.5/g) and Shai Gilgeous-Alexander (2 games, 4.3/g).",
-      "PTS is close. Keep in the lineup: Shai Gilgeous-Alexander (2 games, 31.1/g) and Franz Wagner (2 games, 24.4/g)."
+      "REB is close. Keep in the lineup: Franz Wagner (2 games, 6.9/g) and Walker Kessler (1 games, 10.9/g)."
      ],
      "adds": [
       "For BLK: Mo Bamba (C, UTAH), 2 games left, 1.8/g",
       "For AST: T.J. McConnell (PG, IND), 2 games left, 4.7/g",
-      "For PTS: Naji Marshall (SF/PF, DAL), 2 games left, 11.6/g"
+      "For REB: Mitchell Robinson (C, BOS), 2 games left, 5.4/g"
      ]
     },
     "radar": {
@@ -3147,7 +3140,7 @@
        "verdict": "worth a start on his next game day (no game today; his value -0.6/g beats your weakest starter, Mikal Bridges, at -5.2/g)"
       },
       {
-       "text": "Quentin Grimes (SG, LAL), on your bench, worth a start on his next game day (no game today; his value -3.7/g beats your weakest starter, Mikal Bridges, at -5.2/g): minutes 22 \u2192 38 in his last 3 games (Nov 15\u2013Nov 18) vs 13 before, played 11 of them, usage 14% \u2192 24%, started 3 of 3 (2 of 13 before), since Austin Reaves went out [ESPN Nov 18: Out, Head coach JJ Redick said Reaves' (heel) pregame workout went \"well,\" but he remains\u2026]. Fits 3PM (close), STL (close), PTS (close). 1 game left this week, 3 next week.",
+       "text": "Quentin Grimes (SG, LAL), on your bench, worth a start on his next game day (no game today; his value -3.7/g beats your weakest starter, Mikal Bridges, at -5.2/g): minutes 22 \u2192 38 in his last 3 games (Nov 15\u2013Nov 18) vs 13 before, played 11 of them, usage 14% \u2192 24%, started 3 of 3 (2 of 13 before), since Austin Reaves went out [ESPN Nov 19: Out, Reaves (heel) is listed as out for Friday's game against the Kings.]. Fits 3PM (close), STL (close), PTS (close). 1 game left this week, 3 next week.",
        "short": "Quentin Grimes (LAL, your bench): minutes 22 \u2192 38, usage 14% \u2192 24%, now starting; fits 3PM, STL (ESPN game logs through Nov 18)",
        "links": [
         [
@@ -3155,7 +3148,7 @@
          "https://www.espn.com/nba/player/gamelog/_/id/4397014"
         ],
         [
-         "ESPN Nov 18",
+         "ESPN Nov 19",
          "https://www.espn.com/nba/player/_/id/4066457/austin-reaves"
         ]
        ],
@@ -3256,10 +3249,10 @@
      "shrinking": [],
      "injuries": [
       {
-       "text": "Austin Reaves (LAL) is out [ESPN Nov 18: Out, Head coach JJ Redick said Reaves' (heel) pregame workout went \"well,\" but he remains\u2026]. In 4 games without him: Jake LaRavia (FA) 22 \u2192 29 min, usage 11% \u2192 11%.",
+       "text": "Austin Reaves (LAL) is out [ESPN Nov 19: Out, Reaves (heel) is listed as out for Friday's game against the Kings.]. In 4 games without him: Jake LaRavia (FA) 22 \u2192 29 min, usage 11% \u2192 11%.",
        "links": [
         [
-         "ESPN Nov 18",
+         "ESPN Nov 19",
          "https://www.espn.com/nba/player/_/id/4066457/austin-reaves"
         ]
        ]
@@ -3444,7 +3437,7 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (7:00pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
@@ -4117,7 +4110,7 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Thu 7:07p",
+    "built": "Thu 7:17p",
     "skipped": []
    },
    "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (7:00pm CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
