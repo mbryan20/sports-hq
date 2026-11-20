@@ -1,23 +1,8 @@
 {
- "updated": "2026-11-19T21:07:38.555685-06:00",
+ "updated": "2026-11-20T02:51:29.680565-06:00",
  "week": 12,
  "alert_gap": 1.5,
  "rows": [
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "LSU @ Tennessee",
-   "side": "Tennessee",
-   "pool_line": 1.5,
-   "market_line": -1.5,
-   "gap": 3.0,
-   "keys": [],
-   "flag": true,
-   "book": "DraftKings",
-   "kick": "2026-11-21T20:30Z",
-   "espn_id": "401856754",
-   "closes": "2026-11-21T11:00:00-06:00"
-  },
   {
    "pool": "cfp",
    "league": "CFB",
@@ -69,23 +54,6 @@
   },
   {
    "pool": "bto",
-   "league": "CFB",
-   "game": "Utah @ TCU",
-   "side": "TCU",
-   "pool_line": 7.5,
-   "market_line": 7.0,
-   "gap": 0.5,
-   "keys": [
-    7
-   ],
-   "flag": true,
-   "book": "DraftKings",
-   "kick": "2026-11-22T02:00Z",
-   "espn_id": "401856872",
-   "closes": "2026-11-20T20:00:00-06:00"
-  },
-  {
-   "pool": "bto",
    "league": "NFL",
    "game": "MIN @ SF",
    "side": "SF",
@@ -100,40 +68,6 @@
    "kick": "2026-11-23T01:20Z",
    "espn_id": "401873077",
    "closes": "2026-11-20T20:00:00-06:00"
-  },
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "Arizona @ Kansas State",
-   "side": "Kansas State",
-   "pool_line": 7.5,
-   "market_line": 7.0,
-   "gap": 0.5,
-   "keys": [
-    7
-   ],
-   "flag": true,
-   "book": "DraftKings",
-   "kick": "2026-11-22T00:00Z",
-   "espn_id": "401856865",
-   "closes": "2026-11-21T11:00:00-06:00"
-  },
-  {
-   "pool": "cfp",
-   "league": "CFB",
-   "game": "Utah @ TCU",
-   "side": "TCU",
-   "pool_line": 7.5,
-   "market_line": 7.0,
-   "gap": 0.5,
-   "keys": [
-    7
-   ],
-   "flag": true,
-   "book": "DraftKings",
-   "kick": "2026-11-22T02:00Z",
-   "espn_id": "401856872",
-   "closes": "2026-11-21T11:00:00-06:00"
   },
   {
    "pool": "bto",
@@ -193,6 +127,21 @@
    "book": "DraftKings",
    "kick": "2026-11-22T00:30Z",
    "espn_id": "401856751",
+   "closes": "2026-11-20T20:00:00-06:00"
+  },
+  {
+   "pool": "bto",
+   "league": "NFL",
+   "game": "PIT @ PHI",
+   "side": "PHI",
+   "pool_line": 4.5,
+   "market_line": 3.5,
+   "gap": 1.0,
+   "keys": [],
+   "flag": false,
+   "book": "DraftKings",
+   "kick": "2026-11-22T18:00Z",
+   "espn_id": "401873076",
    "closes": "2026-11-20T20:00:00-06:00"
   },
   {
@@ -377,17 +326,17 @@
   },
   {
    "pool": "bto",
-   "league": "NFL",
-   "game": "PIT @ PHI",
-   "side": "PIT",
-   "pool_line": -4.5,
-   "market_line": -4.5,
+   "league": "CFB",
+   "game": "Utah @ TCU",
+   "side": "Utah",
+   "pool_line": -7.5,
+   "market_line": -7.5,
    "gap": 0.0,
    "keys": [],
    "flag": false,
    "book": "DraftKings",
-   "kick": "2026-11-22T18:00Z",
-   "espn_id": "401873076",
+   "kick": "2026-11-22T02:00Z",
+   "espn_id": "401856872",
    "closes": "2026-11-20T20:00:00-06:00"
   },
   {
@@ -468,6 +417,21 @@
   {
    "pool": "cfp",
    "league": "CFB",
+   "game": "LSU @ Tennessee",
+   "side": "LSU",
+   "pool_line": -1.5,
+   "market_line": -1.5,
+   "gap": 0.0,
+   "keys": [],
+   "flag": false,
+   "book": "DraftKings",
+   "kick": "2026-11-21T20:30Z",
+   "espn_id": "401856754",
+   "closes": "2026-11-21T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
    "game": "Indiana @ Washington",
    "side": "Indiana",
    "pool_line": -7.5,
@@ -513,6 +477,21 @@
   {
    "pool": "cfp",
    "league": "CFB",
+   "game": "Arizona @ Kansas State",
+   "side": "Arizona",
+   "pool_line": -7.5,
+   "market_line": -7.5,
+   "gap": 0.0,
+   "keys": [],
+   "flag": false,
+   "book": "DraftKings",
+   "kick": "2026-11-22T00:00Z",
+   "espn_id": "401856865",
+   "closes": "2026-11-21T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
    "game": "SMU @ Notre Dame",
    "side": "SMU",
    "pool_line": 20.5,
@@ -523,6 +502,21 @@
    "book": "DraftKings",
    "kick": "2026-11-22T00:30Z",
    "espn_id": "401858307",
+   "closes": "2026-11-21T11:00:00-06:00"
+  },
+  {
+   "pool": "cfp",
+   "league": "CFB",
+   "game": "Utah @ TCU",
+   "side": "Utah",
+   "pool_line": -7.5,
+   "market_line": -7.5,
+   "gap": 0.0,
+   "keys": [],
+   "flag": false,
+   "book": "DraftKings",
+   "kick": "2026-11-22T02:00Z",
+   "espn_id": "401856872",
    "closes": "2026-11-21T11:00:00-06:00"
   }
  ]
