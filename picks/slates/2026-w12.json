@@ -251,14 +251,14 @@
   ],
   "pub_note": "Yahoo-wide pick distribution re-read Wed 11/18 ~9:10pm; proxy for the 13 other group members.",
   "read_at": "2026-11-17T20:30:00-06:00",
-  "status": "Read Tue 11/17 postmortem (signed in): 25 games posted; page shows 25 of 25 picks saved (not read per game), tiebreakers not entered. Standings: Michael 6th of 14, 166 pts (leader 175). Wed 11/18 ~9:10pm re-read (signed in): 25 of 25 picks saved, tiebreakers not entered; standings 166 pts, 6th of 14.",
+  "status": "Read Tue 11/17 postmortem (signed in): 25 games posted; page shows 25 of 25 picks saved (not read per game), tiebreakers not entered. Standings: Michael 6th of 14, 166 pts (leader 175). Wed 11/18 ~9:10pm re-read (signed in): 25 of 25 picks saved, tiebreakers not entered; standings 166 pts, 6th of 14. Thu 11/19 ~8:14pm re-read (signed in): 25 of 25 saved; TB1 and TB2 entered.",
   "saved": {
-   "read": "2026-11-18T21:20:00-06:00",
+   "read": "2026-11-19T20:15:00-06:00",
    "picks": {
     "Iowa St.@UCF": "UCF",
-    "Clemson@Duke": "Clemson",
+    "Clemson@Duke": "Duke",
     "Bowling Green@Toledo": "Toledo",
-    "UTEP@Air Force": "UTEP",
+    "UTEP@Air Force": "Air Force",
     "BYU@Kansas": "BYU",
     "Ohio St.@Nebraska": "Ohio St.",
     "Wisconsin@Purdue": "Wisconsin",
@@ -266,27 +266,33 @@
     "N. Carolina@Virginia": "N. Carolina",
     "Houston@West Virginia": "Houston",
     "Iowa@Illinois": "Iowa",
-    "NC State@Florida St.": "NC State",
+    "NC State@Florida St.": "Florida St.",
     "UCLA@Michigan": "UCLA",
     "Indiana@Washington": "Indiana",
     "LSU@Tennessee": "Tennessee",
     "Texas Tech@Baylor": "Texas Tech",
     "Texas A&M@Oklahoma": "Oklahoma",
     "Virginia Tech@Miami (FL)": "Miami (FL)",
-    "UNLV@San Jose St.": "San Jose St.",
-    "Kentucky@Missouri": "Kentucky",
+    "UNLV@San Jose St.": "UNLV",
+    "Kentucky@Missouri": "Missouri",
     "Georgia@South Carolina": "Georgia",
     "SMU@Notre Dame": "Notre Dame",
     "Utah@TCU": "Utah",
     "Oklahoma St.@Arizona St.": "Oklahoma St.",
     "Utah St.@Oregon St.": "Oregon St."
    },
-   "tb1": {},
-   "tb2": {}
+   "tb1": {
+    "Kentucky@Missouri": "Kentucky 24, Missouri 30",
+    "Georgia@South Carolina": "Georgia 38, South Carolina 17"
+   },
+   "tb2": {
+    "most": "Miami (FL)",
+    "fewest": "Bowling Green"
+   }
   }
  },
  "bto": {
-  "status": "Read Wed 11/18 ~9:15pm (signed in): 16 games (8 CFB, 8 NFL); Big Game MIN @ SF (required). Three Bet mode, $6,140, min $3,070, 4 line points. Site timer ~1d22h (locks ~Fri 7-8pm CT; IND@HOU Thu 7:15pm locks at kickoff). Nothing saved yet.",
+  "status": "Re-read Thu 11/19 ~8:10pm (signed in): IND@HOU started (locked). Three Bet mode, $6,140, min $3,070, LP 4.0/4.0. Saved 3 bets: UCLA -3 (LP 0.5) $1,540, CAR -0.5 (LP 1) $1,540, SF -0.5 (LP 2.5) $3,060. Timer 23h50m (locks ~Fri 8pm CT). Leaderboard balances unchanged from Wed.",
   "mode": "three",
   "balance": 6140,
   "balance_note": "After Week 11 (MIN +8.5 won)",
@@ -406,7 +412,7 @@
     "home_spread": -11.5,
     "big": false,
     "kick": "Thu 11/19 7:15 PM CT",
-    "locked": false,
+    "locked": true,
     "nfl_week": 11,
     "market_home_spread": -12.5,
     "adj_home_pts": 0,
@@ -434,16 +440,16 @@
     "kick": "Sun 11/22 12:00 PM CT",
     "locked": false,
     "nfl_week": 11,
-    "market_home_spread": -7.0,
+    "market_home_spread": -6.0,
     "adj_home_pts": 0,
     "why": [
      {
-      "reason": "Mayfield (foot) missed Wednesday; decision Friday, rookie took starter reps",
-      "source": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-baker-mayfields-made-progress-decision-on-playing-to-come-on-friday"
+      "reason": "Mayfield limited Thursday, trending to play; decision Friday",
+      "source": "https://www.detroitnews.com/story/sports/nfl/lions/2026/11/19/tampa-bay-buccaneers-baker-mayfield-trending-to-play-vs-lions-report/92861922007/"
      },
      {
-      "reason": "DET -4.5 to -7 on Mayfield news; priced as out",
-      "source": "https://www.rotowire.com/football/article/nfl-week-11-odds-biggest-line-moves-betting-splits-and-key-injuries-146888"
+      "reason": "DET -7 Wed, -6 Thu as Mayfield trends to play",
+      "source": "https://www.detroitnews.com/story/sports/nfl/lions/2026/11/19/tampa-bay-buccaneers-baker-mayfield-trending-to-play-vs-lions-report/92861922007/"
      },
      {
       "reason": "DET CB Reed, C Mays TBD; dome",
@@ -486,16 +492,20 @@
     "kick": "Sun 11/22 12:00 PM CT",
     "locked": false,
     "nfl_week": 11,
-    "market_home_spread": -2.5,
+    "market_home_spread": -3.0,
     "adj_home_pts": 0,
     "why": [
      {
-      "reason": "Pool CAR -1.5 vs market -2.5; Brissett starts for BAL",
-      "source": "https://www.rotowire.com/football/article/nfl-week-11-odds-biggest-line-moves-betting-splits-and-key-injuries-146888"
+      "reason": "Pool CAR -1.5 vs market -3; Brissett starts for BAL",
+      "source": "https://russellstreetreport.com/2026/11/19/injury-report/injury-report-ravens-panthers-thursday/"
      },
      {
-      "reason": "Lamar on IR (thumb, 6-10 weeks); Brissett starts",
-      "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/minter-confirms-jackson-thumb-is-out-6-10-weeks"
+      "reason": "Bryce Young full practice Wed and Thu; no limits expected",
+      "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-11-18/bryce-young-foot-practicing-in-full-for-week-11"
+     },
+     {
+      "reason": "BAL DT Madubuike, CB Humphrey DNP Thursday; Brissett starts",
+      "source": "https://russellstreetreport.com/2026/11/19/injury-report/injury-report-ravens-panthers-thursday/"
      },
      {
       "reason": "Bryce Young full Wednesday; CAR TEs Waller, Tremble TBD",
@@ -542,7 +552,7 @@
     "kick": "Sun 11/22 3:25 PM CT",
     "locked": false,
     "nfl_week": 11,
-    "market_home_spread": -10.0,
+    "market_home_spread": -10.5,
     "adj_home_pts": 0,
     "why": [
      {
@@ -568,12 +578,16 @@
     "kick": "Sun 11/22 7:20 PM CT",
     "locked": false,
     "nfl_week": 11,
-    "market_home_spread": -3.0,
+    "market_home_spread": -3.5,
     "adj_home_pts": 0,
     "why": [
      {
-      "reason": "Murray DNP (hamstring); Cousins likely starts; Purdy healthy",
-      "source": "https://vikings.com/news/49ers-injury-report-week-11-2026-nfl-season"
+      "reason": "Murray DNP Wed and Thu (hamstring); Cousins expected to start",
+      "source": "https://www.vikings.com/news/49ers-injury-report-week-11-2026-nfl-season"
+     },
+     {
+      "reason": "MIN CB Rodgers added Thu (quad, limited); SF WR Evans limited",
+      "source": "https://www.minnesotasportsfan.com/minnesota-vikings/isaiah-rodgers-injury-report-quad-week-11/"
      },
      {
       "reason": "Neutral site Mexico City; opened SF -3.5, now -3",
@@ -595,7 +609,7 @@
     "kick": "Mon 11/23 7:15 PM CT",
     "locked": false,
     "nfl_week": 11,
-    "market_home_spread": 6.5,
+    "market_home_spread": 6.0,
     "adj_home_pts": 0,
     "why": [
      {
@@ -614,20 +628,36 @@
    }
   ],
   "saved": {
-   "read": "2026-11-18T21:20:00-06:00",
-   "bets": []
+   "read": "2026-11-19T20:15:00-06:00",
+   "bets": [
+    {
+     "key": "UCLA@Michigan",
+     "pick": "UCLA -3",
+     "wager": 1540
+    },
+    {
+     "key": "BAL@CAR",
+     "pick": "CAR -0.5",
+     "wager": 1540
+    },
+    {
+     "key": "MIN@SF",
+     "pick": "SF -0.5",
+     "wager": 3060
+    }
+   ]
   },
   "nfl_notes": [
-   "All 8 NFL research adjustments are 0: every QB change and major injury came out before Tuesday's lines settled.",
-   "TB @ DET: Mayfield (foot) decision Friday; DET -7 assumes rookie Daniels starts. Re-check Thu/Fri.",
+   "All NFL research adjustments stay 0 after the Thu re-check: the market moved with the news (TB@DET -7 to -6 on Mayfield).",
+   "TB @ DET: Mayfield limited Thu, trending to play; Bowles decides Friday.",
    "QB changes priced: PHI Joe Milton (Hurts IR), BAL Brissett (Lamar IR), NYG McCarthy (Dart IR), MIN Cousins (Murray hamstring, not confirmed), LV rookie Mendoza.",
    "MIN @ SF is in Mexico City (neutral site, ~7,300 ft); the pool's SF -3 is a neutral-site line.",
    "Weather mild everywhere; NYG windiest (up to 15 mph). Unexplained moves: CIN 3.5 to 6.5 (money, win streak).",
-   "Market lines: DraftKings via ESPN, Wed Nov 18 ~9:20pm CT."
+   "Market lines: DraftKings via ESPN, Thu Nov 19 ~8:30pm CT."
   ]
  },
  "cfp": {
-  "status": "Re-read Wed 11/18 ~9:15pm (signed in): 19 games, spreads unchanged from Tue; saved UCLA -3.5 11,904 (Total wagered 11,904 of 23,808). Rank 12 of 95 paid + 26 rebuys; leader 118,640. Locks Sat 11/21 11:00 AM.",
+  "status": "Re-read Wed 11/18 ~9:15pm (signed in): 19 games, spreads unchanged from Tue; saved UCLA -3.5 11,904 (Total wagered 11,904 of 23,808). Rank 12 of 95 paid + 26 rebuys; leader 118,640. Locks Sat 11/21 11:00 AM. Thu 11/19 ~8:12pm re-read: saved UCLA -3.5 11,904 and Arizona State +3.5 11,904 (Total wagered 23,808 of 23,808, \"Picks saved\").",
   "games": [
    {
     "away": "BYU",
@@ -754,11 +784,16 @@
   "rebuy_window": false,
   "deadline": "2026-11-21T11:00:00-06:00",
   "saved": {
-   "read": "2026-11-18T21:20:00-06:00",
+   "read": "2026-11-19T20:15:00-06:00",
    "bets": [
     {
      "key": "UCLA@Michigan",
      "pick": "UCLA -3.5",
+     "wager": 11904
+    },
+    {
+     "key": "Oklahoma State@Arizona State",
+     "pick": "Arizona State +3.5",
      "wager": 11904
     }
    ]
@@ -806,7 +841,7 @@
   "min_wager": 11904
  },
  "decisions": {
-  "read": "2026-11-18T21:20:00-06:00",
+  "read": "2026-11-19T20:15:00-06:00",
   "differs": []
  }
 }

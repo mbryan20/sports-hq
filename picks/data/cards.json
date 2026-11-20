@@ -1,37 +1,85 @@
 {
  "meta": {
-  "stage": "draft",
-  "stage_label": "DRAFT",
+  "stage": "final",
+  "stage_label": "FINAL",
   "week_label": "Week 12 (CFBD 12)",
   "week": 12,
-  "generated": "Wed Nov 18, 09:26 PM CT",
-  "generated_iso": "2026-11-19T03:26:51.287625+00:00",
+  "generated": "Thu Nov 19, 08:16 PM CT",
+  "generated_iso": "2026-11-20T02:16:15.826937+00:00",
   "calibration": [
    "Backtest 2026 wks 1-8 (444 games): picks rated 60-70% hit 65%, 70-80% hit 70%, 80-90% hit 83%, 90%+ hit 86%.",
    "Straight-up: model 70% vs market 75%; model trails early weeks, near market by wks 6-8.",
-   "Market lines: ESPN DraftKings Wed 09:26 PM CT for 65 games; CFBD consensus for the rest."
+   "Market lines: ESPN DraftKings Thu 08:16 PM CT for 64 games; CFBD consensus for the rest."
   ],
   "alerts": [
-   "CHANGE: CFP: yours UCLA -3.5 11,904 \u2192 card UCLA -3.5 11,904; Arizona State +3.5 11,904 (Pool +3.5 vs market +2.5; cover 53%)",
-   "CHANGE: Yahoo: yours Clemson \u2192 card Duke (Clemson: Third-string walk-on Pearman starts; Reynolds and Vizzina out)",
-   "CHANGE: Yahoo: yours UTEP \u2192 card Air Force (Stats 94% agrees with market)",
+   "CHANGE: BTO: yours UCLA -3 $1,540; CAR -0.5 $1,540; SF -0.5 $3,060 \u2192 card SF -0.5 (LP 2.5) $3,060; CAR +0 (LP 1.5) $1,540; Texas Tech -3.5 $1,540 (Pool CAR -1.5 vs market -3; Brissett starts for BAL; cover chance: yours UCLA -3 52%; CAR -0.5 58%; SF -0.5 60% vs card SF -0.5 (LP 2.5) 60%; CAR +0 (LP 1.5) 58%; Texas Tech -3.5 55%)",
+   "CHANGE: CFP: yours UCLA -3.5 11,904; Arizona State +3.5 11,904 \u2192 card Tennessee +1.5 11,904; Texas Tech -3.5 11,904 (LSU: Five defensive regulars out or doubtful, including LB Weeks)",
    "CHANGE: Yahoo: yours N. Carolina \u2192 card Virginia (North Carolina: QB Edwards questionable; freshman Burgess may start)",
-   "CHANGE: Yahoo: yours NC State \u2192 card Florida St. (Stats 71% agrees with market)",
-   "CHANGE: Yahoo: yours Tennessee \u2192 card LSU (Stats 50% vs market 51%; favorite kept)",
-   "CHANGE: Yahoo: yours San Jose St. \u2192 card UNLV (Stats 61% vs market 69%; favorite kept)",
-   "CHANGE: Yahoo: yours Kentucky \u2192 card Missouri (Stats 69% agrees with market)"
+   "CHANGE: Yahoo: yours Tennessee \u2192 card LSU (Stats 49% vs market 51%; favorite kept)",
+   "CHANGE: Yahoo TB1 Georgia @ South Carolina: yours Georgia 38, South Carolina 17 \u2192 card Georgia 37, South Carolina 20"
   ],
-  "breakdowns": "Wed 09:27 PM CT",
+  "breakdowns": "Thu 08:19 PM CT",
   "checked": {
-   "text": "Checked: formats per pool, BTO 3 bets incl Big Game, $6,140 total, 4 LP, 2x rule, CFP 100% at posted spreads, Yahoo 25 + TB1/TB2, no locked games, every saved-pick difference has a CHANGE line (Yahoo saved picks re-read and confirmed), no hedging, reasons <=12 words with sources; fixed 2 reason wordings; kept TB1/TB2 as modeled (within method's 3-pt market band)",
-   "stage": "draft",
-   "at": "Wed 09:27 PM CT",
+   "text": "Checked: BTO 3 bets incl. Big Game, $6,140 total, $10 steps, 2x rule, 4 LP, adjusted lines, no locked game; Yahoo 25 picks straight-up, TB1/TB2 set; CFP 100% and posted spreads, marked draft; every saved-pick difference has a CHANGE line; no hedging; reasons 12 words with sources; numbers add up; not fixed: LSU @ Tennessee books disagree (CFP Tennessee +1.5 and Yahoo LSU left for Friday's re-check)",
+   "stage": "final",
+   "at": "Thu 08:19 PM CT",
    "auto_passed": 18,
    "auto_total": 18,
    "auto_fails": []
   }
  },
  "cards": [
+  {
+   "id": "bto",
+   "title": "BTO Beat the Odds",
+   "deadline": "Due Fri 8:00pm CT (games lock at kickoff)",
+   "rows": [
+    {
+     "game": "MIN @ SF \u2605",
+     "pick": "SF -0.5 (LP 2.5)",
+     "model": 0.5978,
+     "market": 0.5,
+     "wager": "$3,060",
+     "why": "Murray DNP Wed and Thu (hamstring); Cousins expected to start",
+     "source": "https://www.vikings.com/news/49ers-injury-report-week-11-2026-nfl-season",
+     "key": "MIN@SF",
+     "pick_team": "SF",
+     "changed": false,
+     "bd": "bd-nfl-MIN-SF"
+    },
+    {
+     "game": "BAL @ CAR",
+     "pick": "CAR +0 (LP 1.5)",
+     "model": 0.5815,
+     "market": 0.5,
+     "wager": "$1,540",
+     "why": "Pool CAR -1.5 vs market -3; Brissett starts for BAL",
+     "source": "https://russellstreetreport.com/2026/11/19/injury-report/injury-report-ravens-panthers-thursday/",
+     "key": "BAL@CAR",
+     "pick_team": "CAR",
+     "changed": false,
+     "bd": "bd-nfl-BAL-CAR"
+    },
+    {
+     "game": "Texas Tech @ Baylor",
+     "pick": "Texas Tech -3.5",
+     "model": 0.5522,
+     "market": 0.5,
+     "wager": "$1,540",
+     "why": "Pool -3.5 vs market -4.5; cover 55%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856871",
+     "key": "Texas Tech@Baylor",
+     "pick_team": "Texas Tech",
+     "changed": false,
+     "bd": "bd-401856871"
+    }
+   ],
+   "saved_vs": "cover chance: yours UCLA -3 52%; CAR -0.5 58%; SF -0.5 60% vs card SF -0.5 (LP 2.5) 60%; CAR +0 (LP 1.5) 58%; Texas Tech -3.5 55%",
+   "notes": [
+    "Your saved bet differs. Cover chance: yours UCLA -3 52%; CAR -0.5 58%; SF -0.5 60% vs card SF -0.5 (LP 2.5) 60%; CAR +0 (LP 1.5) 58%; Texas Tech -3.5 55%.",
+    "Sizing sim: 100% of $6,140, lean split \u2192 P(top 12) 39%, P(top 4) 11%."
+   ]
+  },
   {
    "id": "yahoo",
    "title": "Yahoo pick'em (Kosmos, 14)",
@@ -41,8 +89,8 @@
      "game": "Iowa St. @ UCF",
      "kick": "Fri 11/20 5:00 PM",
      "pick": "UCF",
-     "model": 0.5439,
-     "market": 0.5324675324675325,
+     "model": 0.5365,
+     "market": 0.5260865852617197,
      "wager": "",
      "why": "Stats 54% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856869",
@@ -55,8 +103,8 @@
      "game": "Clemson @ Duke",
      "kick": "Fri 11/20 6:30 PM",
      "pick": "Duke",
-     "model": 0.8961,
-     "market": 0.8081570996978852,
+     "model": 0.8906,
+     "market": 0.817258883248731,
      "wager": "",
      "why": "Clemson: Third-string walk-on Pearman starts; Reynolds and Vizzina out",
      "source": "https://www.theclemsoninsider.com/2026/11/17/clemsons-new-starting-quarterback-for-duke-game/",
@@ -69,10 +117,10 @@
      "game": "Bowling Green @ Toledo",
      "kick": "Fri 11/20 6:30 PM",
      "pick": "Toledo",
-     "model": 0.8742,
+     "model": 0.8769,
      "market": 0.8465011286681716,
      "wager": "",
-     "why": "Stats 87% agrees with market",
+     "why": "Stats 88% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401866468",
      "key": "Bowling Green@Toledo",
      "pick_team": "Toledo",
@@ -83,7 +131,7 @@
      "game": "UTEP @ Air Force",
      "kick": "Fri 11/20 7:00 PM",
      "pick": "Air Force",
-     "model": 0.9387,
+     "model": 0.9408,
      "market": 0.9197080291970804,
      "wager": "",
      "why": "Stats 94% agrees with market",
@@ -97,10 +145,10 @@
      "game": "BYU @ Kansas",
      "kick": "Sat 11/21 11:00 AM",
      "pick": "BYU",
-     "model": 0.6112,
+     "model": 0.6144000000000001,
      "market": 0.6636481241914618,
      "wager": "",
-     "why": "Stats 61% win; wind 21 mph lowers scoring",
+     "why": "Stats 61% win; wind 19 mph lowers scoring",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856866",
      "key": "BYU@Kansas",
      "pick_team": "BYU",
@@ -111,10 +159,10 @@
      "game": "Ohio St. @ Nebraska",
      "kick": "Sat 11/21 11:00 AM",
      "pick": "Ohio St.",
-     "model": 0.6732,
-     "market": 0.5933697541594238,
+     "model": 0.6768000000000001,
+     "market": 0.5996387718242022,
      "wager": "",
-     "why": "Stats 67% agrees with market",
+     "why": "Stats 68% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858531",
      "key": "Ohio St.@Nebraska",
      "pick_team": "Ohio St.",
@@ -125,10 +173,10 @@
      "game": "Wisconsin @ Purdue",
      "kick": "Sat 11/21 11:00 AM",
      "pick": "Wisconsin",
-     "model": 0.5653,
+     "model": 0.5630999999999999,
      "market": 0.6690070210631895,
      "wager": "",
-     "why": "Stats 57% vs market 67%; favorite kept",
+     "why": "Stats 56% vs market 67%; favorite kept",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858533",
      "key": "Wisconsin@Purdue",
      "pick_team": "Wisconsin",
@@ -139,10 +187,10 @@
      "game": "Memphis @ Navy",
      "kick": "Sat 11/21 11:00 AM",
      "pick": "Memphis",
-     "model": 0.5736,
-     "market": 0.603756970942178,
+     "model": 0.5768,
+     "market": 0.5720596355604639,
      "wager": "",
-     "why": "Stats 57% agrees with market",
+     "why": "Stats 58% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401862834",
      "key": "Memphis@Navy",
      "pick_team": "Memphis",
@@ -153,7 +201,7 @@
      "game": "N. Carolina @ Virginia",
      "kick": "Sat 11/21 11:30 AM",
      "pick": "Virginia",
-     "model": 0.5692,
+     "model": 0.5651,
      "market": 0.5173641257162701,
      "wager": "",
      "why": "North Carolina: QB Edwards questionable; freshman Burgess may start",
@@ -167,8 +215,8 @@
      "game": "Houston @ West Virginia",
      "kick": "Sat 11/21 12:00 PM",
      "pick": "Houston",
-     "model": 0.7843,
-     "market": 0.7335423197492162,
+     "model": 0.7847,
+     "market": 0.725752508361204,
      "wager": "",
      "why": "West Virginia: QB Hawkins questionable with ankle bruise; backup Fox ready",
      "source": "https://www.640wxsm.com/2026/11/18/west-virginia-qb-michael-hawkins-jr-questionable-vs-no-20-houston/",
@@ -181,7 +229,7 @@
      "game": "Iowa @ Illinois",
      "kick": "Sat 11/21 1:30 PM",
      "pick": "Iowa",
-     "model": 0.7303,
+     "model": 0.7165,
      "market": 0.7335423197492162,
      "wager": "",
      "why": "Illinois: QB Houser doubtful; Boyd's first start; WR Clement out",
@@ -195,10 +243,10 @@
      "game": "NC State @ Florida St.",
      "kick": "Sat 11/21 2:30 PM",
      "pick": "Florida St.",
-     "model": 0.7145,
+     "model": 0.7187,
      "market": 0.7659021045164341,
      "wager": "",
-     "why": "Stats 71% agrees with market",
+     "why": "Stats 72% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858304",
      "key": "NC State@Florida St.",
      "pick_team": "Florida St.",
@@ -209,10 +257,10 @@
      "game": "UCLA @ Michigan",
      "kick": "Sat 11/21 2:30 PM",
      "pick": "UCLA",
-     "model": 0.5811,
-     "market": 0.6092362344582593,
+     "model": 0.5715,
+     "market": 0.6164383561643836,
      "wager": "",
-     "why": "Stats 58% agrees with market",
+     "why": "Stats 57% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858528",
      "key": "UCLA@Michigan",
      "pick_team": "UCLA",
@@ -223,10 +271,10 @@
      "game": "Indiana @ Washington",
      "kick": "Sat 11/21 2:30 PM",
      "pick": "Indiana",
-     "model": 0.706,
+     "model": 0.7004,
      "market": 0.725752508361204,
      "wager": "",
-     "why": "Stats 71% agrees with market",
+     "why": "Stats 70% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858535",
      "key": "Indiana@Washington",
      "pick_team": "Indiana",
@@ -237,10 +285,10 @@
      "game": "LSU @ Tennessee",
      "kick": "Sat 11/21 2:30 PM",
      "pick": "LSU",
-     "model": 0.4988,
+     "model": 0.49260000000000004,
      "market": 0.5108342361863489,
      "wager": "",
-     "why": "Stats 50% vs market 51%; favorite kept",
+     "why": "Stats 49% vs market 51%; favorite kept",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856754",
      "key": "LSU@Tennessee",
      "pick_team": "LSU",
@@ -251,8 +299,8 @@
      "game": "Texas Tech @ Baylor",
      "kick": "Sat 11/21 2:30 PM",
      "pick": "Texas Tech",
-     "model": 0.5516,
-     "market": 0.603756970942178,
+     "model": 0.5522,
+     "market": 0.6309403437815975,
      "wager": "",
      "why": "Stats 55% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856871",
@@ -265,10 +313,10 @@
      "game": "Texas A&M @ Oklahoma",
      "kick": "Sat 11/21 2:45 PM",
      "pick": "Oklahoma",
-     "model": 0.5938,
-     "market": 0.7220792588780237,
+     "model": 0.5927,
+     "market": 0.7135512302607419,
      "wager": "",
-     "why": "Stats 59% win; wind 21 mph lowers scoring",
+     "why": "Stats 59% vs market 71%; favorite kept",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856752",
      "key": "Texas A&M@Oklahoma",
      "pick_team": "Oklahoma",
@@ -279,10 +327,10 @@
      "game": "Virginia Tech @ Miami (FL)",
      "kick": "Sat 11/21 6:00 PM",
      "pick": "Miami (FL)",
-     "model": 0.9443,
-     "market": 0.9039548022598869,
+     "model": 0.9454,
+     "market": 0.9082568807339451,
      "wager": "",
-     "why": "Stats 94% agrees with market",
+     "why": "Stats 95% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401858302",
      "key": "Virginia Tech@Miami (FL)",
      "pick_team": "Miami (FL)",
@@ -293,7 +341,7 @@
      "game": "UNLV @ San Jose St.",
      "kick": "Sat 11/21 6:00 PM",
      "pick": "UNLV",
-     "model": 0.609,
+     "model": 0.6088,
      "market": 0.690792883054068,
      "wager": "",
      "why": "Stats 61% vs market 69%; favorite kept",
@@ -307,8 +355,8 @@
      "game": "Kentucky @ Missouri",
      "kick": "Sat 11/21 6:30 PM",
      "pick": "Missouri",
-     "model": 0.6862,
-     "market": 0.6574752261956054,
+     "model": 0.6883,
+     "market": 0.644729178800233,
      "wager": "TB1 24-30",
      "why": "Stats 69% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856751",
@@ -321,10 +369,10 @@
      "game": "Georgia @ South Carolina",
      "kick": "Sat 11/21 6:30 PM",
      "pick": "Georgia",
-     "model": 0.8356,
+     "model": 0.8444,
      "market": 0.8465011286681715,
-     "wager": "TB1 35-20",
-     "why": "Stats 84% win; wind 16 mph lowers scoring",
+     "wager": "TB1 37-20",
+     "why": "Stats 84% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856753",
      "key": "Georgia@South Carolina",
      "pick_team": "Georgia",
@@ -335,7 +383,7 @@
      "game": "SMU @ Notre Dame",
      "kick": "Sat 11/21 6:30 PM",
      "pick": "Notre Dame",
-     "model": 0.9096,
+     "model": 0.9101,
      "market": 0.9082568807339451,
      "wager": "",
      "why": "Stats 91% agrees with market",
@@ -349,7 +397,7 @@
      "game": "Utah @ TCU",
      "kick": "Sat 11/21 8:00 PM",
      "pick": "Utah",
-     "model": 0.7293000000000001,
+     "model": 0.7296,
      "market": 0.700162074554295,
      "wager": "",
      "why": "Stats 73% agrees with market",
@@ -363,8 +411,8 @@
      "game": "Oklahoma St. @ Arizona St.",
      "kick": "Sat 11/21 9:15 PM",
      "pick": "Oklahoma St.",
-     "model": 0.5724,
-     "market": 0.5829926410466066,
+     "model": 0.5725,
+     "market": 0.5634920634920635,
      "wager": "",
      "why": "Stats 57% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401856870",
@@ -377,10 +425,10 @@
      "game": "Utah St. @ Oregon St.",
      "kick": "Sat 11/21 9:30 PM",
      "pick": "Oregon St.",
-     "model": 0.679,
-     "market": 0.7477827050997783,
+     "model": 0.6929,
+     "market": 0.7335423197492164,
      "wager": "",
-     "why": "Stats 68% agrees with market",
+     "why": "Stats 69% agrees with market",
      "source": "https://www.espn.com/college-football/game/_/gameId/401860919",
      "key": "Utah St.@Oregon St.",
      "pick_team": "Oregon St.",
@@ -389,75 +437,27 @@
     }
    ],
    "tiebreakers": [
-    "TB1 Kentucky @ Missouri: <b>Kentucky 24, Missouri 30</b> (alt Kentucky 23, Missouri 30)",
-    "TB1 Georgia @ South Carolina: <b>Georgia 35, South Carolina 20</b> (alt Georgia 34, South Carolina 20)",
-    "TB2 most points: <b>Miami (FL)</b> (20%), alt Notre Dame (12%)",
+    "TB1 Kentucky @ Missouri: <b>Kentucky 24, Missouri 30</b> (alt Kentucky 24, Missouri 33)",
+    "TB1 Georgia @ South Carolina: <b>Georgia 37, South Carolina 20</b> (alt Georgia 37, South Carolina 24)",
+    "TB2 most points: <b>Miami (FL)</b> (19%), alt Notre Dame (14%)",
     "TB2 fewest points: <b>Bowling Green</b> (10%), alt UTEP (10%)",
     "TB2 locks Fri, Nov 20 4:55 pm CST"
    ],
    "notes": [
-    "Underdogs: 0. Pool sim (10k, before kept picks): P(win week) 14.0% vs 14.0% all favorites; 0 dogs passed the 4-pt / 2-signal rule.",
+    "LSU @ Tennessee (Sat) is a coin flip on conflicting book data (stats 49-51%). Not final tonight: keep your saved Tennessee for now; Friday's 9pm final settles it. Tonight's final Yahoo items are the 4 Friday games and TB2.",
+    "Underdogs: 0. Pool sim (10k, before kept picks): P(win week) 13.7% vs 13.7% all favorites; 0 dogs passed the 4-pt / 2-signal rule.",
     "Group: you 166 pts, rank 6, leader 175.",
     "Upset watch (favorites our stats doubt or disagree with; your call):",
-    "Tennessee over LSU (Sat 11/21 2:30 PM): our stats give Tennessee 50%; betting odds 49%; 81% of Yahoo players on Tennessee; LSU: Five defensive regulars out or doubtful, including LB Weeks (<a href=\"https://www.rockytoptalk.com/tennessee_volunteer_football/50046/initial-availability-report-for-tennessee-vols-vs-lsu-tigers-released-by-the-sec\">rockytoptalk.com, Nov 18</a>); Tennessee: WR Matthews and two OL starters out; MacIntyre starts (<a href=\"https://www.rockytoptalk.com/tennessee_volunteer_football/50046/initial-availability-report-for-tennessee-vols-vs-lsu-tigers-released-by-the-sec\">rockytoptalk.com, Nov 18</a>)",
-    "Iowa St. over UCF (Fri 11/20 5:00 PM): our stats give Iowa St. 46%; betting odds 47%; 21% of Yahoo players on Iowa St.; rebuilt roster: Iowa St. (2%) returned almost none of last year&#x27;s production, so our stats lean on last season here; trust the betting odds",
-    "Purdue over Wisconsin (Sat 11/21 11:00 AM): our stats give Purdue 43%; betting odds 33%; 6% of Yahoo players on Purdue",
-    "Texas A&amp;M over Oklahoma (Sat 11/21 2:45 PM): our stats give Texas A&amp;M 41%; betting odds 28%; 1% of Yahoo players on Texas A&amp;M; Texas A&amp;M: WR Bethel-Roman and several linemen out (<a href=\"https://yournews.com/2026/11/18/7273165/no-22-oklahoma-renews-rivalry-with-visiting-texas-am/\">yournews.com, Nov 18</a>)",
-    "Chance to win the group this season: 0.7% (you're #6, 9 back; simulated against each member's own pick habits over the last 11 weeks).",
+    "Tennessee over LSU (Sat 11/21 2:30 PM): our stats give Tennessee 51%; betting odds 49%; 81% of Yahoo players on Tennessee; line moved 2.75 toward dog; LSU: Five defensive regulars out or doubtful, including LB Weeks (<a href=\"https://www.rockytoptalk.com/tennessee_volunteer_football/50046/initial-availability-report-for-tennessee-vols-vs-lsu-tigers-released-by-the-sec\">rockytoptalk.com, Nov 18</a>); Tennessee: WR Matthews and two OL starters out; MacIntyre starts (<a href=\"https://www.rockytoptalk.com/tennessee_volunteer_football/50046/initial-availability-report-for-tennessee-vols-vs-lsu-tigers-released-by-the-sec\">rockytoptalk.com, Nov 18</a>)",
+    "Iowa St. over UCF (Fri 11/20 5:00 PM): our stats give Iowa St. 46%; betting odds 47%; 21% of Yahoo players on Iowa St.; rebuilt roster: Iowa St. (2%) returned almost none of last year&#x27;s production, so our stats lean on last season here; trust the betting odds; UCF: RB Watson likely out; Barnett starts at QB (<a href=\"https://www.underdogdynasty.com/big-12/47809/2026-week-12-preview-iowa-state-cyclones-ucf-knights\">underdogdynasty.com, Nov 18</a>)",
+    "Purdue over Wisconsin (Sat 11/21 11:00 AM): our stats give Purdue 44%; betting odds 33%; 6% of Yahoo players on Purdue",
+    "Texas A&amp;M over Oklahoma (Sat 11/21 2:45 PM): our stats give Texas A&amp;M 41%; betting odds 29%; 1% of Yahoo players on Texas A&amp;M; Texas A&amp;M: WR Bethel-Roman and several linemen out (<a href=\"https://yournews.com/2026/11/18/7273165/no-22-oklahoma-renews-rivalry-with-visiting-texas-am/\">yournews.com, Nov 18</a>)",
+    "Chance to win the group this season: 0.8% (you're #6, 9 back; simulated against each member's own pick habits over the last 11 weeks).",
     "Value of taking the other side (open games; your call: the card takes an underdog only by the 4-pt / 2-signal rule or when you saved it):",
-    "Nebraska instead of Ohio St. (Sat 11/21 11:00 AM): +0.04 points of win chance (0.7% \u2192 0.8%); Nebraska wins 37%, 9% of Yahoo players on Nebraska",
-    "Navy instead of Memphis (Sat 11/21 11:00 AM): +0.04 points of win chance (0.7% \u2192 0.8%); Navy wins 41%, 6% of Yahoo players on Navy",
-    "Purdue instead of Wisconsin (Sat 11/21 11:00 AM): +0.02 points of win chance (0.7% \u2192 0.8%); Purdue wins 38%, 6% of Yahoo players on Purdue",
-    "All 5 switches with any gain (incl. ones under 0.05 pts, not listed) together: 0.7% \u2192 0.8%."
-   ]
-  },
-  {
-   "id": "bto",
-   "title": "BTO Beat the Odds",
-   "deadline": "Due Fri 8:00pm CT (games lock at kickoff)",
-   "rows": [
-    {
-     "game": "MIN @ SF \u2605",
-     "pick": "SF -0.5 (LP 2.5)",
-     "model": 0.583,
-     "market": 0.5,
-     "wager": "$3,060",
-     "why": "Murray DNP (hamstring); Cousins likely starts; Purdy healthy",
-     "source": "https://vikings.com/news/49ers-injury-report-week-11-2026-nfl-season",
-     "key": "MIN@SF",
-     "pick_team": "SF",
-     "changed": false,
-     "bd": "bd-nfl-MIN-SF"
-    },
-    {
-     "game": "BAL @ CAR",
-     "pick": "CAR -0.5 (LP 1)",
-     "model": 0.5743,
-     "market": 0.5,
-     "wager": "$1,540",
-     "why": "Pool CAR -1.5 vs market -2.5; Brissett starts for BAL",
-     "source": "https://www.rotowire.com/football/article/nfl-week-11-odds-biggest-line-moves-betting-splits-and-key-injuries-146888",
-     "key": "BAL@CAR",
-     "pick_team": "CAR",
-     "changed": false,
-     "bd": "bd-nfl-BAL-CAR"
-    },
-    {
-     "game": "UCLA @ Michigan",
-     "pick": "UCLA -3 (LP 0.5)",
-     "model": 0.5493,
-     "market": 0.5,
-     "wager": "$1,540",
-     "why": "Cover 55% vs pool line at current market; top edge",
-     "source": "https://www.espn.com/college-football/game/_/gameId/401858528",
-     "key": "UCLA@Michigan",
-     "pick_team": "UCLA",
-     "changed": false,
-     "bd": "bd-401858528"
-    }
-   ],
-   "notes": [
-    "Sizing sim: 100% of $6,140, lean split \u2192 P(top 12) 38%, P(top 4) 11%."
+    "Navy instead of Memphis (Sat 11/21 11:00 AM): +0.03 points of win chance (0.8% \u2192 0.8%); Navy wins 43%, 6% of Yahoo players on Navy",
+    "Iowa St. instead of UCF (Fri 11/20 5:00 PM): +0.01 points of win chance (0.8% \u2192 0.8%); Iowa St. wins 47%, 21% of Yahoo players on Iowa St.",
+    "Nebraska instead of Ohio St. (Sat 11/21 11:00 AM): +0.01 points of win chance (0.8% \u2192 0.8%); Nebraska wins 36%, 9% of Yahoo players on Nebraska",
+    "All 4 switches with any gain (incl. ones under 0.05 pts, not listed) together: 0.8% \u2192 0.9%."
    ]
   },
   {
@@ -466,39 +466,40 @@
    "deadline": "Locks Sat 11:00am CT",
    "rows": [
     {
-     "game": "UCLA @ Michigan",
-     "pick": "UCLA -3.5",
-     "model": 0.5417000000000001,
+     "game": "LSU @ Tennessee",
+     "pick": "Tennessee +1.5",
+     "model": 0.5854,
      "market": 0.5,
      "wager": "11,904",
-     "why": "Cover 54% vs pool line at current market; top edge",
-     "source": "https://www.espn.com/college-football/game/_/gameId/401858528",
-     "key": "UCLA@Michigan",
-     "pick_team": "UCLA",
+     "why": "LSU: Five defensive regulars out or doubtful, including LB Weeks",
+     "source": "https://www.rockytoptalk.com/tennessee_volunteer_football/50046/initial-availability-report-for-tennessee-vols-vs-lsu-tigers-released-by-the-sec",
+     "key": "LSU@Tennessee",
+     "pick_team": "Tennessee",
      "changed": false,
-     "bd": "bd-401858528"
+     "bd": "bd-401856754"
     },
     {
-     "game": "Oklahoma State @ Arizona State",
-     "pick": "Arizona State +3.5",
-     "model": 0.5333,
+     "game": "Texas Tech @ Baylor",
+     "pick": "Texas Tech -3.5",
+     "model": 0.5522,
      "market": 0.5,
      "wager": "11,904",
-     "why": "Pool +3.5 vs market +2.5; cover 53%",
-     "source": "https://www.espn.com/college-football/game/_/gameId/401856870",
-     "key": "Oklahoma State@Arizona State",
-     "pick_team": "Arizona State",
+     "why": "Pool -3.5 vs market -4.5; cover 55%",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401856871",
+     "key": "Texas Tech@Baylor",
+     "pick_team": "Texas Tech",
      "changed": false,
-     "bd": "bd-401856870"
+     "bd": "bd-401856871"
     }
    ],
    "notes": [
-    "Sizing sim (10k seasons): 2 bet(s), 100% of 23,808 \u2192 P(1st) 5.7%, P(top 3) 14.2%.",
-    "Alternate: 1 bet(s) at 75% \u2192 P(1st) 3.2%.",
+    "CFP is still a DRAFT tonight: it becomes final in Friday's 9pm run (locks Sat 11am). LSU @ Tennessee: books disagree (ESPN's DraftKings feed shows Tennessee -1.5 but LSU -115 on the moneyline; an SI odds piece has DraftKings LSU -1.5, BetMGM LSU -1). The Tennessee +1.5 edge is not confirmed; Friday checks a second book.",
+    "Sizing sim (10k seasons): 2 bet(s), 100% of 23,808 \u2192 P(1st) 6.1%, P(top 3) 14.9%.",
+    "Alternate: 1 bet(s) at 75% \u2192 P(1st) 3.5%.",
+    "Also worth a look: South Carolina +16.5 (cover 55%): next-best edge vs pool line",
     "Also worth a look: Boise State -16.5 (cover 53%): next-best edge vs pool line",
-    "Also worth a look: Ohio State -3.5 (cover 53%): next-best edge vs pool line",
-    "Also worth a look: South Carolina +16.5 (cover 52%): next-best edge vs pool line",
-    "Oklahoma State @ Arizona State: Yahoo has Oklahoma St. to win (57%); CFP takes Arizona State +3.5 (Pool +3.5 vs market +2.5; cover 53%). Different questions: who wins vs who covers."
+    "Also worth a look: Georgia Tech +21.5 (cover 53%): next-best edge vs pool line",
+    "LSU @ Tennessee: Yahoo has LSU to win (49%); CFP takes Tennessee +1.5 (LSU: Five defensive regulars out or doubtful, including LB Weeks). Different questions: who wins vs who covers."
    ]
   },
   {
@@ -715,11 +716,11 @@
      ],
      "o_havoc": [
       0.166,
-      102
+      100
      ],
      "d_havoc": [
       0.146,
-      94
+      93
      ],
      "sp": [
       0.1,
@@ -731,7 +732,7 @@
      ],
      "pace": [
       62.9,
-      51
+      50
      ],
      "runrate": [
       0.5507,
@@ -821,7 +822,7 @@
      ],
      "sp": [
       0.5,
-      72
+      73
      ],
      "talent": [
       672.14,
@@ -829,7 +830,7 @@
      ],
      "pace": [
       59.4,
-      93
+      92
      ],
      "runrate": [
       0.4614,
@@ -837,7 +838,7 @@
      ]
     }
    },
-   "stats_home_margin": 1.7
+   "stats_home_margin": 1.3
   },
   "bd-401858303": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -1021,11 +1022,11 @@
      ],
      "d_havoc": [
       0.157,
-      66
+      65
      ],
      "sp": [
       11.6,
-      29
+      28
      ],
      "talent": [
       668.47,
@@ -1033,7 +1034,7 @@
      ],
      "pace": [
       60.1,
-      84
+      83
      ],
      "runrate": [
       0.4838,
@@ -1123,7 +1124,7 @@
      ],
      "o_havoc": [
       0.186,
-      128
+      129
      ],
      "d_havoc": [
       0.151,
@@ -1221,11 +1222,11 @@
      ],
      "o_havoc": [
       0.131,
-      32
+      33
      ],
      "d_havoc": [
       0.181,
-      30
+      31
      ],
      "sp": [
       4.2,
@@ -1331,11 +1332,11 @@
      ],
      "d_havoc": [
       0.128,
-      123
+      124
      ],
      "sp": [
       -26.3,
-      135
+      136
      ],
      "talent": [
       585.76,
@@ -1441,7 +1442,7 @@
      ],
      "pace": [
       71.7,
-      3
+      4
      ],
      "runrate": [
       0.8739,
@@ -1629,11 +1630,11 @@
      ],
      "o_havoc": [
       0.154,
-      76
+      78
      ],
      "d_havoc": [
       0.187,
-      21
+      22
      ],
      "sp": [
       4.8,
@@ -1645,7 +1646,7 @@
      ],
      "pace": [
       66.9,
-      15
+      14
      ],
      "runrate": [
       0.5532,
@@ -1739,7 +1740,7 @@
      ],
      "d_havoc": [
       0.193,
-      12
+      11
      ],
      "sp": [
       24.1,
@@ -1751,7 +1752,7 @@
      ],
      "pace": [
       63.0,
-      48
+      47
      ],
      "runrate": [
       0.5,
@@ -1833,11 +1834,11 @@
      ],
      "o_havoc": [
       0.139,
-      46
+      50
      ],
      "d_havoc": [
       0.196,
-      9
+      10
      ],
      "sp": [
       16.8,
@@ -1849,7 +1850,7 @@
      ],
      "pace": [
       66.9,
-      14
+      15
      ],
      "runrate": [
       0.487,
@@ -1943,7 +1944,7 @@
      ],
      "d_havoc": [
       0.167,
-      48
+      47
      ],
      "sp": [
       8.3,
@@ -2041,7 +2042,7 @@
      ],
      "d_havoc": [
       0.122,
-      129
+      131
      ],
      "sp": [
       -3.6,
@@ -2143,7 +2144,7 @@
      ],
      "o_havoc": [
       0.131,
-      33
+      34
      ],
      "d_havoc": [
       0.17,
@@ -2241,15 +2242,15 @@
      ],
      "o_havoc": [
       0.129,
-      29
+      28
      ],
      "d_havoc": [
       0.125,
-      126
+      125
      ],
      "sp": [
       -3.0,
-      89
+      88
      ],
      "talent": [
       195.68,
@@ -2445,11 +2446,11 @@
      ],
      "o_havoc": [
       0.175,
-      115
+      114
      ],
      "d_havoc": [
       0.142,
-      104
+      103
      ],
      "sp": [
       -5.8,
@@ -2461,7 +2462,7 @@
      ],
      "pace": [
       59.8,
-      88
+      86
      ],
      "runrate": [
       0.4668,
@@ -2551,7 +2552,7 @@
      ],
      "o_havoc": [
       0.139,
-      51
+      48
      ],
      "d_havoc": [
       0.119,
@@ -2653,11 +2654,11 @@
      ],
      "d_havoc": [
       0.162,
-      57
+      56
      ],
      "sp": [
       4.1,
-      56
+      57
      ],
      "talent": [
       700.18,
@@ -2853,7 +2854,7 @@
      ],
      "o_havoc": [
       0.138,
-      45
+      44
      ],
      "d_havoc": [
       0.141,
@@ -2963,7 +2964,7 @@
      ],
      "d_havoc": [
       0.166,
-      53
+      52
      ],
      "sp": [
       17.4,
@@ -3057,15 +3058,15 @@
      ],
      "o_havoc": [
       0.121,
-      15
+      16
      ],
      "d_havoc": [
       0.137,
-      110
+      109
      ],
      "sp": [
       6.9,
-      45
+      44
      ],
      "talent": [
       704.01,
@@ -3167,7 +3168,7 @@
      ],
      "d_havoc": [
       0.14,
-      107
+      106
      ],
      "sp": [
       -1.7,
@@ -3261,11 +3262,11 @@
      ],
      "o_havoc": [
       0.143,
-      61
+      59
      ],
      "d_havoc": [
       0.156,
-      70
+      67
      ],
      "sp": [
       6.3,
@@ -3367,7 +3368,7 @@
      ],
      "o_havoc": [
       0.149,
-      72
+      74
      ],
      "d_havoc": [
       0.206,
@@ -3383,7 +3384,7 @@
      ],
      "pace": [
       63.0,
-      46
+      48
      ],
      "runrate": [
       0.5816,
@@ -3469,7 +3470,7 @@
      ],
      "d_havoc": [
       0.153,
-      78
+      75
      ],
      "sp": [
       7.0,
@@ -3481,7 +3482,7 @@
      ],
      "pace": [
       60.2,
-      82
+      81
      ],
      "runrate": [
       0.5666,
@@ -3489,7 +3490,7 @@
      ]
     }
    },
-   "stats_home_margin": -3.4
+   "stats_home_margin": -3.2
   },
   "bd-401858535": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -3575,7 +3576,7 @@
      ],
      "d_havoc": [
       0.196,
-      10
+      9
      ],
      "sp": [
       23.1,
@@ -3669,7 +3670,7 @@
      ],
      "o_havoc": [
       0.154,
-      78
+      77
      ],
      "d_havoc": [
       0.185,
@@ -3685,7 +3686,7 @@
      ],
      "pace": [
       61.1,
-      68
+      67
      ],
      "runrate": [
       0.4034,
@@ -3791,7 +3792,7 @@
      ],
      "pace": [
       65.1,
-      24
+      25
      ],
      "runrate": [
       0.474,
@@ -3873,11 +3874,11 @@
      ],
      "o_havoc": [
       0.143,
-      60
+      61
      ],
      "d_havoc": [
       0.216,
-      4
+      3
      ],
      "sp": [
       21.5,
@@ -3979,11 +3980,11 @@
      ],
      "o_havoc": [
       0.174,
-      113
+      112
      ],
      "d_havoc": [
       0.167,
-      47
+      49
      ],
      "sp": [
       19.4,
@@ -4077,7 +4078,7 @@
      ],
      "o_havoc": [
       0.146,
-      64
+      63
      ],
      "d_havoc": [
       0.199,
@@ -4085,7 +4086,7 @@
      ],
      "sp": [
       10.7,
-      34
+      33
      ],
      "talent": [
       723.28,
@@ -4093,7 +4094,7 @@
      ],
      "pace": [
       68.1,
-      9
+      8
      ],
      "runrate": [
       0.4518,
@@ -4199,7 +4200,7 @@
      ],
      "pace": [
       61.8,
-      59
+      60
      ],
      "runrate": [
       0.5141,
@@ -4285,7 +4286,7 @@
      ],
      "d_havoc": [
       0.193,
-      13
+      12
      ],
      "sp": [
       22.4,
@@ -4387,15 +4388,15 @@
      ],
      "o_havoc": [
       0.137,
-      39
+      43
      ],
      "d_havoc": [
       0.14,
-      106
+      108
      ],
      "sp": [
       6.9,
-      44
+      45
      ],
      "talent": [
       933.0,
@@ -4403,7 +4404,7 @@
      ],
      "pace": [
       61.1,
-      65
+      68
      ],
      "runrate": [
       0.5017,
@@ -4591,11 +4592,11 @@
      ],
      "o_havoc": [
       0.14,
-      54
+      52
      ],
      "d_havoc": [
       0.167,
-      49
+      48
      ],
      "sp": [
       -0.9,
@@ -4689,7 +4690,7 @@
      ],
      "o_havoc": [
       0.127,
-      22
+      23
      ],
      "d_havoc": [
       0.132,
@@ -4799,7 +4800,7 @@
      ],
      "d_havoc": [
       0.216,
-      3
+      4
      ],
      "sp": [
       3.9,
@@ -4897,7 +4898,7 @@
      ],
      "d_havoc": [
       0.136,
-      114
+      110
      ],
      "sp": [
       24.4,
@@ -5097,7 +5098,7 @@
      ],
      "o_havoc": [
       0.167,
-      104
+      103
      ],
      "d_havoc": [
       0.148,
@@ -5203,7 +5204,7 @@
      ],
      "o_havoc": [
       0.134,
-      36
+      35
      ],
      "d_havoc": [
       0.165,
@@ -5301,7 +5302,7 @@
      ],
      "o_havoc": [
       0.138,
-      44
+      45
      ],
      "d_havoc": [
       0.176,
@@ -5317,7 +5318,7 @@
      ],
      "pace": [
       60.8,
-      74
+      75
      ],
      "runrate": [
       0.4924,
@@ -5411,7 +5412,7 @@
      ],
      "d_havoc": [
       0.172,
-      40
+      42
      ],
      "sp": [
       7.4,
@@ -5423,7 +5424,7 @@
      ],
      "pace": [
       61.8,
-      60
+      59
      ],
      "runrate": [
       0.4942,
@@ -5505,7 +5506,7 @@
      ],
      "o_havoc": [
       0.157,
-      84
+      85
      ],
      "d_havoc": [
       0.19,
@@ -5513,7 +5514,7 @@
      ],
      "sp": [
       10.7,
-      32
+      34
      ],
      "talent": [
       808.36,
@@ -5709,11 +5710,11 @@
      ],
      "o_havoc": [
       0.143,
-      59
+      60
      ],
      "d_havoc": [
       0.134,
-      117
+      116
      ],
      "sp": [
       11.3,
@@ -5815,15 +5816,15 @@
      ],
      "o_havoc": [
       0.137,
-      40
+      42
      ],
      "d_havoc": [
       0.166,
-      50
+      51
      ],
      "sp": [
       11.6,
-      28
+      29
      ],
      "talent": [
       764.5,
@@ -5831,7 +5832,7 @@
      ],
      "pace": [
       59.8,
-      86
+      88
      ],
      "runrate": [
       0.4871,
@@ -5917,7 +5918,7 @@
      ],
      "d_havoc": [
       0.193,
-      11
+      13
      ],
      "sp": [
       25.6,
@@ -5929,7 +5930,7 @@
      ],
      "pace": [
       56.5,
-      116
+      117
      ],
      "runrate": [
       0.5009,
@@ -6117,11 +6118,11 @@
      ],
      "o_havoc": [
       0.154,
-      77
+      79
      ],
      "d_havoc": [
       0.161,
-      60
+      59
      ],
      "sp": [
       7.9,
@@ -6223,11 +6224,11 @@
      ],
      "o_havoc": [
       0.156,
-      82
+      84
      ],
      "d_havoc": [
       0.125,
-      125
+      126
      ],
      "sp": [
       -5.1,
@@ -6239,7 +6240,7 @@
      ],
      "pace": [
       57.4,
-      112
+      111
      ],
      "runrate": [
       0.5609,
@@ -6325,7 +6326,7 @@
      ],
      "d_havoc": [
       0.166,
-      52
+      50
      ],
      "sp": [
       13.4,
@@ -6427,7 +6428,7 @@
      ],
      "o_havoc": [
       0.128,
-      25
+      27
      ],
      "d_havoc": [
       0.156,
@@ -6631,7 +6632,7 @@
      ],
      "o_havoc": [
       0.162,
-      92
+      94
      ],
      "d_havoc": [
       0.15,
@@ -6647,7 +6648,7 @@
      ],
      "pace": [
       61.0,
-      71
+      72
      ],
      "runrate": [
       0.4992,
