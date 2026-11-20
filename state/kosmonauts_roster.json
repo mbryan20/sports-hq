@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-20T13:36:28Z",
+ "captured": "2026-11-20T22:35:43Z",
  "players": [
   {
    "slot": "QB",
@@ -23,7 +23,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "RB",
@@ -253,7 +253,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -313,7 +313,7 @@
    "eligible": [
     "QB"
    ],
-   "status": null
+   "status": "Inactive"
   },
   {
    "slot": "FA",
@@ -349,7 +349,7 @@
    "eligible": [
     "RB"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -389,18 +389,6 @@
   },
   {
    "slot": "FA",
-   "name": "RJ Harvey",
-   "yahoo_id": "41845",
-   "key": null,
-   "team": "DEN",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "IR"
-  },
-  {
-   "slot": "FA",
    "name": "Kenny Gainwell",
    "yahoo_id": "33538",
    "key": null,
@@ -410,6 +398,18 @@
     "RB"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "RJ Harvey",
+   "yahoo_id": "41845",
+   "key": null,
+   "team": "DEN",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "IR"
   },
   {
    "slot": "FA",
@@ -457,7 +457,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -465,6 +465,18 @@
    "yahoo_id": "42386",
    "key": null,
    "team": "NE",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Mike Washington Jr.",
+   "yahoo_id": "42744",
+   "key": null,
+   "team": "LV",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -482,18 +494,6 @@
     "RB"
    ],
    "status": "Questionable"
-  },
-  {
-   "slot": "FA",
-   "name": "Mike Washington Jr.",
-   "yahoo_id": "42744",
-   "key": null,
-   "team": "LV",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
   },
   {
    "slot": "FA",
@@ -533,10 +533,10 @@
   },
   {
    "slot": "FA",
-   "name": "Courtland Sutton",
-   "yahoo_id": "31010",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
    "key": null,
-   "team": "DEN",
+   "team": "SF",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -545,10 +545,10 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
+   "name": "Courtland Sutton",
+   "yahoo_id": "31010",
    "key": null,
-   "team": "SF",
+   "team": "DEN",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -625,7 +625,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -637,7 +637,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -665,18 +665,6 @@
   },
   {
    "slot": "FA",
-   "name": "Marvin Harrison Jr.",
-   "yahoo_id": "40893",
-   "key": null,
-   "team": "HOU",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Adonai Mitchell",
    "yahoo_id": "40915",
    "key": null,
@@ -686,6 +674,18 @@
     "WR"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Marvin Harrison Jr.",
+   "yahoo_id": "40893",
+   "key": null,
+   "team": "HOU",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -857,10 +857,10 @@
   },
   {
    "slot": "FA",
-   "name": "Oronde Gadsden",
-   "yahoo_id": "41951",
+   "name": "Cade Otton",
+   "yahoo_id": "34062",
    "key": null,
-   "team": "LAC",
+   "team": "TB",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -1169,10 +1169,10 @@
   },
   {
    "slot": "FA",
-   "name": "Saints",
-   "yahoo_id": "100018",
+   "name": "Cowboys",
+   "yahoo_id": "100006",
    "key": null,
-   "team": "NO",
+   "team": "DAL",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1181,10 +1181,10 @@
   },
   {
    "slot": "FA",
-   "name": "Cowboys",
-   "yahoo_id": "100006",
+   "name": "Saints",
+   "yahoo_id": "100018",
    "key": null,
-   "team": "DAL",
+   "team": "NO",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-20T13:36:28Z"
+ "fa_captured": "2026-11-20T22:35:43Z"
 }
