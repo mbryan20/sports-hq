@@ -147,6 +147,17 @@ def make_player(ctx, scoring, pid, slot, *, name=None, team=None, positions=None
     }
 
 
+def sleeper_faab(league_settings, my_settings):
+    """(season budget, dollars left), or (0, None) when the league doesn't bid. Sleeper keeps a leftover waiver_budget
+    even with bidding off: waiver_type 2 is FAAB, 0/1 are rolling or reverse-standings waivers with no bids. Sunday's
+    Best is type 0 with $100 left over, so the page said "Bid $1-3" and "FAAB left: $100" (hopper item 1, Nov 20)."""
+    st = league_settings or {}
+    if st.get("waiver_type") not in (None, 2):
+        return 0, None
+    budget = st.get("waiver_budget") or 0
+    return budget, (budget - ((my_settings or {}).get("waiver_budget_used") or 0) if budget else None)
+
+
 class SleeperLeague:
     platform = "sleeper"
     can_write = False
@@ -194,8 +205,7 @@ class SleeperLeague:
             key=lambda p: -p["proj"])
 
         self.standing = self._standing(ctx, rosters, mine) if fmt == "guillotine" else None
-        budget = self.faab_budget = (lg.get("settings") or {}).get("waiver_budget") or 0
-        self.faab = budget - ((mine.get("settings") or {}).get("waiver_budget_used") or 0) if budget else None
+        self.faab_budget, self.faab = sleeper_faab(lg.get("settings"), mine.get("settings"))
         self.opponent, self.opp_proj, self.matchups = None, None, []
         try:
             ms = self.matchups = sleeper.matchups(lg["league_id"], ctx.week) or []
