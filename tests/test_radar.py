@@ -84,13 +84,14 @@ def league():
 class Radar(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.saved = radar.OWNED, notify.ALERTS, radar.fetch_pool
+        self.saved = radar.OWNED, notify.ALERTS, radar.fetch_pool, notify.now_utc
         radar.OWNED, notify.ALERTS = Path(self.tmp.name) / "owned.json", Path(self.tmp.name) / "alerts.json"
         radar.fetch_pool = lambda *a, **k: POOL
+        notify.now_utc = lambda: NOW + dt.timedelta(days=2)   # the alert log keeps 21 days by its own clock; pin it to the test's date
         notify.sent.clear()
 
     def tearDown(self):
-        radar.OWNED, notify.ALERTS, radar.fetch_pool = self.saved
+        radar.OWNED, notify.ALERTS, radar.fetch_pool, notify.now_utc = self.saved
         self.tmp.cleanup()
 
     def test_usage_is_the_share_of_team_plays_on_the_floor(self):
