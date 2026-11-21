@@ -165,7 +165,7 @@ def pool_line(card, status, unsaved=()):
         return f"{head}: {txt}" + (" (nothing saved yet)" if status == "empty" else "")
     tb1, most, fewest = yahoo_tb(card)
     close = [r for r in card["rows"] if (r.get("market") or r.get("model") or 1) < 0.6 or "(dog)" in r["pick"]]
-    parts = [f"{len(card['rows'])} set"]
+    parts = [f"{card.get('n_all', len(card['rows']))} set"]
     if close:
         parts.append("close calls: " + ", ".join(f"{r['game'].replace(' @ ', '@')}: {r['pick']}" for r in close[:6]))
     if tb1:
@@ -206,6 +206,10 @@ def compose(cards, slate, due=None, now=None, final_call=False):
             if ch and not ats_locked(pid, now):
                 alerts.append(ch + early_lock(c, saved, (slate.get(pid) or {}).get("games") or [], now))
         if pid in due:
+            if pid == "yahoo":  # finished/under-way games are not close calls he can act on
+                kicks = {f"{g['away']}@{g['home']}": g.get("kick") for g in (slate.get("yahoo") or {}).get("games") or []}
+                c = {**c, "rows": [r for r in c["rows"] if not _kick_passed(kicks.get(r["game"].replace(" @ ", "@")), now)],
+                     "n_all": len(c["rows"])}
             line = pool_line(c, status, unsaved)
             if status == "unread" and c["rows"]:
                 line += f" (saved picks not read: {(saved or {}).get('unread') or 'not read this run'})"
