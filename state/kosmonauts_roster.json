@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-21T13:36:08Z",
+ "captured": "2026-11-21T22:34:33Z",
  "players": [
   {
    "slot": "QB",
@@ -293,6 +293,18 @@
   },
   {
    "slot": "FA",
+   "name": "Daniel Jones",
+   "yahoo_id": "31838",
+   "key": null,
+   "team": "IND",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "Inactive"
+  },
+  {
+   "slot": "FA",
    "name": "Malik Willis",
    "yahoo_id": "34042",
    "key": null,
@@ -314,18 +326,6 @@
     "QB"
    ],
    "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Daniel Jones",
-   "yahoo_id": "31838",
-   "key": null,
-   "team": "IND",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "Inactive"
   },
   {
    "slot": "FA",
@@ -545,10 +545,10 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
+   "name": "Courtland Sutton",
+   "yahoo_id": "31010",
    "key": null,
-   "team": "SF",
+   "team": "DEN",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -557,10 +557,10 @@
   },
   {
    "slot": "FA",
-   "name": "Courtland Sutton",
-   "yahoo_id": "31010",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
    "key": null,
-   "team": "DEN",
+   "team": "SF",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -641,18 +641,6 @@
   },
   {
    "slot": "FA",
-   "name": "Makai Lemon",
-   "yahoo_id": "42642",
-   "key": null,
-   "team": "PHI",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Adonai Mitchell",
    "yahoo_id": "40915",
    "key": null,
@@ -665,10 +653,10 @@
   },
   {
    "slot": "FA",
-   "name": "DeMario Douglas",
-   "yahoo_id": "40222",
+   "name": "Makai Lemon",
+   "yahoo_id": "42642",
    "key": null,
-   "team": "NE",
+   "team": "PHI",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -686,6 +674,18 @@
     "WR"
    ],
    "status": "Out"
+  },
+  {
+   "slot": "FA",
+   "name": "DeMario Douglas",
+   "yahoo_id": "40222",
+   "key": null,
+   "team": "NE",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
   },
   {
    "slot": "FA",
@@ -749,18 +749,6 @@
   },
   {
    "slot": "FA",
-   "name": "Jake Ferguson",
-   "yahoo_id": "34085",
-   "key": null,
-   "team": "DAL",
-   "pos": "TE",
-   "eligible": [
-    "TE"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Michael Mayer",
    "yahoo_id": "40065",
    "key": null,
@@ -770,6 +758,18 @@
     "TE"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Jake Ferguson",
+   "yahoo_id": "34085",
+   "key": null,
+   "team": "DAL",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -1085,30 +1085,6 @@
   },
   {
    "slot": "FA",
-   "name": "Patriots",
-   "yahoo_id": "100017",
-   "key": null,
-   "team": "NE",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Packers",
-   "yahoo_id": "100009",
-   "key": null,
-   "team": "GB",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Chargers",
    "yahoo_id": "100024",
    "key": null,
@@ -1121,10 +1097,34 @@
   },
   {
    "slot": "FA",
+   "name": "Patriots",
+   "yahoo_id": "100017",
+   "key": null,
+   "team": "NE",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Buccaneers",
    "yahoo_id": "100027",
    "key": null,
    "team": "TB",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Packers",
+   "yahoo_id": "100009",
+   "key": null,
+   "team": "GB",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-21T13:36:08Z"
+ "fa_captured": "2026-11-21T22:34:33Z"
 }
