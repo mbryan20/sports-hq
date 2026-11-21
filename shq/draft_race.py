@@ -5,9 +5,10 @@ the 2026 draft) is worst record first, fewer points scored breaking a tie, the s
 pick 7-12. So once a playoff spot is out of reach, the page shows the draft pick he holds now, and the advice drops
 small start/sit upgrades and points-only pickups. It never tanks: a starter who is OUT, on bye or missing is still
 fixed, and a big start/sit gap (DRAFT_KEEP_GAIN or more) is still shown."""
+from .pv_model import dv
 
 DRAFT_KEEP_GAIN = 3.0    # a start/sit upgrade this big still shows: benching a clearly better player looks like a tank
-DRAFT_ADD_VALUE = 250    # a pickup must add this much FantasyCalc dynasty value over the drop (rule 2), points alone don't count
+DRAFT_ADD_VALUE = 250    # a pickup must add this much dynasty value (ours where proven, else FantasyCalc) over the drop (rule 2)
 
 
 def _rec(r):
@@ -77,4 +78,5 @@ def keep_add(a):
     fa, drop = a["fa"], a.get("drop")
     if not fa.get("val") or (fa.get("positions") or ["?"])[0] in ("K", "DEF"):
         return False
-    return fa["val"] - ((drop or {}).get("val") or 0) >= DRAFT_ADD_VALUE
+    # ours where its position passed its test, else FantasyCalc (pick A, Nov 20; shq/pv_model.py)
+    return dv(fa) - (dv(drop) if drop else 0) >= DRAFT_ADD_VALUE

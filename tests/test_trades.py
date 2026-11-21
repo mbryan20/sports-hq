@@ -177,7 +177,9 @@ class Values(unittest.TestCase):
 
     def test_fantasycalc_cached_and_filtered(self):
         v = values.fantasycalc(True, 2, 12, 1)
-        self.assertEqual(v, {"1": {"value": 5000, "redraft": 4000, "name": "A", "pos": "WR", "espn": "99"}})
+        self.assertEqual(v, {"1": {"value": 5000, "redraft": 4000, "name": "A", "pos": "WR", "espn": "99", "team": None,
+                                   "draft": None}})
+        self.assertEqual(values.fc_picks(2, 12, 1), {"Pick": 900})   # rookie picks kept apart (shq/pv_calls.py)
         values.fantasycalc(True, 2, 12, 1)
         self.assertEqual(len(self.calls), 1)
 

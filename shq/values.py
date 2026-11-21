@@ -54,7 +54,7 @@ def fantasycalc(dynasty, qbs, teams, ppr):
     params = {"isDynasty": "true", "numQbs": qbs, "numTeams": teams, "ppr": ppr}
     path = CACHE / f"fantasycalc-{qbs}qb-{teams}t-{ppr}ppr.json"
     cached = load_json(path)
-    if cached and time.time() - cached.get("_fetched", 0) < FC_MAX_AGE:
+    if cached and "picks" in cached and time.time() - cached.get("_fetched", 0) < FC_MAX_AGE:
         return cached["values"]
     try:
         # the dynasty list carries redraftValue too and covers twice as many players as the redraft list
@@ -63,14 +63,22 @@ def fantasycalc(dynasty, qbs, teams, ppr):
         if cached:
             return cached["values"]
         raise
-    out = {}
+    out, picks = {}, {}
     for r in rows:
         p = r.get("player") or {}
         if p.get("sleeperId") and p.get("position") in SKILL:
             out[p["sleeperId"]] = {"value": r.get("value") or 0, "redraft": r.get("redraftValue") or 0,
-                                   "name": p.get("name"), "pos": p.get("position"), "espn": p.get("espnId")}
-    save_json(path, {"_fetched": time.time(), "params": params, "values": out})
+                                   "name": p.get("name"), "pos": p.get("position"), "espn": p.get("espnId"),
+                                   "team": p.get("maybeTeam"), "draft": p.get("maybeDraftInfo")}
+        elif p.get("position") == "PICK" and p.get("name"):
+            picks[p["name"]] = r.get("value") or 0      # "2027 1st (Early)": FantasyCalc's rookie-pick values
+    save_json(path, {"_fetched": time.time(), "params": params, "values": out, "picks": picks})
     return out
+
+
+def fc_picks(qbs, teams, ppr):
+    """{"2027 1st (Early)": value, ...} from the cached dynasty list (fantasycalc() fetches it first)."""
+    return (load_json(CACHE / f"fantasycalc-{qbs}qb-{teams}t-{ppr}ppr.json") or {}).get("picks") or {}
 
 
 def _slim(rows):
@@ -382,5 +390,23 @@ def annotate(league):
     if persist and seen_changed:
         save_ir_seen(seen, now)
     league.fc_settings = {"dynasty": dynasty, "qbs": qbs, "teams": teams, "ppr": ppr}
+    if dynasty and persist:   # the real run only (tests hand in their own context)
+        try:   # plan step 0: one full FantasyCalc snapshot a day per dynasty setting, for scoring our calls
+            from . import pv_data
+            pv_data.save_fc_snapshot(f"{qbs}qb-{teams}t-{ppr}ppr",
+                                     {**{k: v["value"] for k, v in fc.items()}, **fc_picks(qbs, teams, ppr)}, now)
+        except Exception:
+            import traceback
+            traceback.print_exc()
+        try:   # our values next to the market (shq/pv_model.py); best-effort: the market stays if anything fails
+            from . import pv_model
+            players = players_of(league)
+            team_of = lambda sid: ((ctx.players or {}).get(sid) or {}).get("team") or (fc.get(sid) or {}).get("team")
+            statuses = {p.get("sid"): raw_status(p, ctx, p.get("sid"), live.get(p.get("sid") or "")) for p in players}
+            pv_model.annotate(players, fc, team_of, statuses, now, getattr(ctx, "week", 1) or 1)
+            pv_model.rookies(players, fc, now)
+        except Exception:
+            import traceback
+            traceback.print_exc()
     league._valued = True
     return True

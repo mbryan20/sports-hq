@@ -105,6 +105,9 @@ CHECKS = {
     "moved.mae": ("Their average projection miss", None, 0, "pts"),
     "moved.others_mae": ("Everyone else's average projection miss", None, 0, "pts"),
     "moved.mae_gap": ("Their miss minus everyone else's", "lower", 1.5, "pts"),
+    # our player values (shq/pv_score.py): live calls 10%+ off the market, right after 12 weeks (last 30)
+    **{f"pv.{v}_{pos}": (f"Our {'in-season' if v == 'in' else 'offseason'} {pos} value calls right after 12 weeks (last 30)",
+                         "higher", 0.10, "%") for v in ("in", "off") for pos in ("QB", "RB", "WR", "TE")},
 }
 MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win": 1, "rec.win_brier": 5, "rec.est_mae": 5,
          "gd.dash_price_mae": 5, "wr.ladder_cov50": 20, "wr.ladder_cov80": 20, "picks.card_ats": 10,
@@ -115,12 +118,14 @@ MIN_N = {"wr.cut_skill": 4, "gd.v2_skill": 3, "gd.dash_skill": 3, "rec.would_win
          # swaps: ~10 distinct a week over both leagues; streamer pairs ~20. Under SWAP_N they show as info (swaps_checks)
          "swap.gain": 20, "swap.hit": 20, "swap.est_err": 20, "swap.est_bias": 20, "stream.edge": 20, "stream.order": 20,
          # under 10 players in a week the moved.* checks are shown as info (build, moved)
-         "moved.zeroed": 10, "moved.inactive": 10, "moved.mae": 10, "moved.mae_gap": 10}
+         "moved.zeroed": 10, "moved.inactive": 10, "moved.mae": 10, "moved.mae_gap": 10,
+         **{f"pv.{v}_{pos}": 10 for v in ("in", "off") for pos in ("QB", "RB", "WR", "TE")}}
 # A stored baseline measured on fewer than MIN_N outcomes is re-set from the next measurement that has enough.
 # the simple alternative a check must beat whatever its baseline says: a value on the wrong side is "weak"
 FLOORS = {"wr.cut_skill": 0.0, "gd.v2_skill": 0.0, "gd.dash_skill": 0.0, "wr.proj_edge": 0.0, "radar.edge": 0.0,
           "swap.gain": 0.0, "swap.hit": 0.5, "stream.edge": 0.0,     # no better than keeping the drop / a coin toss
-          "picks.card_ats": 0.524}     # 52.4% wins against the spread breaks even at -110
+          "picks.card_ats": 0.524,     # 52.4% wins against the spread breaks even at -110
+          **{f"pv.{v}_{pos}": 0.5 for v in ("in", "off") for pos in ("QB", "RB", "WR", "TE")}}   # a value call: a coin toss
 
 
 # ---------- status and baselines ----------
@@ -1286,7 +1291,12 @@ def build(now=None, baselines=None, lg=None, estimate=node_estimates):
         h = moved_health(now, previous=prev.get("weeks"))
         return moved_checks(h["weeks"], j), h, moved_notes(h["weeks"])
 
+    def pv():
+        from . import pv_score
+        return pv_score.health(now, j)
+
     sections = [
+        section("values", "Our player values vs the market (dynasty)", pv),
         section("experts", "Start/sit: Sleeper vs ESPN's experts", exp),
         section("moved", "Traded, injured and new starters", moved),
         section("warroom", "War Room v2 (guillotine bids)", wr),

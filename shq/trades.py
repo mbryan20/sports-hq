@@ -9,9 +9,13 @@ the flexes); kickers and defenses aren't traded. An offer has to
     - be fair by value: the two sides within TOLERANCE, with the lesser player of a two-player side
       counted at PACKAGE_DISCOUNT (whoever takes two players has to cut someone)
     - raise my lineup by at least MIN_GAIN points per game
-    - raise theirs by at least MIN_NEED: what they get starts for them, so it fills a real need"""
+    - raise theirs by at least MIN_NEED: what they get starts for them, so it fills a real need
+In dynasty leagues with our values (shq/pv_model.py), fairness stays on the market (what the other owner sees), but offers
+where ours says I gain value rank higher ("ours" = the decision value: ours where its position passed its test, else the
+market), and the offer says how much I gain or lose by ours."""
 from itertools import combinations
 
+from .pv_model import dv
 from .swap import FLEX_SLOTS, eligible
 
 SKILL = ("QB", "RB", "WR", "TE")
@@ -20,6 +24,8 @@ PACKAGE_DISCOUNT = 0.8
 MIN_GAIN = 0.5
 MIN_NEED = 0.5
 MIN_VALUE = 150          # below this FantasyCalc value a player is filler, not a trade piece
+OURS_WEIGHT = 1 / 500    # rank: 500 of extra value by ours counts like 1 point a game of lineup gain
+OURS_SHOW = 200          # say "by ours" when ours differs from the market by this much
 
 
 def primary(p):
@@ -107,17 +113,21 @@ def offers(slots, mine, teams, limit=3):
             benched = [p for _, p in their_picks if p["id"] not in new_ids and p["id"] not in inn]
             starts_me = [p for _, p in my_picks if p["id"] in inn]
             starts_them = [p for p in give if p["id"] in new_ids]
+            edge = round(sum(dv(p) - p.get("val", 0) for p in get) - sum(dv(p) - p.get("val", 0) for p in give))
             found.append({
                 "team": " ".join(team["name"].split()),
+                "ours_gain": edge,
                 "give": [_tag(p) for p in give], "get": [_tag(p) for p in get],
                 "give_value": round(gv), "get_value": round(rv),
                 "my_gain": gain, "their_gain": need,
                 "cut": len(get) > len(give),        # I take two players: someone on my bench has to go
                 "why": _starts(starts_me, "you") + "; " + _starts(starts_them, "them")
-                       + (f" over {benched[0]['name']} ({benched[0]['ppg']}/gm)" if benched else ""),
+                       + (f" over {benched[0]['name']} ({benched[0]['ppg']}/gm)" if benched else "")
+                       + (f". By our values you {'gain' if edge > 0 else 'give up'} about {abs(edge):,} more than the market says"
+                          if abs(edge) >= OURS_SHOW else ""),
                 "_ids": out | inn,
             })
-    rank = lambda o: -(o["my_gain"] + 0.3 * o["their_gain"])
+    rank = lambda o: -(o["my_gain"] + 0.3 * o["their_gain"] + OURS_WEIGHT * o["ours_gain"])
     found.sort(key=rank)
     # the best straight 1-for-1 always gets a place (simplest to propose), then the rest by gain;
     # no player appears in two offers

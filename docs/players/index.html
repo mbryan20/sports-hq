@@ -233,7 +233,9 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       g: "Lower is better. <span class=\"pos\">Green</span> = the experts rank him 10+ spots better than our Wk rk (6+ for QB/TE), so he may beat his projection. <span class=\"neg\">Red</span> = they rank him that much worse." }),
     explately: () => ({ t: "Exp lately", d: "The middle (median) of the experts' ranks for him over their last 3 weekly lists, skipping weeks he was out or on a bye. Handy before this week's list is out.",
       g: "Lower is better." }),
-    fc: L => ({ t: "Value (trade value)", d: `FantasyCalc's ${L.dynasty ? "dynasty (long-term, so age matters)" : "redraft (this season only)"} trade value for your league's settings, based on real trades people make. Compare numbers only within this league.`,
+    pv: () => ({ t: "Ours (our 12-month value)", d: "FantasyCalc's value moved up or down by signals that beat the market on past seasons the model never saw (in season: QB efficiency per dropback, WR target share, points per game). One call moves it 35% at most. Shown only for positions that passed that test right now; everyone else shows <b>= mkt</b> (the market number). <b>trial</b> = rookies, shown but not used in advice yet.",
+      g: "▲ = we expect him to gain value on the market over the next 12 months: a buy. ▼ = a sell. Tap a row for the reason and how that signal has done." }),
+    fc: L => ({ t: L.dynasty ? "Market (FantasyCalc)" : "Value (trade value)", d: `FantasyCalc's ${L.dynasty ? "dynasty (long-term, so age matters)" : "redraft (this season only)"} trade value for your league's settings, based on real trades people make. Compare numbers only within this league.`,
       g: "Higher = more trade value." }),
     next: () => ({ t: "Next 4", d: "His projected points for each of the next 4 weeks, this week first. <b>bye</b> = no game that week.",
       g: "Look for byes and easy or tough stretches." }),
@@ -365,7 +367,10 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       + `<button data-lg="${esc(n)}" aria-pressed="${n === st.lg}">${esc(n)}</button>`).join("");
   }
   // ---------- football: rest-of-season and this-week ranks by position (shq/nfl_players.py) ----------
-  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "name"];
+  const NFL_POS = ["QB", "RB", "WR", "TE", "K", "DEF"], NFL_SORT = ["ros", "proj", "exp", "fc", "pvg", "name"];
+  // ours vs the market (shq/pv_model.py): FantasyCalc moved by tested signals; only where it beat the market (or a labelled trial)
+  const pvPct = p => p.pv ? `<span class="${p.pv.e > 0 ? "pos" : p.pv.e < 0 ? "neg" : ""}">${p.pv.e > 0 ? "▲" : p.pv.e < 0 ? "▼" : ""}${Math.abs(p.pv.e)}%</span>` : "";
+  const pvCell = p => p.pv ? `${Number(p.pv.o).toLocaleString("en-US")} ${pvPct(p)}${p.pv.trial ? ' <span class="muted">trial</span>' : ""}` : "= mkt";
   // ESPN experts' consensus rank (shq/experts.py): green/red when they rank him far better/worse than our week rank
   const EXP_BIG = { QB: 6, TE: 6, RB: 10, WR: 10 };
   const expCls = p => { if (!p.exp_wk || !p.proj_rk) return ""; const g = p.proj_rk - p.exp_wk, b = EXP_BIG[p.pos] || 10;
@@ -379,7 +384,7 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       (st.who === "all" || (st.who === "fa" ? !p.own : st.who === "mine" ? p.own === "me" : p.own && p.own !== "me")) &&
       (!pos || p.pos === pos) && (!st.health || (st.health === "ok" ? !p.inj : !!p.inj)) &&
       (!q || p.name.toLowerCase().includes(q) || (p.team || "").toLowerCase() === q));
-    const val = (p, k) => k === "name" ? p.name : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
+    const val = (p, k) => k === "pvg" ? (p.pv ? p.pv.e : null) : k === "name" ? p.name : k === "exp" ? (p.exp_wk ? -p.exp_wk : p.exp_lately ? -500 - p.exp_lately : null) : k === "ros" ? (p.ros ?? (p.pos === "K" || p.pos === "DEF" ? p.proj : null)) : p[k];
     all.sort((a, b) => { const x = val(a, st.sort), y = val(b, st.sort);
       return typeof x === "string" ? st.dir * x.localeCompare(y) : st.dir * ((x ?? -1e9) - (y ?? -1e9)); });
     const shown = all.slice(0, st.limit), wide = !matchMedia("(max-width: 760px)").matches, W = x => wide ? x : "";
@@ -391,7 +396,8 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       { col: "wkrk", label: "Wk rk", cls: "wrap", title: "This week's rank at his position" },
       { col: "exp", sort: "exp", label: "Experts", title: "ESPN experts' consensus rank at his position this week" },
       wide && { col: "explately", label: "Exp lately", cls: "wrap", title: "ESPN experts' median rank over their last 3 weekly ranks" },
-      wide && { col: "fc", sort: "fc", label: "Value", title: "FantasyCalc trade value" },
+      wide && { col: "fc", sort: "fc", label: L.dynasty ? "Market" : "Value", title: "FantasyCalc trade value" },
+      wide && L.dynasty && { col: "pv", sort: "pvg", label: "Ours", title: "Our 12-month value vs the market" },
       wide && { col: "next", label: "Next 4", cls: "l", title: "Next 4 weeks' projections" },
     ].filter(Boolean);
     const ncol = cols.length;
@@ -405,14 +411,15 @@ details.legend .k { font-weight: 700; display: inline-block; min-width: 58px; ma
       <select data-f="health" aria-label="Health">${opt("", "Any health", st.health)}${opt("ok", "No injury tag", st.health)}${opt("inj", "Injury tag", st.health)}</select></div>`;
     const head = `<tr>${cols.map(hcell).join("")}</tr>`;
     const body = shown.map(p => {
-      const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}`;
+      const sub = `${p.pos} · ${esc(p.team)}${p.opp ? " · " + esc(p.opp) : ""}${p.kick && p.opp !== "BYE" ? " " + esc(S.kick(p.kick)) : ""}${!wide && p.pv && Math.abs(p.pv.e) >= 5 ? ` · ours ${pvPct(p)}` : ""}`;
       const tr = `<tr class="row${p.own === "me" ? " mine" : ""}" data-id="${esc(p.id)}"><td class="rk">${rk(p, "ros")}</td>
         <td class="who l"><div class="nm">${esc(p.name)}${ownTag(p)}${p.inj ? ` <span class="chip ${/OUT|IR|D/.test(p.inj) ? "bad" : "q"}">${esc(p.inj)}</span>` : ""}</div><div class="sb">${sub}</div></td>
         <td class="v">${n1(p.ros)}</td><td>${p.opp === "BYE" ? "bye" : n1(p.proj)}</td><td>${rk(p, "proj")}</td><td class="${expCls(p)}" title="${p.exp_range ? `range ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts` : ""}">${p.exp_wk ? p.pos + p.exp_wk : "–"}</td>${W(`<td>${p.exp_lately ? p.pos + p.exp_lately : "–"}</td>`)}
-        ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td><td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
+        ${W(`<td>${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}</td>${L.dynasty ? `<td>${pvCell(p)}</td>` : ""}<td class="l nx">${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ")}</td>`)}</tr>`;
       const more = st.open[p.id] ? `<tr class="more"><td colspan="${ncol}"><b>${esc(p.name)}</b> · ${esc(p.pos)} ${esc(p.team)} · ${p.own === "me" ? "yours" : p.own ? esc(p.own) : "free agent"}${p.inj ? ` · <b class="bad">${esc(p.inj)}</b>` : ""}<br>
         Rest of season ${n1(p.ros)} per game (${rk(p, "ros")}) · this week ${p.opp === "BYE" ? "bye" : `${n1(p.proj)} (${rk(p, "proj")})`}${p.opp && p.opp !== "BYE" ? `, ${esc(p.opp)} ${esc(S.kick(p.kick))}` : ""}<br>
         Next 4 weeks: ${(p.next || []).map(x => x == null ? "bye" : n1(x)).join(" · ") || "–"} · FantasyCalc ${p.fc ? Number(p.fc).toLocaleString("en-US") : "–"}<br>
+        ${L.dynasty ? (p.pv ? `Ours ${Number(p.pv.o).toLocaleString("en-US")} vs market ${Number(p.fc || 0).toLocaleString("en-US")} (${p.pv.e > 0 ? "+" : ""}${p.pv.e}%): ${esc(p.pv.why)}. Track record: ${esc(p.pv.rec)}.${p.pv.trial ? " Trial: shown, not used in advice." : ""}<br>` : `Ours = market${p.fc ? "" : " (no value)"}: no tested edge for him (his position hasn't beaten the market at this time of year, or too few games).<br>`) : ""}
         ESPN experts: ${p.exp_wk ? `${p.pos}${p.exp_wk} this week${p.exp_range ? ` (their ranks ${p.exp_range[0]}-${p.exp_range[1]}, ${p.exp_range[2]} experts)` : ""}` : "this week's ranks not out"}${p.exp_lately ? ` · ${p.pos}${p.exp_lately} lately` : ""}</td></tr>` : "";
       return tr + more;
     }).join("");

@@ -376,6 +376,9 @@
       // moves he skipped on HQ's fantasy cards (docs/data/decisions.json, shq/decisions.py): left out of the lists above
       + (a.skipped?.length ? sec("You skipped", `<ul class="tips muted">${a.skipped.map(s => `<li>${esc(s.text)} <span class="sub-wrap">${esc(s.tag)}</span></li>`).join("")}</ul>`, { open: false, count: a.skipped.length }) : "")
       + expertsHTML(a.experts) + tradesHTML(a.trades)
+      // our values vs the market (shq/pv_calls.py): buys, sells and rookie picks in the dynasty leagues
+      + (a.values ? sec("Value calls", ul(a.values.lines) + `<p class="basis">${esc(a.values.basis)} Ideas only: nothing is sent.</p>`,
+          { open: false, count: a.values.lines.filter(t => /^(Buy|Sell):/.test(t)).length || "" }) : "")
       + (a.assets ? sec("Dynasty assets", ul(a.assets.lines) + `<p class="basis">${esc(a.assets.source)}</p>`, { open: false }) : "")
       + sec("Notes", ul(a.notes, "muted"), { open: false, count: a.notes?.length || "" });
     expOn = null;

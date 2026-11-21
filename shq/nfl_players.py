@@ -7,9 +7,11 @@ rest-of-season and this-week ranks by position. Pure logic on what the run alrea
   (byes not counted, weeks Sleeper hasn't re-projected after a trade or depth-chart change take his live weekly number,
   IR minimum weeks count 0; shq/values.py, the same numbers the waiver adds and trade finder use). QB/RB/WR/TE only; kickers
   and defenses rank on this week.
-- Value: FantasyCalc's dynasty or redraft value for the league's settings.
+- Value: FantasyCalc's dynasty or redraft value for the league's settings; in dynasty leagues also "ours" (shq/pv_model.py).
 - Experts: ESPN's analysts' consensus position rank this week and lately (shq/experts.py), when they rank him.
 Written to docs/data/players_nfl.json (docs/players/ shows it next to the basketball leagues)."""
+import math
+
 from . import values
 
 POS = ("QB", "RB", "WR", "TE", "K", "DEF")
@@ -68,6 +70,10 @@ def build(league):
              "next": [x for _, x in p.get("wk") or []] if valued else [],
              "opp": "BYE" if p.get("bye") else p.get("opp"), "kick": p["kickoff"].isoformat() if p.get("kickoff") else None,
              "inj": p.get("status")}
+        pv = p.get("pv") if valued else None   # ours vs the market (shq/pv_model.py), dynasty leagues only
+        if pv and (pv.get("live") or pv.get("trial")):   # failed or paused positions show the market only
+            r["pv"] = {"o": pv["ours"], "e": round(100 * (math.exp(pv["edge"]) - 1)), "why": pv["why"], "rec": pv["record"],
+                       "live": bool(pv.get("live")), "v": pv["ver"], **({"trial": True} if pv.get("trial") else {})}
         x = p.get("exp")   # ESPN experts' consensus position rank (shq/experts.py)
         if x:
             r.update({"exp_wk": x.get("wk"), "exp_lately": x.get("lately"),
@@ -86,7 +92,11 @@ def build(league):
                  f"{values.ROS_WEEKS} weeks in your scoring, per game played (byes skipped; QB/RB/WR/TE; a week Sleeper hasn't "
                  "re-projected since a trade or new starting job uses his current weekly projection; IR players count 0 "
                  "for the 4-game IR minimum). Value: FantasyCalc "
-                 + ("dynasty" if fc.get("dynasty") else "redraft") + " for your league's settings. Ranks are by position among "
+                 + ("dynasty" if fc.get("dynasty") else "redraft") + " for your league's settings"
+                 + (". Ours: FantasyCalc moved by signals that beat it on seasons the model never saw (in season: QB efficiency per "
+                    "dropback, WR target share, points per game; one call moves it 35% at most). Positions that haven't beaten the "
+                    "market show the market number; \"trial\" = shown, not used in advice" if fc.get("dynasty") else "")
+                 + ". Ranks are by position among "
                  "every rostered player and the best free agents. Experts: ESPN's fantasy analysts' consensus position rank "
                  "this week (their PPR ranks averaged; QB/RB/WR/TE) and lately (median of their last 3 weekly ranks, weeks he "
                  "was out or on a bye skipped); "

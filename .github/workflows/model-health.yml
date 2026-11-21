@@ -43,7 +43,8 @@ jobs:
         run: |
           git config user.name "sports-hq-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data/health.json state/health_baselines.json
+          git add docs/data/health.json state/health_baselines.json state/pv_status.json
+          [ -d state/pv_calls ] && git add state/pv_calls
           git commit -q -m "Model health: $(date -u +%FT%TZ)" || { echo "nothing changed"; exit 0; }
           for i in 1 2 3 4 5; do git pull -q --no-rebase --no-edit && git push -q && exit 0; sleep 5; done
           exit 1

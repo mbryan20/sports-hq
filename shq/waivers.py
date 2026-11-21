@@ -15,6 +15,7 @@ points gap between a QB and a WR never does.
 import math
 from collections import Counter
 
+from .pv_model import dv
 from .status import DEAD, OUTISH
 from .swap import FLEX_SLOTS, handcuff_of
 from .trades import lineup, primary, skill_slots
@@ -45,7 +46,7 @@ def score(p, dynasty=False, rostered=False):
     if not primary(p):
         return p["proj"]
     week = p.get("ppg", 0) if rostered and p["bye"] else p["proj"]
-    return round(0.7 * p.get("ppg", 0) + 0.3 * week + p.get("val", 0) / (500 if dynasty else 1000), 1)
+    return round(0.7 * p.get("ppg", 0) + 0.3 * week + (dv(p) if dynasty else p.get("val", 0)) / (500 if dynasty else 1000), 1)
 
 
 def bid(gain, budget, left, stream=False):
@@ -223,7 +224,7 @@ def adds(starters, bench, free_agents, slots, *, dynasty=False, open_spots=0, fa
     while len(out) < limit:
         protected = {p["id"] for _, p in lineup(slots, roster)[1]}
         droppable = [b for b in bench if b["id"] not in protected and not b.get("empty")
-                     and not (dynasty and b.get("val", 0) >= STASH_VALUE)]
+                     and not (dynasty and dv(b) >= STASH_VALUE)]
         weeks = weeks_of(roster + pool)
         base = window_total(slots, roster, weeks)
         best = None
@@ -259,7 +260,8 @@ def adds(starters, bench, free_agents, slots, *, dynasty=False, open_spots=0, fa
                 if not ok:
                     continue
                 # lineup points first; FantasyCalc value breaks ties and counts more in dynasty
-                rank = window + (fa.get("val", 0) - (drop.get("val", 0) if drop else 0)) / (250 if dynasty else 1000)
+                val = dv if dynasty else (lambda x: x.get("val", 0))   # dynasty: ours where its position passed (pick A)
+                rank = window + (val(fa) - (val(drop) if drop else 0)) / (250 if dynasty else 1000)
                 if best is None or rank > best["rank"]:
                     cuff = cuff_check(drop, roster, after, slots, weeks, guillotine) if drop is not None else None
                     if cuff and not cuff["ok"]:
@@ -292,7 +294,7 @@ def line(a):
         text = f"Add {fa['name']} ({pos}, {fa['team']}, {fa['proj']} proj this week), drop {drop['name']} ({drop['proj']} proj)"
     else:
         text = f"Add {fa['name']} ({pos}, {fa['team']}, {fa['ppg']}/gm"
-        text += f", value {fa['val']:,})" if fa.get("val") else ")"
+        text += (f", value {fa['val']:,}" + (f", ours {dv(fa):,}" if dv(fa) != fa["val"] else "") + ")") if fa.get("val") else ")"
         if drop is None:
             text += " into your open roster spot"
         else:

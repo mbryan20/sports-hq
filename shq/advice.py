@@ -11,7 +11,7 @@
     notes    informational lines (questionable today, games tonight, FAAB left, data age)"""
 import traceback
 
-from . import categories, decisions, digest, draft_race, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, radar, trades, values, waivers
+from . import categories, decisions, digest, draft_race, dynasty, experts, nba_games, nba_lineup, nba_swaps, nba_trade, nba_values, nfl_players, pv_calls, radar, trades, values, waivers
 from .common import ct_label
 from .status import OUTISH
 from .swap import fa_adds, start_sit
@@ -147,6 +147,17 @@ def trade_block(league):
     return league._trades
 
 
+def value_calls(league):
+    """Dynasty football: 3 buys, 3 sells and my rookie picks by our values vs the market (shq/pv_calls.py); best-effort."""
+    if getattr(league, "sport", "nfl") != "nfl" or not getattr(league, "dynasty", False):
+        return None
+    try:
+        return pv_calls.block(league)
+    except Exception:
+        traceback.print_exc()
+        return None
+
+
 def trend_radar(league, cats):
     """Best-effort like the rest of the advice: a failed ESPN pool read leaves the tab without the radar."""
     try:
@@ -275,6 +286,7 @@ def build(league, now):
         "moves": moves,
         "adds": add_lines,
         "trades": trade_block(league),
+        "values": value_calls(league),
         "notes": notes,
         "cats": cats,
         "radar": league.radar,

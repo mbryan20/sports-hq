@@ -1,0 +1,412 @@
+{
+ "versions": {
+  "in": {
+   "QB": {
+    "w": [
+     -0.16253,
+     0.15975,
+     0.2784
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": true,
+     "cut": 0.049,
+     "years_better": 3,
+     "years": 4,
+     "calls": 130,
+     "right": 77,
+     "hit": 0.592,
+     "n": 233,
+     "why": "passed all four parts"
+    },
+    "rows": 391,
+    "by_year": {
+     "2022": {
+      "cut": 0.0186,
+      "n": 55,
+      "calls": 46,
+      "right": 32
+     },
+     "2023": {
+      "cut": 0.091,
+      "n": 65,
+      "calls": 23,
+      "right": 14
+     },
+     "2024": {
+      "cut": 0.0176,
+      "n": 67,
+      "calls": 43,
+      "right": 22
+     },
+     "2025": {
+      "cut": -0.0325,
+      "n": 46,
+      "calls": 18,
+      "right": 9
+     }
+    }
+   },
+   "RB": {
+    "w": [
+     -0.10302,
+     0.18306
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": false,
+     "cut": 0.0129,
+     "years_better": 4,
+     "years": 4,
+     "calls": 36,
+     "right": 22,
+     "hit": 0.611,
+     "n": 266,
+     "why": "error cut under 3%"
+    },
+    "rows": 405,
+    "by_year": {
+     "2022": {
+      "cut": 0.0017,
+      "n": 80,
+      "calls": 13,
+      "right": 7
+     },
+     "2023": {
+      "cut": 0.0202,
+      "n": 76,
+      "calls": 0,
+      "right": 0
+     },
+     "2024": {
+      "cut": 0.0255,
+      "n": 64,
+      "calls": 10,
+      "right": 6
+     },
+     "2025": {
+      "cut": 0.0237,
+      "n": 46,
+      "calls": 13,
+      "right": 9
+     }
+    }
+   },
+   "WR": {
+    "w": [
+     -0.27755,
+     0.21829,
+     0.10649
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": true,
+     "cut": 0.0472,
+     "years_better": 4,
+     "years": 4,
+     "calls": 160,
+     "right": 99,
+     "hit": 0.619,
+     "n": 402,
+     "why": "passed all four parts"
+    },
+    "rows": 595,
+    "by_year": {
+     "2022": {
+      "cut": 0.1033,
+      "n": 109,
+      "calls": 58,
+      "right": 38
+     },
+     "2023": {
+      "cut": 0.0518,
+      "n": 113,
+      "calls": 28,
+      "right": 20
+     },
+     "2024": {
+      "cut": 0.0026,
+      "n": 112,
+      "calls": 59,
+      "right": 32
+     },
+     "2025": {
+      "cut": 0.0529,
+      "n": 68,
+      "calls": 15,
+      "right": 9
+     }
+    }
+   },
+   "TE": {
+    "w": [
+     -5e-05,
+     0.12572,
+     -0.00293
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": false,
+     "cut": -0.1346,
+     "years_better": 1,
+     "years": 3,
+     "calls": 13,
+     "right": 3,
+     "hit": 0.231,
+     "n": 67,
+     "why": "error cut under 3%; better in only 1 of 3 seasons; big calls right 3 of 13; only 67 test cases"
+    },
+    "rows": 132,
+    "by_year": {
+     "2023": {
+      "cut": -0.2181,
+      "n": 24,
+      "calls": 12,
+      "right": 3
+     },
+     "2024": {
+      "cut": 0.0527,
+      "n": 27,
+      "calls": 0,
+      "right": 0
+     },
+     "2025": {
+      "cut": -0.1599,
+      "n": 16,
+      "calls": 1,
+      "right": 0
+     }
+    }
+   }
+  },
+  "off": {
+   "QB": {
+    "w": [
+     0.05172,
+     -0.22945,
+     0.20761,
+     0.34362
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": false,
+     "cut": 0.0708,
+     "years_better": 3,
+     "years": 4,
+     "calls": 120,
+     "right": 66,
+     "hit": 0.55,
+     "n": 285,
+     "why": "big calls right 66 of 120"
+    },
+    "rows": 418,
+    "by_year": {
+     "2022": {
+      "cut": 0.0113,
+      "n": 66,
+      "calls": 45,
+      "right": 26
+     },
+     "2023": {
+      "cut": 0.0452,
+      "n": 70,
+      "calls": 9,
+      "right": 6
+     },
+     "2024": {
+      "cut": 0.1609,
+      "n": 71,
+      "calls": 28,
+      "right": 16
+     },
+     "2025": {
+      "cut": -0.0225,
+      "n": 78,
+      "calls": 38,
+      "right": 18
+     }
+    }
+   },
+   "RB": {
+    "w": [
+     0.00127,
+     -0.15098,
+     0.20705,
+     0.04698
+    ],
+    "shrink": 1.0,
+    "gate": {
+     "pass": false,
+     "cut": 0.0056,
+     "years_better": 3,
+     "years": 4,
+     "calls": 42,
+     "right": 29,
+     "hit": 0.69,
+     "n": 317,
+     "why": "error cut under 3%"
+    },
+    "rows": 448,
+    "by_year": {
+     "2022": {
+      "cut": 0.0016,
+      "n": 80,
+      "calls": 28,
+      "right": 16
+     },
+     "2023": {
+      "cut": 0.0092,
+      "n": 83,
+      "calls": 0,
+      "right": 0
+     },
+     "2024": {
+      "cut": -0.0028,
+      "n": 81,
+      "calls": 0,
+      "right": 0
+     },
+     "2025": {
+      "cut": 0.0096,
+      "n": 73,
+      "calls": 14,
+      "right": 13
+     }
+    }
+   },
+   "WR": {
+    "w": [
+     -0.04092,
+     -0.13113,
+     0.12788,
+     0.12006
+    ],
+    "shrink": 0.5,
+    "gate": {
+     "pass": false,
+     "cut": 0.0482,
+     "years_better": 3,
+     "years": 4,
+     "calls": 105,
+     "right": 57,
+     "hit": 0.543,
+     "n": 455,
+     "why": "big calls right 57 of 105"
+    },
+    "rows": 634,
+    "by_year": {
+     "2022": {
+      "cut": 0.0204,
+      "n": 112,
+      "calls": 0,
+      "right": 0
+     },
+     "2023": {
+      "cut": 0.1976,
+      "n": 110,
+      "calls": 21,
+      "right": 16
+     },
+     "2024": {
+      "cut": 0.0871,
+      "n": 118,
+      "calls": 36,
+      "right": 22
+     },
+     "2025": {
+      "cut": -0.1403,
+      "n": 115,
+      "calls": 48,
+      "right": 19
+     }
+    }
+   },
+   "TE": {
+    "w": [
+     0.21523,
+     -0.298,
+     0.09196,
+     0.19247
+    ],
+    "shrink": 1.0,
+    "gate": {
+     "pass": false,
+     "cut": 0.0874,
+     "years_better": 2,
+     "years": 3,
+     "calls": 20,
+     "right": 9,
+     "hit": 0.45,
+     "n": 79,
+     "why": "better in only 2 of 3 seasons; big calls right 9 of 20; only 79 test cases"
+    },
+    "rows": 140,
+    "by_year": {
+     "2023": {
+      "cut": 0.0715,
+      "n": 22,
+      "calls": 6,
+      "right": 5
+     },
+     "2024": {
+      "cut": -0.0088,
+      "n": 27,
+      "calls": 9,
+      "right": 1
+     },
+     "2025": {
+      "cut": 0.158,
+      "n": 30,
+      "calls": 5,
+      "right": 3
+     }
+    }
+   }
+  }
+ },
+ "rookie": {
+  "WR": {
+   "w": [
+    -0.0453,
+    -0.17557,
+    0.09481
+   ],
+   "shrink": 1.0,
+   "gate": {
+    "pass": false,
+    "cut": 0.0104,
+    "years_better": 1,
+    "years": 1,
+    "calls": 0,
+    "right": 0,
+    "hit": 0.0,
+    "n": 13,
+    "why": "error cut under 3%; better in only 1 of 1 seasons; big calls right 0 of 0; only 13 test cases"
+   },
+   "rows": 38,
+   "by_year": {
+    "2024": {
+     "cut": 0.0104,
+     "n": 13,
+     "calls": 0,
+     "right": 0
+    }
+   }
+  }
+ },
+ "trained": "2026-11-21T00:06:56Z",
+ "market_history_through": "2026-11-20",
+ "rows": {
+  "in": 1523,
+  "off": 1640,
+  "rookie": 84
+ },
+ "gate_rules": {
+  "cut": 0.03,
+  "years_better": 3,
+  "years": 4,
+  "hit": 0.58,
+  "calls": 20,
+  "n": 80
+ }
+}
