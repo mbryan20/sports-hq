@@ -84,6 +84,10 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 21 (cloud pass, GitHub connector): since Fri 13:02Z, 13 laptop `run.yml` dispatches (runs 389-406), all
   succeeded, none cancelled; the game-day handoff (run 401, `github-actions[bot]`) ran 00:37Z-03:07Z Sat after run
   396 reached its limit. Model health kicked at 08:55Z Nov 21. The second Tuesday is Nov 24.
+  Nov 22 (cloud pass, GitHub connector): since Sat 09:37Z, 15 `run.yml` runs (409-423): 5 laptop dispatches (13:02Z,
+  19:02Z, 02:02Z, 03:02Z, 04:02Z), all succeeded, none cancelled; 3 scheduled runs cancelled (414-416, queued
+  20:43Z-23:58Z behind scheduled run 413's 19:58Z-01:07Z loop); no game-day handoff dispatch was needed. Model health
+  kicked at 08:55Z Nov 22. The second Tuesday is Nov 24.
 - **Expected impact:** every time-critical build on time while the laptop is on; one push when the laptop can't start jobs,
   and one a day when it has gone quiet; no injury-watch gap between game-day loops.
 - **Effort:** S-M
@@ -159,6 +163,8 @@ Measure (the health.json check that should move), Design, Decision.
   all 8 leagues. Digest items and tile totals not checked tonight.
   Nov 20 (lineups.json 08:51Z, weekly.json 13:02Z Nov 17): weekly.json adds still equal lineups.json `advice.adds` in
   all 8 leagues. Digest items and tile totals not checked tonight.
+  Nov 22 (lineups.json 05:02Z, weekly.json 13:02Z Nov 17): weekly.json adds still equal lineups.json `advice.adds` in
+  all 8 leagues. Digest items and tile totals not checked tonight.
 - **Expected impact:** the Weekly plan keeps its Tuesday framing, but every run its start/sit is the league page's fixes
   then healthy upgrades (up to 3 lines; fixes never cut) and its adds are the league page's adds; Tuesday's moves the live
   list no longer makes (by added and dropped player, not numbers) show as "Tuesday's plan had: …". After the 8am digest,
@@ -207,6 +213,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 18 (lineups.json 09:24Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
   Nov 19 (lineups.json 09:36Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
   Nov 20 (lineups.json 08:51Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
+  Nov 22 (lineups.json 05:02Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
 - **Expected impact:** one answer per player and per action on the NBA tabs. (1) An IR slot ESPN won't allow is the first,
   urgent Fix now line in every league ("...; do this before any add or drop"), and the NBA add list starts "First move
   Austin Reaves out of IR (Fix now): ...; your roster is full, so that takes a drop too: X; then drop ..."; the Fix now
@@ -264,6 +271,8 @@ Measure (the health.json check that should move), Design, Decision.
   `exp.calls_right` 0.5 n=4 waiting); week 11 arrives after Monday Nov 23.
   Nov 20 (health run 08:55Z): unchanged (`exp.blend_edge` +0.0036 n=17,639, blend better in 6 of 10 weeks,
   `exp.last_week_edge` −0.0033, `exp.calls_right` 0.5 n=4 waiting); week 11 arrives after Monday Nov 23.
+  Nov 22 (health run 08:55Z): unchanged (`exp.blend_edge` +0.0036 n=17,639, `exp.last_week_edge` −0.0033,
+  `exp.calls_right` 0.5 n=4 waiting); week 11 arrives after Monday Nov 23.
 - **Expected impact:** every football fix, lineup move, waiver add and guillotine bid shows "ESPN experts: <player>
   WR18 this week, WR22 lately"; roster rows, Today and Weekly too; the Players page gets sortable Experts / Exp lately
   columns (green/red where they differ from our week rank by 10+ spots, 6+ at QB/TE); each league page lists "Where we
@@ -299,6 +308,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 18: still none about the Players page (the one new Inbox line, Nov 17 #6, is Domo's draft pick: Q-069).
   Nov 19: still none about the Players page.
   Nov 20: still none about the Players page (the one new Inbox line, Nov 19 #8, is about 3-Ball FB's add lines: Q-072).
+  Nov 22: still none about the Players page (no new Inbox line since Nov 19 #8).
 - **Expected impact:** the FantasyPros sift inside HQ for both basketball leagues.
 - **Effort:** M
 - **Risk:** Low
@@ -344,6 +354,8 @@ Measure (the health.json check that should move), Design, Decision.
   and 23:22Z behind the 19:38Z game-day loop in the shared scheduled group), the first since Nov 9; no dispatch dropped.
   Nov 16: 6 of the 14 scheduled `run.yml` runs since Nov 15 05:00Z were cancelled (runs 305, 306, 310-313, Sunday's
   game-day loops), up from 2 of 13 the day before; no dispatch was dropped (the 3 handoff dispatches all ran).
+  Nov 22: 3 of the 10 scheduled `run.yml` runs since Nov 21 09:37Z were cancelled (414-416, behind Saturday's
+  19:58Z-01:07Z loop); no dispatch was dropped (all 5 laptop dispatches ran).
 - **Expected impact:** the 8am digest and Tuesday Weekly tab on time; a "force" button press never vanishes.
 - **Effort:** S-M
 - **Risk:** Low
@@ -377,6 +389,8 @@ Measure (the health.json check that should move), Design, Decision.
   was due still can't be told without Q-015's log.
   Nov 20: no `nba-lineup:` key for Nov 19 (the last is `nba-lineup:2026-11-18`); whether one was due still can't be
   told without Q-015's log.
+  Nov 22 (state/alerts.json): `nba-lineup:2026-11-20` went out (with 1 per-move key); none for Nov 19 or 21. Whether
+  one was due still can't be told without Q-015's log.
 - **Expected impact:** one phone push on days a basketball lineup change is needed, before it locks; nothing on other days.
 - **Effort:** S
 - **Risk:** Low (read-only; at most one push a day)
@@ -406,6 +420,7 @@ Measure (the health.json check that should move), Design, Decision.
   the old ladder, so this still waits on Q-064.
   Nov 19: unchanged (`wr.price_est_mae` $8.1, n=229); still waits on Q-064.
   Nov 20: unchanged (`wr.price_est_mae` $8.1, n=229); still waits on Q-064.
+  Nov 22: unchanged (`wr.price_est_mae` $8.1, n=229); still waits on Q-064.
 - **Expected impact:** better price estimates when a known big spender needs the player.
 - **Effort:** M
 - **Risk:** Med (about 10 claims per rival: easy to overfit)
@@ -440,6 +455,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20: the per-line Comment works again: FEEDBACK.md #8 (Nov 19) arrived with spot "3-Ball FB · comment on: Add
   Malik Washington (WR, MIA, 9.9/gm, value 1,190) for Treylon Burks ..." (queued as Q-072). The Skip half of the
   Measure and the 375-402px tap check are still not confirmed.
+  Nov 22: no new feedback since Nov 19 #8; the Skip half of the Measure and the 375-402px tap check are still not
+  confirmed.
 - **Expected impact:** one tap from "Fixes now: N" to a list of every fix across leagues, each with its league, Clear
   and a link to that league; Skip (with a reason) and a comment button on every lineup move, add and trade line, so bad
   or already-handled advice leaves every page and the texts the way Clear does for fixes, and his reasons reach the queue.
@@ -476,6 +493,9 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20 (lineups.json 08:51Z): Domo's matchup line still ends "Out of the playoff race: draft pick #2 now"; no fixes,
   no moves. Weekly.json's adds: Tommy DeVito (value 707) for Jalen Nailor, Corey Kiner (value 829) for Jaylen Wright.
   The drops' values still aren't shown anywhere on the page, so the 250 rule can't be confirmed; Q-072 would show them.
+  Nov 22 (lineups.json 05:02Z): Domo's matchup line still ends "Out of the playoff race: draft pick #2 now" (2-8, 4
+  games left); no fixes, no moves. Adds: Tommy DeVito (value 847) for Jalen Nailor, Corey Kiner (value 873) for Jaylen
+  Wright. The drops' values still aren't shown, so the 250 rule can't be confirmed (Q-072).
 - **Expected impact:** Domo's page stops asking for small weekly moves that only cost draft position, and its adds are
   dynasty upgrades, while an OUT, bye or empty starter is still fixed (no tanking).
 - **Effort:** S
@@ -563,6 +583,10 @@ Measure (the health.json check that should move), Design, Decision.
   floor 0.0; every flag's value −5.56 vs the most-owned trio's −0.92 (`wire_value`, 10 mornings); the shown flags alone
   −2.8 (n=16; was −2.09 on n=14). `radar.held` fell to 0.56 (n=16, 9 held; was 0.64 on n=14), on watch vs 0.70;
   `radar.held_all` 0.55 (n=69). Stays 1.
+  Nov 22 (health run 08:55Z): `radar.edge` −3.86 z per game (n=66; was −3.79 on n=69: the 14-morning window rolled) is
+  weak for the tenth run, floor 0.0; every flag's value −5.65 vs the most-owned trio's −0.61 (`wire_value`, 9
+  mornings); the shown flags alone −3.41 (n=15; was −2.8 on n=16). `radar.held` 0.62 (10 of 16; was 0.56) is on watch
+  vs 0.70; `radar.held_all` 0.57 (39 of 69); 6 shown and 19 of all flags were added by someone later. Stays 1.
 - **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
   when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
   actually suggests now.
@@ -612,6 +636,9 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 21 (health run 08:55Z): unchanged: 21 swaps, `swap.gain` −0.44 (weak), `swap.est_bias` −8.11, `swap.est_err`
   13.32; 20 shown swaps or streamer pairs wait for the week ending Nov 22 (was 16), so the Nov 23 health run adds a
   third week. Source trial unchanged (DARKO minutes +3.83/g vs the site's +0.89, miss 10.55 vs 9.52, n=36). Stays 2.
+  Nov 22 (health run 08:55Z): unchanged: 21 swaps, `swap.gain` −0.44 (weak), `swap.est_bias` −8.11, `swap.est_err`
+  13.32; 24 shown swaps or streamer pairs wait for the week ending Nov 22 (was 20), judged by the Nov 23 health run.
+  Source trial unchanged (DARKO minutes +3.83/g vs the site's +0.89, miss 10.55 vs 9.52, n=36). Stays 2.
 - **Expected impact:** a "+N this week" that means what it says, so a swap shown as +5 is worth the roster move, and
   fewer churn moves between fringe players.
 - **Effort:** S (if Q-060's switch closes the gap, one config line; otherwise shrink the shown estimate by the
@@ -638,6 +665,8 @@ Measure (the health.json check that should move), Design, Decision.
   add where our value differs, and dynasty ranking and Domo's stash rule now use `pv_model.dv()` (ours where live: QB,
   WR in season). The drop still gets no value, so the gap stands; the build should show the drop's and the net in the
   same `dv()` terms the ranking uses. Stays 3.
+  Nov 22 (lineups.json 05:02Z): 3-Ball FB has 1 add line and Domo 2 (Tommy DeVito, value 847, for Jalen Nailor; Corey
+  Kiner, value 873, for Jaylen Wright); the drops still show no value. Stays 3.
 - **Expected impact:** every dynasty swap (3-Ball FB, Domo) says what it gains or costs in dynasty value next to the
   points, so Michael can judge the move without opening FantasyCalc; a swap that gives up value for points is never
   silent.
@@ -718,6 +747,8 @@ Measure (the health.json check that should move), Design, Decision.
   173-182); the digest waited for the 9:02 kick (15:02Z). Fri Nov 20 nearly repeated it: the same cron slot committed
   at 13:39:08Z, 23 min before the kick. In CST that slot is 7:40am CT, so any weekday it runs 2-21 min late costs the
   8am digest an hour. Ranked 4 (new: S effort, cause traced in the code, recurs on its own).
+  Nov 22: Sat Nov 21's 7:02am CT kick started `run.yml` at 13:02:06Z (run 410, which looped to 18:07Z); weekend, so no
+  digest timing to judge. The next weekday test is Mon Nov 23. Stays 4.
 - **Expected impact:** the digest out by about 8:05am CT and data at most about an hour old whenever the laptop is on.
 - **Effort:** S
 - **Risk:** Low (two loops at once could double a swap push in the same minute; a run only loops when no other run has
@@ -766,6 +797,9 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 21 (health run 08:55Z): unchanged (`wr.ladder_cov50` 0.59 n=229 on watch; RB 0.40 n=43, WR 0.49 n=75, K
   0.92 n=24; `rec.win_brier` 0.154 n=11 on watch vs 0.125); still no rival-by-rival check. Ranked 5 (was 4) (Q-029
   reopened at 4).
+  Nov 22 (health run 08:55Z): unchanged (`wr.ladder_cov50` 0.59 n=229 on watch; RB 0.37 n=43, WR 0.51 n=75, K 0.92
+  n=24; `rec.win_brier` 0.154 n=11 on watch vs 0.125); still no rival-by-rival check. Tue Nov 24's claims add the next
+  data. Stays 5.
 - **Expected impact:** a nightly, out-of-sample answer to "when War Room says 50%, do we win half?" for the model that
   sets every Tuesday bid, claim order and backup, split by position and season stage, so a miscalibration shows within a
   week or two. FAAB is $10 ($5 spendable), so this season's stakes are mostly $0-5 claims and which backups fire.
@@ -869,6 +903,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20 (health run 08:55Z): unchanged (`picks.card_ats` 0.655, n=87, on watch vs 0.733). Ranked 7 (was 6).
   Nov 21 (health run 08:55Z): unchanged (`picks.card_ats` 0.655, 57-30, n=87, watch vs 0.733; entries 67-49).
   Ranked 8 (was 7).
+  Nov 22 (health run 08:55Z): unchanged (`picks.card_ats` 0.655, 57-30, n=87, watch vs 0.733; graded weeks 8-11;
+  entries 67-49); week 12 grades at the Tue Nov 24 postmortem. Stays 8.
 - **Expected impact:** a picks score that means something: BTO and CFP spread picks against 52.4%, Yahoo against the
   market favourite's straight-up record on the same games. Feeds Q-013's scorecard and Q-023's decision.
 - **Effort:** S
@@ -906,6 +942,8 @@ Measure (the health.json check that should move), Design, Decision.
   `k4` Dec 1. Ranked 8 (was 7).
   Nov 21: unchanged (`wr.swing_k2` 23.6 pts, n=9; `k3`, `k4` waiting n=0). Enough data: `k3` with the Nov 24 run,
   `k4` Dec 1. Ranked 9 (was 8).
+  Nov 22: unchanged (`wr.swing_k2` 23.6 pts, n=9; `k3`, `k4` waiting n=0). Enough data: `k3` with the Nov 24 run, `k4`
+  Dec 1. Stays 9.
 - **Expected impact:** the right rest-of-season uncertainty, which drives win odds and so every value.
 - **Effort:** S (change `SD_GROWTH` once measured)
 - **Risk:** Low
@@ -980,6 +1018,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 21: the Nov 21 run (13 ok, 5 watch, 4 weak, 7 waiting, 18 info, 0 errors) added `radar.held` to the watch
   list again and a new `values` section (`pv.in_QB`, `pv.in_WR`, waiting); `docs/lib/core.js` and `docs/index.html`
   still never load health.json.
+  Nov 22: the run (13 ok, 5 watch, 4 weak, 7 waiting, 18 info, 0 errors) is unchanged in counts from Nov 21;
+  `docs/lib/core.js` and `docs/index.html` still never load health.json. Stays 11.
 - **Expected impact:** a glance at which models are trustworthy this week (ok / watch / drift / weak per model, tap for the checks).
 - **Effort:** S
 - **Risk:** Low
@@ -1027,6 +1067,8 @@ Measure (the health.json check that should move), Design, Decision.
   week 11's cut adds with the Nov 24 run. Ranked 11 (was 10).
   Nov 21: unchanged (`gd.dash_skill` −0.183 n=3, weak; `gd.v2_skill` +0.068 n=2, waiting; log-loss v2 2.097 vs
   dashboard 2.721). Ranked 12 (was 11).
+  Nov 22: unchanged (`gd.dash_skill` −0.183 n=3, weak; `gd.v2_skill` +0.068 n=2, waiting; log-loss v2 2.097 vs
+  dashboard 2.721); week 11's cut adds with the Nov 24 run. Stays 12.
 - **Expected impact:** one answer everywhere (site, push, AI write-up); fixes found in one model reach every screen.
 - **Effort:** M (dashboard reads bids.json for odds and bids; keeps its live Sunday locking until Q-002 lands)
 - **Risk:** Med (the cut-risk push and Today tab change source)
@@ -1074,6 +1116,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20: unchanged (`wr.cut_skill` −0.009 n=10, weak; best swing 36 pts at +0.029, in-sample). Ranked 12 (was 11).
   Nov 21: unchanged (`wr.cut_skill` −0.009 n=10, weak; real cut ranks 14, 11, 9, 1, 1, 11, 1, 10, 1, 8; best
   swing 36 pts, in-sample). Ranked 13 (was 12).
+  Nov 22: unchanged (`wr.cut_skill` −0.009 n=10, weak; best swing 36 pts, in-sample). Stays 13.
 - **Expected impact:** cut risk and win odds drive every bid value. If cuts are mostly upsets, both models are too sure who is
   safe, so win-odds gains (and bids) are spread too wide between players. Better-calibrated odds = better $ values.
 - **Effort:** S to test, M to change
@@ -1250,6 +1293,8 @@ Measure (the health.json check that should move), Design, Decision.
   where the card's side went 6-1 and the entered side 2-5 (BTO: card 2-0, entered 1-1; Yahoo straight-up: card 4-1,
   entered 1-4). No health check or page reports how changed picks turn out. n=7 is far too few to conclude anything;
   this item only starts the count.
+  Nov 22 (health run 08:55Z): unchanged: card 57-30 (0.655, n=87) vs entered 67-49 (0.578, n=116); week 12's
+  differences arrive with the Tue Nov 24 postmortem. Stays 19.
 - **Expected impact:** Michael sees, week by week, whether his changes to the card win more or less than the card's
   side, before deciding to override it again; `entered_rate` stops mixing in weeks with no card.
 - **Effort:** S
@@ -1373,6 +1418,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
   `moved.inactive` 0). Ranked 23 (was 22).
   Nov 21 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4). Ranked 24 (was 23).
+  Nov 22 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
+  `moved.inactive` 0). Stays 24.
 - **Expected impact:** a `moved.mae_gap` flag that means hurt or traded players are projected worse than everyone else
   (pooled over recent weeks, judged on the players actually averaged), so the scorecard doesn't send a session after
   one boom game; the zeroed and inactive checks are unchanged.
