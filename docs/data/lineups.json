@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T16:47:00Z",
+ "updated": "2026-11-22T16:57:00Z",
  "week": 11,
  "leagues": {
   "Kosmonauts": {
@@ -247,7 +247,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    }
   },
@@ -262,7 +262,7 @@
    "opponent": "Free Higgins",
    "opp_proj": 135.4,
    "roster_synced": null,
-   "proj": 123.8,
+   "proj": 121.3,
    "starters": [
     {
      "slot": "QB",
@@ -317,7 +317,7 @@
      "opp": "@LAC",
      "kickoff": "2026-11-22T21:05:00Z",
      "started": false,
-     "proj": 15.9,
+     "proj": 16.0,
      "status": null,
      "why": "",
      "flags": [],
@@ -341,17 +341,17 @@
     },
     {
      "slot": "TE",
-     "name": "Mike Gesicki",
-     "team": "CIN",
+     "name": "Kenyon Sadiq",
+     "team": "NYJ",
      "pos": "TE",
-     "opp": "@WAS",
-     "kickoff": "2026-11-24T01:15:00Z",
+     "opp": "@LAC",
+     "kickoff": "2026-11-22T21:05:00Z",
      "started": false,
-     "proj": 9.2,
+     "proj": 6.6,
      "status": null,
      "why": "",
      "flags": [],
-     "exp": "TE13 this week, TE20 lately",
+     "exp": "TE27 this week, TE24 lately",
      "news": null
     },
     {
@@ -422,7 +422,7 @@
      "opp": "@DEN",
      "kickoff": "2026-11-22T21:25:00Z",
      "started": false,
-     "proj": 8.6,
+     "proj": 9.7,
      "status": null,
      "why": "",
      "flags": [],
@@ -443,6 +443,27 @@
      "flags": [],
      "exp": "RB40 this week, RB41 lately",
      "news": null
+    },
+    {
+     "slot": "BN",
+     "name": "Will Shipley",
+     "team": "PHI",
+     "pos": "RB",
+     "opp": "vs PIT",
+     "kickoff": "2026-11-22T18:00:00Z",
+     "started": false,
+     "proj": 3.3,
+     "status": "Q",
+     "why": "Sleeper: Questionable",
+     "flags": [
+      "Q"
+     ],
+     "exp": "RB56 this week, RB28 lately",
+     "news": {
+      "note": "Shipley (foot) is active for Sunday's game against Pittsburgh.",
+      "at": "2026-11-22T16:41:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4431545/will-shipley"
+     }
     },
     {
      "slot": "BN",
@@ -521,21 +542,6 @@
     },
     {
      "slot": "BN",
-     "name": "Kenyon Sadiq",
-     "team": "NYJ",
-     "pos": "TE",
-     "opp": "@LAC",
-     "kickoff": "2026-11-22T21:05:00Z",
-     "started": false,
-     "proj": 6.6,
-     "status": null,
-     "why": "",
-     "flags": [],
-     "exp": "TE27 this week, TE24 lately",
-     "news": null
-    },
-    {
-     "slot": "BN",
      "name": "Wil Lutz",
      "team": "DEN",
      "pos": "K",
@@ -579,19 +585,17 @@
     },
     {
      "slot": "BN",
-     "name": "Tutu Atwell",
-     "team": "LAR",
-     "pos": "WR",
-     "opp": null,
-     "kickoff": null,
+     "name": "Mike Gesicki",
+     "team": "CIN",
+     "pos": "TE",
+     "opp": "@WAS",
+     "kickoff": "2026-11-24T01:15:00Z",
      "started": false,
-     "proj": 0,
+     "proj": 9.2,
      "status": null,
      "why": "",
-     "flags": [
-      "BYE"
-     ],
-     "exp": "not ranked to play this week, WR41 lately",
+     "flags": [],
+     "exp": "TE13 this week, TE20 lately",
      "news": null
     },
     {
@@ -619,7 +623,7 @@
      "opp": "@DEN",
      "kickoff": "2026-11-22T21:25:00Z",
      "started": false,
-     "proj": 3.0,
+     "proj": 4.0,
      "status": null,
      "why": "",
      "flags": [],
@@ -659,7 +663,7 @@
     }
    ],
    "advice": {
-    "matchup": "123.8 vs 135.4 (Free Higgins): projected to lose by 11.6 \u00b7 Out of the playoff race: draft pick #2 now",
+    "matchup": "121.3 vs 135.4 (Free Higgins): projected to lose by 14.1 \u00b7 Out of the playoff race: draft pick #2 now",
     "draft": {
      "out": true,
      "eliminated": false,
@@ -675,7 +679,7 @@
     "fixes": [],
     "moves": [],
     "adds": [
-     "Add Tommy DeVito (QB, NE, 9.1/gm, value 815) for Tutu Atwell (WR, your WR9, 4.1/gm): better backup QB, +3.3 pts over the next 4 weeks",
+     "Add Tommy DeVito (QB, NE, 9.1/gm, value 815) for Jalen Nailor (WR, your WR9, 3.2/gm): better backup QB, +3.3 pts over the next 4 weeks",
      "Add Corey Kiner (RB, NE, 6.4/gm, value 744) for Jaylen Wright (RB, your RB7, 2.5/gm): better backup RB, +0.1 pts over the next 4 weeks"
     ],
     "trades": {
@@ -699,7 +703,7 @@
     "notes": [
      "Out of the playoff race (2-8, winning all 4 left only reaches 6 wins; the last playoff seed already has 6). Draft-pick mode: worst record picks first, fewer points breaks a tie. Normal lineups stay; small start/sit swaps and points-only pickups are left out (rule 17).",
      "Draft pick if the season ended now: #2 of 12 (TheParlay (2-8, 1136.1 pts) holds #1; mattschadegg (3-7, 1052.4 pts) is #3)",
-     "8 starters play today, first locks Sun 12:00p"
+     "9 starters play today, first locks Sun 12:00p"
     ],
     "cats": null,
     "radar": null,
@@ -714,19 +718,19 @@
       "Bhayshul Tuten": "RB10 this week, RB14 lately",
       "Garrett Wilson": "WR11 this week, WR16 lately",
       "Tetairoa McMillan": "WR13 this week, WR14 lately",
-      "Mike Gesicki": "TE13 this week, TE20 lately",
+      "Kenyon Sadiq": "TE27 this week, TE24 lately",
       "Stefon Diggs": "WR18 this week, WR20 lately",
       "Caleb Williams": "QB7 this week, QB11 lately",
       "Tre Tucker": "WR39 this week, WR38 lately",
       "Chris Rodriguez Jr.": "RB40 this week, RB41 lately",
+      "Will Shipley": "RB56 this week, RB28 lately",
       "Keon Coleman": "WR42 this week, WR55 lately",
       "Jaylen Wright": "RB47 this week, RB49 lately",
       "Devaughn Vele": "WR55 this week, WR35 lately",
       "Malachi Fields": "WR44 this week, WR50 lately",
       "Ja'Kobi Lane": "WR56 this week, WR64 lately",
-      "Kenyon Sadiq": "TE27 this week, TE24 lately",
       "Evan Engram": "TE25 this week",
-      "Tutu Atwell": "not ranked to play this week, WR41 lately",
+      "Mike Gesicki": "TE13 this week, TE20 lately",
       "Rhamondre Stevenson": "not ranked to play this week, RB17 lately",
       "Jalen Nailor": "WR54 this week",
       "Zach Charbonnet": "not ranked to play this week, RB25 lately",
@@ -735,7 +739,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    }
   },
@@ -1056,13 +1060,13 @@
       "DJ Moore": "WR14 this week, WR15 lately",
       "Brenton Strange": "TE11 this week, TE9 lately",
       "Kirk Cousins": "QB14 this week, QB16 lately",
-      "Drake Maye": "not ranked to play this week, QB2 lately",
-      "Jordan Love": "not ranked to play this week, QB12 lately"
+      "Jordan Love": "not ranked to play this week, QB12 lately",
+      "Drake Maye": "not ranked to play this week, QB2 lately"
      },
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": [],
     "guillotine": {
      "week": 11,
@@ -1086,7 +1090,7 @@
       "bids": [],
       "freed": {
        "team": "Aniasin1",
-       "cut": 0.287,
+       "cut": 0.286,
        "players": [
         {
          "name": "Josh Allen",
@@ -1169,7 +1173,7 @@
       {
        "name": "Aniasin1",
        "proj": 117.6,
-       "cut": 0.287,
+       "cut": 0.286,
        "faab": 3,
        "bold": 0.93,
        "me": false
@@ -1200,7 +1204,7 @@
       },
       {
        "name": "GoodFellas (GoodFellas77)",
-       "proj": 141.0,
+       "proj": 140.9,
        "cut": 0.078,
        "faab": 16,
        "bold": 0.88,
@@ -1216,7 +1220,7 @@
       },
       {
        "name": "Off with his head (damonhawk1)",
-       "proj": 149.4,
+       "proj": 149.5,
        "cut": 0.04,
        "faab": 38,
        "bold": 0.42,
@@ -1809,7 +1813,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    }
   },
@@ -2210,7 +2214,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    }
   },
@@ -2450,11 +2454,17 @@
      "kickoff": "2026-11-22T18:00:00Z",
      "started": false,
      "proj": 4.5,
-     "status": null,
-     "why": "",
-     "flags": [],
+     "status": "OUT",
+     "why": "ESPN: Out",
+     "flags": [
+      "OUT"
+     ],
      "exp": "RB44 this week, RB45 lately",
-     "news": null
+     "news": {
+      "note": "Estime (coach's decision) is inactive for Sunday's game against the Bears.",
+      "at": "2026-11-22T16:43:00Z",
+      "url": "https://www.espn.com/nfl/player/_/id/4569682/audric-estime"
+     }
     },
     {
      "slot": "BN",
@@ -2569,7 +2579,7 @@
      "disagree": [],
      "basis": "ESPN experts: ESPN's fantasy analysts' weekly PPR position ranks, averaged (players ranked by 3+ of them; QB/RB/WR/TE). \"Lately\" = median of their last 3 weekly ranks with him as a real option (weeks he was out or on a bye skipped). Big disagreement = QB 6+, TE 6+, RB 10+, WR 10+ spots. Which experts: ESPN's feed identifies each analyst only by a number, not a name (usually about 8 analysts), so Sports HQ can't show who ranked whom; tap a player to see how many ranked him and their best-to-worst range. ESPN's weekly rankings articles on espn.com name the panel. Our calls still use Sleeper's projections: in weeks 1-9, a 50/50 blend with the experts picked the better of two players 57.9% of the time vs 57.5% for Sleeper alone, and won only 5 of 9 weeks, so the nightly health check keeps testing it."
     },
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    }
   },
@@ -2658,7 +2668,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "Questionable (low back contusion/ neck strain) per NBA injury report, 10:30am",
+     "why": "Questionable (low back contusion/ neck strain) per NBA injury report, 10:45am",
      "flags": [
       "Q"
      ],
@@ -2967,7 +2977,7 @@
     "trades": null,
     "values": null,
     "notes": [
-     "Shai Gilgeous-Alexander (PG) is questionable (low back contusion/ neck strain) per NBA injury report, 10:30am, plays Sun 5:00p [ESPN, Nov 21 4:45p: Gilgeous-Alexander (back/neck) is listed as questionable for Sunday's game versus Miami.]",
+     "Shai Gilgeous-Alexander (PG) is questionable (low back contusion/ neck strain) per NBA injury report, 10:45am, plays Sun 5:00p [ESPN, Nov 21 4:45p: Gilgeous-Alexander (back/neck) is listed as questionable for Sunday's game versus Miami.]",
      "6 of 10 starters play tonight"
     ],
     "cats": {
@@ -3136,7 +3146,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Charles Bassey (C, GS), free agent, rostered 2% (+1.3% in 3 days): minutes 11 \u2192 21 in his last 3 games (Nov 16\u2013Nov 19) vs 13 before, played 11 of them, usage 21% \u2192 18%, started 2 of 3 (1 of 13 before), since Stephen Curry went out [ESPN Nov 12: Out, Curry has been diagnosed with an oblique abdominal tear and will be re-evaluated in two\u2026]. Fits FG% (close), BLK (close), REB (losing). 1 game left this week, 3 next week.",
+       "text": "Charles Bassey (C, GS), free agent, rostered 2% (+1.4% in 3 days): minutes 11 \u2192 21 in his last 3 games (Nov 16\u2013Nov 19) vs 13 before, played 11 of them, usage 21% \u2192 18%, started 2 of 3 (1 of 13 before), since Stephen Curry went out [ESPN Nov 12: Out, Curry has been diagnosed with an oblique abdominal tear and will be re-evaluated in two\u2026]. Fits FG% (close), BLK (close), REB (losing). 1 game left this week, 3 next week.",
        "short": "Charles Bassey (GS, FA 2%): minutes 11 \u2192 21, now starting; fits FG%, BLK (ESPN game logs through Nov 19)",
        "links": [
         [
@@ -3157,7 +3167,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Jaxson Hayes (C, UTAH), free agent, rostered 14% (+5.4% in 3 days): minutes 23 \u2192 22 in his last 3 games (Nov 13\u2013Nov 20) vs 12 before, played 11 of them, usage 13% \u2192 19%, since Lauri Markkanen went out [ESPN Nov 11: Out, Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be\u2026]. Fits FG% (close), BLK (close), REB (losing). 1 game left this week, 3 next week (back-to-back Sun\u2013Mon).",
+       "text": "Jaxson Hayes (C, UTAH), free agent, rostered 14% (+5.7% in 3 days): minutes 23 \u2192 22 in his last 3 games (Nov 13\u2013Nov 20) vs 12 before, played 11 of them, usage 13% \u2192 19%, since Lauri Markkanen went out [ESPN Nov 11: Out, Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be\u2026]. Fits FG% (close), BLK (close), REB (losing). 1 game left this week, 3 next week (back-to-back Sun\u2013Mon).",
        "short": "Jaxson Hayes (UTAH, FA 14%): minutes 23 \u2192 22, usage 13% \u2192 19%; fits FG%, BLK (ESPN game logs through Nov 20)",
        "links": [
         [
@@ -3178,7 +3188,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Toumani Camara (PF, POR), free agent, rostered 31% (-0.3% in 3 days): minutes 29 \u2192 35 in his last 3 games (Nov 17\u2013Nov 21) vs 13 before, usage 16% \u2192 18%, since Ja Morant went out [ESPN Nov 7: Out, Head coach Micah Nori said Morant met with a doctor in Los Angeles, who gave him a\u2026]. Fits 3PM (losing), BLK (close). 0 games left this week, 4 next week.",
+       "text": "Toumani Camara (PF, POR), free agent, rostered 31% (-0.5% in 3 days): minutes 29 \u2192 35 in his last 3 games (Nov 17\u2013Nov 21) vs 13 before, usage 16% \u2192 18%, since Ja Morant went out [ESPN Nov 7: Out, Head coach Micah Nori said Morant met with a doctor in Los Angeles, who gave him a\u2026]. Fits 3PM (losing), BLK (close). 0 games left this week, 4 next week.",
        "short": "Toumani Camara (POR, FA 31%): minutes 29 \u2192 35, usage 16% \u2192 18%; fits 3PM, BLK (ESPN game logs through Nov 21)",
        "links": [
         [
@@ -3385,10 +3395,10 @@
      "source": "3-Ball league sheet: picks updated 3/19/26, minors log through 8/20/26; read 2026-10-30"
     },
     "experts": null,
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:30am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   },
   "Ball is Life": {
    "name": "Ball is Life",
@@ -3413,7 +3423,7 @@
      "started": false,
      "proj": 0.0,
      "status": "Q",
-     "why": "Questionable (right groin tendinitis) per NBA injury report, 10:30am",
+     "why": "Questionable (right groin tendinitis) per NBA injury report, 10:45am",
      "flags": [
       "Q"
      ],
@@ -3718,7 +3728,7 @@
     "trades": null,
     "values": null,
     "notes": [
-     "Giannis Antetokounmpo (PF) is questionable (right groin tendinitis) per NBA injury report, 10:30am, plays Sun 5:00p [ESPN, Nov 21 2:33p: Antetokounmpo (groin) is listed as questionable for Sunday's game against Oklahoma City, Ira Winderman of the South Florida Sun Sentinel reports.]",
+     "Giannis Antetokounmpo (PF) is questionable (right groin tendinitis) per NBA injury report, 10:45am, plays Sun 5:00p [ESPN, Nov 21 2:33p: Antetokounmpo (groin) is listed as questionable for Sunday's game against Oklahoma City, Ira Winderman of the South Florida Sun Sentinel reports.]",
      "6 of 9 starters play tonight"
     ],
     "cats": {
@@ -3852,7 +3862,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Tyrese Proctor (SG, CLE), free agent, rostered 8% (-5.8% in 3 days): minutes 18 \u2192 26 in his last 3 games (Nov 16\u2013Nov 20) vs 14 before, played 13 of them, started 3 of 3 (2 of 14 before), since Evan Mobley went out [ESPN Nov 16: Out, Mobley will receive treatment and participate in rehab after the team confirmed a\u2026]. Fits 3PM (losing), FG% (losing). 0 games left this week, 3 next week.",
+       "text": "Tyrese Proctor (SG, CLE), free agent, rostered 8% (-5.9% in 3 days): minutes 18 \u2192 26 in his last 3 games (Nov 16\u2013Nov 20) vs 14 before, played 13 of them, started 3 of 3 (2 of 14 before), since Evan Mobley went out [ESPN Nov 16: Out, Mobley will receive treatment and participate in rehab after the team confirmed a\u2026]. Fits 3PM (losing), FG% (losing). 0 games left this week, 3 next week.",
        "short": "Tyrese Proctor (CLE, FA 8%): minutes 18 \u2192 26, now starting; fits 3PM, FG% (ESPN game logs through Nov 20)",
        "links": [
         [
@@ -3894,7 +3904,7 @@
        "fade_clause": ""
       },
       {
-       "text": "Kevin Huerter (SG, DET), free agent, rostered 13% (+1.4% in 3 days): minutes 24 \u2192 36 in his last 3 games (Nov 17\u2013Nov 20) vs 12 before, usage 17% \u2192 20%, started 3 of 3 (0 of 12 before), since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits 3PM (losing). 1 game left this week, 3 next week.",
+       "text": "Kevin Huerter (SG, DET), free agent, rostered 13% (+1.7% in 3 days): minutes 24 \u2192 36 in his last 3 games (Nov 17\u2013Nov 20) vs 12 before, usage 17% \u2192 20%, started 3 of 3 (0 of 12 before), since Jalen Duren went out [ESPN Nov 8: Out, Duren (hamstring) has begun on-court activity and will be re-evaluated in two weeks,\u2026]. Fits 3PM (losing). 1 game left this week, 3 next week.",
        "short": "Kevin Huerter (DET, FA 13%): minutes 24 \u2192 36, usage 17% \u2192 20%, now starting; fits 3PM (ESPN game logs through Nov 20)",
        "links": [
         [
@@ -4083,10 +4093,10 @@
     },
     "assets": null,
     "experts": null,
-    "built": "Sun 10:47a",
+    "built": "Sun 10:57a",
     "skipped": []
    },
-   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:30am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
+   "status_basis": "Status: ESPN's injury report, updated for today's games from the NBA injury report (10:45am CT) and Sleeper. The official report wins when it's newer than ESPN's note; Sleeper fills gaps; sources that disagree with nothing official are shown as unconfirmed and nothing acts on them. A rest day (Out, injury management) counts for that game only."
   }
  }
 }
