@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T16:41:33Z",
+ "generated": "2026-11-23T08:55:29Z",
  "summary": {
   "ok": 13,
   "watch": 5,
@@ -41,7 +41,7 @@
    "id": "wr.ladder_cov50",
    "label": "Bids at the ladder's 50% price that won",
    "value": 0.59,
-   "n": 229,
+   "n": 230,
    "unit": "%",
    "target": 0.5,
    "tolerance": 0.15,
@@ -76,8 +76,8 @@
    "section": "radar",
    "id": "radar.held",
    "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-   "value": 0.62,
-   "n": 16,
+   "value": 0.6,
+   "n": 15,
    "unit": "%",
    "baseline": 0.7,
    "baseline_set": "2026-11-10",
@@ -88,7 +88,7 @@
    "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-   "value": -3.86,
+   "value": -4.1,
    "n": 66,
    "unit": "z",
    "baseline": 0.34,
@@ -3181,7 +3181,7 @@
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
      "value": 8.1,
-     "n": 229,
+     "n": 230,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -3192,7 +3192,7 @@
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
      "value": 0.59,
-     "n": 229,
+     "n": 230,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
@@ -3202,7 +3202,7 @@
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
      "value": 0.82,
-     "n": 229,
+     "n": 230,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -3355,7 +3355,7 @@
      }
     },
     "prices": {
-     "n": 229,
+     "n": 230,
      "cov50": 0.59,
      "cov80": 0.82,
      "est_mae": 8.1,
@@ -3380,45 +3380,45 @@
       },
       "pos RB": {
        "n": 43,
-       "cov50": 0.37,
-       "cov80": 0.72,
+       "cov50": 0.4,
+       "cov80": 0.7,
        "est_mae": 16.0
       },
       "pos TE": {
-       "n": 30,
-       "cov50": 0.7,
+       "n": 31,
+       "cov50": 0.68,
        "cov80": 0.9,
-       "est_mae": 5.3
+       "est_mae": 5.6
       },
       "pos WR": {
        "n": 75,
-       "cov50": 0.51,
+       "cov50": 0.49,
        "cov80": 0.75,
        "est_mae": 7.9
       },
       "legs 1-5": {
-       "n": 113,
-       "cov50": 0.53,
-       "cov80": 0.79,
-       "est_mae": 11.1
+       "n": 114,
+       "cov50": 0.54,
+       "cov80": 0.78,
+       "est_mae": 11.0
       },
       "legs 6-10": {
        "n": 116,
-       "cov50": 0.66,
+       "cov50": 0.65,
        "cov80": 0.85,
-       "est_mae": 5.2
+       "est_mae": 5.4
       },
       "estimate $10+": {
-       "n": 62,
-       "cov50": 0.52,
-       "cov80": 0.81,
-       "est_mae": 16.6
+       "n": 64,
+       "cov50": 0.5,
+       "cov80": 0.8,
+       "est_mae": 16.4
       },
       "estimate under $10": {
-       "n": 167,
-       "cov50": 0.62,
+       "n": 166,
+       "cov50": 0.63,
        "cov80": 0.83,
-       "est_mae": 5.0
+       "est_mae": 4.9
       }
      }
     }
@@ -4949,8 +4949,8 @@
     {
      "id": "radar.held",
      "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-     "value": 0.62,
-     "n": 16,
+     "value": 0.6,
+     "n": 15,
      "unit": "%",
      "baseline": 0.7,
      "baseline_set": "2026-11-10",
@@ -4960,15 +4960,15 @@
     {
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
-     "value": 0.57,
-     "n": 69,
+     "value": 0.54,
+     "n": 67,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": -3.86,
+     "value": -4.1,
      "n": 66,
      "unit": "z",
      "baseline": 0.34,
@@ -4981,29 +4981,29 @@
    "details": {
     "mornings": 14,
     "wire_mornings": 9,
-    "wire_value": -0.61,
+    "wire_value": 0.12,
     "shown": {
-     "n": 16,
-     "held": 10,
-     "held_rate": 0.62,
-     "value": -3.68,
+     "n": 15,
+     "held": 9,
+     "held_rate": 0.6,
+     "value": -3.2,
      "edge_n": 15,
-     "edge": -3.41,
-     "added_later": 6
+     "edge": -3.32,
+     "added_later": 8
     },
     "flags": {
-     "n": 69,
-     "held": 39,
-     "held_rate": 0.57,
-     "value": -4.32,
+     "n": 67,
+     "held": 36,
+     "held_rate": 0.54,
+     "value": -3.96,
      "edge_n": 66,
-     "edge": -3.86,
+     "edge": -4.1,
      "added_later": 19
     },
-    "every_value": -5.65
+    "every_value": -5.59
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 9 mornings (state/nba_owned.json starts Nov 3); shown flags alone -3.41 (n=15)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 9 mornings (state/nba_owned.json starts Nov 3); shown flags alone -3.32 (n=15)."
    ]
   },
   {
@@ -5056,8 +5056,8 @@
     {
      "id": "stream.edge",
      "label": "Streamers: value over the next one listed (z per game of the higher-ranked, rest of the week)",
-     "value": 0.23,
-     "n": 40,
+     "value": 0.44,
+     "n": 66,
      "unit": "z",
      "baseline": 0.23,
      "baseline_set": "2026-11-16",
@@ -5067,8 +5067,8 @@
     {
      "id": "stream.order",
      "label": "Streamer pairs where the higher-ranked one did better",
-     "value": 0.53,
-     "n": 40,
+     "value": 0.58,
+     "n": 66,
      "unit": "%",
      "status": "info"
     }
@@ -6826,9 +6826,737 @@
       "edge": -8.55,
       "edge_pg": -8.55,
       "hit": false
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-16",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|2991350|4432241",
+      "pick": "Alex Caruso",
+      "next": "Jamal Shead",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -5.6,
+       "played": 1,
+       "exp_games": 3,
+       "exp_pg": 3.07
+      },
+      "next_stats": {
+       "actual": -14.38,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 3.05
+      },
+      "edge": 8.78,
+      "edge_pg": 2.93,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-16",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4432241|4431687",
+      "pick": "Jamal Shead",
+      "next": "Patrick Williams",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.9,
+      "pick_stats": {
+       "actual": -14.38,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 3.05
+      },
+      "next_stats": {
+       "actual": -19.5,
+       "played": 4,
+       "exp_games": 4,
+       "exp_pg": 2.06
+      },
+      "edge": 5.12,
+      "edge_pg": 1.71,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-16",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|3936099|3907498",
+      "pick": "Derrick Jones Jr.",
+      "next": "Matisse Thybulle",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -24.44,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 2.38
+      },
+      "next_stats": {
+       "actual": 9.78,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 2.34
+      },
+      "edge": -34.22,
+      "edge_pg": -11.41,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-16",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|3907498|4433137",
+      "pick": "Matisse Thybulle",
+      "next": "Ziaire Williams",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 1.4,
+      "pick_stats": {
+       "actual": 9.78,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 2.34
+      },
+      "next_stats": {
+       "actual": -18.71,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.87
+      },
+      "edge": 28.49,
+      "edge_pg": 9.5,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-17",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4592829|4432241",
+      "pick": "Quenton Jackson",
+      "next": "Jamal Shead",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.3,
+      "pick_stats": {
+       "actual": 9.88,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.92
+      },
+      "next_stats": {
+       "actual": -17.02,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.84
+      },
+      "edge": 26.9,
+      "edge_pg": 8.97,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-17",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4432241|4432170",
+      "pick": "Jamal Shead",
+      "next": "Isaiah Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.5,
+      "pick_stats": {
+       "actual": -17.02,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.84
+      },
+      "next_stats": {
+       "actual": -0.16,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.66
+      },
+      "edge": -16.86,
+      "edge_pg": -5.62,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-17",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|3936099|5279130",
+      "pick": "Derrick Jones Jr.",
+      "next": "Nolan Traore",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 7.6,
+      "pick_stats": {
+       "actual": -22.24,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 3.34
+      },
+      "next_stats": {
+       "actual": -11.8,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.22
+      },
+      "edge": -10.44,
+      "edge_pg": -3.48,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-17",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|5279130|4433137",
+      "pick": "Nolan Traore",
+      "next": "Ziaire Williams",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.8,
+      "pick_stats": {
+       "actual": -11.8,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.22
+      },
+      "next_stats": {
+       "actual": -20.94,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 0.52
+      },
+      "edge": 9.14,
+      "edge_pg": 4.57,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-18",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4066436|4277919",
+      "pick": "De'Anthony Melton",
+      "next": "Mo Bamba",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 1.4,
+      "pick_stats": {
+       "actual": 5.21,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.82
+      },
+      "next_stats": {
+       "actual": -4.17,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.38
+      },
+      "edge": 9.38,
+      "edge_pg": 3.13,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-18",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4277919|4277956",
+      "pick": "Mo Bamba",
+      "next": "Jordan Poole",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 1.0,
+      "pick_stats": {
+       "actual": -4.17,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.38
+      },
+      "next_stats": {
+       "actual": 15.68,
+       "played": 3,
+       "exp_games": 3,
+       "exp_pg": 1.05
+      },
+      "edge": -19.85,
+      "edge_pg": -6.62,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-18",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|5279130|3936099",
+      "pick": "Nolan Traore",
+      "next": "Derrick Jones Jr.",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -11.41,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.37
+      },
+      "next_stats": {
+       "actual": -14.32,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.32
+      },
+      "edge": 2.91,
+      "edge_pg": 1.46,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-18",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|3936099|4684272",
+      "pick": "Derrick Jones Jr.",
+      "next": "Ja'Kobe Walter",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.5,
+      "pick_stats": {
+       "actual": -14.32,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.32
+      },
+      "next_stats": {
+       "actual": 5.29,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.03
+      },
+      "edge": -19.61,
+      "edge_pg": -9.8,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-19",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4066436|4278585",
+      "pick": "De'Anthony Melton",
+      "next": "Collin Gillespie",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": 3.01,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.04
+      },
+      "next_stats": {
+       "actual": 1.99,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.99
+      },
+      "edge": 1.02,
+      "edge_pg": 0.51,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-19",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4278585|4592829",
+      "pick": "Collin Gillespie",
+      "next": "Quenton Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": 1.99,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.99
+      },
+      "next_stats": {
+       "actual": -4.04,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.96
+      },
+      "edge": 6.03,
+      "edge_pg": 6.03,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-19",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4601025|4395702",
+      "pick": "Pelle Larsson",
+      "next": "Isaiah Joe",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": 8.75,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.29
+      },
+      "next_stats": {
+       "actual": 4.88,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.59
+      },
+      "edge": 3.87,
+      "edge_pg": 3.87,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-19",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4395702|3936099",
+      "pick": "Isaiah Joe",
+      "next": "Derrick Jones Jr.",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": 4.88,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.59
+      },
+      "next_stats": {
+       "actual": -16.43,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.53
+      },
+      "edge": 21.31,
+      "edge_pg": 10.65,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-20",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4277919|4397077",
+      "pick": "Mo Bamba",
+      "next": "Jaxson Hayes",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.0,
+      "pick_stats": {
+       "actual": -10.86,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.96
+      },
+      "next_stats": {
+       "actual": 0.17,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.93
+      },
+      "edge": -11.03,
+      "edge_pg": -5.51,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-20",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4397077|4592829",
+      "pick": "Jaxson Hayes",
+      "next": "Quenton Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.9,
+      "pick_stats": {
+       "actual": 0.17,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.93
+      },
+      "next_stats": {
+       "actual": -5.08,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 1.48
+      },
+      "edge": 5.25,
+      "edge_pg": 2.62,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-20",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4395702|4278402",
+      "pick": "Isaiah Joe",
+      "next": "Jordan Goodwin",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.4,
+      "pick_stats": {
+       "actual": 4.57,
+       "played": 2,
+       "exp_games": 2,
+       "exp_pg": 0.43
+      },
+      "next_stats": {
+       "actual": 1.14,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 0.52
+      },
+      "edge": 3.43,
+      "edge_pg": 1.72,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-21",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4592829|4432170",
+      "pick": "Quenton Jackson",
+      "next": "Isaiah Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.3,
+      "pick_stats": {
+       "actual": 0.9,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.37
+      },
+      "next_stats": {
+       "actual": -7.69,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.09
+      },
+      "edge": 8.59,
+      "edge_pg": 8.59,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-21",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4601025|4277956",
+      "pick": "Pelle Larsson",
+      "next": "Jordan Poole",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.7,
+      "pick_stats": {
+       "actual": 10.57,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 2.0
+      },
+      "next_stats": {
+       "actual": 10.16,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.29
+      },
+      "edge": 0.41,
+      "edge_pg": 0.41,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-21",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4277956|3138196",
+      "pick": "Jordan Poole",
+      "next": "Cameron Johnson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.7,
+      "pick_stats": {
+       "actual": 10.16,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.29
+      },
+      "next_stats": {
+       "actual": 8.73,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 0.59
+      },
+      "edge": 1.43,
+      "edge_pg": 1.43,
+      "hit": true
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-22",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4397077|4277919",
+      "pick": "Jaxson Hayes",
+      "next": "Mo Bamba",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.2,
+      "pick_stats": {
+       "actual": -4.51,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 3.73
+      },
+      "next_stats": {
+       "actual": -2.64,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 3.48
+      },
+      "edge": -1.87,
+      "edge_pg": -1.87,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "3-Ball BB",
+      "day": "2026-11-22",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "3-Ball BB|2026-11-22|4277919|4592829",
+      "pick": "Mo Bamba",
+      "next": "Quenton Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 1.7,
+      "pick_stats": {
+       "actual": -2.64,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 3.48
+      },
+      "next_stats": {
+       "actual": 0.01,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.83
+      },
+      "edge": -2.65,
+      "edge_pg": -2.65,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-22",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4277919|4601025",
+      "pick": "Mo Bamba",
+      "next": "Pelle Larsson",
+      "rank": 1,
+      "when": "this week",
+      "est_edge": 0.1,
+      "pick_stats": {
+       "actual": -3.15,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.54
+      },
+      "next_stats": {
+       "actual": 11.39,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.37
+      },
+      "edge": -14.54,
+      "edge_pg": -14.54,
+      "hit": false
+     },
+     {
+      "v": 1,
+      "league": "Ball is Life",
+      "day": "2026-11-22",
+      "week": "2026-11-22",
+      "partial": false,
+      "key": "Ball is Life|2026-11-22|4601025|4592829",
+      "pick": "Pelle Larsson",
+      "next": "Quenton Jackson",
+      "rank": 2,
+      "when": "this week",
+      "est_edge": 0.5,
+      "pick_stats": {
+       "actual": 11.39,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 1.37
+      },
+      "next_stats": {
+       "actual": -1.93,
+       "played": 1,
+       "exp_games": 1,
+       "exp_pg": 0.91
+      },
+      "edge": 13.32,
+      "edge_pg": 13.32,
+      "hit": true
      }
     ],
-    "pending": 28,
+    "pending": 0,
     "lost": 0,
     "done": [
      "3-Ball BB|2026-11-06",
@@ -6850,7 +7578,21 @@
      "3-Ball BB|2026-11-14",
      "Ball is Life|2026-11-14",
      "3-Ball BB|2026-11-15",
-     "Ball is Life|2026-11-15"
+     "Ball is Life|2026-11-15",
+     "3-Ball BB|2026-11-16",
+     "Ball is Life|2026-11-16",
+     "3-Ball BB|2026-11-17",
+     "Ball is Life|2026-11-17",
+     "3-Ball BB|2026-11-18",
+     "Ball is Life|2026-11-18",
+     "3-Ball BB|2026-11-19",
+     "Ball is Life|2026-11-19",
+     "3-Ball BB|2026-11-20",
+     "Ball is Life|2026-11-20",
+     "3-Ball BB|2026-11-21",
+     "Ball is Life|2026-11-21",
+     "3-Ball BB|2026-11-22",
+     "Ball is Life|2026-11-22"
     ],
     "unmatched": [],
     "v": 1,
@@ -6877,16 +7619,16 @@
       ]
      },
      "streamers": {
-      "n": 40,
-      "edge": 0.23,
-      "edge_total": 0.19,
-      "hits": 21,
-      "hit_rate": 0.53,
-      "est_edge": 0.77,
+      "n": 66,
+      "edge": 0.44,
+      "edge_total": 0.48,
+      "hits": 38,
+      "hit_rate": 0.58,
+      "est_edge": 0.78,
       "picks": [
-       2.52,
-       0.92,
-       1.0
+       2.37,
+       -0.16,
+       0.97
       ]
      },
      "weeks": {
@@ -6961,19 +7703,56 @@
          1.0
         ]
        }
+      },
+      "2026-11-22": {
+       "swaps": {
+        "n": 0,
+        "gain": null,
+        "gain_total": null,
+        "hits": 0,
+        "hit_rate": null,
+        "est": null,
+        "est_err": null,
+        "est_bias": null,
+        "dead": 0,
+        "adds": [
+         null,
+         null,
+         null
+        ],
+        "drops": [
+         null,
+         null,
+         null
+        ]
+       },
+       "streamers": {
+        "n": 26,
+        "edge": 0.77,
+        "edge_total": 0.93,
+        "hits": 17,
+        "hit_rate": 0.65,
+        "est_edge": 0.79,
+        "picks": [
+         2.12,
+         -1.95,
+         0.92
+        ]
+       }
       }
      },
-     "pending": 28,
+     "pending": 0,
      "lost": 0,
      "unmatched": []
     }
    },
    "notes": [
     "21 swaps judged: the add out-produced the drop in 11 (52%); gained -0.44 z per game of the add (-0.48 over the week). The site showed +7.63 on average and the result was -8.11 from that (average miss 13.32).",
-    "40 streamer pairs judged (each streamer vs the next one listed): the higher-ranked did better in 21 (53%), by +0.23 z per game; the list promised +0.77 over the week, it came out +0.19.",
+    "66 streamer pairs judged (each streamer vs the next one listed): the higher-ranked did better in 38 (58%), by +0.44 z per game; the list promised +0.78 over the week, it came out +0.48.",
     "Week ending 2026-11-08: 8 swaps, gain +0.10/g, add ahead in 4; 12 streamer pairs, edge +1.56/g.",
     "Week ending 2026-11-15: 13 swaps, gain -0.78/g, add ahead in 7; 28 streamer pairs, edge -0.33/g.",
-    "Waiting for their week to finish: 28 shown swaps or streamer pairs (a repeat on a later morning counts again here, once when judged).",
+    "Week ending 2026-11-22: 0 swaps, gain n/a/g, add ahead in 0; 26 streamer pairs, edge +0.77/g.",
+    "Waiting for their week to finish: 0 shown swaps or streamer pairs (a repeat on a later morning counts again here, once when judged).",
     "How: what the basketball tabs showed at the first data commit from 8am CT, judged over the rest of that fantasy week on ESPN's game logs, in the league's categories weighted by that morning's need, above a waiver-level player (the \"+N this week\" units); a missed game adds 0. A swap or pair shown on several mornings of a week counts once."
    ]
   },
@@ -6985,32 +7764,32 @@
     {
      "id": "src.darko_gain",
      "label": "Value trial: DARKO minutes' swap gain minus the site's (z per add game)",
-     "value": 2.94,
-     "n": 36,
+     "value": 1.8,
+     "n": 60,
      "unit": "z",
      "status": "info"
     },
     {
      "id": "src.darko_err",
      "label": "Value trial: DARKO minutes' \"+N\" miss minus the site's (below 0 = closer)",
-     "value": 1.03,
-     "n": 36,
+     "value": -0.1,
+     "n": 60,
      "unit": "z",
      "status": "info"
     },
     {
      "id": "src.shrunk_gain",
      "label": "Value trial: shrunk values' swap gain minus the site's (z per add game)",
-     "value": -0.44,
-     "n": 21,
+     "value": 2.23,
+     "n": 43,
      "unit": "z",
      "status": "info"
     },
     {
      "id": "src.shrunk_err",
      "label": "Value trial: shrunk values' \"+N\" miss minus the site's (below 0 = closer)",
-     "value": 1.71,
-     "n": 21,
+     "value": -0.74,
+     "n": 43,
      "unit": "z",
      "status": "info"
     }
@@ -7069,6 +7848,32 @@
        "err": 12.04,
        "bias": -4.18
       }
+     },
+     "2026-11-22": {
+      "site": {
+       "stream": 0.51,
+       "swap": -1.36,
+       "n_stream": 22,
+       "n_swap": 21,
+       "err": 15.2,
+       "bias": -11.92
+      },
+      "darko_minutes": {
+       "stream": -2.34,
+       "swap": -1.42,
+       "n_stream": 24,
+       "n_swap": 24,
+       "err": 13.81,
+       "bias": -11.81
+      },
+      "shrunk": {
+       "stream": 0.53,
+       "swap": 3.79,
+       "n_stream": 25,
+       "n_swap": 22,
+       "err": 11.2,
+       "bias": 1.07
+      }
      }
     },
     "diff": {
@@ -7095,42 +7900,58 @@
        "swap": 0.18,
        "err": 1.81
       }
+     },
+     "2026-11-22": {
+      "darko_minutes": {
+       "stream": -2.85,
+       "swap": -0.06,
+       "err": -1.39
+      },
+      "shrunk": {
+       "stream": 0.02,
+       "swap": 5.15,
+       "err": -4.0
+      }
      }
     },
     "gate": {
      "darko_minutes": {
-      "weeks": 2,
-      "n": 36,
-      "gain": 3.83,
-      "err": 10.55,
-      "ref_gain": 0.89,
-      "ref_err": 9.52,
-      "ready": false
+      "weeks": 3,
+      "n": 60,
+      "gain": 1.73,
+      "err": 11.85,
+      "ref_gain": -0.07,
+      "ref_err": 11.95,
+      "ready": true
      },
      "shrunk": {
-      "weeks": 2,
-      "n": 21,
-      "gain": 0.45,
-      "err": 11.23,
-      "ref_gain": 0.89,
-      "ref_err": 9.52,
-      "ready": false
+      "weeks": 3,
+      "n": 43,
+      "gain": 2.16,
+      "err": 11.21,
+      "ref_gain": -0.07,
+      "ref_err": 11.95,
+      "ready": true
      }
     },
-    "ready": [],
+    "ready": [
+     "darko_minutes",
+     "shrunk"
+    ],
     "mornings": 34,
     "first": "2026-11-06",
     "match": 1.0,
-    "match_swaps": 0.42
+    "match_swaps": 0.25
    },
    "notes": [
-    "Ready to switch on: none yet (the switch is \"site\").",
+    "Ready to switch on: darko_minutes, shrunk (shq/config.py NBA_VALUE_SOURCE, now \"site\"; a one-line change a session makes after Michael is told).",
     "Rule: a source switches on after 2+ complete fantasy weeks and 20+ of its swaps judged, with a higher swap gain per add game and a smaller miss on its own \"+N\" than the site's values over those weeks (pooled by swaps).",
-    "DARKO minutes: 2 complete weeks, 36 swaps: gain +3.83/g vs the site's +0.89, miss 10.55 vs 9.52.",
-    "shrunk: 2 complete weeks, 21 swaps: gain +0.45/g vs the site's +0.89, miss 11.23 vs 9.52.",
+    "DARKO minutes: 3 complete weeks, 60 swaps: gain +1.73/g vs the site's -0.07, miss 11.85 vs 11.95 (ready).",
+    "shrunk: 3 complete weeks, 43 swaps: gain +2.16/g vs the site's -0.07, miss 11.21 vs 11.95 (ready).",
     "Week ending 2026-11-08: site swaps +0.10/g (n=8, miss 7.73), streamers -0.62/g; DARKO minutes swaps +3.06/g (n=9, miss 5.87), streamers -1.04/g; shrunk swaps -1.90/g (n=6, miss 9.19), streamers -1.43/g.",
     "Week ending 2026-11-15: site swaps +1.21/g (n=20, miss 10.23), streamers +1.13/g; DARKO minutes swaps +4.09/g (n=27, miss 12.11), streamers +1.99/g; shrunk swaps +1.39/g (n=15, miss 12.04), streamers +0.90/g.",
-    "Same mornings for all three: 34 league mornings with a DARKO reading since 2026-11-06 (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best free agents per league). The replay of the site's own values reproduces 100% of the streamers and 42% of the swaps shown.",
+    "Week ending 2026-11-22: site swaps -1.36/g (n=21, miss 15.2), streamers +0.51/g; DARKO minutes swaps -1.42/g (n=24, miss 13.81), streamers -2.34/g; shrunk swaps +3.79/g (n=22, miss 11.2), streamers +0.53/g.",
+    "Same mornings for all three: 34 league mornings with a DARKO reading since 2026-11-06 (state/nba_darko.json: DARKO's Time Machine as of each morning, backfilled before Nov 12, then read once a day from 7am CT; kept for my rostered players, those named by that morning's advice, and the 10 best free agents per league). The replay of the site's own values reproduces 100% of the streamers and 25% of the swaps shown.",
     "How: each morning's picks replayed under each source with the site's rules, judged like the swaps above (league units, need-weighted, above a waiver-level player). DARKO minutes = each line rescaled to DARKO's projected minutes (darko.app; only our minutes factor is kept); shrunk = a season average pulled toward ESPN's season projection by games played (tonight's projection, not that morning's)."
    ]
   },
