@@ -436,7 +436,7 @@ def main():
             if cfg["platform"] == "yahoo" and (prev.get("pending") or prev.get("roster_synced")):
                 push_once(f"{lg.key}:access-live", f"{name}: Yahoo access is live",
                           "Yahoo approved the app. The lineup tab and injury watch now cover this league.",
-                          tags=["tada"])
+                          urgent=False, tags=["tada"])   # good news, nothing to do: silent
         except (LeagueOver, SnapshotMissing) as e:
             notes.append(str(e))
             league_views[name] = {"name": name, "platform": cfg["platform"], "sport": cfg["sport"],

@@ -118,6 +118,6 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-          curl -s -H "Title: Ask Claude failed" -H "Priority: 3" -H "Tags: x" \
+          curl -s -H "Title: Ask Claude failed" -H "Priority: 4" -H "Tags: x" \
             -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             -d "Your Sports HQ question didn't get an answer. Tap for logs." "https://ntfy.sh/$NTFY_TOPIC"

@@ -17,10 +17,30 @@ ALERTS = STATE / "alerts.json"
 KEEP = dt.timedelta(days=21)
 sent = []  # what this run pushed (or would have, in dry-run)
 
+# Michael's rule (Nov 23, 2026): a push that needs him within 24 hours, is about money, or says something broke keeps
+# its sound; everything else is silent. ntfy priorities: 3 is the default (sound), 2 is "low" (no sound, no pop-up).
+# Callers say which kind a push is with `urgent` (unsure = urgent, so it's the default); `level` turns that into the
+# priority sent. The same rule is in picks/pp/publish.py for the Pool Picks pushes.
+URGENT = 4   # the least an urgent push gets (a higher one, like CHECK LINEUP's 5, is kept)
+SILENT = 2
 
-def push(title, message, priority=3, tags=None, click=None, actions=None, delay=None):
-    """click: URL the notification opens (default the site); actions: ntfy view buttons; delay: e.g. "3m"."""
-    sent.append({"title": title, "message": message, "click": click})
+
+def level(urgent=True, priority=None):
+    """ntfy priority for a push: urgent -> its own priority, at least URGENT (max 5); anything else -> SILENT."""
+    if not urgent:
+        return SILENT
+    try:
+        p = int(priority)
+    except (TypeError, ValueError):
+        p = 0
+    return min(max(p, URGENT), 5)
+
+
+def push(title, message, priority=None, tags=None, click=None, actions=None, delay=None, urgent=True):
+    """click: URL the notification opens (default the site); actions: ntfy view buttons; delay: e.g. "3m".
+    urgent: needs Michael within 24h, is about money, or says something broke (sound); False = silent (see `level`)."""
+    priority = level(urgent, priority)
+    sent.append({"title": title, "message": message, "click": click, "priority": priority})
     topic = os.environ.get("NTFY_TOPIC")
     if os.environ.get("DRY_RUN") == "1" or not topic:
         print(f"[push skipped] {title}: {message}")

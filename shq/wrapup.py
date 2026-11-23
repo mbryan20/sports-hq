@@ -794,7 +794,7 @@ def publish(model):
 def send(model, urls, intro=None):
     title = (f"Weekend wrap-up: NFL wk {model['week']}" + (" (Sunday)" if model["edition"] == "sunday" else " final"))
     msg = "\n".join(([intro] if intro else []) + model["headline"])[:900] or "Tap for the PDF."
-    notify.push_once(f"wrapup:{model['season']}:{model['week']}:{model['edition']}", title, msg, priority=3, tags=["newspaper"],
+    notify.push_once(f"wrapup:{model['season']}:{model['week']}:{model['edition']}", title, msg, urgent=False, tags=["newspaper"],
                      click=urls["pdf"] or urls["html"], delay="3m",  # GitHub Pages needs a minute or two to publish
                      actions=[{"action": "view", "label": "PDF", "url": urls["pdf"] or urls["html"]},
                               {"action": "view", "label": "Web page", "url": urls["html"]}])

@@ -44,4 +44,4 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-          curl -s -H "Title: Yahoo re-auth failed" -H "Tags: x" -d "Get a fresh code and run it again." "https://ntfy.sh/$NTFY_TOPIC"
+          curl -s -H "Title: Yahoo re-auth failed" -H "Priority: 4" -H "Tags: x" -d "Get a fresh code and run it again." "https://ntfy.sh/$NTFY_TOPIC"

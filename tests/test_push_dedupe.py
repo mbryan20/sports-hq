@@ -35,8 +35,9 @@ class Pushes(unittest.TestCase):
         (self.tmp / "data").mkdir()
         self.calls = []
 
-        def fake_push(title, message, priority=3, tags=None, click=None, actions=None, delay=None):
-            self.calls.append({"title": title, "message": message, "click": click, "actions": actions, "delay": delay})
+        def fake_push(title, message, priority=None, tags=None, click=None, actions=None, delay=None, urgent=True):
+            self.calls.append({"title": title, "message": message, "click": click, "actions": actions, "delay": delay,
+                               "priority": notify.level(urgent, priority)})
         self.patches = [mock.patch.object(notify, "ALERTS", self.tmp / "alerts.json"),
                         mock.patch.object(notify, "push", fake_push),
                         mock.patch.object(notify.session, "post", side_effect=AssertionError("network push")),

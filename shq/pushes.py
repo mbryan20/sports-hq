@@ -53,7 +53,7 @@ def plan_push(now, week):
     if holding(now):
         return None
     return notify.push_once(plan_key(now), f"Week {week} plan ready", "Start/sit and FA adds are on the Weekly tab.",
-                            priority=2, tags=["clipboard"])
+                            urgent=False, tags=["clipboard"])   # a weekly plan: silent
 
 
 def wrapup_deliver(now, force=False):
@@ -145,7 +145,8 @@ def tuesday_push(now, leagues=()):
     if not (plan or wrap or any(i["urgent"] for i in items or [])):
         return None
     title, msg, click, actions = bundle_message(now, plan, items, wrap)
-    if not notify.push_once(key, title, msg, priority=3, tags=["clipboard", "newspaper"], click=click,
+    urgent = any(i["urgent"] for i in items or [])   # sound only when today's digest has something to fix
+    if not notify.push_once(key, title, msg, urgent=urgent, tags=["clipboard", "newspaper"], click=click,
                             actions=actions, delay="3m" if wrap else None):   # GitHub Pages needs a minute or two
         return None
     done = ([plan_key(now)] if plan else []) + ([f"digest:{local.date().isoformat()}"] if items is not None else []) + \
@@ -181,7 +182,7 @@ def digest_push(items, leagues, now, forced=False):
     lines the injury watch hasn't already pushed."""
     if forced:
         title, msg = digest.message(items)
-        notify.push(title, msg, priority=3, tags=["sunrise"])
+        notify.push(title, msg, urgent=any(i["urgent"] for i in items), tags=["sunrise"])
         return True
     if holding(now) or not digest.push_window(now):
         return False
@@ -189,7 +190,7 @@ def digest_push(items, leagues, now, forced=False):
     if not any(i["urgent"] for i in left):
         return False
     title, msg = digest.message(left)
-    return notify.push_once(f"digest:{now.astimezone(TZ).date().isoformat()}", title, msg, priority=3, tags=["sunrise"])
+    return notify.push_once(f"digest:{now.astimezone(TZ).date().isoformat()}", title, msg, tags=["sunrise"])  # urgent lines only
 
 
 # ---------- laptop / Chrome outage: one push ----------
@@ -232,7 +233,7 @@ def outage_push(now, causes, jobs=()):
     title = "Laptop/roster sync down"
     msg = ("\n".join(causes) + "\nIs the laptop on with Chrome and the Claude app open? Alerts use the last saved "
            "rosters; the site's footer shows each job's last run. One push per outage.")
-    notify.push(title, msg, priority=3, tags=["warning"])
+    notify.push(title, msg, tags=["warning"])   # something broke: urgent
     notify.mark([DOWN], now)
     return title
 

@@ -606,7 +606,7 @@ def send_all(entries):
     else:
         title = "NBA rising free agents: " + " + ".join(names)
         msg = "\n\n".join(f"{lg.name}: " + "\n\n".join(i["text"] for i in new) for lg, new in found)
-    if not notify.push_once(day, title, msg, priority=3, tags=["chart_with_upwards_trend"]):
+    if not notify.push_once(day, title, msg, urgent=False, tags=["chart_with_upwards_trend"]):   # a tip, no deadline: silent
         return None
     notify.mark([_player_key(lg, i) for lg, new in found for i in new], now)
     return title

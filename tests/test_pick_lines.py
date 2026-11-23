@@ -110,6 +110,7 @@ class Scan(unittest.TestCase):
             _, _, pushed2 = L.run(None, True, now, self.fetch)
             self.assertEqual(pushed2, [])
             self.assertEqual(n.call_count, 1)
+            self.assertTrue(n.call_args.kwargs["urgent"])   # CFP locks at 11am, 3h away: keeps its sound
         out = json.loads((self.tmp / "out.json").read_text())
         self.assertEqual(out["rows"][0]["side"], "Auburn")
 

@@ -1,11 +1,14 @@
 """Commit + push, wait for the GitHub Pages build of that commit, then send the ntfy push.
 
 Usage: py -m pp.publish --stage draft|final|refresh|postmortem [--title ...] [--no-push-notify]
+Phone sound: final always; draft/refresh only when something needs fixing before a lock within 24h; postmortem
+silent (push_urgent; Michael's Nov 23 rule).
 """
 import argparse, json, os, subprocess, time
+from datetime import datetime, timedelta
 from pathlib import Path
 import requests
-from .push import load as push_load, message as push_message, prev_card
+from .push import CT, _kick_dt, load as push_load, message as push_message, prev_card
 
 ROOT = Path(__file__).resolve().parent.parent
 REPO = "mbryan20/sports-hq"
@@ -24,13 +27,66 @@ def topic():
     return t
 
 
-def notify(title, msg, tags="football", priority=3):
+# Michael's rule (Nov 23, 2026), as in shq/notify.py: a push that needs him within 24 hours, is about money, or says
+# something broke keeps its sound (priority at least 4); everything else is silent (2). Unsure = urgent.
+URGENT, SILENT = 4, 2
+SILENT_STAGES = {"postmortem"}        # a look back at last week: never needs him
+CONTENT_STAGES = {"draft", "refresh"}  # urgent only when he has something to fix before a lock within 24h
+NEEDS_ACTION = ("nothing saved yet", "not saved yet", "not read")   # body lines that mean "check your saved picks"
+
+
+def level(urgent=True, priority=None):
+    """ntfy priority: urgent -> its own priority, at least URGENT (max 5); anything else -> SILENT."""
+    if not urgent:
+        return SILENT
+    try:
+        p = int(priority)
+    except (TypeError, ValueError):
+        p = 0
+    return min(max(p, URGENT), 5)
+
+
+def next_lock(slate, now):
+    """When the next open pool or game stops taking changes, from the slate: BTO bets due Fri 8pm CT, the slate's
+    deadlines (CFP Sat 11am), and every unlocked BTO / Yahoo kickoff. None when nothing in the slate says."""
+    now = now.astimezone(CT)
+    times = []
+    for pid in ("bto", "cfp", "yahoo"):
+        pool = slate.get(pid) or {}
+        if pool.get("deadline"):
+            try:
+                times.append(datetime.fromisoformat(pool["deadline"]))
+            except ValueError:
+                pass
+        times += [k for g in pool.get("games") or [] if not g.get("locked") and (k := _kick_dt(g.get("kick")))]
+    if (slate.get("bto") or {}).get("games") and now.weekday() <= 4:
+        times.append((now + timedelta(days=4 - now.weekday())).replace(hour=20, minute=0, second=0, microsecond=0))
+    future = [t for t in times if t > now]
+    return min(future) if future else None
+
+
+def push_urgent(stage, msg, flagged, slate, now, note=False):
+    """Does this card's push keep its sound? Postmortem: never. Final, and any stage not listed: always.
+    Draft and refresh: a --msg note (a failure) always; otherwise only when something needs fixing (`flagged`: a CHANGE
+    line or a moved pick; or nothing saved / saved picks unread) and the next lock is within 24h (or can't be told)."""
+    if stage in SILENT_STAGES:
+        return False
+    if stage not in CONTENT_STAGES or note:
+        return True
+    if not (flagged or any(s in msg for s in NEEDS_ACTION)):
+        return False
+    lock = next_lock(slate, now)
+    return lock is None or lock - now.astimezone(CT) <= timedelta(hours=24)
+
+
+def notify(title, msg, tags="football", priority=None, urgent=True):
+    """Send one push. urgent: needs Michael within 24h, money, or something broke (sound); False = silent."""
     t = topic()
     if not t:
         print("no ntfy topic; skipped push")
         return False
     r = requests.post(f"https://ntfy.sh/{t}", data=msg.encode(), timeout=30,
-                      headers={"Title": title, "Tags": tags, "Click": PAGE, "Priority": str(priority)})
+                      headers={"Title": title, "Tags": tags, "Click": PAGE, "Priority": str(level(urgent, priority))})
     print("ntfy", r.status_code)
     return r.ok
 
@@ -91,7 +147,8 @@ def main():
             print("WARNING: no second-opinion check recorded for this build (py -m pp.checks --record ...)")
     if not built:
         msg += " (page may take a minute to update)"
-    notify(title, msg, tags="rotating_light" if urgent else "football", priority=4 if urgent else 3)
+    loud = push_urgent(a.stage, msg, urgent, slate, datetime.now(CT), note=bool(a.msg))
+    notify(title, msg, tags="rotating_light" if urgent else "football", urgent=loud)
 
 
 if __name__ == "__main__":

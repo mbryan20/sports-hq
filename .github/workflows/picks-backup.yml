@@ -61,7 +61,7 @@ jobs:
           git config user.name "pool-picks-bot"; git config user.email "actions@users.noreply.github.com"
           git add -A -- . ../docs/picks && git commit -m "Picks backup card: ${{ steps.s.outputs.stage }}" && git pull --rebase && git push
           sleep 90
-          curl -s -o /dev/null -H "Title: Picks BACKUP card posted" -H "Tags: warning" -H "Click: https://mbryan20.github.io/sports-hq/picks/" \
+          curl -s -o /dev/null -H "Title: Picks BACKUP card posted" -H "Priority: 4" -H "Tags: warning" -H "Click: https://mbryan20.github.io/sports-hq/picks/" \
             -d "Laptop run missed; model-only card (no fresh injury research)." "https://ntfy.sh/$NTFY_TOPIC"
       # Plain words: "No picks card reached the site for the <slot> slot, and the backup couldn't build one: <reason>."
       # Never when the laptop's card for this slot was already on the site (fresh=1 on a scheduled run).
@@ -78,5 +78,5 @@ jobs:
           msg=$(python3 -m pp.backup fail --cron "$SLOT" --stage "$STAGE_IN" --log "$RUNNER_TEMP/build.log") \
             || msg="No picks card reached the site for this slot, and the backup couldn't build one: the workflow failed before it could say why (tap for the log)."
           echo "$msg"
-          curl -s -o /dev/null -H "Title: Picks backup failed" -H "Tags: x" -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          curl -s -o /dev/null -H "Title: Picks backup failed" -H "Priority: 4" -H "Tags: x" -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             -d "$msg" "https://ntfy.sh/$NTFY_TOPIC"

@@ -21,4 +21,4 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-          curl -s -H "Title: Sports HQ tests failed" -H "Tags: x" -d "Swap tests failed on ${{ github.sha }}." "https://ntfy.sh/$NTFY_TOPIC"
+          curl -s -H "Title: Sports HQ tests failed" -H "Priority: 4" -H "Tags: x" -d "Swap tests failed on ${{ github.sha }}." "https://ntfy.sh/$NTFY_TOPIC"

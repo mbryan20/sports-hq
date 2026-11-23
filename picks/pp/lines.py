@@ -238,6 +238,18 @@ def due(now=None):
 QUIET_FROM, QUIET_TO = 22, 6   # no stale-line push 10pm-6am CT (one went out at 1:29am, Nov 5)
 
 
+def closes_soon(rows, now, hours=24):
+    """Sound for a stale-line push only when one of its pools/games stops taking changes within `hours` (Michael's
+    Nov 23 rule: needs him within 24h); a row without a close time counts as soon (unsure = urgent)."""
+    for r in rows:
+        try:
+            if datetime.fromisoformat(r["closes"]) - now <= timedelta(hours=hours):
+                return True
+        except (KeyError, TypeError, ValueError):
+            return True
+    return False
+
+
 def day_key(now):
     return f"push-day:{now.astimezone(CT).date().isoformat()}"
 
@@ -287,7 +299,7 @@ def run(week=None, push=True, now=None, fetch=espn_odds, origin=origin_sent):
         title = f"Stale pool line: {new[0]['pool'].upper()} {new[0]['side']} {_fmt(new[0]['pool_line'])}" if len(new) == 1 \
             else f"{len(new)} stale pool lines"
         msg = "\n".join(describe(r) for r in new) + "\nPool lines are fixed; the market moved."
-        if notify(title, msg, tags="chart_with_upwards_trend", priority=4):
+        if notify(title, msg, tags="chart_with_upwards_trend", urgent=closes_soon(new, now)):
             pushed = new
             for r in new:
                 sent[f"{week}:{r['pool']}:{r['game']}"] = now.isoformat()
