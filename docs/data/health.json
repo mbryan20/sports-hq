@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-23T20:37:32Z",
+ "generated": "2026-11-24T08:55:24Z",
  "summary": {
-  "ok": 13,
-  "watch": 5,
+  "ok": 16,
+  "watch": 4,
   "drift": 0,
-  "weak": 4,
-  "waiting": 7,
-  "info": 18,
+  "weak": 3,
+  "waiting": 5,
+  "info": 19,
   "errors": 0
  },
  "flags": [
@@ -25,23 +25,10 @@
   },
   {
    "section": "warroom",
-   "id": "wr.cut_skill",
-   "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
-   "value": -0.009,
-   "n": 10,
-   "unit": "%",
-   "baseline": -0.017,
-   "baseline_set": "2026-11-03",
-   "tolerance": 0.05,
-   "status": "weak",
-   "floor": 0.0
-  },
-  {
-   "section": "warroom",
    "id": "wr.ladder_cov50",
    "label": "Bids at the ladder's 50% price that won",
    "value": 0.58,
-   "n": 233,
+   "n": 232,
    "unit": "%",
    "target": 0.5,
    "tolerance": 0.15,
@@ -63,8 +50,8 @@
    "section": "guillotine",
    "id": "gd.dash_skill",
    "label": "Dashboard cut odds vs a coin toss (as shown before kickoff)",
-   "value": -0.183,
-   "n": 3,
+   "value": -0.04,
+   "n": 4,
    "unit": "%",
    "baseline": -0.183,
    "baseline_set": "2026-11-17",
@@ -74,22 +61,10 @@
   },
   {
    "section": "radar",
-   "id": "radar.held",
-   "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-   "value": 0.6,
-   "n": 15,
-   "unit": "%",
-   "baseline": 0.7,
-   "baseline_set": "2026-11-10",
-   "tolerance": 0.15,
-   "status": "watch"
-  },
-  {
-   "section": "radar",
    "id": "radar.edge",
    "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-   "value": -4.1,
-   "n": 66,
+   "value": -2.91,
+   "n": 68,
    "unit": "z",
    "baseline": 0.34,
    "baseline_set": "2026-11-10",
@@ -151,7 +126,7 @@
     "paused": {}
    },
    "notes": [
-    "Calls logged weekly on Tuesdays, Sep-Jan; each matures 12 weeks later and is right when FantasyCalc moved our way against the same position in that league. Under half right over the last 30 pauses that position (site and advice go back to the market) until a review passes it again."
+    "Calls logged today; each matures 12 weeks later and is right when FantasyCalc moved our way against the same position in that league. Under half right over the last 30 pauses that position (site and advice go back to the market) until a review passes it again."
    ]
   },
   {
@@ -162,32 +137,32 @@
     {
      "id": "exp.sleeper_acc",
      "label": "Start/sit pairs Sleeper's projections called right (season so far)",
-     "value": 0.5744,
-     "n": 17639,
+     "value": 0.5784,
+     "n": 19322,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "exp.experts_acc",
      "label": "Start/sit pairs ESPN's experts called right (season so far)",
-     "value": 0.5677,
-     "n": 17639,
+     "value": 0.5704,
+     "n": 19322,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "exp.blend_edge",
      "label": "50/50 experts + Sleeper blend vs Sleeper alone (pairs called right)",
-     "value": 0.0036,
-     "n": 17639,
+     "value": 0.0029,
+     "n": 19322,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "exp.last_week_edge",
      "label": "Blend vs Sleeper alone, last completed week",
-     "value": -0.0033,
-     "n": 1666,
+     "value": -0.005,
+     "n": 1683,
      "unit": "%",
      "status": "info"
     },
@@ -210,7 +185,7 @@
    ],
    "details": {
     "acc": {
-     "n": 17639,
+     "n": 19322,
      "weeks": {
       "1": {
        "sleeper": 0.5449,
@@ -271,12 +246,18 @@
        "experts": 0.563,
        "blend": 0.5648,
        "n": 1666
+      },
+      "11": {
+       "sleeper": 0.6209,
+       "experts": 0.5983,
+       "blend": 0.6159,
+       "n": 1683
       }
      },
-     "sleeper": 0.5744,
-     "experts": 0.5677,
-     "blend": 0.578,
-     "edge": 0.0036,
+     "sleeper": 0.5784,
+     "experts": 0.5704,
+     "blend": 0.5813,
+     "edge": 0.0029,
      "blend_wins": 5
     },
     "calls": {
@@ -304,11 +285,12 @@
      7,
      8,
      9,
-     10
+     10,
+     11
     ]
    },
    "notes": [
-    "Weeks 1-10: 17639 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.4%, experts 56.8%, blend 57.8%; the blend beat Sleeper in 5 of 10 weeks.",
+    "Weeks 1-11: 19322 pairs of players at a position ranked within 12 spots by the experts, both played, half-PPR. Sleeper 57.8%, experts 57.0%, blend 58.1%; the blend beat Sleeper in 5 of 11 weeks.",
     "Start/sit stays on Sleeper's projections; the experts are shown next to each call (switch when the blend is 1%+ better in 70%+ of weeks).",
     "Our lineup moves: 2 of 4 right; the experts disagreed on 2 and we were right on 1 of those."
    ]
@@ -3082,7 +3064,7 @@
       ]
      }
     },
-    "through_week": 11
+    "through_week": 12
    },
    "notes": [
     "Week 10: 134 players were hurt, on a new team or newly starting going in (126 injury tags, 4 new teams, 5 new starting QBs). 0 we projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 4.9 pts for them vs 4.5 for everyone else.",
@@ -3093,13 +3075,13 @@
   {
    "id": "warroom",
    "title": "War Room v2 (guillotine bids)",
-   "status": "weak",
+   "status": "watch",
    "checks": [
     {
      "id": "wr.proj_mae",
      "label": "Team-score miss with Sleeper projections (1 week ahead)",
-     "value": 17.1,
-     "n": 100,
+     "value": 16.9,
+     "n": 108,
      "unit": "pts",
      "baseline": 16.6,
      "baseline_set": "2026-11-03",
@@ -3109,16 +3091,16 @@
     {
      "id": "wr.blend_mae",
      "label": "Team-score miss with the old season/last-3 blend",
-     "value": 19.4,
-     "n": 100,
+     "value": 19.3,
+     "n": 108,
      "unit": "pts",
      "status": "info"
     },
     {
      "id": "wr.proj_edge",
      "label": "Sleeper projections' edge over the blend",
-     "value": 2.3,
-     "n": 100,
+     "value": 2.5,
+     "n": 108,
      "unit": "pts",
      "baseline": 3.1,
      "baseline_set": "2026-11-03",
@@ -3128,26 +3110,26 @@
     {
      "id": "wr.swing",
      "label": "Score swing (spread of real scores around projections)",
-     "value": 21.7,
-     "n": 135,
+     "value": 21.4,
+     "n": 143,
      "unit": "pts",
      "status": "info"
     },
     {
      "id": "wr.swing_k2",
      "label": "Score swing 2 weeks ahead",
-     "value": 23.6,
-     "n": 9,
+     "value": 22.6,
+     "n": 17,
      "unit": "pts",
      "status": "info"
     },
     {
      "id": "wr.swing_k3",
      "label": "Score swing 3 weeks ahead",
-     "value": null,
-     "n": 0,
+     "value": 25.0,
+     "n": 8,
      "unit": "pts",
-     "status": "waiting"
+     "status": "info"
     },
     {
      "id": "wr.swing_k4",
@@ -3160,20 +3142,19 @@
     {
      "id": "wr.cut_skill",
      "label": "Cut predictions vs a coin toss (in-sample, Sleeper projections)",
-     "value": -0.009,
-     "n": 10,
+     "value": 0.026,
+     "n": 11,
      "unit": "%",
      "baseline": -0.017,
      "baseline_set": "2026-11-03",
      "tolerance": 0.05,
-     "status": "weak",
-     "floor": 0.0
+     "status": "ok"
     },
     {
      "id": "wr.best_sd",
      "label": "Swing that would have predicted the cuts best",
      "value": 36,
-     "n": 10,
+     "n": 11,
      "unit": "pts",
      "status": "info"
     },
@@ -3181,7 +3162,7 @@
      "id": "wr.price_est_mae",
      "label": "Raw price estimate miss",
      "value": 8.0,
-     "n": 233,
+     "n": 232,
      "unit": "$",
      "baseline": 9.3,
      "baseline_set": "2026-11-03",
@@ -3192,7 +3173,7 @@
      "id": "wr.ladder_cov50",
      "label": "Bids at the ladder's 50% price that won",
      "value": 0.58,
-     "n": 233,
+     "n": 232,
      "unit": "%",
      "target": 0.5,
      "tolerance": 0.15,
@@ -3202,7 +3183,7 @@
      "id": "wr.ladder_cov80",
      "label": "Bids at the ladder's 80% price that won",
      "value": 0.84,
-     "n": 233,
+     "n": 232,
      "unit": "%",
      "target": 0.8,
      "tolerance": 0.12,
@@ -3211,34 +3192,38 @@
    ],
    "details": {
     "projection": {
-     "weeks": "3-10",
-     "n": 100,
-     "sleeper_mae": 17.1,
-     "blend_mae": 19.4,
-     "sleeper_bias": -0.4,
-     "edge": 2.3
+     "weeks": "3-11",
+     "n": 108,
+     "sleeper_mae": 16.9,
+     "blend_mae": 19.3,
+     "sleeper_bias": -1.0,
+     "edge": 2.5
     },
     "swing": {
-     "sd": 21.7,
-     "n": 135,
+     "sd": 21.4,
+     "n": 143,
      "by_weeks_ahead": {
       "1": [
-       18.0,
-       19
+       19.0,
+       27
       ],
       "2": [
-       23.6,
-       9
+       22.6,
+       17
+      ],
+      "3": [
+       25.0,
+       8
       ]
      }
     },
     "cuts_by_swing": {
      "14": {
-      "n": 10,
-      "logloss": 2.924,
-      "coin_toss": 2.579,
-      "skill": -0.134,
-      "cut_team_rank": 6.7,
+      "n": 11,
+      "logloss": 2.716,
+      "coin_toss": 2.534,
+      "skill": -0.072,
+      "cut_team_rank": 6.2,
       "ranks": [
        14,
        11,
@@ -3249,16 +3234,17 @@
        1,
        10,
        1,
-       8
+       8,
+       1
       ],
-      "cut_team_chance": 0.156
+      "cut_team_chance": 0.19
      },
      "18": {
-      "n": 10,
-      "logloss": 2.704,
-      "coin_toss": 2.579,
-      "skill": -0.048,
-      "cut_team_rank": 6.7,
+      "n": 11,
+      "logloss": 2.533,
+      "coin_toss": 2.534,
+      "skill": 0.0,
+      "cut_team_rank": 6.2,
       "ranks": [
        14,
        11,
@@ -3269,16 +3255,17 @@
        1,
        10,
        1,
-       8
+       8,
+       1
       ],
-      "cut_team_chance": 0.137
+      "cut_team_chance": 0.164
      },
-     "22": {
-      "n": 10,
-      "logloss": 2.603,
-      "coin_toss": 2.579,
-      "skill": -0.009,
-      "cut_team_rank": 6.7,
+     "21": {
+      "n": 11,
+      "logloss": 2.468,
+      "coin_toss": 2.534,
+      "skill": 0.026,
+      "cut_team_rank": 6.2,
       "ranks": [
        14,
        11,
@@ -3289,56 +3276,59 @@
        1,
        10,
        1,
-       8
+       8,
+       1
+      ],
+      "cut_team_chance": 0.151
+     },
+     "27": {
+      "n": 11,
+      "logloss": 2.413,
+      "coin_toss": 2.534,
+      "skill": 0.047,
+      "cut_team_rank": 6.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10,
+       1,
+       8,
+       1
+      ],
+      "cut_team_chance": 0.133
+     },
+     "32": {
+      "n": 11,
+      "logloss": 2.399,
+      "coin_toss": 2.534,
+      "skill": 0.053,
+      "cut_team_rank": 6.2,
+      "ranks": [
+       14,
+       11,
+       9,
+       1,
+       1,
+       11,
+       1,
+       10,
+       1,
+       8,
+       1
       ],
       "cut_team_chance": 0.124
      },
-     "27": {
-      "n": 10,
-      "logloss": 2.543,
-      "coin_toss": 2.579,
-      "skill": 0.014,
-      "cut_team_rank": 6.7,
-      "ranks": [
-       14,
-       11,
-       9,
-       1,
-       1,
-       11,
-       1,
-       10,
-       1,
-       8
-      ],
-      "cut_team_chance": 0.114
-     },
-     "32": {
-      "n": 10,
-      "logloss": 2.516,
-      "coin_toss": 2.579,
-      "skill": 0.025,
-      "cut_team_rank": 6.7,
-      "ranks": [
-       14,
-       11,
-       9,
-       1,
-       1,
-       11,
-       1,
-       10,
-       1,
-       8
-      ],
-      "cut_team_chance": 0.107
-     },
      "36": {
-      "n": 10,
-      "logloss": 2.505,
-      "coin_toss": 2.579,
-      "skill": 0.029,
-      "cut_team_rank": 6.7,
+      "n": 11,
+      "logloss": 2.396,
+      "coin_toss": 2.534,
+      "skill": 0.054,
+      "cut_team_rank": 6.2,
       "ranks": [
        14,
        11,
@@ -3349,13 +3339,14 @@
        1,
        10,
        1,
-       8
+       8,
+       1
       ],
-      "cut_team_chance": 0.103
+      "cut_team_chance": 0.118
      }
     },
     "prices": {
-     "n": 233,
+     "n": 232,
      "cov50": 0.58,
      "cov80": 0.84,
      "est_mae": 8.0,
@@ -3370,25 +3361,25 @@
        "n": 24,
        "cov50": 0.92,
        "cov80": 0.96,
-       "est_mae": 3.2
+       "est_mae": 2.7
       },
       "pos QB": {
        "n": 28,
        "cov50": 0.71,
        "cov80": 0.86,
-       "est_mae": 9.9
+       "est_mae": 9.8
       },
       "pos RB": {
        "n": 46,
        "cov50": 0.35,
        "cov80": 0.74,
-       "est_mae": 15.0
+       "est_mae": 15.1
       },
       "pos TE": {
-       "n": 31,
-       "cov50": 0.68,
+       "n": 30,
+       "cov50": 0.67,
        "cov80": 0.9,
-       "est_mae": 5.6
+       "est_mae": 5.8
       },
       "pos WR": {
        "n": 75,
@@ -3397,7 +3388,7 @@
        "est_mae": 7.9
       },
       "legs 1-5": {
-       "n": 117,
+       "n": 116,
        "cov50": 0.52,
        "cov80": 0.82,
        "est_mae": 10.7
@@ -3406,7 +3397,7 @@
        "n": 116,
        "cov50": 0.65,
        "cov80": 0.85,
-       "est_mae": 5.3
+       "est_mae": 5.4
       },
       "estimate $10+": {
        "n": 63,
@@ -3415,17 +3406,16 @@
        "est_mae": 16.6
       },
       "estimate under $10": {
-       "n": 170,
+       "n": 169,
        "cov50": 0.61,
        "cov80": 0.85,
-       "est_mae": 4.9
+       "est_mae": 4.8
       }
      }
     }
    },
    "notes": [
-    "Cut odds at the measured 22-pt swing scored worse than a coin toss over 10 weeks (the real cut team ranked [14, 11, 9, 1, 1, 11, 1, 10, 1, 8] by predicted risk); a 36-pt swing would have scored best.",
-    "Far-week misses as shown on the page: 1 wk ahead 18.0 pts (n=19), 2 wk ahead 23.6 pts (n=9)"
+    "Far-week misses as shown on the page: 1 wk ahead 19.0 pts (n=27), 2 wk ahead 22.6 pts (n=17), 3 wk ahead 25.0 pts (n=8)"
    ]
   },
   {
@@ -4870,16 +4860,19 @@
     {
      "id": "gd.v2_skill",
      "label": "War Room v2 cut odds vs a coin toss (as shown before kickoff)",
-     "value": 0.068,
-     "n": 2,
+     "value": 0.201,
+     "n": 3,
      "unit": "%",
-     "status": "waiting"
+     "baseline": 0.201,
+     "baseline_set": "2026-11-24",
+     "tolerance": 0.05,
+     "status": "ok"
     },
     {
      "id": "gd.dash_skill",
      "label": "Dashboard cut odds vs a coin toss (as shown before kickoff)",
-     "value": -0.183,
-     "n": 3,
+     "value": -0.04,
+     "n": 4,
      "unit": "%",
      "baseline": -0.183,
      "baseline_set": "2026-11-17",
@@ -4890,29 +4883,31 @@
    ],
    "details": {
     "v2": {
-     "n": 2,
-     "logloss": 2.097,
-     "coin_toss": 2.25,
-     "skill": 0.068,
-     "cut_team_rank": 3.5,
+     "n": 3,
+     "logloss": 1.752,
+     "coin_toss": 2.193,
+     "skill": 0.201,
+     "cut_team_rank": 2.7,
      "ranks": [
       1,
-      6
+      6,
+      1
      ],
-     "cut_team_chance": 0.184
+     "cut_team_chance": 0.238
     },
     "dashboard": {
-     "n": 3,
-     "logloss": 2.721,
-     "coin_toss": 2.299,
-     "skill": -0.183,
-     "cut_team_rank": 6.0,
+     "n": 4,
+     "logloss": 2.333,
+     "coin_toss": 2.244,
+     "skill": -0.04,
+     "cut_team_rank": 4.8,
      "ranks": [
       10,
       2,
-      6
+      6,
+      1
      ],
-     "cut_team_chance": 0.109
+     "cut_team_chance": 0.159
     },
     "weeks": [
      [
@@ -4934,11 +4929,19 @@
      [
       "dashboard",
       10
+     ],
+     [
+      "v2",
+      11
+     ],
+     [
+      "dashboard",
+      11
      ]
     ]
    },
    "notes": [
-    "Same weeks: War Room v2 log-loss 2.097 vs dashboard 2.721 (coin toss 2.299)."
+    "Same weeks: War Room v2 log-loss 1.752 vs dashboard 2.333 (coin toss 2.244)."
    ]
   },
   {
@@ -4949,27 +4952,27 @@
     {
      "id": "radar.held",
      "label": "Radar free agents shown on the site whose bigger role held (next 3 team games)",
-     "value": 0.6,
-     "n": 15,
+     "value": 0.69,
+     "n": 13,
      "unit": "%",
      "baseline": 0.7,
      "baseline_set": "2026-11-10",
      "tolerance": 0.15,
-     "status": "watch"
+     "status": "ok"
     },
     {
      "id": "radar.held_all",
      "label": "Every flagged free agent whose bigger role held, shown or not",
-     "value": 0.54,
-     "n": 67,
+     "value": 0.57,
+     "n": 68,
      "unit": "%",
      "status": "info"
     },
     {
      "id": "radar.edge",
      "label": "Radar flags' value over the old suggestion (z per game, next 3 team games)",
-     "value": -4.1,
-     "n": 66,
+     "value": -2.91,
+     "n": 68,
      "unit": "z",
      "baseline": 0.34,
      "baseline_set": "2026-11-10",
@@ -4980,30 +4983,30 @@
    ],
    "details": {
     "mornings": 14,
-    "wire_mornings": 9,
-    "wire_value": 0.12,
+    "wire_mornings": 11,
+    "wire_value": -0.91,
     "shown": {
-     "n": 15,
+     "n": 13,
      "held": 9,
-     "held_rate": 0.6,
-     "value": -3.2,
-     "edge_n": 15,
-     "edge": -3.32,
-     "added_later": 8
+     "held_rate": 0.69,
+     "value": -3.04,
+     "edge_n": 13,
+     "edge": -2.13,
+     "added_later": 7
     },
     "flags": {
-     "n": 67,
-     "held": 36,
-     "held_rate": 0.54,
-     "value": -3.96,
-     "edge_n": 66,
-     "edge": -4.1,
+     "n": 68,
+     "held": 39,
+     "held_rate": 0.57,
+     "value": -3.82,
+     "edge_n": 68,
+     "edge": -2.91,
      "added_later": 20
     },
-    "every_value": -5.59
+    "every_value": -5.63
    },
    "notes": [
-    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 9 mornings (state/nba_owned.json starts Nov 3); shown flags alone -3.32 (n=15)."
+    "14 mornings replayed; each free agent counted once, at his first flag, on his team's next 3 games (a missed game = 0 min). Shown = the 4 a morning the site lists. Edge: every flag vs the 3 most-owned free agents by that morning's % rostered, 11 mornings (state/nba_owned.json starts Nov 3); shown flags alone -2.13 (n=13)."
    ]
   },
   {
