@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-23T22:35:03Z",
+ "captured": "2026-11-24T13:35:01Z",
  "players": [
   {
    "slot": "QB",
@@ -185,18 +185,6 @@
   },
   {
    "slot": "FA",
-   "name": "Kyler Murray",
-   "yahoo_id": "31833",
-   "key": null,
-   "team": "MIN",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Sam Darnold",
    "yahoo_id": "30973",
    "key": null,
@@ -205,7 +193,19 @@
    "eligible": [
     "QB"
    ],
-   "status": "Out"
+   "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Kyler Murray",
+   "yahoo_id": "31833",
+   "key": null,
+   "team": "MIN",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -349,7 +349,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -497,15 +497,15 @@
   },
   {
    "slot": "FA",
-   "name": "Seth McGowan",
-   "yahoo_id": "42859",
+   "name": "Dylan Sampson",
+   "yahoo_id": "41907",
    "key": null,
-   "team": "IND",
+   "team": "CLE",
    "pos": "RB",
    "eligible": [
     "RB"
    ],
-   "status": "Out"
+   "status": null
   },
   {
    "slot": "FA",
@@ -541,7 +541,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Out"
+   "status": "Doubtful"
   },
   {
    "slot": "FA",
@@ -605,10 +605,10 @@
   },
   {
    "slot": "FA",
-   "name": "Adonai Mitchell",
-   "yahoo_id": "40915",
+   "name": "Xavier Worthy",
+   "yahoo_id": "40877",
    "key": null,
-   "team": "NYJ",
+   "team": "KC",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -617,10 +617,10 @@
   },
   {
    "slot": "FA",
-   "name": "Xavier Worthy",
-   "yahoo_id": "40877",
+   "name": "Adonai Mitchell",
+   "yahoo_id": "40915",
    "key": null,
-   "team": "KC",
+   "team": "NYJ",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -649,7 +649,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -657,6 +657,18 @@
    "yahoo_id": "42642",
    "key": null,
    "team": "PHI",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "DeMario Douglas",
+   "yahoo_id": "40222",
+   "key": null,
+   "team": "NE",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -673,19 +685,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
-   "name": "DeMario Douglas",
-   "yahoo_id": "40222",
-   "key": null,
-   "team": "NE",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -769,7 +769,7 @@
    "eligible": [
     "TE"
    ],
-   "status": "Out"
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-23T22:35:03Z"
+ "fa_captured": "2026-11-24T13:35:01Z"
 }
