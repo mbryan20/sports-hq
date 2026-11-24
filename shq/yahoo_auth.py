@@ -1,4 +1,4 @@
-"""Exchange a one-time Yahoo code (from the redirect_uri=oob consent page) for a refresh token and
+"""Exchange a one-time Yahoo code (after Agree, Yahoo sends the browser to https://localhost/?code=...; the code is the part after "code=") for a refresh token and
 store it encrypted in state/yahoo_token.enc. Run by the 'Yahoo re-auth' workflow."""
 import sys
 

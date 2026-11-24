@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       code:
-        description: "One-time code from the Yahoo 'Use this code' page"
+        description: "One-time code: the part after code= in the https://localhost address Yahoo opens after Agree"
         required: true
 
 permissions:

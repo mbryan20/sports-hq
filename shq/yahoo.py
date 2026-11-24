@@ -16,7 +16,7 @@ from .common import STATE, session
 API = "https://fantasysports.yahooapis.com/fantasy/v2"
 TOKEN_URL = "https://api.login.yahoo.com/oauth2/get_token"
 TOKEN_FILE = STATE / "yahoo_token.enc"  # Fernet-encrypted with the TOKEN_KEY secret
-REDIRECT = "oob"
+REDIRECT = "https://localhost"  # new app Ye7J5M70 (Nov 24): Yahoo no longer accepts "oob"; the code shows in the address bar after Agree
 
 
 class YahooPending(Exception):
