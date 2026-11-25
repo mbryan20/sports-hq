@@ -23,94 +23,6 @@ Measure (the health.json check that should move), Design, Decision.
 
 
 
-### Q-037 · GitHub jobs still run hours late: make the laptop the clock for every time-critical one
-- **Status:** shipped (d5d5bf7, landed Tue Nov 10 after Michael lifted the Sunday hold)
-- **Area:** `ops/kick.ps1` (one push per outage), `.github/workflows/war-room-v2.yml` (own concurrency group for kicks),
-  `shq/run.py` (`laptop_kicks`: a push when the 2:55am kick didn't happen; "Laptop kick" footer row),
-  `.github/workflows/run.yml` (game-day handoff), `.github/workflows/model-health.yml` (4:50am cron removed),
-  `ops/designs/Q-014.md` "The laptop is the clock"
-- **Rank:** —
-- **Added:** 2026-11-09 by Claude Ops (Michael called the late GitHub jobs "clunky" and asked for a step-back review)
-- **Evidence:** claude-audit `overhaul/github-reliability.md` (independent review, Nov 9): GitHub documents scheduled runs as
-  best effort; War Room v2's daily 6:10am build ran 5.6-10.1 hours late on all 6 days Nov 2-9 (Tue Nov 3's first run 6:21am);
-  every laptop `workflow_dispatch` since Nov 8 started within seconds (Q-029). Gaps it found: no War Room kick; a failed kick
-  only writes a log line no session can read; a dispatched War Room run can be replaced by a late cron run in the shared
-  concurrency group; a game-day loop that hits its 5h45m limit leaves the injury watch idle up to about 80 minutes.
-  Tue Nov 10 (Claude Ops' morning review, checked against `gh run list --workflow war-room-v2.yml`): GitHub never ran the
-  Mon 10:40pm, Mon 11:20pm or Tue 5:40am CT War Room builds; the first runs were 6:58am and 7:37am CT. The 6:03am strategy
-  Doc was written on a week-old bids.json (`ada4348`, Mon 4:15pm CT, before the week 9 cut was confirmed).
-  Nov 11: Tue Nov 10's War Room builds started 6:58am and 7:37am CT, before this shipped that evening; the laptop's
-  "Kick war room" task is registered Sun Nov 15, so Tue Nov 17 is the first Tuesday the Measure can count. Since Nov
-  10 05:00Z, 18 `run.yml` runs (9 laptop dispatches, 9 scheduled), all succeeded, none cancelled; model health was
-  kicked at 2:55am CT (08:55Z Nov 11).
-  Nov 13: still waiting for Tue Nov 17. Since Nov 11 05:00Z, 40 `run.yml` runs (17 scheduled, 23 laptop dispatches),
-  none cancelled; one dispatch failed (Thu Nov 12 1:02pm CT, run 43285972190; cause not checked tonight). War Room v2's
-  last 10 runs (Nov 10-12) all succeeded; model health was kicked at 08:55Z Nov 12 and Nov 13.
-  Nov 14: still waiting for Tue Nov 17. Since Nov 13 05:00Z, 22 `run.yml` runs (12 scheduled, 10 laptop dispatches),
-  all succeeded, none cancelled. The Nov 12 failed dispatch (run 43285972190) failed inside the step "Run (loops every
-  10 min while a watch window is open or near)"; the error itself not read tonight. War Room v2 Fri Nov 13: 6:10am CT
-  dispatch (12:10Z) and a 1:35pm CT scheduled run, both succeeded. Model health kicked at 08:55Z Nov 14.
-  Nov 15: still waiting for Tue Nov 17. Since Nov 14 05:00Z, 20 `run.yml` runs (13 scheduled, 6 laptop dispatches, 1
-  push): all 6 dispatches succeeded, none cancelled; 2 scheduled runs were cancelled (runs 293 and 294, queued Sat 21:22Z
-  and 23:22Z while the 19:38Z game-day loop ran). War Room v2 built from the Sat 6:10am CT kick (`War Room v2:
-  2026-11-14T12:10:31Z`); model health kicked at 08:55Z Nov 15.
-  Nov 16: still waiting for Tue Nov 17. Since Nov 15 05:00Z, 17 `run.yml` runs: 14 scheduled (6 cancelled: runs 305,
-  306, 310-313, Sun 16:58Z-01:35Z, each replaced in the shared scheduled group), 3 game-day handoff dispatches by
-  `github-actions[bot]` (runs 304, 308, 309, all succeeded), and no laptop dispatch. The laptop's last kick was War Room
-  v2 at Sun 6:10am CT (12:10Z); the 10:02pm and 11:02pm CT `run.yml` kicks (status.json was 33+ min old after the
-  03:29Z commit) and the Mon 2:55am CT model-health kick (08:55Z) did not happen, the first missed 2:55am kick since
-  Nov 11. `run.py`'s once-a-day "2:55am kick didn't happen" push is due from 4am CT; not checked from here. Data commits
-  Sun 17:07Z-Mon 03:29Z: one gap over 15 minutes, 02:07Z-03:29Z (82 min, after the last kickoff, outside a watch window).
-  Nov 17 (cloud pass, 3:5x am CT, before Tuesday's 5:40am and 6:50am CT War Room slots, so the Measure's first Tuesday
-  is not readable yet): the laptop was silent from Sun 12:10Z to Mon 14:27Z (8:27am CT), then started `run.yml`, War Room
-  v2 and model health within 2 seconds (a catch-up after the missed slots); since then `run.yml` dispatches every hour at
-  :27 past (15:27Z-07:27Z), the Mon 10:40pm and 11:20pm CT War Room kicks ran at 04:40:06Z and 05:20:04Z, and the
-  Tue 2:55am model-health kick ran at 08:55:06Z. All 13 laptop dispatches since Mon 14:27Z succeeded, none cancelled;
-  the game-day handoff dispatch (run 327, `github-actions[bot]`) ran 01:07Z-02:07Z. Data commits Mon 19:27Z-Tue 02:07Z
-  every 10 minutes (the game window), no gap over 15 minutes.
-  Nov 18 (cloud pass, GitHub connector): Tue Nov 17 passes, the first of the two Tuesdays. War Room v2 ran from laptop
-  dispatches at 11:40Z (5:40am CT; commit `War Room v2: 2026-11-17T11:40:41Z`) and 12:50:05Z (6:50am CT, run 53), both
-  succeeded; later dispatches at 14:10Z and 15:10Z also succeeded. 10 laptop `run.yml` dispatches since Tue 07:27Z (runs
-  338-353), all succeeded, none cancelled; the hourly kicks are back at :02 past from 13:02Z; the game-day handoff
-  dispatch (run 350, `github-actions[bot]`) ran 01:37Z-04:07Z. Model health kicked at 08:55Z Nov 18 (plus a War Room
-  dispatch at 08:40Z, 2:40am CT, not a listed slot). The second Tuesday is Nov 24. Not checked tonight: commit gaps
-  inside game windows (no NFL game since Monday's).
-  Nov 19 (cloud pass, GitHub connector): the Wed 8:02am CT `run.yml` kick is missing (see Q-029; dispatches at 13:02Z
-  and 15:02Z, none at 14:02Z). War Room v2 built Wed at 12:10Z, 17:29Z and 20:24Z; the game-day handoff dispatch (run
-  364, `github-actions[bot]`) ran 00:37Z-03:07Z Thu. Model health kicked at 08:55Z Nov 19. The second Tuesday is Nov 24.
-  Nov 20 (cloud pass, GitHub connector): Thu Nov 19's TNF watch window was covered by one laptop dispatch (run 377,
-  20:02Z-01:17Z): data commits every 10 minutes from 20:07Z to 01:17Z with no gap over 10 minutes (shq.run's window ends
-  at kickoff, 01:15Z, so the loop ended by design and no handoff was needed). Afterwards hourly commits (01:28Z,
-  02:02Z, 03:00Z, 03:07Z, 04:02Z, 04:49Z). Model health kicked at 08:55Z Nov 20. The second Tuesday is Nov 24.
-  Nov 21 (cloud pass, GitHub connector): since Fri 13:02Z, 13 laptop `run.yml` dispatches (runs 389-406), all
-  succeeded, none cancelled; the game-day handoff (run 401, `github-actions[bot]`) ran 00:37Z-03:07Z Sat after run
-  396 reached its limit. Model health kicked at 08:55Z Nov 21. The second Tuesday is Nov 24.
-  Nov 22 (cloud pass, GitHub connector): since Sat 09:37Z, 15 `run.yml` runs (409-423): 5 laptop dispatches (13:02Z,
-  19:02Z, 02:02Z, 03:02Z, 04:02Z), all succeeded, none cancelled; 3 scheduled runs cancelled (414-416, queued
-  20:43Z-23:58Z behind scheduled run 413's 19:58Z-01:07Z loop); no game-day handoff dispatch was needed. Model health
-  kicked at 08:55Z Nov 22. The second Tuesday is Nov 24.
-  Nov 23 (cloud pass): still waiting for the second Tuesday, Nov 24. Note: origin/main's history was rewritten Sun
-  Nov 22 19:57Z (one root commit, `67b8da8`), so the commit hashes quoted in this file no longer resolve here; data
-  commits since then run every ~10 minutes through Sunday's games (19:57Z-01:37Z), then hourly. Model health kicked at
-  08:55Z Nov 23.
-  Nov 24 (cloud pass, 3:5x am CT, before Tuesday's 5:40am and 6:50am CT slots): the second Tuesday isn't readable
-  yet. Mon night's War Room kicks ran (commits `War Room v2: 2026-11-24T04:40:34Z` and `05:20:30Z`, 10:40pm and
-  11:20pm CT); model health kicked at 08:55Z Nov 24. 9 laptop `run.yml` dispatches since Mon 05:00Z (runs 441-447,
-  451, 453), all succeeded, none cancelled. The game-day handoff (run 449, `github-actions[bot]`) ran 00:37Z-03:07Z
-  Tue after run 447 reached its limit, but scheduled run 450 started 73 s later and looped beside it (split out as
-  Q-074).
-- **Expected impact:** every time-critical build on time while the laptop is on; one push when the laptop can't start jobs,
-  and one a day when it has gone quiet; no injury-watch gap between game-day loops.
-- **Effort:** S-M
-- **Risk:** Low (two new push types, each at most once per outage or day; the handoff only fires when a loop hits its time
-  limit while a watch window is still open)
-- **Measure:** — (one-off: Tuesday War Room builds within 5 minutes of 5:40am and 6:50am CT for two weeks; no cancelled
-  dispatches; no gap over 15 minutes between `data:` commits inside game windows)
-- **Design:** claude-audit `overhaul/github-reliability.md` §3 (option B); as built in `ops/designs/Q-014.md` "The laptop is
-  the clock". The Windows task "Kick war room" is not part of this item's commits: it is staged in claude-audit
-  `overhaul/staged/github-kicks.ps1` and registered Sun Nov 15 9:00am by the "Overhaul: apply staged edits" task.
-- **Decision:** approved 2026-11-09 (Michael's Nov 9 instruction, via Claude Ops; extends the approved R1 / Q-029)
-
 ### Q-047 · NBA league tabs contradicted themselves: radar "start him" vs "Drop him", a benched shrinking player "kept in the lineup"
 - **Status:** shipped (b9ccfcd); follow-up shipped (f9159e2): a "may fade" riser the Waiver adds drop gets the swap on
   the radar ("rise may fade (no teammate's injury behind it); Waiver adds swaps him for X (+N this week)"), not a start
@@ -178,6 +90,8 @@ Measure (the health.json check that should move), Design, Decision.
   all 8 leagues. Digest items and tile totals not checked tonight.
   Nov 23 (lineups.json 08:54Z, weekly.json 13:02Z Nov 17): weekly.json adds still equal lineups.json `advice.adds` in
   all 8 leagues. Digest items and tile totals not checked tonight.
+  Nov 25 (lineups.json 05:02Z, weekly.json 13:02Z Nov 24): weekly.json adds equal lineups.json `advice.adds` in all
+  8 leagues. Digest items and tile totals not checked tonight.
 - **Expected impact:** the Weekly plan keeps its Tuesday framing, but every run its start/sit is the league page's fixes
   then healthy upgrades (up to 3 lines; fixes never cut) and its adds are the league page's adds; Tuesday's moves the live
   list no longer makes (by added and dropped player, not numbers) show as "Tuesday's plan had: …". After the 8am digest,
@@ -228,6 +142,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20 (lineups.json 08:51Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
   Nov 22 (lineups.json 05:02Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
   Nov 23 (lineups.json 08:54Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
+  Nov 25 (lineups.json 05:02Z): still 0 lines with "day-to-day (ESPN:", so the status half can't be checked.
 - **Expected impact:** one answer per player and per action on the NBA tabs. (1) An IR slot ESPN won't allow is the first,
   urgent Fix now line in every league ("...; do this before any add or drop"), and the NBA add list starts "First move
   Austin Reaves out of IR (Fix now): ...; your roster is full, so that takes a drop too: X; then drop ..."; the Fix now
@@ -292,6 +207,9 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 24 (health run 08:55Z): week 11 arrived: `exp.blend_edge` +0.0029 (n=19,322; was +0.0036 n=17,639),
   `exp.last_week_edge` −0.005 (n=1,683); the blend beat Sleeper in 5 of 11 weeks, still short of the switch bar (1%+
   better in 70%+ of weeks). `exp.calls_right` 0.5 (n=4) and `exp.calls_vs_experts` 0.5 (n=2) still waiting.
+  Nov 25 (health run 08:55Z): unchanged (`exp.blend_edge` +0.003, n=19,316; `exp.last_week_edge` −0.0044, n=1,683;
+  blend beat Sleeper in 5 of 11 weeks; `exp.calls_right` 0.5 n=4, `exp.calls_vs_experts` 0.5 n=2, waiting). Week 12
+  arrives after Mon Nov 30.
 - **Expected impact:** every football fix, lineup move, waiver add and guillotine bid shows "ESPN experts: <player>
   WR18 this week, WR22 lately"; roster rows, Today and Weekly too; the Players page gets sortable Experts / Exp lately
   columns (green/red where they differ from our week rank by 10+ spots, 6+ at QB/TE); each league page lists "Where we
@@ -329,6 +247,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 20: still none about the Players page (the one new Inbox line, Nov 19 #8, is about 3-Ball FB's add lines: Q-072).
   Nov 22: still none about the Players page (no new Inbox line since Nov 19 #8).
   Nov 23: still none about the Players page (no new Inbox line since Nov 19 #8).
+  Nov 25: still none about the Players page (no new Inbox line since Nov 19 #8).
 - **Expected impact:** the FantasyPros sift inside HQ for both basketball leagues.
 - **Effort:** M
 - **Risk:** Low
@@ -413,6 +332,8 @@ Measure (the health.json check that should move), Design, Decision.
   one was due still can't be told without Q-015's log.
   Nov 23 (state/alerts.json): the last `nba-lineup:` key is still 2026-11-20; none for Nov 21 or 22. Whether one was
   due still can't be told without Q-015's log.
+  Nov 25 (state/alerts.json): the last `nba-lineup:` key is still 2026-11-20; none for Nov 21-24. Whether one was
+  due still can't be told without Q-015's log.
 - **Expected impact:** one phone push on days a basketball lineup change is needed, before it locks; nothing on other days.
 - **Effort:** S
 - **Risk:** Low (read-only; at most one push a day)
@@ -445,6 +366,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 22: unchanged (`wr.price_est_mae` $8.1, n=229); still waits on Q-064.
   Nov 23: unchanged (`wr.price_est_mae` $8.1, n=230); still waits on Q-064.
   Nov 24: `wr.price_est_mae` $8.0 (n=232; baseline $9.3), ok; still waits on Q-064.
+  Nov 25: Tue Nov 24's claims are in: `wr.price_est_mae` $7.5 (n=252; was $8.0 n=232; baseline $9.3), ok;
+  `wr.ladder_cov50` 0.59 (n=252) on watch. Still waits on Q-064 for the model as built.
 - **Expected impact:** better price estimates when a known big spender needs the player.
 - **Effort:** M
 - **Risk:** Med (about 10 claims per rival: easy to overfit)
@@ -483,6 +406,7 @@ Measure (the health.json check that should move), Design, Decision.
   confirmed.
   Nov 23: no new feedback since Nov 19 #8; the Skip half of the Measure and the 375-402px tap check are still not
   confirmed.
+  Nov 25: no new feedback since Nov 19 #8; the Skip half and the 375-402px tap check still not confirmed.
 - **Expected impact:** one tap from "Fixes now: N" to a list of every fix across leagues, each with its league, Clear
   and a link to that league; Skip (with a reason) and a comment button on every lineup move, add and trade line, so bad
   or already-handled advice leaves every page and the texts the way Clear does for fixes, and his reasons reach the queue.
@@ -527,6 +451,7 @@ Measure (the health.json check that should move), Design, Decision.
   Jalen Nailor (+4.6 pts over 4 weeks), Corey Kiner (value 628) for Jaylen Wright (+0.1 pts); the drops' values still
   aren't shown, so the 250 rule can't be confirmed (Q-072).
   Nov 24 (lineups.json): Domo "Out of the playoff race: draft pick #3 now" (3-8, 3 games left; #2 on Nov 23).
+  Nov 25 (lineups.json 05:02Z): Domo still "Out of the playoff race: draft pick #3 now" (3-8).
 - **Expected impact:** Domo's page stops asking for small weekly moves that only cost draft position, and its adds are
   dynasty upgrades, while an OUT, bye or empty starter is still fixed (no tanking).
 - **Effort:** S
@@ -551,6 +476,8 @@ Measure (the health.json check that should move), Design, Decision.
   +3.79 vs −1.36, bias +1.07 vs −11.92, miss 11.20 vs 15.20. Caveats in the same section: the replay reproduces 100%
   of the site's streamers but 25% of its shown swaps; shrunk uses tonight's ESPN projection for past mornings.
   Nov 24 (health run 08:55Z): `sections.sources` unchanged (same 3 complete weeks; the next ends Sun Nov 29). Stays 1.
+  Nov 25 (health run 08:55Z): `sections.sources` unchanged (3 complete weeks: DARKO minutes swaps +1.73/g n=60, miss
+  11.85; shrunk +2.16/g n=43, miss 11.21; site −0.07/g, miss 11.95); the next week ends Sun Nov 29. Stays 1.
 - **Expected impact:** the switch Michael pre-approved on Nov 12 (via Q-060) goes to the source that helps both
   streamers and swaps in both basketball leagues, instead of whichever passes a swaps-only rule first; the "+N"
   over-promise (Q-065, `swap.est_bias` −8.11) likely shrinks with it.
@@ -612,6 +539,8 @@ Measure (the health.json check that should move), Design, Decision.
   the switch rule; which one to switch to is Q-073, which may make this item's add-only shrink unnecessary. Stays 2.
   Nov 24 (health run 08:55Z): unchanged (`swap.gain` −0.44, `swap.est_bias` −8.11, `swap.est_err` 13.32, n=21);
   4 shown swaps or streamer pairs wait for the week ending Nov 29. Stays 2.
+  Nov 25 (health run 08:55Z): unchanged (`swap.gain` −0.44, `swap.est_bias` −8.11, `swap.est_err` 13.32, n=21; the
+  week ending Nov 22 judged 0 swaps and 26 streamer pairs, +0.77/g); 8 shown swaps or pairs wait for Nov 29. Stays 2.
 - **Expected impact:** a "+N this week" that means what it says, so a swap shown as +5 is worth the roster move, and
   fewer churn moves between fringe players.
 - **Effort:** S (if Q-060's switch closes the gap, one config line; otherwise shrink the shown estimate by the
@@ -624,7 +553,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-074 · Two run loops at once after a game-day handoff: double data commits and a duplicate push
 - **Status:** designed
 - **Area:** `.github/workflows/run.yml` (Run step: the "another run is looping" check and the handoff), `state/alerts.json`
-- **Rank:** 3 (new)
+- **Rank:** 3
 - **Added:** 2026-11-24 by the nightly improvement pass (own finding from git history and the `run.yml` run list)
 - **Evidence:** Mon Nov 23 (MNF window): run 447 (laptop dispatch 19:02:06Z) reached its time limit and handed off;
   the handoff, run 449 (`github-actions[bot]`, created 00:37:13Z), looped to 03:07:11Z, and scheduled run 450 (created
@@ -635,6 +564,10 @@ Measure (the health.json check that should move), Design, Decision.
   a run goes one-pass only if another in-progress run was created more than 600 s ago, so a cron or kick that starts
   within 10 minutes of a loop (here, of the handoff) loops too; dispatches and crons are in separate concurrency groups.
   Seen once so far (n=1); the local history only reaches back to Nov 23 23:27Z.
+  Nov 25 (GitHub connector): not repeated Tue night. Run 465 (laptop, 19:02Z) handed off to run 467 at 00:37:14Z;
+  no scheduled run started within 10 minutes of it, and scheduled run 468 (02:16:55Z) made one pass. One pair of
+  `data:` commits 12 s apart (02:17:06Z/02:17:18Z: run 468's pass beside the loop), no alert key re-stamped. Still
+  n=1 overlap; the next NFL game day is Thu Nov 26 (three games). Stays 3.
 - **Expected impact:** one loop at a time on game days: no duplicate pushes from overlapping loops, half the API reads
   and data commits in those windows.
 - **Effort:** S
@@ -649,7 +582,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Status:** designed
 - **Area:** `shq/radar.py` (`block`, `fit_score`, `send_alerts`), `shq/radar_backtest.py` (`run`, the comparison list),
   `shq/health.py` `radar_health`
-- **Rank:** 4 (was 3)
+- **Rank:** 4
 - **Added:** 2026-11-06 by the nightly pass, from health.json flags `radar.held` and `radar.edge` (both drift since the
   Nov 5 16:53Z run) plus a read-only replay of `radar_backtest.run` tonight
 - **Evidence:** health.json (Nov 5 18:19Z): `radar.held` 0.77 (17 of 22 flagged free agents kept the bigger role) vs
@@ -733,6 +666,9 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 24 (health run 08:55Z): `radar.edge` −2.91 z per game (n=68; was −4.1 n=66), weak for the twelfth run, floor
   0.0; the shown flags alone −2.13 (n=13). `radar.held` 0.69 (n=13; was 0.60) back to ok vs 0.70; `radar.held_all`
   0.57 (n=68). Ranked 4 (was 3): Q-074 added at 3.
+  Nov 25 (health run 08:55Z): `radar.edge` −2.53 z per game (n=65; was −2.91 n=68), weak for the thirteenth run,
+  floor 0.0; the shown flags alone −2.37 (n=12). `radar.held` 0.67 (n=12) ok vs 0.70 minus tolerance;
+  `radar.held_all` 0.57 (n=65). Stays 4.
 - **Expected impact:** fewer, better radar lines and pushes in both basketball leagues: a rising free agent is shown only
   when his new role is worth a roster spot in this league's categories, and the check compares him with what the site
   actually suggests now.
@@ -742,11 +678,41 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-036.md`
 - **Decision:** —
 
+### Q-075 · Pool picks: BTO and CFP cards swap picks on 1-2 point cover gaps, so the CHANGE alerts get tuned out
+- **Status:** designed
+- **Area:** `picks/pp/cards.py` (`build_cfp_slate`, `build_bto_slate`, `mark_changes`, `saved_vs_card`),
+  `picks/pp/push.py` (the CHANGE line text), `picks/data/published/*.json` (what was last posted)
+- **Rank:** 5 (new)
+- **Added:** 2026-11-25 by the nightly improvement pass (docs/picks/history.md "Week 12", Lesson and "Differences";
+  `picks/data/card_versions.json`)
+- **Evidence:** docs/picks/history.md, Week 12 (graded Tue Nov 24): "the CFP card changed its pair in all four runs
+  (UCLA + Arizona State Wed; Tennessee + Texas Tech Thu; Arizona State + Ohio State Fri; Texas Tech + Arizona State
+  Sat), mostly on 1-2 point cover gaps", and "for the first time in three weeks Michael didn't act on the CHANGE alerts
+  (Thursday BTO, Saturday CFP, Yahoo UNC all week)". Its Lesson: "when the card flips a pick on a 1-2 point cover gain,
+  it's close to a coin flip, and four flips in four runs make the alerts easy to tune out. Proposal (planned, not
+  built): keep a posted pick unless the new one is clearly better, and have each CHANGE line say whether it's a
+  must-switch or a marginal one." `card_versions.json` week 12 cover chances: CFP Wed UCLA −3.5 54.2% + Arizona State
+  +3.5 53.3%; Thu Tennessee +1.5 58.5% + Texas Tech −3.5 55.2%; Fri Arizona State 55.6% + Ohio State −3.5 55.2%. BTO's
+  third bet moved from UCLA −3 (54.9%) to Texas Tech −3.5 (55.2%), a 0.3-point gain. The model is less calibrated than
+  the market (`picks.brier_gap` +0.028: Brier 0.195 vs 0.168, n=444), so gaps this small are inside its error. The
+  ignored alerts cost a lot this time (BTO $3,080, CFP 23,808 pts, which would have been 3rd): the later card was
+  right, so the fix must keep the must-switch alerts loud, not just switch less. Overlaps Q-061 (Done: Yahoo-only
+  keep rule) and Q-071 (scores his changes); neither touches BTO/CFP churn.
+- **Expected impact:** fewer, clearer CHANGE pushes in BTO and CFP: a card only moves off its posted pick (or his saved
+  one) for a clear gain, and each CHANGE line says "must switch" or "marginal", so the ones that matter get acted on.
+- **Effort:** S-M
+- **Risk:** Med (a keep margin set too wide keeps a worse pick, as week 12's UCLA would have been; test on weeks 9-12
+  before choosing it)
+- **Measure:** — (one-off: replay of weeks 9-12 card versions shows fewer pick changes per week at no loss in summed
+  cover chance; then, after shipping, card changes per week and the share of "must switch" lines Michael acts on)
+- **Design:** `ops/designs/Q-075.md`
+- **Decision:** —
+
 ### Q-072 · Dynasty add lines show the add's value but not the drop's, so the dynasty trade-off is invisible
 - **Status:** designed
 - **Area:** `shq/waivers.py` `line()` (and `adds()`, which already ranks dynasty swaps by `fa.val − drop.val`);
   `shq/draft_race.py` `keep_add` (Domo's +250 rule) uses the same lines
-- **Rank:** 5 (was 4)
+- **Rank:** 6 (was 5)
 - **Added:** 2026-11-20 by the nightly improvement pass (FEEDBACK.md Inbox, #8)
 - **Evidence:** FEEDBACK.md Inbox, 2026-11-19 💡 · A · Scoreboard · 3-Ball FB · comment on: "Add Malik Washington (WR,
   MIA, 9.9/gm, value 1,190) for Treylon Burks (WR, your …": "does this make sense from a dynasty perspective? no dynasty
@@ -763,6 +729,8 @@ Measure (the health.json check that should move), Design, Decision.
   Kiner, value 873, for Jaylen Wright); the drops still show no value. Stays 3.
   Nov 23 (lineups.json 08:54Z): 3-Ball FB 1 add line, Domo 2 (values 706 and 628 shown for the adds only). Ranked 4
   (was 3).
+  Nov 25: no new feedback; Domo and 3-Ball FB add lines still show only the add's value. Ranked 6 (was 5): Q-075
+  added at 5.
 - **Expected impact:** every dynasty swap (3-Ball FB, Domo) says what it gains or costs in dynasty value next to the
   points, so Michael can judge the move without opening FantasyCalc; a swap that gives up value for points is never
   silent.
@@ -782,7 +750,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Area:** `ops/kick.ps1` (new), Windows Task Scheduler `\SportsHQ\Kick run` and `\SportsHQ\Kick model health` (user level),
   `.github/workflows/run.yml` (concurrency, one-pass rule, `actions: read`), `shq/run.py` (`origin_digest`, `digest_due`,
   digest `push_once`), `ops/designs/Q-014.md` ("As built", exact commands and removal)
-- **Rank:** 6 (was 5)
+- **Rank:** 7 (was 6)
 - **Added:** 2026-11-05 from the claude-audit proposal (item R1); evidence in Q-014
 - **Evidence:** Q-014: the 8am digest built at 11:06am Nov 4; model health ran 7.5 hours late; manual dispatches dropped.
   Nov 5 evening, while building this: a dispatch made at 5:48pm CT sat "pending" behind a game-day loop that started at
@@ -851,6 +819,9 @@ Measure (the health.json check that should move), Design, Decision.
   = 8:02am CT), the first weekday since the reopen (fix not built). 9 laptop dispatches since Mon 05:00Z (441-447, 451,
   453), all succeeded, none cancelled. The Risk line's guard ("a run only loops when no other run has been going 10+
   minutes") let two loops run 00:37Z-03:07Z Tue and send one push twice; that is its own item, Q-074. Ranked 6 (was 5).
+  Nov 25: Tue Nov 24 passes (laptop dispatch run 458 at 14:02:07Z; data commit 14:02:37Z = 8:02am CT), the second
+  weekday since the reopen (fix not built). 10 laptop dispatches since Tue 05:00Z (457-462, 464, 465, 470, 471),
+  all succeeded, none cancelled. Ranked 7 (was 6).
 - **Expected impact:** the digest out by about 8:05am CT and data at most about an hour old whenever the laptop is on.
 - **Effort:** S
 - **Risk:** Low (two loops at once could double a swap push in the same minute; a run only loops when no other run has
@@ -868,7 +839,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Status:** designed
 - **Area:** `shq/health.py` (`ladder_backtest`, `warroom_prices`, checks `wr.*`), `warroom/build.py` (`rival_model`),
   `warroom/export.js` (a scoring mode), `warroom/model.js` (`rivalWin`, `priceFor`)
-- **Rank:** 7 (was 6)
+- **Rank:** 8 (was 7)
 - **Added:** 2026-11-13 by the nightly pass (own finding from health.json `sections.warroom` and `sections.recs`, the
   code, and Q-062's replay numbers in warroom/README.md "Nov 12 revamp")
 - **Evidence:** Since 4fef2c7 (Nov 12) War Room v2 prices every claim rival by rival (`winChance` uses `rivalWin`
@@ -906,6 +877,10 @@ Measure (the health.json check that should move), Design, Decision.
   n=24; `rec.win_brier` 0.154 n=11 on watch vs 0.125). Tue Nov 24's claims add the next data. Ranked 6 (was 5).
   Nov 24 (health run 08:55Z): `wr.ladder_cov50` 0.58 (n=232; was 0.59 n=230) on watch vs target 0.5; RB 0.35
   (n=46), WR 0.51 (n=75), K 0.92 (n=24); `rec.win_brier` 0.154 n=11 unchanged. Ranked 7 (was 6).
+  Nov 25 (health run 08:55Z, Tue Nov 24's claims in): `wr.ladder_cov50` 0.59 (n=252; was 0.58 n=232) on watch vs
+  target 0.5; `wr.ladder_cov80` 0.81. RB 0.39 / 0.71 (n=51, estimate miss $13.9), WR 0.51 / 0.73 (n=82), K 0.92
+  (n=26). `rec.win_brier` 0.145 (n=13; was 0.154 n=11) back to ok; `rec.would_win` 0.15 (n=13). Still no
+  rival-by-rival check. Ranked 8 (was 7).
 - **Expected impact:** a nightly, out-of-sample answer to "when War Room says 50%, do we win half?" for the model that
   sets every Tuesday bid, claim order and backup, split by position and season stage, so a miscalibration shows within a
   week or two. FAAB is $10 ($5 spendable), so this season's stakes are mostly $0-5 claims and which backups fire.
@@ -916,10 +891,44 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-064.md`
 - **Decision:** —
 
+### Q-071 · Picks: nothing scores the picks Michael changed from the card (7 so far: card's side 6-1, his 2-5)
+- **Status:** designed
+- **Area:** `shq/health.py` `picks_health` (reads `picks/data/postmortem/*.json` `pools.*.differences`, written by
+  `picks/pp/grade.py`); `shq/wrapup.py` shows only the count of differences
+- **Rank:** 9 (was 21)
+- **Added:** 2026-11-19 by the nightly improvement pass (own finding from health.json `sections.picks.details` and the
+  postmortems)
+- **Evidence:** health.json (08:55Z Nov 19) `sections.picks.details`: card 57-30 (`picks.card_ats` 0.655, n=87, weeks
+  9-11) vs entered 67-49 (`entered_rate` 0.578, n=116, graded weeks 8-11). Week 8 had no posted card (entered 14-15),
+  so the two rates don't cover the same picks; weeks 9-11 only, entered 53-34 (0.609) vs the card's 57-30 on the same
+  87 games. The whole gap is the picks he changed: the postmortems' `differences` hold 7 (weeks 9-10; none in week 11),
+  where the card's side went 6-1 and the entered side 2-5 (BTO: card 2-0, entered 1-1; Yahoo straight-up: card 4-1,
+  entered 1-4). No health check or page reports how changed picks turn out. n=7 is far too few to conclude anything;
+  this item only starts the count.
+  Nov 22 (health run 08:55Z): unchanged: card 57-30 (0.655, n=87) vs entered 67-49 (0.578, n=116); week 12's
+  differences arrive with the Tue Nov 24 postmortem. Stays 19.
+  Nov 25 (week 12 postmortem, `picks/data/postmortem/2026-w12.json` and docs/picks/history.md "Week 12"): the
+  `differences` list this design reads holds only 1 (Yahoo N. Carolina@Virginia: card Virginia won, entered UNC
+  lost), but Michael's BTO and CFP entries also differed: BTO entered UCLA −3 (lost) where the card had Texas Tech
+  −3.5 (won); CFP entered UCLA −3.5 (lost) where the card had Texas Tech −3.5 (won). `grade.py` only lists a
+  difference when both sides picked the same game, so a pick moved to another game (the usual BTO/CFP case) is
+  missed. Counting those, weeks 9-12: card's side 9-1, entered 2-8 (n=10; was 6-1 vs 2-5 on n=7). Week 12 card
+  19-6 vs entered 18-7 in Yahoo, BTO card +$6,140 vs entered +$3,060, CFP card +23,808 vs 0. The design must
+  count pick-level differences by pool slot, not by game. Ranked 9 (was 21): the count already shows a pattern
+  worth checking each week, and it is Low risk.
+- **Expected impact:** Michael sees, week by week, whether his changes to the card win more or less than the card's
+  side, before deciding to override it again; `entered_rate` stops mixing in weeks with no card.
+- **Effort:** S
+- **Risk:** Low (two info rows and a note in health.json; no card, page or push change)
+- **Measure:** — (one-off: health.json shows `picks.override_card` 6-1 and `picks.override_entered` 2-5 on n=7, and
+  entered 53-34 on card weeks; then the rows grow each graded week)
+- **Design:** `ops/designs/Q-071.md`
+- **Decision:** —
+
 ### Q-020 · Laptop jobs that fail still show "succeeded"
 - **Status:** designed
 - **Area:** laptop task prompts (daily sync, picks, guillotine checks), `shq/run.py` `job_health`, `docs/lib/core.js` `footHTML`
-- **Rank:** 8 (was 7)
+- **Rank:** 10 (was 8)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #9 and IDEAS.md "Proposed by monthly review"
 - **Evidence:** `reviews/2026-11.md` (Freshness): 4 of 17 laptop daily syncs did nothing but are marked "succeeded" (Oct 25 and
   Oct 30: Chrome not connected; Oct 26 and Oct 28 7:30am: signed out of the built-in browser). The site only sees the last
@@ -939,6 +948,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 17: unchanged (`FAILED:` still only in `pool-picks-thu-bto-check.md`). Ranked 3 (was 1): Q-036 and Q-065 now
   have fresh out-of-sample numbers that change advice Michael acts on daily; this one has no new evidence since Nov 11.
   Nov 18: unchanged (`FAILED:` still only in `pool-picks-thu-bto-check.md`). Ranked 4 (was 3): Q-064 moved ahead.
+  Nov 25: no change seen (no `FAILED:` handling added since Nov 18). Ranked 10 (was 8).
 - **Expected impact:** a failed morning sync is visible (and pushed) within one cloud pass, with its reason, instead of a stale
   roster being used for lineups until the next day's alert.
 - **Effort:** S
@@ -950,7 +960,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-015 · No record of which pushes went out
 - **Status:** designed
 - **Area:** `shq/notify.py` `push`, `picks/pp/publish.py`, `shq/run.py` (status.json), `docs/lib/core.js` (footer)
-- **Rank:** 9 (was 8)
+- **Rank:** 11 (was 9)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #4 and IDEAS.md "Proposed by monthly review"
 - **Evidence:** `reviews/2026-11.md` (Usefulness): only `push_once` keys reach `state/alerts.json`, pruned after 21 days
   (`shq/notify.py:36`); digest, "lineup fixed" and weekly pushes use plain `push()` (`shq/run.py:120`, `:308`, `:321`) and leave
@@ -970,6 +980,8 @@ Measure (the health.json check that should move), Design, Decision.
   (Q-037) can't be told without it.
   Nov 18: still no `state/pushes.json`; no `nba-lineup:` key for Nov 16-17 and nothing says whether one was due (Q-032).
   Stays 5 (Q-067 shipped, Q-064 moved up).
+  Nov 25: still no `state/pushes.json`; no `nba-lineup:` key since Nov 20 and nothing says whether one was due
+  (Q-032). Ranked 11 (was 9).
 - **Expected impact:** "did we catch it before lock?" becomes answerable; a "Recent alerts" list on the site.
 - **Effort:** S
 - **Risk:** Low (the test must prove the ntfy topic never lands in the log; the repo is public)
@@ -980,7 +992,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-024 · The picks health check scores Yahoo straight-up picks against a spread break-even
 - **Status:** designed
 - **Area:** `shq/health.py` `picks_health` and the `picks.card_ats` floor (line 71); `picks/data/postmortem/*.json`
-- **Rank:** 10 (was 9)
+- **Rank:** 12 (was 10)
 - **Added:** 2026-11-05 by the nightly pass (own finding from health.json `sections.picks` and
   `picks/data/postmortem/2026-w09.json`)
 - **Evidence:** `picks.card_ats` = 0.733 (22-8, n=30, baseline set Nov 4) is labelled "Posted card picks that won against the
@@ -1015,6 +1027,9 @@ Measure (the health.json check that should move), Design, Decision.
   12 grades at the Tue Nov 24 postmortem. Ranked 9 (was 8).
   Nov 24 (health run 08:55Z): unchanged (`picks.card_ats` 0.655, 57-30, n=87, watch vs 0.733; graded weeks 8-11);
   week 12 grades at today's postmortem. Ranked 10 (was 9).
+  Nov 25 (health run 08:55Z): week 12 graded: `picks.card_ats` 0.692 (81-36, n=117; was 0.655 n=87), still on watch
+  vs 0.733; graded weeks 8-12; entries 88-58 (`entered_rate` 0.603). Still Yahoo straight-up and spread picks in one
+  number. Ranked 12 (was 10).
 - **Expected impact:** a picks score that means something: BTO and CFP spread picks against 52.4%, Yahoo against the
   market favourite's straight-up record on the same games. Feeds Q-013's scorecard and Q-023's decision.
 - **Effort:** S
@@ -1026,7 +1041,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-005 · Far-week Sleeper projections aren't backtested yet
 - **Status:** measuring
 - **Area:** War Room v2 (`model.py` `SD_GROWTH`, `model.js` `swing`)
-- **Rank:** 11 (was 10)
+- **Rank:** 13 (was 11)
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** The 1.25-pt-per-week swing growth was measured on the old blend (misses 23 → 27 from 1 to 4 weeks ahead);
   Sleeper's stored past projections are its latest, not what it showed weeks earlier. The page has carried Sleeper's projection
@@ -1059,6 +1074,8 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 24 (health run 08:55Z): `wr.swing_k3` has its first reading, 25.0 pts (n=8); `wr.swing_k2` 22.6 (n=17; was
   23.6 n=9); 1 week ahead 19.0 (n=27); pooled `wr.swing` 21.4 (n=143). Misses grow about 3 pts per extra week ahead so
   far. `k4` still waiting (n=0); enough data expected with the Dec 1 run. Ranked 11 (was 10).
+  Nov 25 (health run 08:55Z): unchanged (`wr.swing_k3` 25.0 n=8, `wr.swing_k2` 22.6 n=17, pooled `wr.swing` 21.4
+  n=143); `k4` still waiting (n=0), enough data expected with the Dec 1 run. Ranked 13 (was 11).
 - **Expected impact:** the right rest-of-season uncertainty, which drives win odds and so every value.
 - **Effort:** S (change `SD_GROWTH` once measured)
 - **Risk:** Low
@@ -1069,7 +1086,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-018 · The What to do card contradicts itself
 - **Status:** designed
 - **Area:** `shq/waivers.py` (drop protection), `shq/advice.py` (What to do card), IR-slot lines
-- **Rank:** 12 (was 11)
+- **Rank:** 14 (was 12)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #7 and IDEAS.md "Proposed by monthly review"
 - **Evidence:** `reviews/2026-11.md` (Usefulness, Nov 1, Guillotine page at 375px): Bids said "No free agent adds a point to your
   lineup" while Waiver adds said "Add Bryce Young … lineup +2.0/gm"; that add dropped J.K. Dobbins, whom Lineup moves said to
@@ -1109,7 +1126,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-013 · Model health scorecard on the site
 - **Status:** designed
 - **Area:** site (`docs/lib/`, owned by the dashboard redesign session)
-- **Rank:** 13 (was 12)
+- **Rank:** 15 (was 13)
 - **Added:** 2026-11-03
 - **Evidence:** health.json is published at `/data/health.json` but nothing shows it. Michael only learned about the Nov 3
   War Room findings because he asked. Nov 5: `docs/lib/core.js` still loads only lineups, weekly, status, digest and
@@ -1139,6 +1156,8 @@ Measure (the health.json check that should move), Design, Decision.
   Ranked 12 (was 11).
   Nov 24: the run is 16 ok, 4 watch, 3 weak, 5 waiting, 19 info, 0 errors (Nov 23: 13 ok, 5 watch, 4 weak, 7
   waiting, 18 info). Ranked 13 (was 12).
+  Nov 25: the run is 18 ok, 2 watch, 0 drift, 3 weak, 5 waiting, 19 info, 0 errors (Nov 24: 16 ok, 4 watch);
+  `docs/lib/core.js` and `docs/index.html` still never load health.json. Ranked 15 (was 13).
 - **Expected impact:** a glance at which models are trustworthy this week (ok / watch / drift / weak per model, tap for the checks).
 - **Effort:** S
 - **Risk:** Low
@@ -1149,7 +1168,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-011 · One guillotine model: the dashboard and War Room v2 still give different numbers
 - **Status:** designed
 - **Area:** `shq/guillotine.py` (dashboard, Today tab, cut-risk push) vs `warroom/` (War Room v2, bids.json, Tuesday checks)
-- **Rank:** 14 (was 13)
+- **Rank:** 16 (was 14)
 - **Added:** 2026-11-03 (claude-audit item 1, option 4)
 - **Evidence:** On Nov 3 the two models disagree for the same week 9: MoneyManChas cut risk 17.0% (dashboard) vs 21.5% (v2),
   robert8063 14.3% vs 12.6%, my projection 119.1 vs 118.8. They use different swings (dashboard per-player position SDs,
@@ -1194,6 +1213,8 @@ Measure (the health.json check that should move), Design, Decision.
   (n=3; was +0.068 n=2), now ok. Same weeks: log-loss v2 1.752 vs dashboard 2.333 (coin toss 2.244); the cut team's
   rank in v2 [1, 6, 1] vs the dashboard [10, 2, 6, 1]. Three weeks now favor building the one model on v2. Ranked 14
   (was 13).
+  Nov 25: unchanged (`gd.dash_skill` −0.04 n=4 weak vs floor 0; `gd.v2_skill` +0.201 n=3 ok; log-loss v2 1.752 vs
+  dashboard 2.333, coin toss 2.244); week 12's cut adds after Sunday. Ranked 16 (was 14).
 - **Expected impact:** one answer everywhere (site, push, AI write-up); fixes found in one model reach every screen.
 - **Effort:** M (dashboard reads bids.json for odds and bids; keeps its live Sunday locking until Q-002 lands)
 - **Risk:** Med (the cut-risk push and Today tab change source)
@@ -1204,7 +1225,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-012 · Cut odds are no better than a coin toss
 - **Status:** designed
 - **Area:** War Room v2 (`warroom/model.js` `simulate`), dashboard (`shq/guillotine.py`)
-- **Rank:** 15 (was 14)
+- **Rank:** 17 (was 15)
 - **Added:** 2026-11-03 by the first model-health run
 - **Evidence:** Rebuilding each of the 8 past weeks from Sleeper's projections, the team actually cut ranked 14th, 11th, 9th,
   1st, 1st, 11th, 1st and 10th by predicted risk (average 7th). At the measured 22-pt swing the cut odds score a log-loss of
@@ -1246,6 +1267,7 @@ Measure (the health.json check that should move), Design, Decision.
   Nov 24: `wr.cut_skill` +0.026 (n=11; was −0.009 n=10) now ok vs baseline −0.017; week 11's cut team was v2's #1.
   The 36-pt swing scores +0.054 in-sample (`cuts_by_swing`), the shipped 21-pt one +0.026. Still small n. Ranked 15
   (was 14).
+  Nov 25: unchanged (`wr.cut_skill` +0.026 n=11 ok; best swing 36 pts in-sample). Ranked 17 (was 15).
 - **Expected impact:** cut risk and win odds drive every bid value. If cuts are mostly upsets, both models are too sure who is
   safe, so win-odds gains (and bids) are spread too wide between players. Better-calibrated odds = better $ values.
 - **Effort:** S to test, M to change
@@ -1257,7 +1279,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-019 · The picks backup has never worked for real
 - **Status:** designed
 - **Area:** `.github/workflows/picks-backup.yml`, `.github/workflows/run.yml`, `picks/pp/http.py`, GitHub secret `CFBD_API_KEY`
-- **Rank:** 16 (was 15)
+- **Rank:** 18 (was 16)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #8 and IDEAS.md "Proposed by monthly review"
 - **Evidence:** `reviews/2026-11.md` (Reliability): the backup's crons ran 4-7h late every time (Wed 9:45pm slot at 5:25am Thu;
   Sat 8:45am at 1:45pm, after CFP's 11am lock), and `pp/http.py:48` raises on any uncached CFBD call without a key. Nov 4:
@@ -1292,7 +1314,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-021 · Hygiene pass: line endings, public CFBD files, worktrees, browser rule
 - **Status:** designed
 - **Area:** `picks/pp/grade.py`, `picks/pp/model.py`, `picks/cache/cfbd/`, `.claude/worktrees/`, ROADMAP.md, laptop prompts
-- **Rank:** 17 (was 16)
+- **Rank:** 19 (was 17)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Rule breaks" #2-4 and "Ranked improvements" #10, and
   IDEAS.md "Proposed by monthly review" (last two lines)
 - **Evidence:** Still true Nov 4: `git ls-files --eol` shows `i/crlf` for `picks/pp/grade.py` and `picks/pp/model.py`; 17 files
@@ -1322,7 +1344,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-017 · Four git steps still rebase (rule: merge, never rebase)
 - **Status:** designed
 - **Area:** `.github/commit_data.sh`, `.github/workflows/picks-backup.yml`, `war-room-v2.yml`, `yahoo-reauth.yml`
-- **Rank:** 18 (was 17)
+- **Rank:** 20 (was 18)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Rule breaks" #1 and "Ranked improvements" #6
 - **Evidence:** The review listed 5 rebase spots. On Nov 4 `git grep rebase` still finds 4: `commit_data.sh:8`
   (`git pull -q --rebase -X theirs`), `picks-backup.yml:67` (`git pull --rebase`), `war-room-v2.yml:48` (`--rebase -X theirs`),
@@ -1346,7 +1368,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-009 · The 0.3-point win-odds noise floor is a guess
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `MIN_WIN`)
-- **Rank:** 19 (was 18)
+- **Rank:** 21 (was 19)
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** Moves adding under 0.3 points of win odds are skipped as noise, but the real noise of `gains()` (10,000 seasons,
   same seed for both sides) has not been measured.
@@ -1372,7 +1394,7 @@ Measure (the health.json check that should move), Design, Decision.
 - **Status:** proposed
 - **Area:** outside the repo: claude.ai routines "Fantasy football helper", "Fantasy basketball helper", "Guillotine strategy
   review", "Football pools picks"; Sports HQ rules (ROADMAP "Rules that must not break", `status.confirm`)
-- **Rank:** 20 (was 19)
+- **Rank:** 22 (was 20)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #2 and IDEAS.md "Open decisions"
 - **Evidence:** `reviews/2026-11.md` (Coverage vs goals): the football helper (Sun/Mon/Tue/Thu/Sat, 4×/day) and basketball
   helper (9am/5pm) still auto-swap lineups through Chrome, outside `status.confirm`; "Guillotine strategy review" (daily
@@ -1408,35 +1430,10 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** claude-audit `plan.md` Phase 2 (a decision, outside this repo)
 - **Decision:** —
 
-### Q-071 · Picks: nothing scores the picks Michael changed from the card (7 so far: card's side 6-1, his 2-5)
-- **Status:** designed
-- **Area:** `shq/health.py` `picks_health` (reads `picks/data/postmortem/*.json` `pools.*.differences`, written by
-  `picks/pp/grade.py`); `shq/wrapup.py` shows only the count of differences
-- **Rank:** 21 (was 20)
-- **Added:** 2026-11-19 by the nightly improvement pass (own finding from health.json `sections.picks.details` and the
-  postmortems)
-- **Evidence:** health.json (08:55Z Nov 19) `sections.picks.details`: card 57-30 (`picks.card_ats` 0.655, n=87, weeks
-  9-11) vs entered 67-49 (`entered_rate` 0.578, n=116, graded weeks 8-11). Week 8 had no posted card (entered 14-15),
-  so the two rates don't cover the same picks; weeks 9-11 only, entered 53-34 (0.609) vs the card's 57-30 on the same
-  87 games. The whole gap is the picks he changed: the postmortems' `differences` hold 7 (weeks 9-10; none in week 11),
-  where the card's side went 6-1 and the entered side 2-5 (BTO: card 2-0, entered 1-1; Yahoo straight-up: card 4-1,
-  entered 1-4). No health check or page reports how changed picks turn out. n=7 is far too few to conclude anything;
-  this item only starts the count.
-  Nov 22 (health run 08:55Z): unchanged: card 57-30 (0.655, n=87) vs entered 67-49 (0.578, n=116); week 12's
-  differences arrive with the Tue Nov 24 postmortem. Stays 19.
-- **Expected impact:** Michael sees, week by week, whether his changes to the card win more or less than the card's
-  side, before deciding to override it again; `entered_rate` stops mixing in weeks with no card.
-- **Effort:** S
-- **Risk:** Low (two info rows and a note in health.json; no card, page or push change)
-- **Measure:** — (one-off: health.json shows `picks.override_card` 6-1 and `picks.override_entered` 2-5 on n=7, and
-  entered 53-34 on card weeks; then the rows grow each graded week)
-- **Design:** `ops/designs/Q-071.md`
-- **Decision:** —
-
 ### Q-007 · Free-agent candidates are capped (3 per position, 24 total)
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `candidates`)
-- **Rank:** 22 (was 21)
+- **Rank:** 23 (was 22)
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** Only the top 60 free agents by projected points are tried, then at most 3 per position and 24 overall. The old
   cap of 2 per position hid Bo Nix (audit). A bye-week fill-in or a K/DEF stream can rank 4th at its position and vanish.
@@ -1456,7 +1453,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-016 · "Likely out" news doesn't trigger a push while ESPN still says Questionable
 - **Status:** designed
 - **Area:** injury watch (`shq/run.py` swap pushes, `status.confirm`), ROADMAP injury rule
-- **Rank:** 23 (was 22)
+- **Rank:** 24 (was 23)
 - **Added:** 2026-11-04 by the nightly pass, from `reviews/2026-11.md` "Ranked improvements" #5 and IDEAS.md "Proposed by monthly review"
 - **Evidence:** `reviews/2026-11.md` (Usefulness, Sun Nov 1): Breece Hall (Guillotine FLEX) was still Questionable on ESPN while
   its 8:07am note said he "isn't expected to play"; the rule keeps him at Q, so no push. The site did show "Start J.K. Dobbins
@@ -1477,7 +1474,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-002 · Mid-week, War Room v2 ignores games already played
 - **Status:** designed
 - **Area:** War Room v2 (`model.py` / `model.js` `proj`)
-- **Rank:** 24 (was 23)
+- **Rank:** 25 (was 24)
 - **Added:** 2026-11-03 (warroom/README.md "Known limits")
 - **Evidence:** From Thursday night to Monday, the coming week's projections ignore games already played; only the dashboard
   (`shq/guillotine.py`) locks started games and uses real points. v2's cut risks on Fri-Mon are pre-kickoff numbers.
@@ -1497,7 +1494,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-023 · College ATS cards still tilt 10% toward a stats model the backtest says to drop
 - **Status:** designed
 - **Area:** Pool Picks (`picks/pp/cards.py` `MODEL_W`, `fair_margins`)
-- **Rank:** 25 (was 24)
+- **Rank:** 26 (was 25)
 - **Added:** 2026-11-04 by the nightly pass (own finding from health.json `sections.picks` and `picks/backtest/2026_w1-8.json`)
 - **Evidence:** health.json `picks.brier_gap` = 0.028 (model Brier 0.195 vs market 0.168, n=444 college games). In the backtest
   file's `model_weight` report, the walk-forward choice was weight 0 in all 6 weeks scored (3-8): total RMSE 14.059 at 0
@@ -1520,6 +1517,8 @@ Measure (the health.json check that should move), Design, Decision.
   equal their baselines. Stays 19.
   Nov 15: the backtest file is still `2026_w1-8.json`; `picks.brier_gap` 0.028 and `picks.stale_cover` 0.616 still
   equal their baselines. Stays 19.
+  Nov 25: the backtest file is still `2026_w1-8.json` (`picks.brier_gap` 0.028: model Brier 0.195 vs market 0.168,
+  n=444); `picks.card_ats` 0.692 (n=117) still mixes Yahoo and spread picks (Q-024). Ranked 26 (was 25).
 - **Expected impact:** small: college card centers move by a tenth of the model-market gap (a 5-pt gap = 0.5 pt), which
   only matters near a pool line's half point.
 - **Effort:** S
@@ -1528,45 +1527,10 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-023.md`
 - **Decision:** —
 
-### Q-068 · The moved-players check is on watch from one 30-point game, and it reports n=134 for an average over 52
-- **Status:** designed
-- **Area:** `shq/health.py` (`moved_week`'s `err` and `mae_n`, `moved_checks`, `MIN_N` for `moved.*`, `CHECKS["moved.mae_gap"]`)
-- **Rank:** 26 (was 25)
-- **Added:** 2026-11-18 by the nightly pass, from health.json flag `moved.mae_gap` (watch) and `sections.moved.details.weeks`
-- **Evidence:** health.json 08:55Z Nov 18, week 10 (the first after the trade deadline): `moved.mae_gap` +0.4 pts vs baseline −0.4
-  (set Nov 12), tolerance 1.5, status watch (0.8 worse, over half the tolerance), n=134. Section note: "Week 10: 134
-  players were hurt, on a new team or newly starting going in (126 injury tags, 4 new teams, 5 new starting QBs). 0 we
-  projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 4.9 pts for them vs 4.5 for everyone else."
-  Week 9: 3.7 vs 4.1 (gap −0.4). Tonight's read of `details.weeks.10`: the 4.9 is averaged over `mae_n` 52 players
-  (projected or played), not the 134 the check reports as n (Out-tagged players projected 0 who sat drop out of the
-  average). The biggest miss is George Pickens (tagged Q, projected 13.5, scored 43.5); without him the group averages
-  4.41, below everyone else's 4.5. Next: Patrick Mahomes 19.6 → 35.4, Deebo Samuel 10.9 → 25.9, Tony Pollard 12.1 →
-  23.9, all tagged Q and under-projected. Weeks 9-10 pooled: 4.35 (n=96) vs 4.29 (n=533), a +0.06 gap. So the
-  projections for hurt, traded and new-starter players are not measurably worse (`moved.zeroed` and `moved.inactive` 0
-  both weeks); the gap check is one-game noisy and its n overstates the sample.
-  Nov 20 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
-  `moved.inactive` 0). Ranked 23 (was 22).
-  Nov 21 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4). Ranked 24 (was 23).
-  Nov 22 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
-  `moved.inactive` 0). Stays 24.
-  Nov 23 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
-  `moved.inactive` 0). Ranked 25 (was 24).
-  Nov 24 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4); the notes still end at week
-  10. Ranked 26 (was 25).
-- **Expected impact:** a `moved.mae_gap` flag that means hurt or traded players are projected worse than everyone else
-  (pooled over recent weeks, judged on the players actually averaged), so the scorecard doesn't send a session after
-  one boom game; the zeroed and inactive checks are unchanged.
-- **Effort:** S
-- **Risk:** Low (health job only; the `moved.mae_gap` baseline resets)
-- **Measure:** — (one-off: `moved.mae_gap` reports the players averaged as n and a pooled gap; on weeks 9-10 it reads about
-  +0.1, ok)
-- **Design:** `ops/designs/Q-068.md`
-- **Decision:** —
-
 ### Q-025 · War Room v2's budget step drops a claim instead of fitting it
 - **Status:** designed
 - **Area:** War Room v2 (`warroom/model.js` `decideAll`, lines 222-233; `bidOptions`)
-- **Rank:** 27 (was 26)
+- **Rank:** 27
 - **Added:** 2026-11-05 by the nightly pass (own finding from health.json `sections.recs` and bids.json as committed
   before the Nov 4 waiver run, `dd398c1`)
 - **Evidence:** health.json `recs.notes`: "Week 8: Parker Washington went for $21 (JHED1979) although his value to you was $31
@@ -1598,6 +1562,8 @@ Measure (the health.json check that should move), Design, Decision.
   8's Parker Washington). Ranked 25 (was 24).
   Nov 23: unchanged (`rec.win_brier` 0.154 n=11, watch vs 0.125; `rec.would_win` 0.18). Ranked 26 (was 25).
   Nov 24: unchanged (`rec.win_brier` 0.154 n=11, watch vs 0.125; `rec.would_win` 0.18; runs 8-10). Ranked 27 (was 26).
+  Nov 25: `rec.win_brier` 0.145 (n=13; was 0.154 n=11) back to ok; `rec.would_win` 0.15; `bargains_skipped`
+  still only week 8's Parker Washington. Stays 27.
 - **Expected impact:** the claims that share the budget are chosen together for the best total expected surplus, instead of
   first-come; fewer budgets spread thin over 40% coin flips.
 - **Effort:** S (a small knapsack over each claim's bid options, which `bidOptions` already lists)
@@ -1609,7 +1575,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-010 · Automatic $ per win-point assumes every future crop looks like this week's
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `autoDpp`)
-- **Rank:** 28 (was 27)
+- **Rank:** 28
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** `autoDpp` lines up this week's freed players by win odds per $, assumes a similar crop at every waiver run you're
   expected to see, and takes the rate where FAAB runs out. Crops vary a lot: the top winning bids per run were $150 (wk 1),
@@ -1632,7 +1598,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-003 · Price ladder isn't split by position or season stage
 - **Status:** designed
 - **Area:** War Room v2 (`warroom/build.py` `ladder`, `model.js` `winChance`)
-- **Rank:** 29 (was 28)
+- **Rank:** 29
 - **Added:** 2026-11-03 (Nov 3 slider audit); evidence from the first model-health run the same day
 - **Evidence:** The ladder splits past claims only by estimate size ($10+ vs under). Overall it is well calibrated
   (leave one waiver run out, 165 claims: a bid at its 50% price would have won 55%, at its 80% price 82%), but not by position:
@@ -1677,6 +1643,9 @@ Measure (the health.json check that should move), Design, Decision.
   (n=75), estimates $10+ 49% / 79% (n=63, miss $16.6); legs 1-5 53% vs 6-10 65%. Still a fallback. Ranked 27 (was 26).
   Nov 24 (232 claims): RB 35% at the 50% price / 74% at the 80% (n=46, estimate miss $15.1); WR 51% / 77% (n=75);
   K 92% / 96% (n=24); DEF 66% / 97% (n=29). Ranked 29 (was 28).
+  Nov 25 (252 claims): RB 39% at the 50% price / 71% at the 80% (n=51, estimate miss $13.9); WR 51% / 73% (n=82);
+  K 92% / 96% (n=26); DEF 69% / 88% (n=32); legs 1-5 52% vs 6-11 65%; estimates $10+ 50% / 80% (n=64, miss
+  $16.5). RB still the furthest from target. Stays 29.
 - **Expected impact:** RB claims (the most expensive position) won at the stated odds instead of lost; no overbidding on K/DEF.
 - **Effort:** S
 - **Risk:** Low-Med (splits get thin: keep the "at least 12 claims or merge" rule; test leave-one-run-out before shipping)
@@ -1687,7 +1656,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-006 · The page runs 6,000 seasons, bids.json 20,000
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `S.sims`, `export.js`)
-- **Rank:** 30 (was 29)
+- **Rank:** 30
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** The page uses 6,000 so the sliders respond quickly; bids.json, the Tuesday push and the AI write-up use 20,000.
   The audit measured ±0.3-0.7 pts of noise at 2,000. Near a call boundary (0.3-pt noise floor, Bid vs Coin flip at 50%)
@@ -1709,7 +1678,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-008 · Rivals' adds ignore their drops
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `rivalGain`, `threats`, `rivalInputs`; `build.py` `rival_model`)
-- **Rank:** 31 (was 30)
+- **Rank:** 31
 - **Added:** 2026-11-03 (Nov 3 slider audit)
 - **Evidence:** My adds are valued net of my best drop, but a rival's gain (which sets his predicted bid) assumes he adds without
   dropping anyone. Rosters are full, so a rival with no bench to spare gains less than modeled.
@@ -1727,7 +1696,7 @@ Measure (the health.json check that should move), Design, Decision.
 ### Q-001 · Simulation doesn't hand freed stars to rivals (denial value)
 - **Status:** designed
 - **Area:** War Room v2 (`model.js` `simulate`, `gains`)
-- **Rank:** 32 (was 31)
+- **Rank:** 32
 - **Added:** 2026-11-03 (Nov 3 slider audit; warroom/README.md "Known limits")
 - **Evidence:** The sim keeps current rosters, so a freed star you don't claim never strengthens a rival. In a winner-take-all
   league, a star going to the strongest rival lowers your win odds even if you survive. Not yet measured.
@@ -1741,8 +1710,142 @@ Measure (the health.json check that should move), Design, Decision.
 - **Design:** `ops/designs/Q-001.md`
 - **Decision:** —
 
+### Q-068 · The moved-players check is on watch from one 30-point game, and it reports n=134 for an average over 52
+- **Status:** designed
+- **Area:** `shq/health.py` (`moved_week`'s `err` and `mae_n`, `moved_checks`, `MIN_N` for `moved.*`, `CHECKS["moved.mae_gap"]`)
+- **Rank:** 33 (was 26)
+- **Added:** 2026-11-18 by the nightly pass, from health.json flag `moved.mae_gap` (watch) and `sections.moved.details.weeks`
+- **Evidence:** health.json 08:55Z Nov 18, week 10 (the first after the trade deadline): `moved.mae_gap` +0.4 pts vs baseline −0.4
+  (set Nov 12), tolerance 1.5, status watch (0.8 worse, over half the tolerance), n=134. Section note: "Week 10: 134
+  players were hurt, on a new team or newly starting going in (126 injury tags, 4 new teams, 5 new starting QBs). 0 we
+  projected at 0 scored 5+; 0 we projected at 5+ did not play. Average miss 4.9 pts for them vs 4.5 for everyone else."
+  Week 9: 3.7 vs 4.1 (gap −0.4). Tonight's read of `details.weeks.10`: the 4.9 is averaged over `mae_n` 52 players
+  (projected or played), not the 134 the check reports as n (Out-tagged players projected 0 who sat drop out of the
+  average). The biggest miss is George Pickens (tagged Q, projected 13.5, scored 43.5); without him the group averages
+  4.41, below everyone else's 4.5. Next: Patrick Mahomes 19.6 → 35.4, Deebo Samuel 10.9 → 25.9, Tony Pollard 12.1 →
+  23.9, all tagged Q and under-projected. Weeks 9-10 pooled: 4.35 (n=96) vs 4.29 (n=533), a +0.06 gap. So the
+  projections for hurt, traded and new-starter players are not measurably worse (`moved.zeroed` and `moved.inactive` 0
+  both weeks); the gap check is one-game noisy and its n overstates the sample.
+  Nov 20 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
+  `moved.inactive` 0). Ranked 23 (was 22).
+  Nov 21 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4). Ranked 24 (was 23).
+  Nov 22 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
+  `moved.inactive` 0). Stays 24.
+  Nov 23 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4; `moved.zeroed` and
+  `moved.inactive` 0). Ranked 25 (was 24).
+  Nov 24 (health run 08:55Z): unchanged (`moved.mae_gap` +0.4, n=134, watch vs −0.4); the notes still end at week
+  10. Ranked 26 (was 25).
+  Nov 25 (health run 08:55Z): week 11 replaced week 10 in the checks: `moved.mae_gap` −0.9 (n=107: 3.0 pts for them
+  vs 3.9 for everyone else) is ok; `moved.zeroed` and `moved.inactive` 0. The watch this item explains has cleared
+  on its own, so only the reporting half is left (n and a pooled gap over weeks). Ranked 33 (was 26): least value
+  left in the queue.
+- **Expected impact:** a `moved.mae_gap` flag that means hurt or traded players are projected worse than everyone else
+  (pooled over recent weeks, judged on the players actually averaged), so the scorecard doesn't send a session after
+  one boom game; the zeroed and inactive checks are unchanged.
+- **Effort:** S
+- **Risk:** Low (health job only; the `moved.mae_gap` baseline resets)
+- **Measure:** — (one-off: `moved.mae_gap` reports the players averaged as n and a pooled gap; on weeks 9-10 it reads about
+  +0.1, ok)
+- **Design:** `ops/designs/Q-068.md`
+- **Decision:** —
+
 ## Done
+
 (Items move here when verified, newest first, with the commit and the health.json numbers that confirmed them.)
+
+### Q-037 · GitHub jobs still run hours late: make the laptop the clock for every time-critical one
+- **Status:** verified 2026-11-25 (shipped d5d5bf7, Tue Nov 10; Tuesdays Nov 17 and Nov 24 on time, no cancelled dispatches)
+- **Area:** `ops/kick.ps1` (one push per outage), `.github/workflows/war-room-v2.yml` (own concurrency group for kicks),
+  `shq/run.py` (`laptop_kicks`: a push when the 2:55am kick didn't happen; "Laptop kick" footer row),
+  `.github/workflows/run.yml` (game-day handoff), `.github/workflows/model-health.yml` (4:50am cron removed),
+  `ops/designs/Q-014.md` "The laptop is the clock"
+- **Rank:** —
+- **Added:** 2026-11-09 by Claude Ops (Michael called the late GitHub jobs "clunky" and asked for a step-back review)
+- **Evidence:** claude-audit `overhaul/github-reliability.md` (independent review, Nov 9): GitHub documents scheduled runs as
+  best effort; War Room v2's daily 6:10am build ran 5.6-10.1 hours late on all 6 days Nov 2-9 (Tue Nov 3's first run 6:21am);
+  every laptop `workflow_dispatch` since Nov 8 started within seconds (Q-029). Gaps it found: no War Room kick; a failed kick
+  only writes a log line no session can read; a dispatched War Room run can be replaced by a late cron run in the shared
+  concurrency group; a game-day loop that hits its 5h45m limit leaves the injury watch idle up to about 80 minutes.
+  Tue Nov 10 (Claude Ops' morning review, checked against `gh run list --workflow war-room-v2.yml`): GitHub never ran the
+  Mon 10:40pm, Mon 11:20pm or Tue 5:40am CT War Room builds; the first runs were 6:58am and 7:37am CT. The 6:03am strategy
+  Doc was written on a week-old bids.json (`ada4348`, Mon 4:15pm CT, before the week 9 cut was confirmed).
+  Nov 11: Tue Nov 10's War Room builds started 6:58am and 7:37am CT, before this shipped that evening; the laptop's
+  "Kick war room" task is registered Sun Nov 15, so Tue Nov 17 is the first Tuesday the Measure can count. Since Nov
+  10 05:00Z, 18 `run.yml` runs (9 laptop dispatches, 9 scheduled), all succeeded, none cancelled; model health was
+  kicked at 2:55am CT (08:55Z Nov 11).
+  Nov 13: still waiting for Tue Nov 17. Since Nov 11 05:00Z, 40 `run.yml` runs (17 scheduled, 23 laptop dispatches),
+  none cancelled; one dispatch failed (Thu Nov 12 1:02pm CT, run 43285972190; cause not checked tonight). War Room v2's
+  last 10 runs (Nov 10-12) all succeeded; model health was kicked at 08:55Z Nov 12 and Nov 13.
+  Nov 14: still waiting for Tue Nov 17. Since Nov 13 05:00Z, 22 `run.yml` runs (12 scheduled, 10 laptop dispatches),
+  all succeeded, none cancelled. The Nov 12 failed dispatch (run 43285972190) failed inside the step "Run (loops every
+  10 min while a watch window is open or near)"; the error itself not read tonight. War Room v2 Fri Nov 13: 6:10am CT
+  dispatch (12:10Z) and a 1:35pm CT scheduled run, both succeeded. Model health kicked at 08:55Z Nov 14.
+  Nov 15: still waiting for Tue Nov 17. Since Nov 14 05:00Z, 20 `run.yml` runs (13 scheduled, 6 laptop dispatches, 1
+  push): all 6 dispatches succeeded, none cancelled; 2 scheduled runs were cancelled (runs 293 and 294, queued Sat 21:22Z
+  and 23:22Z while the 19:38Z game-day loop ran). War Room v2 built from the Sat 6:10am CT kick (`War Room v2:
+  2026-11-14T12:10:31Z`); model health kicked at 08:55Z Nov 15.
+  Nov 16: still waiting for Tue Nov 17. Since Nov 15 05:00Z, 17 `run.yml` runs: 14 scheduled (6 cancelled: runs 305,
+  306, 310-313, Sun 16:58Z-01:35Z, each replaced in the shared scheduled group), 3 game-day handoff dispatches by
+  `github-actions[bot]` (runs 304, 308, 309, all succeeded), and no laptop dispatch. The laptop's last kick was War Room
+  v2 at Sun 6:10am CT (12:10Z); the 10:02pm and 11:02pm CT `run.yml` kicks (status.json was 33+ min old after the
+  03:29Z commit) and the Mon 2:55am CT model-health kick (08:55Z) did not happen, the first missed 2:55am kick since
+  Nov 11. `run.py`'s once-a-day "2:55am kick didn't happen" push is due from 4am CT; not checked from here. Data commits
+  Sun 17:07Z-Mon 03:29Z: one gap over 15 minutes, 02:07Z-03:29Z (82 min, after the last kickoff, outside a watch window).
+  Nov 17 (cloud pass, 3:5x am CT, before Tuesday's 5:40am and 6:50am CT War Room slots, so the Measure's first Tuesday
+  is not readable yet): the laptop was silent from Sun 12:10Z to Mon 14:27Z (8:27am CT), then started `run.yml`, War Room
+  v2 and model health within 2 seconds (a catch-up after the missed slots); since then `run.yml` dispatches every hour at
+  :27 past (15:27Z-07:27Z), the Mon 10:40pm and 11:20pm CT War Room kicks ran at 04:40:06Z and 05:20:04Z, and the
+  Tue 2:55am model-health kick ran at 08:55:06Z. All 13 laptop dispatches since Mon 14:27Z succeeded, none cancelled;
+  the game-day handoff dispatch (run 327, `github-actions[bot]`) ran 01:07Z-02:07Z. Data commits Mon 19:27Z-Tue 02:07Z
+  every 10 minutes (the game window), no gap over 15 minutes.
+  Nov 18 (cloud pass, GitHub connector): Tue Nov 17 passes, the first of the two Tuesdays. War Room v2 ran from laptop
+  dispatches at 11:40Z (5:40am CT; commit `War Room v2: 2026-11-17T11:40:41Z`) and 12:50:05Z (6:50am CT, run 53), both
+  succeeded; later dispatches at 14:10Z and 15:10Z also succeeded. 10 laptop `run.yml` dispatches since Tue 07:27Z (runs
+  338-353), all succeeded, none cancelled; the hourly kicks are back at :02 past from 13:02Z; the game-day handoff
+  dispatch (run 350, `github-actions[bot]`) ran 01:37Z-04:07Z. Model health kicked at 08:55Z Nov 18 (plus a War Room
+  dispatch at 08:40Z, 2:40am CT, not a listed slot). The second Tuesday is Nov 24. Not checked tonight: commit gaps
+  inside game windows (no NFL game since Monday's).
+  Nov 19 (cloud pass, GitHub connector): the Wed 8:02am CT `run.yml` kick is missing (see Q-029; dispatches at 13:02Z
+  and 15:02Z, none at 14:02Z). War Room v2 built Wed at 12:10Z, 17:29Z and 20:24Z; the game-day handoff dispatch (run
+  364, `github-actions[bot]`) ran 00:37Z-03:07Z Thu. Model health kicked at 08:55Z Nov 19. The second Tuesday is Nov 24.
+  Nov 20 (cloud pass, GitHub connector): Thu Nov 19's TNF watch window was covered by one laptop dispatch (run 377,
+  20:02Z-01:17Z): data commits every 10 minutes from 20:07Z to 01:17Z with no gap over 10 minutes (shq.run's window ends
+  at kickoff, 01:15Z, so the loop ended by design and no handoff was needed). Afterwards hourly commits (01:28Z,
+  02:02Z, 03:00Z, 03:07Z, 04:02Z, 04:49Z). Model health kicked at 08:55Z Nov 20. The second Tuesday is Nov 24.
+  Nov 21 (cloud pass, GitHub connector): since Fri 13:02Z, 13 laptop `run.yml` dispatches (runs 389-406), all
+  succeeded, none cancelled; the game-day handoff (run 401, `github-actions[bot]`) ran 00:37Z-03:07Z Sat after run
+  396 reached its limit. Model health kicked at 08:55Z Nov 21. The second Tuesday is Nov 24.
+  Nov 22 (cloud pass, GitHub connector): since Sat 09:37Z, 15 `run.yml` runs (409-423): 5 laptop dispatches (13:02Z,
+  19:02Z, 02:02Z, 03:02Z, 04:02Z), all succeeded, none cancelled; 3 scheduled runs cancelled (414-416, queued
+  20:43Z-23:58Z behind scheduled run 413's 19:58Z-01:07Z loop); no game-day handoff dispatch was needed. Model health
+  kicked at 08:55Z Nov 22. The second Tuesday is Nov 24.
+  Nov 23 (cloud pass): still waiting for the second Tuesday, Nov 24. Note: origin/main's history was rewritten Sun
+  Nov 22 19:57Z (one root commit, `67b8da8`), so the commit hashes quoted in this file no longer resolve here; data
+  commits since then run every ~10 minutes through Sunday's games (19:57Z-01:37Z), then hourly. Model health kicked at
+  08:55Z Nov 23.
+  Nov 24 (cloud pass, 3:5x am CT, before Tuesday's 5:40am and 6:50am CT slots): the second Tuesday isn't readable
+  yet. Mon night's War Room kicks ran (commits `War Room v2: 2026-11-24T04:40:34Z` and `05:20:30Z`, 10:40pm and
+  11:20pm CT); model health kicked at 08:55Z Nov 24. 9 laptop `run.yml` dispatches since Mon 05:00Z (runs 441-447,
+  451, 453), all succeeded, none cancelled. The game-day handoff (run 449, `github-actions[bot]`) ran 00:37Z-03:07Z
+  Tue after run 447 reached its limit, but scheduled run 450 started 73 s later and looped beside it (split out as
+  Q-074).
+  Nov 25 (cloud pass, GitHub connector): Tue Nov 24 passes, the second of the two Tuesdays. War Room v2 built at
+  11:40:35Z (5:40am CT) and 12:50:35Z (6:50am CT), both within a minute of the slot (Nov 17: 11:40Z and 12:50Z).
+  Since Tue 05:00Z, 18 `run.yml` runs (454-471): all succeeded, none cancelled (10 laptop dispatches, 1 handoff, 7
+  scheduled). Data commits inside Tue's watch window (18:02Z-03:07Z) every 10 minutes, no gap over 15 minutes; the
+  game-day handoff (run 467, `github-actions[bot]`) took over 00:37Z-03:07Z Wed after run 465 reached its limit, and
+  scheduled run 468 (02:16:55Z) made one pass and stopped. All three Measure parts met: verified.
+- **Expected impact:** every time-critical build on time while the laptop is on; one push when the laptop can't start jobs,
+  and one a day when it has gone quiet; no injury-watch gap between game-day loops.
+- **Effort:** S-M
+- **Risk:** Low (two new push types, each at most once per outage or day; the handoff only fires when a loop hits its time
+  limit while a watch window is still open)
+- **Measure:** — (one-off: Tuesday War Room builds within 5 minutes of 5:40am and 6:50am CT for two weeks; no cancelled
+  dispatches; no gap over 15 minutes between `data:` commits inside game windows)
+- **Design:** claude-audit `overhaul/github-reliability.md` §3 (option B); as built in `ops/designs/Q-014.md` "The laptop is
+  the clock". The Windows task "Kick war room" is not part of this item's commits: it is staged in claude-audit
+  `overhaul/staged/github-kicks.ps1` and registered Sun Nov 15 9:00am by the "Overhaul: apply staged edits" task.
+- **Decision:** approved 2026-11-09 (Michael's Nov 9 instruction, via Claude Ops; extends the approved R1 / Q-029)
 
 ### Q-070 · Usability fixes P1-P3: one list behind the counts, a "Do this now" strip, one-line rows on a phone
 - **Status:** built Tue Nov 17 8:09am CT (8b2f842), from the HQ usability check of Nov 16; logged here by the Nov 18
