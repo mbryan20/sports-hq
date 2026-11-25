@@ -256,7 +256,7 @@ class YahooLeague:
         pid = self.ctx.yahoo_to_sleeper.get(str(yp["yahoo_id"]))
         if yp["pos"] == "DEF":
             pid = espn.norm_team(yp["team"])
-        elif pid is None and hasattr(self.ctx, "match"):
+        elif pid is None and yp["name"] and hasattr(self.ctx, "match"):   # an empty slot has no name to match
             pid = self.ctx.match(yp["name"], yp["team"], yp["pos"])
         positions = [p for p in yp["eligible"] if p not in ("BN", "IR", "W/R/T")] or [yp["pos"]]
         return make_player(self.ctx, self.scoring, pid, slot, name=yp["name"], team=yp["team"],
@@ -264,6 +264,14 @@ class YahooLeague:
 
     def load_roster(self):
         roster = self.y.roster(self.tk, self.week)
+        # Yahoo's roster lists players only, so an empty slot is missing. Nov 25: waivers dropped the QB and
+        # DEF, leaving both slots empty with Stafford and the Browns on the bench, and nothing flagged it.
+        # Add each missing one-of slot as an empty starter so the guard flags "empty slot" with the bench fix.
+        for slot in ("QB", "K", "DEF"):
+            if not any(p["slot"] == slot for p in roster):
+                empty = {"slot": slot, "name": "", "yahoo_id": "", "key": None, "team": "", "pos": slot,
+                         "eligible": [slot], "status": None}
+                roster = [empty] + list(roster) if slot == "QB" else list(roster) + [empty]
         self.starters = [self._player(p, p["slot"]) for p in roster if p["slot"] not in ("BN", "IR", "IR+")]
         self.bench = [self._player(p, "BN") for p in roster if p["slot"] == "BN"]
         self.slots = [p["slot"] for p in self.starters]
@@ -288,9 +296,12 @@ class YahooLeague:
 
     def execute_swap(self, out_p, in_p):
         """Bench out_p, start in_p in its slot, then read the roster back to confirm."""
-        self.y.set_positions(self.tk, self.week, [(out_p["key"], "BN"), (in_p["key"], out_p["slot"])])
+        moves = [(in_p["key"], out_p["slot"])]
+        if out_p.get("key"):   # an empty slot has nobody to bench
+            moves.insert(0, (out_p["key"], "BN"))
+        self.y.set_positions(self.tk, self.week, moves)
         roster = {p["key"]: p["slot"] for p in self.y.roster(self.tk, self.week)}
-        ok = roster.get(out_p["key"]) == "BN" and roster.get(in_p["key"]) == out_p["slot"]
+        ok = all(roster.get(k) == s for k, s in moves)
         if ok:
             self.load_roster()
         return ok

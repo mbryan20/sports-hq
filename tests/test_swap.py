@@ -139,6 +139,20 @@ class SwapDryRun(unittest.TestCase):
         self.assertEqual(actions, ["suggested Starter WR -> Bench WR"])
         self.assertIn("start Bench WR", notify.sent[-1]["message"])
 
+    def test_missing_one_of_slots_become_empty_starters(self):
+        # Nov 25: Yahoo lists players only; waivers dropped the QB and DEF and nothing flagged the holes
+        roster = ROSTER + [yp("461.p.106", "Bench QB", "QB", "DET", "BN"), yp("461.p.107", "Kicker", "K", "DET", "K")]
+        lg = YahooLeague(Ctx(), client=FakeYahoo(roster))
+        self.assertEqual(lg.slots[0], "QB")
+        self.assertEqual(lg.slots[-1], "DEF")
+        empties = [s for s in lg.starters if s["name"] == "Empty"]   # (fake ids without a Sleeper match read as empty too)
+        self.assertEqual([s["slot"] for s in empties], ["QB", "DEF"])
+        self.assertTrue(all(s["empty"] for s in empties))
+        bench_qb = next(b for b in lg.bench if b["name"] == "Bench QB")
+        self.assertTrue(lg.execute_swap(empties[0], bench_qb))   # nobody to bench: only the start is sent
+        self.assertNotIn("<position>BN</position>", lg.y.puts[0])
+        self.assertEqual(lg.y.roster_["461.p.106"]["slot"], "QB")
+
     def test_no_bench_suggests_free_agent_never_adds(self):
         roster = [p for p in ROSTER if p["key"] != "461.p.102"]
         lg = YahooLeague(Ctx(), client=FakeYahoo(roster))
