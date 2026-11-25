@@ -1,12 +1,12 @@
 {
- "captured": "2026-11-25T13:47:01Z",
+ "captured": "2026-11-25T22:35:31Z",
  "players": [
   {
    "slot": "QB",
-   "name": "",
-   "yahoo_id": "",
+   "name": "Matthew Stafford",
+   "yahoo_id": "9265",
    "key": null,
-   "team": "",
+   "team": "LAR",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -27,10 +27,10 @@
   },
   {
    "slot": "RB",
-   "name": "Chase Brown",
-   "yahoo_id": "40196",
+   "name": "Emmett Johnson",
+   "yahoo_id": "42796",
    "key": null,
-   "team": "CIN",
+   "team": "KC",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -75,25 +75,13 @@
   },
   {
    "slot": "BN",
-   "name": "Emmett Johnson",
-   "yahoo_id": "42796",
+   "name": "Chase Brown",
+   "yahoo_id": "40196",
    "key": null,
-   "team": "KC",
+   "team": "CIN",
    "pos": "RB",
    "eligible": [
     "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "BN",
-   "name": "Matthew Stafford",
-   "yahoo_id": "9265",
-   "key": null,
-   "team": "LAR",
-   "pos": "QB",
-   "eligible": [
-    "QB"
    ],
    "status": null
   },
@@ -146,23 +134,11 @@
    "status": null
   },
   {
-   "slot": "BN",
+   "slot": "DEF",
    "name": "Browns",
    "yahoo_id": "100005",
    "key": null,
    "team": "CLE",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "DEF",
-   "name": "",
-   "yahoo_id": "",
-   "key": null,
-   "team": "",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -205,7 +181,7 @@
    "eligible": [
     "QB"
    ],
-   "status": null
+   "status": "Inactive"
   },
   {
    "slot": "FA",
@@ -245,34 +221,22 @@
   },
   {
    "slot": "FA",
-   "name": "Baker Mayfield",
-   "yahoo_id": "30971",
-   "key": null,
-   "team": "TB",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Jacoby Brissett",
-   "yahoo_id": "29325",
-   "key": null,
-   "team": "BAL",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Fernando Mendoza",
    "yahoo_id": "42623",
    "key": null,
    "team": "LV",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Baker Mayfield",
+   "yahoo_id": "30971",
+   "key": null,
+   "team": "TB",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -305,10 +269,34 @@
   },
   {
    "slot": "FA",
+   "name": "Jacoby Brissett",
+   "yahoo_id": "29325",
+   "key": null,
+   "team": "BAL",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Jaxson Dart",
    "yahoo_id": "41810",
    "key": null,
    "team": "NYG",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": "IR"
+  },
+  {
+   "slot": "FA",
+   "name": "Malik Willis",
+   "yahoo_id": "34042",
+   "key": null,
+   "team": "MIA",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -326,18 +314,6 @@
     "QB"
    ],
    "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Malik Willis",
-   "yahoo_id": "34042",
-   "key": null,
-   "team": "MIA",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "IR"
   },
   {
    "slot": "FA",
@@ -389,18 +365,6 @@
   },
   {
    "slot": "FA",
-   "name": "J.K. Dobbins",
-   "yahoo_id": "32725",
-   "key": null,
-   "team": "DEN",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Out"
-  },
-  {
-   "slot": "FA",
    "name": "Alvin Kamara",
    "yahoo_id": "30180",
    "key": null,
@@ -422,6 +386,18 @@
     "RB"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "J.K. Dobbins",
+   "yahoo_id": "32725",
+   "key": null,
+   "team": "DEN",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": "Suspended"
   },
   {
    "slot": "FA",
@@ -497,18 +473,6 @@
   },
   {
    "slot": "FA",
-   "name": "Mike Washington Jr.",
-   "yahoo_id": "42744",
-   "key": null,
-   "team": "LV",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Dylan Sampson",
    "yahoo_id": "41907",
    "key": null,
@@ -521,10 +485,22 @@
   },
   {
    "slot": "FA",
-   "name": "Corey Kiner",
-   "yahoo_id": "42386",
+   "name": "Mike Washington Jr.",
+   "yahoo_id": "42744",
    "key": null,
-   "team": "NE",
+   "team": "LV",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Justice Hill",
+   "yahoo_id": "31945",
+   "key": null,
+   "team": "BAL",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -605,10 +581,10 @@
   },
   {
    "slot": "FA",
-   "name": "Malik Washington",
-   "yahoo_id": "41058",
+   "name": "Chris Godwin Jr.",
+   "yahoo_id": "30197",
    "key": null,
-   "team": "MIA",
+   "team": "TB",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -617,10 +593,10 @@
   },
   {
    "slot": "FA",
-   "name": "Chris Godwin Jr.",
-   "yahoo_id": "30197",
+   "name": "Malik Washington",
+   "yahoo_id": "41058",
    "key": null,
-   "team": "TB",
+   "team": "MIA",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -665,18 +641,6 @@
   },
   {
    "slot": "FA",
-   "name": "Antonio Williams",
-   "yahoo_id": "42693",
-   "key": null,
-   "team": "WAS",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Omar Cooper Jr.",
    "yahoo_id": "42652",
    "key": null,
@@ -713,10 +677,22 @@
   },
   {
    "slot": "FA",
-   "name": "Mark Andrews",
-   "yahoo_id": "31056",
+   "name": "DeMario Douglas",
+   "yahoo_id": "40222",
    "key": null,
-   "team": "BAL",
+   "team": "NE",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Chig Okonkwo",
+   "yahoo_id": "34099",
+   "key": null,
+   "team": "WAS",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -737,10 +713,10 @@
   },
   {
    "slot": "FA",
-   "name": "Chig Okonkwo",
-   "yahoo_id": "34099",
+   "name": "Mark Andrews",
+   "yahoo_id": "31056",
    "key": null,
-   "team": "WAS",
+   "team": "BAL",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -793,7 +769,19 @@
    "eligible": [
     "TE"
    ],
-   "status": "Doubtful"
+   "status": "Out"
+  },
+  {
+   "slot": "FA",
+   "name": "Darren Waller",
+   "yahoo_id": "28592",
+   "key": null,
+   "team": "CAR",
+   "pos": "TE",
+   "eligible": [
+    "TE"
+   ],
+   "status": null
   },
   {
    "slot": "FA",
@@ -845,10 +833,10 @@
   },
   {
    "slot": "FA",
-   "name": "Darnell Washington",
-   "yahoo_id": "40094",
+   "name": "Cade Otton",
+   "yahoo_id": "34062",
    "key": null,
-   "team": "PIT",
+   "team": "TB",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -869,22 +857,10 @@
   },
   {
    "slot": "FA",
-   "name": "Cade Otton",
-   "yahoo_id": "34062",
+   "name": "Darnell Washington",
+   "yahoo_id": "40094",
    "key": null,
-   "team": "TB",
-   "pos": "TE",
-   "eligible": [
-    "TE"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Oronde Gadsden",
-   "yahoo_id": "41951",
-   "key": null,
-   "team": "LAC",
+   "team": "PIT",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -1252,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-25T13:47:01Z"
+ "fa_captured": "2026-11-25T22:35:31Z"
 }
