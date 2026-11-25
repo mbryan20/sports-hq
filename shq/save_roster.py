@@ -40,11 +40,17 @@ def parse(text):
     starters = [p for p in players if p["slot"] not in ("BN", "IR", "IR+")]
     if len(starters) < 6 or not any(p["pos"] == "QB" for p in players):
         raise ValueError(f"only {len(starters)} starters parsed; page layout may have changed")
-    if not any(p["slot"] == "QB" for p in starters):
-        # Nov 18: the QB slot really was empty (Geno dropped, QBs left on the bench). The snippet skips empty
-        # slots, so save it as an empty starter: the lineup guard then flags "empty slot" with the bench fix.
-        players.insert(0, {"slot": "QB", "name": "", "yahoo_id": "", "key": None, "team": "", "pos": "QB",
-                           "eligible": ["QB"], "status": None})
+    # Nov 18: the QB slot really was empty (Geno dropped, QBs left on the bench). Nov 25: the same for DEF
+    # (Chiefs dropped, Browns added to the bench). The snippet skips empty slots, so save each missing
+    # one-of slot as an empty starter: the lineup guard then flags "empty slot" with the bench fix.
+    for slot in ("QB", "K", "DEF"):
+        if not any(p["slot"] == slot for p in starters):
+            empty = {"slot": slot, "name": "", "yahoo_id": "", "key": None, "team": "", "pos": slot,
+                     "eligible": [slot], "status": None}
+            if slot == "QB":
+                players.insert(0, empty)
+            else:
+                players.append(empty)
     return players
 
 
