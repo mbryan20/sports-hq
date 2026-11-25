@@ -121,3 +121,27 @@ CFP and Yahoo entries were read read-only in Michael's Chrome tonight. **BTO was
 - Good decision that lost: Boise State -13.5 was 3 points better than the market and missed the cover by 8.5 when Oregon State scored 41. The edge was sound; one cover doesn't test it.
 - Card vs entries: Michael followed the card in all three pools, including acting on the Saturday CFP CHANGE alert for the second week running. Nothing of his own to grade this week; following the card is repeatable, and it went 17-11 across the three pools with BTO's balance doubled.
 - Lesson: no change. All four Yahoo tiebreaker guesses missed, but tiebreakers only decide ties and one week isn't a pattern.
+
+## Week 12 (CFBD 12, Nov 19-23) — graded Tue Nov 24, 2026
+Entries were read read-only from all three sites in Michael's Chrome; all were signed in. Cards graded are the last posted before each pool locked (BTO final Thu Nov 19; CFP and Yahoo Sat 8am refresh). BTO had not scored Week 12 on the site yet (Tue evening), so its net is computed from the final scores. His BTO and CFP entries were the Wednesday draft card's picks, kept after the card changed.
+
+**Records (card vs entered)**
+- BTO: card 3-0, net +$6,140 (SF -0.5 LP 2.5 $3,060 ★ won 35-10; CAR +0 LP 1.5 $1,540 won 35-33; Texas Tech -3.5 $1,540 won 20-10). Entered 2-1, net +$3,060: SF -0.5 ★ and CAR -0.5 (LP 1) won; UCLA -3 (LP 0.5, $1,540) lost 16-18 at Michigan.
+- CFP: card 2-0, net +23,808 (Texas Tech -3.5 and Arizona State +3.5, 11,904 each). Entered 1-1, net 0: Arizona State +3.5 won (lost 27-30); UCLA -3.5 lost.
+- Yahoo: card 19-6; entered 18-7 (one difference, below). TB1: Kentucky 24-Missouri 30 (actual 14-28), Georgia 38-South Carolina 17 (actual 34-6). TB2: most Miami (FL) (28; Air Force scored 52), fewest Bowling Green (right, 0).
+
+**Standings**
+- BTO: site still shows $6,140, #17 of 50, Three Bet (Week 11 included, Week 12 not). Expect $9,200 once Week 12 posts; the card's picks would have made $12,280. Playoff line (#12) $7,600, leader $13,200 (both before Week 12).
+- CFP: 23,808 pts, #8 of 95 paid + 26 rebuys (the $121 spot). #7 24,000, #9 22,000; leader 98,640. The card's pair would have made 47,616, #3 today ($303).
+- Yahoo: 184 pts, 4th of 14 (tied with 5th). Leader 193, 2nd 192, 3rd 189. Up from 6th.
+
+**Differences (judged on pre-kickoff information)**
+- BTO UCLA -3 (entered; Wednesday draft) vs Texas Tech -3.5 (card from Thursday's final): the card was better. Thursday's CHANGE line put UCLA -3 at 52% to cover and Texas Tech -3.5 at 55%; the pool's Texas Tech number was a point stale against a -4.5 market, and the market kept moving (-5.5 by Saturday). Small expected gap, about $90 on a $1,540 bet; the result swung $3,080.
+- BTO CAR -0.5 (LP 1) vs card CAR +0 (LP 1.5): same side; the card bought half a point more so a Baltimore win by 0 isn't possible to lose on. Both rated 58% and both won by 2. A wash.
+- CFP UCLA -3.5 (entered) vs Texas Tech -3.5 (card's Saturday 8am refresh): the card was better, narrowly. The Saturday CHANGE line rated UCLA 54% and Texas Tech 56% (pool -3.5 vs market -5.5). But the CFP card changed its pair in all four runs (UCLA + Arizona State Wed; Tennessee + Texas Tech Thu; Arizona State + Ohio State Fri; Texas Tech + Arizona State Sat), mostly on 1-2 point cover gaps. Had he followed Friday's card he'd also have gone 1-1 (Nebraska beat Ohio State outright).
+- Yahoo N. Carolina@Virginia, card Virginia vs entered N. Carolina: the card was better. Virginia was the betting favorite (Yahoo line 1.5; card 57% by stats, 52% by odds) with UNC's starting QB questionable, and 9 of the 10 active group members (74% Yahoo-wide) took UNC. Virginia was both the likelier winner and the pick that separated him from the leaders. Virginia won 41-24; it cost him a point the top three also missed.
+
+**Process vs outcome**
+- Bad decision that won: Friday's CFP card (Ohio State -3.5, a "one-point edge") would have lost outright; the card's 2-0 came from its fourth different pair of the week, picked on a 2-point cover gain. Most of the card's 23,808-point margin is the result, not the edge.
+- Card vs entries: for the first time in three weeks Michael didn't act on the CHANGE alerts (Thursday BTO, Saturday CFP, Yahoo UNC all week). The expected cost was small (about 3 points of cover on one BTO bet and 2 on one CFP bet), the outcome cost large ($3,080 and 23,808 pts, which would have been 3rd in CFP). Nothing here was his own read beyond the Wednesday draft, so no repeatable value added or lost; Yahoo UNC sided with the group, as in weeks 8-10.
+- Lesson: when the card flips a pick on a 1-2 point cover gain, it's close to a coin flip, and four flips in four runs make the alerts easy to tune out. Proposal (planned, not built): keep a posted pick unless the new one is clearly better, and have each CHANGE line say whether it's a must-switch or a marginal one.
