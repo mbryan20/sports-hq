@@ -676,22 +676,36 @@ def build_survivor():
     return {"id": "survivor", "title": "Guhy NFL survivor", "deadline": "", "status": "Eliminated in Week 7 (NYJ). No picks needed.", "rows": []}
 
 
-def mark_changes(card, stage, week):
-    """Flag picks that changed since the last posted card (Sat refresh), and save what was posted
-    (team, pick text with line, wager) for the Tuesday postmortem."""
+def mark_changes(card, stage, week, since=None):
+    """Flag picks that changed since the last posted card (Sat refresh, or a midweek recheck built with
+    --stage refresh --label ...), and save what was posted (team, pick text with line, wager) for the
+    Tuesday postmortem. A changed line or wager on the same team counts as a change too (Nov 26: Michael
+    wanted every rerun to show old pick -> new pick). With nothing changed, the card says so at the top."""
     pub = ROOT / f"data/published/{YEAR}-w{week:02d}-{card['id']}.json"
     prev = json.loads(pub.read_text()) if pub.exists() else {}
+
+    def text(o):
+        return " ".join(str(x) for x in (o.get("pick"), o.get("wager")) if x) if isinstance(o, dict) else str(o)
     for r in card["rows"]:
-        old = prev.get(r["key"])
-        old = old.get("team") if isinstance(old, dict) else old
-        r["changed"] = bool(stage == "refresh" and old and old != r["pick_team"])
+        o = prev.get(r["key"])
+        old = o.get("team") if isinstance(o, dict) else o
+        same_bet = not isinstance(o, dict) or (o.get("pick"), o.get("wager")) == (r["pick"], r["wager"])
+        r["changed"] = bool(stage == "refresh" and old and (old != r["pick_team"] or not same_bet))
         if r["changed"]:
-            r["was"] = old
+            r["was"] = text(o)
         elif stage == "refresh" and prev and r["key"] not in prev:
             # the pick moved to a game the last card didn't play (ATS pools re-rank on fresh lines)
             dropped = [v.get("pick", k) if isinstance(v, dict) else v for k, v in prev.items()
                        if k not in {x["key"] for x in card["rows"]}]
             r["changed"], r["was"] = True, ("not on last card; dropped " + ", ".join(dropped)) if dropped else "not on last card"
+    if stage == "refresh" and prev:
+        keys = {x["key"] for x in card["rows"]}
+        gone = [text(v) for k, v in prev.items() if k not in keys]
+        when = f" since {since}" if since else ""
+        if not any(r["changed"] for r in card["rows"]) and not gone:
+            card["status"] = f"No changes{when}." + (" " + card["status"] if card.get("status") else "")
+        elif gone and not any(str(r.get("was", "")).startswith("not on last card") for r in card["rows"]):
+            card["status"] = f"Dropped{when}: {', '.join(gone)}." + (" " + card["status"] if card.get("status") else "")
     card["rows"].sort(key=lambda r: not r["changed"])
     if card["rows"]:
         pub.parent.mkdir(parents=True, exist_ok=True)
@@ -960,6 +974,8 @@ def main():
     ap.add_argument("--week", type=int)
     ap.add_argument("--pools", default="yahoo,bto,cfp,survivor")
     ap.add_argument("--render-only", action="store_true", help="refresh breakdowns around data/cards.json; picks unchanged")
+    ap.add_argument("--label", help="stage label shown on the page and push, e.g. 'THU RECHECK' for a midweek "
+                                    "--stage refresh rerun (default: DRAFT / FINAL / SAT REFRESH)")
     a = ap.parse_args()
     if a.render_only:
         return rerender(a.week)
@@ -979,8 +995,13 @@ def main():
                 c["deadline"] = (f"Save by {_hm(k)} CT ({g['away']}@{g['home']} kickoff; each game locks at kickoff)"
                                  if c["id"] == "bto" else
                                  f"Locks {_hm(k)} CT ({g['away']}@{g['home']} kickoff locks all CFP picks)")
+    try:  # when the card being replaced was built (for "No changes since <when>")
+        old_meta = json.loads((ROOT / "data/cards.json").read_text(encoding="utf-8")).get("meta") or {}
+        since = old_meta.get("generated", "").replace(" CT", "") if old_meta.get("week") == week else None
+    except (OSError, ValueError):
+        since = None
     for c in cards:
-        mark_changes(c, a.stage, week)
+        mark_changes(c, a.stage, week, since)
     cards.sort(key=lambda c: not any(r.get("changed") for r in c["rows"]))
     bt = json.loads((ROOT / "backtest/2026_w1-8.json").read_text())["report"]
     cal = {c["bin"]: c for c in bt["calibration"]}
@@ -990,7 +1011,7 @@ def main():
     calib.append(f"Market lines: {srcs[-1]} for {sum(1 for g in W.games if (W.lines.get(g['id']) or {}).get('src'))} games; CFBD consensus for the rest."
                  if srcs else "Market lines: CFBD consensus (ESPN odds unavailable at build).")
     calib += degraded_notes()
-    stage_label = {"draft": "DRAFT", "final": "FINAL", "refresh": "SAT REFRESH"}[a.stage]
+    stage_label = a.label or {"draft": "DRAFT", "final": "FINAL", "refresh": "SAT REFRESH"}[a.stage]
     if os.environ.get("BACKUP"):
         stage_label += " - BACKUP (no fresh research)"
     meta = {"stage": a.stage, "stage_label": stage_label, "week_label": slate["label"], "week": week,

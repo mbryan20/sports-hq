@@ -121,6 +121,7 @@ def main():
     ap.add_argument("--msg")
     ap.add_argument("--no-push-notify", action="store_true")
     ap.add_argument("--due", help="pools in the push, e.g. bto,yahoo (default: by weekday, see pp.push.DUE)")
+    ap.add_argument("--changes-only", action="store_true", help="push only what changed since the last card + CHANGE lines")
     a = ap.parse_args()
     sh("git", "add", "-A", "--", ".", "../docs/picks")  # only Pool Picks files
     if sh("git", "status", "--porcelain"):
@@ -140,7 +141,7 @@ def main():
         # standalone push: CHANGE / Differs lines, one line per pool due before the next run, the page link
         title, msg, urgent = push_message(cards["cards"], slate, meta["stage_label"],
                                           a.due.split(",") if a.due else None, final_call=meta.get("stage") != "draft",
-                                          prev=prev_card(meta))
+                                          prev=prev_card(meta), changes_only=a.changes_only)
         if a.title and not urgent:
             title = a.title
         if (meta.get("checked") or {}).get("stage") != meta.get("stage"):

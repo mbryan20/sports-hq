@@ -117,6 +117,15 @@ These are part of steps 2, 4 and 5 for every card stage. The schemas are in the 
 - **final** (Fri 9pm): CFP and Yahoo FINAL. Friday Yahoo games and TB2 are already locked; leave them as posted Thursday.
 - **refresh** (Sat 8am): re-check injuries and QB news only. `--stage refresh` moves any changed pick to the top in red, and the push lists the changes. CFP locks at 11am, so flag any CFP change clearly.
 
+### Midweek rerun / recheck (any extra run between the scheduled ones)
+Michael, Nov 26: "dont just replace Wednesday - see what has changed since then". A rerun compares against the last posted cards; it never just replaces them.
+1. Copy `data/published/<year>-wNN-*.json` and `data/cards.json` to the scratchpad first (the baseline). Every rebuild overwrites them, so restore both before each rebuild.
+2. Re-read saved picks (A) and the Decisions log (B). Re-research, re-confirming earlier items. Write `research/<year>-wNN-recheck.json` and move the earlier research file to `research/superseded/`, because all of a week's research files load together.
+3. Mark games that kick off before you publish `locked: true` in the slate.
+4. Build with `py -m pp.cards --stage refresh --label "THU RECHECK"` (any label). Changed picks, lines and wagers go to the top in red with "was …". An unchanged card says "No changes since <last build>".
+5. Each changed pick needs a reason tied to new news or a line move. Put it in the card `status` or the row `why` (12 words or fewer), then run `--render-only`.
+6. Second opinion (C), then `py -m pp.publish --stage refresh --changes-only`. The push lists only the changes since the last card, plus CHANGE lines that weren't in the last push.
+
 ## STAGE = postmortem (Tue 8pm; Wednesday catch-up)
 Grade last week. Last week = the CFBD week whose games just finished, which is `current_week() - 1` on Tue/Wed.
 1. `git pull`. If `data/postmortem/2026-wNN.json` already exists for last week, it was already graded: skip steps 2–4 and go to step 5.

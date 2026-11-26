@@ -1,32 +1,31 @@
 {
  "meta": {
-  "stage": "draft",
-  "stage_label": "DRAFT",
+  "stage": "refresh",
+  "stage_label": "THU RECHECK",
   "week_label": "Week 13 (CFBD 13)",
   "week": 13,
-  "generated": "Wed Nov 25, 09:24 PM CT",
-  "generated_iso": "2026-11-26T03:24:13.200442+00:00",
+  "generated": "Thu Nov 26, 11:09 AM CT",
+  "generated_iso": "2026-11-26T17:09:29.626995+00:00",
   "calibration": [
    "Backtest 2026 wks 1-8 (444 games): picks rated 60-70% hit 65%, 70-80% hit 70%, 80-90% hit 83%, 90%+ hit 86%.",
    "Straight-up: model 70% vs market 75%; model trails early weeks, near market by wks 6-8.",
-   "Market lines: ESPN DraftKings Wed 09:24 PM CT for 67 games; CFBD consensus for the rest."
+   "Market lines: ESPN DraftKings Thu 11:09 AM CT for 67 games; CFBD consensus for the rest."
   ],
   "alerts": [
+   "CHANGE: BTO: yours UCLA +7.5 $1,840; DAL -6.5 $1,840; BUF -2 $1,840; DEN -2 $3,680 \u2192 card UCLA +6.5 $1,840; DEN -0.5 (LP 2) $3,680; Ohio State -10.5 $1,840; BUF -0.5 (LP 2) $1,840 (card puts line points on DEN and BUF, where the pool line beats market; DAL's pool line equals market (-8.5), so Ohio State -10.5 replaces it; cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%). Edit by Thu 3:30pm (PHI@DAL locks then)",
    "CHANGE: CFP: yours Texas -11.5 2,000; Michigan +10.5 10,000; Duke +14.5 3,500 \u2192 card Mississippi State +19.5 11,904; UCLA +7.5 11,904 (Pool +19.5 vs market +18.5; cover 54%). All CFP picks lock at the earliest picked kickoff: Fri 11:00am (Mississippi State@Ole Miss)",
-   "CHANGE: Yahoo: yours Michigan \u2192 card Ohio St. (Stats 87%, stronger than market 78%)",
    "CHANGE: Yahoo: yours UCF \u2192 card Colorado (Stats 45% vs market 53%; favorite kept)",
    "CHANGE: Yahoo: yours Virginia \u2192 card Virginia Tech (Stats 48% vs market 58%; favorite kept)",
    "CHANGE: Yahoo: yours Oklahoma \u2192 card Missouri (Stats 54% agrees with market)",
    "CHANGE: Yahoo TB1 Michigan @ Ohio St.: yours Michigan 20, Ohio St. 17 \u2192 card Michigan 9, Ohio St. 27",
    "CHANGE: Yahoo TB1 USC @ UCLA: yours USC 27, UCLA 20 \u2192 card USC 27, UCLA 22",
-   "CHANGE: Yahoo TB2 most: yours Alabama \u2192 card Georgia",
    "CHANGE: Yahoo TB2 fewest: yours Texas A&M \u2192 card Michigan"
   ],
-  "breakdowns": "Wed 09:26 PM CT",
+  "breakdowns": "Thu 11:18 AM CT",
   "checked": {
-   "text": "Checked: formats per pool, lock times (BTO Thu 7:20pm, CFP Fri 11am), wager rules and minimums, line points, 2x rule, saved picks vs card (9 CHANGE lines), decisions (survivor none), no hedging, totals add up",
-   "stage": "draft",
-   "at": "Wed 09:26 PM CT",
+   "text": "Checked: formats per pool; BTO 4 bets incl. Big Game, $9,200, line points 4.0, no locked game; CFP 2 x 11,904 (100%); Yahoo 25 + TB1/TB2; every change vs Wednesday and vs your saved picks listed; no hedging. Second opinion reverted a CFP switch and a TB1 shift that came from already-priced news; not fixed: two old Wednesday notes on the Yahoo card (UCLA line-move wording, Tulsa@UTSA market figure)",
+   "stage": "refresh",
+   "at": "Thu 11:18 AM CT",
    "auto_passed": 17,
    "auto_total": 17,
    "auto_fails": []
@@ -408,70 +407,8 @@
     "Value of taking the other side (open games; your call: the card takes an underdog only by the 4-pt / 2-signal rule or when you saved it):",
     "Tulsa instead of UTSA (Fri 11/27 11:00 AM): +0.06 points of win chance (0.8% \u2192 0.8%); Tulsa wins 46%, 11% of Yahoo players on Tulsa",
     "All 2 switches with any gain (incl. ones under 0.05 pts, not listed) together: 0.8% \u2192 0.9%."
-   ]
-  },
-  {
-   "id": "bto",
-   "title": "BTO Beat the Odds",
-   "deadline": "Save by Thu 7:20pm CT (KC@BUF kickoff; each game locks at kickoff)",
-   "rows": [
-    {
-     "game": "USC @ UCLA \u2605",
-     "pick": "UCLA +6.5",
-     "model": 0.5391,
-     "market": 0.5,
-     "wager": "$1,840",
-     "why": "Cover 54% vs pool line at current market; top edge",
-     "source": "https://www.espn.com/college-football/game/_/gameId/401858543",
-     "key": "USC@UCLA",
-     "pick_team": "UCLA",
-     "changed": false,
-     "bd": "bd-401858543"
-    },
-    {
-     "game": "DEN @ PIT",
-     "pick": "DEN -0.5 (LP 2)",
-     "model": 0.5954,
-     "market": 0.5,
-     "wager": "$3,680",
-     "why": "Pool -2.5 vs market -3.5; cover 60% after line points",
-     "source": "https://www.espn.com/nfl/scoreboard/_/week/12",
-     "key": "DEN@PIT",
-     "pick_team": "DEN",
-     "changed": false,
-     "bd": "bd-nfl-DEN-PIT"
-    },
-    {
-     "game": "Michigan @ Ohio State",
-     "pick": "Ohio State -10.5",
-     "model": 0.535,
-     "market": 0.5,
-     "wager": "$1,840",
-     "why": "Cover 54% vs pool line at current market; top edge",
-     "source": "https://www.espn.com/college-football/game/_/gameId/401858540",
-     "key": "Michigan@Ohio State",
-     "pick_team": "Ohio State",
-     "changed": false,
-     "bd": "bd-401858540"
-    },
-    {
-     "game": "KC @ BUF",
-     "pick": "BUF -0.5 (LP 2)",
-     "model": 0.5871,
-     "market": 0.5,
-     "wager": "$1,840",
-     "why": "Pool -2.5 vs market -3; cover 59% after line points",
-     "source": "https://www.espn.com/nfl/scoreboard/_/week/12",
-     "key": "KC@BUF",
-     "pick_team": "BUF",
-     "changed": false,
-     "bd": "bd-nfl-KC-BUF"
-    }
    ],
-   "notes": [
-    "Sizing sim: 100% of $9,200, lean split \u2192 P(top 12) 57%, P(top 4) 26%.",
-    "USC @ UCLA \u2605: Yahoo has USC to win (46%); BTO takes UCLA +6.5 (Cover 54% vs pool line at current market; top edge). Different questions: who wins vs who covers."
-   ]
+   "status": "No changes since Wed Nov 25, 09:24 PM. All 25 winners, TB1 and TB2 hold after today's recheck."
   },
   {
    "id": "cfp",
@@ -513,7 +450,75 @@
     "Also worth a look: Florida -6.5 (cover 53%): next-best edge vs pool line",
     "Mississippi State @ Ole Miss: Yahoo has Mississippi to win (87%); CFP takes Mississippi State +19.5 (Pool +19.5 vs market +18.5; cover 54%). Different questions: who wins vs who covers.",
     "USC @ UCLA: Yahoo has USC to win (46%); CFP takes UCLA +7.5 (Pool +7.5 vs market +6.5; cover 54%). Different questions: who wins vs who covers."
-   ]
+   ],
+   "status": "No changes since Wed Nov 25, 09:24 PM. Rechecked: MSU QB Swann doubtful and UCLA QB Dieffenbach questionable, but both lines are unchanged (Ole Miss -18.5, UCLA +6.5), so the news is priced and both picks hold."
+  },
+  {
+   "id": "bto",
+   "title": "BTO Beat the Odds",
+   "deadline": "Save by Thu 7:20pm CT (KC@BUF kickoff); your saved DAL -6.5 locks 3:30pm today",
+   "rows": [
+    {
+     "game": "USC @ UCLA \u2605",
+     "pick": "UCLA +6.5",
+     "model": 0.5094,
+     "market": 0.5,
+     "wager": "$1,840",
+     "why": "Big Game required; cover 51% at the pool line",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858543",
+     "key": "USC@UCLA",
+     "pick_team": "UCLA",
+     "changed": false,
+     "bd": "bd-401858543"
+    },
+    {
+     "game": "DEN @ PIT",
+     "pick": "DEN -0.5 (LP 2)",
+     "model": 0.6222,
+     "market": 0.5,
+     "wager": "$3,680",
+     "why": "Pool -2.5 vs market -4.5 after Rodgers benching; cover 62%",
+     "source": "https://www.espn.com/nfl/story/_/id/50595660/rodgers-heard-mccarthy-benching",
+     "key": "DEN@PIT",
+     "pick_team": "DEN",
+     "changed": false,
+     "bd": "bd-nfl-DEN-PIT"
+    },
+    {
+     "game": "Michigan @ Ohio State",
+     "pick": "Ohio State -10.5",
+     "model": 0.5422,
+     "market": 0.5,
+     "wager": "$1,840",
+     "why": "Cover 54% vs pool line at current market; top edge",
+     "source": "https://www.espn.com/college-football/game/_/gameId/401858540",
+     "key": "Michigan@Ohio State",
+     "pick_team": "Ohio State",
+     "changed": false,
+     "bd": "bd-401858540"
+    },
+    {
+     "game": "KC @ BUF",
+     "pick": "BUF -0.5 (LP 2)",
+     "model": 0.5873,
+     "market": 0.5,
+     "wager": "$1,840",
+     "why": "Pool -2.5 vs market -3; cover 59% after line points",
+     "source": "https://heavy.com/sports/nfl/buffalo-bills/patrick-mahomes-injury-update-thanksgiving-showdown/",
+     "key": "KC@BUF",
+     "pick_team": "BUF",
+     "changed": false,
+     "bd": "bd-nfl-KC-BUF"
+    }
+   ],
+   "saved_vs": "cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%",
+   "notes": [
+    "Your saved bet differs. Cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%.",
+    "Sizing sim: 100% of $9,200, lean split \u2192 P(top 12) 58%, P(top 4) 26%.",
+    "USC @ UCLA \u2605: Yahoo has USC to win (51%); BTO takes UCLA +6.5 (Cover 51% vs pool line at current market; top edge). Different questions: who wins vs who covers."
+   ],
+   "status": "No changes since Wed Nov 25, 09:24 PM.",
+   "change_why": "card puts line points on DEN and BUF, where the pool line beats market; DAL's pool line equals market (-8.5), so Ohio State -10.5 replaces it"
   },
   {
    "id": "survivor",
@@ -1101,7 +1106,7 @@
      ]
     }
    },
-   "stats_home_margin": 11.2
+   "stats_home_margin": 14.0
   },
   "bd-nfl-KC-BUF": {
    "source": "nflverse play-by-play",
@@ -1422,7 +1427,7 @@
      ],
      "pace": [
       57.6364,
-      108
+      107
      ],
      "runrate": [
       0.5268,
@@ -1430,7 +1435,7 @@
      ]
     }
    },
-   "stats_home_margin": 5.8
+   "stats_home_margin": 5.4
   },
   "bd-401856762": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -1512,11 +1517,11 @@
      ],
      "o_havoc": [
       0.176,
-      118
+      115
      ],
      "d_havoc": [
       0.163,
-      52
+      51
      ],
      "sp": [
       0.8,
@@ -1528,7 +1533,7 @@
      ],
      "pace": [
       56.7273,
-      124
+      123
      ],
      "runrate": [
       0.4713,
@@ -1610,11 +1615,11 @@
      ],
      "o_havoc": [
       0.135,
-      36
+      35
      ],
      "d_havoc": [
       0.176,
-      37
+      36
      ],
      "sp": [
       12.9,
@@ -1634,7 +1639,7 @@
      ]
     }
    },
-   "stats_home_margin": 17.8
+   "stats_home_margin": 19.2
   },
   "bd-401862840": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -1716,11 +1721,11 @@
      ],
      "o_havoc": [
       0.149,
-      70
+      68
      ],
      "d_havoc": [
       0.134,
-      120
+      121
      ],
      "sp": [
       3.0,
@@ -1814,7 +1819,7 @@
      ],
      "o_havoc": [
       0.136,
-      40
+      39
      ],
      "d_havoc": [
       0.153,
@@ -2045,11 +2050,11 @@
      ],
      "o_havoc": [
       0.134,
-      31
+      32
      ],
      "d_havoc": [
       0.184,
-      25
+      24
      ],
      "sp": [
       6.6,
@@ -2061,7 +2066,7 @@
      ],
      "pace": [
       59.7273,
-      92
+      93
      ],
      "runrate": [
       0.5652,
@@ -2147,7 +2152,7 @@
      ],
      "d_havoc": [
       0.152,
-      78
+      77
      ],
      "sp": [
       6.3,
@@ -2249,7 +2254,7 @@
      ],
      "o_havoc": [
       0.149,
-      68
+      69
      ],
      "d_havoc": [
       0.193,
@@ -2347,11 +2352,11 @@
      ],
      "o_havoc": [
       0.166,
-      103
+      104
      ],
      "d_havoc": [
       0.143,
-      99
+      101
      ],
      "sp": [
       -12.1,
@@ -2453,11 +2458,11 @@
      ],
      "o_havoc": [
       0.173,
-      112
+      113
      ],
      "d_havoc": [
       0.187,
-      19
+      18
      ],
      "sp": [
       -1.5,
@@ -2575,7 +2580,7 @@
      ]
     }
    },
-   "stats_home_margin": 8.8
+   "stats_home_margin": 9.1
   },
   "bd-401856756": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -2755,7 +2760,7 @@
      ],
      "o_havoc": [
       0.146,
-      62
+      61
      ],
      "d_havoc": [
       0.141,
@@ -2877,7 +2882,7 @@
      ],
      "pace": [
       70.4545,
-      3
+      4
      ],
      "runrate": [
       0.6917,
@@ -2959,7 +2964,7 @@
      ],
      "o_havoc": [
       0.16,
-      94
+      95
      ],
      "d_havoc": [
       0.175,
@@ -2983,7 +2988,7 @@
      ]
     }
    },
-   "stats_home_margin": 24.7
+   "stats_home_margin": 27.2
   },
   "bd-401858540": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -3065,11 +3070,11 @@
      ],
      "o_havoc": [
       0.182,
-      125
+      122
      ],
      "d_havoc": [
       0.159,
-      63
+      61
      ],
      "sp": [
       7.0,
@@ -3081,7 +3086,7 @@
      ],
      "pace": [
       60.8182,
-      73
+      72
      ],
      "runrate": [
       0.569,
@@ -3163,11 +3168,11 @@
      ],
      "o_havoc": [
       0.138,
-      46
+      45
      ],
      "d_havoc": [
       0.186,
-      21
+      20
      ],
      "sp": [
       24.1,
@@ -3187,7 +3192,7 @@
      ]
     }
    },
-   "stats_home_margin": 17.7
+   "stats_home_margin": 18.0
   },
   "bd-401856761": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -3269,7 +3274,7 @@
      ],
      "o_havoc": [
       0.15,
-      73
+      71
      ],
      "d_havoc": [
       0.164,
@@ -3285,7 +3290,7 @@
      ],
      "pace": [
       60.5455,
-      79
+      77
      ],
      "runrate": [
       0.5183,
@@ -3367,7 +3372,7 @@
      ],
      "o_havoc": [
       0.143,
-      55
+      57
      ],
      "d_havoc": [
       0.167,
@@ -3473,7 +3478,7 @@
      ],
      "o_havoc": [
       0.15,
-      72
+      73
      ],
      "d_havoc": [
       0.227,
@@ -3571,7 +3576,7 @@
      ],
      "o_havoc": [
       0.142,
-      49
+      48
      ],
      "d_havoc": [
       0.195,
@@ -3579,7 +3584,7 @@
      ],
      "sp": [
       3.1,
-      63
+      62
      ],
      "talent": [
       634.19,
@@ -3677,7 +3682,7 @@
      ],
      "o_havoc": [
       0.092,
-      5
+      4
      ],
      "d_havoc": [
       0.194,
@@ -3775,11 +3780,11 @@
      ],
      "o_havoc": [
       0.146,
-      59
+      62
      ],
      "d_havoc": [
       0.177,
-      34
+      35
      ],
      "sp": [
       -2.5,
@@ -3881,7 +3886,7 @@
      ],
      "o_havoc": [
       0.182,
-      122
+      124
      ],
      "d_havoc": [
       0.15,
@@ -3897,7 +3902,7 @@
      ],
      "pace": [
       58.5455,
-      101
+      102
      ],
      "runrate": [
       0.5497,
@@ -3995,7 +4000,7 @@
      ],
      "pace": [
       60.5455,
-      77
+      79
      ],
      "runrate": [
       0.4694,
@@ -4089,11 +4094,11 @@
      ],
      "d_havoc": [
       0.145,
-      91
+      92
      ],
      "sp": [
       0.5,
-      73
+      72
      ],
      "talent": [
       672.14,
@@ -4289,7 +4294,7 @@
      ],
      "o_havoc": [
       0.146,
-      60
+      63
      ],
      "d_havoc": [
       0.129,
@@ -4395,7 +4400,7 @@
      ],
      "sp": [
       1.5,
-      68
+      69
      ],
      "talent": [
       862.85,
@@ -4411,7 +4416,7 @@
      ]
     }
    },
-   "stats_home_margin": -2.5
+   "stats_home_margin": -4.5
   },
   "bd-401858317": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -4493,7 +4498,7 @@
      ],
      "o_havoc": [
       0.124,
-      17
+      18
      ],
      "d_havoc": [
       0.158,
@@ -4509,7 +4514,7 @@
      ],
      "pace": [
       57.0,
-      116
+      117
      ],
      "runrate": [
       0.551,
@@ -4591,7 +4596,7 @@
      ],
      "o_havoc": [
       0.146,
-      61
+      59
      ],
      "d_havoc": [
       0.207,
@@ -4607,7 +4612,7 @@
      ],
      "pace": [
       64.0,
-      36
+      35
      ],
      "runrate": [
       0.4568,
@@ -4697,11 +4702,11 @@
      ],
      "o_havoc": [
       0.13,
-      26
+      25
      ],
      "d_havoc": [
       0.186,
-      20
+      21
      ],
      "sp": [
       12.2,
@@ -4795,7 +4800,7 @@
      ],
      "o_havoc": [
       0.143,
-      56
+      54
      ],
      "d_havoc": [
       0.161,
@@ -4811,7 +4816,7 @@
      ],
      "pace": [
       57.0,
-      118
+      116
      ],
      "runrate": [
       0.433,
@@ -4819,7 +4824,7 @@
      ]
     }
    },
-   "stats_home_margin": -6.3
+   "stats_home_margin": -6.7
   },
   "bd-401858312": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -4901,7 +4906,7 @@
      ],
      "o_havoc": [
       0.143,
-      54
+      56
      ],
      "d_havoc": [
       0.16,
@@ -4909,7 +4914,7 @@
      ],
      "sp": [
       11.6,
-      28
+      29
      ],
      "talent": [
       668.47,
@@ -4917,7 +4922,7 @@
      ],
      "pace": [
       60.1818,
-      84
+      85
      ],
      "runrate": [
       0.4699,
@@ -4999,7 +5004,7 @@
      ],
      "o_havoc": [
       0.092,
-      4
+      5
      ],
      "d_havoc": [
       0.151,
@@ -5109,7 +5114,7 @@
      ],
      "d_havoc": [
       0.136,
-      114
+      113
      ],
      "sp": [
       14.0,
@@ -5227,7 +5232,7 @@
      ]
     }
    },
-   "stats_home_margin": 1.7
+   "stats_home_margin": -0.3
   },
   "bd-401856760": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -5309,11 +5314,11 @@
      ],
      "o_havoc": [
       0.168,
-      106
+      105
      ],
      "d_havoc": [
       0.134,
-      119
+      120
      ],
      "sp": [
       -5.8,
@@ -5325,7 +5330,7 @@
      ],
      "pace": [
       57.0909,
-      115
+      114
      ],
      "runrate": [
       0.4797,
@@ -5517,11 +5522,11 @@
      ],
      "d_havoc": [
       0.152,
-      76
+      78
      ],
      "sp": [
       0.5,
-      72
+      73
      ],
      "talent": [
       634.28,
@@ -5615,7 +5620,7 @@
      ],
      "d_havoc": [
       0.181,
-      29
+      27
      ],
      "sp": [
       18.0,
@@ -5627,7 +5632,7 @@
      ],
      "pace": [
       61.7273,
-      59
+      58
      ],
      "runrate": [
       0.5445,
@@ -5717,15 +5722,15 @@
      ],
      "o_havoc": [
       0.164,
-      97
+      98
      ],
      "d_havoc": [
       0.144,
-      93
+      97
      ],
      "sp": [
       -2.9,
-      86
+      87
      ],
      "talent": [
       685.02,
@@ -6019,7 +6024,7 @@
      ],
      "o_havoc": [
       0.153,
-      80
+      81
      ],
      "d_havoc": [
       0.191,
@@ -6027,7 +6032,7 @@
      ],
      "sp": [
       10.7,
-      32
+      33
      ],
      "talent": [
       808.36,
@@ -6125,7 +6130,7 @@
      ],
      "o_havoc": [
       0.153,
-      81
+      80
      ],
      "d_havoc": [
       0.219,
@@ -6141,7 +6146,7 @@
      ],
      "pace": [
       66.0909,
-      19
+      18
      ],
      "runrate": [
       0.6171,
@@ -6223,11 +6228,11 @@
      ],
      "o_havoc": [
       0.173,
-      113
+      112
      ],
      "d_havoc": [
       0.148,
-      83
+      84
      ],
      "sp": [
       -2.1,
@@ -6247,7 +6252,7 @@
      ]
     }
    },
-   "stats_home_margin": -14.2
+   "stats_home_margin": -13.8
   },
   "bd-401858538": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -6345,7 +6350,7 @@
      ],
      "pace": [
       59.9091,
-      89
+      90
      ],
      "runrate": [
       0.4649,
@@ -6443,7 +6448,7 @@
      ],
      "pace": [
       56.7273,
-      123
+      124
      ],
      "runrate": [
       0.532,
@@ -6533,7 +6538,7 @@
      ],
      "o_havoc": [
       0.136,
-      38
+      40
      ],
      "d_havoc": [
       0.183,
@@ -6549,7 +6554,7 @@
      ],
      "pace": [
       60.8182,
-      72
+      73
      ],
      "runrate": [
       0.5061,
@@ -6635,7 +6640,7 @@
      ],
      "d_havoc": [
       0.121,
-      130
+      131
      ],
      "sp": [
       -12.9,
@@ -6655,7 +6660,7 @@
      ]
     }
    },
-   "stats_home_margin": -13.0
+   "stats_home_margin": -12.7
   },
   "bd-401858541": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -6737,11 +6742,11 @@
      ],
      "o_havoc": [
       0.155,
-      85
+      84
      ],
      "d_havoc": [
       0.18,
-      31
+      30
      ],
      "sp": [
       9.7,
@@ -6945,7 +6950,7 @@
      ],
      "d_havoc": [
       0.176,
-      36
+      37
      ],
      "sp": [
       5.9,
@@ -6957,7 +6962,7 @@
      ],
      "pace": [
       61.2727,
-      63
+      64
      ],
      "runrate": [
       0.4834,
@@ -7039,11 +7044,11 @@
      ],
      "o_havoc": [
       0.155,
-      84
+      85
      ],
      "d_havoc": [
       0.181,
-      28
+      29
      ],
      "sp": [
       22.9,
@@ -7063,7 +7068,7 @@
      ]
     }
    },
-   "stats_home_margin": 14.7
+   "stats_home_margin": 15.5
   },
   "bd-401856873": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -7145,7 +7150,7 @@
      ],
      "o_havoc": [
       0.166,
-      104
+      103
      ],
      "d_havoc": [
       0.175,
@@ -7153,7 +7158,7 @@
      ],
      "sp": [
       3.1,
-      62
+      63
      ],
      "talent": [
       722.0,
@@ -7349,7 +7354,7 @@
      ],
      "o_havoc": [
       0.152,
-      78
+      77
      ],
      "d_havoc": [
       0.2,
@@ -7357,7 +7362,7 @@
      ],
      "sp": [
       10.7,
-      34
+      32
      ],
      "talent": [
       723.28,
@@ -7451,11 +7456,11 @@
      ],
      "d_havoc": [
       0.173,
-      41
+      42
      ],
      "sp": [
       12.7,
-      25
+      26
      ],
      "talent": [
       695.93,

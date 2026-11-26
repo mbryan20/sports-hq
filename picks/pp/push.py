@@ -91,7 +91,9 @@ def compare_ats(card, saved):
     if mine == card_b:
         return "match", None
     new = [r for r in card["rows"] if mine.get(r["key"]) != card_b[r["key"]]]
-    reason = new[0]["why"] if new else "card drops some of your bets"
+    # card["change_why"]: a hand-written reason for the whole package (Nov 26: the first changed row's reason was
+    # the UCLA Big Game line, which isn't why the bets differ)
+    reason = card.get("change_why") or (new[0]["why"] if new else "card drops some of your bets")
     if card.get("saved_vs"):
         reason += f"; {card['saved_vs']}"
     yours = "; ".join(f"{b['pick']} {fmt_wager(card['id'], b['wager'])}" for b in bets)
@@ -302,15 +304,28 @@ def since_lines(cards, prev):
     return [f"Changed since {when}:"] + (out or ["no pick, line or wager changed."])
 
 
-def message(cards, slate, stage_label, due=None, now=None, final_call=False, prev=None):
+def message(cards, slate, stage_label, due=None, now=None, final_call=False, prev=None, changes_only=False):
     """-> (title, body, urgent). Order: changed since the last card, CHANGE / Differs, picks that moved since the
-    last post, pool lines, link."""
+    last post, pool lines, link. changes_only (a midweek recheck; Nov 26, Michael: "see what has changed since
+    then"): only what changed since the last card plus the CHANGE / Differs lines, no per-pool summary."""
     alerts, body = compose(cards, slate, due, now, final_call)
     since = since_lines(cards, prev)
     moved = [f"{r['pick']} (was {r['was']})" for c in cards for r in c["rows"] if r.get("changed")]
     n = sum(a.startswith("CHANGE") for a in alerts)
     title = f"Pool Picks {stage_label}: {n} change{'s' if n != 1 else ''} to your saved picks" if n else f"Pool Picks {stage_label} posted"
     extra = ["Card changed since last post: " + "; ".join(moved)] if moved else []
+    if changes_only:
+        when = ((prev or {}).get("meta") or {}).get("generated", "the last card").replace(" CT", "")
+        def pick_of(a):  # the same yours -> card difference, whatever odds or reason text it carries
+            return re.sub(r"\s*\(.*$", "", a)
+        sent = {pick_of(a) for a in ((prev or {}).get("meta") or {}).get("alerts") or []}  # in the last push
+        still = [pick_of(a).replace("CHANGE: ", "") for a in alerts if pick_of(a) in sent]
+        alerts = [a for a in alerts if pick_of(a) not in sent]
+        none = not since or since[1:] == ["no pick, line or wager changed."]
+        title = f"Pool Picks {stage_label}: " + (f"no changes since {when}" if none else f"what changed since {when}")
+        held = [f"Still open from {when.split(',')[0]} (unchanged): " + "; ".join(still)] if still else []
+        msg = "\n".join(([f"No changes since {when}."] if none else since) + alerts + held + [PAGE])
+        return title, msg, bool(alerts or moved)
     msg = "\n".join(since + alerts + extra + body + [PAGE])
     return title, msg, bool(alerts or moved)
 
@@ -331,10 +346,11 @@ def main():
     ap.add_argument("--week", type=int)
     ap.add_argument("--due", help="pools in the push, e.g. bto,yahoo (default: by weekday)")
     ap.add_argument("--final-call", action="store_true")
+    ap.add_argument("--changes-only", action="store_true", help="only what changed since the last card + CHANGE lines")
     a = ap.parse_args()
     cards, slate = load(a.week)
     title, msg, _ = message(cards["cards"], slate, cards["meta"]["stage_label"], a.due.split(",") if a.due else None,
-                            final_call=a.final_call, prev=prev_card(cards["meta"]))
+                            final_call=a.final_call, prev=prev_card(cards["meta"]), changes_only=a.changes_only)
     print(title)
     print(msg)
 

@@ -251,9 +251,9 @@
   ],
   "pub_note": "Yahoo-wide pick distribution read Tue 11/24 ~8:30pm; proxy for the 13 other group members.",
   "read_at": "2026-11-24T20:30:00-06:00",
-  "status": "Read Tue 11/24 postmortem (signed in): 25 games posted, first kick Fri 11/27 11:00 AM CT. Page shows 25 of 25 picks saved and tiebreakers entered (not read per game). Standings: Michael 4th of 14, 184 pts (tied with 5th; leader 193). Wed 11/25 ~9:30pm re-read: 25 of 25 saved, TB1 and TB2 set (read per game).",
+  "status": "Read Tue 11/24 postmortem (signed in): 25 games posted, first kick Fri 11/27 11:00 AM CT. Page shows 25 of 25 picks saved and tiebreakers entered (not read per game). Standings: Michael 4th of 14, 184 pts (tied with 5th; leader 193). Wed 11/25 ~9:30pm re-read: 25 of 25 saved, TB1 and TB2 set (read per game). Thu 11/26 ~11:02am re-read: 25 of 25 saved; since Wed he switched Michigan@Ohio St. to Ohio St. and TB2 most to Georgia; TB1 unchanged (Michigan 20-17, USC 27-20).",
   "saved": {
-   "read": "2026-11-25T21:40:00-06:00",
+   "read": "2026-11-26T11:02:00-06:00",
    "picks": {
     "Nebraska@Iowa": "Iowa",
     "Mississippi St.@Mississippi": "Mississippi",
@@ -263,7 +263,7 @@
     "Minnesota@Wisconsin": "Wisconsin",
     "Texas@Texas A&M": "Texas",
     "West Virginia@Utah": "Utah",
-    "Michigan@Ohio St.": "Michigan",
+    "Michigan@Ohio St.": "Ohio St.",
     "UCF@Colorado": "UCF",
     "South Carolina@Clemson": "South Carolina",
     "Virginia@Virginia Tech": "Virginia",
@@ -286,13 +286,13 @@
     "USC@UCLA": "USC 27, UCLA 20"
    },
    "tb2": {
-    "most": "Alabama",
+    "most": "Georgia",
     "fewest": "Texas A&M"
    }
   }
  },
  "bto": {
-  "status": "Read Wed 11/25 ~9:20pm (signed in): Week 13 posted, 16 games (8 CFB, 8 NFL), Big Game USC @ UCLA. Normal mode: exactly 4 bets, min $2,300 (1/4 of $9,200), 4.0 line points, Big Game required. Timer 1d 22h. GB @ LAR already started (locked). Nothing saved yet (Bets 0/4).",
+  "status": "Read Wed 11/25 ~9:20pm (signed in): Week 13 posted, 16 games (8 CFB, 8 NFL), Big Game USC @ UCLA. Normal mode: exactly 4 bets, min $2,300 (1/4 of $9,200), 4.0 line points, Big Game required. Timer 1d 22h. GB @ LAR already started (locked). Nothing saved yet (Bets 0/4). Thu 11/26 ~10:58am re-read: Bets 4/4 saved, $9,200 wagered, LP 4.0/4.0 (UCLA +6.5 LP1, DAL -8.5 LP2, BUF -2.5 LP0.5, DEN -2.5 LP0.5). Pool lines unchanged.",
   "mode": "normal",
   "balance": 9200,
   "balance_note": "After Week 12 (+$3,060)",
@@ -424,7 +424,7 @@
     "home_spread": 2.5,
     "big": false,
     "kick": "Thu 11/26 12:00 PM CT",
-    "locked": false,
+    "locked": true,
     "nfl_week": 12,
     "market_home_spread": 1.5,
     "adj_home_pts": 0,
@@ -454,7 +454,20 @@
     "nfl_week": 12,
     "market_home_spread": -3.0,
     "adj_home_pts": 0,
-    "why": []
+    "why": [
+     {
+      "reason": "Mahomes minor knee/elbow, expected to play; rain, gusts 15 mph",
+      "source": "https://heavy.com/sports/nfl/buffalo-bills/patrick-mahomes-injury-update-thanksgiving-showdown/"
+     },
+     {
+      "reason": "KC RB Kenneth Walker III questionable (groin, missed 2 games); BUF WR Joshua Palmer on IR",
+      "source": "https://www.si.com/betting/chiefs-vs-bills-prediction-odds-spread-injuries-trends-for-thanksgiving-night-in-nfl-week-12-2026"
+     },
+     {
+      "reason": "Rain near-certain, ~40F, gusts to 15 mph: lean under, no side effect",
+      "source": "https://www.foxweather.com/weather-news/weather-nfl-football-holiday-thanksgiving-matchups-sports"
+     }
+    ]
    },
    {
     "league": "NFL",
@@ -467,7 +480,24 @@
     "nfl_week": 12,
     "market_home_spread": 3.5,
     "adj_home_pts": 0,
-    "why": []
+    "why": [
+     {
+      "reason": "Steelers benched Rodgers; Rudolph starts; PIT +3 to +4.5 (priced)",
+      "source": "https://www.espn.com/nfl/story/_/id/50595660/rodgers-heard-mccarthy-benching"
+     },
+     {
+      "reason": "Line moved PIT +3 to +3.5 on benching, then +4.5 after the rant (DraftKings); priced",
+      "source": "https://www.si.com/betting/steelers-broncos-odds-move-big-after-aaron-rodgers-mike-mccarthy-drama-01m8c3nsa0rg"
+     },
+     {
+      "reason": "PIT LB Alex Highsmith doubtful, LB Nick Herbig questionable/out, S DeShon Elliott questionable; DEN RB J.K. Dobbins out (suspended)",
+      "source": "https://sports.yahoo.com/betting/articles/broncos-vs-steelers-prediction-odds-014657263.html"
+     },
+     {
+      "reason": "Rain/snow mix, low 40s",
+      "source": "https://www.foxweather.com/weather-news/weather-nfl-football-holiday-thanksgiving-matchups-sports"
+     }
+    ]
    },
    {
     "league": "NFL",
@@ -480,7 +510,16 @@
     "nfl_week": 12,
     "market_home_spread": -2.5,
     "adj_home_pts": 0,
-    "why": []
+    "why": [
+     {
+      "reason": "Purdy ankle sprain, may sit; Mac Jones would start",
+      "source": "https://www.nfl.com/news/brock-purdy-sits-out-practice-ankle-sprain-49ers-seahawks"
+     },
+     {
+      "reason": "Darnold questionable (quad) but full practice Wed after missing 2 games; SEA LG Quenton Nelson, RT Abraham Lucas questionable",
+      "source": "https://sports.yahoo.com/nfl/articles/seattle-seahawks-encouraging-sam-darnold-042845379.html"
+     }
+    ]
    },
    {
     "league": "NFL",
@@ -493,7 +532,16 @@
     "nfl_week": 12,
     "market_home_spread": -4.5,
     "adj_home_pts": 0,
-    "why": []
+    "why": [
+     {
+      "reason": "Home money moved Browns line about 2 points",
+      "source": "https://www.nbcsports.com/nfl/news/raiders-vs-browns-prediction-odds-expert-picks-qb-matchup-injury-update-betting-trends-and-stats"
+     },
+     {
+      "reason": "TE Brock Bowers has a 'decent chance' to return for LV",
+      "source": "https://clutchpoints.com/nfl/las-vegas-raiders/raiders-rumors-brock-bowers-injury-update-will-have-fernando-mendoza-getting-excited"
+     }
+    ]
    },
    {
     "league": "NFL",
@@ -506,7 +554,16 @@
     "nfl_week": 12,
     "market_home_spread": -3.0,
     "adj_home_pts": 0,
-    "why": []
+    "why": [
+     {
+      "reason": "Mayfield hobbled (foot, thumb); status not confirmed",
+      "source": "https://www.fanduel.com/research/buccaneers-vs-panthers-predictions-odds-picks-best-bets-for-nfl-week-12-monday-night-football-2026"
+     },
+     {
+      "reason": "CAR WR Tetairoa McMillan, LB Bobby Okereke questionable; TB S Antoine Winfield Jr. questionable",
+      "source": "https://www.fanduel.com/research/buccaneers-vs-panthers-predictions-odds-picks-best-bets-for-nfl-week-12-monday-night-football-2026"
+     }
+    ]
    }
   ],
   "nfl_notes": [
@@ -514,12 +571,33 @@
    "NFL research adjustments all 0: no confirmed QB change found in sources from the last 7 days; the injury pages read were unverified summaries, so the market line carries the news."
   ],
   "saved": {
-   "read": "2026-11-25T21:40:00-06:00",
-   "bets": []
+   "read": "2026-11-26T10:58:00-06:00",
+   "bets": [
+    {
+     "key": "USC@UCLA",
+     "pick": "UCLA +7.5",
+     "wager": 1840
+    },
+    {
+     "key": "PHI@DAL",
+     "pick": "DAL -6.5",
+     "wager": 1840
+    },
+    {
+     "key": "KC@BUF",
+     "pick": "BUF -2",
+     "wager": 1840
+    },
+    {
+     "key": "DEN@PIT",
+     "pick": "DEN -2",
+     "wager": 3680
+    }
+   ]
   }
  },
  "cfp": {
-  "status": "Read Wed 11/25 ~9:25pm (signed in): Week 13 open, 21 games. Saved: Texas -11.5 2,000, Michigan +10.5 10,000, Duke +14.5 3,500 (Total wagered 15,500 of 23,808, 'Picks saved'). Because a Friday game is picked, all his picks lock Fri 11/27 6:30 PM CT. Rank 8 of 95 paid + 26 rebuys (top 12 paid); leader 98,640.",
+  "status": "Read Wed 11/25 ~9:25pm (signed in): Week 13 open, 21 games. Saved: Texas -11.5 2,000, Michigan +10.5 10,000, Duke +14.5 3,500 (Total wagered 15,500 of 23,808, 'Picks saved'). Because a Friday game is picked, all his picks lock Fri 11/27 6:30 PM CT. Rank 8 of 95 paid + 26 rebuys (top 12 paid); leader 98,640. Thu 11/26 ~11:00am re-read: same 3 saved picks, 15,500 wagered; spreads unchanged.",
   "balance": 23808,
   "rank": 8,
   "players_paid": 95,
@@ -692,7 +770,7 @@
    }
   ],
   "saved": {
-   "read": "2026-11-25T21:40:00-06:00",
+   "read": "2026-11-26T11:00:00-06:00",
    "bets": [
     {
      "key": "Texas@Texas A&M",
@@ -713,7 +791,7 @@
   }
  },
  "decisions": {
-  "read": "2026-11-25T21:40:00-06:00",
+  "read": "2026-11-26T11:03:00-06:00",
   "differs": []
  }
 }
