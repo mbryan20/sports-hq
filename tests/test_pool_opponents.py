@@ -63,6 +63,14 @@ class CfpParsing(unittest.TestCase):
         s = O.reconstruct_starts(w, {"x": 7500}, 3)         # week 3 missed: lost 50% -> started week 3 at 15000
         self.assertEqual(s["x"], {3: 15000.0, 2: 10000.0})
 
+    def test_rebuy_week_is_dropped(self):
+        # A 6,000 balance busts in week 2, rebuys to 10,000, wins 5,000 in week 3 -> 15,000 now. Worked backward,
+        # week 2 would start at 16,000 with a 6,000 bet (37%, under the site's 50% floor): that week is dropped.
+        w = {"x": {2: {"n": 1, "wager": 6000, "net": -6000, "dog": 0, "big": 6000},
+                   3: {"n": 1, "wager": 5000, "net": 5000, "dog": 0, "big": 5000}}}
+        s = O.reconstruct_starts(w, {"x": 15000}, 3)
+        self.assertEqual(s["x"], {3: 10000.0})
+
     def test_profiles_and_labels(self):
         prof, weekly, starts = O.cfp_profiles(self.p, {"alice": 20000, "bob": 4500, "carol": 0}, 3)
         self.assertEqual(prof["alice"]["frac_mean"], 1.0)

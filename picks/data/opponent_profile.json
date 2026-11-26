@@ -17,11 +17,11 @@
    12
   ],
   "wager_share_quantiles": {
-   "p10": 0.486,
-   "p50": 0.64,
+   "p10": 0.5,
+   "p50": 0.75,
    "p90": 1.0
   },
-  "bets_per_week_mean": 4.74,
+  "bets_per_week_mean": 4.85,
   "dog_rate_by_spread": [
    [
     0,
@@ -40,15 +40,15 @@
    ]
   ],
   "labels": {
-   "risk-averse": 12,
-   "balanced": 8,
-   "risky": 11
+   "risk-averse": 7,
+   "balanced": 12,
+   "risky": 12
   },
   "fair_test": {
    "wager_share_mae": {
-    "model": 0.127,
-    "baseline_min": 0.261,
-    "n": 270
+    "model": 0.105,
+    "baseline_min": 0.27,
+    "n": 228
    },
    "side_brier": {
     "model": 0.236,
@@ -68,7 +68,8 @@
    "group_dog_count_mae": {
     "model": 1.647,
     "baseline_fav": 1.48,
-    "games": 300
+    "games": 300,
+    "verdict": "model loses: not used alone"
    }
   },
   "herding": {
@@ -77,65 +78,86 @@
    "herd": {
     "open_fav_was_dog": [
      4,
-     26
+     30
     ],
     "close_fav_was_dog": [
-     4,
-     26
+     5,
+     30
     ],
     "dog_ranked_higher": [
-     14,
-     26
+     18,
+     30
     ],
     "dog_home": [
      4,
-     26
+     30
     ],
     "both_ranked": [
      7,
-     26
+     30
     ],
     "dog_won": [
-     11,
-     21
+     12,
+     22
     ]
    },
    "close_non_herd": {
     "open_fav_was_dog": [
-     4,
-     114
+     5,
+     139
     ],
     "close_fav_was_dog": [
-     5,
-     114
+     6,
+     139
     ],
     "dog_ranked_higher": [
-     6,
-     114
+     7,
+     139
     ],
     "dog_home": [
-     58,
-     114
+     73,
+     139
     ],
     "both_ranked": [
-     14,
-     114
+     19,
+     139
     ],
     "dog_won": [
-     37,
-     77
+     41,
+     94
     ]
    },
    "herd_spread_mean": 2.77,
    "matched": [
-    244,
+    296,
     300
    ],
    "pub_effect": {
     "group_dog_share_when_yahoo_majority_on_dog": 0.567,
     "games_hi": 11,
-    "group_dog_share_otherwise": 0.049,
-    "games_lo": 75
+    "group_dog_share_otherwise": 0.062,
+    "games_lo": 89
+   }
+  },
+  "fair_test_with_public_share": {
+   "weeks": [
+    "9",
+    "10",
+    "11",
+    "12",
+    "13"
+   ],
+   "games": 100,
+   "unmatched_games": 0,
+   "pick_brier": {
+    "blend": 0.076,
+    "member": 0.0953,
+    "baseline_fav": 0.1174
+   },
+   "group_dog_count_mae": {
+    "blend": 0.95,
+    "member": 1.305,
+    "baseline_fav": 1.17
    }
   }
  }

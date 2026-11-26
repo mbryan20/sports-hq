@@ -103,7 +103,9 @@ def reconstruct_starts(weekly, end_balances, last_week):
         bal, s = float(end), {}
         for w in range(last_week, first - 1, -1):
             start = bal - wk[w]["net"] if w in wk else bal * 2
-            if start <= 0:
+            # A rebuy (bust to 0, reset to 10,000) makes the week before it come out ~10,000 too high, so its
+            # wager share falls under the 50% minimum the site enforces: stop there (checker, Nov 26).
+            if start <= 0 or (w in wk and wk[w]["wager"] / start < 0.49):
                 break
             s[w] = start
             bal = start
@@ -216,6 +218,30 @@ def cfp_fair_test(parsed, weekly, starts, min_hist=2):
 # ---------------------------------------------------------------- Yahoo group
 
 SKIP = {"HG"}
+# Yahoo group-picks abbreviations that CFBD's abbreviation list maps wrongly or not at all (checker, Nov 26)
+YAHOO_ABBR = {"UMD": "Maryland", "BSU": "Boise State", "AFA": "Air Force", "IND": "Indiana", "NW": "Northwestern",
+              "UW": "Washington", "MIZZ": "Missouri", "TAMU": "Texas A&M", "NCST": "NC State"}
+# Yahoo display names (pick-distribution page) -> CFBD school names
+YAHOO_NAMES = {"mississippi": "ole miss", "miami (fl)": "miami", "n. carolina": "north carolina", "boston coll.": "boston college",
+               "connecticut": "uconn", "san jose st.": "san josé state", "sdsu": "san diego state", "nc state": "nc state"}
+
+
+def _yname(name):
+    from .names import norm
+    s = (name or "").strip().lower()
+    s = YAHOO_NAMES.get(s, s)
+    if s.endswith(" st."):
+        s = s[:-4] + " state"
+    return norm(s)
+
+
+def pub_share(week_pub, school, yahoo_name=None):
+    """Yahoo-wide pick share for a team, matching Yahoo's display names ("Mississippi St.") to CFBD schools."""
+    pw = {_yname(k): v for k, v in week_pub.items()}
+    for cand in (school, yahoo_name):
+        if cand and _yname(cand) in pw:
+            return pw[_yname(cand)]
+    return None
 
 
 def yahoo_games(week_rec):
@@ -280,8 +306,62 @@ def yahoo_fair_test(picks):
                 h[b][1] += 1
                 grp[b][0] += s[gi] == "D"
                 grp[b][1] += 1
+    cm, cb = round(cnt_m / ng, 3), round(cnt_b / ng, 3)
     return {"pick_brier": {"model": round(sm / k, 4), "baseline_fav": round(sb / k, 4), "n": k},
-            "group_dog_count_mae": {"model": round(cnt_m / ng, 3), "baseline_fav": round(cnt_b / ng, 3), "games": ng}}
+            "group_dog_count_mae": {"model": cm, "baseline_fav": cb, "games": ng,
+                                    "verdict": "model wins" if cm < cb else "model loses: not used alone"}}
+
+
+def yahoo_pub_fair_test(picks, ctx, pub, w_pub=0.5):
+    """Weeks with Yahoo-wide pick shares: P(member takes the dog) = w_pub x public share + (1 - w_pub) x their
+    earlier bucket rate, vs the member rate alone and vs 'always the favorite'. Brier and group-count error."""
+    abbr = {k.upper(): v for k, v in ctx["abbr"].items()}
+    abbr.update(YAHOO_ABBR)
+    hist, grp = {}, [[1, 4] for _ in BUCKETS]
+    acc = {"blend": [0.0, 0], "member": [0.0, 0], "baseline_fav": [0.0, 0]}
+    cnt = {"blend": 0.0, "member": 0.0, "baseline_fav": 0.0}
+    ng = unmatched = 0
+    for w in sorted(picks, key=int):
+        v = picks[w]
+        gs = yahoo_games(v)
+        for gi, (fav, spread, dog) in enumerate(gs):
+            b = bucket(spread)
+            pd = pub_share(pub[w], abbr.get(dog.upper()), dog) if w in pub else None
+            if w in pub and pd is None:
+                unmatched += 1
+            exp = {k: 0.0 for k in cnt}
+            obs = 0.0
+            for name, s in v["p"].items():
+                if name in SKIP or gi >= len(s) or s[gi] == "-":
+                    continue
+                h = hist.get(name, [[0, 0] for _ in BUCKETS])[b]
+                pm = (h[0] + 5 * grp[b][0] / grp[b][1]) / (h[1] + 5)
+                y = 1.0 if s[gi] == "D" else 0.0
+                if pd is not None:
+                    for key, p in (("blend", w_pub * pd + (1 - w_pub) * pm), ("member", pm), ("baseline_fav", 0.0)):
+                        acc[key][0] += (p - y) ** 2
+                        acc[key][1] += 1
+                        exp[key] += p
+                    obs += y
+            if pd is not None:
+                for key in cnt:
+                    cnt[key] += abs(exp[key] - obs)
+                ng += 1
+        for gi, (fav, spread, dog) in enumerate(gs):
+            b = bucket(spread)
+            for name, s in v["p"].items():
+                if name in SKIP or gi >= len(s) or s[gi] == "-":
+                    continue
+                h = hist.setdefault(name, [[0, 0] for _ in BUCKETS])
+                h[b][0] += s[gi] == "D"
+                h[b][1] += 1
+                grp[b][0] += s[gi] == "D"
+                grp[b][1] += 1
+    if not ng:
+        return None
+    return {"weeks": sorted(pub, key=int), "games": ng, "unmatched_games": unmatched,
+            "pick_brier": {k: round(a / n, 4) for k, (a, n) in acc.items()},
+            "group_dog_count_mae": {k: round(c / ng, 3) for k, c in cnt.items()}}
 
 
 def herding(picks, ctx, pub=None, min_share=0.5):
@@ -289,6 +369,7 @@ def herding(picks, ctx, pub=None, min_share=0.5):
     the data supports. ctx: cfb context (abbr map, AP ranks, CFBD games with open/close lines); pub: optional
     {week: {dog_team_abbr_or_name: Yahoo-wide share}}. Returns counts for herd games vs other close games."""
     abbr = {k.upper(): v for k, v in ctx["abbr"].items()}
+    abbr.update(YAHOO_ABBR)
     by_week = {}
     for g in ctx["games"]:
         by_week.setdefault(g["week"], []).append(g)
@@ -324,11 +405,7 @@ def herding(picks, ctx, pub=None, min_share=0.5):
                     fav_pts, dog_pts = (g["hs"], g["as"]) if home_fav else (g["as"], g["hs"])
                     r["dog_won"] = dog_pts > fav_pts
             if pub and str(w) in pub:
-                from .names import norm
-                pw = {norm(k): v for k, v in pub[str(w)].items()}
-                r["pub_dog"] = pw.get(norm(td)) if td else None
-                if r["pub_dog"] is None:
-                    r["pub_dog"] = pw.get(norm(dog))
+                r["pub_dog"] = pub_share(pub[str(w)], td, dog)
             rows.append(r)
     herd = [r for r in rows if r["dog_share"] >= min_share]
     close = [r for r in rows if r["dog_share"] < min_share and r["spread"] <= 7]
@@ -419,6 +496,8 @@ def build(cfp_text=None, cfp_bal=None, cfp_last_week=12, yahoo=None, ctx=None, p
         if ctx:
             summ, herd = herding(yahoo, ctx, pub)
             prof["yahoo"]["herding"] = summ
+            if pub:
+                prof["yahoo"]["fair_test_with_public_share"] = yahoo_pub_fair_test(yahoo, ctx, pub)
             report["yahoo_herd_games"] = herd
         report["yahoo"] = yp
     return prof, report
