@@ -1,7 +1,7 @@
 {
  "cfbd_week": 13,
  "label": "Week 13 (CFBD 13)",
- "read_at": "2026-11-24T20:30:00-06:00",
+ "read_at": "2026-11-25T21:40:00-06:00",
  "yahoo": {
   "url": "https://football.fantasysports.yahoo.com/college/3659/9/picks?week=13",
   "group_size": 14,
@@ -251,21 +251,469 @@
   ],
   "pub_note": "Yahoo-wide pick distribution read Tue 11/24 ~8:30pm; proxy for the 13 other group members.",
   "read_at": "2026-11-24T20:30:00-06:00",
-  "status": "Read Tue 11/24 postmortem (signed in): 25 games posted, first kick Fri 11/27 11:00 AM CT. Page shows 25 of 25 picks saved and tiebreakers entered (not read per game). Standings: Michael 4th of 14, 184 pts (tied with 5th; leader 193)."
+  "status": "Read Tue 11/24 postmortem (signed in): 25 games posted, first kick Fri 11/27 11:00 AM CT. Page shows 25 of 25 picks saved and tiebreakers entered (not read per game). Standings: Michael 4th of 14, 184 pts (tied with 5th; leader 193). Wed 11/25 ~9:30pm re-read: 25 of 25 saved, TB1 and TB2 set (read per game).",
+  "saved": {
+   "read": "2026-11-25T21:40:00-06:00",
+   "picks": {
+    "Nebraska@Iowa": "Iowa",
+    "Mississippi St.@Mississippi": "Mississippi",
+    "Tulsa@UTSA": "UTSA",
+    "Florida@Florida St.": "Florida",
+    "N. Dak. St.@San Jose St.": "N. Dak. St.",
+    "Minnesota@Wisconsin": "Wisconsin",
+    "Texas@Texas A&M": "Texas",
+    "West Virginia@Utah": "Utah",
+    "Michigan@Ohio St.": "Michigan",
+    "UCF@Colorado": "UCF",
+    "South Carolina@Clemson": "South Carolina",
+    "Virginia@Virginia Tech": "Virginia",
+    "Penn St.@Maryland": "Penn St.",
+    "Duke@Wake Forest": "Wake Forest",
+    "USC@UCLA": "USC",
+    "Georgia Tech@Georgia": "Georgia",
+    "Cincinnati@BYU": "BYU",
+    "Michigan St.@Rutgers": "Michigan St.",
+    "Oklahoma@Missouri": "Oklahoma",
+    "Tennessee@Vanderbilt": "Tennessee",
+    "Pittsburgh@California": "Pittsburgh",
+    "Washington@Oregon": "Oregon",
+    "Auburn@Alabama": "Alabama",
+    "Arizona St.@Arizona": "Arizona",
+    "Baylor@Houston": "Houston"
+   },
+   "tb1": {
+    "Michigan@Ohio St.": "Michigan 20, Ohio St. 17",
+    "USC@UCLA": "USC 27, UCLA 20"
+   },
+   "tb2": {
+    "most": "Alabama",
+    "fewest": "Texas A&M"
+   }
+  }
  },
  "bto": {
-  "unread": "not posted",
-  "status": "Checked Tue 11/24 ~8:30pm (signed in): /player/picks/current still shows Week 12, deadline passed. Week 13 not posted yet. Balance $6,140 (Week 12 not scored yet; +$3,060 expected from SF and CAR wins, UCLA loss)."
+  "status": "Read Wed 11/25 ~9:20pm (signed in): Week 13 posted, 16 games (8 CFB, 8 NFL), Big Game USC @ UCLA. Normal mode: exactly 4 bets, min $2,300 (1/4 of $9,200), 4.0 line points, Big Game required. Timer 1d 22h. GB @ LAR already started (locked). Nothing saved yet (Bets 0/4).",
+  "mode": "normal",
+  "balance": 9200,
+  "balance_note": "After Week 12 (+$3,060)",
+  "rank": 10,
+  "players": 50,
+  "leader": 12200,
+  "twelfth": 8100,
+  "mode_rules": "Normal: exactly 4 bets, total at least 1/4 of balance ($2,300), Big Game required, 4 line points, $10 multiples, largest bet at most 2x smallest.",
+  "field": [
+   12200,
+   12000,
+   11800,
+   11800,
+   11200,
+   11000,
+   10400,
+   9760,
+   9600,
+   8400,
+   8100,
+   7580,
+   7500,
+   7400,
+   6740,
+   6490,
+   6440,
+   6400,
+   6400,
+   6300,
+   5690,
+   3650,
+   3280,
+   3210,
+   3000,
+   2350
+  ],
+  "field_note": "Leaderboard balances above 0 excluding Michael, read Wed 11/25 (26 players; playoff line after #12 at $8,100); 22 more at 0 (Beyond Desperate).",
+  "weeks_left_note": "Rules/Playoffs pages don't state the regular-season length (Playoffs page: no bracket yet, checked 11/25); cards default to 6.",
+  "games": [
+   {
+    "league": "CFB",
+    "away": "TCU",
+    "home": "Texas Tech",
+    "home_spread": -14.5,
+    "big": false,
+    "kick": "Thu 11/26 7:00 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Nebraska",
+    "home": "Iowa",
+    "home_spread": -4.5,
+    "big": false,
+    "kick": "Fri 11/27 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Florida",
+    "home": "Florida State",
+    "home_spread": 6.5,
+    "big": false,
+    "kick": "Fri 11/27 2:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Texas",
+    "home": "Texas A&M",
+    "home_spread": 11.5,
+    "big": false,
+    "kick": "Fri 11/27 6:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Louisville",
+    "home": "Kentucky",
+    "home_spread": 2.5,
+    "big": false,
+    "kick": "Sat 11/28 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Michigan",
+    "home": "Ohio State",
+    "home_spread": -10.5,
+    "big": false,
+    "kick": "Sat 11/28 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "Louisiana Tech",
+    "home": "Georgia Southern",
+    "home_spread": -2.5,
+    "big": false,
+    "kick": "Sat 11/28 11:00 AM CT",
+    "locked": false
+   },
+   {
+    "league": "CFB",
+    "away": "USC",
+    "home": "UCLA",
+    "home_spread": 6.5,
+    "big": true,
+    "kick": "Sat 11/28 2:30 PM CT",
+    "locked": false
+   },
+   {
+    "league": "NFL",
+    "away": "GB",
+    "home": "LAR",
+    "home_spread": -2.5,
+    "big": false,
+    "kick": "Wed 11/25 7:00 PM CT",
+    "locked": true,
+    "nfl_week": 12,
+    "market_home_spread": -2.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "CHI",
+    "home": "DET",
+    "home_spread": 2.5,
+    "big": false,
+    "kick": "Thu 11/26 12:00 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": 1.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "PHI",
+    "home": "DAL",
+    "home_spread": -8.5,
+    "big": false,
+    "kick": "Thu 11/26 3:30 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": -8.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "KC",
+    "home": "BUF",
+    "home_spread": -2.5,
+    "big": false,
+    "kick": "Thu 11/26 7:20 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": -3.0,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "DEN",
+    "home": "PIT",
+    "home_spread": 2.5,
+    "big": false,
+    "kick": "Fri 11/27 2:00 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": 3.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "SEA",
+    "home": "SF",
+    "home_spread": -3.0,
+    "big": false,
+    "kick": "Sun 11/29 3:25 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": -2.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "LV",
+    "home": "CLE",
+    "home_spread": -4.5,
+    "big": false,
+    "kick": "Sun 11/29 7:20 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": -4.5,
+    "adj_home_pts": 0,
+    "why": []
+   },
+   {
+    "league": "NFL",
+    "away": "CAR",
+    "home": "TB",
+    "home_spread": -3.0,
+    "big": false,
+    "kick": "Mon 11/30 7:15 PM CT",
+    "locked": false,
+    "nfl_week": 12,
+    "market_home_spread": -3.0,
+    "adj_home_pts": 0,
+    "why": []
+   }
+  ],
+  "nfl_notes": [
+   "Market lines: DraftKings via ESPN, Wed Nov 25 ~9:35pm CT. Pool vs market: DET +2.5 vs +1.5, DEN -2.5 vs PIT +3.5, SEA +3 vs +2.5, BUF -2.5 vs -3.",
+   "NFL research adjustments all 0: no confirmed QB change found in sources from the last 7 days; the injury pages read were unverified summaries, so the market line carries the news."
+  ],
+  "saved": {
+   "read": "2026-11-25T21:40:00-06:00",
+   "bets": []
+  }
  },
  "cfp": {
-  "unread": "not posted",
-  "status": "Checked Tue 11/24 ~8:30pm (signed in): 'No week is open yet.' Balance 23,808, #8 of 95 paid + 26 rebuys; leader 98,640.",
+  "status": "Read Wed 11/25 ~9:25pm (signed in): Week 13 open, 21 games. Saved: Texas -11.5 2,000, Michigan +10.5 10,000, Duke +14.5 3,500 (Total wagered 15,500 of 23,808, 'Picks saved'). Because a Friday game is picked, all his picks lock Fri 11/27 6:30 PM CT. Rank 8 of 95 paid + 26 rebuys (top 12 paid); leader 98,640.",
   "balance": 23808,
   "rank": 8,
   "players_paid": 95,
   "rebuys": 26,
   "leader": 98640,
   "rebuy_used": false,
-  "rebuy_window": false
+  "rebuy_window": false,
+  "min_wager": 11904,
+  "deadline": "2026-11-28T11:00:00-06:00",
+  "lock_note": "Picking any Thu/Fri game locks ALL CFP picks at that game's kickoff; his saved set locks Fri 6:30 PM CT (Texas @ Texas A&M).",
+  "field": [
+   98640,
+   69000,
+   47000,
+   45500,
+   33000,
+   30240,
+   24000,
+   22000,
+   20000,
+   19500,
+   18750,
+   14780,
+   14700,
+   14000,
+   12900,
+   12250,
+   12000,
+   11000,
+   10750,
+   10000,
+   5750,
+   4000,
+   3400,
+   2000,
+   2000,
+   1850,
+   1167,
+   1000,
+   313,
+   34
+  ],
+  "field_note": "Leaderboard balances excluding Michael, read Wed 11/25 (all above 0).",
+  "games": [
+   {
+    "away": "TCU",
+    "home": "Texas Tech",
+    "home_spread": -14.5,
+    "kick": "Thu 11/26 7:00 PM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "Nebraska",
+    "home": "Iowa",
+    "home_spread": -4.5,
+    "kick": "Fri 11/27 11:00 AM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "Mississippi State",
+    "home": "Ole Miss",
+    "home_spread": -19.5,
+    "kick": "Fri 11/27 11:00 AM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "Florida",
+    "home": "Florida State",
+    "home_spread": 6.5,
+    "kick": "Fri 11/27 2:30 PM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "Texas",
+    "home": "Texas A&M",
+    "home_spread": 11.5,
+    "kick": "Fri 11/27 6:30 PM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "West Virginia",
+    "home": "Utah",
+    "home_spread": -25.5,
+    "kick": "Fri 11/27 8:00 PM CT (early: picking it locks all CFP picks at this kickoff)"
+   },
+   {
+    "away": "Notre Dame",
+    "home": "Syracuse",
+    "home_spread": 24.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Boston College",
+    "home": "Miami",
+    "home_spread": -25.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Louisville",
+    "home": "Kentucky",
+    "home_spread": 3.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Michigan",
+    "home": "Ohio State",
+    "home_spread": -10.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Georgia Tech",
+    "home": "Georgia",
+    "home_spread": -35.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Duke",
+    "home": "Wake Forest",
+    "home_spread": -14.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "USC",
+    "home": "UCLA",
+    "home_spread": 7.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Cincinnati",
+    "home": "BYU",
+    "home_spread": -15.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Oklahoma",
+    "home": "Missouri",
+    "home_spread": -2.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Tennessee",
+    "home": "Vanderbilt",
+    "home_spread": 13.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Purdue",
+    "home": "Indiana",
+    "home_spread": -22.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Auburn",
+    "home": "Alabama",
+    "home_spread": -14.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Washington",
+    "home": "Oregon",
+    "home_spread": -14.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Arizona State",
+    "home": "Arizona",
+    "home_spread": -8.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   },
+   {
+    "away": "Baylor",
+    "home": "Houston",
+    "home_spread": -4.5,
+    "kick": "Sat 11/28 (pool locks 11:00 AM CT)"
+   }
+  ],
+  "saved": {
+   "read": "2026-11-25T21:40:00-06:00",
+   "bets": [
+    {
+     "key": "Texas@Texas A&M",
+     "pick": "Texas -11.5",
+     "wager": 2000
+    },
+    {
+     "key": "Michigan@Ohio State",
+     "pick": "Michigan +10.5",
+     "wager": 10000
+    },
+    {
+     "key": "Duke@Wake Forest",
+     "pick": "Duke +14.5",
+     "wager": 3500
+    }
+   ]
+  }
+ },
+ "decisions": {
+  "read": "2026-11-25T21:40:00-06:00",
+  "differs": []
  }
 }

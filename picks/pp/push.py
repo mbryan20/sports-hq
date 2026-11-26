@@ -136,26 +136,51 @@ def compare_yahoo(card, saved, slate_games, now):
     return status, lines, unsaved
 
 
-def early_lock(card, saved, games, now):
-    """BTO games lock at kickoff, so a package touching a Thursday game must be edited before that kickoff,
-    not by the Friday deadline (Nov 4: Michael's saved JAX bet locked Thu 7:15pm)."""
-    if card["id"] != "bto":
-        return ""
-    keys = {r["key"] for r in card["rows"]} | {b["key"] for b in (saved or {}).get("bets") or []}
+def first_lock(card, saved, games, now, card_only=False):
+    """Earliest kickoff before the pool's usual deadline among the games in play -> (kick, game) or None.
+    BTO games lock at kickoff, so a package touching a Thursday game must be saved before that kickoff, not by
+    the Friday deadline (Nov 4: Michael's saved JAX bet locked Thu 7:15pm). CFP: picking a Thu/Fri game locks
+    ALL that week's CFP picks at its kickoff (site notice, read Nov 25)."""
+    dl = {"bto": (4, 20), "cfp": (5, 11)}.get(card["id"])  # (weekday, hour): Fri 8pm, Sat 11am
+    if not dl or now.weekday() > dl[0]:
+        return None  # this week's deadline has passed
+    keys = {r["key"] for r in card["rows"]}
+    if not card_only:
+        keys |= {b["key"] for b in (saved or {}).get("bets") or []}
+    deadline = (now + timedelta(days=dl[0] - now.weekday())).replace(hour=dl[1], minute=0, second=0, microsecond=0)
     kicks = [(_kick_dt(g.get("kick")), g) for g in games if f"{g['away']}@{g['home']}" in keys and not g.get("locked")]
-    if now.weekday() > 4:
-        return ""  # Sat/Sun: this week's Friday deadline has passed
-    deadline = (now + timedelta(days=4 - now.weekday())).replace(hour=20, minute=0, second=0, microsecond=0)  # Fri 8pm
     kicks = [(k, g) for k, g in kicks if k and now < k < deadline]
-    if not kicks:
+    return min(kicks, key=lambda x: x[0]) if kicks else None
+
+
+def _hm(k):
+    return f"{k:%a} {k.hour % 12 or 12}:{k:%M}{'pm' if k.hour >= 12 else 'am'}"
+
+
+def early_lock(card, saved, games, now):
+    hit = first_lock(card, saved, games, now)
+    if not hit:
         return ""
-    k, g = min(kicks, key=lambda x: x[0])
-    return f". Edit by {k:%a} {k.hour % 12 or 12}:{k:%M}{'pm' if k.hour >= 12 else 'am'} ({g['away']}@{g['home']} locks then)"
+    k, g = hit
+    if card["id"] == "cfp":
+        return f". All CFP picks lock at the earliest picked kickoff: {_hm(k)} ({g['away']}@{g['home']})"
+    return f". Edit by {_hm(k)} ({g['away']}@{g['home']} locks then)"
 
 
-def pool_line(card, status, unsaved=()):
+def lock_head(card, games, now):
+    """The pool line's lock label, moved earlier when a card pick kicks off before the usual deadline."""
+    hit = first_lock(card, None, games or [], now, card_only=True)
+    if not hit:
+        return LOCKS[card["id"]]
+    k, g = hit
+    if card["id"] == "cfp":
+        return f"locks {_hm(k)}: the {g['away']}@{g['home']} pick locks all CFP picks then"
+    return f"save by {_hm(k)}: {g['away']}@{g['home']} kicks off"
+
+
+def pool_line(card, status, unsaved=(), games=None, now=None):
     pid = card["id"]
-    head = f"{LABEL[pid]} ({LOCKS[pid]})" if pid in LOCKS else LABEL[pid]
+    head = f"{LABEL[pid]} ({lock_head(card, games, now or datetime.now(CT))})" if pid in LOCKS else LABEL[pid]
     if card.get("status") and not card["rows"]:
         return f"{head}: {card['status']}"
     if status == "match":
@@ -210,7 +235,7 @@ def compose(cards, slate, due=None, now=None, final_call=False):
                 kicks = {f"{g['away']}@{g['home']}": g.get("kick") for g in (slate.get("yahoo") or {}).get("games") or []}
                 c = {**c, "rows": [r for r in c["rows"] if not _kick_passed(kicks.get(r["game"].replace(" @ ", "@")), now)],
                      "n_all": len(c["rows"])}
-            line = pool_line(c, status, unsaved)
+            line = pool_line(c, status, unsaved, (slate.get(pid) or {}).get("games") or [], now)
             if status == "unread" and c["rows"]:
                 line += f" (saved picks not read: {(saved or {}).get('unread') or 'not read this run'})"
             body.append(line)

@@ -15,7 +15,7 @@ from .market import lines, NOTE as MARKET_NOTE
 from .http import STALE as HTTP_STALE
 from .lines import overlay
 from .names import norm
-from .push import compose as push_compose, _kick_dt, parse_pick
+from .push import compose as push_compose, _kick_dt, parse_pick, first_lock, _hm
 from .sim import sim_game, exact_score_pick, p_cover
 from .weather import kickoff_weather, total_adjustment
 from . import pools as P
@@ -294,7 +294,7 @@ def build_yahoo(W, slate):
             why = short(f"Upset: {', '.join(r['signals'])}; group on favorite")
         elif rwhy:
             why = rwhy
-        elif S["wx"] and total_adjustment(S["wx"]) <= -2:
+        elif S["wx"] and total_adjustment(S["wx"]) <= -2 and pm >= 0.5:  # wind never explains a side the stats doubt
             why = short(f"Stats {pm*100:.0f}% win; wind {S['wx']['wind']:.0f} mph lowers scoring")
         else:
             gap = (pm - (pk or pm)) * 100
@@ -970,6 +970,15 @@ def main():
                 "cfp": lambda: build_cfp(W, slate), "survivor": build_survivor}
     cards = [builders[p]() for p in a.pools.split(",")]
     cross_pool_notes(cards)
+    now_ct = datetime.now(ZoneInfo("America/Chicago"))
+    for c in cards:  # Nov 25: a Thu/Fri pick moves the real lock earlier than the usual Fri 8pm / Sat 11am
+        if c["id"] in ("bto", "cfp") and c["rows"]:
+            hit = first_lock(c, None, (slate.get(c["id"]) or {}).get("games") or [], now_ct, card_only=True)
+            if hit:
+                k, g = hit
+                c["deadline"] = (f"Save by {_hm(k)} CT ({g['away']}@{g['home']} kickoff; each game locks at kickoff)"
+                                 if c["id"] == "bto" else
+                                 f"Locks {_hm(k)} CT ({g['away']}@{g['home']} kickoff locks all CFP picks)")
     for c in cards:
         mark_changes(c, a.stage, week)
     cards.sort(key=lambda c: not any(r.get("changed") for r in c["rows"]))
