@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-26T13:35:21Z",
+ "captured": "2026-11-26T22:36:54Z",
  "players": [
   {
    "slot": "QB",
@@ -15,22 +15,22 @@
   },
   {
    "slot": "RB",
-   "name": "Bhayshul Tuten",
-   "yahoo_id": "41900",
-   "key": null,
-   "team": "JAX",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "RB",
    "name": "Emmett Johnson",
    "yahoo_id": "42796",
    "key": null,
    "team": "KC",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "RB",
+   "name": "Chase Brown",
+   "yahoo_id": "40196",
+   "key": null,
+   "team": "CIN",
    "pos": "RB",
    "eligible": [
     "RB"
@@ -47,7 +47,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "WR",
@@ -63,10 +63,10 @@
   },
   {
    "slot": "TE",
-   "name": "Tyler Warren",
-   "yahoo_id": "41799",
+   "name": "Chig Okonkwo",
+   "yahoo_id": "34099",
    "key": null,
-   "team": "IND",
+   "team": "WAS",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -75,13 +75,25 @@
   },
   {
    "slot": "BN",
-   "name": "Chase Brown",
-   "yahoo_id": "40196",
+   "name": "Bhayshul Tuten",
+   "yahoo_id": "41900",
    "key": null,
-   "team": "CIN",
+   "team": "JAX",
    "pos": "RB",
    "eligible": [
     "RB"
+   ],
+   "status": "Questionable"
+  },
+  {
+   "slot": "BN",
+   "name": "Tyler Warren",
+   "yahoo_id": "41799",
+   "key": null,
+   "team": "IND",
+   "pos": "TE",
+   "eligible": [
+    "TE"
    ],
    "status": null
   },
@@ -110,23 +122,11 @@
    "status": null
   },
   {
-   "slot": "BN",
-   "name": "Brenton Strange",
-   "yahoo_id": "40078",
-   "key": null,
-   "team": "JAX",
-   "pos": "TE",
-   "eligible": [
-    "TE"
-   ],
-   "status": null
-  },
-  {
    "slot": "K",
-   "name": "Chris Boswell",
-   "yahoo_id": "28188",
+   "name": "Dominic Zvada",
+   "yahoo_id": "43171",
    "key": null,
-   "team": "PIT",
+   "team": "NYG",
    "pos": "K",
    "eligible": [
     "K"
@@ -209,15 +209,15 @@
   },
   {
    "slot": "FA",
-   "name": "Aaron Rodgers",
-   "yahoo_id": "7200",
+   "name": "Geno Smith",
+   "yahoo_id": "26662",
    "key": null,
-   "team": "PIT",
+   "team": "NYJ",
    "pos": "QB",
    "eligible": [
     "QB"
    ],
-   "status": "Inactive"
+   "status": null
   },
   {
    "slot": "FA",
@@ -233,15 +233,15 @@
   },
   {
    "slot": "FA",
-   "name": "Geno Smith",
-   "yahoo_id": "26662",
+   "name": "Aaron Rodgers",
+   "yahoo_id": "7200",
    "key": null,
-   "team": "NYJ",
+   "team": "PIT",
    "pos": "QB",
    "eligible": [
     "QB"
    ],
-   "status": null
+   "status": "Inactive"
   },
   {
    "slot": "FA",
@@ -557,18 +557,6 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
-   "key": null,
-   "team": "SF",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Tre Tucker",
    "yahoo_id": "40114",
    "key": null,
@@ -605,6 +593,18 @@
   },
   {
    "slot": "FA",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
+   "key": null,
+   "team": "SF",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Xavier Worthy",
    "yahoo_id": "40877",
    "key": null,
@@ -629,18 +629,6 @@
   },
   {
    "slot": "FA",
-   "name": "Tank Dell",
-   "yahoo_id": "40097",
-   "key": null,
-   "team": "HOU",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
    "name": "Omar Cooper Jr.",
    "yahoo_id": "42652",
    "key": null,
@@ -650,6 +638,18 @@
     "WR"
    ],
    "status": "Questionable"
+  },
+  {
+   "slot": "FA",
+   "name": "Tank Dell",
+   "yahoo_id": "40097",
+   "key": null,
+   "team": "HOU",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": null
   },
   {
    "slot": "FA",
@@ -673,7 +673,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -689,10 +689,10 @@
   },
   {
    "slot": "FA",
-   "name": "Chig Okonkwo",
-   "yahoo_id": "34099",
+   "name": "Brenton Strange",
+   "yahoo_id": "40078",
    "key": null,
-   "team": "WAS",
+   "team": "JAX",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -745,7 +745,7 @@
    "eligible": [
     "TE"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -781,7 +781,7 @@
    "eligible": [
     "TE"
    ],
-   "status": null
+   "status": "Questionable"
   },
   {
    "slot": "FA",
@@ -917,6 +917,18 @@
   },
   {
    "slot": "FA",
+   "name": "Chris Boswell",
+   "yahoo_id": "28188",
+   "key": null,
+   "team": "PIT",
+   "pos": "K",
+   "eligible": [
+    "K"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Wil Lutz",
    "yahoo_id": "29754",
    "key": null,
@@ -957,18 +969,6 @@
    "yahoo_id": "43370",
    "key": null,
    "team": "WAS",
-   "pos": "K",
-   "eligible": [
-    "K"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Dominic Zvada",
-   "yahoo_id": "43171",
-   "key": null,
-   "team": "NYG",
    "pos": "K",
    "eligible": [
     "K"
@@ -1061,6 +1061,18 @@
   },
   {
    "slot": "FA",
+   "name": "Steelers",
+   "yahoo_id": "100023",
+   "key": null,
+   "team": "PIT",
+   "pos": "DEF",
+   "eligible": [
+    "DEF"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "Chiefs",
    "yahoo_id": "100012",
    "key": null,
@@ -1109,10 +1121,10 @@
   },
   {
    "slot": "FA",
-   "name": "Patriots",
-   "yahoo_id": "100017",
+   "name": "Buccaneers",
+   "yahoo_id": "100027",
    "key": null,
-   "team": "NE",
+   "team": "TB",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1125,18 +1137,6 @@
    "yahoo_id": "100033",
    "key": null,
    "team": "BAL",
-   "pos": "DEF",
-   "eligible": [
-    "DEF"
-   ],
-   "status": null
-  },
-  {
-   "slot": "FA",
-   "name": "Buccaneers",
-   "yahoo_id": "100027",
-   "key": null,
-   "team": "TB",
    "pos": "DEF",
    "eligible": [
     "DEF"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-26T13:35:21Z"
+ "fa_captured": "2026-11-26T22:36:54Z"
 }
