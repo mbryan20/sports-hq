@@ -22,5 +22,19 @@
 - TB1: exact scores of 2 designated games. TB2: team with most and fewest points among the 50 teams (locks before the week's first game).
 - Season runs Sep 1 – Dec 5.
 
+## Prizes, weeks left and tiebreakers (read live Thu Nov 26, 2026)
+- **BTO:** $75 buy-in. Regular season is 16 weeks (weeks 13-16 left after week 12). Prizes (2025 rules doc attached to the
+  commissioner's Aug 17 2026 email, which says "The rules are the same"): regular season 1st 40%, 2nd 20%, 3rd 10% of the
+  pot after 4th gets the buy-in back; playoffs (top 12, seeds 1-4 bye, best-of-5 ATS series, no wagers) 1st 15%, 2nd 10%,
+  3rd 5%. Seeding/tiebreakers: balance, win %, Big Game correct picks, fewest monkey weeks (site Rules page). Not
+  confirmed: how many of the 49 listed players paid (pot assumed 49 x $75 = $3,675).
+- **CFP:** contest ends after week 14, conference championship weekend (commissioner email Nov 24). Leaderboard pays the
+  top 12 from a $3,025 pot (95 paid + 26 rebuys): $1,059 / $454 / $303 / $242 / $212 / $182 / $151 / $121 / $106 / $91 /
+  $61 / $45. No tiebreaker besides balance. **Early lock (week 13 only so far):** picking any Thursday or Friday game locks
+  ALL of that player's picks at that game's kickoff (commissioner email Nov 24).
+- **Yahoo:** season ends Dec 5 (week 14; its slate posts Mon Nov 30). Group settings: no spread, no confidence points,
+  tiebreakers on, **drop 1 score** (each member's worst week doesn't count). A short conference-championship week will
+  likely be the dropped week for most members. No prize found (Gmail and the group page): finishing place only.
+
 ## Guhy NFL survivor
 - Eliminated in Week 7 (NYJ). No further picks.

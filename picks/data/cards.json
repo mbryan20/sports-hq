@@ -13,8 +13,7 @@
    "Re-checked Thu 11:48 AM CT (CFP + Yahoo final): saved picks, injury news and DraftKings lines unchanged; a fresh rebuild only swapped coin-flip CFP picks (52-54%), so the posted picks stand."
   ],
   "alerts": [
-   "CHANGE: BTO: yours UCLA +7.5 $1,840; DAL -6.5 $1,840; BUF -2 $1,840; DEN -2 $3,680 \u2192 card UCLA +6.5 $1,840; DEN -0.5 (LP 2) $3,680; Ohio State -10.5 $1,840; BUF -0.5 (LP 2) $1,840 (card puts line points on DEN and BUF, where the pool line beats market; DAL's pool line equals market (-8.5), so Ohio State -10.5 replaces it; cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%). Edit by Thu 3:30pm (PHI@DAL locks then)",
-   "CHANGE: CFP: yours Texas -11.5 2,000; Michigan +10.5 10,000; Duke +14.5 3,500 \u2192 card Mississippi State +19.5 11,904; UCLA +7.5 11,904 (Pool +19.5 vs market +18.5; cover 54%). All CFP picks lock at the earliest picked kickoff: Fri 11:00am (Mississippi State@Ole Miss)",
+   "CHANGE: BTO: yours DAL -8.5 $1,840 \u2192 card Ohio State -10.5 $1,840 (DAL's pool line equals the market (-8.5), so it has no edge; cover chance: yours 50% vs card 54%). Your other 3 bets (UCLA +6.5, DEN -0.5, BUF -0.5) already match the card. Edit by Thu 3:30pm (PHI@DAL locks then)",
    "CHANGE: Yahoo: yours UCF \u2192 card Colorado (Stats 45% vs market 53%; favorite kept)",
    "CHANGE: Yahoo: yours Virginia \u2192 card Virginia Tech (Stats 48% vs market 58%; favorite kept)",
    "CHANGE: Yahoo: yours Oklahoma \u2192 card Missouri (Stats 54% agrees with market)",
@@ -22,11 +21,11 @@
    "CHANGE: Yahoo TB1 USC @ UCLA: yours USC 27, UCLA 20 \u2192 card USC 27, UCLA 22",
    "CHANGE: Yahoo TB2 fewest: yours Texas A&M \u2192 card Michigan"
   ],
-  "breakdowns": "Thu 11:58 AM CT",
+  "breakdowns": "Thu 01:05 PM CT",
   "checked": {
-   "text": "Checked: formats per pool, BTO/CFP wager rules and totals, lock times, saved-pick CHANGE lines, no hedging, numbers add up (second opinion; push 'still open' line fixed); not fixed: Yahoo/CFP minor wording, pool-rules.md lacks CFP early-lock rule",
+   "text": "Checked Thu 1:20pm (second opinion): picks and wagers identical to the 11:34am card; BTO 4 bets $9,200, 2x rule, $10 steps, 4.0 LP, Big Game; CFP 100% of 23,808; Yahoo 25 picks + TB1/TB2; saved picks re-read 12:50-1:00pm; lock times match the slate",
    "stage": "final",
-   "at": "Thu 11:58 AM CT",
+   "at": "Thu 01:05 PM CT",
    "auto_passed": 17,
    "auto_total": 17,
    "auto_fails": []
@@ -399,18 +398,17 @@
    "notes": [
     "Underdogs: 0. Pool sim (10k, before kept picks): P(win week) 10.4% vs 10.4% all favorites; 0 dogs passed the 4-pt / 2-signal rule.",
     "Group: you 184 pts, rank 4, leader 193.",
+    "Season outlook: Yahoo drops each player's worst week, and next week's short championship slate will likely be that week, so this week is effectively the last that counts. After drops you're 5 behind 3rd and 1 ahead of 5th.",
+    "Strategy check (20,000 runs against each member's own habits): all favorites (this card) gives your best expected finish (4.1) and the lowest chance of slipping to 5th or worse (13%); your saved 3 underdogs make that 23%. Catching 3rd is about 1% either way.",
+    "Group habit: it piles onto an underdog mainly when Yahoo's pick page shows most players on it (57% of the group vs 5% otherwise). This week that's UCF (79% on Yahoo), so Colorado is the side that separates you.",
     "Upset watch (favorites our stats doubt or disagree with; your call):",
     "UCF over Colorado (Sat 11/28 01:00 PM): our stats give UCF 55%; betting odds 47%; 79% of Yahoo players on UCF",
     "UCLA over USC (Sat 11/28 02:30 PM): our stats give UCLA 54%; betting odds 31%; 43% of Yahoo players on UCLA; line moved 2.25 toward dog",
     "Virginia over Virginia Tech (Sat 11/28 02:00 PM): our stats give Virginia 52%; betting odds 42%; 8% of Yahoo players on Virginia; rebuilt roster: Virginia (10%) returned almost none of last year&#x27;s production, so our stats lean on last season here; trust the betting odds",
     "Oklahoma over Missouri (Sat 11/28 03:15 PM): our stats give Oklahoma 46%; betting odds 47%; 39% of Yahoo players on Oklahoma",
-    "Chance to win the group this season: 0.8% (you're #4, 9 back; simulated against each member's own pick habits over the last 12 weeks).",
-    "Value of taking the other side (open games; your call: the card takes an underdog only by the 4-pt / 2-signal rule or when you saved it and it raises your season chance):",
-    "Tulsa instead of UTSA (Fri 11/27 11:00 AM): +0.06 points of win chance (0.8% \u2192 0.8%); Tulsa wins 46%, 11% of Yahoo players on Tulsa",
-    "All 2 switches with any gain (incl. ones under 0.05 pts, not listed) together: 0.8% \u2192 0.9%.",
     "Win % here is our stats model; BTO/CFP cover % centers on the betting market, so they can disagree (e.g. UCLA)."
    ],
-   "status": "Thu noon refresh: no new QB/injury news or line moves since the 11:34am card; picks unchanged. FINAL. No changes since Thu 11:34 AM (saved picks, injuries and lines re-checked 11:48 AM). Your saved picks differ on 3 games, both TB1 scores and TB2 fewest: TB2 edit by Fri 10:55am CT; games by each kickoff."
+   "status": "Thu 1pm recheck: no new QB/injury news or line moves; picks unchanged. No changes since Thu 11:34 AM. Your saved picks differ on 3 games, both TB1 scores and TB2 fewest: TB2 edit by Fri 10:55am CT; games by each kickoff."
   },
   {
    "id": "cfp",
@@ -445,8 +443,9 @@
     }
    ],
    "notes": [
-    "Sizing sim (10k seasons): 2 bet(s), 100% of 23,808 \u2192 P(1st) 8.5%, P(top 3) 17.3%.",
-    "Alternate: 1 bet(s) at 75% \u2192 P(1st) 5.2%.",
+    "Prize check (2 weeks left, top 12 paid, you're #8 = $121): all-in on these 2 picks is worth about $167 in expected prize vs $124-$157 for betting the 50% minimum. Chance to stay in the money 42%, top 3 24%, 1st 5%.",
+    "One pick at 100% is worth about $10 more but cuts the chance to stay paid to 29%; the card keeps 2 picks.",
+    "Next week (conference championships, forecast): bet 100% on your single best side; that won in every simulation.",
     "Also worth a look: Alabama -14.5 (cover 55%): market moved to -15.5 since 11am; same 1-point edge as the card picks, so they hold",
     "Also worth a look: Ohio State -10.5 (cover 54%): next-best edge vs pool line",
     "Also worth a look: Texas A&M +11.5 (cover 53%): next-best edge vs pool line",
@@ -454,12 +453,12 @@
     "Mississippi State @ Ole Miss: Yahoo has Mississippi to win (87%); CFP takes Mississippi State +19.5 (Pool +19.5 vs market +18.5; cover 54%). Different questions: who wins vs who covers.",
     "USC @ UCLA: Yahoo has USC to win (46%); CFP takes UCLA +7.5 (Pool +7.5 vs market +6.5; cover 54%). Different questions: who wins vs who covers."
    ],
-   "status": "Thu noon refresh: no new QB/injury news or line moves since the 11:34am card; picks unchanged. FINAL. No changes since Thu 11:34 AM; Ole Miss -18.5 and UCLA +6.5 still at DraftKings. Your saved picks differ: edit by Fri 11am CT (the Mississippi State pick locks all CFP picks at its kickoff)."
+   "status": "Thu 1pm recheck: no new QB/injury news or line moves; picks unchanged. No changes since Thu 11:34 AM. Your saved picks match the card (read 1:00pm); they lock Fri 11:00am."
   },
   {
    "id": "bto",
    "title": "BTO Beat the Odds",
-   "deadline": "Edit by Thu 3:30pm CT (PHI@DAL kickoff locks your saved DAL -6.5); card's first pick KC@BUF 7:20pm",
+   "deadline": "Your DAL -8.5 locks Thu 3:30pm CT; BUF Thu 7:20pm; DEN Fri 2pm; UCLA Sat 2:30pm",
    "rows": [
     {
      "game": "USC @ UCLA \u2605",
@@ -514,13 +513,14 @@
      "bd": "bd-nfl-KC-BUF"
     }
    ],
-   "saved_vs": "cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%",
+   "saved_vs": "cover chance: yours DAL -8.5 50% vs card Ohio State -10.5 54%",
    "notes": [
-    "Your saved bet differs. Cover chance: yours UCLA +7.5 53%; DAL -6.5 55%; BUF -2 55%; DEN -2 59% vs card UCLA +6.5 51%; DEN -0.5 (LP 2) 62%; Ohio State -10.5 54%; BUF -0.5 (LP 2) 59%.",
-    "Sizing sim: 100% of $9,200, lean split \u2192 P(top 12) 58%, P(top 4) 26%.",
+    "Your saved bets match the card except DAL -8.5 (cover 50%) vs the card's Ohio State -10.5 (54%). Worth about $6 in expected prize.",
+    "Prize check (4 weeks left; top 3 paid plus 4th's buy-in back, playoffs pay too): betting all $9,200 this week and every week after is worth about $335 in expected prize vs $79 betting the $2,300 minimum. All-in odds: 1st 15%, top 3 26%, playoffs 52%.",
+    "Next 3 weeks (forecast, not a pick): keep betting 100%; it beat 50% and 25% in every simulation.",
     "USC @ UCLA \u2605: Yahoo has USC to win (46%); BTO takes UCLA +6.5 (Big Game required; cover 51% at the pool line). Different questions: who wins vs who covers."
    ],
-   "status": "Thu noon refresh: no new QB/injury news or line moves since the 11:34am card; picks unchanged. FINAL. Card unchanged since Thu 11:09 AM. Your saved bets differ from it: edit by 3:30pm (PHI@DAL locks).",
+   "status": "Thu 1pm recheck: no new QB/injury news or line moves; picks unchanged. No changes since Thu 11:34 AM. Your saved bets now match the card except DAL -8.5 (card: Ohio State -10.5), a near coin flip: your call by 3:30pm.",
    "change_why": "card puts line points on DEN and BUF, where the pool line beats market; DAL's pool line equals market (-8.5), so Ohio State -10.5 replaces it"
   },
   {
@@ -538,35 +538,35 @@
    "teams": {
     "GB": {
      "o_epa": [
-      0.0288,
+      0.0265,
       13
      ],
      "d_epa": [
-      -0.0002,
+      -0.0012,
       11
      ],
      "o_sr": [
-      0.423,
+      0.4233,
       26
      ],
      "d_sr": [
-      0.4548,
+      0.4552,
       23
      ],
      "o_pass": [
-      0.1465,
-      7
+      0.1415,
+      8
      ],
      "d_pass": [
-      0.0564,
-      16
+      0.0544,
+      15
      ],
      "o_rush": [
-      -0.1654,
+      -0.1627,
       32
      ],
      "d_rush": [
-      -0.0652,
+      -0.066,
       14
      ],
      "o_expl": [
@@ -597,35 +597,35 @@
     },
     "LAR": {
      "o_epa": [
-      0.0653,
+      0.0636,
       8
      ],
      "d_epa": [
-      -0.0744,
-      3
+      -0.0711,
+      2
      ],
      "o_sr": [
-      0.4965,
-      3
+      0.4975,
+      2
      ],
      "d_sr": [
-      0.4147,
+      0.4141,
       5
      ],
      "o_pass": [
-      0.1082,
+      0.1069,
       11
      ],
      "d_pass": [
-      -0.0407,
+      -0.0363,
       4
      ],
      "o_rush": [
-      -0.0007,
-      7
+      -0.0024,
+      6
      ],
      "d_rush": [
-      -0.1168,
+      -0.1159,
       2
      ],
      "o_expl": [
@@ -655,7 +655,7 @@
      "games": 10
     }
    },
-   "stats_home_margin": 8.5
+   "stats_home_margin": 8.4
   },
   "bd-nfl-CHI-DET": {
    "source": "nflverse play-by-play",
@@ -663,36 +663,36 @@
    "teams": {
     "CHI": {
      "o_epa": [
-      0.0377,
+      0.0359,
       10
      ],
      "d_epa": [
-      0.0001,
+      -0.0007,
       12
      ],
      "o_sr": [
-      0.4614,
+      0.4619,
       9
      ],
      "d_sr": [
-      0.4445,
+      0.4449,
       16
      ],
      "o_pass": [
-      0.1078,
+      0.1062,
       12
      ],
      "d_pass": [
-      0.0136,
+      0.0138,
       9
      ],
      "o_rush": [
-      -0.0485,
+      -0.05,
       14
      ],
      "d_rush": [
-      -0.0395,
-      25
+      -0.0418,
+      23
      ],
      "o_expl": [
       0.0912,
@@ -722,36 +722,36 @@
     },
     "DET": {
      "o_epa": [
-      0.1067,
+      0.1068,
       5
      ],
      "d_epa": [
-      0.0547,
+      0.0554,
       28
      ],
      "o_sr": [
-      0.4894,
+      0.4875,
       5
      ],
      "d_sr": [
-      0.4582,
+      0.4581,
       24
      ],
      "o_pass": [
-      0.1745,
+      0.1732,
       4
      ],
      "d_pass": [
-      0.1149,
+      0.1162,
       26
      ],
      "o_rush": [
-      -0.0148,
+      -0.0127,
       8
      ],
      "d_rush": [
-      -0.0705,
-      12
+      -0.0711,
+      13
      ],
      "o_expl": [
       0.1019,
@@ -788,36 +788,36 @@
    "teams": {
     "PHI": {
      "o_epa": [
-      -0.0648,
+      -0.0641,
       29
      ],
      "d_epa": [
-      0.0213,
+      0.0236,
       18
      ],
      "o_sr": [
-      0.3786,
+      0.3788,
       32
      ],
      "d_sr": [
-      0.4287,
+      0.4289,
       8
      ],
      "o_pass": [
-      -0.0411,
-      26
+      -0.041,
+      27
      ],
      "d_pass": [
-      0.0724,
+      0.0746,
       18
      ],
      "o_rush": [
-      -0.0942,
-      24
+      -0.093,
+      23
      ],
      "d_rush": [
-      -0.0558,
-      17
+      -0.0529,
+      19
      ],
      "o_expl": [
       0.0583,
@@ -847,35 +847,35 @@
     },
     "DAL": {
      "o_epa": [
-      0.1172,
+      0.1153,
       3
      ],
      "d_epa": [
-      0.1276,
+      0.1248,
       32
      ],
      "o_sr": [
-      0.4963,
-      4
+      0.4961,
+      3
      ],
      "d_sr": [
-      0.4905,
+      0.4908,
       32
      ],
      "o_pass": [
-      0.1819,
+      0.1802,
       3
      ],
      "d_pass": [
-      0.2126,
+      0.2097,
       32
      ],
      "o_rush": [
-      0.0121,
-      4
+      0.0111,
+      3
      ],
      "d_rush": [
-      0.0237,
+      0.0201,
       32
      ],
      "o_expl": [
@@ -905,7 +905,7 @@
      "games": 11
     }
    },
-   "stats_home_margin": 6.2
+   "stats_home_margin": 6.3
   },
   "bd-401856879": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -987,11 +987,11 @@
      ],
      "o_havoc": [
       0.159,
-      93
+      92
      ],
      "d_havoc": [
       0.158,
-      66
+      64
      ],
      "sp": [
       7.9,
@@ -1097,7 +1097,7 @@
      ],
      "talent": [
       767.89,
-      29
+      28
      ],
      "pace": [
       66.0,
@@ -1117,35 +1117,35 @@
    "teams": {
     "KC": {
      "o_epa": [
-      0.0921,
+      0.0907,
       6
      ],
      "d_epa": [
-      -0.0316,
+      -0.0317,
       6
      ],
      "o_sr": [
-      0.4805,
+      0.4808,
       6
      ],
      "d_sr": [
-      0.4274,
+      0.4277,
       7
      ],
      "o_pass": [
-      0.1447,
-      8
+      0.1446,
+      7
      ],
      "d_pass": [
-      0.0226,
+      0.0225,
       10
      ],
      "o_rush": [
-      0.0108,
+      0.0078,
       5
      ],
      "d_rush": [
-      -0.1029,
+      -0.1027,
       5
      ],
      "o_expl": [
@@ -1176,35 +1176,35 @@
     },
     "BUF": {
      "o_epa": [
-      0.1169,
+      0.1137,
       4
      ],
      "d_epa": [
-      -0.0151,
+      -0.0149,
       8
      ],
      "o_sr": [
-      0.4744,
+      0.4753,
       7
      ],
      "d_sr": [
-      0.4456,
-      18
+      0.4451,
+      17
      ],
      "o_pass": [
-      0.1608,
+      0.1572,
       5
      ],
      "d_pass": [
-      -0.0148,
+      -0.0133,
       7
      ],
      "o_rush": [
-      0.0401,
+      0.0371,
       1
      ],
      "d_rush": [
-      -0.0146,
+      -0.0163,
       31
      ],
      "o_expl": [
@@ -1316,11 +1316,11 @@
      ],
      "o_havoc": [
       0.137,
-      41
+      44
      ],
      "d_havoc": [
       0.194,
-      11
+      12
      ],
      "sp": [
       16.8,
@@ -1430,7 +1430,7 @@
      ],
      "pace": [
       57.6364,
-      108
+      107
      ],
      "runrate": [
       0.5268,
@@ -1520,11 +1520,11 @@
      ],
      "o_havoc": [
       0.176,
-      117
+      116
      ],
      "d_havoc": [
       0.163,
-      51
+      52
      ],
      "sp": [
       0.8,
@@ -1618,11 +1618,11 @@
      ],
      "o_havoc": [
       0.135,
-      35
+      34
      ],
      "d_havoc": [
       0.176,
-      37
+      36
      ],
      "sp": [
       12.9,
@@ -1728,7 +1728,7 @@
      ],
      "d_havoc": [
       0.134,
-      120
+      118
      ],
      "sp": [
       3.0,
@@ -1740,7 +1740,7 @@
      ],
      "pace": [
       62.3636,
-      51
+      50
      ],
      "runrate": [
       0.4813,
@@ -1822,11 +1822,11 @@
      ],
      "o_havoc": [
       0.136,
-      39
+      37
      ],
      "d_havoc": [
       0.153,
-      72
+      71
      ],
      "sp": [
       3.3,
@@ -1838,7 +1838,7 @@
      ],
      "pace": [
       65.1818,
-      27
+      26
      ],
      "runrate": [
       0.5235,
@@ -1854,36 +1854,36 @@
    "teams": {
     "DEN": {
      "o_epa": [
-      0.0356,
-      12
+      0.0346,
+      11
      ],
      "d_epa": [
-      -0.021,
+      -0.0195,
       7
      ],
      "o_sr": [
-      0.427,
-      23
+      0.4271,
+      22
      ],
      "d_sr": [
-      0.411,
+      0.4112,
       4
      ],
      "o_pass": [
-      0.0767,
+      0.076,
       15
      ],
      "d_pass": [
-      -0.0205,
+      -0.0178,
       6
      ],
      "o_rush": [
-      -0.0368,
+      -0.0377,
       10
      ],
      "d_rush": [
-      -0.043,
-      23
+      -0.0422,
+      22
      ],
      "o_expl": [
       0.0762,
@@ -1913,35 +1913,35 @@
     },
     "PIT": {
      "o_epa": [
-      0.0043,
+      0.0042,
       16
      ],
      "d_epa": [
-      0.0114,
+      0.0102,
       14
      ],
      "o_sr": [
-      0.4292,
+      0.4294,
       21
      ],
      "d_sr": [
-      0.4418,
-      13
+      0.4427,
+      14
      ],
      "o_pass": [
-      -0.0033,
+      -0.0028,
       22
      ],
      "d_pass": [
-      0.0565,
-      17
+      0.0549,
+      16
      ],
      "o_rush": [
-      0.0196,
+      0.0181,
       2
      ],
      "d_rush": [
-      -0.0927,
+      -0.0931,
       6
      ],
      "o_expl": [
@@ -1971,7 +1971,7 @@
      "games": 10
     }
    },
-   "stats_home_margin": -0.6
+   "stats_home_margin": -0.5
   },
   "bd-401856759": {
    "source": "CFBD game advanced stats, opponent-adjusted; SP+ and talent via CFBD",
@@ -2069,7 +2069,7 @@
      ],
      "pace": [
       59.7273,
-      92
+      93
      ],
      "runrate": [
       0.5652,
@@ -2155,7 +2155,7 @@
      ],
      "d_havoc": [
       0.152,
-      75
+      76
      ],
      "sp": [
       6.3,
@@ -2273,7 +2273,7 @@
      ],
      "pace": [
       60.5455,
-      79
+      77
      ],
      "runrate": [
       0.5763,
@@ -2355,11 +2355,11 @@
      ],
      "o_havoc": [
       0.166,
-      102
+      104
      ],
      "d_havoc": [
       0.143,
-      99
+      100
      ],
      "sp": [
       -12.1,
@@ -2465,7 +2465,7 @@
      ],
      "d_havoc": [
       0.187,
-      19
+      18
      ],
      "sp": [
       -1.5,
@@ -2559,11 +2559,11 @@
      ],
      "o_havoc": [
       0.155,
-      85
+      84
      ],
      "d_havoc": [
       0.162,
-      53
+      54
      ],
      "sp": [
       8.3,
@@ -2665,7 +2665,7 @@
      ],
      "o_havoc": [
       0.186,
-      129
+      130
      ],
      "d_havoc": [
       0.185,
@@ -2869,11 +2869,11 @@
      ],
      "o_havoc": [
       0.134,
-      33
+      31
      ],
      "d_havoc": [
       0.138,
-      110
+      111
      ],
      "sp": [
       -2.3,
@@ -2885,7 +2885,7 @@
      ],
      "pace": [
       70.4545,
-      3
+      4
      ],
      "runrate": [
       0.6917,
@@ -2971,7 +2971,7 @@
      ],
      "d_havoc": [
       0.175,
-      39
+      38
      ],
      "sp": [
       21.7,
@@ -3073,11 +3073,11 @@
      ],
      "o_havoc": [
       0.182,
-      122
+      125
      ],
      "d_havoc": [
       0.159,
-      61
+      62
      ],
      "sp": [
       7.0,
@@ -3277,7 +3277,7 @@
      ],
      "o_havoc": [
       0.15,
-      72
+      73
      ],
      "d_havoc": [
       0.164,
@@ -3293,7 +3293,7 @@
      ],
      "pace": [
       60.5455,
-      80
+      78
      ],
      "runrate": [
       0.5183,
@@ -3375,7 +3375,7 @@
      ],
      "o_havoc": [
       0.143,
-      53
+      57
      ],
      "d_havoc": [
       0.167,
@@ -3481,7 +3481,7 @@
      ],
      "o_havoc": [
       0.15,
-      71
+      74
      ],
      "d_havoc": [
       0.227,
@@ -3497,7 +3497,7 @@
      ],
      "pace": [
       55.2727,
-      129
+      128
      ],
      "runrate": [
       0.4975,
@@ -3579,7 +3579,7 @@
      ],
      "o_havoc": [
       0.142,
-      52
+      51
      ],
      "d_havoc": [
       0.195,
@@ -3587,7 +3587,7 @@
      ],
      "sp": [
       3.1,
-      63
+      62
      ],
      "talent": [
       634.19,
@@ -3689,7 +3689,7 @@
      ],
      "d_havoc": [
       0.194,
-      12
+      11
      ],
      "sp": [
       25.6,
@@ -3783,11 +3783,11 @@
      ],
      "o_havoc": [
       0.146,
-      61
+      62
      ],
      "d_havoc": [
       0.177,
-      35
+      34
      ],
      "sp": [
       -2.5,
@@ -3893,7 +3893,7 @@
      ],
      "d_havoc": [
       0.15,
-      80
+      81
      ],
      "sp": [
       -8.2,
@@ -4003,7 +4003,7 @@
      ],
      "pace": [
       60.5455,
-      77
+      79
      ],
      "runrate": [
       0.4694,
@@ -4101,7 +4101,7 @@
      ],
      "sp": [
       0.5,
-      73
+      72
      ],
      "talent": [
       672.14,
@@ -4297,7 +4297,7 @@
      ],
      "o_havoc": [
       0.146,
-      62
+      61
      ],
      "d_havoc": [
       0.129,
@@ -4403,7 +4403,7 @@
      ],
      "sp": [
       1.5,
-      68
+      69
      ],
      "talent": [
       862.85,
@@ -4411,7 +4411,7 @@
      ],
      "pace": [
       64.6364,
-      30
+      32
      ],
      "runrate": [
       0.5079,
@@ -4501,15 +4501,15 @@
      ],
      "o_havoc": [
       0.124,
-      16
+      18
      ],
      "d_havoc": [
       0.158,
-      65
+      66
      ],
      "sp": [
       4.1,
-      56
+      57
      ],
      "talent": [
       700.18,
@@ -4517,7 +4517,7 @@
      ],
      "pace": [
       57.0,
-      116
+      118
      ],
      "runrate": [
       0.551,
@@ -4615,7 +4615,7 @@
      ],
      "pace": [
       64.0,
-      35
+      36
      ],
      "runrate": [
       0.4568,
@@ -4709,7 +4709,7 @@
      ],
      "d_havoc": [
       0.186,
-      21
+      22
      ],
      "sp": [
       12.2,
@@ -4721,7 +4721,7 @@
      ],
      "pace": [
       60.5455,
-      78
+      80
      ],
      "runrate": [
       0.5256,
@@ -4803,11 +4803,11 @@
      ],
      "o_havoc": [
       0.143,
-      54
+      53
      ],
      "d_havoc": [
       0.161,
-      57
+      56
      ],
      "sp": [
       -0.9,
@@ -4819,7 +4819,7 @@
      ],
      "pace": [
       57.0,
-      117
+      116
      ],
      "runrate": [
       0.433,
@@ -4909,7 +4909,7 @@
      ],
      "o_havoc": [
       0.143,
-      57
+      56
      ],
      "d_havoc": [
       0.16,
@@ -5117,7 +5117,7 @@
      ],
      "d_havoc": [
       0.136,
-      114
+      113
      ],
      "sp": [
       14.0,
@@ -5129,7 +5129,7 @@
      ],
      "pace": [
       65.1818,
-      26
+      27
      ],
      "runrate": [
       0.4636,
@@ -5227,7 +5227,7 @@
      ],
      "pace": [
       64.0,
-      36
+      37
      ],
      "runrate": [
       0.5768,
@@ -5317,7 +5317,7 @@
      ],
      "o_havoc": [
       0.168,
-      106
+      105
      ],
      "d_havoc": [
       0.134,
@@ -5529,7 +5529,7 @@
      ],
      "sp": [
       0.5,
-      72
+      73
      ],
      "talent": [
       634.28,
@@ -5725,15 +5725,15 @@
      ],
      "o_havoc": [
       0.164,
-      99
+      98
      ],
      "d_havoc": [
       0.144,
-      98
+      95
      ],
      "sp": [
       -2.9,
-      87
+      86
      ],
      "talent": [
       685.02,
@@ -5823,7 +5823,7 @@
      ],
      "o_havoc": [
       0.176,
-      115
+      118
      ],
      "d_havoc": [
       0.125,
@@ -5839,7 +5839,7 @@
      ],
      "pace": [
       55.2727,
-      128
+      129
      ],
      "runrate": [
       0.5176,
@@ -5929,7 +5929,7 @@
      ],
      "o_havoc": [
       0.15,
-      75
+      71
      ],
      "d_havoc": [
       0.189,
@@ -5945,7 +5945,7 @@
      ],
      "pace": [
       62.4545,
-      49
+      48
      ],
      "runrate": [
       0.5082,
@@ -6027,7 +6027,7 @@
      ],
      "o_havoc": [
       0.153,
-      80
+      81
      ],
      "d_havoc": [
       0.191,
@@ -6133,7 +6133,7 @@
      ],
      "o_havoc": [
       0.153,
-      81
+      80
      ],
      "d_havoc": [
       0.219,
@@ -6341,7 +6341,7 @@
      ],
      "d_havoc": [
       0.122,
-      128
+      129
      ],
      "sp": [
       -3.6,
@@ -6353,7 +6353,7 @@
      ],
      "pace": [
       59.9091,
-      88
+      89
      ],
      "runrate": [
       0.4649,
@@ -6541,7 +6541,7 @@
      ],
      "o_havoc": [
       0.136,
-      38
+      40
      ],
      "d_havoc": [
       0.183,
@@ -6639,11 +6639,11 @@
      ],
      "o_havoc": [
       0.171,
-      109
+      108
      ],
      "d_havoc": [
       0.121,
-      131
+      130
      ],
      "sp": [
       -12.9,
@@ -6745,11 +6745,11 @@
      ],
      "o_havoc": [
       0.155,
-      84
+      85
      ],
      "d_havoc": [
       0.18,
-      30
+      31
      ],
      "sp": [
       9.7,
@@ -6761,7 +6761,7 @@
      ],
      "pace": [
       62.3636,
-      50
+      51
      ],
      "runrate": [
       0.4021,
@@ -6843,11 +6843,11 @@
      ],
      "o_havoc": [
       0.156,
-      86
+      87
      ],
      "d_havoc": [
       0.173,
-      40
+      42
      ],
      "sp": [
       18.3,
@@ -6949,11 +6949,11 @@
      ],
      "o_havoc": [
       0.166,
-      103
+      102
      ],
      "d_havoc": [
       0.176,
-      36
+      37
      ],
      "sp": [
       5.9,
@@ -7051,7 +7051,7 @@
      ],
      "d_havoc": [
       0.181,
-      27
+      28
      ],
      "sp": [
       22.9,
@@ -7153,15 +7153,15 @@
      ],
      "o_havoc": [
       0.166,
-      104
+      103
      ],
      "d_havoc": [
       0.175,
-      38
+      39
      ],
      "sp": [
       3.1,
-      62
+      63
      ],
      "talent": [
       722.0,
@@ -7251,11 +7251,11 @@
      ],
      "o_havoc": [
       0.142,
-      50
+      48
      ],
      "d_havoc": [
       0.162,
-      54
+      53
      ],
      "sp": [
       15.0,
@@ -7267,7 +7267,7 @@
      ],
      "pace": [
       64.6364,
-      32
+      30
      ],
      "runrate": [
       0.4215,
@@ -7365,7 +7365,7 @@
      ],
      "sp": [
       10.7,
-      34
+      33
      ],
      "talent": [
       723.28,
@@ -7459,7 +7459,7 @@
      ],
      "d_havoc": [
       0.173,
-      42
+      41
      ],
      "sp": [
       12.7,
@@ -7487,35 +7487,35 @@
    "teams": {
     "SEA": {
      "o_epa": [
-      -0.0016,
-      18
+      -0.0031,
+      19
      ],
      "d_epa": [
-      -0.0748,
-      2
+      -0.071,
+      3
      ],
      "o_sr": [
-      0.4449,
+      0.4451,
       12
      ],
      "d_sr": [
-      0.39,
+      0.3899,
       1
      ],
      "o_pass": [
-      0.1036,
+      0.1004,
       13
      ],
      "d_pass": [
-      -0.058,
+      -0.0533,
       2
      ],
      "o_rush": [
-      -0.1282,
+      -0.1286,
       27
      ],
      "d_rush": [
-      -0.1119,
+      -0.1083,
       3
      ],
      "o_expl": [
@@ -7546,32 +7546,32 @@
     },
     "SF": {
      "o_epa": [
-      0.1657,
+      0.1627,
       1
      ],
      "d_epa": [
-      -0.0053,
+      -0.0072,
       10
      ],
      "o_sr": [
-      0.5175,
+      0.5186,
       1
      ],
      "d_sr": [
-      0.4475,
+      0.4467,
       19
      ],
      "o_pass": [
-      0.2894,
+      0.2854,
       1
      ],
      "d_pass": [
-      0.0431,
-      13
+      0.0402,
+      12
      ],
      "o_rush": [
-      0.0126,
-      3
+      0.0111,
+      4
      ],
      "d_rush": [
       -0.0821,
@@ -7604,7 +7604,7 @@
      "games": 10
     }
    },
-   "stats_home_margin": 6.4
+   "stats_home_margin": 6.5
   },
   "bd-nfl-LV-CLE": {
    "source": "nflverse play-by-play",
@@ -7612,36 +7612,36 @@
    "teams": {
     "LV": {
      "o_epa": [
-      -0.0075,
-      19
+      -0.0025,
+      18
      ],
      "d_epa": [
-      0.051,
+      0.0526,
       27
      ],
      "o_sr": [
-      0.4319,
+      0.4324,
       19
      ],
      "d_sr": [
-      0.4793,
+      0.4796,
       29
      ],
      "o_pass": [
-      0.0806,
+      0.0858,
       14
      ],
      "d_pass": [
-      0.1224,
+      0.122,
       28
      ],
      "o_rush": [
-      -0.1514,
+      -0.1476,
       31
      ],
      "d_rush": [
-      -0.0434,
-      22
+      -0.04,
+      24
      ],
      "o_expl": [
       0.0751,
@@ -7671,35 +7671,35 @@
     },
     "CLE": {
      "o_epa": [
-      -0.0541,
+      -0.0488,
       27
      ],
      "d_epa": [
-      0.003,
+      0.0042,
       13
      ],
      "o_sr": [
-      0.4176,
+      0.4185,
       29
      ],
      "d_sr": [
-      0.4309,
+      0.4304,
       9
      ],
      "o_pass": [
-      -0.0182,
-      24
+      -0.0102,
+      23
      ],
      "d_pass": [
-      0.041,
-      12
+      0.0438,
+      13
      ],
      "o_rush": [
       -0.1312,
       28
      ],
      "d_rush": [
-      -0.0627,
+      -0.0624,
       16
      ],
      "o_expl": [
@@ -7737,36 +7737,36 @@
    "teams": {
     "CAR": {
      "o_epa": [
-      0.0189,
+      0.0193,
       14
      ],
      "d_epa": [
-      0.0442,
-      25
+      0.042,
+      24
      ],
      "o_sr": [
-      0.4384,
+      0.4383,
       17
      ],
      "d_sr": [
-      0.4499,
+      0.4504,
       21
      ],
      "o_pass": [
-      0.0617,
+      0.0626,
       16
      ],
      "d_pass": [
-      0.1217,
+      0.12,
       27
      ],
      "o_rush": [
-      -0.0464,
+      -0.047,
       13
      ],
      "d_rush": [
-      -0.0701,
-      13
+      -0.0731,
+      12
      ],
      "o_expl": [
       0.086,
@@ -7796,36 +7796,36 @@
     },
     "TB": {
      "o_epa": [
-      -0.0408,
+      -0.0411,
       25
      ],
      "d_epa": [
-      -0.0608,
+      -0.0613,
       4
      ],
      "o_sr": [
-      0.427,
-      22
+      0.4264,
+      23
      ],
      "d_sr": [
-      0.4352,
+      0.4342,
       10
      ],
      "o_pass": [
-      -0.0747,
+      -0.0759,
       31
      ],
      "d_pass": [
-      -0.0474,
+      -0.0484,
       3
      ],
      "o_rush": [
-      -0.0396,
+      -0.0393,
       12
      ],
      "d_rush": [
-      -0.0848,
-      9
+      -0.0833,
+      10
      ],
      "o_expl": [
       0.0801,

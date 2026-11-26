@@ -1,0 +1,142 @@
+{
+ "updated": "2026-11-26",
+ "note": "Anonymous field-level numbers; names stay in the private Drive folder.",
+ "cfp": {
+  "players_profiled": 31,
+  "weeks": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "wager_share_quantiles": {
+   "p10": 0.486,
+   "p50": 0.64,
+   "p90": 1.0
+  },
+  "bets_per_week_mean": 4.74,
+  "dog_rate_by_spread": [
+   [
+    0,
+    7,
+    0.45
+   ],
+   [
+    7,
+    14,
+    0.348
+   ],
+   [
+    14,
+    99,
+    0.366
+   ]
+  ],
+  "labels": {
+   "risk-averse": 12,
+   "balanced": 8,
+   "risky": 11
+  },
+  "fair_test": {
+   "wager_share_mae": {
+    "model": 0.127,
+    "baseline_min": 0.261,
+    "n": 270
+   },
+   "side_brier": {
+    "model": 0.236,
+    "baseline_fav": 0.372,
+    "n": 3077
+   }
+  }
+ },
+ "yahoo": {
+  "members_profiled": 12,
+  "fair_test": {
+   "pick_brier": {
+    "model": 0.1105,
+    "baseline_fav": 0.1363,
+    "n": 3257
+   },
+   "group_dog_count_mae": {
+    "model": 1.647,
+    "baseline_fav": 1.48,
+    "games": 300
+   }
+  },
+  "herding": {
+   "herd_games": 30,
+   "close_non_herd_games": 141,
+   "herd": {
+    "open_fav_was_dog": [
+     4,
+     26
+    ],
+    "close_fav_was_dog": [
+     4,
+     26
+    ],
+    "dog_ranked_higher": [
+     14,
+     26
+    ],
+    "dog_home": [
+     4,
+     26
+    ],
+    "both_ranked": [
+     7,
+     26
+    ],
+    "dog_won": [
+     11,
+     21
+    ]
+   },
+   "close_non_herd": {
+    "open_fav_was_dog": [
+     4,
+     114
+    ],
+    "close_fav_was_dog": [
+     5,
+     114
+    ],
+    "dog_ranked_higher": [
+     6,
+     114
+    ],
+    "dog_home": [
+     58,
+     114
+    ],
+    "both_ranked": [
+     14,
+     114
+    ],
+    "dog_won": [
+     37,
+     77
+    ]
+   },
+   "herd_spread_mean": 2.77,
+   "matched": [
+    244,
+    300
+   ],
+   "pub_effect": {
+    "group_dog_share_when_yahoo_majority_on_dog": 0.567,
+    "games_hi": 11,
+    "group_dog_share_otherwise": 0.049,
+    "games_lo": 75
+   }
+  }
+ }
+}

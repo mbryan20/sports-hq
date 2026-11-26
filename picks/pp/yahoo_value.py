@@ -18,7 +18,9 @@ from .cards import ROOT
 
 PROFILE = ROOT / "data/pool_profile.json"
 SPREAD_SD = 14.5          # college margin spread around the line (same as the ATS cards)
-WEEKS_LEFT = 5            # regular season ends Dec 5 (week 14)
+WEEKS_LEFT = 1            # weeks AFTER the current one: season ends Dec 5 (week 14; Yahoo group page, read Nov 26).
+                          # Was 5 (stale since late October). The group drops each member's worst week (Settings:
+                          # "Drop 1 score"), which this sim ignores; pp.opponents' Yahoo notes model it.
 GAMES_PER_WEEK = 25
 N = 20000
 
