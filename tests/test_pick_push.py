@@ -209,3 +209,25 @@ class ChangedSince(unittest.TestCase):
         lines = push.since_lines(new, self.prev())
         self.assertIn("CFP: Auburn @ Ole Miss Auburn +13.5 11,904 → Ole Miss @ Oklahoma Oklahoma +1.5 11,904 "
                       "(Pool +1.5 vs market -1.5)", lines)
+
+
+class LockLabel(unittest.TestCase):
+    """Nov 25: the push said 'BTO (locks Fri 8pm)' and 'CFP (locks Sat 11am)' while the card's BUF bet kicked off
+    Thu 7:20pm and its CFP pick on a Friday game locked all CFP picks Fri 11am."""
+    WED25 = datetime(2026, 11, 25, 21, 30, tzinfo=CT)
+
+    def test_bto_thursday_pick_moves_the_deadline(self):
+        card = {"id": "bto", "rows": [row("KC@BUF", "BUF -0.5 (LP 2)", "$1,840"), row("USC@UCLA", "UCLA +6.5", "$1,840")]}
+        games = [{"away": "KC", "home": "BUF", "kick": "Thu 11/26 7:20 PM CT"},
+                 {"away": "USC", "home": "UCLA", "kick": "Sat 11/28 2:30 PM CT"}]
+        self.assertEqual(push.lock_head(card, games, self.WED25), "save by Thu 7:20pm: KC@BUF kicks off")
+
+    def test_cfp_early_pick_locks_all(self):
+        card = {"id": "cfp", "rows": [row("Mississippi State@Ole Miss", "Mississippi State +19.5", "11,904")]}
+        games = [{"away": "Mississippi State", "home": "Ole Miss", "kick": "Fri 11/27 11:00 AM CT (early)"}]
+        self.assertIn("locks Fri 11:00am", push.lock_head(card, games, self.WED25))
+
+    def test_saturday_only_keeps_usual_label(self):
+        card = {"id": "cfp", "rows": [row("USC@UCLA", "UCLA +7.5", "11,904")]}
+        games = [{"away": "USC", "home": "UCLA", "kick": "Sat 11/28 (pool locks 11:00 AM CT)"}]
+        self.assertEqual(push.lock_head(card, games, self.WED25), "locks Sat 11am")
