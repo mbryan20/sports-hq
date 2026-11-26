@@ -192,6 +192,22 @@ class ChangedSince(unittest.TestCase):
         _, msg, _ = push.message(new, slate(), "DRAFT", due=("bto",), now=WED, prev=self.prev())
         self.assertTrue(msg.startswith("Changed since Wed Nov 11, 09:33 PM:\nYahoo: Wisconsin @ Iowa: Iowa → Wisconsin"))
 
+    def test_changes_only_push(self):
+        """Nov 26 midweek recheck: the push lists only what changed (or says nothing did), drops the per-pool
+        summary, and skips CHANGE lines the last card's push already sent."""
+        _, base, _ = push.message(cards(), slate(), "DRAFT", due=("bto", "cfp", "yahoo"), now=WED)
+        prev = self.prev()
+        prev["meta"]["alerts"] = [ln for ln in base.split("\n") if ln.startswith("CHANGE")]
+        title, msg, _ = push.message(cards(), slate(), "THU RECHECK", now=WED, prev=prev, changes_only=True)
+        self.assertEqual(title, "Pool Picks THU RECHECK: no changes since Wed Nov 11, 09:33 PM")
+        self.assertEqual(msg.split("\n"), ["No changes since Wed Nov 11, 09:33 PM.", push.PAGE])
+        new = cards()
+        new[2]["rows"][1].update(pick="Wisconsin", pick_team="Wisconsin")
+        title, msg, _ = push.message(new, slate(), "THU RECHECK", now=WED, prev=prev, changes_only=True)
+        self.assertTrue(title.endswith("what changed since Wed Nov 11, 09:33 PM"))
+        self.assertTrue(msg.startswith("Changed since Wed Nov 11, 09:33 PM:\nYahoo: Wisconsin @ Iowa: Iowa → Wisconsin"))
+        self.assertNotIn("BTO (", msg)
+
     def test_prev_card_skips_the_current_version(self):
         import json as _j
         docs = {"s1": {"meta": {"generated_iso": "now", "week": 11}}, "s2": {"meta": {"generated_iso": "then", "week": 11}}}
