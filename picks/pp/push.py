@@ -317,9 +317,12 @@ def message(cards, slate, stage_label, due=None, now=None, final_call=False, pre
     if changes_only:
         when = ((prev or {}).get("meta") or {}).get("generated", "the last card").replace(" CT", "")
         def pick_of(a):  # the same yours -> card difference, whatever odds or reason text it carries
-            return re.sub(r"\s*\(.*$", "", a)
+            return re.sub(r"\s*\((?!LP \d).*$", "", a)   # keep BTO "(LP 2)"; Nov 26 it cut "DEN -0.5 (LP 2) $3,680; ..."
+        def due_of(a):  # the edit deadline the CHANGE line carries, so a "still open" line keeps it
+            m = re.search(r"(?:Edit by|earliest picked kickoff:) ([^(]+?)\s*(?:\(|$)", a)
+            return f" (edit by {m.group(1)})" if m else ""
         sent = {pick_of(a) for a in ((prev or {}).get("meta") or {}).get("alerts") or []}  # in the last push
-        still = [pick_of(a).replace("CHANGE: ", "") for a in alerts if pick_of(a) in sent]
+        still = [pick_of(a).replace("CHANGE: ", "") + due_of(a) for a in alerts if pick_of(a) in sent]
         alerts = [a for a in alerts if pick_of(a) not in sent]
         none = not since or since[1:] == ["no pick, line or wager changed."]
         title = f"Pool Picks {stage_label}: " + (f"no changes since {when}" if none else f"what changed since {when}")
