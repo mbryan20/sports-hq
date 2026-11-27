@@ -26,7 +26,9 @@ def keep_or_best(table, best, keep, key, margin=KEEP_MARGIN):
     if keep is None or "ev" not in best:
         return best
     k = next((r for r in table if key(r) == keep), None)
-    return k if k is not None and k["ev"] * (1 + margin) >= best["ev"] else best
+    if k is None:
+        return best
+    return k if margin == float("inf") or k["ev"] * (1 + margin) >= best["ev"] else best
 
 
 # ---------- Yahoo: 14-person straight-up pick'em, maximize P(win the week) ----------

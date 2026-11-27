@@ -38,6 +38,8 @@ class WeeksAndKeep(unittest.TestCase):
         self.assertEqual(P.keep_or_best(t, t[2], "a", key, margin=float("inf"))["k"], "a")   # locked
         self.assertEqual(P.keep_or_best(t, t[2], None, key)["k"], "c")
         self.assertEqual(P.keep_or_best(t, t[2], "zz", key)["k"], "c")          # posted size not in table
+        z = [{"k": "a", "ev": 0.0}, {"k": "c", "ev": 5.0}]
+        self.assertEqual(P.keep_or_best(z, z[1], "a", key, margin=float("inf"))["k"], "a")   # locked, zero EV
 
     def test_no_ev_rows_never_kept(self):
         t = [{"k": "a", "p_first": 0.1}, {"k": "b", "p_first": 0.2}]
@@ -112,12 +114,18 @@ class CardHelpers(unittest.TestCase):
                 self._published(d, "bto", {"A@B": {"wager": "$1,840"}, "C@D": {"wager": "$3,680"}})
                 self.assertEqual(C.posted_size(13, "bto", 5520, [0.5, 1.0]), (2, 1.0, "lean"))
                 self.assertIsNone(C.posted_size(13, "bto", 20000, [0.5, 1.0]))   # 28% matches no size tried
+                self._published(d, "bto", {k: {"wager": f"${w:,}"} for k, w in zip("ABCD", (1890, 1890, 1900, 1900))})
+                self.assertEqual(C.posted_size(13, "bto", 7580, [0.5, 1.0]), (4, 1.0, "equal"))   # $10 rounding
                 c = {"games": [{"away": "A", "home": "B", "kick": "Fri 11/27 11:00 AM CT"},
                                {"away": "X", "home": "Y", "kick": "Thu 11/26 7:00 PM CT"}]}
                 self.assertFalse(C.cfp_locked(c, 13, datetime(2026, 11, 27, 10, 30, tzinfo=CT)))   # X@Y not posted
                 self.assertTrue(C.cfp_locked(c, 13, datetime(2026, 11, 27, 11, 5, tzinfo=CT)))
                 self.assertTrue(C.cfp_locked({**c, "deadline": "2026-11-27T09:00:00-06:00"}, 13,
                                              datetime(2026, 11, 27, 10, 0, tzinfo=CT)))
+                # his saved picks (not the card) decide: saved only Saturday games -> still open Fri 11:05
+                sat = {**c, "games": c["games"] + [{"away": "S", "home": "T", "kick": "Sat 11/28 2:30 PM CT"}],
+                       "saved": {"bets": [{"key": "S@T"}]}}
+                self.assertFalse(C.cfp_locked(sat, 13, datetime(2026, 11, 27, 11, 5, tzinfo=CT)))
             finally:
                 C.ROOT = old
 
@@ -127,7 +135,8 @@ class CardHelpers(unittest.TestCase):
             C.ROOT = Path(d)
             try:
                 self._published(d, "cfp", {"A@B": {"wager": "11,904"}})
-                posted = {"id": "cfp", "rows": [{"key": "A@B", "pick": "A +3", "pick_team": "A", "changed": True}], "notes": ["n"]}
+                posted = {"id": "cfp", "rows": [{"key": "A@B", "pick": "A +3", "pick_team": "A", "changed": True}],
+                          "notes": ["n", "A @ B: Yahoo has B to win (60%); CFP takes A. Different questions: who wins vs who covers."]}
                 (Path(d) / "data/cards.json").write_text(json.dumps({"meta": {"week": 13}, "cards": [posted]}))
                 slate = {"cfp": {"games": [{"away": "A", "home": "B", "kick": "Fri 11/27 11:00 AM CT"}]}}
                 fresh = [{"id": "cfp", "rows": [{"key": "X@Y", "pick": "X -14.5"}]}, {"id": "yahoo", "rows": []}]
@@ -137,6 +146,7 @@ class CardHelpers(unittest.TestCase):
                 self.assertEqual(fresh[0]["rows"][0]["pick"], "A +3")                # locked: posted card kept
                 self.assertNotIn("changed", fresh[0]["rows"][0])
                 self.assertTrue(fresh[0]["status"].startswith("Locked"))
+                self.assertEqual(fresh[0]["notes"], ["n"])                          # cross-pool note not doubled
                 self.assertEqual(fresh[1]["id"], "yahoo")
             finally:
                 C.ROOT = old

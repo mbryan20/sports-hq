@@ -528,7 +528,7 @@ def posted_size(week, pool, balance, fracs):
     snap = min(fracs, key=lambda f: abs(f - share))
     if abs(snap - share) > 0.05:
         return None
-    return len(w), snap, "equal" if len(set(w)) == 1 else "lean"
+    return len(w), snap, "lean" if max(w) >= 1.5 * min(w) else "equal"   # bto_split rounds an even split to $10
 
 
 def sizing_note(best, table, unit, key, locked=False):
@@ -545,18 +545,21 @@ def sizing_note(best, table, unit, key, locked=False):
 
 
 def cfp_locked(c, week, now=None):
-    """True once this week's CFP picks are locked: the slate's cfp.deadline (ISO) has passed, or a game on the
-    posted card has kicked off (picking any game locks ALL CFP picks at its kickoff; site notice Nov 25)."""
+    """True once this week's CFP picks are locked: the slate's cfp.deadline (ISO) has passed, or a game among
+    Michael's saved picks (cfp.saved; the posted card's games when none were read) has kicked off (picking any
+    game locks ALL CFP picks at its kickoff; site notice Nov 25)."""
     now = now or datetime.now(ZoneInfo("America/Chicago"))
     try:
         if c.get("deadline") and now >= datetime.fromisoformat(c["deadline"]):
             return True
     except ValueError:
         pass
-    try:
-        keys = set(json.loads((ROOT / f"data/published/{YEAR}-w{week:02d}-cfp.json").read_text()))
-    except (OSError, ValueError):
-        return False
+    keys = {b["key"] for b in (c.get("saved") or {}).get("bets") or [] if b.get("key")}
+    if not keys:
+        try:
+            keys = set(json.loads((ROOT / f"data/published/{YEAR}-w{week:02d}-cfp.json").read_text()))
+        except (OSError, ValueError):
+            return False
     kicks = [_kick_dt(g.get("kick")) for g in c.get("games") or [] if f"{g['away']}@{g['home']}" in keys]
     return any(k and k <= now for k in kicks)
 
@@ -577,7 +580,9 @@ def hold_locked_cfp(cards, slate, week, now=None):
     for i, card in enumerate(cards):
         if card["id"] == "cfp" and prev:
             rows = [{k: v for k, v in r.items() if k not in ("changed", "was")} for r in prev["rows"]]
-            cards[i] = {**prev, "rows": rows, "status": "Locked: picks as posted (nothing can change on the site)."}
+            notes = [n for n in prev.get("notes") or [] if "Different questions: who wins vs who covers." not in n]
+            cards[i] = {**prev, "rows": rows, "notes": notes,   # cross_pool_notes adds those notes back once
+                        "status": "Locked: picks as posted (nothing can change on the site)."}
 
 
 def cross_pool_notes(cards):
