@@ -90,6 +90,9 @@ def cfp_weekly(parsed):
     return out
 
 
+REBUY = 10000   # CFP rebuy resets a busted balance to 10,000 (rules page)
+
+
 def reconstruct_starts(weekly, end_balances, last_week):
     """Each player's balance at the start of each week, worked backward from today's leaderboard
     (end of last_week): start = end - net. A week with no picks cost 50% (start = 2 x end). Weeks that come
@@ -103,6 +106,13 @@ def reconstruct_starts(weekly, end_balances, last_week):
         bal, s = float(end), {}
         for w in range(last_week, first - 1, -1):
             start = bal - wk[w]["net"] if w in wk else bal * 2
+            # All-in, lost everything, then rebought to 10,000: working back gives start = 2 x wager (share 0.5).
+            # The real start was the wager (share 1.0). Only certain in a player's first week, since everyone
+            # starts at 10,000 (later, a real 50% loss looks the same). Checker, Nov 27.
+            if (w == first and w in wk and wk[w]["net"] == -wk[w]["wager"] and abs(bal - REBUY) < 1
+                    and abs(start - 2 * wk[w]["wager"]) < 1):
+                s[w] = float(wk[w]["wager"])
+                break
             # A rebuy (bust to 0, reset to 10,000) makes the week before it come out ~10,000 too high, so its
             # wager share falls under the 50% minimum the site enforces: stop there (checker, Nov 26).
             if start <= 0 or (w in wk and wk[w]["wager"] / start < 0.49):

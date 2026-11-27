@@ -455,15 +455,19 @@ def season_adopt(rows, picks, chosen, fav_home, p_true, pub_home):
     r, vals, _c, games, _meta, idx, _prof = sv
     cand = sorted((j for j in range(len(idx)) if vals[j] >= MIN_GAIN and idx[j] not in chosen), key=lambda j: -vals[j])
     out = {}
+    cur = r["place"]
     for j in cand:
         i = idx[j]
         g = games[j]
         picks[i] = not bool(picks[i])
-        if out:     # keep a second flip only if the combined card is better still
+        if out:     # keep a further flip only if it improves on the card as flipped so far (checker, Nov 27)
             sv2 = season_flips(rows, picks, fav_home, p_true, pub_home)
-            if not sv2 or sv2[0]["place"] > r["place"] - (vals[cand[0]] / 100):
+            if not sv2 or sv2[0]["place"] > cur - MIN_GAIN / 100:
                 picks[i] = not bool(picks[i])
                 continue
+            cur = sv2[0]["place"]
+        else:
+            cur = r["place"] - vals[j] / 100
         side_pub = g["pub_dog"] if not g["my_dog"] else 1 - g["pub_dog"]
         sg = rows[i]["sg"]
         side = sg["home"] if picks[i] else sg["away"]
@@ -1010,7 +1014,7 @@ READ_HTML = """<details class="howto"><summary>How to read the CHANGE lines</sum
 <li><b>Pool -13.5 vs market -16.5</b>: the pool fixed its line when it posted the games; the betting market's line today is in the second number. When the market moved past the pool's line, the pool is giving you free points (here 3).</li>
 <li><b>cover 59%</b>: the chance the pick wins at the pool's line, from the market line plus a small model adjustment. 50% is a coin flip; 55%+ is worth a pick.</li>
 <li><b>Market Oklahoma 56%</b>: the betting market's chance that team wins outright.</li>
-<li><b>80% of group on Ole Miss</b>: the share of the Yahoo pool picking that side. In a pool you need to beat other players, so a slight favourite most of them fade gains you the most when it wins.</li>
+<li><b>80% of Yahoo players on Ole Miss</b>: the share of ALL Yahoo pick'em players on that side (Yahoo's Pick Distribution), not your group; your group's own picks show only as each game locks. The card uses it, plus each member's habits, to forecast the group. Going with the group protects your place; going against it only gains when that side wins.</li>
 <li><b>dropped: ... market -14</b>: why your saved pick lost its edge (news, then the line it moved to).</li>
 <li><b>Win % model/mkt</b> (tables): our stats model's chance / the betting market's. The card leans on the market, which picked more winners in our backtest (75% vs 70%).</li>
 <li>Tap a game row (▸) for the full breakdown: lines over the week, injuries, matchups and weather.</li></ul></details>

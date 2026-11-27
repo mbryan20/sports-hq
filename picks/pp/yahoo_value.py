@@ -87,11 +87,16 @@ def season_values(games, prof, weeks_left=WEEKS_LEFT, n=N, seed=7):
 # - Yahoo's pick % is ALL Yahoo players (pickdistribution page and the group page's side panel, checked live Nov 27),
 #   never the group's split; the group's own picks show only after each game locks. It is still the best predictor
 #   of the group: walk-forward on weeks 10-12 (747 picks), P(member takes the dog) = sigmoid(logit(Yahoo %) +
-#   0.5 x ln(member lean)) scored Brier 0.078 vs 0.082 for the old 0.5 x Yahoo % + 0.5 x bucket rate, and missed
-#   the group's dog count by 0.86 vs 0.99 per game ("always the favorite": 0.131 / 1.31).
+#   0.5 x ln(member lean)) scored Brier 0.078 vs 0.082 for the old sim formula (0.5 x Yahoo % + 0.5 x bucket rate x
+#   lean) and 0.079 for 0.5 x Yahoo % + 0.5 x member bucket rate; it missed the group's dog count by 0.85 vs 0.94-0.95
+#   per game ("always the favorite": 0.131 / 1.31). Independent checker re-run, Nov 27.
 # - "Drop 1 score": each member's worst week doesn't count (Settings page). Needs "dropped" in the profile.
 PUB_LEAN_W = 0.5
 FUTURE_GAMES = 12         # week 14 is conference championship weekend; Yahoo posts it Mon Nov 30. Not confirmed: 12.
+                          # It matters: with ~12 games week 14 is most members' dropped week; a 20-25 game week
+                          # makes it count (checker, Nov 27: UCF's +3.1 flip turns about -0.6 at 25 games). That
+                          # weekend has only ~10-11 FBS title games (not confirmed what Yahoo includes); set the
+                          # real count here once Yahoo posts the slate.
 
 
 def _logit(p):

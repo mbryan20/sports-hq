@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26",
+ "updated": "2026-11-27",
  "note": "Anonymous field-level numbers; names stay in the private Drive folder.",
  "cfp": {
   "players_profiled": 31,
@@ -18,7 +18,7 @@
   ],
   "wager_share_quantiles": {
    "p10": 0.5,
-   "p50": 0.75,
+   "p50": 0.775,
    "p90": 1.0
   },
   "bets_per_week_mean": 4.85,
@@ -46,7 +46,7 @@
   },
   "fair_test": {
    "wager_share_mae": {
-    "model": 0.105,
+    "model": 0.101,
     "baseline_min": 0.27,
     "n": 228
    },

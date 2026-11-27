@@ -167,3 +167,13 @@ class CommittedProfileIsAnonymous(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RebuyAllIn(unittest.TestCase):
+    """Checker, Nov 27: busting all-in in the first week then rebuying read as a 50% week from a 20,000 start."""
+    def test_first_week_all_in_bust_then_rebuy(self):
+        from pp import opponents as O
+        w = {"x": {2: {"n": 1, "wager": 10000, "net": -10000, "dog": 0, "big": 10000},
+                   3: {"n": 1, "wager": 5000, "net": 5000, "dog": 0, "big": 5000}}}
+        s = O.reconstruct_starts(w, {"x": 15000}, 3)
+        self.assertEqual(s["x"], {3: 10000.0, 2: 10000.0})
