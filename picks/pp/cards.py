@@ -1042,6 +1042,20 @@ def write_alerts(meta):
                                                   "alerts": list(meta.get("alerts") or [])}, ensure_ascii=False), encoding="utf-8")
 
 
+ACCURACY_PREFIXES = ("This season, your Yahoo games", "Preseason test", "Backtest 2026", "Straight-up:")
+
+
+def accuracy_lines():
+    """Model-check lines (Nov 27): this season's graded Yahoo games first (re-computed every build), then the
+    one-time preseason backtest, labeled as such."""
+    from . import season_check
+    bt = json.loads((ROOT / "backtest/2026_w1-8.json").read_text())["report"]
+    cal = {c["bin"]: c for c in bt["calibration"]}
+    out = [f"Preseason test, all college games wks 1-8 (run Oct 31, {bt['n']} games): picks rated 60-70% hit {cal['60-70%']['hit']*100:.0f}%, 70-80% hit {cal['70-80%']['hit']*100:.0f}%, 80-90% hit {cal['80-90%']['hit']*100:.0f}%, 90%+ hit {cal['90-100%']['hit']*100:.0f}%; winners picked: stats {bt['su_accuracy']['model']*100:.0f}%, market favorite {bt['su_accuracy']['market']*100:.0f}%."]
+    live = season_check.line()
+    return ([live] if live else []) + out
+
+
 def rerender(week=None):
     """Rebuild the breakdowns and the page around the posted cards (picks, wagers and stage unchanged)."""
     d = json.loads((ROOT / "data/cards.json").read_text(encoding="utf-8"))
@@ -1050,6 +1064,7 @@ def rerender(week=None):
     W = Week(week)
     slate = load_slate(week)
     meta["alerts"] = alerts_for(cards, slate, meta.get("stage"))
+    meta["calibration"] = accuracy_lines() + [t for t in meta.get("calibration") or [] if not t.startswith(ACCURACY_PREFIXES)]
     games = add_breakdowns(W, slate, cards, meta)
     write(cards, meta, games)
     print(json.dumps({"rerendered": week, "breakdowns": len(games)}))
@@ -1102,10 +1117,9 @@ def main():
     for c in cards:
         mark_changes(c, a.stage, week, since)
     cards.sort(key=lambda c: not any(r.get("changed") for r in c["rows"]))
-    bt = json.loads((ROOT / "backtest/2026_w1-8.json").read_text())["report"]
-    cal = {c["bin"]: c for c in bt["calibration"]}
-    calib = [f"Backtest 2026 wks 1-8 ({bt['n']} games): picks rated 60-70% hit {cal['60-70%']['hit']*100:.0f}%, 70-80% hit {cal['70-80%']['hit']*100:.0f}%, 80-90% hit {cal['80-90%']['hit']*100:.0f}%, 90%+ hit {cal['90-100%']['hit']*100:.0f}%.",
-             f"Straight-up: model {bt['su_accuracy']['model']*100:.0f}% vs market {bt['su_accuracy']['market']*100:.0f}%; model trails early weeks, near market by wks 6-8."]
+    from . import season_check
+    season_check.log_rows(cards, week, YEAR)
+    calib = accuracy_lines()
     srcs = sorted({W.lines[g["id"]]["src"] for g in W.games if (W.lines.get(g["id"]) or {}).get("src")})
     calib.append(f"Market lines: {srcs[-1]} for {sum(1 for g in W.games if (W.lines.get(g['id']) or {}).get('src'))} games; CFBD consensus for the rest."
                  if srcs else "Market lines: CFBD consensus (ESPN odds unavailable at build).")
