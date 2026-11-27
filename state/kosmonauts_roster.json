@@ -1,5 +1,5 @@
 {
- "captured": "2026-11-27T13:34:53Z",
+ "captured": "2026-11-27T22:35:11Z",
  "players": [
   {
    "slot": "QB",
@@ -83,7 +83,7 @@
    "eligible": [
     "RB"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "BN",
@@ -169,7 +169,7 @@
    "eligible": [
     "QB"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -197,22 +197,10 @@
   },
   {
    "slot": "FA",
-   "name": "Kyler Murray",
-   "yahoo_id": "31833",
+   "name": "Geno Smith",
+   "yahoo_id": "26662",
    "key": null,
-   "team": "MIN",
-   "pos": "QB",
-   "eligible": [
-    "QB"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
-   "name": "Fernando Mendoza",
-   "yahoo_id": "42623",
-   "key": null,
-   "team": "LV",
+   "team": "NYJ",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -221,10 +209,22 @@
   },
   {
    "slot": "FA",
-   "name": "Geno Smith",
-   "yahoo_id": "26662",
+   "name": "Kyler Murray",
+   "yahoo_id": "31833",
    "key": null,
-   "team": "NYJ",
+   "team": "MIN",
+   "pos": "QB",
+   "eligible": [
+    "QB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Fernando Mendoza",
+   "yahoo_id": "42623",
+   "key": null,
+   "team": "LV",
    "pos": "QB",
    "eligible": [
     "QB"
@@ -389,6 +389,18 @@
   },
   {
    "slot": "FA",
+   "name": "Chris Rodriguez Jr.",
+   "yahoo_id": "40231",
+   "key": null,
+   "team": "JAX",
+   "pos": "RB",
+   "eligible": [
+    "RB"
+   ],
+   "status": null
+  },
+  {
+   "slot": "FA",
    "name": "RJ Harvey",
    "yahoo_id": "41845",
    "key": null,
@@ -410,18 +422,6 @@
     "RB"
    ],
    "status": "Suspended"
-  },
-  {
-   "slot": "FA",
-   "name": "Chris Rodriguez Jr.",
-   "yahoo_id": "40231",
-   "key": null,
-   "team": "JAX",
-   "pos": "RB",
-   "eligible": [
-    "RB"
-   ],
-   "status": null
   },
   {
    "slot": "FA",
@@ -541,7 +541,7 @@
    "eligible": [
     "WR"
    ],
-   "status": "Doubtful"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -581,10 +581,10 @@
   },
   {
    "slot": "FA",
-   "name": "Chris Godwin Jr.",
-   "yahoo_id": "30197",
+   "name": "Keenan Allen",
+   "yahoo_id": "26699",
    "key": null,
-   "team": "TB",
+   "team": "SF",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -593,10 +593,10 @@
   },
   {
    "slot": "FA",
-   "name": "Keenan Allen",
-   "yahoo_id": "26699",
+   "name": "Chris Godwin Jr.",
+   "yahoo_id": "30197",
    "key": null,
-   "team": "SF",
+   "team": "TB",
    "pos": "WR",
    "eligible": [
     "WR"
@@ -629,18 +629,6 @@
   },
   {
    "slot": "FA",
-   "name": "Omar Cooper Jr.",
-   "yahoo_id": "42652",
-   "key": null,
-   "team": "NYJ",
-   "pos": "WR",
-   "eligible": [
-    "WR"
-   ],
-   "status": "Questionable"
-  },
-  {
-   "slot": "FA",
    "name": "Tank Dell",
    "yahoo_id": "40097",
    "key": null,
@@ -650,6 +638,18 @@
     "WR"
    ],
    "status": null
+  },
+  {
+   "slot": "FA",
+   "name": "Omar Cooper Jr.",
+   "yahoo_id": "42652",
+   "key": null,
+   "team": "NYJ",
+   "pos": "WR",
+   "eligible": [
+    "WR"
+   ],
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -733,7 +733,7 @@
    "eligible": [
     "TE"
    ],
-   "status": "Questionable"
+   "status": "Out"
   },
   {
    "slot": "FA",
@@ -745,7 +745,7 @@
    "eligible": [
     "TE"
    ],
-   "status": "Questionable"
+   "status": null
   },
   {
    "slot": "FA",
@@ -809,10 +809,10 @@
   },
   {
    "slot": "FA",
-   "name": "Kenyon Sadiq",
-   "yahoo_id": "42638",
+   "name": "AJ Barner",
+   "yahoo_id": "41001",
    "key": null,
-   "team": "NYJ",
+   "team": "SEA",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -821,10 +821,10 @@
   },
   {
    "slot": "FA",
-   "name": "AJ Barner",
-   "yahoo_id": "41001",
+   "name": "Kenyon Sadiq",
+   "yahoo_id": "42638",
    "key": null,
-   "team": "SEA",
+   "team": "NYJ",
    "pos": "TE",
    "eligible": [
     "TE"
@@ -1228,5 +1228,5 @@
    "status": null
   }
  ],
- "fa_captured": "2026-11-27T13:34:53Z"
+ "fa_captured": "2026-11-27T22:35:11Z"
 }
