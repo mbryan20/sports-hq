@@ -79,3 +79,93 @@ def season_values(games, prof, weeks_left=WEEKS_LEFT, n=N, seed=7):
     pos = [i for i, v in enumerate(vals) if v > 0]
     combo = round((p_first(me + flip_delta[:, pos].sum(1)) - base) * 100, 2) if pos else 0.0
     return base, vals, combo
+
+
+# ---------------------------------------------------------------- finishing place (Nov 27)
+# The group has no prize (docs/picks/method/pool-rules.md), so what matters is Michael's finishing place, not P(1st)
+# (about 0% when 9 back with a week and a half left). This version also models two facts season_values ignores:
+# - Yahoo's pick % is ALL Yahoo players (pickdistribution page and the group page's side panel, checked live Nov 27),
+#   never the group's split; the group's own picks show only after each game locks. It is still the best predictor
+#   of the group: walk-forward on weeks 10-12 (747 picks), P(member takes the dog) = sigmoid(logit(Yahoo %) +
+#   0.5 x ln(member lean)) scored Brier 0.078 vs 0.082 for the old 0.5 x Yahoo % + 0.5 x bucket rate, and missed
+#   the group's dog count by 0.86 vs 0.99 per game ("always the favorite": 0.131 / 1.31).
+# - "Drop 1 score": each member's worst week doesn't count (Settings page). Needs "dropped" in the profile.
+PUB_LEAN_W = 0.5
+FUTURE_GAMES = 12         # week 14 is conference championship weekend; Yahoo posts it Mon Nov 30. Not confirmed: 12.
+
+
+def _logit(p):
+    p = np.clip(p, 0.005, 0.995)
+    return np.log(p / (1 - p))
+
+
+def member_dog_probs(pub_dog, leans):
+    """(games, members) chance each member takes the underdog: Yahoo-wide share shifted by the member's lean."""
+    z = _logit(np.asarray(pub_dog, float))[:, None] + PUB_LEAN_W * np.log(np.clip(np.asarray(leans, float), 0.2, 5))[None, :]
+    return 1 / (1 + np.exp(-z))
+
+
+def season_place(games, prof, weeks_left=WEEKS_LEFT, future_games=FUTURE_GAMES, n=N, seed=7):
+    """Like season_values, scored by finishing place. Returns {"place": expected place, "hold": P(finish at the
+    current rank or better), "first": P(1st), "rank": current rank, "flips": [same three for flipping each game],
+    "drop_rule": bool}. Ties share places."""
+    rng = np.random.default_rng(seed)
+    others = prof["others"]
+    lean = np.array([o["lean"] for o in others])
+    pts_o = np.array([o["points"] for o in others], float)
+    pts_me = float(prof["me"]["points"])
+    drops = [o.get("dropped") for o in others] + [prof["me"].get("dropped")]
+    drop_rule = all(d is not None for d in drops)
+    weeks_o = []            # per week: (n, members) scores
+    weeks_me = []
+    flip_delta = np.zeros((n, len(games)))
+    if games:
+        pf = np.array([g["p_fav"] for g in games])
+        q = member_dog_probs([g["pub_dog"] for g in games], lean)                      # (games, members)
+        fav_won = rng.random((n, len(games))) < pf
+        opp_dog = rng.random((n, len(games), len(lean))) < q[None]
+        weeks_o.append((opp_dog != fav_won[:, :, None]).sum(1).astype(float))
+        my_dog = np.array([bool(g["my_dog"]) for g in games])
+        right = my_dog[None, :] != fav_won
+        weeks_me.append(right.sum(1).astype(float))
+        flip_delta = np.where(right, -1.0, 1.0)
+    spreads = np.array(prof["spreads"])
+    for _ in range(weeks_left):
+        s = rng.choice(spreads, future_games)
+        pf = np.array([p_fav_from_spread(x) for x in s])
+        rate = np.array([bucket_rate(prof, x) for x in s])
+        fav_won = rng.random((n, future_games)) < pf
+        opp_dog = rng.random((n, future_games, len(lean))) < np.clip(rate[:, None] * lean[None, :], 0, 0.95)[None]
+        weeks_o.append((opp_dog != fav_won[:, :, None]).sum(1).astype(float))
+        my_dog = rng.random((n, future_games)) < np.clip(rate * prof["me"]["lean"], 0, 0.95)[None]
+        weeks_me.append((my_dog != fav_won).sum(1).astype(float))
+    if drop_rule:
+        d_o = np.array([o["dropped"] for o in others], float)
+        worst_o = np.minimum.reduce([np.broadcast_to(d_o, (n, len(lean)))] + weeks_o) if weeks_o else d_o
+        opp = pts_o + d_o + sum(weeks_o) - worst_o
+    else:
+        opp = pts_o + (sum(weeks_o) if weeks_o else 0)
+    opp = np.broadcast_to(np.asarray(opp, float), (n, len(lean)))
+    rank = 1 + int((pts_o > pts_me).sum())
+
+    def score(extra):
+        wk = list(weeks_me)
+        if wk:
+            wk[0] = wk[0] + extra
+        if drop_rule:
+            d = float(prof["me"]["dropped"])
+            worst = np.minimum.reduce([np.full(n, d)] + wk) if wk else d
+            me = pts_me + d + sum(wk) - worst
+        else:
+            me = pts_me + (sum(wk) if wk else 0)
+        me = np.broadcast_to(np.asarray(me, float), (n,))
+        above = (opp > me[:, None]).sum(1)
+        ties = (opp == me[:, None]).sum(1)
+        place = 1 + above + ties / 2.0
+        hold = np.clip((rank - above) / (ties + 1.0), 0, 1)
+        first = np.where(above == 0, 1.0 / (ties + 1.0), 0.0)
+        return {"place": float(place.mean()), "hold": float(hold.mean()), "first": float(first.mean())}
+
+    out = score(0.0)
+    out.update(rank=rank, drop_rule=drop_rule, flips=[score(flip_delta[:, i]) for i in range(len(games))])
+    return out

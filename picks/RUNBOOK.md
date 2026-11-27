@@ -152,7 +152,11 @@ Grade last week. Last week = the CFBD week whose games just finished, which is `
    - No team-specific permanent rules.
 4b. **Refresh the Yahoo group profile** (feeds the card's "value of taking the other side"). Both pages are read-only:
    - Standings: `https://football.fantasysports.yahoo.com/college/3659` → write `.private/standings.json` as
-     `{"me": "Michael B.", "read": "<date>", "points": {member: total}}` (Rank / Pick Set Name / Total table).
+     `{"me": "Michael B.", "read": "<date>", "points": {member: total}, "dropped": {member: dropped}}` (Rank / Pick Set
+     Name / Total / Dropped table). Keep "dropped": the season sim uses it for Yahoo's drop-1-score rule.
+   - The group page's "Pick Distribution" panel and `/college/pickdistribution` are ALL Yahoo players, not the group
+     (checked live Nov 27). The group's own picks appear on Group Picks only as each game locks. Never call the Yahoo %
+     "the group's" split; the card uses it, plus each member's lean, as a forecast of the group.
    - Group picks for the graded week: in that tab, fetch `/college/3659/grouppicks?week=NN` and `...&pg=2` (games 14-25)
      and parse each `table tr` (rows "Favored", "Spread", "Underdog", then one row per member). Add the week to
      `.private/grouppicks_2026.json` as `{"g": "FAV,spread,DOG;...", "p": {member: "F"/"D"/"-" per game}}`. Keep results

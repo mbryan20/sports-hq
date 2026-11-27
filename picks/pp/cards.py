@@ -237,7 +237,7 @@ def build_yahoo(W, slate):
         pt = blend(pm, pk)
         fav = (pk if pk is not None else pm) >= 0.5
         pub = sg["pub"].get(sg["home"] if home_is_cfbd_home else sg["away"], 50) / 100
-        # underdog rule: spread <= ~4, model disagrees, 2+ independent signals, group on favorite
+        # underdog rule: spread <= ~4, model disagrees, 2+ independent signals, most Yahoo players (not the group) on favorite
         signals = []
         dog_home = not fav
         p_dog_model = pm if dog_home else 1 - pm
@@ -268,6 +268,7 @@ def build_yahoo(W, slate):
         sims_tb2.append((sg["home"], sg["away"], ah if h_is_home else aa, aa if h_is_home else ah))
     p_true, fav_home, pub_home = map(np.array, (p_true, fav_home, pub_home))
     picks, chosen, curve = P.yahoo_optimize(p_true, fav_home, eligible, pub_home, n_opp=y["group_size"] - 1)
+    adopted = season_adopt(rows, picks, chosen, fav_home, p_true, pub_home)
     kept = keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y)
 
     tb1 = {}
@@ -286,12 +287,14 @@ def build_yahoo(W, slate):
         pick = sg["home"] if home_pick else sg["away"]
         pm = r["pm"] if home_pick else 1 - r["pm"]
         pk = None if r["pk"] is None else (r["pk"] if home_pick else 1 - r["pk"])
-        is_dog = i in chosen
+        is_dog = i in chosen or (i in adopted and bool(picks[i]) != bool(fav_home[i]))
         rwhy, rsrc = research_why(S, g, pick)
         if i in kept:
             why = kept[i]
+        elif i in adopted:
+            why = adopted[i]
         elif is_dog:
-            why = short(f"Upset: {', '.join(r['signals'])}; group on favorite")
+            why = short(f"Upset: {', '.join(r['signals'])}; Yahoo players on favorite")
         elif rwhy:
             why = rwhy
         elif S["wx"] and total_adjustment(S["wx"]) <= -2 and pm >= 0.5:  # wind never explains a side the stats doubt
@@ -313,9 +316,9 @@ def build_yahoo(W, slate):
         out.append({"game": f"{sg['away']} @ {sg['home']}", "kick": sg["kick"], "pick": pick + (" (dog)" if is_dog else ""),
                     "model": pm, "market": pk, "wager": tbs, "why": why, "source": rsrc or src_link(g, []),
                     "key": f"{sg['away']}@{sg['home']}", "pick_team": pick})
-    n_dogs = len(chosen)
+    n_dogs = len(chosen) + sum(1 for i in adopted if bool(picks[i]) != bool(fav_home[i]))
     kept_dogs = [o["pick_team"] for i, o in enumerate(out) if i in kept and bool(picks[i]) != bool(fav_home[i])]
-    watch = upset_watch(rows, picks, set(chosen) | set(kept), pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
+    watch = upset_watch(rows, picks, set(chosen) | set(kept) | set(adopted), pub_home) + group_value(rows, picks, fav_home, p_true, pub_home, y)
     return {
         "id": "yahoo", "title": "Yahoo pick'em (Kosmos, 14)", "deadline": yahoo_deadline(y),
         "rows": out,
@@ -384,11 +387,15 @@ def season_flips(rows, picks, fav_home, p_true, pub_home):
         idx.append(i)
     if not games:
         return None
-    base, vals, combo = V.season_values(games, prof)
-    return base, vals, combo, games, meta, idx, prof
+    # Nov 27: scored by finishing place (no prize; P(1st) was ~0 and only noise), with each member's lean on top of
+    # the Yahoo-wide pick % and the drop-a-week rule. vals = hundredths of a place gained by flipping (+ = better).
+    r = V.season_place(games, prof)
+    vals = [round((r["place"] - f["place"]) * 100, 2) for f in r["flips"]]
+    return r, vals, None, games, meta, idx, prof
 
 
-MIN_GAIN = 0.05   # season win-chance points; smaller gains are inside the 20k-season sim's noise (~0.1 pt)
+MIN_GAIN = 1.0    # hundredths of a finishing place. Nov 27, week 13 real data: UCF's flip scored 3.08-3.23 across 5
+                  # seeds (noise ~0.15); my judgment: 1.0 keeps a wide margin over noise and model error
 
 
 def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
@@ -417,37 +424,64 @@ def keep_saved_picks(rows, picks, chosen, fav_home, p_true, pub_home, y):
         picks[i] = not bool(picks[i])
         g = games[j]
         p_side = (1 - g["p_fav"]) if not g["my_dog"] else g["p_fav"]   # the flipped side's win chance
-        kept[i] = f"Your pick kept: {mine} wins {p_side * 100:.0f}%, adds {vals[j]:.2f} pts season chance"
+        kept[i] = f"Your pick kept: {mine} wins {p_side * 100:.0f}%, helps your finish"
     return kept
 
 
+def season_adopt(rows, picks, chosen, fav_home, p_true, pub_home):
+    """Take the other side where the season sim says it improves Michael's expected finish by MIN_GAIN or more
+    (Nov 27: protecting 4th, the card should go WITH a group herd on a coin flip, e.g. UCF at 74% Yahoo-wide).
+    Flips picks in place; returns {row index: reason}. Adopts the best flip, then each next one only if the set
+    still beats the best single flip (flips interact through the same finishing places)."""
+    sv = season_flips(rows, picks, fav_home, p_true, pub_home)
+    if not sv:
+        return {}
+    r, vals, _c, games, _meta, idx, _prof = sv
+    cand = sorted((j for j in range(len(idx)) if vals[j] >= MIN_GAIN and idx[j] not in chosen), key=lambda j: -vals[j])
+    out = {}
+    for j in cand:
+        i = idx[j]
+        g = games[j]
+        picks[i] = not bool(picks[i])
+        if out:     # keep a second flip only if the combined card is better still
+            sv2 = season_flips(rows, picks, fav_home, p_true, pub_home)
+            if not sv2 or sv2[0]["place"] > r["place"] - (vals[cand[0]] / 100):
+                picks[i] = not bool(picks[i])
+                continue
+        side_pub = g["pub_dog"] if not g["my_dog"] else 1 - g["pub_dog"]
+        sg = rows[i]["sg"]
+        side = sg["home"] if picks[i] else sg["away"]
+        out[i] = short(f"Season: {side_pub * 100:.0f}% of Yahoo on {side}; matching protects your #{r['rank']}")
+    return out
+
+
 def group_value(rows, picks, fav_home, p_true, pub_home, y):
-    """Season-long value of taking the other side in each open game (pp.yahoo_value), as card notes."""
+    """Season-long value of taking the other side in each open game (pp.yahoo_value.season_place), as card notes."""
     sv = season_flips(rows, picks, fav_home, p_true, pub_home)
     if not sv:
         return []
-    base, vals, combo, games, meta, _idx, prof = sv
+    r, vals, _c, games, meta, _idx, prof = sv
     st = y["standings"]
-    out = [f"Chance to win the group this season: {base * 100:.1f}% (you're #{st['rank']}, {st['leader'] - st['me']} back; "
-           f"simulated against each member's own pick habits over the last {len(prof['weeks'])} weeks)."]
+    rk = r["rank"]
+    drop = "the drop-a-week rule, " if r["drop_rule"] else ""
+    out = [f"Season outlook (you're #{st['rank']}, {st['leader'] - st['me']} back): expected finish {r['place']:.2f}; "
+           f"{r['hold'] * 100:.0f}% to finish #{rk} or better; {r['first'] * 100:.1f}% to win. Simulated with {drop}"
+           f"each member's own habits over {len(prof['weeks'])} weeks and Yahoo's pick % (all Yahoo players, not your "
+           f"group: the group's own picks show only after each game locks)."]
     order = sorted(range(len(games)), key=lambda i: -vals[i])
-    shown = [i for i in order if vals[i] >= MIN_GAIN][:5] or order[:3]
-    out.append("Value of taking the other side (open games; your call: the card takes an underdog only by the "
-               "4-pt / 2-signal rule or when you saved it):")
+    shown = [i for i in order if abs(vals[i]) >= MIN_GAIN][:5] or order[:3]
+    out.append(f"Taking the other side (open games), effect on finishing #{rk} or better:")
     for i in shown:
         (fav, dog), kick = meta[i]
         g = games[i]
+        f = r["flips"][i]
         side, other = (fav, dog) if g["my_dog"] else (dog, fav)
-        out.append(f"{side} instead of {other} ({kick}): {vals[i]:+.2f} points of win chance "
-                   f"({base * 100:.1f}% → {base * 100 + vals[i]:.1f}%); {side} wins "
+        out.append(f"{side} instead of {other} ({kick}): {r['hold'] * 100:.0f}% → {f['hold'] * 100:.0f}% "
+                   f"(expected finish {r['place']:.2f} → {f['place']:.2f}); {side} wins "
                    f"{(g['p_fav'] if g['my_dog'] else 1 - g['p_fav']) * 100:.0f}%, "
                    f"{(1 - g['pub_dog'] if g['my_dog'] else g['pub_dog']) * 100:.0f}% of Yahoo players on {side}")
-    if combo > 0:
-        n_pos = sum(1 for v in vals if v > 0)
-        out.append(f"All {n_pos} switches with any gain (incl. ones under {MIN_GAIN} pts, not listed) together: "
-                   f"{base * 100:.1f}% → {base * 100 + combo:.1f}%.")
-    else:
-        out.append("No other side raises your chance this week: the card's picks are the best for the season.")
+    if not any(v >= MIN_GAIN for v in vals):
+        out.append("No other side improves your finish: the card's picks are the best for the season.")
     return out
 
 

@@ -5,7 +5,8 @@
 Inputs are private league data and stay in the gitignored picks/.private/ folder:
   grouppicks_2026.json  {week: {"g": "FAV,spread,DOG;...", "p": {member: "FFDF-..."}}} from the group's Group Picks
                         page (football.fantasysports.yahoo.com/college/3659/grouppicks?week=N, pg=2 for games 14-25)
-  standings.json        {"me": "Michael B.", "points": {member: total}, "read": date} from the group page
+  standings.json        {"me": "Michael B.", "points": {member: total}, "dropped": {member: pts}, "read": date} from
+                        the group page (Rank / Pick Set Name / Total / Dropped table)
 The output (committed) holds only anonymous numbers: underdog-pick rates by spread, each other member's
 lean relative to the group (as a multiplier), and the standings points."""
 import json
@@ -52,14 +53,21 @@ def build(picks, standings):
     me = standings["me"]
     others = [n for n in standings["points"] if n != me and n not in SKIP]
     mult = lambda n: round(per[n][0] / exp[n], 2) if n in per and exp.get(n) and per[n][1] >= 50 else 1.0
+    dropped = standings.get("dropped") or {}
+
+    def member(n):
+        # "dropped": the member's worst week so far (group page Dropped column; Yahoo drops 1 score). Added Nov 27.
+        m = {"points": standings["points"][n], "lean": mult(n)}
+        if n in dropped:
+            m["dropped"] = dropped[n]
+        return m
     return {
         "updated": standings.get("read") or date.today().isoformat(),
         "weeks": sorted(int(w) for w in picks),
         "dog_rate_by_spread": [[lo, hi, round(rate[(lo, hi)], 3)] for lo, hi in BUCKETS],
         "spreads": sorted(float(g.split(",")[1]) for v in picks.values() for g in v["g"].split(";")),
-        "me": {"points": standings["points"][me], "lean": mult(me)},
-        "others": sorted(({"points": standings["points"][n], "lean": mult(n)} for n in others),
-                         key=lambda o: -o["points"]),
+        "me": member(me),
+        "others": sorted((member(n) for n in others), key=lambda o: -o["points"]),
         "note": "Anonymous: built from the group's own picks; names stay in picks/.private/ on the laptop.",
     }
 
