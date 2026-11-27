@@ -525,15 +525,98 @@ def upset_watch(rows, picks, chosen, pub_home, limit=4):
     return ["Upset watch (favorites our stats doubt or disagree with; your call):"] + [t for _, t in cands[:limit]]
 
 
-def cfp_legal_plans(table, balance, min_wager):
+def cfp_legal_plans(table, balance, min_wager, keep=None, locked=False):
     """(best, alternate) among sizes the pool allows: every bet at least min_wager (Nov 12: notes offered
-    2 x 10,713 when the minimum was 11,904). The alternate is the best legal row with a different
+    2 x 10,713 when the minimum was 11,904). Ranked by expected prize when the rows have it (Nov 27), else
+    P(1st); keep=(bets, fraction) of the posted card holds that size unless another is P.KEEP_MARGIN
+    better (always, once the pool has locked). The alternate is the best legal row with a different
     (bets, fraction); None when there is none."""
     legal = [r for r in table if int(balance * r["frac"] / r["bets"]) >= min_wager] or table[:1]
-    legal = sorted(legal, key=lambda r: (-r["p_first"], -r["p_top3"]))
-    best = legal[0]
+    legal = sorted(legal, key=lambda r: (-r.get("ev", 0), -r["p_first"], -r["p_top3"]))
+    best = P.keep_or_best(legal, legal[0], keep, lambda r: (r["bets"], r["frac"]),
+                          margin=float("inf") if locked else P.KEEP_MARGIN)
     alt = next((r for r in legal[1:] if (r["bets"], r["frac"]) != (best["bets"], best["frac"])), None)
     return best, alt
+
+
+def opponent_profile():
+    """data/opponent_profile.json (anonymous rival habits, rebuilt by py -m pp.opponents); {} if missing."""
+    try:
+        return json.loads((ROOT / "data/opponent_profile.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def posted_size(week, pool, balance, fracs):
+    """(number of bets, share of balance snapped to fracs, "equal"/"lean" split) of the card already posted
+    this week (data/published), so a recheck keeps that size unless another is clearly better. None when
+    nothing is posted or the wagers don't match a size the sim tries."""
+    try:
+        prev = json.loads((ROOT / f"data/published/{YEAR}-w{week:02d}-{pool}.json").read_text())
+        w = [int(re.sub(r"[^\d]", "", str(v.get("wager", ""))) or 0) for v in prev.values()]
+    except (OSError, ValueError, AttributeError):
+        return None
+    if not w or not all(w) or not balance:
+        return None
+    share = sum(w) / balance
+    snap = min(fracs, key=lambda f: abs(f - share))
+    if abs(snap - share) > 0.05:
+        return None
+    return len(w), snap, "lean" if max(w) >= 1.5 * min(w) else "equal"   # bto_split rounds an even split to $10
+
+
+def sizing_note(best, table, unit, key, locked=False):
+    """Expected-prize sizing line, plus why the posted size was kept when a better one exists."""
+    top = max(table, key=lambda r: r.get("ev", 0))
+    out = f"expected prize ${best['ev']:,.0f}" + (f", paid {best['p_paid'] * 100:.0f}% of the time." if "p_paid" in best else ".")
+    if key(top) != key(best) and top["ev"] > best["ev"]:
+        if locked:
+            out += " Picks are locked, so the posted size stays."
+        else:
+            out += (f" Kept the posted size: {unit(top)} is only {(top['ev'] / best['ev'] - 1) * 100:.0f}% better"
+                    f" (${top['ev']:,.0f}); it changes only at {P.KEEP_MARGIN * 100:.0f}%+.")
+    return out
+
+
+def cfp_locked(c, week, now=None):
+    """True once this week's CFP picks are locked: the slate's cfp.deadline (ISO) has passed, or a game among
+    Michael's saved picks (cfp.saved; the posted card's games when none were read) has kicked off (picking any
+    game locks ALL CFP picks at its kickoff; site notice Nov 25)."""
+    now = now or datetime.now(ZoneInfo("America/Chicago"))
+    try:
+        if c.get("deadline") and now >= datetime.fromisoformat(c["deadline"]):
+            return True
+    except ValueError:
+        pass
+    keys = {b["key"] for b in (c.get("saved") or {}).get("bets") or [] if b.get("key")}
+    if not keys:
+        try:
+            keys = set(json.loads((ROOT / f"data/published/{YEAR}-w{week:02d}-cfp.json").read_text()))
+        except (OSError, ValueError):
+            return False
+    kicks = [_kick_dt(g.get("kick")) for g in c.get("games") or [] if f"{g['away']}@{g['home']}" in keys]
+    return any(k and k <= now for k in kicks)
+
+
+def hold_locked_cfp(cards, slate, week, now=None):
+    """Nov 27: once this week's CFP picks are locked (cfp_locked), a later run keeps the posted CFP card instead of
+    re-picking on fresh lines; nothing can change on the site, so a new pick would only be a false CHANGE."""
+    c = slate.get("cfp") or {}
+    if not c.get("games") or not cfp_locked(c, week, now):
+        return
+    try:
+        old = json.loads((ROOT / "data/cards.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+    if (old.get("meta") or {}).get("week") != week:
+        return
+    prev = next((x for x in old.get("cards") or [] if x.get("id") == "cfp" and x.get("rows")), None)
+    for i, card in enumerate(cards):
+        if card["id"] == "cfp" and prev:
+            rows = [{k: v for k, v in r.items() if k not in ("changed", "was")} for r in prev["rows"]]
+            notes = [n for n in prev.get("notes") or [] if "Different questions: who wins vs who covers." not in n]
+            cards[i] = {**prev, "rows": rows, "notes": notes,   # cross_pool_notes adds those notes back once
+                        "status": "Locked: picks as posted (nothing can change on the site)."}
 
 
 def cross_pool_notes(cards):
@@ -579,9 +662,14 @@ def build_cfp_slate(W, slate):
         cands.append({"sg": sg, "g": g, "S": S, "home": sh, "p": ph if sh else 1 - ph, "mkt": W.lines.get(g["id"]),
                       "line": home_line if sh else -home_line, "mkt_line": market_side_line(W, sg, g, sh)})
     cands.sort(key=lambda x: -x["p"])
-    _, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands],
-                          weeks_left=c.get("weeks_left", 6), rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True))
-    best, alt = cfp_legal_plans(table, c["balance"], c.get("min_wager", 0))
+    wl = c.get("weeks_left") or P.weeks_left_for("cfp", W.week)
+    _, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands], weeks_left=wl,
+                          rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True), payouts=P.CFP_PAYOUTS,
+                          opp_profile=opponent_profile().get("cfp"))
+    ps = posted_size(W.week, "cfp", c["balance"], sorted({r["frac"] for r in table}))
+    locked = bool(ps) and cfp_locked(c, W.week)
+    best, alt = cfp_legal_plans(table, c["balance"], c.get("min_wager", 0), keep=ps[:2] if ps else None, locked=locked)
+    legal = [r for r in table if int(c["balance"] * r["frac"] / r["bets"]) >= c.get("min_wager", 0)] or [best]
     nb = best["bets"]; stake = int(c["balance"] * best["frac"] / nb)
     rows = []
     for x in cands[:nb]:
@@ -598,10 +686,13 @@ def build_cfp_slate(W, slate):
     alts = [f"Also worth a look: {side(x)}" for x in cands[nb:nb + 3]]
     if alt and alt["bets"] > 1:
         alts.append(f"Split option: {' + '.join(side(x).split(' (')[0] for x in cands[:alt['bets']])}, "
-                    f"{int(c['balance'] * alt['frac'] / alt['bets']):,} each → P(1st) {alt['p_first']*100:.1f}%.")
+                    f"{int(c['balance'] * alt['frac'] / alt['bets']):,} each → expected prize ${alt['ev']:,.0f}, P(1st) {alt['p_first']*100:.1f}%.")
     return {"id": "cfp", "title": "CFP 2026 points pool", "deadline": "Locks Sat 11:00am CT", "rows": rows,
-            "notes": [f"Sizing sim (10k seasons): {nb} bet(s), {best['frac']*100:.0f}% of {c['balance']:,} → P(1st) {best['p_first']*100:.1f}%, P(top 3) {best['p_top3']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else ""),
-                      ] + ([f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → P(1st) {alt['p_first']*100:.1f}%."] if alt else [])
+            "notes": [f"Sizing sim (10k seasons, {wl} week{'s' if wl > 1 else ''} left, 12 places paid ${P.CFP_PAYOUTS[0]:,} to ${P.CFP_PAYOUTS[-1]}): "
+                      f"{nb} bet(s), {best['frac']*100:.0f}% of {c['balance']:,}{', then ' + best['later'] + ' next week' if wl > 1 else ''} → "
+                      + sizing_note(best, legal, lambda r: f"{r['bets']} bet(s) at {r['frac']*100:.0f}%", lambda r: (r["bets"], r["frac"]), locked)
+                      + f" P(1st) {best['p_first']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else ""),
+                      ] + ([f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → expected prize ${alt['ev']:,.0f}, P(1st) {alt['p_first']*100:.1f}%."] if alt else [])
                      + alts + ([c["note"]] if c.get("note") else [])}
 
 
@@ -669,7 +760,11 @@ def build_bto_slate(W, slate):
             if len(pick) == {"three": 3}.get(b["mode"], 4):
                 break
     lp, probs = P.allocate_line_points([c["margin"] for c in pick], [c["line"] for c in pick])
-    best, table = P.bto_plan(b["balance"], b["field"], probs, b["mode"], b.get("weeks_left", 6))
+    wl = b.get("weeks_left") or P.weeks_left_for("bto", W.week)
+    pot = 75 * b.get("players", 49)   # $75 buy-in each (pool-rules.md); how many paid is not confirmed, so all players
+    ps = posted_size(W.week, "bto", b["balance"], (0.25, 0.35, 0.5, 0.65, 0.8, 1.0))
+    best, table = P.bto_plan(b["balance"], b["field"], probs, b["mode"], wl, pot=pot,
+                             keep=(ps[1], ps[2]) if ps and ps[0] == len(probs) else None)
     rows = []
     for c, l, p, s in zip(pick, lp, probs, best["stakes"]):
         team = c["sg"]["home"] if c["home"] else c["sg"]["away"]
@@ -681,7 +776,10 @@ def build_bto_slate(W, slate):
     vs = saved_vs_card(cands, (b.get("saved") or {}).get("bets"), rows)
     return {"id": "bto", "title": "BTO Beat the Odds", "deadline": "Due Fri 8:00pm CT (games lock at kickoff)", "rows": rows,
             **({"saved_vs": vs} if vs else {}),
-            "notes": ([f"Your saved bet differs. {vs[0].upper() + vs[1:]}."] if vs else []) + [f"Sizing sim: {best['frac']*100:.0f}% of ${b['balance']:,}{'' if len(rows) == 1 else ', ' + best['split'] + ' split'} → P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
+            "notes": ([f"Your saved bet differs. {vs[0].upper() + vs[1:]}."] if vs else []) + [f"Sizing sim ({wl} week{'s' if wl > 1 else ''} left, ${pot:,} pot): {best['frac']*100:.0f}% of ${b['balance']:,}{'' if len(rows) == 1 else ', ' + best['split'] + ' split'}"
+                 f"{', then ' + best['later'] + ' in later weeks' if wl > 1 else ''} → "
+                 + sizing_note(best, table, lambda r: f"{r['frac']*100:.0f}% ({r['split']})", lambda r: (r["frac"], r["split"]))
+                 + f" P(top 12) {best['p_top12']*100:.0f}%, P(top 4) {best['p_top4']*100:.0f}%."] + alts}
 
 
 def saved_vs_card(cands, saved_bets, rows):
@@ -1034,6 +1132,7 @@ def main():
     builders = {"yahoo": lambda: build_yahoo(W, slate), "bto": lambda: build_bto(W, slate),
                 "cfp": lambda: build_cfp(W, slate), "survivor": build_survivor}
     cards = [builders[p]() for p in a.pools.split(",")]
+    hold_locked_cfp(cards, slate, week)
     cross_pool_notes(cards)
     now_ct = datetime.now(ZoneInfo("America/Chicago"))
     for c in cards:  # Nov 25: a Thu/Fri pick moves the real lock earlier than the usual Fri 8pm / Sat 11am

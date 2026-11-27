@@ -24,9 +24,9 @@ The page is https://mbryan20.github.io/sports-hq/picks/ and is built from `../do
    - BTO: `https://beattheoddspickem.com/player/picks/current` has the 16 games, visitor spreads, Big Game and lock state. `/player/dashboard` has the balance, `/player/leaderboard` has every balance and Michael's status (normal / Three Bet / One Bet). Use ESPN abbreviations for NFL teams.
    - CFP: `https://ncaa-pool-two.vercel.app/player/picks` has the games and spreads; `/player/leaderboard` has all balances.
    - Write or update the slate file:
-     - `bto.games`: `[{league: "CFB"|"NFL", away, home, home_spread, big: bool, kick, locked: bool}]`, plus `bto.field` (other players' balances), `bto.mode` ("normal"/"three"/"one"), `bto.balance`, `bto.weeks_left`.
+     - `bto.games`: `[{league: "CFB"|"NFL", away, home, home_spread, big: bool, kick, locked: bool}]`, plus `bto.field` (other players' balances), `bto.mode` ("normal"/"three"/"one"), `bto.balance` (`bto.weeks_left` only to override: pp.pools.SEASON_END works it out, Nov 27).
      - NFL games also need `nfl_week` (CFBD week − 1) and `market_home_spread`. Without `nfl_week` the NFL sim can't find ESPN's line and falls back to season stats (Nov 4: BAL priced with Lamar's games after he went on IR).
-     - `cfp.games`: `[{away, home, home_spread, kick}]`, plus `cfp.field`, `cfp.balance`, `cfp.weeks_left`, `cfp.rebuy_window` (false after 11am Nov 7).
+     - `cfp.games`: `[{away, home, home_spread, kick}]`, plus `cfp.field`, `cfp.balance` (`cfp.weeks_left` only to override, as for BTO), `cfp.rebuy_window` (false after 11am Nov 7).
      - `home_spread` is the HOME team's line (negative = home favored). Convert from the visitor spread the site shows.
      - Skip over/under games and games already locked.
 3. **Research** (fresh). For every slate game, check QB status, key injuries and suspensions, line movement (open vs now; investigate moves of 2+ points or through 3/7), and weather.
