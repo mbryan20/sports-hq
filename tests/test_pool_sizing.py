@@ -154,3 +154,55 @@ class CardHelpers(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+@unittest.skipUnless(HAVE_NP, "needs numpy")
+class PerRivalCfp(unittest.TestCase):
+    """Nov 27 (Michael: optimize against who is left): each CFP rival can bet like their own history."""
+    def test_each_rival_uses_own_shares(self):
+        import numpy as np
+        from pp import pools as P
+        calls = []
+        def fallback(opp, rng):
+            calls.append(1)
+            return opp.copy()
+        wk = P.cfp_opp_week_each([([1.0], 1), None], fallback)
+        opp = np.tile(np.array([1000.0, 500.0]), (2000, 1))
+        out = wk(opp, np.random.default_rng(1))
+        self.assertTrue(set(np.unique(out[:, 0])) <= {0.0, 2000.0})     # all-in on one side: doubles or busts
+        self.assertTrue((out[:, 1] == 500.0).all())                      # None column keeps the fallback
+        self.assertEqual(len(calls), 1)
+
+    def test_plan_ignores_mismatched_list(self):
+        from pp import pools as P
+        a, _ = P.cfp_plan(20000, [30000, 10000], [0.55, 0.53], weeks_left=1, rebuy_ok=False, payouts=[100, 50])
+        b, _ = P.cfp_plan(20000, [30000, 10000], [0.55, 0.53], weeks_left=1, rebuy_ok=False, payouts=[100, 50],
+                          opp_each=[([1.0], 1)])
+        self.assertEqual((a["bets"], a["frac"]), (b["bets"], b["frac"]))
+
+    def test_private_match_by_balance(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest import mock
+        from pp import cards as C, opponents as O
+        with tempfile.TemporaryDirectory() as d:
+            Path(d, "opponent_report.json").write_text(json.dumps({"cfp": {"x": {"balance": 500, "fracs": [0.9], "bets_mean": 2},
+                                                                           "y": {"balance": 700, "fracs": [0.5], "bets_mean": 4}}}))
+            with mock.patch.object(O, "POOL_OPP_DIR", Path(d)):
+                self.assertEqual(C.private_cfp_rivals([700, 0, 500, 123]), [([0.5], 4), ([0.9], 2), None])
+
+
+@unittest.skipUnless(HAVE_NP, "needs numpy")
+class RebuiltNote(unittest.TestCase):
+    """Nov 27 (Michael: 'last year stats should be weighted very low, correct?'): the note says how much last season
+    really counts instead of 'trust the betting odds'."""
+    def test_says_weight_and_strength(self):
+        from unittest import mock
+        with mock.patch.object(C.M, "_ret", lambda y: {"Virginia": {"percentPPA": 0.06}, "VT": {"percentPPA": 0.7}}), \
+             mock.patch.object(C.M, "ratings", lambda y, w: {"n_games": {"Virginia": 11}}):
+            n = C.rebuilt_note([("VT", "Virginia Tech"), ("Virginia", "Virginia")], 13)
+        self.assertIn("Virginia returned 6%", n)
+        self.assertIn("21% of its rating", n)
+        self.assertIn("53% strength", n)
+        self.assertNotIn("Virginia Tech", n)
+        self.assertNotIn("trust the betting odds", n)

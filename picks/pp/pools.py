@@ -132,14 +132,34 @@ def cfp_opp_week_from(profile):
     return week
 
 
-def cfp_plan(my_bal, field, edges, weeks_left=6, rebuy_ok=True, future_p=0.53, payouts=None, opp_profile=None):
+def cfp_opp_week_each(each, fallback):
+    """Nov 27: each rival bets like THEMSELVES. each = [(past wager shares, sides per week) or None] aligned with the
+    sim's rival columns; None columns use `fallback`. Walk-forward weeks 5-12: a rival's own past share (shrunk 3
+    weeks toward the field median) missed their next week's share by 0.133 of balance vs 0.210 for the field-level
+    draw (206 player-weeks; own better in 100% of bootstrap resamples)."""
+    def week(opp, rng):
+        out = fallback(opp, rng)
+        for j, e in enumerate(each):
+            if e is None or not e[0]:
+                continue
+            f = np.clip(rng.choice(np.asarray(e[0], float), opp.shape[0]), 0.5, 1.0)
+            out[:, j] = np.maximum(_bets(opp[:, j], f, max(1, int(round(e[1] or 1))), 0.5, rng), 0)
+        return out
+    return week
+
+
+def cfp_plan(my_bal, field, edges, weeks_left=6, rebuy_ok=True, future_p=0.53, payouts=None, opp_profile=None,
+             opp_each=None):
     """edges: sorted list of cover probs for this week's best sides. Evaluates (#bets, fraction) for this
     week. Returns best plan and table. Without payouts later weeks repeat this week's size and the best row
     is the highest P(1st). With payouts (prize per finishing place) each row also gets "ev" (expected prize,
     ties split), "p_paid" and "later" (the best of: same size, all-in on 1 side, all-in on 2 sides in later
-    weeks), and the best row is the highest expected prize. opp_profile: see cfp_opp_week_from."""
+    weeks), and the best row is the highest expected prize. opp_profile: see cfp_opp_week_from. opp_each: one entry
+    per rival with a balance above 0, in field order (cfp_opp_week_each); ignored when the lengths differ."""
     opps = [b for b in field if b > 0]
     opp_week = cfp_opp_week_from(opp_profile)
+    if opp_each and len(opp_each) == len(opps):
+        opp_week = cfp_opp_week_each(opp_each, opp_week)
     table = []
     for nb in (1, 2, 3, 4):
         if nb > len(edges):

@@ -330,7 +330,7 @@ def build_yahoo(W, slate):
         ],
         "notes": [(f"Underdogs: {n_dogs + len(kept_dogs)} ({len(kept_dogs)} your saved picks kept for season value: {', '.join(kept_dogs)}). "
                    if kept_dogs else f"Underdogs: {n_dogs}. ")
-                  + f"Pool sim (10k, before kept picks): P(win week) {max(curve)*100:.1f}% vs {curve[0]*100:.1f}% all favorites; {len(eligible)} dogs passed the 4-pt / 2-signal rule.",
+                  + f"Weekly sim (10k, before season picks; no weekly prize, for reference only): chance to top the group this week {max(curve)*100:.1f}% vs {curve[0]*100:.1f}% all favorites; {len(eligible)} dogs passed the 4-pt / 2-signal rule.",
                   f"Group: you {y['standings']['me']} pts, rank {y['standings']['rank']}, leader {y['standings']['leader']}."]
                  + watch,
     }
@@ -339,20 +339,36 @@ def build_yahoo(W, slate):
 REBUILT = 0.10   # returned under 10% of last season's production (CFBD returning production, PPA share)
 
 
-def rebuilt_note(teams):
-    """teams: [(CFBD name, label)]. The stats model still gives last season ~3 games of weight (the backtest keeps
-    that: it predicts best overall), so for a rebuilt roster it leans on a team that no longer exists."""
+def rebuilt_note(teams, week=None):
+    """teams: [(CFBD name, label)]. Says how much last season really counts in a rebuilt team's stats rating:
+    the prior is worth LAMBDA (~3) games against the games played so far, at m = 0.5 + 0.5 x returning share of
+    last year's level. Nov 27 walk-forward (weeks 4-12, 538 games): counting last season less (no floor, a 0.25
+    floor, or fading after week 6) all predicted worse (log loss 0.597-0.606 vs 0.593 now), so it stays."""
     try:
         ret = M._ret(YEAR)
     except Exception:
         return None
-    low = [(label, ret.get(t, {}).get("percentPPA")) for t, label in teams]
-    low = [(label, r) for label, r in low if r is not None and r < REBUILT]
+    low = [(t, label, ret.get(t, {}).get("percentPPA")) for t, label in teams]
+    low = [(t, label, r) for t, label, r in low if r is not None and r < REBUILT]
     if not low:
         return None
-    who = " and ".join(f"{label} ({max(r, 0) * 100:.0f}%)" for label, r in low)
-    return (f"rebuilt roster{'s' if len(low) > 1 else ''}: {who} returned almost none of last year's production, "
-            f"so our stats lean on last season here; trust the betting odds")
+    played = {}
+    if week:
+        try:
+            played = M.ratings(YEAR, week)["n_games"]
+        except Exception:
+            played = {}
+    lam = M.LAMBDA["pts"]
+    parts = []
+    for t, label, r in low:
+        m = 0.5 + 0.5 * min(max(r, 0.0), 1.0)
+        n = played.get(t)
+        if n:
+            parts.append(f"{label} returned {max(r, 0) * 100:.0f}% of last year's production; last season is "
+                         f"{lam / (lam + n) * 100:.0f}% of its rating ({lam:g} games' worth vs {n} played), at {m * 100:.0f}% strength")
+        else:
+            parts.append(f"{label} returned {max(r, 0) * 100:.0f}% of last year's production; last season counts at {m * 100:.0f}% strength")
+    return ("rebuilt roster: " + "; ".join(parts) + ". Counting it less tested worse (Nov 27)")
 
 
 def cite(a):
@@ -512,7 +528,7 @@ def upset_watch(rows, picks, chosen, pub_home, limit=4):
         extra = [s for s in r["signals"] if s not in ("stats model", "no market line", "injury news")]
         bits = [f"our stats give {dog} {(1 - fav_p) * 100:.0f}%", f"betting odds {(1 - fav_mk) * 100:.0f}%",
                 f"{group_dog * 100:.0f}% of Yahoo players on {dog}"] + extra
-        rebuilt = rebuilt_note([(r["g"]["homeTeam"], sg["home"]), (r["g"]["awayTeam"], sg["away"])])
+        rebuilt = rebuilt_note([(r["g"]["homeTeam"], sg["home"]), (r["g"]["awayTeam"], sg["away"])], r["g"].get("week"))
         if rebuilt:
             bits.append(rebuilt)
         news = sorted((a for a in r["S"]["why"] if abs(a.get("off_pts", 0)) + abs(a.get("def_pts", 0)) >= 0.3),
@@ -545,6 +561,27 @@ def opponent_profile():
         return json.loads((ROOT / "data/opponent_profile.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
+
+
+def private_cfp_rivals(field):
+    """Each rival's own CFP habits from the PRIVATE report (pp.opponents writes POOL_OPP_DIR/opponent_report.json on
+    the laptop; names never leave it), matched to the slate's anonymous field by balance. Returns
+    [(wager shares, sides per week) or None] for each balance above 0, or None when the report is missing."""
+    try:
+        from .opponents import POOL_OPP_DIR
+        rep = json.loads((POOL_OPP_DIR / "opponent_report.json").read_text(encoding="utf-8")).get("cfp") or {}
+    except (OSError, ValueError, ImportError):
+        return None
+    by_bal = {}
+    for v in rep.values():
+        by_bal.setdefault(round(float(v.get("balance", -1))), []).append((v.get("fracs") or [], v.get("bets_mean") or 1))
+    out = []
+    for b in field:
+        if b <= 0:
+            continue
+        lst = by_bal.get(round(float(b)))
+        out.append(lst.pop(0) if lst else None)
+    return out if any(out) else None
 
 
 def posted_size(week, pool, balance, fracs):
@@ -663,9 +700,11 @@ def build_cfp_slate(W, slate):
                       "line": home_line if sh else -home_line, "mkt_line": market_side_line(W, sg, g, sh)})
     cands.sort(key=lambda x: -x["p"])
     wl = c.get("weeks_left") or P.weeks_left_for("cfp", W.week)
+    each = private_cfp_rivals(c["field"])
+    n_each = sum(1 for e in (each or []) if e)
     _, table = P.cfp_plan(c["balance"], c["field"], [x["p"] for x in cands], weeks_left=wl,
                           rebuy_ok=not c.get("rebuy_used") and c.get("rebuy_window", True), payouts=P.CFP_PAYOUTS,
-                          opp_profile=opponent_profile().get("cfp"))
+                          opp_profile=opponent_profile().get("cfp"), opp_each=each)
     ps = posted_size(W.week, "cfp", c["balance"], sorted({r["frac"] for r in table}))
     locked = bool(ps) and cfp_locked(c, W.week)
     best, alt = cfp_legal_plans(table, c["balance"], c.get("min_wager", 0), keep=ps[:2] if ps else None, locked=locked)
@@ -691,7 +730,9 @@ def build_cfp_slate(W, slate):
             "notes": [f"Sizing sim (10k seasons, {wl} week{'s' if wl > 1 else ''} left, 12 places paid ${P.CFP_PAYOUTS[0]:,} to ${P.CFP_PAYOUTS[-1]}): "
                       f"{nb} bet(s), {best['frac']*100:.0f}% of {c['balance']:,}{', then ' + best['later'] + ' next week' if wl > 1 else ''} → "
                       + sizing_note(best, legal, lambda r: f"{r['bets']} bet(s) at {r['frac']*100:.0f}%", lambda r: (r["bets"], r["frac"]), locked)
-                      + f" P(1st) {best['p_first']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else ""),
+                      + f" P(1st) {best['p_first']*100:.1f}%." + (" Assumes $25 rebuy if busted this week." if best["rebuy"] else "")
+                      + (f" Rivals: {n_each} of {sum(1 for b in c['field'] if b > 0)} bet like their own weeks 2-12 history; the rest like the field."
+                         if n_each else " Rivals: field-level habits (no private rival file on this machine)."),
                       ] + ([f"Alternate: {alt['bets']} bet(s) at {alt['frac']*100:.0f}% → expected prize ${alt['ev']:,.0f}, P(1st) {alt['p_first']*100:.1f}%."] if alt else [])
                      + alts + ([c["note"]] if c.get("note") else [])}
 
