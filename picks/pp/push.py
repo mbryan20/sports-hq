@@ -171,6 +171,13 @@ def early_lock(card, saved, games, now):
 
 def lock_head(card, games, now):
     """The pool line's lock label, moved earlier when a card pick kicks off before the usual deadline."""
+    if card["id"] == "cfp":
+        # Nov 27: a picked Fri game had already locked every CFP pick, but the Fri 9pm push still said "locks Sat 11am".
+        keys = {r["key"] for r in card["rows"]}
+        past = [k for k in (_kick_dt(g.get("kick")) for g in games or [] if f"{g['away']}@{g['home']}" in keys)
+                if k and k <= now]
+        if past:
+            return f"locked {_hm(min(past))}"
     hit = first_lock(card, None, games or [], now, card_only=True)
     if not hit:
         return LOCKS[card["id"]]
